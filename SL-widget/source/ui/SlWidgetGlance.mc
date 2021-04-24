@@ -1,4 +1,5 @@
 using Toybox.WatchUi;
+using Toybox.Graphics;
 
 (:glance)
 class SlWidgetGlance extends WatchUi.GlanceView {
@@ -22,6 +23,9 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
         GlanceView.onUpdate(dc);
+
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.drawText(0, 0, Graphics.FONT_GLANCE, "Next departure in...", Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     // Called when this View is removed from the screen. Save the
