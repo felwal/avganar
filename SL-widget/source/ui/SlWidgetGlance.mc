@@ -52,18 +52,17 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     
     function draw(dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        var string = "";
-        for (var i = 0; i < 1 && i < SlApi.stopCount; i++) {
-            string += SlApi.stops[i].name + "\n";
-        }
-        dc.drawText(0, 0, Graphics.FONT_GLANCE, string, Graphics.TEXT_JUSTIFY_LEFT);
+        var string = SlApi.stops[0].printForGlance();
+        dc.drawText(0, 0, Graphics.FONT_XTINY, string, Graphics.TEXT_JUSTIFY_LEFT);
     }
     
     // requests
     
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
-        SlApi.requestNearbyStops(59.626429, 17.793671);
+        var api = new SlApi();
+        api.requestNearbyStops(Footprint.latDeg(), Footprint.lonDeg());
+        //api.requestDepartures(5083);
     }
     
     // listeners
