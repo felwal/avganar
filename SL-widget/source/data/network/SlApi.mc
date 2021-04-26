@@ -1,10 +1,11 @@
 using Toybox.Communications;
 using Toybox.System;
+using Toybox.Lang;
 
 (:glance)
-class SlApi {
+class SlApi extends Lang.Object {
 
-    public static var stopCount = 3;
+    public static var stopCount = 1;
     public static var stops = new [stopCount];
     
     // requests
@@ -18,7 +19,7 @@ class SlApi {
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => 2000,
-            "maxNo" => SlApi.stopCount
+            "maxNo" => stopCount
         };
 
         var options = {
@@ -32,36 +33,93 @@ class SlApi {
         Communications.makeWebRequest(url, params, options, method(:onReceiveNearbyStops));
     }
 
-}
+    //! Realtidsinformation 4
+    function requestDepartures(siteId) {
+        var url = "https://api.sl.se/api2/realtimedeparturesv4.json?";
+        url += "key=" + KEY_RI + "&siteid=" + siteId + "&timewindow=" + 30;
 
-// listeners
+        /*var params = {
+            "key" => KEY_RI,
+            "siteid" => siteId,
+            "timewindow" => 30
+        };
 
-//! Request callback listener
-(:glance)
-function onReceiveNearbyStops(responseCode, data) {
-    if (responseCode == 200) {
-        System.println(data);
-        
-        if (!data.hasKey("stopLocationOrCoordLocation")) {
-            return;
+        var options = {
+            :method => Communications.HTTP_REQUEST_METHOD_GET,
+            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
+            :headers => {
+                   "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON
+            }
+        };*/
+
+        Communications.makeWebRequest(url, {}, {}, method(:onReceiveDepartures));
+    }
+
+    // listeners
+
+    //! Närliggande Hållplatser 2 callback listener
+    (:glance)
+    function onReceiveNearbyStops(responseCode, data) {
+        if (responseCode == 200) {
+            System.println(data);
+
+            if (!data.hasKey("stopLocationOrCoordLocation")) {
+                return;
+            }
+            var stopsData = data["stopLocationOrCoordLocation"];
+
+            for (var i = 0; i < SlApi.stopCount && i < stopsData.size(); i++) {
+                var stopData = stopsData[i]["StopLocation"];
+
+                var extId = stopData["mainMastExtId"];
+                var id = extId.substring(5, extId.length());
+                var name = stopData["name"];
+
+                stops[i] = new Stop(id, name);
+            }
+
+            requestDepartures(stops[0].id);
         }
-        var stops = data["stopLocationOrCoordLocation"];
+        else {
+            System.println("Response error: " + responseCode);
 
-        for (var i = 0; i < SlApi.stopCount && i < stops.size(); i++) {
-            var stop = stops[i]["StopLocation"];
-            var extId = stop["mainMastExtId"];
-            var id = extId.substring(5, extId.length() - 1);
-            var name = stop["name"];
-
-            SlApi.stops[i] = new Stop(id, name);
+            // add placeholder stops
+            for (var i = 0; i < SlApi.stopCount; i++) {
+                stops[i] = new Stop(-2, "response error");
+            }
         }
     }
-    else {
-        System.println("Response error: " + responseCode);
-        
-        // add placeholder stops
-        for (var i = 0; i < SlApi.stopCount; i++) {
-            SlApi.stops[i] = new Stop(-2, "response error");
+
+    //! Realtidsinformation 4 callback listener
+    (:glance)
+    function onReceiveDepartures(responseCode, data) {
+        if (responseCode == 200) {
+            System.println(data);
+
+            var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
+            var journeys = [];
+
+            for (var m = 0; m < modes.size(); m++) {
+                var modeData = data["ResponseData"][modes[m]];
+
+                for (var j = 0; j < modeData.size(); j++) {
+                    var journeyData = modeData[j];
+
+                    var mode = journeyData["TransportMode"];
+                    var line = journeyData["LineNumber"];
+                    var destination = journeyData["Destination"];
+                    var direction = journeyData["JourneyDirection"];
+                    var displayTime = journeyData["DisplayTime"];
+
+                    journeys.add(new Journey(mode, line, destination, direction, displayTime));
+                }
+            }
+
+            stops[0].journeys = journeys;
+        }
+        else {
+            System.println("Response error: " + responseCode);
         }
     }
+
 }
