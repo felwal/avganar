@@ -41,6 +41,7 @@ class SlApi {
 function onReceiveNearbyStops(responseCode, data) {
     if (responseCode == 200) {
         System.println(data);
+        
         if (!data.hasKey("stopLocationOrCoordLocation")) {
             return;
         }
@@ -57,5 +58,10 @@ function onReceiveNearbyStops(responseCode, data) {
     }
     else {
         System.println("Response error: " + responseCode);
+        
+        // add placeholder stops
+        for (var i = 0; i < SlApi.stopCount; i++) {
+            SlApi.stops[i] = new Stop(-2, "response error");
+        }
     }
 }

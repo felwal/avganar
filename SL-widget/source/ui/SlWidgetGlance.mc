@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
+using Carbon.Footprint as Footprint;
 
 (:glance)
 class SlWidgetGlance extends WatchUi.GlanceView {
@@ -18,9 +19,18 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     //! Called when this View is brought to the foreground. Restore
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
-    function onShow() {        
-        // make request
-        SlApi.requestNearbyStops(59.626429, 17.793671);
+    function onShow() {
+        // set location event listener
+        Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
+        // get last location while waiting for location event
+        Footprint.getLastKnownLocation(Activity.getActivityInfo());
+        
+        // add placeholder stops
+        for (var i = 0; i < SlApi.stopCount; i++) {
+            SlApi.stops[i] = new Stop(-1, "searching...");
+        }
+        
+        makeRequests();
     }
 
     //! Update the view
@@ -35,6 +45,7 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     //! state of this View here. This includes freeing resources from
     //! memory.
     function onHide() {
+        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
     }
     
     // draw
@@ -42,10 +53,29 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     function draw(dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         var string = "";
-        for (var i = 0; i < 2 && i < SlApi.stopCount; i++) {
+        for (var i = 0; i < 1 && i < SlApi.stopCount; i++) {
             string += SlApi.stops[i].name + "\n";
         }
         dc.drawText(0, 0, Graphics.FONT_GLANCE, string, Graphics.TEXT_JUSTIFY_LEFT);
     }
+    
+    // requests
+    
+    //! Make requests to SlApi neccessary for glance display
+    function makeRequests() {
+        SlApi.requestNearbyStops(59.626429, 17.793671);
+    }
+    
+    // listeners
+
+    //! Location event listener
+    function onPosition(info) {
+        Footprint.onPosition(info);
+        
+        // update
+        WatchUi.requestUpdate();
+        makeRequests();
+    }
+    
 
 }
