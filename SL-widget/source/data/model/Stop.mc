@@ -18,5 +18,13 @@ class Stop {
         }
         return string;
     }
+    
+    function printForView() {
+        var string = "";
+        for (var j = 0; j < 4 && j < journeys.size(); j++) {
+            string += journeys[j].print() + "\n";
+        }
+        return string;
+    }
 
 }

@@ -9,6 +9,7 @@
         </iq:permissions>
         <iq:languages>
             <iq:language>eng</iq:language>
+            <iq:language>swe</iq:language>
         </iq:languages>
         <iq:barrels>
             <iq:depends name="Carbon" version="0.0.0"/>

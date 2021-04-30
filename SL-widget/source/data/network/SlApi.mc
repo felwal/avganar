@@ -1,12 +1,16 @@
 using Toybox.Communications;
 using Toybox.System;
 using Toybox.Lang;
+using Toybox.WatchUi;
 
 (:glance)
-class SlApi extends Lang.Object {
+class SlApi {
 
     public static var stopCount = 1;
-    public static var stops = new [stopCount];
+    public static var stops = [stopCount];
+    public static var shownStopNr = 0;
+    
+    private static const RESPONSE_OK = 200;
     
     // requests
 
@@ -60,10 +64,20 @@ class SlApi extends Lang.Object {
     //! Närliggande Hållplatser 2 callback listener
     (:glance)
     function onReceiveNearbyStops(responseCode, data) {
-        if (responseCode == 200) {
+        if (responseCode == RESPONSE_OK) {
             System.println(data);
 
             if (!data.hasKey("stopLocationOrCoordLocation")) {
+                var message = "No stops found";
+                if (data.hasKey("Message")) {
+                     message = data["Message"];
+                }
+
+                // add placeholder stops
+                for (var i = 0; i < SlApi.stopCount; i++) {
+                    stops[i] = new Stop(-2, message);
+                }
+                WatchUi.requestUpdate();
                 return;
             }
             var stopsData = data["stopLocationOrCoordLocation"];
@@ -78,22 +92,25 @@ class SlApi extends Lang.Object {
                 stops[i] = new Stop(id, name);
             }
 
-            requestDepartures(stops[0].id);
+            requestDepartures(stops[shownStopNr].id);
         }
         else {
             System.println("Response error: " + responseCode);
+            var message = data["Message"];
 
             // add placeholder stops
             for (var i = 0; i < SlApi.stopCount; i++) {
-                stops[i] = new Stop(-2, "response error");
+                stops[i] = new Stop(-2, message);
             }
         }
+
+        WatchUi.requestUpdate();
     }
 
     //! Realtidsinformation 4 callback listener
     (:glance)
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == 200) {
+        if (responseCode == RESPONSE_OK) {
             System.println(data);
 
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
@@ -115,7 +132,8 @@ class SlApi extends Lang.Object {
                 }
             }
 
-            stops[0].journeys = journeys;
+            stops[shownStopNr].journeys = journeys;
+            WatchUi.requestUpdate();
         }
         else {
             System.println("Response error: " + responseCode);
