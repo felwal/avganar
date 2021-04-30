@@ -1,3 +1,4 @@
+using Carbon.Graphene;
 
 (:glance)
 class Journey {
@@ -18,6 +19,17 @@ class Journey {
 
     function print() {
         return displayTime + " " + line + " " + destination;
+    }
+
+    function getColor() {
+        switch (mode) {
+            case "METRO": return Graphene.COLOR_VERMILION;
+            case "BUS": return Graphene.COLOR_RED;
+            case "TRAIN": return Graphene.COLOR_MAGENTA;
+            case "TRAM": return Graphene.COLOR_CAPRI;
+            case "SHIP": return Graphene.COLOR_CYAN;
+            default: return Graphene.COLOR_LT_GRAY;
+        }
     }
 
 }

@@ -1,14 +1,20 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Carbon.Footprint as Footprint;
+using Carbon.Graphite as Graphite;
+using Carbon.Graphene as Graphene;
 
 (:glance)
 class SlWidgetGlance extends WatchUi.GlanceView {
 
+    private var _api = new SlApi();
+
+    //
+
     function initialize() {
         GlanceView.initialize();
     }
-    
+
     // override GlanceView
 
     //! Load resources
@@ -24,12 +30,13 @@ class SlWidgetGlance extends WatchUi.GlanceView {
         Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
         // get last location while waiting for location event
         Footprint.getLastKnownLocation(Activity.getActivityInfo());
-        
+
         // add placeholder stops
-        for (var i = 0; i < SlApi.stopCount; i++) {
+        for (var i = 0; i < SlApi.stops.size(); i++) {
             SlApi.stops[i] = new Stop(-1, "searching...");
         }
-        
+
+        SlApi.shownStopNr = 0;
         makeRequests();
     }
 
@@ -37,7 +44,6 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
         GlanceView.onUpdate(dc);
-
         draw(dc);
     }
 
@@ -47,34 +53,30 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     function onHide() {
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
     }
-    
+
     // draw
-    
+
     function draw(dc) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        Graphite.resetColor(dc);
         var string = SlApi.stops[0].printForGlance();
-        dc.drawText(0, 0, Graphics.FONT_XTINY, string, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, 0, Graphene.FONT_XTINY, string, Graphics.TEXT_JUSTIFY_LEFT);
     }
     
     // requests
-    
+
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
-        var api = new SlApi();
-        api.requestNearbyStops(Footprint.latDeg(), Footprint.lonDeg());
-        //api.requestDepartures(5083);
+        _api.requestNearbyStops(Footprint.latDeg(), Footprint.lonDeg());
     }
-    
+
     // listeners
 
     //! Location event listener
     function onPosition(info) {
         Footprint.onPosition(info);
-        
-        // update
-        WatchUi.requestUpdate();
+
+        // TODO: update with interval instead of here
         makeRequests();
     }
-    
 
 }
