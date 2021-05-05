@@ -23,11 +23,11 @@ class Journey {
 
     function getColor() {
         switch (mode) {
-            case "METRO": return Graphene.COLOR_VERMILION;
+            case "METRO": return Graphene.COLOR_DK_GREEN;
             case "BUS": return Graphene.COLOR_RED;
             case "TRAIN": return Graphene.COLOR_MAGENTA;
-            case "TRAM": return Graphene.COLOR_CAPRI;
-            case "SHIP": return Graphene.COLOR_CYAN;
+            case "TRAM": return Graphene.COLOR_AMBER;
+            case "SHIP": return Graphene.COLOR_CAPRI;
             default: return Graphene.COLOR_LT_GRAY;
         }
     }

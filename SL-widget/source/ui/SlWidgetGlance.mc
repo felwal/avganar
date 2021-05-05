@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
+using Toybox.Timer;
 using Carbon.Footprint as Footprint;
 using Carbon.Graphite as Graphite;
 using Carbon.Graphene as Graphene;
@@ -8,6 +9,9 @@ using Carbon.Graphene as Graphene;
 class SlWidgetGlance extends WatchUi.GlanceView {
 
     private var _api = new SlApi();
+    private var _timer = new Timer.Timer();
+
+    private static const REQUEST_TIME = 30000;
 
     //
 
@@ -26,24 +30,28 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-        // set location event listener
+        // set location event listener and get last location while waiting
         Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
-        // get last location while waiting for location event
         Footprint.getLastKnownLocation(Activity.getActivityInfo());
 
         // add placeholder stops
         for (var i = 0; i < SlApi.stops.size(); i++) {
             SlApi.stops[i] = new Stop(-1, "searching...");
         }
-
         SlApi.shownStopNr = 0;
+        
+        // start request timer
         makeRequests();
+        _timer.start(method(:makeRequests), REQUEST_TIME, true);
     }
 
     //! Update the view
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
         GlanceView.onUpdate(dc);
+
+        // draw
+        dc.setAntiAlias(true);
         draw(dc);
     }
 
@@ -51,7 +59,9 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     //! state of this View here. This includes freeing resources from
     //! memory.
     function onHide() {
+        // stop callbacks
         Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
+        _timer.stop();
     }
 
     // draw
@@ -74,9 +84,6 @@ class SlWidgetGlance extends WatchUi.GlanceView {
     //! Location event listener
     function onPosition(info) {
         Footprint.onPosition(info);
-
-        // TODO: update with interval instead of here
-        makeRequests();
     }
 
 }
