@@ -2,6 +2,7 @@ using Toybox.Communications;
 using Toybox.System;
 using Toybox.Lang;
 using Toybox.WatchUi;
+using Carbon.Footprint as Footprint;
 
 (:glance)
 class SlApi {
@@ -9,9 +10,11 @@ class SlApi {
     public static var stopCount = 1;
     public static var stops = [stopCount];
     public static var shownStopNr = 0;
+
+    private static var _requestPos = [Footprint.latDeg(), Footprint.lonDeg()];
     
     private static const RESPONSE_OK = 200;
-    
+
     // requests
 
     //! Närliggande Hållplatser 2
@@ -40,7 +43,7 @@ class SlApi {
     //! Realtidsinformation 4
     function requestDepartures(siteId) {
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json?";
-        url += "key=" + KEY_RI + "&siteid=" + siteId + "&timewindow=" + 30;
+        url += "key=" + KEY_RI + "&siteid=" + siteId + "&timewindow=" + 60;
 
         /*var params = {
             "key" => KEY_RI,

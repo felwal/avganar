@@ -11,6 +11,10 @@ class Stop {
         self.name = name;
     }
 
+    function equals(stop) {
+        return id == stop.id;
+    }
+
     function printForGlance() {
         var string = name.toUpper() + "\n";
         for (var j = 0; j < 2 && j < journeys.size(); j++) {
@@ -18,7 +22,7 @@ class Stop {
         }
         return string;
     }
-    
+
     function printForView() {
         var string = "";
         for (var j = 0; j < 4 && j < journeys.size(); j++) {
