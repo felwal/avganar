@@ -4,5 +4,6 @@
 
     <string id="stops_searching" scope="glance">Searching ...</string>
     <string id="stops_none_found" scope="glance">No stops found</string>
+    <string id="stops_connection_error" scope="glance">No connection</string>
 
 </strings>
