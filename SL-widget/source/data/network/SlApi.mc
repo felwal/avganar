@@ -12,10 +12,10 @@ class SlApi {
     public static var shownStopNr = 0;
 
     private static var _requestPos = [Footprint.latDeg(), Footprint.lonDeg()];
-    
+
     private static const RESPONSE_OK = 200;
 
-    // requests
+    // request
 
     //! Närliggande Hållplatser 2
     function requestNearbyStops(lat, lon) {
@@ -62,7 +62,7 @@ class SlApi {
         Communications.makeWebRequest(url, {}, {}, method(:onReceiveDepartures));
     }
 
-    // listeners
+    // listener
 
     //! Närliggande Hållplatser 2 callback listener
     (:glance)
