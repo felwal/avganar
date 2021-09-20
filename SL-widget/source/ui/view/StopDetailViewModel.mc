@@ -1,14 +1,14 @@
 using Toybox.Timer;
 
 (:glance)
-class SlWidgetGlanceViewModel {
+class StopDetailViewModel {
 
     private static const REQUEST_TIME = 30000;
 
     private var _repo;
 
     private var _timer = new Timer.Timer();
-    private const _stopCursor = 0;
+    private var _stopCursor = 0;
 
     //
 
@@ -17,14 +17,15 @@ class SlWidgetGlanceViewModel {
     }
 
     // request
-
+    
     function enableRequests() {
-        registerLocation();
+        enableLocationEvents();
         makeRequestsDelayed();
         startRequestTimer();
     }
     
     function disableRequests() {
+        disableLocationEvents();
         stopRequestTimer();
     }
 
@@ -45,14 +46,22 @@ class SlWidgetGlanceViewModel {
         _repo.requestNearbyStops();
     }
     
-    private function registerLocation() {
-        _repo.setPositionHandling(Position.LOCATION_ONE_SHOT);
+    private function enableLocationEvents() {
+        _repo.setPositionHandling(Position.LOCATION_CONTINUOUS);
+    }
+    
+    private function disableLocationEvents() {
+        _repo.setPositionHandling(Position.LOCATION_DISABLE);
     }
 
     // read
 
-    function getStopString() {
-        return _repo.getStopGlanceString(_stopCursor);
+    function getSelectedStopString() {
+        return _repo.getStopViewString(_stopCursor);
+    }
+    
+    function getSelectedStop() {
+        return _repo.getStop(_stopCursor);
     }
 
     // write

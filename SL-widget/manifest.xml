@@ -4,7 +4,7 @@
     version="3">
 
     <iq:application
-        entry="SlWidgetApp"
+        entry="App"
         id="068550afc2a34d17a19ecd471b704e98"
         launcherIcon="@Drawables.launcher_icon"
         minSdkVersion="3.1.0"

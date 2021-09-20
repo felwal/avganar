@@ -4,7 +4,7 @@ using Carbon.Graphite as Graphite;
 using Carbon.Graphene as Graphene;
 using Carbon.Chem as Chem;
 
-class SlWidgetView extends WatchUi.View {
+class StopDetailView extends WatchUi.View {
 
     private var _model;
 
@@ -12,7 +12,7 @@ class SlWidgetView extends WatchUi.View {
 
     function initialize(container) {
         View.initialize();
-        _model = container.viewViewModel;
+        _model = container.stopDetailViewModel;
     }
 
     // override View
