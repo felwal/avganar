@@ -7,13 +7,11 @@ using Carbon.Footprint as Footprint;
 (:glance)
 class SlApi {
 
-    public static var stopCount = 1;
-    public static var stops = [stopCount];
-    public static var shownStopNr = 0;
-
-    private static var _requestPos = [Footprint.latDeg(), Footprint.lonDeg()];
-
     private static const RESPONSE_OK = 200;
+
+    var stopCount = 1;
+    var stops = [stopCount];
+    var stopCursor = 0;
 
     // request
 
@@ -62,10 +60,9 @@ class SlApi {
         Communications.makeWebRequest(url, {}, {}, method(:onReceiveDepartures));
     }
 
-    // listener
+    // response
 
     //! Närliggande Hållplatser 2 callback listener
-    (:glance)
     function onReceiveNearbyStops(responseCode, data) {
         if (responseCode == RESPONSE_OK) {
             System.println(data);
@@ -77,7 +74,7 @@ class SlApi {
                 }
 
                 // add placeholder stops
-                for (var i = 0; i < SlApi.stopCount; i++) {
+                for (var i = 0; i < stopCount; i++) {
                     stops[i] = new Stop(-2, message);
                 }
                 WatchUi.requestUpdate();
@@ -85,7 +82,7 @@ class SlApi {
             }
             var stopsData = data["stopLocationOrCoordLocation"];
 
-            for (var i = 0; i < SlApi.stopCount && i < stopsData.size(); i++) {
+            for (var i = 0; i < stopCount && i < stopsData.size(); i++) {
                 var stopData = stopsData[i]["StopLocation"];
 
                 var extId = stopData["mainMastExtId"];
@@ -95,14 +92,14 @@ class SlApi {
                 stops[i] = new Stop(id, name);
             }
 
-            requestDepartures(stops[shownStopNr].id);
+            requestDepartures(stops[stopCursor].id);
         }
         else {
             System.println("Response error: " + responseCode);
             var message = data["Message"];
 
             // add placeholder stops
-            for (var i = 0; i < SlApi.stopCount; i++) {
+            for (var i = 0; i < stopCount; i++) {
                 stops[i] = new Stop(-2, message);
             }
         }
@@ -111,7 +108,6 @@ class SlApi {
     }
 
     //! Realtidsinformation 4 callback listener
-    (:glance)
     function onReceiveDepartures(responseCode, data) {
         if (responseCode == RESPONSE_OK) {
             System.println(data);
@@ -135,7 +131,7 @@ class SlApi {
                 }
             }
 
-            stops[shownStopNr].journeys = journeys;
+            stops[stopCursor].journeys = journeys;
             WatchUi.requestUpdate();
         }
         else {

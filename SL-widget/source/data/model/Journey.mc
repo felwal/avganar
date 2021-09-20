@@ -9,6 +9,8 @@ class Journey {
     public var direction;
     public var displayTime;
 
+    //
+
     function initialize(mode, line, destination, direction, displayTime) {
         self.mode = mode;
         self.line = line;
