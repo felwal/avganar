@@ -12,15 +12,15 @@ class SlApi {
     private static const RADIUS_MAX = 2000;
 
     private var _maxStopsGlance = 1;
-    private var _maxStopsView = 1;
     private var _maxDeparturesGlance = 2;
-    private var _maxDeparturesView = 6;
-    private var _stopCursorView = 0;
-
     private var _timewindowGlance = 15;
-    private var _timewindowView = TIMEWINDOW_MAX;
 
-    var stops = [_maxStopsView];
+    private var _maxStopsDetail = 1;
+    private var _maxDeparturesDetail = 6;
+    private var _stopCursorDetail = 0;
+    private var _timewindowDetail = TIMEWINDOW_MAX;
+
+    var stops = [_maxStopsDetail];
 
     // nearby stops (Närliggande Hållplatser 2)
 
@@ -28,8 +28,8 @@ class SlApi {
         requestNearbyStops(lat, lon, _maxStopsGlance, method(:onReceiveNearbyStopsGlance));
     }
 
-    function requestNearbyStopsView(lat, lon) {
-        requestNearbyStops(lat, lon, _maxStopsView, method(:onReceiveNearbyStopsView));
+    function requestNearbyStopsDetail(lat, lon) {
+        requestNearbyStops(lat, lon, _maxStopsDetail, method(:onReceiveNearbyStopsDetail));
     }
 
     private function requestNearbyStops(lat, lon, maxNo, responseCallback) {
@@ -57,7 +57,7 @@ class SlApi {
     function onReceiveNearbyStopsGlance(responseCode, data) {
         if (responseCode == RESPONSE_OK) {
             handleNearbyStopsResponseOk(data);
-            var siteId = stops[_stopCursorView].id;
+            var siteId = stops[_stopCursorDetail].id;
             if (siteId != null) {
                 requestDepartures(siteId, _timewindowGlance);
             }
@@ -70,12 +70,12 @@ class SlApi {
         WatchUi.requestUpdate();
     }
 
-    function onReceiveNearbyStopsView(responseCode, data) {
+    function onReceiveNearbyStopsDetail(responseCode, data) {
         if (responseCode == RESPONSE_OK) {
             handleNearbyStopsResponseOk(data);
-            var siteId = stops[_stopCursorView].id;
+            var siteId = stops[_stopCursorDetail].id;
             if (siteId != null) {
-                requestDepartures(siteId, _timewindowView);
+                requestDepartures(siteId, _timewindowDetail);
             }
         }
         else {
@@ -96,7 +96,7 @@ class SlApi {
             }
 
             // add placeholder stops
-            for (var i = 0; i < _maxStopsView; i++) {
+            for (var i = 0; i < _maxStopsDetail; i++) {
                 stops[i] = new Stop(-2, message);
             }
             WatchUi.requestUpdate();
@@ -104,7 +104,7 @@ class SlApi {
         }
         var stopsData = data["stopLocationOrCoordLocation"];
 
-        for (var i = 0; i < _maxStopsView && i < stopsData.size(); i++) {
+        for (var i = 0; i < _maxStopsDetail && i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
             var extId = stopData["mainMastExtId"];
@@ -125,7 +125,7 @@ class SlApi {
         }
 
         // add placeholder stops
-        for (var i = 0; i < _maxStopsView; i++) {
+        for (var i = 0; i < _maxStopsDetail; i++) {
             stops[i] = new Stop(-2, message);
         }
     }
@@ -159,10 +159,10 @@ class SlApi {
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
             var journeys = [];
 
-            for (var m = 0; m < modes.size() && journeys.size() < _maxDeparturesView; m++) {
+            for (var m = 0; m < modes.size() && journeys.size() < _maxDeparturesDetail; m++) {
                 var modeData = data["ResponseData"][modes[m]];
 
-                for (var j = 0; j < modeData.size() && journeys.size() < _maxDeparturesView; j++) {
+                for (var j = 0; j < modeData.size() && journeys.size() < _maxDeparturesDetail; j++) {
                     var journeyData = modeData[j];
 
                     var mode = journeyData["TransportMode"];
@@ -175,7 +175,7 @@ class SlApi {
                 }
             }
 
-            stops[_stopCursorView].journeys = journeys;
+            stops[_stopCursorDetail].journeys = journeys;
             WatchUi.requestUpdate();
         }
         else {

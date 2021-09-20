@@ -19,8 +19,8 @@ class Repository {
         _sl.requestNearbyStopsGlance(_pos.getLatDeg(), _pos.getLonDeg());
     }
 
-    function requestNearbyStopsView() {
-        _sl.requestNearbyStopsView(_pos.getLatDeg(), _pos.getLonDeg());
+    function requestNearbyStopsDetail() {
+        _sl.requestNearbyStopsDetail(_pos.getLatDeg(), _pos.getLonDeg());
     }
 
     // read
