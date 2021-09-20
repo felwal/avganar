@@ -3,12 +3,11 @@ using Toybox.Timer;
 (:glance)
 class StopGlanceViewModel {
 
-    private static const REQUEST_TIME = 30000;
+    private static const _REQUEST_TIME = 30000;
+    private static const _STOP_CURSOR = 0;
 
     private var _repo;
-
     private var _timer = new Timer.Timer();
-    private const _stopCursor = 0;
 
     //
 
@@ -33,7 +32,7 @@ class StopGlanceViewModel {
     }
 
     private function startRequestTimer() {
-        _timer.start(method(:makeRequests), REQUEST_TIME, true);
+        _timer.start(method(:makeRequests), _REQUEST_TIME, true);
     }
 
     private function stopRequestTimer() {
@@ -52,7 +51,7 @@ class StopGlanceViewModel {
     // read
 
     function getStopString() {
-        return _repo.getStopGlanceString(_stopCursor);
+        return _repo.getStopGlanceString(_STOP_CURSOR);
     }
 
     // write

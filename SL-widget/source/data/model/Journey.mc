@@ -3,6 +3,12 @@ using Carbon.Graphene;
 (:glance)
 class Journey {
 
+    private static const _MODE_METRO = "METRO";
+    private static const _MODE_BUS = "BUS";
+    private static const _MODE_TRAIN = "TRAIN";
+    private static const _MODE_TRAM = "TRAM";
+    private static const _MODE_SHIP = "SHIP";
+
     public var mode;
     public var line;
     public var destination;
@@ -25,11 +31,11 @@ class Journey {
 
     function getColor() {
         switch (mode) {
-            case "METRO": return Graphene.COLOR_DK_GREEN;
-            case "BUS": return Graphene.COLOR_RED;
-            case "TRAIN": return Graphene.COLOR_MAGENTA;
-            case "TRAM": return Graphene.COLOR_AMBER;
-            case "SHIP": return Graphene.COLOR_CAPRI;
+            case _MODE_METRO: return Graphene.COLOR_DK_GREEN;
+            case _MODE_BUS: return Graphene.COLOR_RED;
+            case _MODE_TRAIN: return Graphene.COLOR_MAGENTA;
+            case _MODE_TRAM: return Graphene.COLOR_AMBER;
+            case _MODE_SHIP: return Graphene.COLOR_CAPRI;
             default: return Graphene.COLOR_LT_GRAY;
         }
     }

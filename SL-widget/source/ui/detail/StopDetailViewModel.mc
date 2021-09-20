@@ -3,10 +3,9 @@ using Toybox.Timer;
 (:glance)
 class StopDetailViewModel {
 
-    private static const REQUEST_TIME = 30000;
+    private static const _REQUEST_TIME = 30000;
 
     private var _repo;
-
     private var _timer = new Timer.Timer();
     private var _stopCursor = 0;
 
@@ -34,7 +33,7 @@ class StopDetailViewModel {
     }
 
     private function startRequestTimer() {
-        _timer.start(method(:makeRequests), REQUEST_TIME, true);
+        _timer.start(method(:makeRequests), _REQUEST_TIME, true);
     }
 
     private function stopRequestTimer() {

@@ -7,9 +7,9 @@ using Toybox.WatchUi;
 (:glance)
 class SlApi {
 
-    private static const RESPONSE_OK = 200;
-    private static const TIMEWINDOW_MAX = 60;
-    private static const RADIUS_MAX = 2000;
+    private static const _RESPONSE_OK = 200;
+    private static const _TIMEWINDOW_MAX = 60;
+    private static const _RADIUS_MAX = 2000;
 
     private var _maxStopsGlance = 1;
     private var _maxDeparturesGlance = 2;
@@ -18,7 +18,7 @@ class SlApi {
     private var _maxStopsDetail = 1;
     private var _maxDeparturesDetail = 6;
     private var _stopCursorDetail = 0;
-    private var _timewindowDetail = TIMEWINDOW_MAX;
+    private var _timewindowDetail = _TIMEWINDOW_MAX;
 
     var stops = [_maxStopsDetail];
 
@@ -39,7 +39,7 @@ class SlApi {
             "key" => KEY_NH,
             "originCoordLat" => lat,
             "originCoordLong" => lon,
-            "r" => RADIUS_MAX,
+            "r" => _RADIUS_MAX,
             "maxNo" => maxNo
         };
 
@@ -55,7 +55,7 @@ class SlApi {
     }
 
     function onReceiveNearbyStopsGlance(responseCode, data) {
-        if (responseCode == RESPONSE_OK) {
+        if (responseCode == _RESPONSE_OK) {
             handleNearbyStopsResponseOk(data);
             var siteId = stops[_stopCursorDetail].id;
             if (siteId != null) {
@@ -71,7 +71,7 @@ class SlApi {
     }
 
     function onReceiveNearbyStopsDetail(responseCode, data) {
-        if (responseCode == RESPONSE_OK) {
+        if (responseCode == _RESPONSE_OK) {
             handleNearbyStopsResponseOk(data);
             var siteId = stops[_stopCursorDetail].id;
             if (siteId != null) {
@@ -156,7 +156,7 @@ class SlApi {
     }
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == RESPONSE_OK && hasKey(data, "ResponseData")) {
+        if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
             System.println(data);
 
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
