@@ -2,4 +2,7 @@
 
     <string id="app_name">SL-widget</string>
 
+    <string id="stops_searching" scope="glance">Searching ...</string>
+    <string id="stops_none_found" scope="glance">No stops found</string>
+
 </strings>

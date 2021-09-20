@@ -1,3 +1,4 @@
+using Toybox.Application;
 using Toybox.Communications;
 using Toybox.System;
 using Toybox.Lang;
@@ -87,7 +88,7 @@ class SlApi {
         System.println(data);
 
         if (!data.hasKey("stopLocationOrCoordLocation")) {
-            var message = "No stops found";
+            var message = Application.loadResource(Rez.Strings.stops_none_found);
             if (data.hasKey("Message")) {
                  message = data["Message"];
             }
