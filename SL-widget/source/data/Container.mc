@@ -10,8 +10,8 @@ class Container {
     private var _repo = new Repository(_sl, _pos);
 
     // viewmodel
-    var glanceViewModel = new SlWidgetGlanceViewModel(_repo);
-    var viewViewModel = new SlWidgetViewViewModel(_repo);
+    var stopGlanceViewModel = new StopGlanceViewModel(_repo);
+    var stopDetailViewModel = new StopDetailViewModel(_repo);
 
     //
 

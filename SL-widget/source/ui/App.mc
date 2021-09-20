@@ -1,6 +1,6 @@
 using Toybox.Application;
 
-class SlWidgetApp extends Application.AppBase {
+class App extends Application.AppBase {
 
     private var _container;
 
@@ -21,13 +21,13 @@ class SlWidgetApp extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        return [ new SlWidgetView(_container) ];
+        return [ new StopDetailView(_container) ];
     }
 
     //! Return the initial glance view of your application here
     (:glance)
     function getGlanceView() {
-        return [ new SlWidgetGlance(_container) ];
+        return [ new StopGlanceView(_container) ];
     }
 
 }

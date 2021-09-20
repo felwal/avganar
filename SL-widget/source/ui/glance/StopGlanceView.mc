@@ -4,7 +4,7 @@ using Carbon.Graphite as Graphite;
 using Carbon.Graphene as Graphene;
 
 (:glance)
-class SlWidgetGlance extends WatchUi.GlanceView {
+class StopGlanceView extends WatchUi.GlanceView {
 
     private var _model;
 
@@ -12,7 +12,7 @@ class SlWidgetGlance extends WatchUi.GlanceView {
 
     function initialize(container) {
         GlanceView.initialize();
-        _model = container.glanceViewModel;
+        _model = container.stopGlanceViewModel;
     }
 
     // override GlanceView
