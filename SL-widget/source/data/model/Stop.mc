@@ -6,6 +6,8 @@ class Stop {
     public var name;
     public var journeys = [];
 
+    //
+
     function initialize(id, name) {
         self.id = id;
         self.name = name;
@@ -15,7 +17,7 @@ class Stop {
         return id == stop.id;
     }
 
-    function printForGlance() {
+    function toGlanceString() {
         var string = name.toUpper() + "\n";
         for (var j = 0; j < 2 && j < journeys.size(); j++) {
             string += journeys[j].print() + "\n";
@@ -23,7 +25,7 @@ class Stop {
         return string;
     }
 
-    function printForView() {
+    function toViewString() {
         var string = "";
         for (var j = 0; j < 4 && j < journeys.size(); j++) {
             string += journeys[j].print() + "\n";

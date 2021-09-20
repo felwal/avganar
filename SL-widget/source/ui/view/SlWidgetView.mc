@@ -1,22 +1,18 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
-using Toybox.Timer;
-using Carbon.Footprint as Footprint;
 using Carbon.Graphite as Graphite;
 using Carbon.Graphene as Graphene;
 using Carbon.Chem as Chem;
 
 class SlWidgetView extends WatchUi.View {
 
-    private var _api = new SlApi();
-    private var _timer = new Timer.Timer();
-
-    private static const REQUEST_TIME = 30000;
+    private var _model;
 
     //
 
-    function initialize() {
+    function initialize(container) {
         View.initialize();
+        _model = container.viewViewModel;
     }
 
     // override View
@@ -30,20 +26,8 @@ class SlWidgetView extends WatchUi.View {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-        // set location event listener and get last location while waiting
-        Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onPosition));
-        Footprint.getLastKnownLocation(Activity.getActivityInfo());
-
-        // add placeholder stops
-        for (var i = 0; i < SlApi.stops.size(); i++) {
-            SlApi.stops[i] = new Stop(-1, "searching...");
-        }
-        SlApi.shownStopNr = 0;
-
-        // make initial request (crashes if done too early)
-        new Timer.Timer().start(method(:makeRequests), 500, false);
-        // start continious request timer
-        _timer.start(method(:makeRequests), REQUEST_TIME, true);
+        _model.addPlaceholderStops();
+        _model.enableRequests();
     }
 
     //! Update the view
@@ -60,15 +44,13 @@ class SlWidgetView extends WatchUi.View {
     //! state of this View here. This includes freeing resources from
     //! memory.
     function onHide() {
-        // stop callbacks
-        Position.enableLocationEvents(Position.LOCATION_DISABLE, method(:onPosition));
-        _timer.stop();
+        _model.disableRequests();
     }
 
     // draw
 
     function draw(dc) {
-        var stop = SlApi.stops[SlApi.shownStopNr];
+        var stop = _model.getSelectedStop();
         var w = dc.getWidth();
         var h = dc.getHeight();
         var r = w / 2;
@@ -100,20 +82,6 @@ class SlWidgetView extends WatchUi.View {
             Graphite.resetColor(dc);
             dc.drawText(xText, yText, font, journey.print(), Graphics.TEXT_JUSTIFY_LEFT);
         }
-    }
-
-    // request
-
-    //! Make requests to SlApi neccessary for glance display
-    function makeRequests() {
-        _api.requestNearbyStops(Footprint.latDeg(), Footprint.lonDeg());
-    }
-
-    // listener
-
-    //! Location event listener
-    function onPosition(info) {
-        Footprint.onPosition(info);
     }
 
 }
