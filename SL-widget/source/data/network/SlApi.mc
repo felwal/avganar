@@ -89,10 +89,13 @@ class SlApi {
     private function handleNearbyStopsResponseOk(data) {
         System.println(data);
 
-        if (!data.hasKey("stopLocationOrCoordLocation")) {
-            var message = Application.loadResource(Rez.Strings.stops_none_found);
-            if (data.hasKey("Message")) {
-                 message = data["Message"];
+        if (!hasKey(data, "stopLocationOrCoordLocation")) {
+            var message;
+            if (hasKey(data, "Message")) {
+                message = data["Message"];
+            }
+            else {
+                message = Application.loadResource(Rez.Strings.stops_none_found);
             }
 
             // add placeholder stops
@@ -117,11 +120,11 @@ class SlApi {
 
     private function handleNearbyStopsResponseError(data) {
         var message;
-        if (data == null || !data.hasKey("Message") || data["Message"] == null) {
-            message = Application.loadResource(Rez.Strings.stops_connection_error);
+        if (hasKey(data, "Message")) {
+            message = data["Message"];
         }
         else {
-            message = data["Message"];
+            message = Application.loadResource(Rez.Strings.stops_connection_error);
         }
 
         // add placeholder stops
@@ -153,7 +156,7 @@ class SlApi {
     }
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == RESPONSE_OK && data != null && data.hasKey("ResponseData") && data["ResponseData"] != null) {
+        if (responseCode == RESPONSE_OK && hasKey(data, "ResponseData")) {
             System.println(data);
 
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
@@ -181,6 +184,12 @@ class SlApi {
         else {
             System.println("Response error: " + responseCode);
         }
+    }
+
+    // tool
+
+    function hasKey(dict, key) {
+        return dict != null && dict.hasKey(key) && dict[key] != null;
     }
 
 }
