@@ -17,13 +17,13 @@ class StopDetailViewModel {
     }
 
     // request
-    
+
     function enableRequests() {
         enableLocationEvents();
         makeRequestsDelayed();
         startRequestTimer();
     }
-    
+
     function disableRequests() {
         disableLocationEvents();
         stopRequestTimer();
@@ -40,16 +40,16 @@ class StopDetailViewModel {
     private function stopRequestTimer() {
         _timer.stop();
     }
-    
+
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
-        _repo.requestNearbyStops();
+        _repo.requestNearbyStopsView();
     }
-    
+
     private function enableLocationEvents() {
         _repo.setPositionHandling(Position.LOCATION_CONTINUOUS);
     }
-    
+
     private function disableLocationEvents() {
         _repo.setPositionHandling(Position.LOCATION_DISABLE);
     }
@@ -59,7 +59,7 @@ class StopDetailViewModel {
     function getSelectedStopString() {
         return _repo.getStopViewString(_stopCursor);
     }
-    
+
     function getSelectedStop() {
         return _repo.getStop(_stopCursor);
     }

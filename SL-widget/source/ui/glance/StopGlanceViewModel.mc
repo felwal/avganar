@@ -23,7 +23,7 @@ class StopGlanceViewModel {
         makeRequestsDelayed();
         startRequestTimer();
     }
-    
+
     function disableRequests() {
         stopRequestTimer();
     }
@@ -39,12 +39,12 @@ class StopGlanceViewModel {
     private function stopRequestTimer() {
         _timer.stop();
     }
-    
+
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
-        _repo.requestNearbyStops();
+        _repo.requestNearbyStopsGlance();
     }
-    
+
     private function registerLocation() {
         _repo.setPositionHandling(Position.LOCATION_ONE_SHOT);
     }

@@ -14,8 +14,12 @@ class Repository {
 
     // requst
 
-    function requestNearbyStops() {
-        _sl.requestNearbyStops(_pos.getLatDeg(), _pos.getLonDeg());
+    function requestNearbyStopsGlance() {
+        _sl.requestNearbyStopsGlance(_pos.getLatDeg(), _pos.getLonDeg());
+    }
+
+    function requestNearbyStopsView() {
+        _sl.requestNearbyStopsView(_pos.getLatDeg(), _pos.getLonDeg());
     }
 
     // read
@@ -27,7 +31,7 @@ class Repository {
     function getStopViewString(index) {
         return getStop(index).toViewString();
     }
-    
+
     function getStop(index) {
         return _sl.stops[index];
     }
