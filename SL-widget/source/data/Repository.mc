@@ -1,3 +1,4 @@
+using Toybox.Application;
 
 (:glance)
 class Repository {
@@ -46,7 +47,7 @@ class Repository {
 
     function addPlaceholderStops() {
         for (var i = 0; i < _sl.stops.size(); i++) {
-            _sl.stops[i] = new Stop(-1, "searching...");
+            _sl.stops[i] = new Stop(-1, Application.loadResource(Rez.Strings.stops_searching));
         }
     }
 
