@@ -12,7 +12,7 @@ class SlWidgetView extends WatchUi.View {
     private var _timer = new Timer.Timer();
 
     private static const REQUEST_TIME = 30000;
-    
+
     //
 
     function initialize() {
@@ -40,8 +40,9 @@ class SlWidgetView extends WatchUi.View {
         }
         SlApi.shownStopNr = 0;
 
-        // start request timer
+        // make initial request (crashes if done too early)
         new Timer.Timer().start(method(:makeRequests), 500, false);
+        // start continious request timer
         _timer.start(method(:makeRequests), REQUEST_TIME, true);
     }
 
@@ -74,14 +75,14 @@ class SlWidgetView extends WatchUi.View {
 
         Graphite.resetColor(dc);
         dc.drawText(w / 2, 27, Graphene.FONT_TINY, stop.name.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
-        
+
         var font = Graphene.FONT_XTINY;
         var fh = dc.getFontHeight(font);
         var lineHeight = 1.5;
         var offsetX = 10;
         var offsetY = 64;
         var rCircle = 4;
-        
+
         for (var j = 0; j < 10 && j < stop.journeys.size(); j++) {
             var journey = stop.journeys[j];
 
@@ -101,14 +102,14 @@ class SlWidgetView extends WatchUi.View {
         }
     }
 
-    // requests
+    // request
 
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
         _api.requestNearbyStops(Footprint.latDeg(), Footprint.lonDeg());
     }
 
-    // listeners
+    // listener
 
     //! Location event listener
     function onPosition(info) {

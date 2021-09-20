@@ -3,4 +3,3 @@
 
 Carbon = "C:\Users\nilsf\Repositories\carbon-barrel\Carbon\bin\Carbon-0.0.0.barrel"
 base.barrelPath = $(base.barrelPath);$(Carbon)
-

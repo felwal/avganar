@@ -39,9 +39,10 @@ class SlWidgetGlance extends WatchUi.GlanceView {
             SlApi.stops[i] = new Stop(-1, "searching...");
         }
         SlApi.shownStopNr = 0;
-        
-        // start request timer
-        makeRequests();
+
+        // make initial request (crashes if done too early)
+        new Timer.Timer().start(method(:makeRequests), 500, false);
+        // start continious request timer
         _timer.start(method(:makeRequests), REQUEST_TIME, true);
     }
 
@@ -71,15 +72,15 @@ class SlWidgetGlance extends WatchUi.GlanceView {
         var string = SlApi.stops[0].printForGlance();
         dc.drawText(0, 0, Graphene.FONT_XTINY, string, Graphics.TEXT_JUSTIFY_LEFT);
     }
-    
-    // requests
+
+    // request
 
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
         _api.requestNearbyStops(Footprint.latDeg(), Footprint.lonDeg());
     }
 
-    // listeners
+    // listener
 
     //! Location event listener
     function onPosition(info) {
