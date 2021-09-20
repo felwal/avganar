@@ -43,7 +43,7 @@ class StopDetailViewModel {
 
     //! Make requests to SlApi neccessary for glance display
     function makeRequests() {
-        _repo.requestNearbyStopsView();
+        _repo.requestNearbyStopsDetail();
     }
 
     private function enableLocationEvents() {
