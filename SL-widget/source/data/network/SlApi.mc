@@ -63,6 +63,7 @@ class SlApi {
             }
         }
         else {
+            System.println("Response error: " + responseCode);
             handleNearbyStopsResponseError(data);
         }
 
@@ -78,6 +79,7 @@ class SlApi {
             }
         }
         else {
+            System.println("Response error: " + responseCode);
             handleNearbyStopsResponseError(data);
         }
 
@@ -114,8 +116,13 @@ class SlApi {
     }
 
     private function handleNearbyStopsResponseError(data) {
-        System.println("Response error: " + responseCode);
-        var message = data["Message"];
+        var message;
+        if (data == null || !data.hasKey("Message") || data["Message"] == null) {
+            message = Application.loadResource(Rez.Strings.stops_connection_error);
+        }
+        else {
+            message = data["Message"];
+        }
 
         // add placeholder stops
         for (var i = 0; i < _maxStopsView; i++) {
@@ -146,7 +153,7 @@ class SlApi {
     }
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == RESPONSE_OK && data["ResponseData"] != null) {
+        if (responseCode == RESPONSE_OK && data != null && data.hasKey("ResponseData") && data["ResponseData"] != null) {
             System.println(data);
 
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
