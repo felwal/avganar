@@ -1,6 +1,5 @@
 using Toybox.Application;
 using Toybox.Communications;
-using Toybox.System;
 using Toybox.Lang;
 using Toybox.WatchUi;
 
@@ -36,12 +35,12 @@ class SlApi {
     // TODO: only call these when the distance diff is > x m
 
     function requestNearbyStopsGlance(lat, lon) {
-        System.println("Requesting glance stops for coords (" + lat + ", " + lon + ") ...");
+        Log.i("Requesting glance stops for coords (" + lat + ", " + lon + ") ...");
         requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
     }
 
     function requestNearbyStopsDetail(lat, lon) {
-        System.println("Requesting detail stops for coords (" + lat + ", " + lon + ") ...");
+        Log.i("Requesting detail stops for coords (" + lat + ", " + lon + ") ...");
         requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
     }
 
@@ -100,7 +99,7 @@ class SlApi {
     }
 
     private function handleNearbyStopsResponseOk(data) {
-        System.println("Stops response success: " + data);
+        Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!hasKey(data, "stopLocationOrCoordLocation")) {
@@ -139,7 +138,7 @@ class SlApi {
 
         var oldSelectedStopId = _storage.getStopId(_stopCursorDetail);
         var newSelectedStopId = stopIds[_stopCursorDetail];
-        System.println("Old siteId: " + oldSelectedStopId + "; new siteId: " + newSelectedStopId);
+        Log.d("Old siteId: " + oldSelectedStopId + "; new siteId: " + newSelectedStopId);
 
         // only request departures if the selected stop has changed
         if (oldSelectedStopId != newSelectedStopId) {
@@ -150,7 +149,7 @@ class SlApi {
     }
 
     private function handleNearbyStopsResponseError(responseCode, data) {
-        System.println("Stops response error (" + responseCode + "): " + data);
+        Log.e("Stops response error (code " + responseCode + "): " + data);
 
         var message;
         if (hasKey(data, "Message")) {
@@ -167,14 +166,14 @@ class SlApi {
 
     function requestDeparturesGlance(siteId) {
         if (siteId != null && siteId != Stop.NO_ID) {
-            System.println("Requesting glance departures for siteId " + siteId + " ...");
+            Log.i("Requesting glance departures for siteId " + siteId + " ...");
             requestDepartures(siteId, _TIMEWINDOW_GLANCE);
         }
     }
 
     function requestDeparturesDetail(siteId) {
         if (siteId != null && siteId != Stop.NO_ID) {
-            System.println("Requesting detail departures for siteId " + siteId + " ...");
+            Log.i("Requesting detail departures for siteId " + siteId + " ...");
             requestDepartures(siteId, _TIMEWINDOW_DETAIL);
         }
     }
@@ -201,7 +200,7 @@ class SlApi {
 
     function onReceiveDepartures(responseCode, data) {
         if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
-            System.println("Departures response success: " + data);
+            Log.d("Departures response success: " + data);
 
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
             var journeys = [];
@@ -226,7 +225,7 @@ class SlApi {
             WatchUi.requestUpdate();
         }
         else {
-            System.println("Departures response error (code " + responseCode + "): " + data);
+            Log.e("Departures response error (code " + responseCode + "): " + data);
         }
     }
 
