@@ -7,29 +7,32 @@ using Toybox.WatchUi;
 (:glance)
 class SlApi {
 
+    // api consts
     private static const _RESPONSE_OK = 200;
     private static const _TIMEWINDOW_MAX = 60;
     private static const _RADIUS_MAX = 2000;
 
-    private var _maxStopsGlance = 1;
-    private var _maxDeparturesGlance = 2;
-    private var _timewindowGlance = 15;
+    // glance consts
+    private static const _MAX_STOPS_GLANCE = 1;
+    private static const _MAX_DEPARTURES_GLANCE = 2;
+    private static const _TIMEWINDOW_GLANCE = 15;
 
-    private var _maxStopsDetail = 1;
-    private var _maxDeparturesDetail = 6;
+    // detail consts
+    private static const _MAX_STOPS_DETAIL = 1;
+    private static const _MAX_DEPARTURES_DETAIL = 6;
+    private static const _TIMEWINDOW_DETAIL = _TIMEWINDOW_MAX;
+
+    var stops = new [_MAX_STOPS_DETAIL];
     private var _stopCursorDetail = 0;
-    private var _timewindowDetail = _TIMEWINDOW_MAX;
-
-    var stops = [_maxStopsDetail];
 
     // nearby stops (Närliggande Hållplatser 2)
 
     function requestNearbyStopsGlance(lat, lon) {
-        requestNearbyStops(lat, lon, _maxStopsGlance, method(:onReceiveNearbyStopsGlance));
+        requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
     }
 
     function requestNearbyStopsDetail(lat, lon) {
-        requestNearbyStops(lat, lon, _maxStopsDetail, method(:onReceiveNearbyStopsDetail));
+        requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
     }
 
     private function requestNearbyStops(lat, lon, maxNo, responseCallback) {
@@ -55,11 +58,12 @@ class SlApi {
     }
 
     function onReceiveNearbyStopsGlance(responseCode, data) {
-        if (responseCode == _RESPONSE_OK) {
+        if (responseCode == _RESPONSE_OK && data != null) {
             handleNearbyStopsResponseOk(data);
+
             var siteId = stops[_stopCursorDetail].id;
             if (siteId != null) {
-                requestDepartures(siteId, _timewindowGlance);
+                requestDepartures(siteId, _TIMEWINDOW_GLANCE);
             }
         }
         else {
@@ -71,11 +75,12 @@ class SlApi {
     }
 
     function onReceiveNearbyStopsDetail(responseCode, data) {
-        if (responseCode == _RESPONSE_OK) {
+        if (responseCode == _RESPONSE_OK && data != null) {
             handleNearbyStopsResponseOk(data);
+
             var siteId = stops[_stopCursorDetail].id;
             if (siteId != null) {
-                requestDepartures(siteId, _timewindowDetail);
+                requestDepartures(siteId, _TIMEWINDOW_DETAIL);
             }
         }
         else {
@@ -89,6 +94,7 @@ class SlApi {
     private function handleNearbyStopsResponseOk(data) {
         System.println(data);
 
+        // no stops were found
         if (!hasKey(data, "stopLocationOrCoordLocation")) {
             var message;
             if (hasKey(data, "Message")) {
@@ -99,15 +105,17 @@ class SlApi {
             }
 
             // add placeholder stops
-            for (var i = 0; i < _maxStopsDetail; i++) {
+            for (var i = 0; i < _MAX_STOPS_DETAIL; i++) {
                 stops[i] = new Stop(-2, message);
             }
+
             WatchUi.requestUpdate();
             return;
         }
+
         var stopsData = data["stopLocationOrCoordLocation"];
 
-        for (var i = 0; i < _maxStopsDetail && i < stopsData.size(); i++) {
+        for (var i = 0; i < _MAX_STOPS_DETAIL && i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
             var extId = stopData["mainMastExtId"];
@@ -119,6 +127,8 @@ class SlApi {
     }
 
     private function handleNearbyStopsResponseError(data) {
+        System.println(data);
+
         var message;
         if (hasKey(data, "Message")) {
             message = data["Message"];
@@ -128,7 +138,7 @@ class SlApi {
         }
 
         // add placeholder stops
-        for (var i = 0; i < _maxStopsDetail; i++) {
+        for (var i = 0; i < _MAX_STOPS_DETAIL; i++) {
             stops[i] = new Stop(-2, message);
         }
     }
@@ -162,10 +172,10 @@ class SlApi {
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
             var journeys = [];
 
-            for (var m = 0; m < modes.size() && journeys.size() < _maxDeparturesDetail; m++) {
+            for (var m = 0; m < modes.size() && journeys.size() < _MAX_DEPARTURES_DETAIL; m++) {
                 var modeData = data["ResponseData"][modes[m]];
 
-                for (var j = 0; j < modeData.size() && journeys.size() < _maxDeparturesDetail; j++) {
+                for (var j = 0; j < modeData.size() && journeys.size() < _MAX_DEPARTURES_DETAIL; j++) {
                     var journeyData = modeData[j];
 
                     var mode = journeyData["TransportMode"];
