@@ -26,7 +26,6 @@ class StopDetailView extends WatchUi.View {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-        _model.addPlaceholderStops();
         _model.enableRequests();
     }
 
@@ -80,7 +79,7 @@ class StopDetailView extends WatchUi.View {
             Graphite.setColor(dc, journey.getColor());
             dc.fillCircle(xCircle, yCircle, rCircle);
             Graphite.resetColor(dc);
-            dc.drawText(xText, yText, font, journey.print(), Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(xText, yText, font, journey.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
 

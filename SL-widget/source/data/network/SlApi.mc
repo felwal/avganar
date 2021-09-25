@@ -22,16 +22,26 @@ class SlApi {
     private static const _MAX_DEPARTURES_DETAIL = 6;
     private static const _TIMEWINDOW_DETAIL = _TIMEWINDOW_MAX;
 
-    var stops = new [_MAX_STOPS_DETAIL];
+    private var _storage;
     private var _stopCursorDetail = 0;
 
+    //
+
+    function initialize(storage) {
+        _storage = storage;
+    }
+
     // nearby stops (Närliggande Hållplatser 2)
+    // bronze: 10_000/month, 30/min
+    // TODO: only call these when the distance diff is > x m
 
     function requestNearbyStopsGlance(lat, lon) {
+        System.println("Requesting glance stops for coords (" + lat + ", " + lon + ") ...");
         requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
     }
 
     function requestNearbyStopsDetail(lat, lon) {
+        System.println("Requesting detail stops for coords (" + lat + ", " + lon + ") ...");
         requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
     }
 
@@ -59,16 +69,15 @@ class SlApi {
 
     function onReceiveNearbyStopsGlance(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            handleNearbyStopsResponseOk(data);
+            var requestDepartures = handleNearbyStopsResponseOk(data);
 
-            var siteId = stops[_stopCursorDetail].id;
-            if (siteId != null) {
-                requestDepartures(siteId, _TIMEWINDOW_GLANCE);
+            // request departures
+            if (requestDepartures) {
+                requestDeparturesGlance(_storage.getStopId(_stopCursorDetail));
             }
         }
         else {
-            System.println("Response error: " + responseCode);
-            handleNearbyStopsResponseError(data);
+            handleNearbyStopsResponseError(responseCode, data);
         }
 
         WatchUi.requestUpdate();
@@ -76,23 +85,22 @@ class SlApi {
 
     function onReceiveNearbyStopsDetail(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            handleNearbyStopsResponseOk(data);
+            var requestDepartures = handleNearbyStopsResponseOk(data);
 
-            var siteId = stops[_stopCursorDetail].id;
-            if (siteId != null) {
-                requestDepartures(siteId, _TIMEWINDOW_DETAIL);
+            // request departures
+            if (requestDepartures) {
+                requestDeparturesDetail(_storage.getStopId(_stopCursorDetail));
             }
         }
         else {
-            System.println("Response error: " + responseCode);
-            handleNearbyStopsResponseError(data);
+            handleNearbyStopsResponseError(responseCode, data);
         }
 
         WatchUi.requestUpdate();
     }
 
     private function handleNearbyStopsResponseOk(data) {
-        System.println(data);
+        System.println("Stops response success: " + data);
 
         // no stops were found
         if (!hasKey(data, "stopLocationOrCoordLocation")) {
@@ -103,31 +111,46 @@ class SlApi {
             else {
                 message = Application.loadResource(Rez.Strings.stops_none_found);
             }
+            _storage.setPlaceholderStop(message);
 
-            // add placeholder stops
-            for (var i = 0; i < _MAX_STOPS_DETAIL; i++) {
-                stops[i] = new Stop(-2, message);
-            }
-
-            WatchUi.requestUpdate();
-            return;
+            return false;
         }
 
-        var stopsData = data["stopLocationOrCoordLocation"];
+        // stops were found
 
+        var stopIds = [];
+        var stopNames = [];
+        var stops = [];
+
+        var stopsData = data["stopLocationOrCoordLocation"];
         for (var i = 0; i < _MAX_STOPS_DETAIL && i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
             var extId = stopData["mainMastExtId"];
-            var id = extId.substring(5, extId.length());
+            var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
 
-            stops[i] = new Stop(id, name);
+            stopIds.add(id);
+            stopNames.add(name);
+            stops.add(new Stop(id, name));
         }
+
+        // request departures
+
+        var oldSelectedStopId = _storage.getStopId(_stopCursorDetail);
+        var newSelectedStopId = stopIds[_stopCursorDetail];
+        System.println("Old siteId: " + oldSelectedStopId + "; new siteId: " + newSelectedStopId);
+
+        // only request departures if the selected stop has changed
+        if (oldSelectedStopId != newSelectedStopId) {
+            _storage.setStops(stopIds, stopNames, stops);
+            return true;
+        }
+        return false;
     }
 
-    private function handleNearbyStopsResponseError(data) {
-        System.println(data);
+    private function handleNearbyStopsResponseError(responseCode, data) {
+        System.println("Stops response error (" + responseCode + "): " + data);
 
         var message;
         if (hasKey(data, "Message")) {
@@ -136,27 +159,38 @@ class SlApi {
         else {
             message = Application.loadResource(Rez.Strings.stops_connection_error);
         }
-
-        // add placeholder stops
-        for (var i = 0; i < _MAX_STOPS_DETAIL; i++) {
-            stops[i] = new Stop(-2, message);
-        }
+        _storage.setPlaceholderStop(message);
     }
 
     // departures (Realtidsinformation 4)
+    // bronze: 10_000/month, 30/min
+
+    function requestDeparturesGlance(siteId) {
+        if (siteId != null && siteId != Stop.NO_ID) {
+            System.println("Requesting glance departures for siteId " + siteId + " ...");
+            requestDepartures(siteId, _TIMEWINDOW_GLANCE);
+        }
+    }
+
+    function requestDeparturesDetail(siteId) {
+        if (siteId != null && siteId != Stop.NO_ID) {
+            System.println("Requesting detail departures for siteId " + siteId + " ...");
+            requestDepartures(siteId, _TIMEWINDOW_DETAIL);
+        }
+    }
 
     private function requestDepartures(siteId, timewindow) {
-        var url = "https://api.sl.se/api2/realtimedeparturesv4.json?";
+        var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
             "key" => KEY_RI,
-            "siteid" => siteId,
+            "siteid" => siteId.toNumber(),
             "timewindow" => timewindow
         };
 
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
+            //:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => {
                 "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON
             }
@@ -167,7 +201,7 @@ class SlApi {
 
     function onReceiveDepartures(responseCode, data) {
         if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
-            System.println(data);
+            System.println("Departures response success: " + data);
 
             var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
             var journeys = [];
@@ -188,11 +222,11 @@ class SlApi {
                 }
             }
 
-            stops[_stopCursorDetail].journeys = journeys;
+            _storage.setJourneys(_stopCursorDetail, journeys);
             WatchUi.requestUpdate();
         }
         else {
-            System.println("Response error: " + responseCode);
+            System.println("Departures response error (code " + responseCode + "): " + data);
         }
     }
 
