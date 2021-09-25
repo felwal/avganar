@@ -1,7 +1,9 @@
 using Carbon.Chem as Chem;
 
 (:glance)
-class PositionCompat {
+class PositionModel {
+
+    var onRegisterPosition = null;
 
     // position, in radians
     private var _lat = 0.0;
@@ -61,12 +63,20 @@ class PositionCompat {
             _lat = loc.toRadians()[0].toDouble();
             _lon = loc.toRadians()[1].toDouble();
         }
+
+        if (onRegisterPosition != null) {
+            onRegisterPosition.invoke();
+        }
     }
 
     //! Location event listener delegation
     function registerPosition(positionInfo) {
         _lat = positionInfo.position.toRadians()[0].toDouble();
         _lon = positionInfo.position.toRadians()[1].toDouble();
+        
+        if (onRegisterPosition != null) {
+            onRegisterPosition.invoke();
+        }
     }
 
 }

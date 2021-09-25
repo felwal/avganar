@@ -9,28 +9,28 @@ class Journey {
     private static const _MODE_TRAM = "TRAM";
     private static const _MODE_SHIP = "SHIP";
 
-    public var mode;
-    public var line;
-    public var destination;
-    public var direction;
-    public var displayTime;
+    private var _mode;
+    private var _line;
+    private var _destination;
+    private var _direction;
+    private var _displayTime;
 
     //
 
     function initialize(mode, line, destination, direction, displayTime) {
-        self.mode = mode;
-        self.line = line;
-        self.destination = destination;
-        self.direction = direction;
-        self.displayTime = displayTime;
+        self._mode = mode;
+        self._line = line;
+        self._destination = destination;
+        self._direction = direction;
+        self._displayTime = displayTime;
     }
 
-    function print() {
-        return displayTime + " " + line + " " + destination;
+    function toString() {
+        return _displayTime + " " + _line + " " + _destination;
     }
 
     function getColor() {
-        switch (mode) {
+        switch (_mode) {
             case _MODE_METRO: return Graphene.COLOR_DK_GREEN;
             case _MODE_BUS: return Graphene.COLOR_RED;
             case _MODE_TRAIN: return Graphene.COLOR_MAGENTA;

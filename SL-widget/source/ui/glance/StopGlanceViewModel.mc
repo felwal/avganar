@@ -3,7 +3,8 @@ using Toybox.Timer;
 (:glance)
 class StopGlanceViewModel {
 
-    private static const _REQUEST_TIME = 30000;
+    private static const _REQUEST_TIME_INTERVAL = 30000;
+    private static const _REQUEST_TIME_DELAY = 500;
     private static const _STOP_CURSOR = 0;
 
     private var _repo;
@@ -18,46 +19,47 @@ class StopGlanceViewModel {
     // request
 
     function enableRequests() {
-        registerLocation();
+        enableLocationEvents();
         makeRequestsDelayed();
         startRequestTimer();
     }
 
     function disableRequests() {
+        disableLocationEvents();
         stopRequestTimer();
     }
 
     private function makeRequestsDelayed() {
-        new Timer.Timer().start(method(:makeRequests), 500, false);
+        new Timer.Timer().start(method(:makeRequests), _REQUEST_TIME_DELAY, false);
     }
 
     private function startRequestTimer() {
-        _timer.start(method(:makeRequests), _REQUEST_TIME, true);
+        _timer.start(method(:makeRequests), _REQUEST_TIME_INTERVAL, true);
     }
 
     private function stopRequestTimer() {
         _timer.stop();
     }
 
-    //! Make requests to SlApi neccessary for glance display
+    //! Make requests to SlApi neccessary for glance display.
+    //! This needs to be public to be able to be called by timer.
     function makeRequests() {
-        _repo.requestNearbyStopsGlance();
+        _repo.requestDeparturesGlance();
+        _repo.requestNearbyStopsGlance(); // TODO: temp
     }
 
-    private function registerLocation() {
-        _repo.setPositionHandling(Position.LOCATION_ONE_SHOT);
+    private function enableLocationEvents() {
+        _repo.enablePositionHandlingGlance();
+    }
+
+    private function disableLocationEvents() {
+        _repo.disablePositionHandling();
     }
 
     // read
 
     function getStopString() {
         return _repo.getStopGlanceString(_STOP_CURSOR);
-    }
-
-    // write
-
-    function addPlaceholderStops() {
-        _repo.addPlaceholderStops();
     }
 
 }

@@ -26,7 +26,6 @@ class StopGlanceView extends WatchUi.GlanceView {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-        _model.addPlaceholderStops();
         _model.enableRequests();
     }
 
