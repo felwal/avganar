@@ -8,6 +8,6 @@
     <string id="lbl_e_stops_index_oob" scope="glance">Index out of range</string>
     <string id="lbl_e_stops_connection" scope="glance">No connection</string>
     <string id="lbl_e_stops_memory" scope="glance">Out of memory</string>
-    <string id="lbl_e_stops_unknown" scope="glance">Unknown error</string>
+    <string id="lbl_e_stops_code" scope="glance">Error code</string>
 
 </strings>

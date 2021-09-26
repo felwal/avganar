@@ -6,7 +6,7 @@ class Stop {
 
     public var id;
     public var name;
-    public var journeys = [];
+    public var journeys = []; // TODO: move this to StoragaModel as selectedStopJourneys?
 
     //
 
