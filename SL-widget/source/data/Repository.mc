@@ -14,7 +14,7 @@ class Repository {
         _storage = storage;
         _sl = sl;
         
-        _pos.setLatDeg(debugLat); _pos.setLonDeg(debugLon);
+        _pos.setPosDeg(debugLat, debugLon);
     }
 
     // requst
