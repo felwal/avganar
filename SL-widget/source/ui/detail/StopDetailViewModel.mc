@@ -1,4 +1,5 @@
 using Toybox.Timer;
+using Toybox.WatchUi;
 
 (:glance)
 class StopDetailViewModel {
@@ -65,6 +66,24 @@ class StopDetailViewModel {
 
     function getSelectedStop() {
         return _repo.getStop(_stopCursor);
+    }
+
+    // write
+
+    function incStopCursor() {
+        rotStopCursor(1);
+    }
+
+    function decStopCursor() {
+        rotStopCursor(-1);
+    }
+
+    private function rotStopCursor(amount) {
+        _stopCursor = _repo.getStopIndexRotated(_stopCursor, amount);
+        // TODO: maybe a better way to request departures
+        //  e.g. let timer request for all stops
+        _repo.requestDeparturesDetail(_stopCursor);
+        WatchUi.requestUpdate();
     }
 
 }

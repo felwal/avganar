@@ -92,4 +92,8 @@ class StorageModel {
         return _stops;
     }
 
+    function getStopCount() {
+        return _stops.size();
+    }
+
 }

@@ -17,12 +17,14 @@ class SlApi {
     private static const _TIMEWINDOW_GLANCE = 15;
 
     // detail consts
-    private static const _MAX_STOPS_DETAIL = 1;
+    private static const _MAX_STOPS_DETAIL = 12;
     private static const _MAX_DEPARTURES_DETAIL = 6;
     private static const _TIMEWINDOW_DETAIL = _TIMEWINDOW_MAX;
 
+    var STOP_CURSOR_GLANCE = 0;
+    var stopCursorDetail = 0;
+
     private var _storage;
-    private var _stopCursorDetail = 0; // TODO: temp
 
     //
 
@@ -66,11 +68,11 @@ class SlApi {
 
     function onReceiveNearbyStopsGlance(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            var requestDepartures = handleNearbyStopsResponseOk(data);
+            var requestDepartures = handleNearbyStopsResponseOk(data, _MAX_STOPS_GLANCE, STOP_CURSOR_GLANCE);
 
             // request departures
             if (requestDepartures) {
-                requestDeparturesGlance(_storage.getStopId(_stopCursorDetail));
+                requestDeparturesGlance();
             }
         }
         else {
@@ -82,11 +84,11 @@ class SlApi {
 
     function onReceiveNearbyStopsDetail(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            var requestDepartures = handleNearbyStopsResponseOk(data);
+            var requestDepartures = handleNearbyStopsResponseOk(data, _MAX_STOPS_DETAIL, stopCursorDetail);
 
             // request departures
             if (requestDepartures) {
-                requestDeparturesDetail(_storage.getStopId(_stopCursorDetail));
+                requestDeparturesDetail();
             }
         }
         else {
@@ -97,7 +99,7 @@ class SlApi {
     }
 
     //! @return If the selected stop has changed and ddepartures should be requested
-    private function handleNearbyStopsResponseOk(data) {
+    private function handleNearbyStopsResponseOk(data, maxStops, stopCursor) {
         Log.d("Stops response success: " + data);
 
         // no stops were found
@@ -122,7 +124,7 @@ class SlApi {
         var stops = [];
 
         var stopsData = data["stopLocationOrCoordLocation"];
-        for (var i = 0; i < _MAX_STOPS_DETAIL && i < stopsData.size(); i++) {
+        for (var i = 0; i < maxStops && i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
             var extId = stopData["mainMastExtId"];
@@ -136,15 +138,15 @@ class SlApi {
 
         // apply
 
-        var oldSelectedStop = _storage.getStop(_stopCursorDetail);
-        var newSelectedStopId = stopIds[_stopCursorDetail];
+        var oldSelectedStop = _storage.getStop(stopCursor);
+        var newSelectedStopId = stopIds[stopCursor];
 
         Log.d("Old siteId: " + oldSelectedStop.id + "; new siteId: " + newSelectedStopId);
 
         if (oldSelectedStop.id == newSelectedStopId) {
             // copy journeys as they have not changed
             // we still need to change stops, as any unselected stop may have changed
-            stop[_stopCursorDetail].journeys = oldSelectedStop.journeys;
+            stops[stopCursor].journeys = oldSelectedStop.journeys;
             _storage.setStops(stopIds, stopNames, stops);
             return false;
         }
@@ -176,14 +178,18 @@ class SlApi {
     // departures (Realtidsinformation 4)
     // bronze: 10_000/month, 30/min
 
-    function requestDeparturesGlance(siteId) {
+    function requestDeparturesGlance() {
+        var siteId = _storage.getStopId(STOP_CURSOR_GLANCE);
+
         if (siteId != null && siteId != Stop.NO_ID) {
             Log.i("Requesting glance departures for siteId " + siteId + " ...");
             requestDepartures(siteId, _TIMEWINDOW_GLANCE);
         }
     }
 
-    function requestDeparturesDetail(siteId) {
+    function requestDeparturesDetail() {
+        var siteId = _storage.getStopId(stopCursorDetail);
+
         if (siteId != null && siteId != Stop.NO_ID) {
             Log.i("Requesting detail departures for siteId " + siteId + " ...");
             requestDepartures(siteId, _TIMEWINDOW_DETAIL);
@@ -232,7 +238,7 @@ class SlApi {
                 }
             }
 
-            _storage.setJourneys(_stopCursorDetail, journeys);
+            _storage.setJourneys(stopCursorDetail, journeys);
             WatchUi.requestUpdate();
         }
         else {
