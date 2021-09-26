@@ -1,3 +1,4 @@
+using Toybox.Application;
 using Toybox.Application.Storage;
 
 (:glance)
@@ -70,12 +71,16 @@ class StorageModel {
         }
     }
 
+    function hasStops() {
+        return _stops != null && _stops.size() > 0 && _stops[0].id != Stop.NO_ID;
+    }
+
     function getStop(index) {
         if (index >= 0 && index < _stops.size()) {
             return _stops[index];
         }
         else {
-            return Stop.placeholder("Index out of range");
+            return Stop.placeholder(Application.loadResource(Rez.Strings.lbl_e_stops_index_oob));
         }
     }
 
