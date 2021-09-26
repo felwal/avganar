@@ -13,18 +13,20 @@ class Repository {
         _pos = pos;
         _storage = storage;
         _sl = sl;
-        
-        _pos.setPosDeg(debugLat, debugLon);
+
+        //_pos.setPosDeg(debugLat, debugLon);
     }
 
     // requst
 
     function requestNearbyStopsGlance() {
         _sl.requestNearbyStopsGlance(_pos.getLatDeg(), _pos.getLonDeg());
+        //_sl.requestNearbyStopsGlance(debugLat, debugLon);
     }
 
     function requestNearbyStopsDetail() {
         _sl.requestNearbyStopsDetail(_pos.getLatDeg(), _pos.getLonDeg());
+        //_sl.requestNearbyStopsGlance(debugLat, debugLon);
     }
 
     function requestDeparturesGlance() {
@@ -72,12 +74,18 @@ class Repository {
     }
 
     function setPlaceholderStop() {
-        if (!_pos.isPositioned()) {
-            _storage.setPlaceholderStop(Application.loadResource(Rez.Strings.lbl_i_stops_locating));
+        var message;
+
+        if (!_storage.hasStops()) {
+            if (!_pos.isPositioned()) {
+                message = Application.loadResource(Rez.Strings.lbl_i_stops_locating);
+            }
+            else {
+                message = Application.loadResource(Rez.Strings.lbl_i_stops_searching);
+            }
         }
-        else if (!_storage.hasStops()) {
-            _storage.setPlaceholderStop(Application.loadResource(Rez.Strings.lbl_i_stops_searching));
-        }
+
+        _storage.setPlaceholderStop(message);
     }
 
 }

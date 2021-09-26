@@ -58,9 +58,7 @@ class SlApi {
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
-            :headers => {
-                "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON
-            }
+            :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
 
         Communications.makeWebRequest(url, params, options, responseCallback);
@@ -98,20 +96,22 @@ class SlApi {
         WatchUi.requestUpdate();
     }
 
+    //! @return If the selected stop has changed and ddepartures should be requested
     private function handleNearbyStopsResponseOk(data) {
         Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!hasKey(data, "stopLocationOrCoordLocation")) {
             var message;
+
             if (hasKey(data, "Message")) {
                 message = data["Message"];
             }
             else {
                 message = Application.loadResource(Rez.Strings.lbl_i_stops_none_found);
             }
-            _storage.setPlaceholderStop(message);
 
+            _storage.setPlaceholderStop(message);
             return false;
         }
 
@@ -134,18 +134,22 @@ class SlApi {
             stops.add(new Stop(id, name));
         }
 
-        // request departures
+        // apply
 
-        var oldSelectedStopId = _storage.getStopId(_stopCursorDetail);
+        var oldSelectedStop = _storage.getStop(_stopCursorDetail);
         var newSelectedStopId = stopIds[_stopCursorDetail];
-        Log.d("Old siteId: " + oldSelectedStopId + "; new siteId: " + newSelectedStopId);
 
-        // only request departures if the selected stop has changed
-        if (oldSelectedStopId != newSelectedStopId) {
+        Log.d("Old siteId: " + oldSelectedStop.id + "; new siteId: " + newSelectedStopId);
+
+        if (oldSelectedStop.id == newSelectedStopId) {
+            // copy journeys as they have not changed
+            // we still need to change stops, as any unselected stop may have changed
+            stop[_stopCursorDetail].journeys = oldSelectedStop.journeys;
             _storage.setStops(stopIds, stopNames, stops);
-            return true;
+            return false;
         }
-        return false;
+        _storage.setStops(stopIds, stopNames, stops);
+        return true;
     }
 
     private function handleNearbyStopsResponseError(responseCode, data) {
@@ -163,7 +167,7 @@ class SlApi {
             message = Application.loadResource(Rez.Strings.lbl_e_stops_memory);
         }
         else {
-            message = Application.loadResource(Rez.Strings.lbl_e_stops_unknown) + " " + responseCode;
+            message = Application.loadResource(Rez.Strings.lbl_e_stops_code) + " " + responseCode;
         }
 
         _storage.setPlaceholderStop(message);
@@ -199,9 +203,7 @@ class SlApi {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             // TODO: url doesnt work without .json
             //:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
-            :headers => {
-                "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON
-            }
+            :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
 
         Communications.makeWebRequest(url, params, options, method(:onReceiveDepartures));
@@ -211,7 +213,7 @@ class SlApi {
         if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
             Log.d("Departures response success: " + data);
 
-            var modes = ["Metros", "Buses", "Trains", "Trams", "Ships"];
+            var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
             var journeys = [];
 
             for (var m = 0; m < modes.size() && journeys.size() < _MAX_DEPARTURES_DETAIL; m++) {

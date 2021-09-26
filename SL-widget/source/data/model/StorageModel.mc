@@ -26,14 +26,9 @@ class StorageModel {
 
     function setPlaceholderStop(name) {
         resetStops();
-        addStop(Stop.NO_ID, name);
-    }
-
-    private function addStop(id, name) {
-        _stopIds.add(id);
+        _stopIds.add(Stop.NO_ID);
         _stopNames.add(name);
-        _stops.add(new Stop(id, name));
-        save();
+        _stops.add(new Stop(Stop.NO_ID, name));
     }
 
     function setStops(stopIds, stopNames, stops) {
