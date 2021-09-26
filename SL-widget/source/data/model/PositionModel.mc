@@ -19,11 +19,21 @@ class PositionModel {
         _lon = lon;
     }
 
+    function setPosRad(lat, lon) {
+        _lat = lat;
+        _lon = lon;
+    }
+
     function setLatDeg(lat) {
         _lat = Chem.rad(lat);
     }
 
     function setLonDeg(lon) {
+        _lon = Chem.rad(lon);
+    }
+
+    function setPosDeg(lat, lon) {
+        _lat = Chem.rad(lat);
         _lon = Chem.rad(lon);
     }
 
