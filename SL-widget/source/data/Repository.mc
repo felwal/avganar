@@ -14,7 +14,7 @@ class Repository {
         _storage = storage;
         _sl = sl;
 
-        //_pos.setPosDeg(debugLat, debugLon);
+        //_storage.resetStops(); _pos.setPosDeg(debugLat, debugLon);
     }
 
     // requst
@@ -30,11 +30,12 @@ class Repository {
     }
 
     function requestDeparturesGlance() {
-        _sl.requestDeparturesGlance(_storage.getStopId(0));
+        _sl.requestDeparturesGlance();
     }
 
     function requestDeparturesDetail(index) {
-        _sl.requestDeparturesDetail(_storage.getStopId(index));
+        _sl.stopCursorDetail = index;
+        _sl.requestDeparturesDetail();
     }
 
     // read
@@ -74,18 +75,24 @@ class Repository {
     }
 
     function setPlaceholderStop() {
-        var message;
-
         if (!_storage.hasStops()) {
+            var message;
+
             if (!_pos.isPositioned()) {
                 message = Application.loadResource(Rez.Strings.lbl_i_stops_locating);
             }
             else {
                 message = Application.loadResource(Rez.Strings.lbl_i_stops_searching);
             }
-        }
 
-        _storage.setPlaceholderStop(message);
+            _storage.setPlaceholderStop(message);
+        }
+    }
+
+    // tool
+
+    function getStopIndexRotated(index, amount) {
+        return mod(index + amount, _storage.getStopCount());
     }
 
 }

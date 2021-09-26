@@ -21,7 +21,7 @@ class App extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        return [ new StopDetailView(_container) ];
+        return [ new StopDetailView(_container), new StopDetailDelegate(_container) ];
     }
 
     //! Return the initial glance view of your application here
