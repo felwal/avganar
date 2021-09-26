@@ -8,6 +8,7 @@ class Journey {
     private static const _MODE_TRAIN = "TRAIN";
     private static const _MODE_TRAM = "TRAM";
     private static const _MODE_SHIP = "SHIP";
+    private static const _MODE_NONE = "NONE";
 
     private var _mode;
     private var _line;
@@ -18,11 +19,16 @@ class Journey {
     //
 
     function initialize(mode, line, destination, direction, displayTime) {
-        self._mode = mode;
-        self._line = line;
-        self._destination = destination;
-        self._direction = direction;
-        self._displayTime = displayTime;
+        _mode = mode;
+        _line = line;
+        _destination = destination;
+        _direction = direction;
+        _displayTime = displayTime;
+
+    }
+
+    static function placeholder(msg) {
+        return new Journey(_MODE_NONE, "", "", "", msg);
     }
 
     function toString() {
@@ -36,6 +42,7 @@ class Journey {
             case _MODE_TRAIN: return Graphene.COLOR_MAGENTA;
             case _MODE_TRAM: return Graphene.COLOR_AMBER;
             case _MODE_SHIP: return Graphene.COLOR_CAPRI;
+            case _MODE_NONE: return Graphene.COLOR_BLACK;
             default: return Graphene.COLOR_LT_GRAY;
         }
     }

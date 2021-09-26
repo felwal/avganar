@@ -238,6 +238,10 @@ class SlApi {
                 }
             }
 
+            if (journeys.size() == 0 && _storage.getStopId(stopCursorDetail) != Stop.NO_ID) {
+                journeys.add(Journey.placeholder("No departures"));
+            }
+
             _storage.setJourneys(stopCursorDetail, journeys);
             WatchUi.requestUpdate();
         }
