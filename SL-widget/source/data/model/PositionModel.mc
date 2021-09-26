@@ -29,6 +29,10 @@ class PositionModel {
 
     // get
 
+    function isPositioned() {
+        return _lat != 0.0 || _lon != 0.0;
+    }
+
     //! Get latitude in radians
     function getLatRad() {
         return _lat;
@@ -73,7 +77,7 @@ class PositionModel {
     function registerPosition(positionInfo) {
         _lat = positionInfo.position.toRadians()[0].toDouble();
         _lon = positionInfo.position.toRadians()[1].toDouble();
-        
+
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
         }

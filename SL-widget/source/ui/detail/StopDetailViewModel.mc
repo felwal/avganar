@@ -19,6 +19,7 @@ class StopDetailViewModel {
     // request
 
     function enableRequests() {
+        _repo.setPlaceholderStop();
         enableLocationEvents();
         makeRequestsDelayed();
         startRequestTimer();
@@ -45,7 +46,7 @@ class StopDetailViewModel {
     //! This needs to be public to be able to be called by timer.
     function makeRequests() {
         _repo.requestDeparturesDetail(_stopCursor);
-        _repo.requestNearbyStopsDetail(); // TODO: temp
+        //_repo.requestNearbyStopsDetail(); // TODO: temp
     }
 
     private function enableLocationEvents() {

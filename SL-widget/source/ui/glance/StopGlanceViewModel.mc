@@ -19,6 +19,7 @@ class StopGlanceViewModel {
     // request
 
     function enableRequests() {
+        _repo.setPlaceholderStop();
         enableLocationEvents();
         makeRequestsDelayed();
         startRequestTimer();
@@ -45,7 +46,7 @@ class StopGlanceViewModel {
     //! This needs to be public to be able to be called by timer.
     function makeRequests() {
         _repo.requestDeparturesGlance();
-        _repo.requestNearbyStopsGlance(); // TODO: temp
+        //_repo.requestNearbyStopsGlance(); // TODO: temp
     }
 
     private function enableLocationEvents() {

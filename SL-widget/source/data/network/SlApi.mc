@@ -22,7 +22,7 @@ class SlApi {
     private static const _TIMEWINDOW_DETAIL = _TIMEWINDOW_MAX;
 
     private var _storage;
-    private var _stopCursorDetail = 0;
+    private var _stopCursorDetail = 0; // TODO: temp
 
     //
 
@@ -108,7 +108,7 @@ class SlApi {
                 message = data["Message"];
             }
             else {
-                message = Application.loadResource(Rez.Strings.stops_none_found);
+                message = Application.loadResource(Rez.Strings.lbl_i_stops_none_found);
             }
             _storage.setPlaceholderStop(message);
 
@@ -152,12 +152,20 @@ class SlApi {
         Log.e("Stops response error (code " + responseCode + "): " + data);
 
         var message;
+
         if (hasKey(data, "Message")) {
             message = data["Message"];
         }
-        else {
-            message = Application.loadResource(Rez.Strings.stops_connection_error);
+        else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
+            message = Application.loadResource(Rez.Strings.lbl_e_stops_connection);
         }
+        else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
+            message = Application.loadResource(Rez.Strings.lbl_e_stops_memory);
+        }
+        else {
+            message = Application.loadResource(Rez.Strings.lbl_e_stops_unknown) + " " + responseCode;
+        }
+
         _storage.setPlaceholderStop(message);
     }
 
@@ -189,6 +197,7 @@ class SlApi {
 
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
+            // TODO: url doesnt work without .json
             //:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => {
                 "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON
