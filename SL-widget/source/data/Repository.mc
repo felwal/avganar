@@ -19,7 +19,7 @@ class Repository {
         //_storage.resetStops(); _pos.setPosDeg(debugLat, debugLon);
     }
 
-    // requst
+    // request
 
     function requestNearbyStopsGlance() as Void {
         _sl.requestNearbyStopsGlance(_pos.getLatDeg(), _pos.getLonDeg());
@@ -52,6 +52,18 @@ class Repository {
 
     function getStop(index as Number) as Stop {
         return _storage.getStop(index);
+    }
+
+    function getStopCount() as Number {
+        return _storage.getStopCount();
+    }
+
+    function getStopIndexRotated(index as Number, amount as Number) as Number {
+        return mod(index + amount, getStopCount());
+    }
+
+    function getModeIndexRotated(stopIndex as Number, modeIndex as Number) as Number {
+        return mod(modeIndex + 1, getModeCount(stopIndex));
     }
 
     // write
@@ -89,18 +101,6 @@ class Repository {
 
             _storage.setPlaceholderStop(message);
         }
-    }
-
-    // tool
-
-    function getStopIndexRotated(index as Number, amount as Number) as Number {
-        var stopCount = _storage.getStopCount();
-        return mod(index + amount, stopCount);
-    }
-
-    function getModeIndexRotated(stopIndex as Number, modeIndex as Number) as Number {
-        var modeCount = _storage.getStop(stopIndex).getModeCount();
-        return mod(modeIndex + 1, modeCount);
     }
 
 }
