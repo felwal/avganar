@@ -6,7 +6,7 @@ class Stop {
 
     public var id;
     public var name;
-    public var journeys = []; // TODO: move this to StoragaModel as selectedStopJourneys?
+    public var journeys = [ [ Journey.placeholder("Searching") ] ];
 
     //
 
@@ -25,19 +25,29 @@ class Stop {
         return id == object.id;
     }
 
+    function getModeCount() {
+        return journeys.size();
+    }
+
     function toGlanceString() {
+        // TODO: first of any mode
+        var mode = 0;
         var string = name.toUpper() + "\n";
-        for (var j = 0; j < 2 && j < journeys.size(); j++) {
-            string += journeys[j].toString() + "\n";
+
+        for (var j = 0; j < 2 && j < journeys[mode].size(); j++) {
+            string += journeys[mode][j].toString() + "\n";
         }
+
         return string;
     }
 
-    function toDetailString() {
+    function toDetailString(mode) {
         var string = "";
-        for (var j = 0; j < 4 && j < journeys.size(); j++) {
-            string += journeys[j].toString() + "\n";
+
+        for (var j = 0; j < 4 && j < journeys[mode].size(); j++) {
+            string += journeys[mode][j].toString() + "\n";
         }
+
         return string;
     }
 

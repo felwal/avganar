@@ -169,7 +169,7 @@ class SlApi {
             message = Application.loadResource(Rez.Strings.lbl_e_stops_memory);
         }
         else {
-            message = Application.loadResource(Rez.Strings.lbl_e_stops_code) + " " + responseCode;
+            message = Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode;
         }
 
         _storage.setPlaceholderStop(message);
@@ -220,12 +220,14 @@ class SlApi {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
+            var modesSingular= [ "metro", "bus", "train", "tram", "ship" ];
             var journeys = [];
 
-            for (var m = 0; m < modes.size() && journeys.size() < _MAX_DEPARTURES_DETAIL; m++) {
+            for (var m = 0; m < modes.size(); m++) {
                 var modeData = data["ResponseData"][modes[m]];
+                var modeJourneys = [];
 
-                for (var j = 0; j < modeData.size() && journeys.size() < _MAX_DEPARTURES_DETAIL; j++) {
+                for (var j = 0; j < modeData.size() && modeJourneys.size() < _MAX_DEPARTURES_DETAIL; j++) {
                     var journeyData = modeData[j];
 
                     var mode = journeyData["TransportMode"];
@@ -234,20 +236,26 @@ class SlApi {
                     var direction = journeyData["JourneyDirection"];
                     var displayTime = journeyData["DisplayTime"];
 
-                    journeys.add(new Journey(mode, line, destination, direction, displayTime));
+                    modeJourneys.add(new Journey(mode, line, destination, direction, displayTime));
                 }
-            }
 
-            if (journeys.size() == 0 && _storage.getStopId(stopCursorDetail) != Stop.NO_ID) {
-                journeys.add(Journey.placeholder("No departures"));
+                // add placeholder
+                if (modeJourneys.size() == 0 && _storage.getStopId(stopCursorDetail) != Stop.NO_ID) {
+                    modeJourneys.add(Journey.placeholder("No " + modesSingular[m] + " departures"));
+                }
+
+                journeys.add(modeJourneys);
             }
 
             _storage.setJourneys(stopCursorDetail, journeys);
-            WatchUi.requestUpdate();
         }
         else {
             Log.e("Departures response error (code " + responseCode + "): " + data);
+            var message = Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode;
+            _storage.setJourneys(stopCursorDetail, [ Journey.placeholder(message) ]);
         }
+
+        WatchUi.requestUpdate();
     }
 
     // tool

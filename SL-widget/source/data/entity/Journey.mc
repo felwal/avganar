@@ -31,6 +31,8 @@ class Journey {
         return new Journey(_MODE_NONE, "", "", "", msg);
     }
 
+    //
+
     function toString() {
         return _displayTime + " " + _line + " " + _destination;
     }

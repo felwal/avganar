@@ -8,8 +8,10 @@ class StopDetailViewModel {
     private static const _REQUEST_TIME_DELAY = 500;
 
     private var _repo;
+
     private var _timer = new Timer.Timer();
     private var _stopCursor = 0;
+    private var _modeCursor = 0;
 
     //
 
@@ -61,11 +63,15 @@ class StopDetailViewModel {
     // read
 
     function getSelectedStopString() {
-        return _repo.getStopDetailString(_stopCursor);
+        return _repo.getStopDetailString(_stopCursor, _modeCursor);
     }
 
     function getSelectedStop() {
         return _repo.getStop(_stopCursor);
+    }
+
+    function getSelectedJourneys() {
+        return getSelectedStop().journeys[_modeCursor];
     }
 
     // write
@@ -80,9 +86,15 @@ class StopDetailViewModel {
 
     private function rotStopCursor(amount) {
         _stopCursor = _repo.getStopIndexRotated(_stopCursor, amount);
+        _modeCursor = 0;
         // TODO: maybe a better way to request departures
         //  e.g. let timer request for all stops
         _repo.requestDeparturesDetail(_stopCursor);
+        WatchUi.requestUpdate();
+    }
+
+    function incModeCursor() {
+        _modeCursor = _repo.getModeIndexRotated(_stopCursor, _modeCursor);
         WatchUi.requestUpdate();
     }
 
