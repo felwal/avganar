@@ -23,25 +23,25 @@ class StopGlanceViewModel {
 
     function enableRequests() as Void {
         _repo.setPlaceholderStop();
-        enableLocationEvents();
-        makeRequestsDelayed();
-        startRequestTimer();
+        _enableLocationEvents();
+        _makeRequestsDelayed();
+        _startRequestTimer();
     }
 
     function disableRequests() as Void {
-        disableLocationEvents();
-        stopRequestTimer();
+        _disableLocationEvents();
+        _stopRequestTimer();
     }
 
-    private function makeRequestsDelayed() as Void {
+    private function _makeRequestsDelayed() as Void {
         new Timer.Timer().start(method(:makeRequests), _REQUEST_TIME_DELAY, false);
     }
 
-    private function startRequestTimer() as Void {
+    private function _startRequestTimer() as Void {
         _timer.start(method(:makeRequests), _REQUEST_TIME_INTERVAL, true);
     }
 
-    private function stopRequestTimer() as Void {
+    private function _stopRequestTimer() as Void {
         _timer.stop();
     }
 
@@ -52,11 +52,11 @@ class StopGlanceViewModel {
         //_repo.requestNearbyStopsGlance(); // TODO: temp
     }
 
-    private function enableLocationEvents() as Void {
+    private function _enableLocationEvents() as Void {
         _repo.enablePositionHandlingGlance();
     }
 
-    private function disableLocationEvents() as Void {
+    private function _disableLocationEvents() as Void {
         _repo.disablePositionHandling();
     }
 

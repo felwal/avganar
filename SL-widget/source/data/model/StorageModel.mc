@@ -16,12 +16,12 @@ class StorageModel {
     //
 
     function initialize() as Void {
-        load();
+        _load();
     }
 
     // set
 
-    private function save() as Void {
+    private function _save() as Void {
         Storage.setValue(_STORAGE_STOP_IDS, _stopIds);
         Storage.setValue(_STORAGE_STOP_NAMES, _stopNames);
     }
@@ -37,7 +37,7 @@ class StorageModel {
         _stopIds = stopIds;
         _stopNames = stopNames;
         _stops = stops;
-        save();
+        _save();
     }
 
     function resetStops() as Void {
@@ -52,7 +52,7 @@ class StorageModel {
 
     // get
 
-    private function load() as Void {
+    private function _load() as Void {
         var stopIds = Storage.getValue(_STORAGE_STOP_IDS);
         var stopNames = Storage.getValue(_STORAGE_STOP_NAMES);
 

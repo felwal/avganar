@@ -25,25 +25,25 @@ class StopDetailViewModel {
 
     function enableRequests() as Void {
         _repo.setPlaceholderStop();
-        enableLocationEvents();
-        makeRequestsDelayed();
-        startRequestTimer();
+        _enableLocationEvents();
+        _makeRequestsDelayed();
+        _startRequestTimer();
     }
 
     function disableRequests() as Void {
-        disableLocationEvents();
-        stopRequestTimer();
+        _disableLocationEvents();
+        _stopRequestTimer();
     }
 
-    private function makeRequestsDelayed() as Void {
+    private function _makeRequestsDelayed() as Void {
         new Timer.Timer().start(method(:makeRequests), _REQUEST_TIME_DELAY, false);
     }
 
-    private function startRequestTimer() as Void {
+    private function _startRequestTimer() as Void {
         _timer.start(method(:makeRequests), _REQUEST_TIME_INTERVAL, true);
     }
 
-    private function stopRequestTimer() as Void {
+    private function _stopRequestTimer() as Void {
         _timer.stop();
     }
 
@@ -54,11 +54,11 @@ class StopDetailViewModel {
         //_repo.requestNearbyStopsDetail(); // TODO: temp
     }
 
-    private function enableLocationEvents() as Void {
+    private function _enableLocationEvents() as Void {
         _repo.enablePositionHandlingDetail();
     }
 
-    private function disableLocationEvents() as Void {
+    private function _disableLocationEvents() as Void {
         _repo.disablePositionHandling();
     }
 
@@ -79,14 +79,14 @@ class StopDetailViewModel {
     // write
 
     function incStopCursor() as Void {
-        rotStopCursor(1);
+        _rotStopCursor(1);
     }
 
     function decStopCursor() as Void {
-        rotStopCursor(-1);
+        _rotStopCursor(-1);
     }
 
-    private function rotStopCursor(amount as Number) as Void {
+    private function _rotStopCursor(amount as Number) as Void {
         _stopCursor = _repo.getStopIndexRotated(_stopCursor, amount);
         _modeCursor = 0;
         // TODO: maybe a better way to request departures
