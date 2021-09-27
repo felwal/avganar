@@ -44,8 +44,8 @@ class Repository {
         return getStop(index).toGlanceString();
     }
 
-    function getStopDetailString(index) {
-        return getStop(index).toDetailString();
+    function getStopDetailString(stopIndex, modeIndex) {
+        return getStop(stopIndex).toDetailString(modeIndex);
     }
 
     function getStop(index) {
@@ -92,7 +92,13 @@ class Repository {
     // tool
 
     function getStopIndexRotated(index, amount) {
-        return mod(index + amount, _storage.getStopCount());
+        var stopCount = _storage.getStopCount();
+        return mod(index + amount, stopCount);
+    }
+
+    function getModeIndexRotated(stopIndex, modeIndex) {
+        var modeCount = _storage.getStop(stopIndex).getModeCount();
+        return mod(modeIndex + 1, modeCount);
     }
 
 }

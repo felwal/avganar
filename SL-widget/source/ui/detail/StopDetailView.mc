@@ -64,8 +64,10 @@ class StopDetailView extends WatchUi.View {
         var offsetY = 64;
         var rCircle = 4;
 
-        for (var j = 0; j < 10 && j < stop.journeys.size(); j++) {
-            var journey = stop.journeys[j];
+        var journeys = _model.getSelectedJourneys();
+
+        for (var j = 0; j < 10 && j < journeys.size(); j++) {
+            var journey = journeys[j];
 
             var yText = offsetY + j * fh * lineHeight;
             var yCircle = yText + fh / 2;

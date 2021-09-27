@@ -8,6 +8,7 @@ class StopGlanceViewModel {
     private static const _STOP_CURSOR = 0;
 
     private var _repo;
+
     private var _timer = new Timer.Timer();
 
     //
