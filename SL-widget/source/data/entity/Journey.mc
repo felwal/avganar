@@ -1,3 +1,6 @@
+import Toybox.Lang;
+import Toybox.Graphics;
+
 using Carbon.Graphene;
 
 (:glance)
@@ -10,15 +13,16 @@ class Journey {
     private static const _MODE_SHIP = "SHIP";
     private static const _MODE_NONE = "NONE";
 
-    private var _mode;
-    private var _line;
-    private var _destination;
-    private var _direction;
-    private var _displayTime;
+    private var _mode as String;
+    private var _line as String;
+    private var _destination as String;
+    private var _direction as Number;
+    private var _displayTime as String;
 
     //
 
-    function initialize(mode, line, destination, direction, displayTime) {
+    function initialize(mode as String, line as String, destination as String, direction as Number,
+            displayTime as String) as Void {
         _mode = mode;
         _line = line;
         _destination = destination;
@@ -27,17 +31,17 @@ class Journey {
 
     }
 
-    static function placeholder(msg) {
+    static function placeholder(msg as String) as Journey {
         return new Journey(_MODE_NONE, "", "", "", msg);
     }
 
     //
 
-    function toString() {
+    function toString() as String {
         return _displayTime + " " + _line + " " + _destination;
     }
 
-    function getColor() {
+    function getColor() as ColorType {
         switch (_mode) {
             case _MODE_METRO: return Graphene.COLOR_DK_GREEN;
             case _MODE_BUS: return Graphene.COLOR_RED;

@@ -1,3 +1,5 @@
+import Toybox.Lang;
+
 using Toybox.Timer;
 using Toybox.WatchUi;
 
@@ -7,7 +9,7 @@ class StopDetailViewModel {
     private static const _REQUEST_TIME_INTERVAL = 30000;
     private static const _REQUEST_TIME_DELAY = 500;
 
-    private var _repo;
+    private var _repo as Repository;
 
     private var _timer = new Timer.Timer();
     private var _stopCursor = 0;
@@ -15,76 +17,76 @@ class StopDetailViewModel {
 
     //
 
-    function initialize(repo) {
+    function initialize(repo as Repository) as Void {
         _repo = repo;
     }
 
     // request
 
-    function enableRequests() {
+    function enableRequests() as Void {
         _repo.setPlaceholderStop();
         enableLocationEvents();
         makeRequestsDelayed();
         startRequestTimer();
     }
 
-    function disableRequests() {
+    function disableRequests() as Void {
         disableLocationEvents();
         stopRequestTimer();
     }
 
-    private function makeRequestsDelayed() {
+    private function makeRequestsDelayed() as Void {
         new Timer.Timer().start(method(:makeRequests), _REQUEST_TIME_DELAY, false);
     }
 
-    private function startRequestTimer() {
+    private function startRequestTimer() as Void {
         _timer.start(method(:makeRequests), _REQUEST_TIME_INTERVAL, true);
     }
 
-    private function stopRequestTimer() {
+    private function stopRequestTimer() as Void {
         _timer.stop();
     }
 
     //! Make requests to SlApi neccessary for detail display.
     //! This needs to be public to be able to be called by timer.
-    function makeRequests() {
+    function makeRequests() as Void {
         _repo.requestDeparturesDetail(_stopCursor);
         //_repo.requestNearbyStopsDetail(); // TODO: temp
     }
 
-    private function enableLocationEvents() {
+    private function enableLocationEvents() as Void {
         _repo.enablePositionHandlingDetail();
     }
 
-    private function disableLocationEvents() {
+    private function disableLocationEvents() as Void {
         _repo.disablePositionHandling();
     }
 
     // read
 
-    function getSelectedStopString() {
+    function getSelectedStopString() as String {
         return _repo.getStopDetailString(_stopCursor, _modeCursor);
     }
 
-    function getSelectedStop() {
+    function getSelectedStop() as Stop {
         return _repo.getStop(_stopCursor);
     }
 
-    function getSelectedJourneys() {
+    function getSelectedJourneys() as Array<Journey> {
         return getSelectedStop().journeys[_modeCursor];
     }
 
     // write
 
-    function incStopCursor() {
+    function incStopCursor() as Void {
         rotStopCursor(1);
     }
 
-    function decStopCursor() {
+    function decStopCursor() as Void {
         rotStopCursor(-1);
     }
 
-    private function rotStopCursor(amount) {
+    private function rotStopCursor(amount as Number) as Void {
         _stopCursor = _repo.getStopIndexRotated(_stopCursor, amount);
         _modeCursor = 0;
         // TODO: maybe a better way to request departures
@@ -93,7 +95,7 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
-    function incModeCursor() {
+    function incModeCursor() as Void {
         _modeCursor = _repo.getModeIndexRotated(_stopCursor, _modeCursor);
         WatchUi.requestUpdate();
     }
