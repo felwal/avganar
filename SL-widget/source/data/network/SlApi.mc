@@ -40,15 +40,15 @@ class SlApi {
 
     function requestNearbyStopsGlance(lat as Double, lon as Double) as Void {
         Log.i("Requesting glance stops for coords (" + lat + ", " + lon + ") ...");
-        requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
+        _requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
     }
 
     function requestNearbyStopsDetail(lat as Double, lon as Double) as Void {
         Log.i("Requesting detail stops for coords (" + lat + ", " + lon + ") ...");
-        requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
+        _requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
     }
 
-    private function requestNearbyStops(lat as Double, lon as Double, maxNo as Number,
+    private function _requestNearbyStops(lat as Double, lon as Double, maxNo as Number,
             responseCallback as Method) as Void {
         var url = "https://api.sl.se/api2/nearbystopsv2";
 
@@ -71,7 +71,7 @@ class SlApi {
 
     function onReceiveNearbyStopsGlance(responseCode as Number, data as Dictionary) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            var requestDepartures = handleNearbyStopsResponseOk(data, _MAX_STOPS_GLANCE, STOP_CURSOR_GLANCE);
+            var requestDepartures = _handleNearbyStopsResponseOk(data, _MAX_STOPS_GLANCE, STOP_CURSOR_GLANCE);
 
             // request departures
             if (requestDepartures) {
@@ -79,7 +79,7 @@ class SlApi {
             }
         }
         else {
-            handleNearbyStopsResponseError(responseCode, data);
+            _handleNearbyStopsResponseError(responseCode, data);
         }
 
         WatchUi.requestUpdate();
@@ -87,7 +87,7 @@ class SlApi {
 
     function onReceiveNearbyStopsDetail(responseCode as Number, data as Dictionary) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            var requestDepartures = handleNearbyStopsResponseOk(data, _MAX_STOPS_DETAIL, stopCursorDetail);
+            var requestDepartures = _handleNearbyStopsResponseOk(data, _MAX_STOPS_DETAIL, stopCursorDetail);
 
             // request departures
             if (requestDepartures) {
@@ -95,22 +95,22 @@ class SlApi {
             }
         }
         else {
-            handleNearbyStopsResponseError(responseCode, data);
+            _handleNearbyStopsResponseError(responseCode, data);
         }
 
         WatchUi.requestUpdate();
     }
 
     //! @return If the selected stop has changed and ddepartures should be requested
-    private function handleNearbyStopsResponseOk(data as Dictionary, maxStops as Number,
+    private function _handleNearbyStopsResponseOk(data as Dictionary, maxStops as Number,
             stopCursor as Number) as Void {
         Log.d("Stops response success: " + data);
 
         // no stops were found
-        if (!hasKey(data, "stopLocationOrCoordLocation")) {
+        if (!_hasKey(data, "stopLocationOrCoordLocation")) {
             var message as String;
 
-            if (hasKey(data, "Message")) {
+            if (_hasKey(data, "Message")) {
                 message = data["Message"];
             }
             else {
@@ -158,12 +158,12 @@ class SlApi {
         return true;
     }
 
-    private function handleNearbyStopsResponseError(responseCode as Number, data as Dictionary) as Void {
+    private function _handleNearbyStopsResponseError(responseCode as Number, data as Dictionary) as Void {
         Log.e("Stops response error (code " + responseCode + "): " + data);
 
         var message as String;
 
-        if (hasKey(data, "Message")) {
+        if (_hasKey(data, "Message")) {
             message = data["Message"];
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
@@ -187,7 +187,7 @@ class SlApi {
 
         if (siteId != null && siteId != Stop.NO_ID) {
             Log.i("Requesting glance departures for siteId " + siteId + " ...");
-            requestDepartures(siteId, _TIMEWINDOW_GLANCE);
+            _requestDepartures(siteId, _TIMEWINDOW_GLANCE);
         }
     }
 
@@ -196,11 +196,11 @@ class SlApi {
 
         if (siteId != null && siteId != Stop.NO_ID) {
             Log.i("Requesting detail departures for siteId " + siteId + " ...");
-            requestDepartures(siteId, _TIMEWINDOW_DETAIL);
+            _requestDepartures(siteId, _TIMEWINDOW_DETAIL);
         }
     }
 
-    private function requestDepartures(siteId as Number, timewindow as Number) as Void {
+    private function _requestDepartures(siteId as Number, timewindow as Number) as Void {
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
@@ -220,7 +220,7 @@ class SlApi {
     }
 
     function onReceiveDepartures(responseCode as Number, data as Dictionary) as Void {
-        if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
+        if (responseCode == _RESPONSE_OK && _hasKey(data, "ResponseData")) {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
@@ -264,7 +264,7 @@ class SlApi {
 
     // tool
 
-    function hasKey(dict as Dictionary, key as Any) as Boolean {
+    private function _hasKey(dict as Dictionary, key as Any) as Boolean {
         return key != null && dict != null && dict.hasKey(key) && dict[key] != null;
     }
 

@@ -38,7 +38,7 @@ class StopDetailView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        draw(dc);
+        _draw(dc);
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -50,7 +50,7 @@ class StopDetailView extends WatchUi.View {
 
     // draw
 
-    function draw(dc as Dc) as Void {
+    private function _draw(dc as Dc) as Void {
         var stop = _model.getSelectedStop();
         var w = dc.getWidth();
         var h = dc.getHeight();
