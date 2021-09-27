@@ -7,7 +7,7 @@ class Stop {
 
     public var id as Number;
     public var name as String;
-    public var journeys as Array<Array> = [ [ Journey.placeholder("Searching") ] ];
+    public var journeys as Array<Array> = [ [ Journey.placeholder("Searching departures ...") ] ];
 
     //
 

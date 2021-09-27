@@ -38,7 +38,7 @@ class StopGlanceView extends WatchUi.GlanceView {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(dc);
+        _draw(new DcCompat(dc));
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -50,10 +50,8 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     // draw
 
-    private function _draw(dc as Dc) as Void {
-        Graphite.resetColor(dc);
-        var string = _model.getStopString();
-        dc.drawText(0, 0, Graphene.FONT_XTINY, string, Graphics.TEXT_JUSTIFY_LEFT);
+    private function _draw(dcc as DcCompat) as Void {
+        dcc.drawGlanceTitle(_model.getStopString());
     }
 
 }

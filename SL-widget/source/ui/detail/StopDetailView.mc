@@ -38,7 +38,7 @@ class StopDetailView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(dc);
+        _draw(new DcCompat(dc));
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -50,17 +50,20 @@ class StopDetailView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dc as Dc) as Void {
+    private function _draw(dcc as DcCompat) as Void {
         var stop = _model.getSelectedStop();
-        var w = dc.getWidth();
-        var h = dc.getHeight();
-        var r = w / 2;
 
-        Graphite.resetColor(dc);
-        dc.drawText(w / 2, 27, Graphene.FONT_TINY, stop.name.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+        // text
+        dcc.drawViewTitle(stop.name);
+        _drawDepartures(dcc);
 
+        // widget
+        dcc.drawVerticalPageIndicator(_model.getStopCount(), _model.stopCursor);
+    }
+
+    private function _drawDepartures(dcc as DcCompat) as Void {
         var font = Graphene.FONT_XTINY;
-        var fh = dc.getFontHeight(font);
+        var fh = dcc.dc.getFontHeight(font);
         var lineHeight = 1.5;
         var offsetX = 10;
         var offsetY = 64;
@@ -77,13 +80,13 @@ class StopDetailView extends WatchUi.View {
                 break;
             }*/
 
-            var xCircle = Chem.minX(offsetY + fh / 2, r) + offsetX + rCircle;
+            var xCircle = Chem.minX(offsetY + fh / 2, dcc.r) + offsetX + rCircle;
             var xText = xCircle + rCircle + offsetX;
 
-            Graphite.setColor(dc, journey.getColor());
-            dc.fillCircle(xCircle, yCircle, rCircle);
-            Graphite.resetColor(dc);
-            dc.drawText(xText, yText, font, journey.toString(), Graphics.TEXT_JUSTIFY_LEFT);
+            dcc.setColor(journey.getColor());
+            dcc.dc.fillCircle(xCircle, yCircle, rCircle);
+            dcc.resetColor();
+            dcc.dc.drawText(xText, yText, font, journey.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
 

@@ -9,11 +9,11 @@ class StopDetailViewModel {
     private static const _REQUEST_TIME_INTERVAL = 30000;
     private static const _REQUEST_TIME_DELAY = 500;
 
-    private var _repo as Repository;
+    var stopCursor = 0;
+    var modeCursor = 0;
 
+    private var _repo as Repository;
     private var _timer = new Timer.Timer();
-    private var _stopCursor = 0;
-    private var _modeCursor = 0;
 
     //
 
@@ -50,7 +50,7 @@ class StopDetailViewModel {
     //! Make requests to SlApi neccessary for detail display.
     //! This needs to be public to be able to be called by timer.
     function makeRequests() as Void {
-        _repo.requestDeparturesDetail(_stopCursor);
+        _repo.requestDeparturesDetail(stopCursor);
         //_repo.requestNearbyStopsDetail(); // TODO: temp
     }
 
@@ -65,15 +65,23 @@ class StopDetailViewModel {
     // read
 
     function getSelectedStopString() as String {
-        return _repo.getStopDetailString(_stopCursor, _modeCursor);
+        return _repo.getStopDetailString(stopCursor, modeCursor);
     }
 
     function getSelectedStop() as Stop {
-        return _repo.getStop(_stopCursor);
+        return _repo.getStop(stopCursor);
     }
 
     function getSelectedJourneys() as Array<Journey> {
-        return getSelectedStop().journeys[_modeCursor];
+        return getSelectedStop().journeys[modeCursor];
+    }
+
+    function getStopCount() as Number {
+        return _repo.getStopCount();
+    }
+
+    function getModeCount() as Number {
+        return _repo.getModeCount(stopCursor);
     }
 
     // write
@@ -87,16 +95,16 @@ class StopDetailViewModel {
     }
 
     private function _rotStopCursor(amount as Number) as Void {
-        _stopCursor = _repo.getStopIndexRotated(_stopCursor, amount);
-        _modeCursor = 0;
+        stopCursor = _repo.getStopIndexRotated(stopCursor, amount);
+        modeCursor = 0;
         // TODO: maybe a better way to request departures
         //  e.g. let timer request for all stops
-        _repo.requestDeparturesDetail(_stopCursor);
+        _repo.requestDeparturesDetail(stopCursor);
         WatchUi.requestUpdate();
     }
 
     function incModeCursor() as Void {
-        _modeCursor = _repo.getModeIndexRotated(_stopCursor, _modeCursor);
+        modeCursor = _repo.getModeIndexRotated(stopCursor, modeCursor);
         WatchUi.requestUpdate();
     }
 
