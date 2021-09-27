@@ -1,35 +1,39 @@
+import Toybox.Lang;
 
 (:glance)
 class Stop {
 
     public static const NO_ID = -1;
 
-    public var id;
-    public var name;
-    public var journeys = [ [ Journey.placeholder("Searching") ] ];
+    public var id as Number;
+    public var name as String;
+    public var journeys as Array<Array> = [ [ Journey.placeholder("Searching") ] ];
 
     //
 
-    function initialize(id, name) {
+    function initialize(id as Number, name as String) as Void {
         self.id = id;
         self.name = name;
     }
 
-    static function placeholder(name) {
+    static function placeholder(name as String) as Stop {
         return new Stop(NO_ID, name);
     }
 
     //
 
-    function equals(object) {
-        return id == object.id;
+    function equals(object as Any) as Boolean {
+        if (object instanceof Stop) {
+            return id == object.id;
+        }
+        return false;
     }
 
-    function getModeCount() {
+    function getModeCount() as Number {
         return journeys.size();
     }
 
-    function toGlanceString() {
+    function toGlanceString() as String {
         // TODO: first of any mode
         var mode = 0;
         var string = name.toUpper() + "\n";
@@ -41,7 +45,7 @@ class Stop {
         return string;
     }
 
-    function toDetailString(mode) {
+    function toDetailString(mode) as String {
         var string = "";
 
         for (var j = 0; j < 4 && j < journeys[mode].size(); j++) {
