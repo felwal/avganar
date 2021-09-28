@@ -101,29 +101,67 @@ class DcCompat {
 
     // widget
 
-    function drawVerticalPageIndicator(length as Number, index as Number) as Void {
-        if (length <= 1) {
+    function drawHorizontalPageIndicator(pageCount as Number, index as Number) as Void {
+        if (pageCount <= 1) {
+            return;
+        }
+
+        var lengthDeg = 3;
+        var deltaDeg = lengthDeg + 2;
+        var centerDeg = 30;
+        var maxDeg = centerDeg + deltaDeg * (pageCount - 1) / 2f;
+        var minDeg = maxDeg - pageCount * deltaDeg;
+        var edgeOffset = 5;
+        var amp = r - edgeOffset;
+        var stroke = 4;
+        var bgStroke = stroke + 6;
+        var bgMinDeg = minDeg + lengthDeg + 1.5;
+        var bgMaxDeg = maxDeg + lengthDeg + 1.5;
+
+        // bg outline
+        setColor(Graphene.COLOR_BLACK);
+        dc.setPenWidth(bgStroke);
+        dc.drawArc(cx, cy, amp, Graphics.ARC_COUNTER_CLOCKWISE, bgMinDeg, bgMaxDeg);
+
+        // indicator
+        dc.setPenWidth(stroke);
+        for (var i = 0; i < pageCount; i++) {
+            var startDeg = maxDeg - i * deltaDeg;
+            var endDeg = startDeg + lengthDeg;
+
+            if (i == index) {
+                resetColor();
+            }
+            else {
+                setColor(Graphene.COLOR_DK_GRAY);
+            }
+            dc.drawArc(cx, cy, amp, Graphics.ARC_COUNTER_CLOCKWISE, startDeg, endDeg);
+        }
+    }
+
+    function drawVerticalPageIndicator(pageCount as Number, index as Number) as Void {
+        if (pageCount <= 1) {
             return;
         }
 
         var deltaDeg = 7;
-        var minDeg = 180 - deltaDeg * (length - 1) / 2f;
-        var maxDeg = 180 + deltaDeg * (length - 1) / 2f;
-        var amp = r - 8;
+        var centerDeg = 180;
+        var minDeg = centerDeg - deltaDeg * (pageCount - 1) / 2f;
+        var edgeOffset = 8;
+        var amp = r - edgeOffset;
         var radius = 2;
         var stroke = 2;
         var bgStroke = 2;
 
-        for (var i = 0; i < length; i++) {
+        for (var i = 0; i < pageCount; i++) {
             var deg = minDeg + i * deltaDeg;
-            var rad = Chem.rad(deg);
-            var pos = Chem.polarPos(amp, rad, cx, cy);
+            var pos = Chem.polarPos(amp, Chem.rad(deg), cx, cy);
 
-            // bg
+            // bg outline
             setColor(Graphene.COLOR_BLACK);
             dc.fillCircle(pos[0], pos[1], radius + stroke + bgStroke);
 
-            // circle
+            // indicator
             if (i == index) {
                 resetColor();
                 dc.fillCircle(pos[0], pos[1], radius + stroke);
@@ -131,7 +169,6 @@ class DcCompat {
             else {
                 strokeCircle(pos[0], pos[1], radius, stroke, Graphene.COLOR_BLACK, Graphene.COLOR_LT_GRAY);
             }
-
         }
     }
 

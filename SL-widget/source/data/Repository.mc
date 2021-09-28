@@ -58,6 +58,10 @@ class Repository {
         return _storage.getStopCount();
     }
 
+    function getModeCount(stopIndex as Number) as Number {
+        return getStop(stopIndex).getModeCount();
+    }
+
     function getStopIndexRotated(index as Number, amount as Number) as Number {
         return mod(index + amount, getStopCount());
     }

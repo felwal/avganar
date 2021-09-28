@@ -58,6 +58,7 @@ class StopDetailView extends WatchUi.View {
         _drawDepartures(dcc);
 
         // widget
+        dcc.drawHorizontalPageIndicator(_model.getModeCount(), _model.modeCursor);
         dcc.drawVerticalPageIndicator(_model.getStopCount(), _model.stopCursor);
     }
 
