@@ -146,7 +146,7 @@ class SlApi {
         if (oldSelectedStop.id == newSelectedStopId) {
             // copy journeys as they have not changed
             // we still need to change stops, as any unselected stop may have changed
-            stops[stopCursor].journeys = oldSelectedStop.journeys;
+            stops[stopCursor].setJourneys(oldSelectedStop.getAllJourneys());
             _storage.setStops(stopIds, stopNames, stops);
             return false;
         }
@@ -163,10 +163,13 @@ class SlApi {
             message = data["Message"];
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            message = Application.loadResource(Rez.Strings.lbl_e_stops_connection);
+            message = Application.loadResource(Rez.Strings.lbl_e_connection);
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            message = Application.loadResource(Rez.Strings.lbl_e_stops_memory);
+            message = Application.loadResource(Rez.Strings.lbl_e_memory);
+        }
+        else if (responseCode == Communications.BLE_QUEUE_FULL) {
+            message = Application.loadResource(Rez.Strings.lbl_e_stops_queue_full);
         }
         else {
             message = Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode;
@@ -177,6 +180,7 @@ class SlApi {
 
     // departures (Realtidsinformation 4)
     // bronze: 10_000/month, 30/min
+    // TODO: only call these when the time diff is > x s
 
     function requestDeparturesGlance() {
         var siteId = _storage.getStopId(STOP_CURSOR_GLANCE);
@@ -220,7 +224,6 @@ class SlApi {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
-            var modesSingular= [ "metro", "bus", "train", "tram", "ship" ];
             var journeys = [];
 
             for (var m = 0; m < modes.size(); m++) {
@@ -239,20 +242,32 @@ class SlApi {
                     modeJourneys.add(new Journey(mode, line, destination, direction, displayTime));
                 }
 
-                // add placeholder
-                if (modeJourneys.size() == 0 && _storage.getStopId(stopCursorDetail) != Stop.NO_ID) {
-                    modeJourneys.add(Journey.placeholder("No " + modesSingular[m] + " departures"));
+                if (modeJourneys.size() != 0) {
+                    journeys.add(modeJourneys);
                 }
-
-                journeys.add(modeJourneys);
             }
 
-            _storage.setJourneys(stopCursorDetail, journeys);
+            if (journeys.size() != 0) {
+                _storage.getStop(stopCursorDetail).setJourneys(journeys);
+            }
+            else {
+                Log.d("Departures response empty of journeys");
+                _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_i_departures_none_found));
+            }
+
+        }
+        else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
+            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_connection));
+        }
+        else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
+            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_memory));
+        }
+        else if (responseCode == Communications.BLE_QUEUE_FULL) {
+            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_departures_queue_full));
         }
         else {
             Log.e("Departures response error (code " + responseCode + "): " + data);
-            var message = Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode;
-            _storage.setJourneys(stopCursorDetail, [ Journey.placeholder(message) ]);
+            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode);
         }
 
         WatchUi.requestUpdate();
@@ -262,6 +277,10 @@ class SlApi {
 
     private function _hasKey(dict, key) {
         return dict != null && dict.hasKey(key) && dict[key] != null;
+    }
+
+    private function _setPlaceholderJourney(msg) {
+        _storage.getStop(stopCursorDetail).setJourneys([ [ Journey.placeholder(msg) ] ]);
     }
 
 }

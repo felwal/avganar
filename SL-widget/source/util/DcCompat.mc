@@ -1,5 +1,4 @@
 using Toybox.Math;
-using Carbon.Graphite;
 using Carbon.Graphene;
 using Carbon.Chem;
 
@@ -41,12 +40,12 @@ class DcCompat {
     // draw text
 
     function drawGlanceTitle(text) {
-        Graphite.resetColor(dc);
+        resetColor();
         dc.drawText(0, 0, Graphene.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     function drawViewTitle(text) {
-        Graphite.resetColor(dc);
+        resetColor();
         dc.drawText(w / 2, 27, Graphene.FONT_TINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 

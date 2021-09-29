@@ -1,6 +1,5 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
-using Carbon.Graphite as Graphite;
 using Carbon.Graphene as Graphene;
 using Carbon.Chem as Chem;
 
@@ -70,7 +69,7 @@ class StopDetailView extends WatchUi.View {
 
         var journeys = _model.getSelectedJourneys();
 
-        for (var j = 0; j < 10 && j < journeys.size(); j++) {
+        for (var j = 0; j < 10 && j < _model.getSelectedJourneyCount(); j++) {
             var journey = journeys[j];
 
             var yText = offsetY + j * fh * lineHeight;

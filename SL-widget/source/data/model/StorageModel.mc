@@ -45,10 +45,6 @@ class StorageModel {
         _stops = [];
     }
 
-    function setJourneys(index, journeys) {
-        getStop(index).journeys = journeys;
-    }
-
     // get
 
     private function _load() {
@@ -76,7 +72,8 @@ class StorageModel {
             return _stops[index];
         }
         else {
-            return Stop.placeholder(Application.loadResource(Rez.Strings.lbl_e_stops_index_oob));
+            return _stops[_stops.size() - 1];
+            //return Stop.placeholder(Application.loadResource(Rez.Strings.lbl_e_stops_index_oob));
         }
     }
 
