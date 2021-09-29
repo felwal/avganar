@@ -1,82 +1,78 @@
-import Toybox.Lang;
-
-using Toybox.Activity;
-using Toybox.Position;
 using Carbon.Chem as Chem;
 
 (:glance)
 class PositionModel {
 
-    var onRegisterPosition as Method = null;
+    var onRegisterPosition = null;
 
     // position, in radians
-    private var _lat as Double = 0.0;
-    private var _lon as Double = 0.0;
+    private var _lat = 0.0;
+    private var _lon = 0.0;
 
     // set
 
-    function setLatRad(lat as Double) as Void {
+    function setLatRad(lat) {
         _lat = lat;
     }
 
-    function setLonRad(lon as Double) as Void {
+    function setLonRad(lon) {
         _lon = lon;
     }
 
-    function setPosRad(lat as Double, lon as Double) as Void {
+    function setPosRad(lat, lon) {
         _lat = lat;
         _lon = lon;
     }
 
-    function setLatDeg(lat as Double) as Void {
+    function setLatDeg(lat) {
         _lat = Chem.rad(lat);
     }
 
-    function setLonDeg(lon as Double) as Void {
+    function setLonDeg(lon) {
         _lon = Chem.rad(lon);
     }
 
-    function setPosDeg(lat as Double, lon as Double) as Void {
+    function setPosDeg(lat, lon) {
         _lat = Chem.rad(lat);
         _lon = Chem.rad(lon);
     }
 
     // get
 
-    function isPositioned() as Boolean {
+    function isPositioned() {
         return _lat != 0.0 || _lon != 0.0;
     }
 
     //! Get latitude in radians
-    function getLatRad() as Double {
+    function getLatRad() {
         return _lat;
     }
 
     //! Get longitude in radians
-    function getLonRad() as Double {
+    function getLonRad() {
         return _lon;
     }
 
     //! Get latitude in degrees
-    function getLatDeg() as Double {
+    function getLatDeg() {
         return Chem.deg(_lat);
     }
 
     //! Get longitude in degrees
-    function getLonDeg() as Double {
+    function getLonDeg() {
         return Chem.deg(_lon);
     }
 
     //
 
-    function enableLocationEvents(acquisitionType as Number) as Void {
+    function enableLocationEvents(acquisitionType) {
         Position.enableLocationEvents(acquisitionType, method(:registerPosition));
     }
 
     //! Get last location while waiting for location event
     //! @param info Activity info
-    function registerLastKnownPosition(info as Activity.Info) as Void {
-        var loc = info.currentLocation;
+    function registerLastKnownPosition(activityInfo) {
+        var loc = activityInfo.currentLocation;
         if (loc != null) {
             _lat = loc.toRadians()[0].toDouble();
             _lon = loc.toRadians()[1].toDouble();
@@ -88,9 +84,9 @@ class PositionModel {
     }
 
     //! Location event listener delegation
-    function registerPosition(info as Position.Info) as Void {
-        _lat = info.position.toRadians()[0].toDouble();
-        _lon = info.position.toRadians()[1].toDouble();
+    function registerPosition(positionInfo) {
+        _lat = positionInfo.position.toRadians()[0].toDouble();
+        _lon = positionInfo.position.toRadians()[1].toDouble();
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();

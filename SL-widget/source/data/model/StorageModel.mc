@@ -1,5 +1,3 @@
-import Toybox.Lang;
-
 using Toybox.Application;
 using Toybox.Application.Storage;
 
@@ -9,50 +7,51 @@ class StorageModel {
     private static const _STORAGE_STOP_IDS = "stop_ids";
     private static const _STORAGE_STOP_NAMES = "stop_names";
 
-    private var _stopIds as Array<Number> = [];
-    private var _stopNames as Array<String> = [];
-    private var _stops as Array<Stop> = [];
+    private var _stopIds = [];
+    private var _stopNames = [];
+    private var _stops = [];
 
     //
 
-    function initialize() as Void {
+
+    function initialize() {
         _load();
     }
 
     // set
 
-    private function _save() as Void {
+    private function _save() {
         Storage.setValue(_STORAGE_STOP_IDS, _stopIds);
         Storage.setValue(_STORAGE_STOP_NAMES, _stopNames);
     }
 
-    function setPlaceholderStop(name as String) as Void {
+    function setPlaceholderStop(name) {
         resetStops();
         _stopIds.add(Stop.NO_ID);
         _stopNames.add(name);
         _stops.add(new Stop(Stop.NO_ID, name));
     }
 
-    function setStops(stopIds as Array<Number>, stopNames as Array<String>, stops as Array<Stop>) as Void {
+    function setStops(stopIds, stopNames, stops) {
         _stopIds = stopIds;
         _stopNames = stopNames;
         _stops = stops;
         _save();
     }
 
-    function resetStops() as Void {
+    function resetStops() {
         _stopIds = [];
         _stopNames = [];
         _stops = [];
     }
 
-    function setJourneys(index as Number, journeys as Array<Array>) as Void {
+    function setJourneys(index, journeys) {
         getStop(index).journeys = journeys;
     }
 
     // get
 
-    private function _load() as Void {
+    private function _load() {
         var stopIds = Storage.getValue(_STORAGE_STOP_IDS);
         var stopNames = Storage.getValue(_STORAGE_STOP_NAMES);
 
@@ -68,11 +67,11 @@ class StorageModel {
         }
     }
 
-    function hasStops() as Boolean {
+    function hasStops() {
         return _stops != null && _stops.size() > 0 && _stops[0].id != Stop.NO_ID;
     }
 
-    function getStop(index as Number) as Stop {
+    function getStop(index) {
         if (index >= 0 && index < _stops.size()) {
             return _stops[index];
         }
@@ -81,7 +80,7 @@ class StorageModel {
         }
     }
 
-    function getStopId(index as Number) as Number {
+    function getStopId(index) {
         if (index >= 0 && index < _stopIds.size()) {
             return _stopIds[index];
         }
@@ -90,11 +89,11 @@ class StorageModel {
         }
     }
 
-    function getStops() as Array<Stop> {
+    function getStops() {
         return _stops;
     }
 
-    function getStopCount() as Number {
+    function getStopCount() {
         return _stops.size();
     }
 

@@ -1,14 +1,12 @@
-import Toybox.Lang;
-
 using Toybox.WatchUi;
 
 class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _model as StopDetailViewModel;
+    private var _model;
 
     //
 
-    function initialize(container as Container) as Void {
+    function initialize(container) {
         BehaviorDelegate.initialize();
         _model = container.stopDetailViewModel;
     }
@@ -16,19 +14,19 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
     // override BehaviorDelegate
 
     //! "DOWN"
-    function onNextPage() as Boolean {
+    function onNextPage() {
         _model.incStopCursor();
         return true;
     }
 
     //! "UP"
-    function onPreviousPage() as Boolean {
+    function onPreviousPage() {
         _model.decStopCursor();
         return true;
     }
 
     //! "START-STOP"
-    function onSelect() as Boolean {
+    function onSelect() {
         _model.incModeCursor();
         return true;
     }
