@@ -2,12 +2,21 @@
 
     <string id="app_name">SL-widget</string>
 
+    <!-- label -->
+
+    <!-- info -->
     <string id="lbl_i_stops_locating" scope="glance">Locating ...</string>
     <string id="lbl_i_stops_searching" scope="glance">Searching ...</string>
     <string id="lbl_i_stops_none_found" scope="glance">No stops found</string>
+    <string id="lbl_i_departures_searching" scope="glance">Searching departures ...</string>
+    <string id="lbl_i_departures_none_found" scope="glance">No departures found</string>
+
+    <!-- error -->
     <string id="lbl_e_stops_index_oob" scope="glance">Index out of range</string>
-    <string id="lbl_e_stops_connection" scope="glance">No connection</string>
-    <string id="lbl_e_stops_memory" scope="glance">Out of memory</string>
+    <string id="lbl_e_stops_queue_full" scope="glance">Queue full</string>
+    <string id="lbl_e_departures_queue_full" scope="glance">Queue full, please wait ...</string>
+    <string id="lbl_e_connection" scope="glance">No connection</string>
+    <string id="lbl_e_memory" scope="glance">Out of memory</string>
     <string id="lbl_e_code" scope="glance">Error code</string>
 
 </strings>

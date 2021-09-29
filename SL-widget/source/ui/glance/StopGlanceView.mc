@@ -1,6 +1,5 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
-using Carbon.Graphite as Graphite;
 using Carbon.Graphene as Graphene;
 
 (:glance)

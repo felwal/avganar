@@ -71,7 +71,11 @@ class StopDetailViewModel {
     }
 
     function getSelectedJourneys() {
-        return getSelectedStop().journeys[modeCursor];
+        return getSelectedStop().getJourneys(modeCursor);
+    }
+
+    function getSelectedJourneyCount() {
+        return getSelectedStop().getJourneyCount(modeCursor);
     }
 
     function getStopCount() {
