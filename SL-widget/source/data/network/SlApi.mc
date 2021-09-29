@@ -144,9 +144,9 @@ class SlApi {
         Log.d("Old siteId: " + oldSelectedStop.id + "; new siteId: " + newSelectedStopId);
 
         if (oldSelectedStop.id == newSelectedStopId) {
-            // copy journeys as they have not changed
+            // copy departures as they have not changed
             // we still need to change stops, as any unselected stop may have changed
-            stops[stopCursor].setJourneys(oldSelectedStop.getAllJourneys());
+            stops[stopCursor].setDepartures(oldSelectedStop.getAllDepartures());
             _storage.setStops(stopIds, stopNames, stops);
             return false;
         }
@@ -224,50 +224,50 @@ class SlApi {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
-            var journeys = [];
+            var departures = [];
 
             for (var m = 0; m < modes.size(); m++) {
                 var modeData = data["ResponseData"][modes[m]];
-                var modeJourneys = [];
+                var modeDepartures = [];
 
-                for (var j = 0; j < modeData.size() && modeJourneys.size() < _MAX_DEPARTURES_DETAIL; j++) {
-                    var journeyData = modeData[j];
+                for (var j = 0; j < modeData.size() && modeDepartures.size() < _MAX_DEPARTURES_DETAIL; j++) {
+                    var departureData = modeData[j];
 
-                    var mode = journeyData["TransportMode"];
-                    var line = journeyData["LineNumber"];
-                    var destination = journeyData["Destination"];
-                    var direction = journeyData["JourneyDirection"];
-                    var displayTime = journeyData["DisplayTime"];
+                    var mode = departureData["TransportMode"];
+                    var line = departureData["LineNumber"];
+                    var destination = departureData["Destination"];
+                    var direction = departureData["DepartureDirection"];
+                    var displayTime = departureData["DisplayTime"];
 
-                    modeJourneys.add(new Journey(mode, line, destination, direction, displayTime));
+                    modeDepartures.add(new Departure(mode, line, destination, direction, displayTime));
                 }
 
-                if (modeJourneys.size() != 0) {
-                    journeys.add(modeJourneys);
+                if (modeDepartures.size() != 0) {
+                    departures.add(modeDepartures);
                 }
             }
 
-            if (journeys.size() != 0) {
-                _storage.getStop(stopCursorDetail).setJourneys(journeys);
+            if (departures.size() != 0) {
+                _storage.getStop(stopCursorDetail).setDepartures(departures);
             }
             else {
-                Log.d("Departures response empty of journeys");
-                _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_i_departures_none_found));
+                Log.d("Departures response empty of departures");
+                _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_i_departures_none_found));
             }
 
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_connection));
+            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_connection));
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_memory));
+            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_memory));
         }
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_departures_queue_full));
+            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_departures_queue_full));
         }
         else {
             Log.e("Departures response error (code " + responseCode + "): " + data);
-            _setPlaceholderJourney(Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode);
+            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode);
         }
 
         WatchUi.requestUpdate();
@@ -279,8 +279,8 @@ class SlApi {
         return dict != null && dict.hasKey(key) && dict[key] != null;
     }
 
-    private function _setPlaceholderJourney(msg) {
-        _storage.getStop(stopCursorDetail).setJourneys([ [ Journey.placeholder(msg) ] ]);
+    private function _setPlaceholderDeparture(msg) {
+        _storage.getStop(stopCursorDetail).setDepartures([ [ Departure.placeholder(msg) ] ]);
     }
 
 }

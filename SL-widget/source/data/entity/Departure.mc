@@ -1,7 +1,7 @@
 using Carbon.Graphene;
 
 (:glance)
-class Journey {
+class Departure {
 
     private static const _MODE_METRO = "METRO";
     private static const _MODE_BUS = "BUS";
@@ -28,7 +28,7 @@ class Journey {
     }
 
     static function placeholder(msg) {
-        return new Journey(_MODE_NONE, "", "", "", msg);
+        return new Departure(_MODE_NONE, "", "", "", msg);
     }
 
     //

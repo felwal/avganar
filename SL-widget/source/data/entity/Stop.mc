@@ -8,7 +8,7 @@ class Stop {
 
     public var id = NO_ID;
     public var name;
-    private var _journeys = [ [ Journey.placeholder(Application.loadResource(Rez.Strings.lbl_i_departures_searching)) ] ];
+    private var _departures = [ [ Departure.placeholder(Application.loadResource(Rez.Strings.lbl_i_departures_searching)) ] ];
 
     //
 
@@ -23,10 +23,10 @@ class Stop {
 
     //
 
-    function setJourneys(journeys) {
-        // don't put journey placeholders in placeholder stops
+    function setDepartures(departures) {
+        // don't put departure placeholders in placeholder stops
         if (id != NO_ID) {
-            _journeys = journeys;
+            _departures = departures;
         }
     }
 
@@ -37,33 +37,33 @@ class Stop {
     }
 
     function getModeCount() {
-        return _journeys.size();
+        return _departures.size();
     }
 
-    function getJourneyCount(mode) {
-        if (mode < 0 || mode >= _journeys.size()) {
-            Log.w("getJourneyCount 'mode' (" + mode + ") out of range [0," + _journeys.size() + "]; returning 0");
+    function getDepartureCount(mode) {
+        if (mode < 0 || mode >= _departures.size()) {
+            Log.w("getDepartureCount 'mode' (" + mode + ") out of range [0," + _departures.size() + "]; returning 0");
             return 0;
         }
-        else if (!(_journeys[mode] instanceof Lang.Array)) {
-            Log.w("journeys[" + mode + "] (not Array): " + _journeys[mode] + "; returning 0");
+        else if (!(_departures[mode] instanceof Lang.Array)) {
+            Log.w("departures[" + mode + "] (not Array): " + _departures[mode] + "; returning 0");
             return 0;
         }
-        return _journeys[mode].size();
+        return _departures[mode].size();
     }
 
-    function getJourneys(mode) {
-        if (mode >= 0 && mode < _journeys.size()) {
-            return _journeys[mode];
+    function getDepartures(mode) {
+        if (mode >= 0 && mode < _departures.size()) {
+            return _departures[mode];
         }
         else {
-            Log.w("getJourneys 'mode' (" + mode + ") out of range [0," + _journeys.size() + "]; returning []");
+            Log.w("getDepartures 'mode' (" + mode + ") out of range [0," + _departures.size() + "]; returning []");
             return [];
         }
     }
 
-    function getAllJourneys() {
-        return _journeys;
+    function getAllDepartures() {
+        return _departures;
     }
 
     function toGlanceString() {
@@ -71,8 +71,8 @@ class Stop {
         var mode = 0;
         var string = name.toUpper() + "\n";
 
-        for (var j = 0; j < 2 && j < _journeys[mode].size(); j++) {
-            string += _journeys[mode][j].toString() + "\n";
+        for (var j = 0; j < 2 && j < _departures[mode].size(); j++) {
+            string += _departures[mode][j].toString() + "\n";
         }
 
         return string;
@@ -81,8 +81,8 @@ class Stop {
     function toDetailString(mode) {
         var string = "";
 
-        for (var j = 0; j < 4 && j < _journeys[mode].size(); j++) {
-            string += _journeys[mode][j].toString() + "\n";
+        for (var j = 0; j < 4 && j < _departures[mode].size(); j++) {
+            string += _departures[mode][j].toString() + "\n";
         }
 
         return string;
