@@ -70,12 +70,12 @@ class StopDetailViewModel {
         return _repo.getStop(stopCursor);
     }
 
-    function getSelectedJourneys() {
-        return getSelectedStop().getJourneys(modeCursor);
+    function getSelectedDepartures() {
+        return getSelectedStop().getDepartures(modeCursor);
     }
 
-    function getSelectedJourneyCount() {
-        return getSelectedStop().getJourneyCount(modeCursor);
+    function getSelectedDepartureCount() {
+        return getSelectedStop().getDepartureCount(modeCursor);
     }
 
     function getStopCount() {

@@ -67,10 +67,10 @@ class StopDetailView extends WatchUi.View {
         var offsetY = 64;
         var rCircle = 4;
 
-        var journeys = _model.getSelectedJourneys();
+        var departures = _model.getSelectedDepartures();
 
-        for (var j = 0; j < 10 && j < _model.getSelectedJourneyCount(); j++) {
-            var journey = journeys[j];
+        for (var j = 0; j < 10 && j < _model.getSelectedDepartureCount(); j++) {
+            var departure = departures[j];
 
             var yText = offsetY + j * fh * lineHeight;
             var yCircle = yText + fh / 2;
@@ -81,10 +81,10 @@ class StopDetailView extends WatchUi.View {
             var xCircle = Chem.minX(offsetY + fh / 2, dcc.r) + offsetX + rCircle;
             var xText = xCircle + rCircle + offsetX;
 
-            dcc.setColor(journey.getColor());
+            dcc.setColor(departure.getColor());
             dcc.dc.fillCircle(xCircle, yCircle, rCircle);
             dcc.resetColor();
-            dcc.dc.drawText(xText, yText, font, journey.toString(), Graphics.TEXT_JUSTIFY_LEFT);
+            dcc.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
 
