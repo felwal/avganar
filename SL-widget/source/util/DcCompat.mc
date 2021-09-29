@@ -1,6 +1,3 @@
-import Toybox.Lang;
-import Toybox.Graphics;
-
 using Toybox.Math;
 using Carbon.Graphite;
 using Carbon.Graphene;
@@ -9,17 +6,17 @@ using Carbon.Chem;
 (:glance)
 class DcCompat {
 
-    var dc as Dc;
+    var dc ;
 
-    var w as Number;
-    var h as Number;
-    var cx as Number;
-    var cy as Number;
-    var r as Number or Null = null;
+    var w;
+    var h;
+    var cx;
+    var cy;
+    var r = null;
 
     //
 
-    function initialize(dc as Dc) {
+    function initialize(dc) {
         self.dc = dc;
         w = dc.getWidth();
         h = dc.getHeight();
@@ -33,7 +30,7 @@ class DcCompat {
 
     // color
 
-    function setColor(foreground as Number) {
+    function setColor(foreground) {
         dc.setColor(foreground, Graphene.COLOR_BLACK);
     }
 
@@ -43,12 +40,12 @@ class DcCompat {
 
     // draw text
 
-    function drawGlanceTitle(text as String) as Void {
+    function drawGlanceTitle(text) {
         Graphite.resetColor(dc);
         dc.drawText(0, 0, Graphene.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
-    function drawViewTitle(text as String) as Void {
+    function drawViewTitle(text) {
         Graphite.resetColor(dc);
         dc.drawText(w / 2, 27, Graphene.FONT_TINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
@@ -56,16 +53,14 @@ class DcCompat {
     // fill shape
 
     //! Fill a rectangle around a point
-    public function fillRectangleCentered(xCenter as Numeric, yCenter as Numeric, width as Numeric,
-            height as Numeric) as Void {
+    public function fillRectangleCentered(xCenter, yCenter, width, height) {
         dc.fillRectangle(xCenter - width / 2, yCenter - height / 2, width, height);
     }
 
     // stroke shape
 
     //! Fill a circle with an outside stroke
-    function strokeCircle(x as Numeric, y as Numeric, r as Numeric, strokeWidth as Numeric, fillColor as ColorType,
-            strokeColor as ColorType) as Void {
+    function strokeCircle(x, y, r, strokeWidth, fillColor, strokeColor) {
         // stroke
         setColor(strokeColor);
         dc.fillCircle(x, y, r + strokeWidth);
@@ -76,8 +71,7 @@ class DcCompat {
     }
 
     //! Fill a rectangle with an outside stroke
-    function strokeRectangle(x as Numeric, y as Numeric, width as Numeric, height as Numeric, strokeWidth as Numeric,
-            fillColor as ColorType, strokeColor as ColorType) as Void {
+    function strokeRectangle(x, y, width, height, strokeWidth, fillColor, strokeColor) {
         // stroke
         setColor(strokeColor);
         dc.fillRectangle(x - strokeWidth, y - strokeWidth, width + 2 * strokeWidth, height + 2 * strokeWidth);
@@ -88,8 +82,7 @@ class DcCompat {
     }
 
     //! Fill a rectangle with an outside stroke around a point
-    function strokeRectangleCentered(xCenter as Numeric, yCenter as Numeric, width as Numeric, height as Numeric,
-            strokeWidth as Numeric, fillColor as ColorType, strokeColor as ColorType) as Void {
+    function strokeRectangleCentered(xCenter, yCenter, width, height, strokeWidth, fillColor, strokeColor) {
         // stroke
         setColor(strokeColor);
         fillRectangleCentered(xCenter, yCenter, width + 2 * strokeWidth, height);
@@ -101,7 +94,7 @@ class DcCompat {
 
     // widget
 
-    function drawHorizontalPageIndicator(pageCount as Number, index as Number) as Void {
+    function drawHorizontalPageIndicator(pageCount, index) {
         if (pageCount <= 1) {
             return;
         }
@@ -139,7 +132,7 @@ class DcCompat {
         }
     }
 
-    function drawVerticalPageIndicator(pageCount as Number, index as Number) as Void {
+    function drawVerticalPageIndicator(pageCount, index) {
         if (pageCount <= 1) {
             return;
         }

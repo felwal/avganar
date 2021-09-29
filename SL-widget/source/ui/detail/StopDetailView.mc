@@ -1,5 +1,3 @@
-import Toybox.Lang;
-
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Carbon.Graphite as Graphite;
@@ -8,11 +6,11 @@ using Carbon.Chem as Chem;
 
 class StopDetailView extends WatchUi.View {
 
-    private var _model as StopDetailViewModel;
+    private var _model;
 
     //
 
-    function initialize(container as Container) as Void {
+    function initialize(container) {
         View.initialize();
         _model = container.stopDetailViewModel;
     }
@@ -20,19 +18,19 @@ class StopDetailView extends WatchUi.View {
     // override View
 
     //! Load resources
-    function onLayout(dc as Dc) as Void {
+    function onLayout(dc) {
         setLayout(Rez.Layouts.main_layout(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
-    function onShow() as Void {
+    function onShow() {
         _model.enableRequests();
     }
 
     //! Update the view
-    function onUpdate(dc as Dc) as Void {
+    function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
 
@@ -44,13 +42,13 @@ class StopDetailView extends WatchUi.View {
     //! Called when this View is removed from the screen. Save the
     //! state of this View here. This includes freeing resources from
     //! memory.
-    function onHide() as Void {
+    function onHide() {
         _model.disableRequests();
     }
 
     // draw
 
-    private function _draw(dcc as DcCompat) as Void {
+    private function _draw(dcc) {
         var stop = _model.getSelectedStop();
 
         // text
@@ -62,7 +60,7 @@ class StopDetailView extends WatchUi.View {
         dcc.drawVerticalPageIndicator(_model.getStopCount(), _model.stopCursor);
     }
 
-    private function _drawDepartures(dcc as DcCompat) as Void {
+    private function _drawDepartures(dcc) {
         var font = Graphene.FONT_XTINY;
         var fh = dcc.dc.getFontHeight(font);
         var lineHeight = 1.5;

@@ -1,17 +1,15 @@
-import Toybox.Lang;
-
 using Toybox.Application;
 
 (:glance)
 class Repository {
 
-    private var _pos as PositionModel;
-    private var _storage as StorageModel;
-    private var _sl as SlApi;
+    private var _pos;
+    private var _storage;
+    private var _sl;
 
     //
 
-    function initialize(pos as PositionModel, storage as StorageModel, sl as SlApi) as Void {
+    function initialize(pos, storage, sl) {
         _pos = pos;
         _storage = storage;
         _sl = sl;
@@ -21,80 +19,80 @@ class Repository {
 
     // request
 
-    function requestNearbyStopsGlance() as Void {
+    function requestNearbyStopsGlance() {
         _sl.requestNearbyStopsGlance(_pos.getLatDeg(), _pos.getLonDeg());
         //_sl.requestNearbyStopsGlance(debugLat, debugLon);
     }
 
-    function requestNearbyStopsDetail() as Void {
+    function requestNearbyStopsDetail() {
         _sl.requestNearbyStopsDetail(_pos.getLatDeg(), _pos.getLonDeg());
         //_sl.requestNearbyStopsGlance(debugLat, debugLon);
     }
 
-    function requestDeparturesGlance() as Void {
+    function requestDeparturesGlance() {
         _sl.requestDeparturesGlance();
     }
 
-    function requestDeparturesDetail(index as Number) as Void {
+    function requestDeparturesDetail(index) {
         _sl.stopCursorDetail = index;
         _sl.requestDeparturesDetail();
     }
 
     // read
 
-    function getStopGlanceString(index as Number) as String {
+    function getStopGlanceString(index) {
         return getStop(index).toGlanceString();
     }
 
-    function getStopDetailString(stopIndex as Number, modeIndex as Number) as String {
+    function getStopDetailString(stopIndex, modeIndex) {
         return getStop(stopIndex).toDetailString(modeIndex);
     }
 
-    function getStop(index as Number) as Stop {
+    function getStop(index) {
         return _storage.getStop(index);
     }
 
-    function getStopCount() as Number {
+    function getStopCount() {
         return _storage.getStopCount();
     }
 
-    function getModeCount(stopIndex as Number) as Number {
+    function getModeCount(stopIndex) {
         return getStop(stopIndex).getModeCount();
     }
 
-    function getStopIndexRotated(index as Number, amount as Number) as Number {
+    function getStopIndexRotated(index, amount) {
         return mod(index + amount, getStopCount());
     }
 
-    function getModeIndexRotated(stopIndex as Number, modeIndex as Number) as Number {
+    function getModeIndexRotated(stopIndex, modeIndex) {
         return mod(modeIndex + 1, getModeCount(stopIndex));
     }
 
     // write
 
-    function enablePositionHandlingGlance() as Void {
+    function enablePositionHandlingGlance() {
         setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStopsGlance));
     }
 
-    function enablePositionHandlingDetail() as Void {
+    function enablePositionHandlingDetail() {
         setPositionHandling(Position.LOCATION_CONTINUOUS, method(:requestNearbyStopsDetail));
     }
 
-    function setPositionHandling(acquisitionType as Number, onRegisterPosition as Method) as Void {
+    function setPositionHandling(acquisitionType, onRegisterPosition) {
         // set location event listener and get last location while waiting
         _pos.enableLocationEvents(acquisitionType);
         _pos.registerLastKnownPosition(Activity.getActivityInfo());
         _pos.onRegisterPosition = onRegisterPosition;
     }
 
-    function disablePositionHandling() as Void {
+    function disablePositionHandling() {
         _pos.enableLocationEvents(Position.LOCATION_DISABLE);
         _pos.onRegisterPosition = null;
     }
 
-    function setPlaceholderStop() as Void {
+    function setPlaceholderStop() {
         if (!_storage.hasStops()) {
-            var message as String;
+            var message;
 
             if (!_pos.isPositioned()) {
                 message = Application.loadResource(Rez.Strings.lbl_i_stops_locating);

@@ -1,5 +1,3 @@
-import Toybox.Lang;
-
 using Toybox.Application;
 using Toybox.Communications;
 using Toybox.Lang;
@@ -24,13 +22,13 @@ class SlApi {
     private static const _TIMEWINDOW_DETAIL = _TIMEWINDOW_MAX;
 
     static const STOP_CURSOR_GLANCE = 0;
-    var stopCursorDetail as Number = 0;
+    var stopCursorDetail = 0;
 
-    private var _storage as StorageModel;
+    private var _storage;
 
     //
 
-    function initialize(storage as StorageModel) as Void {
+    function initialize(storage) {
         _storage = storage;
     }
 
@@ -38,18 +36,17 @@ class SlApi {
     // bronze: 10_000/month, 30/min
     // TODO: only call these when the distance diff is > x m
 
-    function requestNearbyStopsGlance(lat as Double, lon as Double) as Void {
+    function requestNearbyStopsGlance(lat, lon) {
         Log.i("Requesting glance stops for coords (" + lat + ", " + lon + ") ...");
         _requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
     }
 
-    function requestNearbyStopsDetail(lat as Double, lon as Double) as Void {
+    function requestNearbyStopsDetail(lat, lon) {
         Log.i("Requesting detail stops for coords (" + lat + ", " + lon + ") ...");
         _requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
     }
 
-    private function _requestNearbyStops(lat as Double, lon as Double, maxNo as Number,
-            responseCallback as Method) as Void {
+    private function _requestNearbyStops(lat, lon, maxNo, responseCallback) {
         var url = "https://api.sl.se/api2/nearbystopsv2";
 
         var params = {
@@ -69,7 +66,7 @@ class SlApi {
         Communications.makeWebRequest(url, params, options, responseCallback);
     }
 
-    function onReceiveNearbyStopsGlance(responseCode as Number, data as Dictionary) {
+    function onReceiveNearbyStopsGlance(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
             var requestDepartures = _handleNearbyStopsResponseOk(data, _MAX_STOPS_GLANCE, STOP_CURSOR_GLANCE);
 
@@ -85,7 +82,7 @@ class SlApi {
         WatchUi.requestUpdate();
     }
 
-    function onReceiveNearbyStopsDetail(responseCode as Number, data as Dictionary) {
+    function onReceiveNearbyStopsDetail(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
             var requestDepartures = _handleNearbyStopsResponseOk(data, _MAX_STOPS_DETAIL, stopCursorDetail);
 
@@ -102,13 +99,12 @@ class SlApi {
     }
 
     //! @return If the selected stop has changed and ddepartures should be requested
-    private function _handleNearbyStopsResponseOk(data as Dictionary, maxStops as Number,
-            stopCursor as Number) as Void {
+    private function _handleNearbyStopsResponseOk(data, maxStops, stopCursor) {
         Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!_hasKey(data, "stopLocationOrCoordLocation")) {
-            var message as String;
+            var message;
 
             if (_hasKey(data, "Message")) {
                 message = data["Message"];
@@ -123,9 +119,9 @@ class SlApi {
 
         // stops were found
 
-        var stopIds as Array<Number> = [];
-        var stopNames as Array<String> = [];
-        var stops as Array<Stop> = [];
+        var stopIds = [];
+        var stopNames = [];
+        var stops = [];
 
         var stopsData = data["stopLocationOrCoordLocation"];
         for (var i = 0; i < maxStops && i < stopsData.size(); i++) {
@@ -133,7 +129,7 @@ class SlApi {
 
             var extId = stopData["mainMastExtId"];
             var id = extId.substring(5, extId.length()).toNumber();
-            var name = stopData["name"] as String;
+            var name = stopData["name"];
 
             stopIds.add(id);
             stopNames.add(name);
@@ -142,8 +138,8 @@ class SlApi {
 
         // apply
 
-        var oldSelectedStop as Stop = _storage.getStop(stopCursor);
-        var newSelectedStopId as Number = stopIds[stopCursor];
+        var oldSelectedStop = _storage.getStop(stopCursor);
+        var newSelectedStopId = stopIds[stopCursor];
 
         Log.d("Old siteId: " + oldSelectedStop.id + "; new siteId: " + newSelectedStopId);
 
@@ -158,10 +154,10 @@ class SlApi {
         return true;
     }
 
-    private function _handleNearbyStopsResponseError(responseCode as Number, data as Dictionary) as Void {
+    private function _handleNearbyStopsResponseError(responseCode, data) {
         Log.e("Stops response error (code " + responseCode + "): " + data);
 
-        var message as String;
+        var message;
 
         if (_hasKey(data, "Message")) {
             message = data["Message"];
@@ -182,7 +178,7 @@ class SlApi {
     // departures (Realtidsinformation 4)
     // bronze: 10_000/month, 30/min
 
-    function requestDeparturesGlance() as Void {
+    function requestDeparturesGlance() {
         var siteId = _storage.getStopId(STOP_CURSOR_GLANCE);
 
         if (siteId != null && siteId != Stop.NO_ID) {
@@ -191,7 +187,7 @@ class SlApi {
         }
     }
 
-    function requestDeparturesDetail() as Void {
+    function requestDeparturesDetail() {
         var siteId = _storage.getStopId(stopCursorDetail);
 
         if (siteId != null && siteId != Stop.NO_ID) {
@@ -200,7 +196,7 @@ class SlApi {
         }
     }
 
-    private function _requestDepartures(siteId as Number, timewindow as Number) as Void {
+    private function _requestDepartures(siteId, timewindow) {
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
@@ -219,17 +215,17 @@ class SlApi {
         Communications.makeWebRequest(url, params, options, method(:onReceiveDepartures));
     }
 
-    function onReceiveDepartures(responseCode as Number, data as Dictionary) as Void {
+    function onReceiveDepartures(responseCode, data) {
         if (responseCode == _RESPONSE_OK && _hasKey(data, "ResponseData")) {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
             var modesSingular= [ "metro", "bus", "train", "tram", "ship" ];
-            var journeys as Array<Array> = [];
+            var journeys = [];
 
             for (var m = 0; m < modes.size(); m++) {
                 var modeData = data["ResponseData"][modes[m]];
-                var modeJourneys as Array<Journey> = [];
+                var modeJourneys = [];
 
                 for (var j = 0; j < modeData.size() && modeJourneys.size() < _MAX_DEPARTURES_DETAIL; j++) {
                     var journeyData = modeData[j];
@@ -237,7 +233,7 @@ class SlApi {
                     var mode = journeyData["TransportMode"];
                     var line = journeyData["LineNumber"];
                     var destination = journeyData["Destination"];
-                    var direction = journeyData["JourneyDirection"].toNumber();
+                    var direction = journeyData["JourneyDirection"];
                     var displayTime = journeyData["DisplayTime"];
 
                     modeJourneys.add(new Journey(mode, line, destination, direction, displayTime));
@@ -264,8 +260,8 @@ class SlApi {
 
     // tool
 
-    private function _hasKey(dict as Dictionary, key as Any) as Boolean {
-        return key != null && dict != null && dict.hasKey(key) && dict[key] != null;
+    private function _hasKey(dict, key) {
+        return dict != null && dict.hasKey(key) && dict[key] != null;
     }
 
 }

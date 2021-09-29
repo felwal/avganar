@@ -1,4 +1,3 @@
-import Toybox.Lang;
 
 (:glance)
 class Container {
@@ -14,5 +13,10 @@ class Container {
     // viewmodel
     var stopGlanceViewModel = new StopGlanceViewModel(_repo);
     var stopDetailViewModel = new StopDetailViewModel(_repo);
+
+    //
+
+    function initialize() {
+    }
 
 }
