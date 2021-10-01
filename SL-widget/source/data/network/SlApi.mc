@@ -265,6 +265,9 @@ class SlApi {
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
             _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_departures_queue_full));
         }
+        else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
+            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_response_size));
+        }
         else {
             Log.e("Departures response error (code " + responseCode + "): " + data);
             _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode);

@@ -14,9 +14,4 @@ class Container {
     var stopGlanceViewModel = new StopGlanceViewModel(_repo);
     var stopDetailViewModel = new StopDetailViewModel(_repo);
 
-    //
-
-    function initialize() {
-    }
-
 }

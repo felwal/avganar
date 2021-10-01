@@ -13,7 +13,7 @@ class StopDetailViewModel {
     private var _repo;
     private var _timer = new Timer.Timer();
 
-    //
+    // init
 
     function initialize(repo) {
         _repo = repo;
@@ -23,14 +23,14 @@ class StopDetailViewModel {
 
     function enableRequests() {
         _repo.setPlaceholderStop();
-        _enableLocationEvents();
+        _repo.enablePositionHandlingDetail();
         _makeRequestsDelayed();
         _startRequestTimer();
     }
 
     function disableRequests() {
-        _disableLocationEvents();
-        _stopRequestTimer();
+        _repo.disablePositionHandling();
+        _timer.stop();
     }
 
     private function _makeRequestsDelayed() {
@@ -41,23 +41,11 @@ class StopDetailViewModel {
         _timer.start(method(:makeRequests), _REQUEST_TIME_INTERVAL, true);
     }
 
-    private function _stopRequestTimer() {
-        _timer.stop();
-    }
-
     //! Make requests to SlApi neccessary for detail display.
     //! This needs to be public to be able to be called by timer.
     function makeRequests() {
         _repo.requestDeparturesDetail(stopCursor);
         //_repo.requestNearbyStopsDetail(); // TODO: temp
-    }
-
-    private function _enableLocationEvents() {
-        _repo.enablePositionHandlingDetail();
-    }
-
-    private function _disableLocationEvents() {
-        _repo.disablePositionHandling();
     }
 
     // read

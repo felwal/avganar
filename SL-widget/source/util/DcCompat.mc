@@ -13,7 +13,7 @@ class DcCompat {
     var cy;
     var r = null;
 
-    //
+    // init
 
     function initialize(dc) {
         self.dc = dc;

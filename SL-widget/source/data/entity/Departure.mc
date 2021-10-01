@@ -16,7 +16,7 @@ class Departure {
     private var _direction;
     private var _displayTime;
 
-    //
+    // init
 
     function initialize(mode, line, destination, direction, displayTime) {
         _mode = mode;
@@ -31,7 +31,7 @@ class Departure {
         return new Departure(_MODE_NONE, "", "", "", msg);
     }
 
-    //
+    // get
 
     function toString() {
         return _displayTime + " " + _line + " " + _destination;

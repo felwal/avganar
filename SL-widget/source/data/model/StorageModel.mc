@@ -11,7 +11,7 @@ class StorageModel {
     private var _stopNames = [];
     private var _stops = [];
 
-    //
+    // init
 
 
     function initialize() {
