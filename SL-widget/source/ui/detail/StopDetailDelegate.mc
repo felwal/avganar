@@ -4,7 +4,7 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     private var _model;
 
-    //
+    // init
 
     function initialize(container) {
         BehaviorDelegate.initialize();

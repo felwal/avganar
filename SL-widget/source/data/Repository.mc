@@ -7,7 +7,7 @@ class Repository {
     private var _storage;
     private var _sl;
 
-    //
+    // init
 
     function initialize(pos, storage, sl) {
         _pos = pos;
@@ -75,7 +75,7 @@ class Repository {
     }
 
     function enablePositionHandlingDetail() {
-        setPositionHandling(Position.LOCATION_CONTINUOUS, method(:requestNearbyStopsDetail));
+        setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStopsDetail));
     }
 
     function setPositionHandling(acquisitionType, onRegisterPosition) {

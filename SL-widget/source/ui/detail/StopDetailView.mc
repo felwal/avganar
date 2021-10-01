@@ -7,7 +7,7 @@ class StopDetailView extends WatchUi.View {
 
     private var _model;
 
-    //
+    // init
 
     function initialize(container) {
         View.initialize();

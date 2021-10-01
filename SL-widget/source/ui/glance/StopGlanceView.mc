@@ -7,7 +7,7 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     private var _model;
 
-    //
+    // init
 
     function initialize(container) {
         GlanceView.initialize();

@@ -4,6 +4,8 @@ class App extends Application.AppBase {
 
     private var _container;
 
+    // init
+
     function initialize() {
         AppBase.initialize();
     }

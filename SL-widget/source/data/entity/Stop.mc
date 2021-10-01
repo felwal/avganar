@@ -10,7 +10,7 @@ class Stop {
     public var name;
     private var _departures = [ [ Departure.placeholder(Application.loadResource(Rez.Strings.lbl_i_departures_searching)) ] ];
 
-    //
+    // init
 
     function initialize(id, name) {
         self.id = id;
@@ -21,7 +21,7 @@ class Stop {
         return new Stop(NO_ID, name);
     }
 
-    //
+    // set
 
     function setDepartures(departures) {
         // don't put departure placeholders in placeholder stops
@@ -30,7 +30,7 @@ class Stop {
         }
     }
 
-    //
+    // get
 
     function equals(object) {
         return id == object.id;
