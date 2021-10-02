@@ -23,7 +23,7 @@ class StopDetailViewModel {
 
     function enableRequests() {
         _repo.setPlaceholderStop();
-        _repo.enablePositionHandlingDetail();
+        _repo.enablePositionHandling();
         _makeRequestsDelayed();
         _startRequestTimer();
     }
@@ -44,14 +44,14 @@ class StopDetailViewModel {
     //! Make requests to SlApi neccessary for detail display.
     //! This needs to be public to be able to be called by timer.
     function makeRequests() {
-        _repo.requestDeparturesDetail(stopCursor);
-        //_repo.requestNearbyStopsDetail(); // TODO: temp
+        _repo.requestDepartures(stopCursor);
+        //_repo.requestNearbyStops(); // TODO: temp
     }
 
     // read
 
     function getSelectedStopString() {
-        return _repo.getStopDetailString(stopCursor, modeCursor);
+        return _repo.getStopString(stopCursor, modeCursor);
     }
 
     function getSelectedStop() {
@@ -90,7 +90,7 @@ class StopDetailViewModel {
 
         // TODO: maybe a better way to request departures
         //  e.g. let timer request for all stops
-        _repo.requestDeparturesDetail(stopCursor);
+        _repo.requestDepartures(stopCursor);
         WatchUi.requestUpdate();
     }
 

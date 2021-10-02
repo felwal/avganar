@@ -1,11 +1,11 @@
 using Toybox.Application;
 
 (:glance)
-class Repository {
+class StopRepository {
 
-    private var _position;
-    private var _storage;
-    private var _api;
+    protected var _position;
+    protected var _storage;
+    protected var _api;
 
     // init
 
@@ -17,36 +17,7 @@ class Repository {
         //_storage.resetStops(); _position.setPosDeg(debugLat, debugLon);
     }
 
-    // request
-
-    function requestNearbyStopsGlance() {
-        _api.requestNearbyStopsGlance(_position.getLatDeg(), _position.getLonDeg());
-        //_api.requestNearbyStopsGlance(debugLat, debugLon);
-    }
-
-    function requestNearbyStopsDetail() {
-        _api.requestNearbyStopsDetail(_position.getLatDeg(), _position.getLonDeg());
-        //_api.requestNearbyStopsGlance(debugLat, debugLon);
-    }
-
-    function requestDeparturesGlance() {
-        _api.requestDeparturesGlance();
-    }
-
-    function requestDeparturesDetail(index) {
-        _api.stopCursorDetail = index;
-        _api.requestDeparturesDetail();
-    }
-
-    // read
-
-    function getStopGlanceString(index) {
-        return getStop(index).toGlanceString();
-    }
-
-    function getStopDetailString(stopIndex, modeIndex) {
-        return getStop(stopIndex).toDetailString(modeIndex);
-    }
+    // get
 
     function getStop(index) {
         return _storage.getStop(index);
@@ -68,17 +39,9 @@ class Repository {
         return mod(modeIndex + 1, getModeCount(stopIndex));
     }
 
-    // write
+    // set
 
-    function enablePositionHandlingGlance() {
-        setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStopsGlance));
-    }
-
-    function enablePositionHandlingDetail() {
-        setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStopsDetail));
-    }
-
-    function setPositionHandling(acquisitionType, onRegisterPosition) {
+    protected function setPositionHandling(acquisitionType, onRegisterPosition) {
         // set location event listener and get last location while waiting
         _position.enableLocationEvents(acquisitionType);
         _position.registerLastKnownPosition(Activity.getActivityInfo());
