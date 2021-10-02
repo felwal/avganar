@@ -8,7 +8,6 @@ class StopGlanceViewModel {
     private static const _STOP_CURSOR = 0;
 
     private var _repo;
-
     private var _timer = new Timer.Timer();
 
     // init
@@ -21,7 +20,7 @@ class StopGlanceViewModel {
 
     function enableRequests() {
         _repo.setPlaceholderStop();
-        _repo.enablePositionHandlingGlance();
+        _repo.enablePositionHandling();
         _makeRequestsDelayed();
         _startRequestTimer();
     }
@@ -42,14 +41,14 @@ class StopGlanceViewModel {
     //! Make requests to SlApi neccessary for glance display.
     //! This needs to be public to be able to be called by timer.
     function makeRequests() {
-        _repo.requestDeparturesGlance();
-        //_repo.requestNearbyStopsGlance(); // TODO: temp
+        _repo.requestDepartures();
+        //_repo.requestNearbyStops(); // TODO: temp
     }
 
     // read
 
     function getStopString() {
-        return _repo.getStopGlanceString(_STOP_CURSOR);
+        return _repo.getStopString(_STOP_CURSOR);
     }
 
 }
