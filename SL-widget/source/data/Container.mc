@@ -3,12 +3,12 @@
 class Container {
 
     // data source
-    private var _pos = new PositionModel();
+    private var _position = new PositionModel();
     private var _storage = new StorageModel();
-    private var _sl = new SlApi(_storage);
+    private var _api = new SlApi(_storage);
 
     // repository
-    private var _repo = new Repository(_pos, _storage, _sl);
+    private var _repo = new Repository(_position, _storage, _api);
 
     // viewmodel
     var stopGlanceViewModel = new StopGlanceViewModel(_repo);

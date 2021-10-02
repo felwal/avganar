@@ -5,13 +5,13 @@ using Carbon.Chem as Chem;
 
 class StopDetailView extends WatchUi.View {
 
-    private var _model;
+    private var _viewModel;
 
     // init
 
     function initialize(container) {
         View.initialize();
-        _model = container.stopDetailViewModel;
+        _viewModel = container.stopDetailViewModel;
     }
 
     // override View
@@ -25,7 +25,7 @@ class StopDetailView extends WatchUi.View {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-        _model.enableRequests();
+        _viewModel.enableRequests();
     }
 
     //! Update the view
@@ -42,21 +42,21 @@ class StopDetailView extends WatchUi.View {
     //! state of this View here. This includes freeing resources from
     //! memory.
     function onHide() {
-        _model.disableRequests();
+        _viewModel.disableRequests();
     }
 
     // draw
 
     private function _draw(dcc) {
-        var stop = _model.getSelectedStop();
+        var stop = _viewModel.getSelectedStop();
 
         // text
         dcc.drawViewTitle(stop.name);
         _drawDepartures(dcc);
 
         // widget
-        dcc.drawHorizontalPageIndicator(_model.getModeCount(), _model.modeCursor);
-        dcc.drawVerticalPageIndicator(_model.getStopCount(), _model.stopCursor);
+        dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
+        dcc.drawVerticalPageIndicator(_viewModel.getStopCount(), _viewModel.stopCursor);
     }
 
     private function _drawDepartures(dcc) {
@@ -67,9 +67,9 @@ class StopDetailView extends WatchUi.View {
         var offsetY = 64;
         var rCircle = 4;
 
-        var departures = _model.getSelectedDepartures();
+        var departures = _viewModel.getSelectedDepartures();
 
-        for (var j = 0; j < 10 && j < _model.getSelectedDepartureCount(); j++) {
+        for (var j = 0; j < 10 && j < _viewModel.getSelectedDepartureCount(); j++) {
             var departure = departures[j];
 
             var yText = offsetY + j * fh * lineHeight;

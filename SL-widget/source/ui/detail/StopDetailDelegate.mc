@@ -2,32 +2,32 @@ using Toybox.WatchUi;
 
 class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _model;
+    private var _viewModel;
 
     // init
 
     function initialize(container) {
         BehaviorDelegate.initialize();
-        _model = container.stopDetailViewModel;
+        _viewModel = container.stopDetailViewModel;
     }
 
     // override BehaviorDelegate
 
     //! "DOWN"
     function onNextPage() {
-        _model.incStopCursor();
+        _viewModel.incStopCursor();
         return true;
     }
 
     //! "UP"
     function onPreviousPage() {
-        _model.decStopCursor();
+        _viewModel.decStopCursor();
         return true;
     }
 
     //! "START-STOP"
     function onSelect() {
-        _model.incModeCursor();
+        _viewModel.incModeCursor();
         return true;
     }
 
