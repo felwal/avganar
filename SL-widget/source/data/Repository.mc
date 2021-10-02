@@ -3,39 +3,39 @@ using Toybox.Application;
 (:glance)
 class Repository {
 
-    private var _pos;
+    private var _position;
     private var _storage;
-    private var _sl;
+    private var _api;
 
     // init
 
-    function initialize(pos, storage, sl) {
-        _pos = pos;
+    function initialize(position, storage, api) {
+        _position = position;
         _storage = storage;
-        _sl = sl;
+        _api = api;
 
-        //_storage.resetStops(); _pos.setPosDeg(debugLat, debugLon);
+        //_storage.resetStops(); _position.setPosDeg(debugLat, debugLon);
     }
 
     // request
 
     function requestNearbyStopsGlance() {
-        _sl.requestNearbyStopsGlance(_pos.getLatDeg(), _pos.getLonDeg());
-        //_sl.requestNearbyStopsGlance(debugLat, debugLon);
+        _api.requestNearbyStopsGlance(_position.getLatDeg(), _position.getLonDeg());
+        //_api.requestNearbyStopsGlance(debugLat, debugLon);
     }
 
     function requestNearbyStopsDetail() {
-        _sl.requestNearbyStopsDetail(_pos.getLatDeg(), _pos.getLonDeg());
-        //_sl.requestNearbyStopsGlance(debugLat, debugLon);
+        _api.requestNearbyStopsDetail(_position.getLatDeg(), _position.getLonDeg());
+        //_api.requestNearbyStopsGlance(debugLat, debugLon);
     }
 
     function requestDeparturesGlance() {
-        _sl.requestDeparturesGlance();
+        _api.requestDeparturesGlance();
     }
 
     function requestDeparturesDetail(index) {
-        _sl.stopCursorDetail = index;
-        _sl.requestDeparturesDetail();
+        _api.stopCursorDetail = index;
+        _api.requestDeparturesDetail();
     }
 
     // read
@@ -80,21 +80,21 @@ class Repository {
 
     function setPositionHandling(acquisitionType, onRegisterPosition) {
         // set location event listener and get last location while waiting
-        _pos.enableLocationEvents(acquisitionType);
-        _pos.registerLastKnownPosition(Activity.getActivityInfo());
-        _pos.onRegisterPosition = onRegisterPosition;
+        _position.enableLocationEvents(acquisitionType);
+        _position.registerLastKnownPosition(Activity.getActivityInfo());
+        _position.onRegisterPosition = onRegisterPosition;
     }
 
     function disablePositionHandling() {
-        _pos.enableLocationEvents(Position.LOCATION_DISABLE);
-        _pos.onRegisterPosition = null;
+        _position.enableLocationEvents(Position.LOCATION_DISABLE);
+        _position.onRegisterPosition = null;
     }
 
     function setPlaceholderStop() {
         if (!_storage.hasStops()) {
             var message;
 
-            if (!_pos.isPositioned()) {
+            if (!_position.isPositioned()) {
                 message = Application.loadResource(Rez.Strings.lbl_i_stops_locating);
             }
             else {

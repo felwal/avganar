@@ -5,13 +5,13 @@ using Carbon.Graphene as Graphene;
 (:glance)
 class StopGlanceView extends WatchUi.GlanceView {
 
-    private var _model;
+    private var _viewModel;
 
     // init
 
     function initialize(container) {
         GlanceView.initialize();
-        _model = container.stopGlanceViewModel;
+        _viewModel = container.stopGlanceViewModel;
     }
 
     // override GlanceView
@@ -25,7 +25,7 @@ class StopGlanceView extends WatchUi.GlanceView {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-        _model.enableRequests();
+        _viewModel.enableRequests();
     }
 
     //! Update the view
@@ -42,13 +42,13 @@ class StopGlanceView extends WatchUi.GlanceView {
     //! state of this View here. This includes freeing resources from
     //! memory.
     function onHide() {
-        _model.disableRequests();
+        _viewModel.disableRequests();
     }
 
     // draw
 
     private function _draw(dcc) {
-        dcc.drawGlanceTitle(_model.getStopString());
+        dcc.drawGlanceTitle(_viewModel.getStopString());
     }
 
 }
