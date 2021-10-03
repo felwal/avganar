@@ -5,19 +5,31 @@ class StopRepository {
 
     protected var _position;
     protected var _storage;
-    protected var _api;
 
     // init
 
-    function initialize(position, storage, api) {
+    function initialize(position, storage) {
         _position = position;
         _storage = storage;
-        _api = api;
 
         //_storage.resetStops(); _position.setPosDeg(debugLat, debugLon);
     }
 
-    // get
+    // position
+
+    protected function setPositionHandling(acquisitionType, onRegisterPosition) {
+        // set location event listener and get last location while waiting
+        _position.enableLocationEvents(acquisitionType);
+        _position.registerLastKnownPosition(Activity.getActivityInfo());
+        _position.onRegisterPosition = onRegisterPosition;
+    }
+
+    function disablePositionHandling() {
+        _position.enableLocationEvents(Position.LOCATION_DISABLE);
+        _position.onRegisterPosition = null;
+    }
+
+    // storage
 
     function getStop(index) {
         return _storage.getStop(index);
@@ -37,20 +49,6 @@ class StopRepository {
 
     function getModeIndexRotated(stopIndex, modeIndex) {
         return mod(modeIndex + 1, getModeCount(stopIndex));
-    }
-
-    // set
-
-    protected function setPositionHandling(acquisitionType, onRegisterPosition) {
-        // set location event listener and get last location while waiting
-        _position.enableLocationEvents(acquisitionType);
-        _position.registerLastKnownPosition(Activity.getActivityInfo());
-        _position.onRegisterPosition = onRegisterPosition;
-    }
-
-    function disablePositionHandling() {
-        _position.enableLocationEvents(Position.LOCATION_DISABLE);
-        _position.onRegisterPosition = null;
     }
 
     function setPlaceholderStop() {

@@ -23,7 +23,7 @@ class StopDetailViewModel {
 
     function enableRequests() {
         _repo.setPlaceholderStop();
-        _repo.enablePositionHandling();
+        _repo.enablePositionHandling(method(:getStopCursor));
         _makeRequestsDelayed();
         _startRequestTimer();
     }
@@ -49,6 +49,10 @@ class StopDetailViewModel {
     }
 
     // read
+
+    function getStopCursor() {
+        return stopCursor;
+    }
 
     function getSelectedStopString() {
         return _repo.getStopString(stopCursor, modeCursor);
