@@ -275,23 +275,23 @@ class DcCompat {
 
         switch (direction) {
             case DIR_LEFT:
-                point2 = addArrays(point1, [ deltaHori, deltaVert ]);
-                point3 = addArrays(point1, [ deltaHori, -deltaVert ]);
+                point2 = ArrCompat.add(point1, [ deltaHori, deltaVert ]);
+                point3 = ArrCompat.add(point1, [ deltaHori, -deltaVert ]);
                 break;
 
             case DIR_RIGHT:
-                point2 = addArrays(point1, [ -deltaHori, deltaVert ]);
-                point3 = addArrays(point1, [ -deltaHori, -deltaVert ]);
+                point2 = ArrCompat.add(point1, [ -deltaHori, deltaVert ]);
+                point3 = ArrCompat.add(point1, [ -deltaHori, -deltaVert ]);
                 break;
 
             case DIR_TOP:
-                point2 = addArrays(point1, [ -deltaHori, deltaVert ]);
-                point3 = addArrays(point1, [ deltaHori, deltaVert ]);
+                point2 = ArrCompat.add(point1, [ -deltaHori, deltaVert ]);
+                point3 = ArrCompat.add(point1, [ deltaHori, deltaVert ]);
                 break;
 
             case DIR_BOTTOM:
-                point2 = addArrays(point1, [ -deltaHori, -deltaVert ]);
-                point3 = addArrays(point1, [ deltaHori, -deltaVert ]);
+                point2 = ArrCompat.add(point1, [ -deltaHori, -deltaVert ]);
+                point3 = ArrCompat.add(point1, [ deltaHori, -deltaVert ]);
                 break;
         }
 

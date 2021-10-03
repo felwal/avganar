@@ -13,26 +13,8 @@ function mod(dividend, divisor) {
 }
 
 (:glance)
-function addArrays(arr1, arr2) {
-    var sum = [];
-
-    for (var i = 0; i < arr1.size() && i < arr2.size(); i++) {
-        sum.add(arr1[i] + arr2[i]);
-    }
-
-    return sum;
-}
-
-// type
-
-(:glance)
-function hasKey(dict, key) {
-    return dict != null && dict.hasKey(key) && dict[key] != null;
-}
-
-(:glance)
-function getKey(dict, key, defaultValue) {
-    return hasKey(dict, key) ? dict[key] : defaultValue;
+function coerceIn(value, min, max) {
+    return min > max ? null : (value < min ? min : (value > max ? max : value));
 }
 
 // resource
