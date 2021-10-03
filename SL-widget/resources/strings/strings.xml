@@ -19,5 +19,6 @@
     <string id="lbl_e_memory" scope="glance">Out of memory</string>
     <string id="lbl_e_response_size" scope="glance">Response too large</string>
     <string id="lbl_e_code" scope="glance">Error code</string>
+    <string id="lbl_e_null_data" scope="glance">No data</string>
 
 </strings>

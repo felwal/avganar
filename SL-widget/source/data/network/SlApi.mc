@@ -6,44 +6,54 @@ using Toybox.WatchUi;
 (:glance)
 class SlApi {
 
-    // api consts
     private static const _RESPONSE_OK = 200;
-    private static const _TIMEWINDOW_MAX = 60;
-    private static const _RADIUS_MAX = 2000;
 
-    // glance consts
+    // nearby stops max stops (max = 1000)
     private static const _MAX_STOPS_GLANCE = 1;
+    private static const _MAX_STOPS_DETAIL = 26;
+
+    // departures max departures
     private static const _MAX_DEPARTURES_GLANCE = 2;
-    private static const _TIMEWINDOW_GLANCE = 15;
-
-    // detail consts
-    private static const _MAX_STOPS_DETAIL = 12;
     private static const _MAX_DEPARTURES_DETAIL = 6;
-    private static const _TIMEWINDOW_DETAIL = _TIMEWINDOW_MAX;
 
-    static const STOP_CURSOR_GLANCE = 0;
-    var stopCursorDetail = 0;
+    // departures time window (max = 60)
+    private static const _TIME_WINDOW_GLANCE = 15;
+    private static const _TIME_WINDOW_DETAIL = 60;
+
+    // nearby stops radius (max = 2000)
+    private static const _maxRadius = 2000;
 
     private var _storage;
+    private var _stopCursor;
 
-    //
+    private var _maxStops;
+    private var _maxDepartures;
+    private var _timeWindow;
 
-    function initialize(storage) {
+    // init
+
+    private function initialize(storage, stopCursor, maxStops, maxDepartures, timeWindow) {
         _storage = storage;
+        _stopCursor = stopCursor;
+        _maxStops = maxStops;
+        _maxDepartures = maxDepartures;
+        _timeWindow = timeWindow;
+    }
+
+    static function glanceRequester(storage) {
+        return new SlApi(storage, 0, _MAX_STOPS_GLANCE, _MAX_DEPARTURES_GLANCE, _TIME_WINDOW_GLANCE);
+    }
+
+    static function detailRequester(storage, stopCursor) {
+        return new SlApi(storage, stopCursor, _MAX_STOPS_DETAIL, _MAX_DEPARTURES_DETAIL, _TIME_WINDOW_DETAIL);
     }
 
     // nearby stops (Närliggande Hållplatser 2)
     // bronze: 10_000/month, 30/min
-    // TODO: only call these when the distance diff is > x m
 
-    function requestNearbyStopsGlance(lat, lon) {
-        Log.i("Requesting glance stops for coords (" + lat + ", " + lon + ") ...");
-        _requestNearbyStops(lat, lon, _MAX_STOPS_GLANCE, method(:onReceiveNearbyStopsGlance));
-    }
-
-    function requestNearbyStopsDetail(lat, lon) {
-        Log.i("Requesting detail stops for coords (" + lat + ", " + lon + ") ...");
-        _requestNearbyStops(lat, lon, _MAX_STOPS_DETAIL, method(:onReceiveNearbyStopsDetail));
+    function requestNearbyStops(lat, lon) {
+        Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
+        _requestNearbyStops(lat, lon, _maxStops, method(:onReceiveNearbyStops));
     }
 
     private function _requestNearbyStops(lat, lon, maxNo, responseCallback) {
@@ -53,7 +63,7 @@ class SlApi {
             "key" => KEY_NH,
             "originCoordLat" => lat,
             "originCoordLong" => lon,
-            "r" => _RADIUS_MAX,
+            "r" => _maxRadius,
             "maxNo" => maxNo
         };
 
@@ -66,13 +76,13 @@ class SlApi {
         Communications.makeWebRequest(url, params, options, responseCallback);
     }
 
-    function onReceiveNearbyStopsGlance(responseCode, data) {
+    function onReceiveNearbyStops(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
-            var requestDepartures = _handleNearbyStopsResponseOk(data, _MAX_STOPS_GLANCE, STOP_CURSOR_GLANCE);
+            var requestDepartures = _handleNearbyStopsResponseOk(data, _maxStops);
 
             // request departures
             if (requestDepartures) {
-                requestDeparturesGlance();
+                requestDepartures();
             }
         }
         else {
@@ -82,31 +92,15 @@ class SlApi {
         WatchUi.requestUpdate();
     }
 
-    function onReceiveNearbyStopsDetail(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && data != null) {
-            var requestDepartures = _handleNearbyStopsResponseOk(data, _MAX_STOPS_DETAIL, stopCursorDetail);
-
-            // request departures
-            if (requestDepartures) {
-                requestDeparturesDetail();
-            }
-        }
-        else {
-            _handleNearbyStopsResponseError(responseCode, data);
-        }
-
-        WatchUi.requestUpdate();
-    }
-
-    //! @return If the selected stop has changed and ddepartures should be requested
-    private function _handleNearbyStopsResponseOk(data, maxStops, stopCursor) {
+    //! @return If the selected stop has changed and departures should be requested
+    private function _handleNearbyStopsResponseOk(data, maxStops) {
         Log.d("Stops response success: " + data);
 
         // no stops were found
-        if (!_hasKey(data, "stopLocationOrCoordLocation")) {
+        if (!hasKey(data, "stopLocationOrCoordLocation")) {
             var message;
 
-            if (_hasKey(data, "Message")) {
+            if (hasKey(data, "Message")) {
                 message = data["Message"];
             }
             else {
@@ -138,15 +132,15 @@ class SlApi {
 
         // apply
 
-        var oldSelectedStop = _storage.getStop(stopCursor);
-        var newSelectedStopId = stopIds[stopCursor];
+        var oldSelectedStop = _storage.getStop(_stopCursor);
+        var newSelectedStopId = stopIds[_stopCursor];
 
         Log.d("Old siteId: " + oldSelectedStop.id + "; new siteId: " + newSelectedStopId);
 
         if (oldSelectedStop.id == newSelectedStopId) {
-            // copy departures as they have not changed
+            // copy departures for selected stop as they have not changed
             // we still need to change stops, as any unselected stop may have changed
-            stops[stopCursor].setDepartures(oldSelectedStop.getAllDepartures());
+            stops[_stopCursor].setDepartures(oldSelectedStop.getAllDepartures());
             _storage.setStops(stopIds, stopNames, stops);
             return false;
         }
@@ -159,8 +153,11 @@ class SlApi {
 
         var message;
 
-        if (_hasKey(data, "Message")) {
+        if (hasKey(data, "Message")) {
             message = data["Message"];
+        }
+        else if (responseCode == _RESPONSE_OK) {
+            message = Application.loadResource(Rez.Strings.lbl_e_null_data);
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
             message = Application.loadResource(Rez.Strings.lbl_e_connection);
@@ -182,31 +179,22 @@ class SlApi {
     // bronze: 10_000/month, 30/min
     // TODO: only call these when the time diff is > x s
 
-    function requestDeparturesGlance() {
-        var siteId = _storage.getStopId(STOP_CURSOR_GLANCE);
+    function requestDepartures() {
+        var siteId = _storage.getStopId(_stopCursor);
 
         if (siteId != null && siteId != Stop.NO_ID) {
-            Log.i("Requesting glance departures for siteId " + siteId + " ...");
-            _requestDepartures(siteId, _TIMEWINDOW_GLANCE);
+            Log.i("Requesting departures for siteId " + siteId + " ...");
+            _requestDepartures(siteId);
         }
     }
 
-    function requestDeparturesDetail() {
-        var siteId = _storage.getStopId(stopCursorDetail);
-
-        if (siteId != null && siteId != Stop.NO_ID) {
-            Log.i("Requesting detail departures for siteId " + siteId + " ...");
-            _requestDepartures(siteId, _TIMEWINDOW_DETAIL);
-        }
-    }
-
-    private function _requestDepartures(siteId, timewindow) {
+    private function _requestDepartures(siteId) {
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
             "key" => KEY_RI,
             "siteid" => siteId.toNumber(),
-            "timewindow" => timewindow
+            "timewindow" => _timeWindow
         };
 
         var options = {
@@ -220,7 +208,7 @@ class SlApi {
     }
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && _hasKey(data, "ResponseData")) {
+        if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
@@ -248,13 +236,16 @@ class SlApi {
             }
 
             if (departures.size() != 0) {
-                _storage.getStop(stopCursorDetail).setDepartures(departures);
+                _storage.getStop(_stopCursor).setDepartures(departures);
             }
             else {
                 Log.d("Departures response empty of departures");
                 _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_i_departures_none_found));
             }
 
+        }
+        else if (responseCode == _RESPONSE_OK) {
+            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_null_data));
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
             _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_connection));
@@ -278,12 +269,12 @@ class SlApi {
 
     // tool
 
-    private function _hasKey(dict, key) {
+    function hasKey(dict, key) {
         return dict != null && dict.hasKey(key) && dict[key] != null;
     }
 
     private function _setPlaceholderDeparture(msg) {
-        _storage.getStop(stopCursorDetail).setDepartures([ [ Departure.placeholder(msg) ] ]);
+        _storage.getStop(_stopCursor).setDepartures([ [ Departure.placeholder(msg) ] ]);
     }
 
 }

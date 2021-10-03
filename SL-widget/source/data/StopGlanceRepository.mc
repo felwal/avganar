@@ -2,33 +2,36 @@
 (:glance)
 class StopGlanceRepository extends StopRepository {
 
+    private var _api;
+
     // init
 
-    function initialize(position, storage, api) {
-        StopRepository.initialize(position, storage, api);
+    function initialize(position, storage) {
+        StopRepository.initialize(position, storage);
+        _api = SlApi.glanceRequester(storage);
     }
 
-    // request
+    // api
 
     function requestNearbyStops() {
-        _api.requestNearbyStopsGlance(_position.getLatDeg(), _position.getLonDeg());
-        //_api.requestNearbyStopsGlance(debugLat, debugLon);
+        _api.requestNearbyStops(_position.getLatDeg(), _position.getLonDeg());
+        //_api.requestNearbyStops(debugLat, debugLon);
     }
 
     function requestDepartures() {
-        _api.requestDeparturesGlance();
+        _api.requestDepartures();
     }
 
-    // get
-
-    function getStopString(stopIndex) {
-        return getStop(stopIndex).toGlanceString();
-    }
-
-    // set
+    // position
 
     function enablePositionHandling() {
         setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStops));
+    }
+
+    // storage
+
+    function getStopString(stopIndex) {
+        return getStop(stopIndex).toGlanceString();
     }
 
 }
