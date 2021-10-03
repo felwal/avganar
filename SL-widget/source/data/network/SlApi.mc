@@ -1,4 +1,3 @@
-using Toybox.Application;
 using Toybox.Communications;
 using Toybox.Lang;
 using Toybox.WatchUi;
@@ -104,7 +103,7 @@ class SlApi {
                 message = data["Message"];
             }
             else {
-                message = Application.loadResource(Rez.Strings.lbl_i_stops_none_found);
+                message = rez(Rez.Strings.lbl_i_stops_none_found);
             }
 
             _storage.setPlaceholderStop(message);
@@ -157,19 +156,19 @@ class SlApi {
             message = data["Message"];
         }
         else if (responseCode == _RESPONSE_OK) {
-            message = Application.loadResource(Rez.Strings.lbl_e_null_data);
+            message = rez(Rez.Strings.lbl_e_null_data);
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            message = Application.loadResource(Rez.Strings.lbl_e_connection);
+            message = rez(Rez.Strings.lbl_e_connection);
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            message = Application.loadResource(Rez.Strings.lbl_e_memory);
+            message = rez(Rez.Strings.lbl_e_memory);
         }
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            message = Application.loadResource(Rez.Strings.lbl_e_stops_queue_full);
+            message = rez(Rez.Strings.lbl_e_stops_queue_full);
         }
         else {
-            message = Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode;
+            message = rez(Rez.Strings.lbl_e_code) + " " + responseCode;
         }
 
         _storage.setPlaceholderStop(message);
@@ -240,38 +239,34 @@ class SlApi {
             }
             else {
                 Log.d("Departures response empty of departures");
-                _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_i_departures_none_found));
+                _setPlaceholderDeparture(rez(Rez.Strings.lbl_i_departures_none_found));
             }
 
         }
         else if (responseCode == _RESPONSE_OK) {
-            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_null_data));
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_null_data));
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_connection));
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_connection));
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_memory));
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_memory));
         }
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_departures_queue_full));
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_departures_queue_full));
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
-            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_response_size));
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_response_size));
         }
         else {
             Log.e("Departures response error (code " + responseCode + "): " + data);
-            _setPlaceholderDeparture(Application.loadResource(Rez.Strings.lbl_e_code) + " " + responseCode);
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_code) + " " + responseCode);
         }
 
         WatchUi.requestUpdate();
     }
 
     // tool
-
-    function hasKey(dict, key) {
-        return dict != null && dict.hasKey(key) && dict[key] != null;
-    }
 
     private function _setPlaceholderDeparture(msg) {
         _storage.getStop(_stopCursor).setDepartures([ [ Departure.placeholder(msg) ] ]);

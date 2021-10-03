@@ -1,4 +1,3 @@
-using Toybox.Application;
 
 (:glance)
 class StopRepository {
@@ -56,10 +55,10 @@ class StopRepository {
             var message;
 
             if (!_position.isPositioned()) {
-                message = Application.loadResource(Rez.Strings.lbl_i_stops_locating);
+                message = rez(Rez.Strings.lbl_i_stops_locating);
             }
             else {
-                message = Application.loadResource(Rez.Strings.lbl_i_stops_searching);
+                message = rez(Rez.Strings.lbl_i_stops_searching);
             }
 
             _storage.setPlaceholderStop(message);
