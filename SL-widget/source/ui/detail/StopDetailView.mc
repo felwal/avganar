@@ -57,6 +57,7 @@ class StopDetailView extends WatchUi.View {
         // widget
         dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
         dcc.drawVerticalPageIndicator(_viewModel.getStopCount(), _viewModel.stopCursor);
+        dcc.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
     }
 
     private function _drawDepartures(dcc) {
@@ -64,12 +65,12 @@ class StopDetailView extends WatchUi.View {
         var fh = dcc.dc.getFontHeight(font);
         var lineHeight = 1.5;
         var offsetX = 10;
-        var offsetY = 64;
+        var offsetY = 60;
         var rCircle = 4;
 
         var departures = _viewModel.getSelectedDepartures();
 
-        for (var j = 0; j < 10 && j < _viewModel.getSelectedDepartureCount(); j++) {
+        for (var j = 0; j < 5 && j < _viewModel.getSelectedDepartureCount(); j++) {
             var departure = departures[j];
 
             var yText = offsetY + j * fh * lineHeight;
