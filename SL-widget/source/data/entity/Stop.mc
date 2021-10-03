@@ -70,8 +70,8 @@ class Stop {
         var mode = 0;
         var string = name.toUpper() + "\n";
 
-        for (var j = 0; j < 2 && j < _departures[mode].size(); j++) {
-            string += _departures[mode][j].toString() + "\n";
+        for (var d = 0; d < 2 && d < _departures[mode].size(); d++) {
+            string += _departures[mode][d].toString() + "\n";
         }
 
         return string;
@@ -80,8 +80,8 @@ class Stop {
     function toDetailString(mode) {
         var string = "";
 
-        for (var j = 0; j < 4 && j < _departures[mode].size(); j++) {
-            string += _departures[mode][j].toString() + "\n";
+        for (var d = 0; d < 4 && d < _departures[mode].size(); d++) {
+            string += _departures[mode][d].toString() + "\n";
         }
 
         return string;
