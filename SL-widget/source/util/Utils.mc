@@ -12,6 +12,17 @@ function mod(dividend, divisor) {
     return remainder;
 }
 
+(:glance)
+function addArrays(arr1, arr2) {
+    var sum = [];
+
+    for (var i = 0; i < arr1.size() && i < arr2.size(); i++) {
+        sum.add(arr1[i] + arr2[i]);
+    }
+
+    return sum;
+}
+
 // type
 
 (:glance)
