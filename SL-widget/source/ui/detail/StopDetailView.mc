@@ -75,10 +75,10 @@ class StopDetailView extends WatchUi.View {
 
         var departures = _viewModel.getSelectedDepartures();
 
-        for (var j = 0; j < 5 && j < _viewModel.getSelectedDepartureCount(); j++) {
-            var departure = departures[j];
+        for (var d = 0; d < 5 && d < _viewModel.getSelectedDepartureCount(); d++) {
+            var departure = departures[d];
 
-            var yText = offsetY + j * fh * lineHeight;
+            var yText = offsetY + d * fh * lineHeight;
             var yCircle = yText + fh / 2;
             /*if (yCircle > h - offsetY) {
                 break;

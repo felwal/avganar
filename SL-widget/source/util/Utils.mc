@@ -30,6 +30,11 @@ function hasKey(dict, key) {
     return dict != null && dict.hasKey(key) && dict[key] != null;
 }
 
+(:glance)
+function getKey(dict, key, defaultValue) {
+    return hasKey(dict, key) ? dict[key] : defaultValue;
+}
+
 // resource
 
 (:glance)

@@ -222,16 +222,17 @@ class SlApi {
                 var modeData = data["ResponseData"][modes[m]];
                 var modeDepartures = [];
 
-                for (var j = 0; j < modeData.size() && modeDepartures.size() < _MAX_DEPARTURES_DETAIL; j++) {
-                    var departureData = modeData[j];
+                for (var d = 0; d < modeData.size() && modeDepartures.size() < _MAX_DEPARTURES_DETAIL; d++) {
+                    var departureData = modeData[d];
 
                     var mode = departureData["TransportMode"];
+                    var group = getKey(departureData, "GroupOfLine", "");
                     var line = departureData["LineNumber"];
                     var destination = departureData["Destination"];
                     var direction = departureData["DepartureDirection"];
                     var displayTime = departureData["DisplayTime"];
 
-                    modeDepartures.add(new Departure(mode, line, destination, direction, displayTime));
+                    modeDepartures.add(new Departure(mode, group, line, destination, direction, displayTime));
                 }
 
                 if (modeDepartures.size() != 0) {
