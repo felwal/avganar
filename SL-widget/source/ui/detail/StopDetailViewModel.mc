@@ -38,7 +38,13 @@ class StopDetailViewModel {
     }
 
     private function _startRequestTimer() {
-        _timer.start(method(:makeRequests), _REQUEST_TIME_INTERVAL, true);
+        _timer.start(method(:onTimer), _REQUEST_TIME_INTERVAL, true);
+    }
+
+    function onTimer() {
+        makeRequests();
+        // request update to keep clock time synced
+        WatchUi.requestUpdate();
     }
 
     //! Make requests to SlApi neccessary for detail display.
