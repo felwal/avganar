@@ -67,22 +67,11 @@ class StorageModel {
     }
 
     function getStop(index) {
-        if (index >= 0 && index < _stops.size()) {
-            return _stops[index];
-        }
-        else {
-            return _stops[_stops.size() - 1];
-            //return Stop.placeholder(rez(Rez.Strings.lbl_e_stops_index_oob));
-        }
+        return ArrCompat.coerceGet(_stops, index);
     }
 
     function getStopId(index) {
-        if (index >= 0 && index < _stopIds.size()) {
-            return _stopIds[index];
-        }
-        else {
-            return Stop.NO_ID;
-        }
+        return ArrCompat.coerceGet(_stopIds, index);
     }
 
     function getStops() {

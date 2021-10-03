@@ -13,7 +13,7 @@ class SlApi {
 
     // departures max departures
     private static const _MAX_DEPARTURES_GLANCE = 2;
-    private static const _MAX_DEPARTURES_DETAIL = 6;
+    private static const _MAX_DEPARTURES_DETAIL = 5;
 
     // departures time window (max = 60)
     private static const _TIME_WINDOW_GLANCE = 15;
@@ -96,10 +96,10 @@ class SlApi {
         Log.d("Stops response success: " + data);
 
         // no stops were found
-        if (!hasKey(data, "stopLocationOrCoordLocation")) {
+        if (!DictCompat.hasKey(data, "stopLocationOrCoordLocation")) {
             var message;
 
-            if (hasKey(data, "Message")) {
+            if (DictCompat.hasKey(data, "Message")) {
                 message = data["Message"];
             }
             else {
@@ -132,14 +132,14 @@ class SlApi {
         // apply
 
         var oldSelectedStop = _storage.getStop(_stopCursor);
-        var newSelectedStopId = stopIds[_stopCursor];
+        var newSelectedStopId = ArrCompat.coerceGet(stopIds, _stopCursor);
 
         Log.d("Old siteId: " + oldSelectedStop.id + "; new siteId: " + newSelectedStopId);
 
         if (oldSelectedStop.id == newSelectedStopId) {
             // copy departures for selected stop as they have not changed
             // we still need to change stops, as any unselected stop may have changed
-            stops[_stopCursor].setDepartures(oldSelectedStop.getAllDepartures());
+            ArrCompat.coerceGet(stops, _stopCursor).setDepartures(oldSelectedStop.getAllDepartures());
             _storage.setStops(stopIds, stopNames, stops);
             return false;
         }
@@ -152,7 +152,7 @@ class SlApi {
 
         var message;
 
-        if (hasKey(data, "Message")) {
+        if (DictCompat.hasKey(data, "Message")) {
             message = data["Message"];
         }
         else if (responseCode == _RESPONSE_OK) {
@@ -212,7 +212,7 @@ class SlApi {
     }
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && hasKey(data, "ResponseData")) {
+        if (responseCode == _RESPONSE_OK && DictCompat.hasKey(data, "ResponseData")) {
             Log.d("Departures response success: " + data);
 
             var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
@@ -226,7 +226,7 @@ class SlApi {
                     var departureData = modeData[d];
 
                     var mode = departureData["TransportMode"];
-                    var group = getKey(departureData, "GroupOfLine", "");
+                    var group = DictCompat.get(departureData, "GroupOfLine", "");
                     var line = departureData["LineNumber"];
                     var destination = departureData["Destination"];
                     var direction = departureData["DepartureDirection"];
