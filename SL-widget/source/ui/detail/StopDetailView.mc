@@ -58,6 +58,11 @@ class StopDetailView extends WatchUi.View {
         dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
         dcc.drawVerticalPageIndicator(_viewModel.getStopCount(), _viewModel.stopCursor);
         dcc.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
+
+        // banner
+        if (!stop.hasConnection()) {
+            dcc.drawExclamationBanner();
+        }
     }
 
     private function _drawDepartures(dcc) {

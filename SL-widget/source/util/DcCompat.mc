@@ -55,6 +55,10 @@ class DcCompat {
         setColor(Graphene.COLOR_WHITE);
     }
 
+    function resetFgColor(background) {
+        dc.setColor(Graphene.COLOR_WHITE, background);
+    }
+
     // fill shape
 
     //! Fill a rectangle around a point
@@ -97,7 +101,7 @@ class DcCompat {
         fillRectangleCentered(xCenter, yCenter, width, height);
     }
 
-    // draw text
+    // text
 
     function drawGlanceTitle(text) {
         resetColor();
@@ -107,6 +111,22 @@ class DcCompat {
     function drawViewTitle(text) {
         resetColor();
         dc.drawText(cx, 23, Graphene.FONT_TINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
+    // banner
+
+    function drawExclamationBanner() {
+        // bg stroke
+        setColor(Graphene.COLOR_BLACK);
+        dc.fillRectangle(0, 30, w, 2);
+
+        // banner
+        setColor(Graphene.COLOR_RED);
+        dc.fillRectangle(0, 0, w, 30);
+
+        // text
+        resetFgColor(Graphene.COLOR_RED);
+        dc.drawText(cx, -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // page indicator
