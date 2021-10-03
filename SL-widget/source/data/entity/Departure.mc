@@ -49,4 +49,8 @@ class Departure {
         }
     }
 
+    function hasConnection() {
+        return !_displayTime.equals(rez(Rez.Strings.lbl_e_connection));
+    }
+
 }

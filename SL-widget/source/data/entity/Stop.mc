@@ -87,4 +87,8 @@ class Stop {
         return string;
     }
 
+    function hasConnection() {
+        return !name.equals(rez(Rez.Strings.lbl_e_connection)) && _departures[0][0].hasConnection();
+    }
+
 }

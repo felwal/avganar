@@ -159,6 +159,11 @@ class SlApi {
             message = rez(Rez.Strings.lbl_e_null_data);
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
+            // no bluetooth
+            message = rez(Rez.Strings.lbl_e_connection);
+        }
+        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {'
+            // no internet
             message = rez(Rez.Strings.lbl_e_connection);
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
@@ -247,6 +252,11 @@ class SlApi {
             _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_null_data));
         }
         else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
+            // no bluetooth
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_connection));
+        }
+        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
+            // no internet
             _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_connection));
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
