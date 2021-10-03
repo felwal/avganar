@@ -28,6 +28,10 @@ class StopRepository {
         _position.onRegisterPosition = null;
     }
 
+    function isPositionRegistered() {
+        return _position.isPositionRegistered;
+    }
+
     // storage
 
     function getStop(index) {

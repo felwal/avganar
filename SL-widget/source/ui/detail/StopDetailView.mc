@@ -53,6 +53,7 @@ class StopDetailView extends WatchUi.View {
         // text
         dcc.drawViewTitle(stop.name);
         _drawDepartures(dcc);
+        _drawGpsStatus(dcc);
 
         // widget
         dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
@@ -92,6 +93,25 @@ class StopDetailView extends WatchUi.View {
             dcc.resetColor();
             dcc.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
+    }
+
+    private function _drawGpsStatus(dcc) {
+        if (!_viewModel.isPositionRegistered()) {
+            return;
+        }
+
+        var font = Graphene.FONT_XTINY;
+        var fh = dcc.dc.getFontHeight(font);
+        var arrowEdgeOffset = 4;
+        var arrowHeight = 8;
+        var arrowNumberOffset = 4;
+        var x = dcc.cx - 24;
+        var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+
+        var text = "GPS";
+
+        dcc.setColor(Graphene.COLOR_DK_GRAY);
+        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
 }

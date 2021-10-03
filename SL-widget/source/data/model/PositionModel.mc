@@ -1,9 +1,11 @@
+using Toybox.WatchUi;
 using Carbon.Chem as Chem;
 
 (:glance)
 class PositionModel {
 
     var onRegisterPosition = null;
+    var isPositionRegistered = false;
 
     // position, in radians
     private var _lat = 0.0;
@@ -91,6 +93,9 @@ class PositionModel {
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
         }
+        isPositionRegistered = true;
+
+        WatchUi.requestUpdate();
     }
 
 }

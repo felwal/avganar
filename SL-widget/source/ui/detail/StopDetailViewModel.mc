@@ -78,6 +78,10 @@ class StopDetailViewModel {
         return _repo.getModeCount(stopCursor);
     }
 
+    function isPositionRegistered() {
+        return _repo.isPositionRegistered();
+    }
+
     // write
 
     function incStopCursor() {
