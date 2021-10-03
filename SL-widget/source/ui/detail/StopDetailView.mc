@@ -1,5 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
+using Toybox.Time;
+using Toybox.Time.Gregorian;
 using Carbon.Graphene as Graphene;
 using Carbon.Chem as Chem;
 
@@ -54,6 +56,7 @@ class StopDetailView extends WatchUi.View {
         dcc.drawViewTitle(stop.name);
         _drawDepartures(dcc);
         _drawGpsStatus(dcc);
+        _drawClockTime(dcc);
 
         // widget
         dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
@@ -112,6 +115,22 @@ class StopDetailView extends WatchUi.View {
 
         dcc.setColor(Graphene.COLOR_DK_GRAY);
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
+    }
+
+    private function _drawClockTime(dcc) {
+        var font = Graphene.FONT_XTINY;
+        var fh = dcc.dc.getFontHeight(font);
+        var arrowEdgeOffset = 4;
+        var arrowHeight = 8;
+        var arrowNumberOffset = 4;
+        var x = dcc.cx + 24;
+        var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+
+        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
+
+        dcc.setColor(Graphene.COLOR_DK_GRAY);
+        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 }
