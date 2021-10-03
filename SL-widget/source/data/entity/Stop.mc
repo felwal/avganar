@@ -1,5 +1,4 @@
 using Toybox.Lang;
-using Toybox.Application;
 
 (:glance)
 class Stop {
@@ -8,7 +7,7 @@ class Stop {
 
     public var id = NO_ID;
     public var name;
-    private var _departures = [ [ Departure.placeholder(Application.loadResource(Rez.Strings.lbl_i_departures_searching)) ] ];
+    private var _departures = [ [ Departure.placeholder(rez(Rez.Strings.lbl_i_departures_searching)) ] ];
 
     // init
 

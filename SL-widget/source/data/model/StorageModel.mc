@@ -1,4 +1,3 @@
-using Toybox.Application;
 using Toybox.Application.Storage;
 
 (:glance)
@@ -73,7 +72,7 @@ class StorageModel {
         }
         else {
             return _stops[_stops.size() - 1];
-            //return Stop.placeholder(Application.loadResource(Rez.Strings.lbl_e_stops_index_oob));
+            //return Stop.placeholder(rez(Rez.Strings.lbl_e_stops_index_oob));
         }
     }
 
