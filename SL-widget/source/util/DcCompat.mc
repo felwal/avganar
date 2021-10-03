@@ -208,6 +208,20 @@ class DcCompat {
         }
     }
 
+    function drawVerticalPageNumber(pageCount, index) {
+        if (pageCount <= 1) {
+            return;
+        }
+
+        var font = Graphene.FONT_XTINY;
+        var fh = dc.getFontHeight(font);
+        var text = (index + 1).toString() + "/" + pageCount.toString();
+
+        setColor(Graphene.COLOR_DK_GRAY);
+        dc.drawText(cx, h - 4 - 8 - fh - 4, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        //dc.drawText(10, cy - fh / 2, font, (index + 1).toString(), Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
     // page arrow
 
     function drawHorizontalPageArrows(pageCount, index) {
