@@ -13,12 +13,11 @@
 
     <!-- error -->
     <string id="lbl_e_stops_index_oob" scope="glance">Index out of range</string>
-    <string id="lbl_e_stops_queue_full" scope="glance">Queue full</string>
-    <string id="lbl_e_departures_queue_full" scope="glance">Queue full, please wait ...</string>
+    <string id="lbl_e_queue_full" scope="glance">Queue full</string>
     <string id="lbl_e_connection" scope="glance">No connection</string>
     <string id="lbl_e_memory" scope="glance">Out of memory</string>
     <string id="lbl_e_response_size" scope="glance">Response too large</string>
-    <string id="lbl_e_code" scope="glance">Error code</string>
+    <string id="lbl_e_general" scope="glance">Request failed</string>
     <string id="lbl_e_null_data" scope="glance">No data</string>
 
 </strings>

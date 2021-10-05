@@ -219,7 +219,7 @@ class DcCompat {
 
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
-        var arrowNumberOffset = 4;
+        var arrowNumberOffset = 8;
         var y = h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
         setColor(Graphene.COLOR_DK_GRAY);
