@@ -9,7 +9,7 @@ class SlApi {
 
     // nearby stops max stops (max = 1000)
     private static const _MAX_STOPS_GLANCE = 1;
-    private static const _MAX_STOPS_DETAIL = 26;
+    private static const _MAX_STOPS_DETAIL = 25;
 
     // departures max departures
     private static const _MAX_DEPARTURES_GLANCE = 2;
@@ -170,10 +170,10 @@ class SlApi {
             message = rez(Rez.Strings.lbl_e_memory);
         }
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            message = rez(Rez.Strings.lbl_e_stops_queue_full);
+            message = rez(Rez.Strings.lbl_e_queue_full);
         }
         else {
-            message = rez(Rez.Strings.lbl_e_code) + " " + responseCode;
+            message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
         }
 
         _storage.setPlaceholderStop(message);
@@ -264,14 +264,14 @@ class SlApi {
             _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_memory));
         }
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_departures_queue_full));
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_queue_full));
         }
         else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
             _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_response_size));
         }
         else {
             Log.e("Departures response error (code " + responseCode + "): " + data);
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_code) + " " + responseCode);
+            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_general) + " " + responseCode);
         }
 
         WatchUi.requestUpdate();

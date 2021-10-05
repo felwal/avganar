@@ -107,7 +107,7 @@ class StopDetailView extends WatchUi.View {
         var fh = dcc.dc.getFontHeight(font);
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
-        var arrowNumberOffset = 4;
+        var arrowNumberOffset = 8;
         var x = dcc.cx - 24;
         var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
@@ -122,7 +122,7 @@ class StopDetailView extends WatchUi.View {
         var fh = dcc.dc.getFontHeight(font);
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
-        var arrowNumberOffset = 4;
+        var arrowNumberOffset = 8;
         var x = dcc.cx + 24;
         var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
