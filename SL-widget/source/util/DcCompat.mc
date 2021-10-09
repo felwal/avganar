@@ -45,6 +45,16 @@ class DcCompat {
         }
     }
 
+    // tool
+
+    function pxToRad(px, r) {
+        return px.toFloat() / r;
+    }
+
+    function pxToDeg(px, r) {
+        return Chem.deg(pxToRad(px, r));
+    }
+
     // color
 
     function setColor(foreground) {
@@ -59,6 +69,12 @@ class DcCompat {
         dc.setColor(Graphene.COLOR_WHITE, background);
     }
 
+    // draw shape
+
+    function drawArcCompat(edgeOffset, degreeStart, degreeEnd) {
+        dc.drawArc(cx, cy, r - edgeOffset, Graphics.ARC_COUNTER_CLOCKWISE, degreeStart, degreeEnd);
+    }
+
     // fill shape
 
     //! Fill a rectangle around a point
@@ -67,6 +83,30 @@ class DcCompat {
     }
 
     // stroke shape
+
+    function strokeArcCompat(edgeOffset, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor) {
+        strokeArc(cx, cy, r - edgeOffset, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor);
+    }
+
+    function strokeArc(x, y, r, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor) {
+        degreeStart = Math.floor(degreeStart);
+        degreeEnd = Math.ceil(degreeEnd);
+
+        var strokeDegreeOffset = pxToDeg(strokeWidth, self.r);
+        var strokeDegreeStart = degreeStart - strokeDegreeOffset;
+        var strokeDegreeEnd = degreeEnd + strokeDegreeOffset;
+        var attr = Graphics.ARC_COUNTER_CLOCKWISE;
+
+        // stroke
+        setColor(strokeColor);
+        dc.setPenWidth(width + 2 * strokeWidth);
+        dc.drawArc(x, y, r, attr, strokeDegreeStart, strokeDegreeEnd);
+
+        // draw
+        setColor(color);
+        dc.setPenWidth(width);
+        dc.drawArc(x, y, r, attr, degreeStart, degreeEnd);
+    }
 
     //! Fill a circle with an outside stroke
     function strokeCircle(x, y, r, strokeWidth, fillColor, strokeColor) {
@@ -129,6 +169,42 @@ class DcCompat {
         dc.drawText(cx, -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
     }
 
+    // scrollbar
+
+    function drawVerticalScrollbarSmall(pageCount, index) {
+        _drawVerticalScrollbar(50, pageCount, index);
+    }
+
+    function drawVerticalScrollbarMedium(pageCount, index) {
+        _drawVerticalScrollbar(70, pageCount, index);
+    }
+
+    function drawVerticalScrollbarLarge(pageCount, index) {
+        _drawVerticalScrollbar(100, pageCount, index);
+    }
+
+    private function _drawVerticalScrollbar(sizeDeg, pageCount, index) {
+        if (pageCount <= 1) {
+            return;
+        }
+
+        var edgeOffset = 2;
+        var startDeg = 180 - sizeDeg / 2;
+        var endDeg = 180 + sizeDeg / 2;
+
+        // rail
+        strokeArcCompat(edgeOffset, 1, 1, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+
+        var itemDeltaDeg = (endDeg - startDeg) / pageCount.toFloat();
+        var itemStartDeg = startDeg + index * itemDeltaDeg;
+        var itemEndDeg = itemStartDeg + itemDeltaDeg;
+
+        // bar
+        resetColor();
+        dc.setPenWidth(3);
+        drawArcCompat(edgeOffset, itemStartDeg, itemEndDeg);
+    }
+
     // page indicator
 
     function drawHorizontalPageIndicator(pageCount, index) {
@@ -142,7 +218,6 @@ class DcCompat {
         var maxDeg = centerDeg + deltaDeg * (pageCount - 1) / 2f;
         var minDeg = maxDeg - pageCount * deltaDeg;
         var edgeOffset = 5;
-        var amp = r - edgeOffset;
         var stroke = 4;
         var bgStroke = stroke + 6;
         var bgMinDeg = minDeg + lengthDeg + 1.5;
@@ -151,7 +226,7 @@ class DcCompat {
         // bg outline
         setColor(Graphene.COLOR_BLACK);
         dc.setPenWidth(bgStroke);
-        dc.drawArc(cx, cy, amp, Graphics.ARC_COUNTER_CLOCKWISE, bgMinDeg, bgMaxDeg);
+        drawArcCompat(edgeOffset, bgMinDeg, bgMaxDeg);
 
         // indicator
         dc.setPenWidth(stroke);
@@ -165,7 +240,7 @@ class DcCompat {
             else {
                 setColor(Graphene.COLOR_DK_GRAY);
             }
-            dc.drawArc(cx, cy, amp, Graphics.ARC_COUNTER_CLOCKWISE, startDeg, endDeg);
+            drawArcCompat(edgeOffset, startDeg, endDeg);
         }
     }
 
