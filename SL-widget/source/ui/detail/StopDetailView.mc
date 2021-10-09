@@ -58,10 +58,13 @@ class StopDetailView extends WatchUi.View {
         _drawGpsStatus(dcc);
         _drawClockTime(dcc);
 
-        // widget
+        // hori indicator
         dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
+
+        // vert indicator
         dcc.drawVerticalPageNumber(_viewModel.getStopCount(), _viewModel.stopCursor);
         dcc.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
+        dcc.drawVerticalScrollbarMedium(_viewModel.getStopCount(), _viewModel.stopCursor);
 
         // banner
         if (!stop.hasConnection()) {
