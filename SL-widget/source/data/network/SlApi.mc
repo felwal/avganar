@@ -43,8 +43,9 @@ class SlApi {
         return new SlApi(storage, 0, _MAX_STOPS_GLANCE, _MAX_DEPARTURES_GLANCE, _TIME_WINDOW_GLANCE);
     }
 
-    static function detailRequester(storage, stopCursor) {
-        return new SlApi(storage, stopCursor, _MAX_STOPS_DETAIL, _MAX_DEPARTURES_DETAIL, _TIME_WINDOW_DETAIL);
+    static function detailRequester(storage, stopCursor, shortTimeWindow) {
+        var timeWindow = shortTimeWindow ? _TIME_WINDOW_GLANCE : _TIME_WINDOW_DETAIL;
+        return new SlApi(storage, stopCursor, _MAX_STOPS_DETAIL, _MAX_DEPARTURES_DETAIL, timeWindow);
     }
 
     // nearby stops (Närliggande Hållplatser 2)
@@ -162,7 +163,7 @@ class SlApi {
             // no bluetooth
             message = rez(Rez.Strings.lbl_e_connection);
         }
-        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {'
+        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
             // no internet
             message = rez(Rez.Strings.lbl_e_connection);
         }
@@ -176,7 +177,7 @@ class SlApi {
             message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
         }
 
-        _storage.setPlaceholderStop(message);
+        _storage.setPlaceholderStop(responseCode, message);
     }
 
     // departures (Realtidsinformation 4)
@@ -245,42 +246,42 @@ class SlApi {
             }
             else {
                 Log.d("Departures response empty of departures");
-                _setPlaceholderDeparture(rez(Rez.Strings.lbl_i_departures_none_found));
+                _storage.setPlaceholderDeparture(_stopCursor, null, rez(Rez.Strings.lbl_i_departures_none_found));
             }
 
         }
-        else if (responseCode == _RESPONSE_OK) {
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_null_data));
-        }
-        else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            // no bluetooth
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_connection));
-        }
-        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
-            // no internet
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_connection));
-        }
-        else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_memory));
-        }
-        else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_queue_full));
-        }
-        else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_response_size));
-        }
         else {
-            Log.e("Departures response error (code " + responseCode + "): " + data);
-            _setPlaceholderDeparture(rez(Rez.Strings.lbl_e_general) + " " + responseCode);
+            var message;
+
+            if (responseCode == _RESPONSE_OK) {
+               message = rez(Rez.Strings.lbl_e_null_data);
+            }
+            else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
+                // no bluetooth
+                message = rez(Rez.Strings.lbl_e_connection);
+            }
+            else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
+                // no internet
+                message = rez(Rez.Strings.lbl_e_connection);
+            }
+            else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
+                message = rez(Rez.Strings.lbl_e_memory);
+            }
+            else if (responseCode == Communications.BLE_QUEUE_FULL) {
+                message = rez(Rez.Strings.lbl_e_queue_full);
+            }
+            else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
+                message = rez(Rez.Strings.lbl_e_response_size);
+            }
+            else {
+                Log.e("Departures response error (code " + responseCode + "): " + data);
+                message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
+            }
+
+            _storage.setPlaceholderDeparture(_stopCursor, responseCode, message);
         }
 
         WatchUi.requestUpdate();
-    }
-
-    // tool
-
-    private function _setPlaceholderDeparture(msg) {
-        _storage.getStop(_stopCursor).setDepartures([ [ Departure.placeholder(msg) ] ]);
     }
 
 }

@@ -24,11 +24,15 @@ class StorageModel {
         Storage.setValue(_STORAGE_STOP_NAMES, _stopNames);
     }
 
-    function setPlaceholderStop(name) {
+    function setPlaceholderStop(errorCode, msg) {
         resetStops();
         _stopIds.add(Stop.NO_ID);
-        _stopNames.add(name);
-        _stops.add(new Stop(Stop.NO_ID, name));
+        _stopNames.add(msg);
+        _stops.add(Stop.placeholder(errorCode, msg));
+    }
+
+    function setPlaceholderDeparture(stopIndex, errorCode, msg) {
+        getStop(stopIndex).setDepartures([ [ Departure.placeholder(errorCode, msg) ] ]);
     }
 
     function setStops(stopIds, stopNames, stops) {

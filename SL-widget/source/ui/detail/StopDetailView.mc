@@ -70,6 +70,11 @@ class StopDetailView extends WatchUi.View {
         if (!stop.hasConnection()) {
             dcc.drawExclamationBanner();
         }
+
+        // start indicator
+        if (stop.areStopsRerequestable() || stop.areDeparturesRerequestable()) {
+            dcc.drawStartIndicatorWithBitmap(Rez.Drawables.refresh);
+        }
     }
 
     private function _drawDepartures(dcc) {

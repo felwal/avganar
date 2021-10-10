@@ -54,7 +54,7 @@ class StopRepository {
         return mod(modeIndex + 1, getModeCount(stopIndex));
     }
 
-    function setPlaceholderStop() {
+    function setStopsSearhing() {
         if (!_storage.hasStops()) {
             var message;
 
@@ -65,8 +65,12 @@ class StopRepository {
                 message = rez(Rez.Strings.lbl_i_stops_searching);
             }
 
-            _storage.setPlaceholderStop(message);
+            _storage.setPlaceholderStop(null, message);
         }
+    }
+
+    function setDeparturesSearching(stopIndex) {
+        _storage.setPlaceholderDeparture(stopIndex, null, rez(Rez.Strings.lbl_i_departures_searching));
     }
 
 }

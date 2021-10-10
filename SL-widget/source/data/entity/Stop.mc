@@ -3,11 +3,13 @@ using Toybox.Lang;
 (:glance)
 class Stop {
 
-    public static const NO_ID = -1;
+    static const NO_ID = -1;
 
-    public var id = NO_ID;
-    public var name;
-    private var _departures = [ [ Departure.placeholder(rez(Rez.Strings.lbl_i_departures_searching)) ] ];
+    var errorCode = null;
+    var id = NO_ID;
+    var name;
+
+    private var _departures = [ [ Departure.placeholder(null, rez(Rez.Strings.lbl_i_departures_searching)) ] ];
 
     // init
 
@@ -16,8 +18,10 @@ class Stop {
         self.name = name;
     }
 
-    static function placeholder(name) {
-        return new Stop(NO_ID, name);
+    static function placeholder(errorCode, msg) {
+        var stop = new Stop(NO_ID, msg);
+        stop.errorCode = errorCode;
+        return stop;
     }
 
     // set
@@ -65,6 +69,10 @@ class Stop {
         return _departures;
     }
 
+    function getFirstDeparture() {
+        return _departures[0][0];
+    }
+
     function toGlanceString() {
         // TODO: first of any mode
         var mode = 0;
@@ -88,7 +96,19 @@ class Stop {
     }
 
     function hasConnection() {
-        return !name.equals(rez(Rez.Strings.lbl_e_connection)) && _departures[0][0].hasConnection();
+        return errorCode != Communications.BLE_CONNECTION_UNAVAILABLE
+            && errorCode != Communications.NETWORK_REQUEST_TIMED_OUT
+            && getFirstDeparture().hasConnection();
+    }
+
+    function areStopsRerequestable() {
+        return id == NO_ID
+            && errorCode != null
+            && errorCode != Communications.BLE_CONNECTION_UNAVAILABLE;
+    }
+
+    function areDeparturesRerequestable() {
+        return getFirstDeparture().areDeparturesRerequestable();
     }
 
 }

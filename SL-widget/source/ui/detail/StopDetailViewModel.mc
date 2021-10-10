@@ -1,5 +1,6 @@
 using Toybox.Timer;
 using Toybox.WatchUi;
+using Toybox.Communications;
 
 (:glance)
 class StopDetailViewModel {
@@ -22,7 +23,7 @@ class StopDetailViewModel {
     // request
 
     function enableRequests() {
-        _repo.setPlaceholderStop();
+        _repo.setStopsSearhing();
         _repo.enablePositionHandling(method(:getStopCursor));
         _makeRequestsDelayed();
         _startRequestTimer();
@@ -108,7 +109,31 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
-    function incModeCursor() {
+    function onSelect() {
+        var stop = getSelectedStop();
+
+        if (stop.areStopsRerequestable()) {
+            _repo.setStopsSearhing();
+            _repo.requestNearbyStops();
+        }
+        else if (stop.areDeparturesRerequestable()) {
+            _repo.setDeparturesSearching(stopCursor);
+
+            if (stop.getFirstDeparture().errorCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
+                _repo.requestFewerDepartures(stopCursor);
+            }
+            else {
+                _repo.requestDepartures(stopCursor);
+            }
+        }
+        else {
+            _incModeCursor();
+        }
+
+        WatchUi.requestUpdate();
+    }
+
+    private function _incModeCursor() {
         modeCursor = _repo.getModeIndexRotated(stopCursor, modeCursor);
         WatchUi.requestUpdate();
     }

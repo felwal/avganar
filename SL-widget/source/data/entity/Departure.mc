@@ -1,3 +1,4 @@
+using Toybox.Communications;
 using Carbon.Graphene;
 
 (:glance)
@@ -15,6 +16,8 @@ class Departure {
     private static const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
     private static const _GROUP_BUS_RED = "";
     private static const _GROUP_BUS_BLUE = "blåbuss";
+
+    var errorCode = null;
 
     private var _mode;
     private var _group;
@@ -34,8 +37,10 @@ class Departure {
         _displayTime = displayTime;
     }
 
-    static function placeholder(msg) {
-        return new Departure(_MODE_NONE, "", "", "", "", msg);
+    static function placeholder(errorCode, msg) {
+        var departure = new Departure(_MODE_NONE, "", "", "", "", msg);
+        departure.errorCode = errorCode;
+        return departure;
     }
 
     // get
@@ -83,7 +88,14 @@ class Departure {
     }
 
     function hasConnection() {
-        return !_displayTime.equals(rez(Rez.Strings.lbl_e_connection));
+        return errorCode != Communications.BLE_CONNECTION_UNAVAILABLE
+            && errorCode != Communications.NETWORK_REQUEST_TIMED_OUT;
+    }
+
+    function areDeparturesRerequestable() {
+        return _mode == _MODE_NONE
+            && errorCode != null
+            && errorCode != Communications.BLE_CONNECTION_UNAVAILABLE;
     }
 
 }

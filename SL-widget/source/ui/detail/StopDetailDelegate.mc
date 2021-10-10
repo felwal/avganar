@@ -27,7 +27,7 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     //! "START-STOP"
     function onSelect() {
-        _viewModel.incModeCursor();
+        _viewModel.onSelect();
         return true;
     }
 
