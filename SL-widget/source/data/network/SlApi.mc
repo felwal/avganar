@@ -236,10 +236,13 @@ class SlApi {
                     modeDepartures.add(new Departure(mode, group, line, destination, direction, displayTime));
                 }
 
-                if (modeDepartures.size() != 0) {
-                    departures.add(modeDepartures);
-                }
+                // add null because an ampty array is not matched with the equals() removeAll() performes.
+                departures.add(modeDepartures.size() != 0 ? modeDepartures : null);
             }
+
+            // swap metros and buses
+            ArrCompat.swap(departures, 0, 1);
+            departures.removeAll(null);
 
             if (departures.size() != 0) {
                 _storage.getStop(_stopCursor).setDepartures(departures);
