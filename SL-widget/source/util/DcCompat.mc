@@ -1,3 +1,4 @@
+using Toybox.WatchUi;
 using Toybox.Math;
 using Carbon.Graphene;
 using Carbon.Chem;
@@ -167,6 +168,22 @@ class DcCompat {
         // text
         resetFgColor(Graphene.COLOR_RED);
         dc.drawText(cx, -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
+    // bar
+
+    function drawStartIndicator() {
+        strokeArcCompat(5, 4, 1, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+    }
+
+    function drawStartIndicatorWithBitmap(rezId) {
+        var drawable = new WatchUi.Bitmap({ :rezId => rezId });
+        var pos = Chem.polarPos(r - 23, Chem.rad(30), cx, cy);
+
+        drawable.setLocation(pos[0] - drawable.width / 2, pos[1] - drawable.height / 2);
+        drawable.draw(dc);
+
+        drawStartIndicator();
     }
 
     // scrollbar

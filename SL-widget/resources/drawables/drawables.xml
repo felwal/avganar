@@ -1,5 +1,6 @@
 <drawables>
 
     <bitmap id="launcher_icon" filename="launcher_icon.png" />
+    <bitmap id="refresh" filename="refresh.png" />
 
 </drawables>

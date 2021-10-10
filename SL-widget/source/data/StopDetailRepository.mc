@@ -14,12 +14,16 @@ class StopDetailRepository extends StopRepository {
 
     function requestNearbyStops() {
         var stopCursor = _getStopCursorMethod.invoke();
-        SlApi.detailRequester(_storage, stopCursor).requestNearbyStops(_position.getLatDeg(), _position.getLonDeg());
+        SlApi.detailRequester(_storage, stopCursor, false).requestNearbyStops(_position.getLatDeg(), _position.getLonDeg());
         //_api.requestNearbyStops(debugLat, debugLon);
     }
 
     function requestDepartures(index) {
-        SlApi.detailRequester(_storage, index).requestDepartures();
+        SlApi.detailRequester(_storage, index, false).requestDepartures();
+    }
+
+    function requestFewerDepartures(index) {
+        SlApi.detailRequester(_storage, index, true).requestDepartures();
     }
 
     // position
