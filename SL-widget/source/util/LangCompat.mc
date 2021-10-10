@@ -14,6 +14,12 @@ class ArrCompat {
         return arr[coerceIn(index, 0, arr.size() - 1)];
     }
 
+    static function swap(arr, i, j) {
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
 }
 
 (:glance)
