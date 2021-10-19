@@ -2,7 +2,9 @@ using Toybox.Application;
 
 class App extends Application.AppBase {
 
-    private var _container;
+    // model
+    private var _position;
+    private var _storage;
 
     // init
 
@@ -14,7 +16,8 @@ class App extends Application.AppBase {
 
     //! onStart() is called on application start up
     function onStart(state) {
-        _container = new Container();
+        _position = new PositionModel();
+        _storage = new StorageModel();
     }
 
     //! onStop() is called when your application is exiting
@@ -23,13 +26,22 @@ class App extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        return [ new StopDetailView(_container), new StopDetailDelegate(_container) ];
+        var repo = new StopDetailRepository(_position, _storage);
+        var viewModel = new StopDetailViewModel(repo);
+        var view = new StopDetailView(viewModel);
+        var delegate = new StopDetailDelegate(viewModel);
+
+        return [ view, delegate ];
     }
 
     //! Return the initial glance view of your application here
-    (:glance)
+    /*(:glance)
     function getGlanceView() {
-        return [ new StopGlanceView(_container) ];
-    }
+        var repo = new StopGlanceRepository(_position, _storage);
+        var viewModel = new StopGlanceViewModel(repo);
+        var view = new StopGlanceView(viewModel);
+
+        return [ view ];
+    }*/
 
 }

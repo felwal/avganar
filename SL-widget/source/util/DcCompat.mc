@@ -3,7 +3,6 @@ using Toybox.Math;
 using Carbon.Graphene;
 using Carbon.Chem;
 
-(:glance)
 class DcCompat {
 
     enum {

@@ -2,8 +2,8 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Time;
 using Toybox.Time.Gregorian;
-using Carbon.Graphene as Graphene;
-using Carbon.Chem as Chem;
+using Carbon.Graphene;
+using Carbon.Chem;
 
 class StopDetailView extends WatchUi.View {
 
@@ -11,9 +11,9 @@ class StopDetailView extends WatchUi.View {
 
     // init
 
-    function initialize(container) {
+    function initialize(viewModel) {
         View.initialize();
-        _viewModel = container.stopDetailViewModel;
+        _viewModel = viewModel;
     }
 
     // override View

@@ -1,6 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
-using Carbon.Graphene as Graphene;
+using Carbon.Graphene;
 
 (:glance)
 class StopGlanceView extends WatchUi.GlanceView {
@@ -9,9 +9,9 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     // init
 
-    function initialize(container) {
+    function initialize(viewModel) {
         GlanceView.initialize();
-        _viewModel = container.stopGlanceViewModel;
+        _viewModel = viewModel;
     }
 
     // override GlanceView
@@ -35,20 +35,24 @@ class StopGlanceView extends WatchUi.GlanceView {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new DcCompat(dc));
+        _draw(dc);
     }
 
     //! Called when this View is removed from the screen. Save the
     //! state of this View here. This includes freeing resources from
     //! memory.
     function onHide() {
-        _viewModel.disableRequests();
+        //_viewModel.disableRequests();
     }
 
     // draw
 
-    private function _draw(dcc) {
-        dcc.drawGlanceTitle(_viewModel.getStopString());
+    private function _draw(dc) {
+        _drawGlanceTitle(dc, _viewModel.getStopString());
+    }
+
+    private function _drawGlanceTitle(dc, text) {
+        dc.drawText(0, 0, Graphene.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 }

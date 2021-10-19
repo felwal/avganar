@@ -1,5 +1,5 @@
 using Toybox.WatchUi;
-using Carbon.Chem as Chem;
+using Carbon.Chem;
 
 (:glance)
 class PositionModel {

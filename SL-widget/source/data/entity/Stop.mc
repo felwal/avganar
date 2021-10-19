@@ -6,7 +6,7 @@ class Stop {
     static const NO_ID = -1;
 
     var errorCode = null;
-    var id = NO_ID;
+    var id;
     var name;
 
     private var _departures = [ [ Departure.placeholder(null, rez(Rez.Strings.lbl_i_departures_searching)) ] ];
@@ -75,12 +75,12 @@ class Stop {
 
     function toGlanceString() {
         // TODO: first of any mode
-        var mode = 0;
-        var string = name.toUpper() + "\n";
+        //var mode = 0;
+        var string = name.toUpper();// + "\n";
 
-        for (var d = 0; d < 2 && d < _departures[mode].size(); d++) {
+        /*for (var d = 0; d < 2 && d < _departures[mode].size(); d++) {
             string += _departures[mode][d].toString() + "\n";
-        }
+        }*/
 
         return string;
     }

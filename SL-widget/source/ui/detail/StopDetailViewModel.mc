@@ -2,7 +2,6 @@ using Toybox.Timer;
 using Toybox.WatchUi;
 using Toybox.Communications;
 
-(:glance)
 class StopDetailViewModel {
 
     private static const _REQUEST_TIME_INTERVAL = 30000;
@@ -23,6 +22,7 @@ class StopDetailViewModel {
     // request
 
     function enableRequests() {
+        _repo.loadStorage();
         _repo.setStopsSearhing();
         _repo.enablePositionHandling(method(:getStopCursor));
         _makeRequestsDelayed();
