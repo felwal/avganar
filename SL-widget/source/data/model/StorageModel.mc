@@ -3,9 +3,6 @@ using Toybox.Application.Storage;
 (:glance)
 class StorageModel {
 
-    private static const _STORAGE_STOP_ID = "stop_id";
-    private static const _STORAGE_STOP_NAME = "stop_name";
-
     private static const _STORAGE_STOP_IDS = "stop_ids";
     private static const _STORAGE_STOP_NAMES = "stop_names";
 
@@ -17,17 +14,12 @@ class StorageModel {
 
 
     function initialize() {
-        //loadGlance();
+        _load();
     }
 
     // set
 
     private function _save() {
-        // save glance
-        Storage.setValue(_STORAGE_STOP_ID, _stopIds[0]);
-        Storage.setValue(_STORAGE_STOP_NAME, _stopNames[0]);
-
-        // save detail
         Storage.setValue(_STORAGE_STOP_IDS, _stopIds);
         Storage.setValue(_STORAGE_STOP_NAMES, _stopNames);
     }
@@ -61,29 +53,7 @@ class StorageModel {
 
     // get
 
-    function loadGlance() {
-        var stopId = Storage.getValue(_STORAGE_STOP_ID);
-        var stopName = Storage.getValue(_STORAGE_STOP_NAME);
-
-        if (stopId == null || stopName == null) {
-            //_stopIds = [];
-            //_stopNames = [];
-            //_stops = [];
-            return;
-        }
-
-        //_stopIds = [ stopId ];
-        //_stopNames = [ stopName ];
-        _stops = [];
-
-        _stops.add(new Stop(stopId, stopName));
-    }
-
-    function loadDetail() {
-        // this caused "Out Of Memory Error: Failed invoking <symbol>" in glance.
-        // although it seems like a combination of things, including this,
-        // caused "System Error: Failed loading application"
-
+    private function _load() {
         var stopIds = Storage.getValue(_STORAGE_STOP_IDS);
         var stopNames = Storage.getValue(_STORAGE_STOP_NAMES);
 

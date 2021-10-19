@@ -1,5 +1,4 @@
 
-(:glance)
 class ArrCompat {
 
     static function add(arr1, arr2) {
@@ -25,7 +24,6 @@ class ArrCompat {
 
 }
 
-(:glance)
 class DictCompat {
 
     static function hasKey(dict, key) {

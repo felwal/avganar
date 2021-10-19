@@ -73,18 +73,6 @@ class Stop {
         return _departures[0][0];
     }
 
-    function toGlanceString() {
-        // TODO: first of any mode
-        //var mode = 0;
-        var string = name.toUpper();// + "\n";
-
-        /*for (var d = 0; d < 2 && d < _departures[mode].size(); d++) {
-            string += _departures[mode][d].toString() + "\n";
-        }*/
-
-        return string;
-    }
-
     function toDetailString(mode) {
         var string = "";
 
