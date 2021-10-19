@@ -30,8 +30,16 @@ class StopGlanceRepository extends StopRepository {
 
     // storage
 
+    function loadStorage() {
+        _storage.loadGlance();
+    }
+
     function getStopString(stopIndex) {
-        return getStop(stopIndex).toGlanceString();
+        var stop = getStop(stopIndex);
+        if (stop != null) {
+            return stop.toGlanceString();
+        }
+        return rez(Rez.Strings.lbl_i_stops_none_found);
     }
 
 }

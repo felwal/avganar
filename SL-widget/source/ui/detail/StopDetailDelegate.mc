@@ -6,9 +6,9 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     // init
 
-    function initialize(container) {
+    function initialize(viewModel) {
         BehaviorDelegate.initialize();
-        _viewModel = container.stopDetailViewModel;
+        _viewModel = viewModel;
     }
 
     // override BehaviorDelegate

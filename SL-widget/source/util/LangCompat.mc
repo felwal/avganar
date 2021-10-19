@@ -11,6 +11,9 @@ class ArrCompat {
     }
 
     static function coerceGet(arr, index) {
+        if (arr.size() == 0) {
+            return null;
+        }
         return arr[coerceIn(index, 0, arr.size() - 1)];
     }
 

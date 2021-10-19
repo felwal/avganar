@@ -1,5 +1,4 @@
 
-(:glance)
 class StopDetailRepository extends StopRepository {
 
     private var _getStopCursorMethod;
@@ -35,8 +34,16 @@ class StopDetailRepository extends StopRepository {
 
     // storage
 
+    function loadStorage() {
+        _storage.loadDetail();
+    }
+
     function getStopString(stopIndex, modeIndex) {
-        return getStop(stopIndex).toDetailString(modeIndex);
+        var stop = getStop(stopIndex);
+        if (stop != null) {
+            return stop.toDetailString(modeIndex);
+        }
+        return rez(Rez.Strings.lbl_i_stops_none_found);
     }
 
 }
