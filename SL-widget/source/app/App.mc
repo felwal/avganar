@@ -26,22 +26,12 @@ class App extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        var repo = new StopDetailRepository(_position, _storage);
+        var repo = new Repository(_position, _storage);
         var viewModel = new StopDetailViewModel(repo);
         var view = new StopDetailView(viewModel);
         var delegate = new StopDetailDelegate(viewModel);
 
         return [ view, delegate ];
     }
-
-    //! Return the initial glance view of your application here
-    /*(:glance)
-    function getGlanceView() {
-        var repo = new StopGlanceRepository(_position, _storage);
-        var viewModel = new StopGlanceViewModel(repo);
-        var view = new StopGlanceView(viewModel);
-
-        return [ view ];
-    }*/
 
 }

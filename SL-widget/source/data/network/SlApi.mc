@@ -2,23 +2,17 @@ using Toybox.Communications;
 using Toybox.Lang;
 using Toybox.WatchUi;
 
-(:glance)
 class SlApi {
 
     private static const _RESPONSE_OK = 200;
 
     // nearby stops max stops (max = 1000)
-    private static const _MAX_STOPS_GLANCE = 1;
-    private static const _MAX_STOPS_DETAIL = 25;
-
+    private static const _MAX_STOPS = 25;
     // departures max departures
-    private static const _MAX_DEPARTURES_GLANCE = 2;
-    private static const _MAX_DEPARTURES_DETAIL = 5;
-
+    private static const _MAX_DEPARTURES = 5;
     // departures time window (max = 60)
-    private static const _TIME_WINDOW_GLANCE = 15;
-    private static const _TIME_WINDOW_DETAIL = 60;
-
+    private static const _TIME_WINDOW = 60;
+    private static const _TIME_WINDOW_SHORT = 15;
     // nearby stops radius (max = 2000)
     private static const _maxRadius = 2000;
 
@@ -39,13 +33,9 @@ class SlApi {
         _timeWindow = timeWindow;
     }
 
-    static function glanceRequester(storage) {
-        return new SlApi(storage, 0, _MAX_STOPS_GLANCE, _MAX_DEPARTURES_GLANCE, _TIME_WINDOW_GLANCE);
-    }
-
     static function detailRequester(storage, stopCursor, shortTimeWindow) {
-        var timeWindow = shortTimeWindow ? _TIME_WINDOW_GLANCE : _TIME_WINDOW_DETAIL;
-        return new SlApi(storage, stopCursor, _MAX_STOPS_DETAIL, _MAX_DEPARTURES_DETAIL, timeWindow);
+        var timeWindow = shortTimeWindow ? _TIME_WINDOW_SHORT : _TIME_WINDOW;
+        return new SlApi(storage, stopCursor, _MAX_STOPS, _MAX_DEPARTURES, timeWindow);
     }
 
     // nearby stops (Närliggande Hållplatser 2)
@@ -223,7 +213,7 @@ class SlApi {
                 var modeData = data["ResponseData"][modes[m]];
                 var modeDepartures = [];
 
-                for (var d = 0; d < modeData.size() && modeDepartures.size() < _MAX_DEPARTURES_DETAIL; d++) {
+                for (var d = 0; d < modeData.size() && modeDepartures.size() < _MAX_DEPARTURES; d++) {
                     var departureData = modeData[d];
 
                     var mode = departureData["TransportMode"];

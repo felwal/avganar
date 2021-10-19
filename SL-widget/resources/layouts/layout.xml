@@ -3,7 +3,4 @@
     <layout id="main_layout">
     </layout>
 
-    <layout id="glance_layout" scope="glance">
-    </layout>
-
 </layouts>

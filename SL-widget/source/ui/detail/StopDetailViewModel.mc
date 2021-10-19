@@ -22,7 +22,6 @@ class StopDetailViewModel {
     // request
 
     function enableRequests() {
-        _repo.loadStorage();
         _repo.setStopsSearhing();
         _repo.enablePositionHandling(method(:getStopCursor));
         _makeRequestsDelayed();
