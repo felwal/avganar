@@ -67,10 +67,6 @@ class Departure {
                 }
 
             case _MODE_TRAIN:
-                var lastChar = _line.substring(_line.length() - 1, _line.length());
-                if (lastChar.equals("X")) {
-                    return Graphene.COLOR_PURPLE;
-                }
                 return Graphene.COLOR_MAGENTA;
 
             case _MODE_TRAM:
