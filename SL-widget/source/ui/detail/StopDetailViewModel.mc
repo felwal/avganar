@@ -34,6 +34,7 @@ class StopDetailViewModel {
     }
 
     private function _makeRequestsDelayed() {
+        // delayed because otherwise it crashes. TODO: figure out why
         new Timer.Timer().start(method(:makeRequests), _REQUEST_TIME_DELAY, false);
     }
 
@@ -51,7 +52,6 @@ class StopDetailViewModel {
     //! This needs to be public to be able to be called by timer.
     function makeRequests() {
         _repo.requestDepartures(stopCursor);
-        //_repo.requestNearbyStops(); // TODO: temp
     }
 
     // read

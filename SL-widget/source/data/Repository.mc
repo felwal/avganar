@@ -11,8 +11,6 @@ class Repository {
     function initialize(position, storage) {
         _position = position;
         _storage = storage;
-
-        //_storage.resetStops(); _position.setPosDeg(debugLat, debugLon);
     }
 
     // api
@@ -20,7 +18,6 @@ class Repository {
     function requestNearbyStops() {
         var stopCursor = _getStopCursorMethod.invoke();
         SlApi.detailRequester(_storage, stopCursor, false).requestNearbyStops(_position.getLatDeg(), _position.getLonDeg());
-        //_api.requestNearbyStops(debugLat, debugLon);
     }
 
     function requestDepartures(index) {
