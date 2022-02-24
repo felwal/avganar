@@ -73,7 +73,7 @@ class StopDetailView extends WatchUi.View {
 
         // start indicator
         if (stop.areStopsRerequestable() || stop.areDeparturesRerequestable()) {
-            dcc.drawStartIndicatorWithBitmap(Rez.Drawables.refresh);
+            dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
         }
     }
 
