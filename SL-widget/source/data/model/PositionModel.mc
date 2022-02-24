@@ -39,6 +39,13 @@ class PositionModel {
         _lon = Chem.rad(lon);
     }
 
+    function setPosLoc(positionLocation) {
+        if (positionLocation != null) {
+            _lat = positionLocation.toRadians()[0].toDouble();
+            _lon = positionLocation.toRadians()[1].toDouble();
+        }
+    }
+
     // get
 
     function isPositioned() {
@@ -74,11 +81,7 @@ class PositionModel {
     //! Get last location while waiting for location event
     //! @param info Activity info
     function registerLastKnownPosition(activityInfo) {
-        var loc = activityInfo.currentLocation;
-        if (loc != null) {
-            _lat = loc.toRadians()[0].toDouble();
-            _lon = loc.toRadians()[1].toDouble();
-        }
+        setPosLoc(activityInfo.currentLocation);
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
@@ -87,8 +90,7 @@ class PositionModel {
 
     //! Location event listener delegation
     function registerPosition(positionInfo) {
-        _lat = positionInfo.position.toRadians()[0].toDouble();
-        _lon = positionInfo.position.toRadians()[1].toDouble();
+        setPosLoc(positionInfo.position);
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
