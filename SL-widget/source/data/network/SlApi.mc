@@ -97,7 +97,7 @@ class SlApi {
                 message = rez(Rez.Strings.lbl_i_stops_none_found);
             }
 
-            _storage.setPlaceholderStop(message);
+            _storage.setPlaceholderStop(Stop.ERROR_CODE_NO_STOPS, message);
             return false;
         }
 

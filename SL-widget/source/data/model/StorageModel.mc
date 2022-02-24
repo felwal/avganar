@@ -34,7 +34,7 @@ class StorageModel {
     function setPlaceholderDeparture(stopIndex, errorCode, msg) {
         var stop = getStop(stopIndex);
         if (stop != null) {
-            stop.setDepartures([ [ Departure.placeholder(errorCode, msg) ] ]);
+            stop.setDeparturesPlaceholder(errorCode, msg);
         }
     }
 
