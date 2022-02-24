@@ -1,5 +1,6 @@
 using Toybox.Application;
 
+(:glance)
 class App extends Application.AppBase {
 
     // model
