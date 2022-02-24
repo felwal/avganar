@@ -5,6 +5,7 @@ class Stop {
 
     static const NO_ID = -1;
     static const ERROR_CODE_NO_STOPS = -2000;
+    static const ERROR_CODE_OUTSIDE_BOUNDS = -2001;
 
     var errorCode = null;
     var id;
@@ -17,7 +18,7 @@ class Stop {
     function initialize(id, name) {
         self.id = id;
         self.name = name;
-        
+
         // set searching placeholder
         setDeparturesPlaceholder(null, rez(Rez.Strings.lbl_i_departures_searching));
     }
@@ -48,7 +49,7 @@ class Stop {
     function equals(object) {
         return id == object.id;
     }
-    
+
     function isPlaceholder() {
         return id == NO_ID;
     }
@@ -82,7 +83,7 @@ class Stop {
     function getAllDepartures() {
         return _departures;
     }
-    
+
     function hasDepartures() {
         return _departures.size() > 0 && _departures[0].size() > 0;
     }
