@@ -107,10 +107,6 @@ class StopDetailView extends WatchUi.View {
     }
 
     private function _drawGpsStatus(dcc) {
-        if (!_viewModel.isPositionRegistered()) {
-            return;
-        }
-
         var font = Graphene.FONT_XTINY;
         var fh = dcc.dc.getFontHeight(font);
         var arrowEdgeOffset = 4;
@@ -119,9 +115,12 @@ class StopDetailView extends WatchUi.View {
         var x = dcc.cx - 24;
         var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
-        var text = "GPS";
+        var hasGps = _viewModel.isPositionRegistered();
 
-        dcc.setColor(Graphene.COLOR_DK_GRAY);
+        var text = hasGps ? "GPS" : "---";
+        var color = hasGps ? Graphene.COLOR_GREEN : Graphene.COLOR_DK_GRAY;
+
+        dcc.setColor(color);
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 

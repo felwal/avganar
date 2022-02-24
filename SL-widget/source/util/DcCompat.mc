@@ -300,13 +300,11 @@ class DcCompat {
     }
 
     function drawVerticalPageNumber(pageCount, index) {
-        if (pageCount <= 1) {
-            return;
-        }
-
         var font = Graphene.FONT_XTINY;
         var fh = dc.getFontHeight(font);
-        var text = (index + 1).toString() + "/" + pageCount.toString();
+        var text = pageCount <= 1
+            ? "-/-"
+            : (index + 1).toString() + "/" + pageCount.toString();
 
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
