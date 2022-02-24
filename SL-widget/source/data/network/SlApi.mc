@@ -4,6 +4,12 @@ using Toybox.WatchUi;
 
 class SlApi {
 
+    // edges of the SL zone, with an extra 2 km offset
+    private static const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
+    private static const _BOUNDS_NORTH = 60.225171; // Ellans Vändplan (Norrtälje)
+    private static const _BOUNDS_WEST = 17.239541; // Dammen (Nykvarn)
+    private static const _BOUNDS_EAST = 19.116554; // Räfsnäs Brygga (Norrtälje)
+
     private static const _RESPONSE_OK = 200;
 
     // nearby stops max stops (max = 1000)
@@ -12,7 +18,7 @@ class SlApi {
     private static const _MAX_DEPARTURES = 5;
     // departures time window (max = 60)
     private static const _TIME_WINDOW = 60;
-    private static const _TIME_WINDOW_SHORT = 15;
+    private static const _TIME_WINDOW_SHORT = 10;
     // nearby stops radius (max = 2000)
     private static const _maxRadius = 2000;
 
@@ -42,6 +48,14 @@ class SlApi {
     // bronze: 10_000/month, 30/min
 
     function requestNearbyStops(lat, lon) {
+        // check if outside bounds, to not make unnecessary calls outside the SL zone
+        if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
+            Log.i("Location outside bounds; skipping request");
+            _storage.setPlaceholderStop(Stop.ERROR_CODE_OUTSIDE_BOUNDS, rez(Rez.Strings.lbl_i_stops_outside_bounds));
+
+            return;
+        }
+
         Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
         _requestNearbyStops(lat, lon, _maxStops, method(:onReceiveNearbyStops));
     }
@@ -139,7 +153,7 @@ class SlApi {
     }
 
     private function _handleNearbyStopsResponseError(responseCode, data) {
-        Log.e("Stops response error (code " + responseCode + "): " + data);
+        Log.i("Stops response error (code " + responseCode + "): " + data);
 
         var message;
 
@@ -267,7 +281,7 @@ class SlApi {
                 message = rez(Rez.Strings.lbl_e_response_size);
             }
             else {
-                Log.e("Departures response error (code " + responseCode + "): " + data);
+                Log.i("Departures response error (code " + responseCode + "): " + data);
                 message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
             }
 
