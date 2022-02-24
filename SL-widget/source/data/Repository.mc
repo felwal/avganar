@@ -40,9 +40,9 @@ class Repository {
 
     private function _setPositionHandling(acquisitionType, onRegisterPosition) {
         // set location event listener and get last location while waiting
+        _position.onRegisterPosition = onRegisterPosition;
         _position.enableLocationEvents(acquisitionType);
         _position.registerLastKnownPosition(Activity.getActivityInfo());
-        _position.onRegisterPosition = onRegisterPosition;
     }
 
     function disablePositionHandling() {
