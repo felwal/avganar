@@ -35,9 +35,10 @@ class Stop {
 
     function setDepartures(departures) {
         // don't put departure placeholders in placeholder stops
-        if (!isPlaceholder()) {
-            _departures = departures;
-        }
+        //if (!isPlaceholder()) {
+        //    _departures = departures;
+        //}
+        _departures = departures;
     }
 
     function setDeparturesPlaceholder(errorCode, msg) {
@@ -112,6 +113,7 @@ class Stop {
     function areStopsRerequestable() {
         return id == NO_ID
             && errorCode != null
+            && errorCode != ERROR_CODE_OUTSIDE_BOUNDS
             && errorCode != Communications.BLE_CONNECTION_UNAVAILABLE;
     }
 
