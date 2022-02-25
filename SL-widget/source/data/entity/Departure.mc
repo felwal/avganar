@@ -53,33 +53,33 @@ class Departure {
         switch (_mode) {
             case _MODE_METRO:
                 switch (_group) {
-                    case _GROUP_METRO_RED: return Graphene.COLOR_DR_RED;
-                    case _GROUP_METRO_BLUE: return Graphene.COLOR_DR_BLUE;
-                    case _GROUP_METRO_GREEN: return Graphene.COLOR_DR_GREEN;
-                    default: return Graphene.COLOR_LT_GRAY;
+                    case _GROUP_METRO_RED: return Color.DEPARTURE_METRO_RED;
+                    case _GROUP_METRO_BLUE: return Color.DEPARTURE_METRO_BLUE;
+                    case _GROUP_METRO_GREEN: return Color.DEPARTURE_METRO_GREEN;
+                    default: return Color.DEPARTURE_UNKNOWN;
                 }
 
             case _MODE_BUS:
                 switch (_group) {
-                    case _GROUP_BUS_RED: return Graphene.COLOR_RED;
-                    case _GROUP_BUS_BLUE: return Graphene.COLOR_BLUE;
-                    default: return Graphene.COLOR_LT_GRAY;
+                    case _GROUP_BUS_RED: return Color.DEPARTURE_BUS_RED;
+                    case _GROUP_BUS_BLUE: return Color.DEPARTURE_BUS_BLUE;
+                    default: return Color.DEPARTURE_UNKNOWN;
                 }
 
             case _MODE_TRAIN:
-                return Graphene.COLOR_MAGENTA;
+                return Color.DEPARTURE_TRAIN;
 
             case _MODE_TRAM:
-                return Graphene.COLOR_AMBER;
+                return Color.DEPARTURE_TRAM;
 
             case _MODE_SHIP:
-                return Graphene.COLOR_CAPRI;
+                return Color.DEPARTURE_SHIP;
 
             case _MODE_NONE:
-                return Graphene.COLOR_BLACK;
+                return Color.DEPARTURE_NONE;
 
             default:
-                return Graphene.COLOR_LT_GRAY;
+                return Color.DEPARTURE_UNKNOWN;
         }
     }
 
