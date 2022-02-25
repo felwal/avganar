@@ -8,7 +8,7 @@
     <string id="lbl_i_stops_locating">Locating ...</string>
     <string id="lbl_i_stops_searching">Searching ...</string>
     <string id="lbl_i_stops_none_found">No stops found</string>
-    <string id="lbl_i_stops_outside_bounds">Outside bounds</string>
+    <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
     <string id="lbl_i_departures_searching">Searching departures ...</string>
     <string id="lbl_i_departures_none_found">No departures found</string>
 
@@ -20,5 +20,14 @@
     <string id="lbl_e_response_size">Response too large</string>
     <string id="lbl_e_general">Request failed</string>
     <string id="lbl_e_null_data">No data</string>
+
+    <!-- settings -->
+    <string id="lbl_settings_title">Settings</string>
+    <string id="lbl_settings_apis">APIs by Trafiklab</string>
+
+    <!-- apiinfo -->
+    <string id="lbl_apiinfo_info">APIs are provided by Trafiklab, and information is retrieved from Trafiklab.se using:
+- SL Nearby stops 2
+- SL Departures 4</string>
 
 </strings>

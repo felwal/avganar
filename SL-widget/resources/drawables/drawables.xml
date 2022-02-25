@@ -3,4 +3,16 @@
     <bitmap id="ic_launcher" filename="ic_x60.png" />
     <bitmap id="ic_refresh" filename="ic_refresh.png" />
 
+    <drawable-list id="shape_white_bg">
+
+        <shape
+            type="rectangle"
+            x="0"
+            y="0"
+            width="fill"
+            height="fill"
+            color="Graphics.COLOR_WHITE" />
+
+    </drawable-list>
+
 </drawables>
