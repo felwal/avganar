@@ -118,7 +118,7 @@ class StopDetailView extends WatchUi.View {
         var hasGps = _viewModel.isPositionRegistered();
 
         var text = hasGps ? "GPS" : "---";
-        var color = hasGps ? Graphene.COLOR_GREEN : Graphene.COLOR_DK_GRAY;
+        var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
 
         dcc.setColor(color);
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
@@ -136,7 +136,7 @@ class StopDetailView extends WatchUi.View {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        dcc.setColor(Graphene.COLOR_DK_GRAY);
+        dcc.setColor(Color.CONTROL_NORMAL);
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
