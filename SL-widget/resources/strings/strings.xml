@@ -18,6 +18,7 @@
     <string id="lbl_e_connection">No connection</string>
     <string id="lbl_e_memory">Out of memory</string>
     <string id="lbl_e_response_size">Response too large</string>
+    <string id="lbl_e_cancelled">Request cancelled</string>
     <string id="lbl_e_general">Request failed</string>
     <string id="lbl_e_null_data">No data</string>
 

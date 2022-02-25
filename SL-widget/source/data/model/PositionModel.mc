@@ -72,6 +72,14 @@ class PositionModel {
         return Chem.deg(_lon);
     }
 
+    function formatted() {
+        return format(getLatDeg(), getLonDeg());
+    }
+
+    static function format(lat, lon) {
+        return lat + "°, " + lon + "°";
+    }
+
     //
 
     function enableLocationEvents(acquisitionType) {

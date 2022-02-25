@@ -52,6 +52,7 @@ class SlApi {
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location outside bounds; skipping request");
             _storage.setPlaceholderStop(Stop.ERROR_CODE_OUTSIDE_BOUNDS, rez(Rez.Strings.lbl_i_stops_outside_bounds));
+            _storage.setPlaceholderDeparture(0, null, "At " + PositionModel.format(lat, lon));
 
             return;
         }
@@ -177,6 +178,9 @@ class SlApi {
         else if (responseCode == Communications.BLE_QUEUE_FULL) {
             message = rez(Rez.Strings.lbl_e_queue_full);
         }
+        else if (responseCode == Communications.BLE_REQUEST_CANCELLED || responseCode == Communications.REQUEST_CANCELLED) {
+            message = rez(Rez.Strings.lbl_e_cancelled);
+        }
         else {
             message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
         }
@@ -279,6 +283,9 @@ class SlApi {
             }
             else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
                 message = rez(Rez.Strings.lbl_e_response_size);
+            }
+            else if (responseCode == Communications.BLE_REQUEST_CANCELLED || responseCode == Communications.REQUEST_CANCELLED) {
+                message = rez(Rez.Strings.lbl_e_cancelled);
             }
             else {
                 Log.i("Departures response error (code " + responseCode + "): " + data);
