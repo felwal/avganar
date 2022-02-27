@@ -3,7 +3,7 @@ using Toybox.Lang;
 using Toybox.WatchUi;
 using Carbon.Footprint;
 
-class SlApi {
+class SlService {
 
     // edges of the SL zone, with an extra 2 km offset
     private static const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
@@ -42,7 +42,7 @@ class SlApi {
 
     static function detailRequester(storage, stopCursor, shortTimeWindow) {
         var timeWindow = shortTimeWindow ? _TIME_WINDOW_SHORT : _TIME_WINDOW;
-        return new SlApi(storage, stopCursor, _MAX_STOPS, _MAX_DEPARTURES, timeWindow);
+        return new SlService(storage, stopCursor, _MAX_STOPS, _MAX_DEPARTURES, timeWindow);
     }
 
     // nearby stops (Närliggande Hållplatser 2)

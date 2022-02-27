@@ -20,4 +20,4 @@
 **/.settings
 
 # Secrets
-SlApiSecrets.mc
+SlServiceSecrets.mc
