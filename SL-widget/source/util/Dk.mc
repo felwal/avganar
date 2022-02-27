@@ -3,7 +3,7 @@ using Toybox.Math;
 using Carbon.Graphene;
 using Carbon.Chem;
 
-class DcCompat {
+class Dk {
 
     enum {
         DIR_LEFT,

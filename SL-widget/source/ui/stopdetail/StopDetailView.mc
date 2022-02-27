@@ -37,7 +37,7 @@ class StopDetailView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new DcCompat(dc));
+        _draw(new Dk(dc));
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -49,37 +49,37 @@ class StopDetailView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dcc) {
+    private function _draw(dk) {
         var stop = _viewModel.getSelectedStop();
 
         // text
-        dcc.drawViewTitle(stop.name);
-        _drawDepartures(dcc);
-        _drawGpsStatus(dcc);
-        _drawClockTime(dcc);
+        dk.drawViewTitle(stop.name);
+        _drawDepartures(dk);
+        _drawGpsStatus(dk);
+        _drawClockTime(dk);
 
         // hori indicator
-        dcc.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
+        dk.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
 
         // vert indicator
-        dcc.drawVerticalPageNumber(_viewModel.getStopCount(), _viewModel.stopCursor);
-        dcc.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
-        dcc.drawVerticalScrollbarMedium(_viewModel.getStopCount(), _viewModel.stopCursor);
+        dk.drawVerticalPageNumber(_viewModel.getStopCount(), _viewModel.stopCursor);
+        dk.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
+        dk.drawVerticalScrollbarMedium(_viewModel.getStopCount(), _viewModel.stopCursor);
 
         // banner
         if (!stop.hasConnection()) {
-            dcc.drawExclamationBanner();
+            dk.drawExclamationBanner();
         }
 
         // start indicator
         if (stop.areStopsRerequestable() || stop.areDeparturesRerequestable()) {
-            dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+            dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
         }
     }
 
-    private function _drawDepartures(dcc) {
+    private function _drawDepartures(dk) {
         var font = Graphene.FONT_XTINY;
-        var fh = dcc.dc.getFontHeight(font);
+        var fh = dk.dc.getFontHeight(font);
         var lineHeight = 1.5;
         var offsetX = 10;
         var offsetY = 60;
@@ -96,48 +96,48 @@ class StopDetailView extends WatchUi.View {
                 break;
             }*/
 
-            var xCircle = Chem.minX(offsetY + fh / 2, dcc.r) + offsetX + rCircle;
+            var xCircle = Chem.minX(offsetY + fh / 2, dk.r) + offsetX + rCircle;
             var xText = xCircle + rCircle + offsetX;
 
-            dcc.setColor(departure.getColor());
-            dcc.dc.fillCircle(xCircle, yCircle, rCircle);
-            dcc.resetColor();
-            dcc.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
+            dk.setColor(departure.getColor());
+            dk.dc.fillCircle(xCircle, yCircle, rCircle);
+            dk.resetColor();
+            dk.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
 
-    private function _drawGpsStatus(dcc) {
+    private function _drawGpsStatus(dk) {
         var font = Graphene.FONT_XTINY;
-        var fh = dcc.dc.getFontHeight(font);
+        var fh = dk.dc.getFontHeight(font);
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
         var arrowNumberOffset = 8;
-        var x = dcc.cx - 24;
-        var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+        var x = dk.cx - 24;
+        var y = dk.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
         var hasGps = _viewModel.isPositionRegistered();
 
         var text = hasGps ? "GPS" : "---";
         var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
 
-        dcc.setColor(color);
-        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
+        dk.setColor(color);
+        dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
-    private function _drawClockTime(dcc) {
+    private function _drawClockTime(dk) {
         var font = Graphene.FONT_XTINY;
-        var fh = dcc.dc.getFontHeight(font);
+        var fh = dk.dc.getFontHeight(font);
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
         var arrowNumberOffset = 8;
-        var x = dcc.cx + 24;
-        var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+        var x = dk.cx + 24;
+        var y = dk.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        dcc.setColor(Color.CONTROL_NORMAL);
-        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
+        dk.setColor(Color.CONTROL_NORMAL);
+        dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 }
