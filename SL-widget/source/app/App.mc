@@ -1,10 +1,11 @@
 using Toybox.Application;
+using Carbon.Footprint;
 
 (:glance)
 class App extends Application.AppBase {
 
     // model
-    private var _position;
+    private var _footprint;
     private var _storage;
 
     // init
@@ -17,7 +18,7 @@ class App extends Application.AppBase {
 
     //! onStart() is called on application start up
     function onStart(state) {
-        _position = new PositionModel();
+        _footprint = new Carbon.Footprint();
         _storage = new StorageModel();
     }
 
@@ -27,7 +28,7 @@ class App extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        var repo = new Repository(_position, _storage);
+        var repo = new Repository(_footprint, _storage);
         var viewModel = new StopDetailViewModel(repo);
         var view = new StopDetailView(viewModel);
         var delegate = new StopDetailDelegate(viewModel);
