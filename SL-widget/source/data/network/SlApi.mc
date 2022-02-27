@@ -1,6 +1,7 @@
 using Toybox.Communications;
 using Toybox.Lang;
 using Toybox.WatchUi;
+using Carbon.Footprint;
 
 class SlApi {
 
@@ -52,7 +53,7 @@ class SlApi {
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location outside bounds; skipping request");
             _storage.setPlaceholderStop(Stop.ERROR_CODE_OUTSIDE_BOUNDS, rez(Rez.Strings.lbl_i_stops_outside_bounds));
-            _storage.setPlaceholderDeparture(0, null, "At " + PositionModel.format(lat, lon));
+            _storage.setPlaceholderDeparture(0, null, "At " + Footprint.format(lat, lon));
 
             return;
         }

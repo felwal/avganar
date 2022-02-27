@@ -1,7 +1,7 @@
 
 class Repository {
 
-    protected var _position;
+    protected var _footprint;
     protected var _storage;
 
     private var _getStopCursorMethod;
@@ -9,7 +9,7 @@ class Repository {
     // init
 
     function initialize(position, storage) {
-        _position = position;
+        _footprint = position;
         _storage = storage;
     }
 
@@ -17,7 +17,7 @@ class Repository {
 
     function requestNearbyStops() {
         var stopCursor = _getStopCursorMethod.invoke();
-        SlApi.detailRequester(_storage, stopCursor, false).requestNearbyStops(_position.getLatDeg(), _position.getLonDeg());
+        SlApi.detailRequester(_storage, stopCursor, false).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
     }
 
     function requestDepartures(index) {
@@ -37,18 +37,18 @@ class Repository {
 
     private function _setPositionHandling(acquisitionType, onRegisterPosition) {
         // set location event listener and get last location while waiting
-        _position.onRegisterPosition = onRegisterPosition;
-        _position.enableLocationEvents(acquisitionType);
-        _position.registerLastKnownPosition(Activity.getActivityInfo());
+        _footprint.onRegisterPosition = onRegisterPosition;
+        _footprint.enableLocationEvents(acquisitionType);
+        _footprint.registerLastKnownPosition();
     }
 
     function disablePositionHandling() {
-        _position.enableLocationEvents(Position.LOCATION_DISABLE);
-        _position.onRegisterPosition = null;
+        _footprint.enableLocationEvents(Position.LOCATION_DISABLE);
+        _footprint.onRegisterPosition = null;
     }
 
     function isPositionRegistered() {
-        return _position.isPositionRegistered;
+        return _footprint.isPositionRegistered;
     }
 
     // storage
@@ -85,7 +85,7 @@ class Repository {
         if (!_storage.hasStops()) {
             var message;
 
-            if (!_position.isPositioned()) {
+            if (!_footprint.isPositioned()) {
                 message = rez(Rez.Strings.lbl_i_stops_locating);
             }
             else {
