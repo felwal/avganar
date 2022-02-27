@@ -17,15 +17,15 @@ class Repository {
 
     function requestNearbyStops() {
         var stopCursor = _getStopCursorMethod.invoke();
-        SlApi.detailRequester(_storage, stopCursor, false).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+        SlService.detailRequester(_storage, stopCursor, false).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
     }
 
     function requestDepartures(index) {
-        SlApi.detailRequester(_storage, index, false).requestDepartures();
+        SlService.detailRequester(_storage, index, false).requestDepartures();
     }
 
     function requestFewerDepartures(index) {
-        SlApi.detailRequester(_storage, index, true).requestDepartures();
+        SlService.detailRequester(_storage, index, true).requestDepartures();
     }
 
     // position
