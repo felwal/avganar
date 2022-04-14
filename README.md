@@ -1,1 +1,1 @@
-# sl-widget
+# SL-widget
