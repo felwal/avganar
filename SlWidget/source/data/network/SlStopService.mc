@@ -33,8 +33,13 @@ class SlStopService {
         // check if outside bounds, to not make unnecessary calls outside the SL zone
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location outside bounds; skipping request");
-            _storage.setPlaceholderStop(Stop.ERROR_CODE_OUTSIDE_BOUNDS, rez(Rez.Strings.lbl_i_stops_outside_bounds));
-            //_storage.setPlaceholderDeparture(0, null, "At " + Footprint.format(lat, lon));
+
+            var msg = lat == 0.0 && lon == 0.0
+                ? rez(Rez.Strings.lbl_i_stops_no_gps)
+                : rez(Rez.Strings.lbl_i_stops_outside_bounds);
+
+            _storage.setPlaceholderStop(Stop.ERROR_CODE_OUTSIDE_BOUNDS, msg);
+            //_storage.getStop(0).setDeparturesPlaceholder(null, "At " + Footprint.format(lat, lon));
 
             return;
         }
