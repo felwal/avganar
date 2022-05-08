@@ -1,6 +1,8 @@
 <layouts>
 
-    <layout id="main_layout" />
+    <layout id="stoplist_layout" />
+    
+    <layout id="stopdetail_layout" />
 
     <layout id="apiinfo_layout">
 

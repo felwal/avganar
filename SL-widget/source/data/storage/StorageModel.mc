@@ -31,13 +31,6 @@ class StorageModel {
         _stops.add(Stop.placeholder(errorCode, msg));
     }
 
-    function setPlaceholderDeparture(stopIndex, errorCode, msg) {
-        var stop = getStop(stopIndex);
-        if (stop != null) {
-            stop.setDeparturesPlaceholder(errorCode, msg);
-        }
-    }
-
     function setStops(stopIds, stopNames, stops) {
         _stopIds = stopIds;
         _stopNames = stopNames;
@@ -61,16 +54,16 @@ class StorageModel {
             _stopIds = [];
             _stopNames = [];
             _stops = [];
-            return;
         }
+        else {
+            _stopIds = stopIds;
+            _stopNames = stopNames;
+            _stops = [];
 
-        _stopIds = stopIds;
-        _stopNames = stopNames;
-        _stops = [];
-
-        for (var i = 0; i < _stopIds.size() && i < _stopNames.size(); i++) {
-            var stop = new Stop(_stopIds[i], _stopNames[i]);
-            _stops.add(stop);
+            for (var i = 0; i < _stopIds.size() && i < _stopNames.size(); i++) {
+                var stop = new Stop(_stopIds[i], _stopNames[i]);
+                _stops.add(stop);
+            }
         }
     }
 
@@ -80,10 +73,6 @@ class StorageModel {
 
     function getStop(index) {
         return ArrCompat.coerceGet(_stops, index);
-    }
-
-    function getStopId(index) {
-        return ArrCompat.coerceGet(_stops, index).id;
     }
 
     function getStops() {

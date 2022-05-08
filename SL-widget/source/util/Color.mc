@@ -1,9 +1,9 @@
 using Carbon.Graphene;
 
-(:glance)
 class Color {
 
     static const CONTROL_NORMAL = Graphene.COLOR_DK_GRAY;
+    static const BOTTOM_BAR = Graphene.COLOR_CERULIAN;
 
     // departure
 
@@ -17,7 +17,7 @@ class Color {
     static const DEPARTURE_TRAIN = Graphene.COLOR_MAGENTA;
     static const DEPARTURE_TRAM = Graphene.COLOR_AMBER;
     static const DEPARTURE_SHIP = Graphene.COLOR_CAPRI;
-    
+
     static const DEPARTURE_NONE = Graphene.COLOR_BLACK;
     static const DEPARTURE_UNKNOWN = Graphene.COLOR_LT_GRAY;
 

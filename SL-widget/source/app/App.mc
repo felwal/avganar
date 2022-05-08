@@ -29,9 +29,9 @@ class App extends Application.AppBase {
     //! Return the initial view of your application here
     function getInitialView() {
         var repo = new Repository(_footprint, _storage);
-        var viewModel = new StopDetailViewModel(repo);
-        var view = new StopDetailView(viewModel);
-        var delegate = new StopDetailDelegate(viewModel);
+        var viewModel = new StopListViewModel(repo);
+        var view = new StopListView(viewModel);
+        var delegate = new StopListDelegate(repo, viewModel);
 
         return [ view, delegate ];
     }

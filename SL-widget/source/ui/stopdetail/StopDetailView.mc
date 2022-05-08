@@ -20,7 +20,7 @@ class StopDetailView extends WatchUi.View {
 
     //! Load resources
     function onLayout(dc) {
-        setLayout(Rez.Layouts.main_layout(dc));
+        setLayout(Rez.Layouts.stopdetail_layout(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore
@@ -50,21 +50,20 @@ class StopDetailView extends WatchUi.View {
     // draw
 
     private function _draw(dk) {
-        var stop = _viewModel.getSelectedStop();
+        var stop = _viewModel.stop;
 
         // text
-        dk.drawViewTitle(stop.name);
+        _drawHeader(dk, stop.name);
         _drawDepartures(dk);
-        _drawGpsStatus(dk);
+        _drawBottomBar(dk);
         _drawClockTime(dk);
 
-        // hori indicator
-        dk.drawHorizontalPageIndicator(_viewModel.getModeCount(), _viewModel.modeCursor);
-
-        // vert indicator
-        dk.drawVerticalPageNumber(_viewModel.getStopCount(), _viewModel.stopCursor);
-        dk.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
-        dk.drawVerticalScrollbarMedium(_viewModel.getStopCount(), _viewModel.stopCursor);
+        // page indicator
+        dk.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
+        dk.dc.setColor(Graphene.COLOR_WHITE, Color.BOTTOM_BAR);
+        dk.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
+        dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor);
+        //dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
 
         // banner
         if (!stop.hasConnection()) {
@@ -72,32 +71,42 @@ class StopDetailView extends WatchUi.View {
         }
 
         // start indicator
-        if (stop.areStopsRerequestable() || stop.areDeparturesRerequestable()) {
+        if (stop.areDeparturesRerequestable()) {
             dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
         }
     }
 
+    private function _drawHeader(dk, text) {
+        dk.setColor(Graphene.COLOR_LT_GRAY);
+        dk.dc.drawText(dk.cx, 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
     private function _drawDepartures(dk) {
-        var font = Graphene.FONT_XTINY;
-        var fh = dk.dc.getFontHeight(font);
-        var lineHeight = 1.5;
-        var offsetX = 10;
-        var offsetY = 60;
+        var font = Graphene.FONT_TINY;
+        var fontHeight = dk.dc.getFontHeight(font);
+        var lineHeight = 1.35;
+        var lineHeightPx = fontHeight * lineHeight;
+        var xOffset = 10;
+        var yOffset = 50;
         var rCircle = 4;
 
-        var departures = _viewModel.getSelectedDepartures();
+        var departures = _viewModel.getPageDepartures();
 
-        for (var d = 0; d < 5 && d < _viewModel.getSelectedDepartureCount(); d++) {
+        for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < departures.size(); d++) {
             var departure = departures[d];
 
-            var yText = offsetY + d * fh * lineHeight;
-            var yCircle = yText + fh / 2;
-            /*if (yCircle > h - offsetY) {
-                break;
-            }*/
+            var yText = yOffset + d * lineHeightPx;
+            var yCircle = yText + fontHeight / 2;
 
-            var xCircle = Chem.minX(offsetY + fh / 2, dk.r) + offsetX + rCircle;
-            var xText = xCircle + rCircle + offsetX;
+            /*
+            // don't draw outside screen
+            if (yCircle > h - yOffset) {
+                break;
+            }
+            */
+
+            var xCircle = Chem.minX(yOffset + fontHeight / 2, dk.r) + xOffset + rCircle;
+            var xText = xCircle + rCircle + xOffset;
 
             dk.setColor(departure.getColor());
             dk.dc.fillCircle(xCircle, yCircle, rCircle);
@@ -106,22 +115,12 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    private function _drawGpsStatus(dk) {
-        var font = Graphene.FONT_XTINY;
-        var fh = dk.dc.getFontHeight(font);
-        var arrowEdgeOffset = 4;
-        var arrowHeight = 8;
-        var arrowNumberOffset = 8;
-        var x = dk.cx - 24;
-        var y = dk.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+    private function _drawBottomBar(dk) {
+        dk.setColor(Color.BOTTOM_BAR);
+        dk.dc.fillRectangle(0, dk.h - 42, dk.w, 42);
 
-        var hasGps = _viewModel.isPositionRegistered();
-
-        var text = hasGps ? "GPS" : "---";
-        var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
-
-        dk.setColor(color);
-        dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
+        //dk.setColor(Graphene.COLOR_DK_GRAY);
+        //dk.dc.drawCircle(dk.cx, dk.cy, dk.r + 2);
     }
 
     private function _drawClockTime(dk) {
@@ -136,7 +135,8 @@ class StopDetailView extends WatchUi.View {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        dk.setColor(Color.CONTROL_NORMAL);
+        //dk.setColor(Color.CONTROL_NORMAL);
+        dk.dc.setColor(Graphene.COLOR_WHITE, Color.BOTTOM_BAR);
         dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
