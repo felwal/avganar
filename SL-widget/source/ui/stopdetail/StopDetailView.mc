@@ -63,7 +63,7 @@ class StopDetailView extends WatchUi.View {
         dk.dc.setColor(Graphene.COLOR_WHITE, Color.BOTTOM_BAR);
         dk.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
         dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor);
-        //dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
+        dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
 
         // banner
         if (!stop.hasConnection()) {
@@ -77,7 +77,7 @@ class StopDetailView extends WatchUi.View {
     }
 
     private function _drawHeader(dk, text) {
-        dk.setColor(Graphene.COLOR_LT_GRAY);
+        dk.setColor(Color.TEXT_SECONDARY);
         dk.dc.drawText(dk.cx, 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
@@ -92,18 +92,16 @@ class StopDetailView extends WatchUi.View {
 
         var departures = _viewModel.getPageDepartures();
 
+        if (departures.size() == 1 && departures[0].isPlaceholder()) {
+            dk.drawDialog(departures[0].toString(), "");
+            return;
+        }
+
         for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < departures.size(); d++) {
             var departure = departures[d];
 
             var yText = yOffset + d * lineHeightPx;
             var yCircle = yText + fontHeight / 2;
-
-            /*
-            // don't draw outside screen
-            if (yCircle > h - yOffset) {
-                break;
-            }
-            */
 
             var xCircle = Chem.minX(yOffset + fontHeight / 2, dk.r) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;

@@ -153,6 +153,33 @@ class Dk {
         dc.drawText(cx, 23, Graphene.FONT_SMALL, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
+    function drawDialog(title, msg) {
+        resetColor();
+
+        var titleFont = Graphene.FONT_TINY;
+        var msgFont = Graphene.FONT_XTINY;
+
+        if (msg == null || msg.equals("")) {
+            dc.drawText(cx, cy, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+        else if (title == null || title.equals("")) {
+            dc.drawText(cx, cy, msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+        else {
+            var titleFontHeight = dc.getFontHeight(titleFont);
+            var msgFontHeight = dc.getFontHeight(msgFont);
+            var lineHeight = 1.15;
+
+            var titleY = cx - lineHeight * titleFontHeight / 2;
+            var msgY = cx + lineHeight * msgFontHeight / 2;
+
+            resetColor();
+            dc.drawText(cx, titleY, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            setColor(Color.TEXT_SECONDARY);
+            dc.drawText(cx, msgY, msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        }
+    }
+
     // banner
 
     function drawExclamationBanner() {
@@ -313,7 +340,6 @@ class Dk {
         var arrowNumberOffset = 8;
         var y = h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
-        setColor(Graphene.COLOR_DK_GRAY);
         dc.drawText(cx, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
         //dc.drawText(10, cy - fh / 2, font, (index + 1).toString(), Graphics.TEXT_JUSTIFY_CENTER);
     }
@@ -391,7 +417,6 @@ class Dk {
                 break;
         }
 
-        setColor(Graphene.COLOR_DK_GRAY);
         dc.fillPolygon([ point1, point2, point3 ]);
     }
 

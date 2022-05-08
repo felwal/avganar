@@ -52,8 +52,18 @@ class StopListView extends WatchUi.View {
     private function _draw(dk) {
         var stops = _viewModel.getStops();
 
+        // stops
+        if (stops.size() == 1 && stops[0].isPlaceholder()) {
+            // error message
+            var departure = stops[0].getFirstDeparture();
+            var msg = departure != null && departure.isPlaceholder() ? departure.toString() : "";
+            dk.drawDialog(stops[0].name, msg);
+        }
+        else {
+            _drawStops(dk, stops);
+        }
+
         // text
-        _drawStops(dk, stops);
         //_drawGpsStatus(dk);
 
         // page indicator
@@ -73,6 +83,7 @@ class StopListView extends WatchUi.View {
     }
 
     private function _drawStops(dk, stops) {
+        var fontSelected = Graphene.FONT_LARGE;
         var font = Graphene.FONT_TINY;
         var fontHeight = dk.dc.getFontHeight(font);
         var lineHeight = 1.6;
@@ -90,19 +101,12 @@ class StopListView extends WatchUi.View {
 
             var yText = dk.cy + (i - cursor) * lineHeightPx;
 
-            /*
-            // don't draw outside screen
-            if (yCircle > h) {
-                break;
-            }
-            */
-
             if (i == cursor) {
-                dk.resetColor();
-                dk.dc.drawText(dk.cx, yText, Graphene.FONT_LARGE, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+                dk.setColor(Graphene.COLOR_WHITE);
+                dk.dc.drawText(dk.cx, yText, fontSelected, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
             else {
-                dk.setColor(Graphene.COLOR_LT_GRAY);
+                dk.setColor(Color.TEXT_SECONDARY);
                 dk.dc.drawText(dk.cx, yText, font, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
         }

@@ -45,6 +45,10 @@ class Departure {
 
     // get
 
+    function isPlaceholder() {
+        return _mode == _MODE_NONE;
+    }
+
     function toString() {
         return _displayTime + " " + _line + " " + _destination;
     }
