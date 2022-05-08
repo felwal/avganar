@@ -16,8 +16,8 @@ class Repository {
     // api
 
     function requestNearbyStops() {
-        //new SlStopService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
-        new SlStopService(_storage).requestNearbyStops(debugLat, debugLon);
+        new SlStopService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+        //new SlStopService(_storage).requestNearbyStops(debugLat, debugLon);
     }
 
     function requestDepartures(stop) {
