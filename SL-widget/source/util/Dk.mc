@@ -203,13 +203,17 @@ class Dk {
     }
 
     function drawStartIndicatorWithBitmap(rezId) {
-        var drawable = new WatchUi.Bitmap({ :rezId => rezId });
         var pos = Chem.polarPos(r - 23, Chem.rad(30), cx, cy);
 
-        drawable.setLocation(pos[0] - drawable.width / 2, pos[1] - drawable.height / 2);
-        drawable.draw(dc);
-
+        drawBitmap(pos[0], pos[1], rezId);
         drawStartIndicator();
+    }
+
+    function drawBitmap(x, y, rezId) {
+        var drawable = new WatchUi.Bitmap({ :rezId => rezId });
+
+        drawable.setLocation(x - drawable.width / 2, y - drawable.height / 2);
+        drawable.draw(dc);
     }
 
     // scrollbar
