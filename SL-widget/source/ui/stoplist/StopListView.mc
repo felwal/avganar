@@ -52,6 +52,11 @@ class StopListView extends WatchUi.View {
     private function _draw(dk) {
         var stops = _viewModel.getStops();
 
+        // icon
+        if (_viewModel.stopCursor == 0) {
+            dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
+        }
+
         // stops
         if (stops.size() == 1 && stops[0].isPlaceholder()) {
             // error message
