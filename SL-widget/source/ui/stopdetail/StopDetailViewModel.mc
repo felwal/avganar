@@ -1,13 +1,17 @@
 using Toybox.Timer;
 using Toybox.WatchUi;
 using Toybox.Communications;
+using Toybox.Math;
 
 class StopDetailViewModel {
 
     private static const _REQUEST_TIME_INTERVAL = 30000;
     private static const _REQUEST_TIME_DELAY = 500;
 
-    var stopCursor = 0;
+    static const DEPARTURES_PER_PAGE = 4; // TODO: dynamic
+
+    var stop;
+    var pageCursor = 0;
     var modeCursor = 0;
 
     private var _repo;
@@ -15,16 +19,15 @@ class StopDetailViewModel {
 
     // init
 
-    function initialize(repo) {
+    function initialize(repo, stop) {
         _repo = repo;
+        self.stop = stop;
     }
 
     // request
 
     function enableRequests() {
-        _repo.setStopsSearhing();
-        _repo.enablePositionHandling(method(:getStopCursor));
-        _makeRequestsDelayed();
+        _requestDeparturesDelayed();
         _startRequestTimer();
     }
 
@@ -33,9 +36,9 @@ class StopDetailViewModel {
         _timer.stop();
     }
 
-    private function _makeRequestsDelayed() {
+    private function _requestDeparturesDelayed() {
         // delayed because otherwise it crashes. TODO: figure out why
-        new Timer.Timer().start(method(:makeRequests), _REQUEST_TIME_DELAY, false);
+        new Timer.Timer().start(method(:requestDepartures), _REQUEST_TIME_DELAY, false);
     }
 
     private function _startRequestTimer() {
@@ -43,97 +46,78 @@ class StopDetailViewModel {
     }
 
     function onTimer() {
-        makeRequests();
+        requestDepartures();
         // request update to keep clock time synced
         WatchUi.requestUpdate();
     }
 
     //! Make requests to SlApi neccessary for detail display.
     //! This needs to be public to be able to be called by timer.
-    function makeRequests() {
-        _repo.requestDepartures(stopCursor);
+    function requestDepartures() {
+        _repo.requestDepartures(stop);
+    }
+
+    private function _rerequestDepartures() {
+        _setDeparturesSearching();
+
+        if (stop.getFirstDeparture().errorCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
+            _repo.requestFewerDepartures(stop);
+        }
+        else {
+            requestDepartures();
+        }
     }
 
     // read
 
-    function getStopCursor() {
-        return stopCursor;
+    function getPageDepartures() {
+        var startIndex = pageCursor * DEPARTURES_PER_PAGE;
+        var endIndex = startIndex + DEPARTURES_PER_PAGE;
+
+        return _getModeDepartures().slice(startIndex, endIndex);
     }
 
-    function getSelectedStopString() {
-        return _repo.getStopString(stopCursor, modeCursor);
+    private function _getModeDepartures() {
+        return stop.getDepartures(modeCursor);
     }
 
-    function getSelectedStop() {
-        return _repo.getStop(stopCursor);
-    }
-
-    function getSelectedDepartures() {
-        return getSelectedStop().getDepartures(modeCursor);
-    }
-
-    function getSelectedDepartureCount() {
-        return getSelectedStop().getDepartureCount(modeCursor);
-    }
-
-    function getStopCount() {
-        return _repo.getStopCount();
-    }
-
-    function getModeCount() {
-        return _repo.getModeCount(stopCursor);
-    }
-
-    function isPositionRegistered() {
-        return _repo.isPositionRegistered();
+    function getPageCount() {
+        return Math.ceil(_getModeDepartures().size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
     }
 
     // write
 
-    function incStopCursor() {
-        _rotStopCursor(1);
+    function incPageCursor() {
+        if (pageCursor < getPageCount() - 1) {
+            pageCursor++;
+            WatchUi.requestUpdate();
+        }
     }
 
-    function decStopCursor() {
-        _rotStopCursor(-1);
-    }
-
-    private function _rotStopCursor(amount) {
-        stopCursor = _repo.getStopIndexRotated(stopCursor, amount);
-        modeCursor = 0;
-
-        // TODO: maybe a better way to request departures
-        //  e.g. let timer request for all stops
-        _repo.requestDepartures(stopCursor);
-        WatchUi.requestUpdate();
+    function decPageCursor() {
+        if (pageCursor > 0) {
+            pageCursor--;
+            WatchUi.requestUpdate();
+        }
     }
 
     function onSelect() {
-        var stop = getSelectedStop();
-
-        if (stop.areStopsRerequestable()) {
-            _repo.setStopsSearhing();
-            _repo.requestNearbyStops();
-        }
-        else if (stop.areDeparturesRerequestable()) {
-            _repo.setDeparturesSearching(stopCursor);
-
-            if (stop.getFirstDeparture().errorCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
-                _repo.requestFewerDepartures(stopCursor);
-            }
-            else {
-                _repo.requestDepartures(stopCursor);
-            }
+        if (stop.areDeparturesRerequestable()) {
+            _rerequestDepartures();
         }
         else {
             _incModeCursor();
         }
-
         WatchUi.requestUpdate();
     }
 
+    private function _setDeparturesSearching() {
+        stop.setDeparturesPlaceholder(null, rez(Rez.Strings.lbl_i_departures_searching));
+    }
+
     private function _incModeCursor() {
-        modeCursor = _repo.getModeIndexRotated(stopCursor, modeCursor);
+        modeCursor = mod(modeCursor + 1, stop.getModeCount());
+        pageCursor = 0;
         WatchUi.requestUpdate();
     }
 

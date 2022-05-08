@@ -8,30 +8,29 @@ class Repository {
 
     // init
 
-    function initialize(position, storage) {
-        _footprint = position;
+    function initialize(footprint, storage) {
+        _footprint = footprint;
         _storage = storage;
     }
 
     // api
 
     function requestNearbyStops() {
-        var stopCursor = _getStopCursorMethod.invoke();
-        SlService.detailRequester(_storage, stopCursor, false).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+        //new SlStopService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+        new SlStopService(_storage).requestNearbyStops(debugLat, debugLon);
     }
 
-    function requestDepartures(index) {
-        SlService.detailRequester(_storage, index, false).requestDepartures();
+    function requestDepartures(stop) {
+        new SlDepartureService(stop, false).requestDepartures();
     }
 
-    function requestFewerDepartures(index) {
-        SlService.detailRequester(_storage, index, true).requestDepartures();
+    function requestFewerDepartures(stop) {
+        new SlDepartureService(stop, true).requestDepartures();
     }
 
     // position
 
-    function enablePositionHandling(getStopCursorMethod) {
-        _getStopCursorMethod = getStopCursorMethod;
+    function enablePositionHandling() {
         _setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStops));
     }
 
@@ -53,35 +52,11 @@ class Repository {
 
     // storage
 
-    function getStopString(stopIndex, modeIndex) {
-        var stop = getStop(stopIndex);
-        if (stop != null) {
-            return stop.toDetailString(modeIndex);
-        }
-        return rez(Rez.Strings.lbl_i_stops_none_found);
+    function getStops() {
+        return _storage.getStops();
     }
 
-    function getStop(index) {
-        return _storage.getStop(index);
-    }
-
-    function getStopCount() {
-        return _storage.getStopCount();
-    }
-
-    function getModeCount(stopIndex) {
-        return getStop(stopIndex).getModeCount();
-    }
-
-    function getStopIndexRotated(index, amount) {
-        return mod(index + amount, getStopCount());
-    }
-
-    function getModeIndexRotated(stopIndex, modeIndex) {
-        return mod(modeIndex + 1, getModeCount(stopIndex));
-    }
-
-    function setStopsSearhing() {
+    function setStopsSearching() {
         if (!_storage.hasStops()) {
             var message;
 
@@ -94,10 +69,6 @@ class Repository {
 
             _storage.setPlaceholderStop(null, message);
         }
-    }
-
-    function setDeparturesSearching(stopIndex) {
-        _storage.setPlaceholderDeparture(stopIndex, null, rez(Rez.Strings.lbl_i_departures_searching));
     }
 
 }

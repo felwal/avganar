@@ -150,7 +150,7 @@ class Dk {
 
     function drawViewTitle(text) {
         resetColor();
-        dc.drawText(cx, 23, Graphene.FONT_TINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(cx, 23, Graphene.FONT_SMALL, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // banner
@@ -300,11 +300,13 @@ class Dk {
     }
 
     function drawVerticalPageNumber(pageCount, index) {
+        if (pageCount <= 1) {
+            return;
+        }
+
         var font = Graphene.FONT_XTINY;
         var fh = dc.getFontHeight(font);
-        var text = pageCount <= 1
-            ? "-/-"
-            : (index + 1).toString() + "/" + pageCount.toString();
+        var text = (index + 1).toString() + "/" + pageCount.toString();
 
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;

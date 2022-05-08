@@ -15,26 +15,13 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     //! "DOWN"
     function onNextPage() {
-        _viewModel.incStopCursor();
+        _viewModel.incPageCursor();
         return true;
     }
 
     //! "UP"
     function onPreviousPage() {
-        _viewModel.decStopCursor();
-        return true;
-    }
-
-    //! "long UP"
-    function onMenu() {
-        var menu = new WatchUi.Menu();
-
-        menu.setTitle(rez(Rez.Strings.lbl_settings_title));
-        menu.addItem(rez(Rez.Strings.lbl_settings_apis), SettingsMenuDelegate.ITEM_API);
-
-        var delegate = new SettingsMenuDelegate();
-        WatchUi.pushView(menu, delegate, WatchUi.SLIDE_BLINK);
-
+        _viewModel.decPageCursor();
         return true;
     }
 

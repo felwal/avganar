@@ -9,7 +9,7 @@
     <string id="lbl_i_stops_searching">Searching ...</string>
     <string id="lbl_i_stops_none_found">No stops found</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
-    <string id="lbl_i_departures_searching">Searching departures ...</string>
+    <string id="lbl_i_departures_searching" scope="glance">Searching departures ...</string>
     <string id="lbl_i_departures_none_found">No departures found</string>
 
     <!-- error -->

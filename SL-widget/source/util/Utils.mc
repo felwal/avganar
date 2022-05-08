@@ -15,8 +15,17 @@ function coerceIn(value, min, max) {
     return min > max ? null : (value < min ? min : (value > max ? max : value));
 }
 
+function min(a, b) {
+    return a <= b ? a : b;
+}
+
+function max(a, b) {
+    return a >= b ? a : b;
+}
+
 // resource
 
+(:glance)
 function rez(rezId) {
     return Application.loadResource(rezId);
 }
