@@ -50,43 +50,41 @@ class StopListView extends WatchUi.View {
     // draw
 
     private function _draw(dk) {
-        var stops = _viewModel.getStops();
+        var response = _viewModel.getResponse();
 
         // icon
         if (_viewModel.stopCursor == 0) {
             dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
         }
 
-        // stops
-        if (stops.size() == 1 && stops[0].isPlaceholder()) {
-            // error message
-            var departure = stops[0].getFirstDeparture();
-            var msg = departure != null && departure.isPlaceholder() ? departure.toString() : "";
-            dk.drawDialog(stops[0].name, msg);
-        }
-        else {
-            _drawStops(dk, stops);
-        }
+        // error
+        if (response instanceof ResponseError) {
+            // info
+            dk.drawDialog(response.title, response.message);
 
-        // text
-        //_drawGpsStatus(dk);
-
-        // page indicator
-        var stopCount = _viewModel.getStopCount();
-        dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
-        dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
-
-        if (stops.size() == 1) {
             // banner
-            if (!stops[0].hasConnection()) {
+            if (!response.hasConnection()) {
                 dk.drawExclamationBanner();
             }
 
             // start indicator
-            if (stops[0].areStopsRerequestable()) {
+            if (response.isRerequestable()) {
                 dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
             }
         }
+
+        // stops
+        else {
+            _drawStops(dk, response);
+
+            // page indicator
+            var stopCount = response.size();
+            dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
+            dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
+        }
+
+        // text
+        //_drawGpsStatus(dk);
     }
 
     private function _drawStops(dk, stops) {
@@ -120,6 +118,8 @@ class StopListView extends WatchUi.View {
     }
 
     private function _drawGpsStatus(dk) {
+        // TODO
+
         var font = Graphene.FONT_XTINY;
         var fh = dk.dc.getFontHeight(font);
         var arrowEdgeOffset = 4;

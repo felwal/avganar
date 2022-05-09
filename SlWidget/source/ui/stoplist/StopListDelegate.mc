@@ -35,7 +35,9 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //! "START-STOP"
     function onSelect() {
-        _pushStopDetail();
+        if (_viewModel.hasStops()) {
+            _pushStopDetail();
+        }
         return true;
     }
 

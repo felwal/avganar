@@ -52,22 +52,22 @@ class Repository {
 
     // storage
 
-    function getStops() {
-        return _storage.getStops();
+    function getStopsResponse() {
+        return _storage.response;
+    }
+
+    function hasStops() {
+        return _storage.hasStops();
     }
 
     function setStopsSearching() {
-        if (!_storage.hasStops()) {
-            var message;
-
+        if (_storage.hasResponseError()) {
             if (!_footprint.isPositioned()) {
-                message = rez(Rez.Strings.lbl_i_stops_locating);
+                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_GPS));
             }
             else {
-                message = rez(Rez.Strings.lbl_i_stops_searching);
+                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_SEARCHING));
             }
-
-            _storage.setPlaceholderStop(null, message);
         }
     }
 

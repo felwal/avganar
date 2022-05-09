@@ -54,25 +54,37 @@ class StopDetailView extends WatchUi.View {
 
         // text
         _drawHeader(dk, stop.name);
-        _drawDepartures(dk);
         _drawBottomBar(dk);
         _drawClockTime(dk);
 
-        // page indicator
-        dk.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
-        dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
-        dk.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
-        dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor);
-        dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
+        // error
+        if (stop.hasResponseError()) {
+            var error = stop.getResponseError();
 
-        // banner
-        if (!stop.hasConnection()) {
-            dk.drawExclamationBanner();
+            // info
+            dk.drawDialog(error.title, error.message);
+
+            // banner
+            if (!error.hasConnection()) {
+                dk.drawExclamationBanner();
+            }
+
+            // start indicator
+            if (error.isRerequestable()) {
+                dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+            }
         }
 
-        // start indicator
-        if (stop.areDeparturesRerequestable()) {
-            dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+        // departures
+        else {
+            _drawDepartures(dk);
+
+            // page indicator
+            dk.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
+            dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
+            dk.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
+            dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor);
+            dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
         }
     }
 
@@ -91,11 +103,6 @@ class StopDetailView extends WatchUi.View {
         var rCircle = 4;
 
         var departures = _viewModel.getPageDepartures();
-
-        if (departures.size() == 1 && departures[0].isPlaceholder()) {
-            dk.drawDialog(departures[0].toString(), "");
-            return;
-        }
 
         for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < departures.size(); d++) {
             var departure = departures[d];

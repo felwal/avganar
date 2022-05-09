@@ -52,16 +52,25 @@ class StopListViewModel {
 
     // read
 
-    function getStops() {
-        return _repo.getStops();
+    function getResponse() {
+        return _repo.getStopsResponse();
     }
 
-    function getSelectedStop() {
-        return getStops()[stopCursor];
+    function hasStops() {
+        return _repo.hasStops();
+    }
+
+    function getStops() {
+        var response = getResponse();
+        return response instanceof ResponseError ? null : response;
     }
 
     function getStopCount() {
         return getStops().size();
+    }
+
+    function getSelectedStop() {
+        return getStops()[stopCursor];
     }
 
     function isPositionRegistered() {
@@ -79,8 +88,10 @@ class StopListViewModel {
     }
 
     private function _rotStopCursor(step) {
-        stopCursor = mod(stopCursor + step, getStopCount());
-        WatchUi.requestUpdate();
+        if (hasStops()) {
+            stopCursor = mod(stopCursor + step, getStopCount());
+            WatchUi.requestUpdate();
+        }
     }
 
 }

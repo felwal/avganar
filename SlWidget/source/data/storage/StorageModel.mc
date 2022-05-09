@@ -6,9 +6,10 @@ class StorageModel {
     private static const _STORAGE_STOP_IDS = "stop_ids";
     private static const _STORAGE_STOP_NAMES = "stop_names";
 
+    var response;
+
     private var _stopIds;
     private var _stopNames;
-    private var _stops;
 
     // init
 
@@ -24,24 +25,23 @@ class StorageModel {
         Storage.setValue(_STORAGE_STOP_NAMES, _stopNames);
     }
 
-    function setPlaceholderStop(errorCode, msg) {
-        resetStops();
-        _stopIds.add(Stop.NO_ID);
-        _stopNames.add(msg);
-        _stops.add(Stop.placeholder(errorCode, msg));
-    }
-
     function setStops(stopIds, stopNames, stops) {
         _stopIds = stopIds;
         _stopNames = stopNames;
-        _stops = stops;
+        response = stops;
         _save();
+    }
+
+    function setResponseError(error) {
+        _stopIds = [];
+        _stopNames = [];
+        response = error;
     }
 
     function resetStops() {
         _stopIds = [];
         _stopNames = [];
-        _stops = [];
+        response = [];
     }
 
     // get
@@ -51,36 +51,38 @@ class StorageModel {
         var stopNames = Storage.getValue(_STORAGE_STOP_NAMES);
 
         if (stopIds == null || stopNames == null) {
-            _stopIds = [];
-            _stopNames = [];
-            _stops = [];
+            resetStops();
         }
         else {
             _stopIds = stopIds;
             _stopNames = stopNames;
-            _stops = [];
+            response = [];
 
             for (var i = 0; i < _stopIds.size() && i < _stopNames.size(); i++) {
                 var stop = new Stop(_stopIds[i], _stopNames[i]);
-                _stops.add(stop);
+                response.add(stop);
             }
         }
     }
 
+    function hasResponseError() {
+        return response instanceof ResponseError;
+    }
+
     function hasStops() {
-        return _stops != null && _stops.size() > 0 && _stops[0].id != Stop.NO_ID;
+        return !hasResponseError() && response != null && response.size() > 0;
     }
 
     function getStop(index) {
-        return ArrCompat.coerceGet(_stops, index);
+        return hasResponseError() ? null : ArrCompat.coerceGet(response, index);
     }
 
     function getStops() {
-        return _stops;
+        return hasResponseError() ? null : response;
     }
 
     function getStopCount() {
-        return _stops.size();
+        return hasResponseError() ? null : response.size();
     }
 
 }
