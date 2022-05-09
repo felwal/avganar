@@ -60,7 +60,7 @@ class StopDetailView extends WatchUi.View {
 
         // page indicator
         dk.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
-        dk.dc.setColor(Graphene.COLOR_WHITE, Color.BOTTOM_BAR);
+        dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
         dk.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
         dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor);
         dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
@@ -114,7 +114,7 @@ class StopDetailView extends WatchUi.View {
     }
 
     private function _drawBottomBar(dk) {
-        dk.setColor(Color.BOTTOM_BAR);
+        dk.setColor(Color.ACCENT);
         dk.dc.fillRectangle(0, dk.h - 42, dk.w, 42);
 
         //dk.setColor(Graphene.COLOR_DK_GRAY);
@@ -134,7 +134,7 @@ class StopDetailView extends WatchUi.View {
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
         //dk.setColor(Color.CONTROL_NORMAL);
-        dk.dc.setColor(Graphene.COLOR_WHITE, Color.BOTTOM_BAR);
+        dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
         dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 

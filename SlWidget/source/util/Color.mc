@@ -2,9 +2,10 @@ using Carbon.Graphene;
 
 class Color {
 
-    static const CONTROL_NORMAL = Graphene.COLOR_DK_GRAY;
+    static const TEXT_PRIMARY = Graphene.COLOR_WHITE;
     static const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
-    static const BOTTOM_BAR = Graphene.COLOR_CERULIAN;
+    static const CONTROL_NORMAL = Graphene.COLOR_DK_GRAY;
+    static const ACCENT = Graphene.COLOR_CERULIAN;
 
     // departure
 

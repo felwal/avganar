@@ -107,7 +107,7 @@ class StopListView extends WatchUi.View {
             var yText = dk.cy + (i - cursor) * lineHeightPx;
 
             if (i == cursor) {
-                dk.setColor(Graphene.COLOR_WHITE);
+                dk.setColor(Color.TEXT_PRIMARY);
                 dk.dc.drawText(dk.cx, yText, fontSelected, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
             else {
