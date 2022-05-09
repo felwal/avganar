@@ -104,21 +104,22 @@ class StopDetailViewModel {
     function onSelect() {
         if (stop.areDeparturesRerequestable()) {
             _rerequestDepartures();
+            WatchUi.requestUpdate();
         }
-        else {
+        else if (stop.getModeCount() > 1) {
             _incModeCursor();
+            WatchUi.requestUpdate();
         }
-        WatchUi.requestUpdate();
-    }
-
-    private function _setDeparturesSearching() {
-        stop.setDeparturesPlaceholder(null, rez(Rez.Strings.lbl_i_departures_searching));
     }
 
     private function _incModeCursor() {
         modeCursor = mod(modeCursor + 1, stop.getModeCount());
         pageCursor = 0;
         WatchUi.requestUpdate();
+    }
+
+    private function _setDeparturesSearching() {
+        stop.setDeparturesPlaceholder(null, rez(Rez.Strings.lbl_i_departures_searching));
     }
 
 }
