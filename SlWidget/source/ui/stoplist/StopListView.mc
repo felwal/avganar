@@ -72,7 +72,9 @@ class StopListView extends WatchUi.View {
         //_drawGpsStatus(dk);
 
         // page indicator
-        dk.drawVerticalPageArrows(_viewModel.getStopCount(), _viewModel.stopCursor);
+        var stopCount = _viewModel.getStopCount();
+        dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
+        dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
 
         if (stops.size() == 1) {
             // banner
