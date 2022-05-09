@@ -16,6 +16,7 @@ class Departure {
     private static const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
     private static const _GROUP_BUS_RED = "";
     private static const _GROUP_BUS_BLUE = "blåbuss";
+    private static const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
     var errorCode = null;
 
@@ -67,6 +68,7 @@ class Departure {
                 switch (_group) {
                     case _GROUP_BUS_RED: return Color.DEPARTURE_BUS_RED;
                     case _GROUP_BUS_BLUE: return Color.DEPARTURE_BUS_BLUE;
+                    case _GROUP_BUS_REPLACEMENT: return Color.DEPARTURE_BUS_REPLACEMENT;
                     default: return Color.DEPARTURE_UNKNOWN;
                 }
 
