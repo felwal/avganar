@@ -61,7 +61,9 @@ class Departure {
                     case _GROUP_METRO_RED: return Color.DEPARTURE_METRO_RED;
                     case _GROUP_METRO_BLUE: return Color.DEPARTURE_METRO_BLUE;
                     case _GROUP_METRO_GREEN: return Color.DEPARTURE_METRO_GREEN;
-                    default: return Color.DEPARTURE_UNKNOWN;
+                    default:
+                        Log.d("unknown metro group: " + _group);
+                        return Color.DEPARTURE_UNKNOWN;
                 }
 
             case _MODE_BUS:
@@ -69,7 +71,9 @@ class Departure {
                     case _GROUP_BUS_RED: return Color.DEPARTURE_BUS_RED;
                     case _GROUP_BUS_BLUE: return Color.DEPARTURE_BUS_BLUE;
                     case _GROUP_BUS_REPLACEMENT: return Color.DEPARTURE_BUS_REPLACEMENT;
-                    default: return Color.DEPARTURE_UNKNOWN;
+                    default:
+                        Log.d("unknown bus group: " + _group);
+                        return Color.DEPARTURE_UNKNOWN;
                 }
 
             case _MODE_TRAIN:
@@ -85,6 +89,7 @@ class Departure {
                 return Color.DEPARTURE_NONE;
 
             default:
+                Log.d("unknown mode: " + _mode);
                 return Color.DEPARTURE_UNKNOWN;
         }
     }
