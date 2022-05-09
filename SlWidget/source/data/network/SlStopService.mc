@@ -34,18 +34,17 @@ class SlStopService {
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location outside bounds; skipping request");
 
-            var msg = lat == 0.0 && lon == 0.0
-                ? rez(Rez.Strings.lbl_i_stops_no_gps)
-                : rez(Rez.Strings.lbl_i_stops_outside_bounds);
-
-            _storage.setPlaceholderStop(Stop.ERROR_CODE_OUTSIDE_BOUNDS, msg);
-            //_storage.getStop(0).setDeparturesPlaceholder(null, "At " + Footprint.format(lat, lon));
-
-            return;
+            if (lat == 0.0 && lon == 0.0) {
+                _storage.setResponseError(Stop.ERROR_CODE_NO_GPS);
+            }
+            else {
+                _storage.setResponseError(Stop.ERROR_CODE_OUTSIDE_BOUNDS);
+            }
         }
-
-        Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
-        _requestNearbyStops(lat, lon);
+        else {
+            Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
+            _requestNearbyStops(lat, lon);
+        }
     }
 
     private function _requestNearbyStops(lat, lon) {
@@ -73,7 +72,14 @@ class SlStopService {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            _handleNearbyStopsResponseError(responseCode, data);
+            Log.i("Stops response error (code " + responseCode + "): " + data);
+
+            if (DictCompat.hasKey(data, "Message")) {
+                _storage.setResponseError(new ResponseError(data["Message"]));
+            }
+            else {
+                _storage.setResponseError(new ResponseError(responseCode));
+            }
         }
 
         WatchUi.requestUpdate();
@@ -85,16 +91,12 @@ class SlStopService {
 
         // no stops were found
         if (!DictCompat.hasKey(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
-            var message;
-
             if (DictCompat.hasKey(data, "Message")) {
-                message = data["Message"];
+                _storage.setResponseError(new ResponseError(data["Message"]));
             }
             else {
-                message = rez(Rez.Strings.lbl_i_stops_none_found);
+                _storage.setResponseError(new ResponseError(Stop.ERROR_CODE_NO_STOPS));
             }
-
-            _storage.setPlaceholderStop(Stop.ERROR_CODE_NO_STOPS, message);
         }
 
         // stops were found
@@ -117,41 +119,6 @@ class SlStopService {
         }
 
         _storage.setStops(stopIds, stopNames, stops);
-    }
-
-    private function _handleNearbyStopsResponseError(responseCode, data) {
-        Log.i("Stops response error (code " + responseCode + "): " + data);
-
-        var message;
-
-        if (DictCompat.hasKey(data, "Message")) {
-            message = data["Message"];
-        }
-        else if (responseCode == _RESPONSE_OK) {
-            message = rez(Rez.Strings.lbl_e_null_data);
-        }
-        else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            // no bluetooth
-            message = rez(Rez.Strings.lbl_e_connection);
-        }
-        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
-            // no internet
-            message = rez(Rez.Strings.lbl_e_connection);
-        }
-        else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            message = rez(Rez.Strings.lbl_e_memory);
-        }
-        else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            message = rez(Rez.Strings.lbl_e_queue_full);
-        }
-        else if (responseCode == Communications.BLE_REQUEST_CANCELLED || responseCode == Communications.REQUEST_CANCELLED) {
-            message = rez(Rez.Strings.lbl_e_cancelled);
-        }
-        else {
-            message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
-        }
-
-        _storage.setPlaceholderStop(responseCode, message);
     }
 
 }

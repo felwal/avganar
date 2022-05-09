@@ -58,14 +58,14 @@ class StopDetailViewModel {
     }
 
     private function _rerequestDepartures() {
-        _setDeparturesSearching();
-
-        if (stop.getFirstDeparture().errorCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
+        if (stop.hasResponseError() && stop.getResponseError().isTooLarge()) {
             _repo.requestFewerDepartures(stop);
         }
         else {
             requestDepartures();
         }
+
+        stop.setSearching();
     }
 
     // read
@@ -102,11 +102,12 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
-        if (stop.areDeparturesRerequestable()) {
+        var hasError = stop.hasResponseError();
+        if (hasError && stop.getResponseError().isRerequestable()) {
             _rerequestDepartures();
             WatchUi.requestUpdate();
         }
-        else if (stop.getModeCount() > 1) {
+        else if (!hasError && stop.getModeCount() > 1) {
             _incModeCursor();
             WatchUi.requestUpdate();
         }
@@ -116,10 +117,6 @@ class StopDetailViewModel {
         modeCursor = mod(modeCursor + 1, stop.getModeCount());
         pageCursor = 0;
         WatchUi.requestUpdate();
-    }
-
-    private function _setDeparturesSearching() {
-        stop.setDeparturesPlaceholder(null, rez(Rez.Strings.lbl_i_departures_searching));
     }
 
 }

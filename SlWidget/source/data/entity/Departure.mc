@@ -18,8 +18,6 @@ class Departure {
     private static const _GROUP_BUS_BLUE = "blåbuss";
     private static const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
-    var errorCode = null;
-
     private var _mode;
     private var _group;
     private var _line;
@@ -38,17 +36,7 @@ class Departure {
         _displayTime = displayTime;
     }
 
-    static function placeholder(errorCode, msg) {
-        var departure = new Departure(_MODE_NONE, "", "", "", "", msg);
-        departure.errorCode = errorCode;
-        return departure;
-    }
-
     // get
-
-    function isPlaceholder() {
-        return _mode == _MODE_NONE;
-    }
 
     function toString() {
         return _displayTime + " " + _line + " " + _destination;
@@ -92,17 +80,6 @@ class Departure {
                 Log.d("unknown mode: " + _mode);
                 return Color.DEPARTURE_UNKNOWN;
         }
-    }
-
-    function hasConnection() {
-        return errorCode != Communications.BLE_CONNECTION_UNAVAILABLE
-            && errorCode != Communications.NETWORK_REQUEST_TIMED_OUT;
-    }
-
-    function areDeparturesRerequestable() {
-        return _mode == _MODE_NONE
-            && errorCode != null
-            && errorCode != Communications.BLE_CONNECTION_UNAVAILABLE;
     }
 
 }

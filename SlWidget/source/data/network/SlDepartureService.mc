@@ -7,7 +7,7 @@ class SlDepartureService {
 
     private static const _RESPONSE_OK = 200;
 
-    // departures max departures
+    // departures max departures (per mode)
     private static const _MAX_DEPARTURES = 15;
     // departures time window (max = 60)
     private static const _TIME_WINDOW = 60;
@@ -30,7 +30,7 @@ class SlDepartureService {
     // TODO: only call these when the time diff is > x s
 
     function requestDepartures() {
-        if (_stop != null && _stop.id != Stop.NO_ID) {
+        if (_stop != null) {
             Log.i("Requesting departures for siteId " + _stop.id + " ...");
             _requestDepartures();
         }
@@ -60,7 +60,8 @@ class SlDepartureService {
             _handleDeparturesResponseOk(data);
         }
         else {
-            _handleDeparturesResponseError(responseCode, data);
+            Log.i("Departures response error (code " + responseCode + "): " + data);
+            _stop.setResponse(new ResponseError(responseCode));
         }
 
         WatchUi.requestUpdate();
@@ -98,46 +99,12 @@ class SlDepartureService {
         departures.removeAll(null);
 
         if (departures.size() != 0) {
-            _stop.setDepartures(departures);
+            _stop.setResponse(departures);
         }
         else {
             Log.d("Departures response empty of departures");
-            _stop.setDeparturesPlaceholder(null, rez(Rez.Strings.lbl_i_departures_none_found));
+            _stop.setResponse(new ResponseError(ResponseError.ERROR_CODE_NO_DEPARTURES));
         }
-    }
-
-    private function _handleDeparturesResponseError(responseCode, data) {
-        var message;
-
-        if (responseCode == _RESPONSE_OK) {
-           message = rez(Rez.Strings.lbl_e_null_data);
-        }
-        else if (responseCode == Communications.BLE_CONNECTION_UNAVAILABLE) {
-            // no bluetooth
-            message = rez(Rez.Strings.lbl_e_connection);
-        }
-        else if (responseCode == Communications.NETWORK_REQUEST_TIMED_OUT) {
-            // no internet
-            message = rez(Rez.Strings.lbl_e_connection);
-        }
-        else if (responseCode == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
-            message = rez(Rez.Strings.lbl_e_memory);
-        }
-        else if (responseCode == Communications.BLE_QUEUE_FULL) {
-            message = rez(Rez.Strings.lbl_e_queue_full);
-        }
-        else if (responseCode == Communications.NETWORK_RESPONSE_TOO_LARGE) {
-            message = rez(Rez.Strings.lbl_e_response_size);
-        }
-        else if (responseCode == Communications.BLE_REQUEST_CANCELLED || responseCode == Communications.REQUEST_CANCELLED) {
-            message = rez(Rez.Strings.lbl_e_cancelled);
-        }
-        else {
-            Log.i("Departures response error (code " + responseCode + "): " + data);
-            message = rez(Rez.Strings.lbl_e_general) + " " + responseCode;
-        }
-
-        _stop.setDeparturesPlaceholder(responseCode, message);
     }
 
 }
