@@ -219,19 +219,31 @@ class Dk {
     // scrollbar
 
     function drawVerticalScrollbarSmall(pageCount, index) {
-        _drawVerticalScrollbar(50, pageCount, index);
+        _drawVerticalScrollbar(50, pageCount, index, index + 1);
+    }
+
+    function drawVerticalScrollbarCSmall(itemCount, startIndex, endIndex) {
+        _drawVerticalScrollbar(50, itemCount, startIndex, endIndex);
     }
 
     function drawVerticalScrollbarMedium(pageCount, index) {
-        _drawVerticalScrollbar(70, pageCount, index);
+        _drawVerticalScrollbar(70, pageCount, index, index + 1);
+    }
+
+    function drawVerticalScrollbarCMedium(itemCount, startIndex, endIndex) {
+        _drawVerticalScrollbar(70, itemCount, startIndex, endIndex);
     }
 
     function drawVerticalScrollbarLarge(pageCount, index) {
-        _drawVerticalScrollbar(100, pageCount, index);
+        _drawVerticalScrollbar(100, pageCount, index, index + 1);
     }
 
-    private function _drawVerticalScrollbar(sizeDeg, pageCount, index) {
-        if (pageCount <= 1) {
+    function drawVerticalScrollbarCLarge(itemCount, startIndex, endIndex) {
+        _drawVerticalScrollbar(100, itemCount, startIndex, endIndex);
+    }
+
+    private function _drawVerticalScrollbar(sizeDeg, itemCount, startIndex, endIndex) {
+        if (itemCount <= 1) {
             return;
         }
 
@@ -242,8 +254,8 @@ class Dk {
         // rail
         strokeArcCompat(edgeOffset, 1, 1, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
 
-        var itemDeltaDeg = (endDeg - startDeg) / pageCount.toFloat();
-        var itemStartDeg = startDeg + index * itemDeltaDeg;
+        var itemDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
+        var itemStartDeg = startDeg + (endDeg - startDeg) * startIndex / itemCount.toFloat();
         var itemEndDeg = itemStartDeg + itemDeltaDeg;
 
         // bar
