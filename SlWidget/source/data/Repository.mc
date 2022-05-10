@@ -4,8 +4,6 @@ class Repository {
     protected var _footprint;
     protected var _storage;
 
-    private var _getStopCursorMethod;
-
     // init
 
     function initialize(footprint, storage) {

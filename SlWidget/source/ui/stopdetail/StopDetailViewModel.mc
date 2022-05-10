@@ -82,7 +82,9 @@ class StopDetailViewModel {
     }
 
     function getPageCount() {
-        return Math.ceil(_getModeDepartures().size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
+        return stop.hasResponseError()
+            ? 1
+            : Math.ceil(_getModeDepartures().size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
     }
 
     // write
