@@ -68,6 +68,20 @@ class SlDepartureService {
     }
 
     private function _handleDeparturesResponseOk(data) {
+        var statusCode = data["StatusCode"];
+        var message = data["Message"];
+
+        // SL error
+        if (statusCode != 0 || message != null) {
+            Log.i("Departures SL request error (code " + statusCode + "): " + message);
+
+            var error = new ResponseError(statusCode);
+            error.message = message;
+            _stop.setResponse(error);
+
+            return;
+        }
+
         Log.d("Departures response success: " + data);
 
         var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];

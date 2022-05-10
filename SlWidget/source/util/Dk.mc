@@ -160,9 +160,11 @@ class Dk {
         var msgFont = Graphene.FONT_XTINY;
 
         if (msg == null || msg.equals("")) {
+            resetColor();
             dc.drawText(cx, cy, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
         else if (title == null || title.equals("")) {
+            setColor(Color.TEXT_SECONDARY);
             dc.drawText(cx, cy, msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
         else {
