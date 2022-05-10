@@ -52,15 +52,6 @@ class StopListView extends WatchUi.View {
     private function _draw(dk) {
         var response = _viewModel.getResponse();
 
-        // at top
-        if (_viewModel.stopCursor == 0) {
-            // icon
-            dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
-
-            // gps
-            //_drawGpsStatus(dk);
-        }
-
         // error
         if (response instanceof ResponseError) {
             // info
@@ -75,6 +66,17 @@ class StopListView extends WatchUi.View {
             if (response.isRerequestable()) {
                 dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
             }
+
+            _viewModel.stopCursor = 0;
+        }
+
+        // at top
+        if (_viewModel.stopCursor == 0) {
+            // icon
+            dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
+
+            // gps
+            //_drawGpsStatus(dk);
         }
 
         // stops
@@ -83,7 +85,9 @@ class StopListView extends WatchUi.View {
 
             // page indicator
             var stopCount = response.size();
+            dk.setColor(Color.CONTROL_NORMAL);
             dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
+            dk.resetColor();
             dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
         }
     }
