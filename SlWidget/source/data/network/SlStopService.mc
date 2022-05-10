@@ -87,6 +87,20 @@ class SlStopService {
 
     //! @return If the selected stop has changed and departures should be requested
     private function _handleNearbyStopsResponseOk(data) {
+        // SL error
+        if (DictCompat.hasKey(data, "StatusCode") || DictCompat.hasKey(data, "Message")) {
+            var statusCode = data["StatusCode"];
+            var message = data["Message"];
+
+            Log.i("Stops SL request error (code " + statusCode + "): " + message);
+
+            var error = new ResponseError(statusCode);
+            error.message = message;
+            _storage.setResponseError(error);
+
+            return;
+        }
+
         Log.d("Stops response success: " + data);
 
         // no stops were found
