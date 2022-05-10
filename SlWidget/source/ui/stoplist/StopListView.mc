@@ -52,9 +52,13 @@ class StopListView extends WatchUi.View {
     private function _draw(dk) {
         var response = _viewModel.getResponse();
 
-        // icon
+        // at top
         if (_viewModel.stopCursor == 0) {
+            // icon
             dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
+
+            // gps
+            //_drawGpsStatus(dk);
         }
 
         // error
@@ -82,9 +86,6 @@ class StopListView extends WatchUi.View {
             dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
             dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
         }
-
-        // text
-        //_drawGpsStatus(dk);
     }
 
     private function _drawStops(dk, stops) {
@@ -118,23 +119,15 @@ class StopListView extends WatchUi.View {
     }
 
     private function _drawGpsStatus(dk) {
-        // TODO
-
-        var font = Graphene.FONT_XTINY;
-        var fh = dk.dc.getFontHeight(font);
-        var arrowEdgeOffset = 4;
-        var arrowHeight = 8;
-        var arrowNumberOffset = 8;
-        var x = dk.cx - 24;
-        var y = dk.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+        var x = dk.cx + 45;
+        var y = 60;
+        var r = 5;
 
         var hasGps = _viewModel.isPositionRegistered();
-
-        var text = hasGps ? "GPS" : "---";
         var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
 
         dk.setColor(color);
-        dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
+        dk.dc.fillCircle(x, y, r);
     }
 
 }
