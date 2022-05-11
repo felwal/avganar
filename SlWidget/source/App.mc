@@ -41,6 +41,7 @@ class App extends Application.AppBase {
     function getGlanceView() {
         var viewModel = new StopGlanceViewModel(_storage);
         var view = new StopGlanceView(viewModel);
+
         return [ view ];
     }
 

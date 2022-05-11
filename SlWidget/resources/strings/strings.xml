@@ -2,10 +2,7 @@
 
     <string id="app_name">SlWidget</string>
 
-    <!-- label -->
-
-    <string id="lbl_glance_title" scope="glance">Closest stop</string>
-    <string id="lbl_glance_title_no_stops" scope="glance">No stops nearby</string>
+    <!-- message -->
 
     <!-- info -->
     <string id="lbl_i_stops_searching">Searching ...</string>
@@ -24,6 +21,12 @@
     <string id="lbl_e_cancelled">Request cancelled</string>
     <string id="lbl_e_general">Request failed</string>
     <string id="lbl_e_null_data">No data</string>
+
+    <!-- view -->
+
+    <!-- glance -->
+    <string id="lbl_glance_title" scope="glance">Closest stop</string>
+    <string id="lbl_glance_title_no_stops" scope="glance">No stops nearby</string>
 
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
