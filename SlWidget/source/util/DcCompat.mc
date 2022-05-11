@@ -5,18 +5,13 @@ using Carbon.Chem;
 
 class DcCompat {
 
-    enum {
-        DIR_LEFT,
-        DIR_RIGHT,
-        DIR_TOP,
-        DIR_BOTTOM
-    }
-
+    // directions
     private static const _DIR_LEFT = 0;
     private static const _DIR_RIGHT = 1;
     private static const _DIR_UP = 2;
     private static const _DIR_DOWN = 3;
 
+    // button angles
     private static const _BTN_START_DEG = 30;
     private static const _BTN_LIGHT_DEG = 150;
     private static const _BTN_UP_DEG = 180;
@@ -29,7 +24,7 @@ class DcCompat {
     var h;
     var cx;
     var cy;
-    var r = null;
+    var r;
 
     // init
 
@@ -39,10 +34,7 @@ class DcCompat {
         h = dc.getHeight();
         cx = w / 2;
         cy = h / 2;
-
-        if (cx == cy) {
-            r = cx;
-        }
+        r = (w + h) / 4;
     }
 
     // tool
@@ -142,11 +134,6 @@ class DcCompat {
     }
 
     // text
-
-    function drawGlanceTitle(text) {
-        resetColor();
-        dc.drawText(0, 0, Graphene.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_LEFT);
-    }
 
     function drawViewTitle(text) {
         resetColor();
@@ -399,19 +386,19 @@ class DcCompat {
     }
 
     function drawLeftPageArrow() {
-        _drawPageArrow([ 4, cy ], DIR_LEFT);
+        _drawPageArrow([ 4, cy ], _DIR_LEFT);
     }
 
     function drawRightPageArrow() {
-        _drawPageArrow([ w - 4, cy ], DIR_RIGHT);
+        _drawPageArrow([ w - 4, cy ], _DIR_RIGHT);
     }
 
     function drawTopPageArrow() {
-        _drawPageArrow([ cx, 4 ], DIR_TOP);
+        _drawPageArrow([ cx, 4 ], _DIR_UP);
     }
 
     function drawBottomPageArrow() {
-        _drawPageArrow([ cx, h - 4 ], DIR_BOTTOM);
+        _drawPageArrow([ cx, h - 4 ], _DIR_DOWN);
     }
 
     private function _drawPageArrow(point1, direction) {
@@ -422,22 +409,22 @@ class DcCompat {
         var point3;
 
         switch (direction) {
-            case DIR_LEFT:
+            case _DIR_LEFT:
                 point2 = ArrCompat.add(point1, [ deltaHori, deltaVert ]);
                 point3 = ArrCompat.add(point1, [ deltaHori, -deltaVert ]);
                 break;
 
-            case DIR_RIGHT:
+            case _DIR_RIGHT:
                 point2 = ArrCompat.add(point1, [ -deltaHori, deltaVert ]);
                 point3 = ArrCompat.add(point1, [ -deltaHori, -deltaVert ]);
                 break;
 
-            case DIR_TOP:
+            case _DIR_UP:
                 point2 = ArrCompat.add(point1, [ -deltaHori, deltaVert ]);
                 point3 = ArrCompat.add(point1, [ deltaHori, deltaVert ]);
                 break;
 
-            case DIR_BOTTOM:
+            case _DIR_DOWN:
                 point2 = ArrCompat.add(point1, [ -deltaHori, -deltaVert ]);
                 point3 = ArrCompat.add(point1, [ deltaHori, -deltaVert ]);
                 break;
