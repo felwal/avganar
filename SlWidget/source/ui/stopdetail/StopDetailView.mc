@@ -55,6 +55,7 @@ class StopDetailView extends WatchUi.View {
         // text
         _drawHeader(dk, stop.name);
         _drawBottomBar(dk);
+        _drawDistance(dk, stop.distance);
         _drawClockTime(dk);
 
         // error
@@ -123,9 +124,25 @@ class StopDetailView extends WatchUi.View {
     private function _drawBottomBar(dk) {
         dk.setColor(Color.ACCENT);
         dk.dc.fillRectangle(0, dk.h - 42, dk.w, 42);
+    }
 
-        //dk.setColor(Graphene.COLOR_DK_GRAY);
-        //dk.dc.drawCircle(dk.cx, dk.cy, dk.r + 2);
+    private function _drawDistance(dk, distance) {
+        if (distance == null) {
+            return;
+        }
+
+        var font = Graphene.FONT_XTINY;
+        var fh = dk.dc.getFontHeight(font);
+        var arrowEdgeOffset = 4;
+        var arrowHeight = 8;
+        var arrowNumberOffset = 8;
+        var x = dk.cx - 24;
+        var y = dk.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
+
+        var text = distance + "m";
+
+        dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
+        dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
     private function _drawClockTime(dk) {
@@ -140,7 +157,6 @@ class StopDetailView extends WatchUi.View {
         var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        //dk.setColor(Color.CONTROL_NORMAL);
         dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
         dk.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }

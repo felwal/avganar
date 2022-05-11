@@ -59,7 +59,7 @@ class StorageModel {
             response = [];
 
             for (var i = 0; i < _stopIds.size() && i < _stopNames.size(); i++) {
-                var stop = new Stop(_stopIds[i], _stopNames[i]);
+                var stop = new Stop(_stopIds[i], _stopNames[i], null);
                 response.add(stop);
             }
         }

@@ -5,14 +5,16 @@ class Stop {
 
     var id;
     var name;
+    var distance;
 
     private var _response;
 
     // init
 
-    function initialize(id, name) {
+    function initialize(id, name, distance) {
         self.id = id;
         self.name = name;
+        self.distance = distance;
 
         setSearching();
     }
