@@ -16,7 +16,7 @@ class SlNearbyStopsService {
 
     private static const _RESPONSE_OK = 200;
 
-    private static const _MAX_STOPS = 25; // default 9, max 1000
+    private static const _MAX_STOPS = 15; // default 9, max 1000
     private static const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     private var _storage;
@@ -105,7 +105,7 @@ class SlNearbyStopsService {
             return;
         }
 
-        Log.d("Stops response success: " + data);
+        //Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!DictCompat.hasKey(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
@@ -132,7 +132,7 @@ class SlNearbyStopsService {
             var name = stopData["name"];
             var distance = stopData["dist"].toNumber();
 
-            Log.d("dist: " + distance);
+            //Log.d("dist: " + distance);
 
             stopIds.add(id);
             stopNames.add(name);

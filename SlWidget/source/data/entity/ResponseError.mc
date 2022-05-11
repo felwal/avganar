@@ -79,7 +79,8 @@ class ResponseError {
     //
 
     function isTooLarge() {
-        return _code == Communications.NETWORK_RESPONSE_TOO_LARGE;
+        return _code == Communications.NETWORK_RESPONSE_TOO_LARGE
+            || _code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY;
     }
 
     function hasConnection() {
