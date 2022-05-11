@@ -1,7 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Time;
-using Toybox.Time.Gregorian;
 using Carbon.Graphene;
 using Carbon.Chem;
 
@@ -127,7 +126,7 @@ class StopDetailView extends WatchUi.View {
         var font = Graphene.FONT_XTINY;
         var y = yBottom - dcc.dc.getFontHeight(font);
 
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
         dcc.dc.setColor(Color.ON_ACCENT, Color.ACCENT);

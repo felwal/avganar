@@ -1,7 +1,5 @@
 using Toybox.Communications;
-using Toybox.Lang;
 using Toybox.WatchUi;
-using Carbon.Footprint;
 
 class SlDeparturesService {
 

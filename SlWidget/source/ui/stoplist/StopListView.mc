@@ -1,9 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
-using Toybox.Time;
-using Toybox.Time.Gregorian;
 using Carbon.Graphene;
-using Carbon.Chem;
 
 class StopListView extends WatchUi.View {
 

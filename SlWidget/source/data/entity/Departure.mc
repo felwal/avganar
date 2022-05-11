@@ -1,6 +1,3 @@
-using Toybox.Communications;
-using Carbon.Graphene;
-
 (:glance)
 class Departure {
 
