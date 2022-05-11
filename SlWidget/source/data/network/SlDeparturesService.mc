@@ -83,7 +83,7 @@ class SlDeparturesService {
             return;
         }
 
-        //Log.d("Departures response success: " + data);
+        Log.d("Departures response success: " + data);
 
         var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
         var departures = [];

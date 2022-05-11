@@ -14,8 +14,12 @@ class Repository {
     // api
 
     function requestNearbyStops() {
-        new SlNearbyStopsService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
-        //new SlNearbyStopsService(_storage).requestNearbyStops(debugLat, debugLon);
+        if (DEBUG) {
+            new SlNearbyStopsService(_storage).requestNearbyStops(debugLat, debugLon);
+        }
+        else {
+            new SlNearbyStopsService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+        }
     }
 
     function requestDepartures(stop) {
