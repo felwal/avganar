@@ -17,7 +17,7 @@ class SlNearbyStopsService {
     private static const _RESPONSE_OK = 200;
 
     private static const _MAX_STOPS = 25; // default 9, max 1000
-    private static const _maxRadius = 2000; // default 1000, max 2000 (meters)
+    private static const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     private var _storage;
 
@@ -32,14 +32,16 @@ class SlNearbyStopsService {
     function requestNearbyStops(lat, lon) {
         // check if outside bounds, to not make unnecessary calls outside the SL zone
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
-            Log.i("Location outside bounds; skipping request");
+            Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
 
             if (lat == 0.0 && lon == 0.0) {
-                _storage.setResponseError(Stop.ERROR_CODE_NO_GPS);
+                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_GPS));
             }
             else {
-                _storage.setResponseError(Stop.ERROR_CODE_OUTSIDE_BOUNDS);
+                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_OUTSIDE_BOUNDS));
             }
+
+            WatchUi.requestUpdate();
         }
         else {
             Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
@@ -54,7 +56,7 @@ class SlNearbyStopsService {
             "key" => KEY_NH,
             "originCoordLat" => lat,
             "originCoordLong" => lon,
-            "r" => _maxRadius,
+            "r" => _MAX_RADIUS,
             "maxNo" => _MAX_STOPS
         };
 
@@ -111,7 +113,7 @@ class SlNearbyStopsService {
                 _storage.setResponseError(new ResponseError(data["Message"]));
             }
             else {
-                _storage.setResponseError(new ResponseError(Stop.ERROR_CODE_NO_STOPS));
+                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_STOPS));
             }
         }
 

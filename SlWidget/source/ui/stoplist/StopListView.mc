@@ -70,15 +70,6 @@ class StopListView extends WatchUi.View {
             _viewModel.stopCursor = 0;
         }
 
-        // at top
-        if (_viewModel.stopCursor == 0) {
-            // icon
-            dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
-
-            // gps
-            //_drawGpsStatus(dk);
-        }
-
         // stops
         else {
             _drawStops(dk, response);
@@ -89,6 +80,15 @@ class StopListView extends WatchUi.View {
             dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
             dk.resetColor();
             dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
+        }
+
+        // at top
+        if (_viewModel.stopCursor == 0) {
+            // icon
+            dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
+
+            // gps
+            //_drawGpsStatus(dk);
         }
     }
 
