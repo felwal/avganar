@@ -14,16 +14,16 @@ class Repository {
     // api
 
     function requestNearbyStops() {
-        new SlStopService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
-        //new SlStopService(_storage).requestNearbyStops(debugLat, debugLon);
+        new SlNearbyStopsService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+        //new SlNearbyStopsService(_storage).requestNearbyStops(debugLat, debugLon);
     }
 
     function requestDepartures(stop) {
-        new SlDepartureService(stop, false).requestDepartures();
+        new SlDeparturesService(stop, false).requestDepartures();
     }
 
     function requestFewerDepartures(stop) {
-        new SlDepartureService(stop, true).requestDepartures();
+        new SlDeparturesService(stop, true).requestDepartures();
     }
 
     // position

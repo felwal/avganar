@@ -3,14 +3,15 @@ using Toybox.Lang;
 using Toybox.WatchUi;
 using Carbon.Footprint;
 
-class SlDepartureService {
+class SlDeparturesService {
+
+    // Realtidsinformation 4
+    // Bronze: 10_000/month, 30/min
 
     private static const _RESPONSE_OK = 200;
 
-    // departures max departures (per mode)
-    private static const _MAX_DEPARTURES = 15;
-    // departures time window (max = 60)
-    private static const _TIME_WINDOW = 60;
+    private static const _MAX_DEPARTURES = 15; // per mode
+    private static const _TIME_WINDOW = 60; // max 60 (minutes)
     private static const _TIME_WINDOW_SHORT = 10;
 
     private var _stop;
@@ -25,9 +26,7 @@ class SlDepartureService {
         _timeWindow = shortTimeWindow ? _TIME_WINDOW_SHORT : _TIME_WINDOW;
     }
 
-    // departures (Realtidsinformation 4)
-    // bronze: 10_000/month, 30/min
-    // TODO: only call these when the time diff is > x s
+    // request
 
     function requestDepartures() {
         if (_stop != null) {
@@ -54,6 +53,8 @@ class SlDepartureService {
 
         Communications.makeWebRequest(url, params, options, method(:onReceiveDepartures));
     }
+
+    // receive
 
     function onReceiveDepartures(responseCode, data) {
         if (responseCode == _RESPONSE_OK && DictCompat.hasKey(data, "ResponseData")) {
