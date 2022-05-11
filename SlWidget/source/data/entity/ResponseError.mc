@@ -88,11 +88,11 @@ class ResponseError {
     }
 
     function isRerequestable() {
-        return _code != null
+        return hasConnection()
             && _code != ERROR_CODE_SEARCHING
             && _code != ERROR_CODE_NO_GPS
             && _code != ERROR_CODE_OUTSIDE_BOUNDS
-            && hasConnection();
+            && _code != null;
     }
 
 }
