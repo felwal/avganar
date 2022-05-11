@@ -54,9 +54,7 @@ class StopDetailView extends WatchUi.View {
 
         // text
         _drawHeader(dcc, stop.name);
-        _drawBottomBar(dcc);
-        _drawDistance(dcc, stop.distance);
-        _drawClockTime(dcc);
+        _drawFooter(dcc, stop.distance);
 
         // error
         if (stop.hasResponseError()) {
@@ -94,6 +92,48 @@ class StopDetailView extends WatchUi.View {
         dcc.dc.drawText(dcc.cx, 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
+    private function _drawFooter(dcc, distance) {
+        // background
+        dcc.setColor(Color.ACCENT);
+        dcc.dc.fillRectangle(0, dcc.h - 42, dcc.w, 42);
+
+        // calc pos to align with page number
+        var arrowEdgeOffset = 4;
+        var arrowHeight = 8;
+        var arrowNumberOffset = 8;
+        var x = dcc.cx - 24;
+        var yBottom = dcc.h - arrowEdgeOffset - arrowHeight - arrowNumberOffset;
+
+        _drawDistance(dcc, distance, dcc.cx - 24, yBottom);
+        _drawClockTime(dcc, dcc.cx + 24, yBottom);
+    }
+
+    private function _drawDistance(dcc, distance, x, yBottom) {
+        if (distance == null) {
+            return;
+        }
+
+        var font = Graphene.FONT_XTINY;
+        var y = yBottom - dcc.dc.getFontHeight(font);
+
+        // TODO: round to km with 1 decimal
+        var text = distance + "m";
+
+        dcc.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
+        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
+    }
+
+    private function _drawClockTime(dcc, x, yBottom) {
+        var font = Graphene.FONT_XTINY;
+        var y = yBottom - dcc.dc.getFontHeight(font);
+
+        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
+
+        dcc.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
+        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
+    }
+
     private function _drawDepartures(dcc) {
         var font = Graphene.FONT_TINY;
         var fontHeight = dcc.dc.getFontHeight(font);
@@ -119,46 +159,6 @@ class StopDetailView extends WatchUi.View {
             dcc.resetColor();
             dcc.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
-    }
-
-    private function _drawBottomBar(dcc) {
-        dcc.setColor(Color.ACCENT);
-        dcc.dc.fillRectangle(0, dcc.h - 42, dcc.w, 42);
-    }
-
-    private function _drawDistance(dcc, distance) {
-        if (distance == null) {
-            return;
-        }
-
-        var font = Graphene.FONT_XTINY;
-        var fh = dcc.dc.getFontHeight(font);
-        var arrowEdgeOffset = 4;
-        var arrowHeight = 8;
-        var arrowNumberOffset = 8;
-        var x = dcc.cx - 24;
-        var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
-
-        var text = distance + "m";
-
-        dcc.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
-        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
-    }
-
-    private function _drawClockTime(dcc) {
-        var font = Graphene.FONT_XTINY;
-        var fh = dcc.dc.getFontHeight(font);
-        var arrowEdgeOffset = 4;
-        var arrowHeight = 8;
-        var arrowNumberOffset = 8;
-        var x = dcc.cx + 24;
-        var y = dcc.h - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
-
-        var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
-
-        dcc.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
-        dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 }
