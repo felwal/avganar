@@ -130,10 +130,13 @@ class SlNearbyStopsService {
             var extId = stopData["mainMastExtId"];
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
+            var distance = stopData["dist"].toNumber();
+
+            Log.d("dist: " + distance);
 
             stopIds.add(id);
             stopNames.add(name);
-            stops.add(new Stop(id, name));
+            stops.add(new Stop(id, name, distance));
         }
 
         _storage.setStops(stopIds, stopNames, stops);
