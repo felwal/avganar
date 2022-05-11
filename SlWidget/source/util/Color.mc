@@ -5,7 +5,9 @@ class Color {
     static const TEXT_PRIMARY = Graphene.COLOR_WHITE;
     static const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
     static const CONTROL_NORMAL = Graphene.COLOR_DK_GRAY;
+
     static const ACCENT = Graphene.COLOR_CERULIAN;
+    static const ON_ACCENT = Graphene.COLOR_WHITE;
 
     // departure
 
