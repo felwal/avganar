@@ -3,7 +3,10 @@ using Toybox.Lang;
 using Toybox.WatchUi;
 using Carbon.Footprint;
 
-class SlStopService {
+class SlNearbyStopsService {
+
+    // Närliggande Hållplatser 2
+    // Bronze: 10_000/month, 30/min
 
     // edges of the SL zone, with an extra 2 km offset
     private static const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
@@ -13,10 +16,8 @@ class SlStopService {
 
     private static const _RESPONSE_OK = 200;
 
-    // nearby stops max stops (max = 1000)
-    private static const _MAX_STOPS = 25;
-    // nearby stops radius (max = 2000)
-    private static const _maxRadius = 2000;
+    private static const _MAX_STOPS = 25; // default 9, max 1000
+    private static const _maxRadius = 2000; // default 1000, max 2000 (meters)
 
     private var _storage;
 
@@ -26,8 +27,7 @@ class SlStopService {
         _storage = storage;
     }
 
-    // nearby stops (Närliggande Hållplatser 2)
-    // bronze: 10_000/month, 30/min
+    // request
 
     function requestNearbyStops(lat, lon) {
         // check if outside bounds, to not make unnecessary calls outside the SL zone
@@ -66,6 +66,8 @@ class SlStopService {
 
         Communications.makeWebRequest(url, params, options, method(:onReceiveNearbyStops));
     }
+
+    // receive
 
     function onReceiveNearbyStops(responseCode, data) {
         if (responseCode == _RESPONSE_OK && data != null) {
