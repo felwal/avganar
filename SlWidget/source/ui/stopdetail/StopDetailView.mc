@@ -84,7 +84,7 @@ class StopDetailView extends WatchUi.View {
             dk.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
             dk.dc.setColor(Color.TEXT_PRIMARY, Color.ACCENT);
             dk.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
-            dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor);
+            dk.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.TEXT_PRIMARY);
             dk.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
         }
     }

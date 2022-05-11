@@ -76,9 +76,7 @@ class StopListView extends WatchUi.View {
 
             // page indicator
             var stopCount = response.size();
-            dk.setColor(Color.CONTROL_NORMAL);
-            dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor);
-            dk.resetColor();
+            dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor, Color.CONTROL_NORMAL, Color.CONTROL_NORMAL);
             dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
         }
 

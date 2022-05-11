@@ -364,30 +364,38 @@ class Dk {
 
     // page arrow
 
-    function drawHorizontalPageArrows(pageCount, index) {
+    function drawHorizontalPageArrows(pageCount, index, leftColor, rightColor) {
         if (pageCount <= 1) {
             return;
         }
 
         if (index != 0) {
+            setColor(leftColor);
             drawLeftPageArrow();
         }
         if (index != pageCount - 1) {
+            setColor(rightColor);
             drawRightPageArrow();
         }
+
+        resetColor();
     }
 
-    function drawVerticalPageArrows(pageCount, index) {
+    function drawVerticalPageArrows(pageCount, index, topColor, bottomColor) {
         if (pageCount <= 1) {
             return;
         }
 
         if (index != 0) {
+            setColor(topColor);
             drawTopPageArrow();
         }
         if (index != pageCount - 1) {
+            setColor(bottomColor);
             drawBottomPageArrow();
         }
+
+        resetColor();
     }
 
     function drawLeftPageArrow() {
