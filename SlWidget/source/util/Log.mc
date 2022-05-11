@@ -1,5 +1,6 @@
 using Toybox.System;
 
+(:glance)
 class Log {
 
     static function i(str) {

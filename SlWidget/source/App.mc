@@ -36,4 +36,12 @@ class App extends Application.AppBase {
         return [ view, delegate ];
     }
 
+    //! Return the initial glance view of your application here
+    (:glance)
+    function getGlanceView() {
+        var viewModel = new StopGlanceViewModel(_storage);
+        var view = new StopGlanceView(viewModel);
+        return [ view ];
+    }
+
 }

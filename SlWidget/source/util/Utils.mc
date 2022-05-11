@@ -11,6 +11,7 @@ function mod(dividend, divisor) {
     return remainder;
 }
 
+(:glance)
 function coerceIn(value, min, max) {
     return min > max ? null : (value < min ? min : (value > max ? max : value));
 }

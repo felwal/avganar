@@ -1,4 +1,5 @@
 
+(:glance)
 class ArrCompat {
 
     static function add(arr1, arr2) {
