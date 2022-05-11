@@ -37,7 +37,7 @@ class StopListView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new Dk(dc));
+        _draw(new DcCompat(dc));
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -49,22 +49,22 @@ class StopListView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dk) {
+    private function _draw(dcc) {
         var response = _viewModel.getResponse();
 
         // error
         if (response instanceof ResponseError) {
             // info
-            dk.drawDialog(response.title, response.message);
+            dcc.drawDialog(response.title, response.message);
 
             // banner
             if (!response.hasConnection()) {
-                dk.drawExclamationBanner();
+                dcc.drawExclamationBanner();
             }
 
             // start indicator
             if (response.isRerequestable()) {
-                dk.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+                dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
             }
 
             _viewModel.stopCursor = 0;
@@ -72,28 +72,28 @@ class StopListView extends WatchUi.View {
 
         // stops
         else {
-            _drawStops(dk, response);
+            _drawStops(dcc, response);
 
             // page indicator
             var stopCount = response.size();
-            dk.drawVerticalPageArrows(stopCount, _viewModel.stopCursor, Color.CONTROL_NORMAL, Color.CONTROL_NORMAL);
-            dk.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
+            dcc.drawVerticalPageArrows(stopCount, _viewModel.stopCursor, Color.CONTROL_NORMAL, Color.CONTROL_NORMAL);
+            dcc.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
         }
 
         // at top
         if (_viewModel.stopCursor == 0) {
             // icon
-            dk.drawBitmap(dk.cx, 60, Rez.Drawables.ic_launcher);
+            dcc.drawBitmap(dcc.cx, 60, Rez.Drawables.ic_launcher);
 
             // gps
-            //_drawGpsStatus(dk);
+            //_drawGpsStatus(dcc);
         }
     }
 
-    private function _drawStops(dk, stops) {
+    private function _drawStops(dcc, stops) {
         var fontSelected = Graphene.FONT_LARGE;
         var font = Graphene.FONT_TINY;
-        var fontHeight = dk.dc.getFontHeight(font);
+        var fontHeight = dcc.dc.getFontHeight(font);
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
 
@@ -107,29 +107,29 @@ class StopListView extends WatchUi.View {
         for (var i = firstStopIndex; i < lastStopIndex; i++) {
             var stop = stops[i];
 
-            var yText = dk.cy + (i - cursor) * lineHeightPx;
+            var yText = dcc.cy + (i - cursor) * lineHeightPx;
 
             if (i == cursor) {
-                dk.setColor(Color.TEXT_PRIMARY);
-                dk.dc.drawText(dk.cx, yText, fontSelected, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+                dcc.setColor(Color.TEXT_PRIMARY);
+                dcc.dc.drawText(dcc.cx, yText, fontSelected, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
             else {
-                dk.setColor(Color.TEXT_SECONDARY);
-                dk.dc.drawText(dk.cx, yText, font, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+                dcc.setColor(Color.TEXT_SECONDARY);
+                dcc.dc.drawText(dcc.cx, yText, font, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
             }
         }
     }
 
-    private function _drawGpsStatus(dk) {
-        var x = dk.cx + 45;
+    private function _drawGpsStatus(dcc) {
+        var x = dcc.cx + 45;
         var y = 60;
         var r = 5;
 
         var hasGps = _viewModel.isPositionRegistered();
         var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
 
-        dk.setColor(color);
-        dk.dc.fillCircle(x, y, r);
+        dcc.setColor(color);
+        dcc.dc.fillCircle(x, y, r);
     }
 
 }
