@@ -10,7 +10,7 @@ class SlDeparturesService {
 
     private static const _RESPONSE_OK = 200;
 
-    private static const _MAX_DEPARTURES = 15; // per mode
+    private static const _MAX_DEPARTURES = 12; // per mode
     private static const _TIME_WINDOW = 60; // max 60 (minutes)
     private static const _TIME_WINDOW_SHORT = 10;
 
@@ -83,7 +83,7 @@ class SlDeparturesService {
             return;
         }
 
-        Log.d("Departures response success: " + data);
+        //Log.d("Departures response success: " + data);
 
         var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
         var departures = [];
