@@ -4,8 +4,10 @@
 
     <!-- label -->
 
+    <string id="lbl_glance_title" scope="glance">Closest stop</string>
+    <string id="lbl_glance_title_no_stops" scope="glance">No stops nearby</string>
+
     <!-- info -->
-    <string id="lbl_i_stops_locating">Locating ...</string>
     <string id="lbl_i_stops_searching">Searching ...</string>
     <string id="lbl_i_stops_none_found">No stops found</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
@@ -14,7 +16,6 @@
     <string id="lbl_i_departures_none_found">No departures found</string>
 
     <!-- error -->
-    <string id="lbl_e_stops_index_oob">Index out of range</string>
     <string id="lbl_e_queue_full">Queue full</string>
     <string id="lbl_e_bluetooth">No bluetooth</string>
     <string id="lbl_e_internet">No internet</string>

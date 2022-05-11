@@ -48,7 +48,7 @@ class StopGlanceView extends WatchUi.GlanceView {
     private function _draw(dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        _drawGlanceTitle(dc, "Closest stop");
+        _drawGlanceTitle(dc, rez(Rez.Strings.lbl_glance_title));
         _drawGlanceValue(dc, _viewModel.getClosestStopName());
     }
 

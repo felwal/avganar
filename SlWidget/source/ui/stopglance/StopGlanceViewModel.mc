@@ -14,7 +14,7 @@ class StopGlanceViewModel {
 
     function getClosestStopName() {
         var stop = _storage.getStop(0);
-        return stop == null ? "No stops nearby" : stop.name;
+        return stop == null ? rez(Rez.Strings.lbl_glance_title_no_stops) : stop.name;
     }
 
 }
