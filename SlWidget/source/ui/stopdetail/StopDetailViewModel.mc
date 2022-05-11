@@ -1,6 +1,5 @@
 using Toybox.Timer;
 using Toybox.WatchUi;
-using Toybox.Communications;
 using Toybox.Math;
 
 class StopDetailViewModel {
