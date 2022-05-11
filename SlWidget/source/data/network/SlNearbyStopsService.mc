@@ -105,7 +105,7 @@ class SlNearbyStopsService {
             return;
         }
 
-        //Log.d("Stops response success: " + data);
+        Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!DictCompat.hasKey(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
@@ -131,8 +131,6 @@ class SlNearbyStopsService {
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
             var distance = stopData["dist"].toNumber();
-
-            //Log.d("dist: " + distance);
 
             stopIds.add(id);
             stopNames.add(name);

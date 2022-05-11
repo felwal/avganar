@@ -2,6 +2,9 @@ using Toybox.Application;
 using Carbon.Footprint;
 
 (:glance)
+const DEBUG = false;
+
+(:glance)
 class App extends Application.AppBase {
 
     // model
