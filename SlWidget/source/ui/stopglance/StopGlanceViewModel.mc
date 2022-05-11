@@ -1,4 +1,3 @@
-
 (:glance)
 class StopGlanceViewModel {
 
@@ -10,7 +9,7 @@ class StopGlanceViewModel {
         _storage = storage;
     }
 
-    //
+    // read
 
     function getClosestStopName() {
         var stop = _storage.getStop(0);

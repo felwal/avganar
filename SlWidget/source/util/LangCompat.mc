@@ -1,4 +1,3 @@
-
 (:glance)
 class ArrCompat {
 
