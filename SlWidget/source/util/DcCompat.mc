@@ -143,7 +143,7 @@ class DcCompat {
     function drawDialog(title, msg) {
         resetColor();
 
-        var titleFont = Graphene.FONT_TINY;
+        var titleFont = Graphene.FONT_SMALL;
         var msgFont = Graphene.FONT_XTINY;
 
         if (msg == null || msg.equals("")) {
