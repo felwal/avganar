@@ -69,6 +69,11 @@ class DcCompat {
 
     // fill shape
 
+    function fillBackground(color) {
+        setColor(color);
+        fillRectangleCentered(cx, cy, w, h);
+    }
+
     //! Fill a rectangle around a point
     function fillRectangleCentered(xCenter, yCenter, width, height) {
         dc.fillRectangle(xCenter - width / 2, yCenter - height / 2, width, height);
