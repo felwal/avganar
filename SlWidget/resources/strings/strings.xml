@@ -30,6 +30,8 @@
     <string id="lbl_glance_title" scope="glance">Nearest stop</string>
     <string id="lbl_glance_caption_no_stops" scope="glance">No stops nearby</string>
 
+    <string id="lbl_preview_title_no_stops" scope="glance">No stops nearby</string>
+
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
     <string id="lbl_settings_apis">APIs by Trafiklab</string>

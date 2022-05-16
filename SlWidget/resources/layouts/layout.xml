@@ -2,6 +2,8 @@
 
     <layout id="stopglance_layout" scope="glance" />
 
+    <layout id="stoppreview_layout" />
+
     <layout id="stoplist_layout" />
     
     <layout id="stopdetail_layout" />
