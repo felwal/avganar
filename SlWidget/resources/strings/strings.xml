@@ -37,8 +37,6 @@
     <string id="lbl_settings_apis">APIs by Trafiklab</string>
 
     <!-- apiinfo -->
-    <string id="lbl_apiinfo_info">APIs are provided by Trafiklab, and information is retrieved from Trafiklab.se using:
-- SL Nearby stops 2
-- SL Departures 4</string>
+    <string id="lbl_apiinfo_info">APIs are provided by Trafiklab, and information is retrieved from Trafiklab.se using: SL Nearby stops 2, SL Departures 4</string>
 
 </strings>

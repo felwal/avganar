@@ -1,34 +1,9 @@
 <layouts>
 
     <layout id="stopglance_layout" scope="glance" />
-
     <layout id="stoppreview_layout" />
-
     <layout id="stoplist_layout" />
-    
     <layout id="stopdetail_layout" />
-
-    <layout id="apiinfo_layout">
-
-        <drawable id="shape_white_bg" />
-
-        <text-area
-            id="lbl_apiinfo_info"
-            width="90%"
-            height="90%"
-            x="center"
-            y="center"
-            justification="Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER"
-            color="Graphics.COLOR_BLACK"
-            text="@Strings.lbl_apiinfo_info">
-
-            <fonts>
-                <font>Graphics.FONT_TINY</font>
-                <font>Graphics.FONT_XTINY</font>
-            </fonts>
-
-        </text-area>
-
-    </layout>
+    <layout id="apiinfo_layout" />
 
 </layouts>
