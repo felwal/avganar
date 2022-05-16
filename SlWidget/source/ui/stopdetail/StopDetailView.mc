@@ -153,9 +153,12 @@ class StopDetailView extends WatchUi.View {
             var xCircle = Chem.minX(yOffset + fontHeight / 2, dcc.r) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
+            // draw circle
             dcc.setColor(departure.getColor());
             dcc.dc.fillCircle(xCircle, yCircle, rCircle);
-            dcc.resetColor();
+
+            // draw text
+            dcc.setColor(departure.hasDeviations ? Color.DEVIATION : Color.TEXT_PRIMARY);
             dcc.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }

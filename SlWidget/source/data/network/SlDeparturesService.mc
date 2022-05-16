@@ -99,8 +99,9 @@ class SlDeparturesService {
                 var destination = departureData["Destination"];
                 var direction = departureData["DepartureDirection"];
                 var displayTime = departureData["DisplayTime"];
+                var hasDeviations = departureData["Deviations"] != null;
 
-                modeDepartures.add(new Departure(mode, group, line, destination, direction, displayTime));
+                modeDepartures.add(new Departure(mode, group, line, destination, direction, displayTime, hasDeviations));
             }
 
             // add null because an ampty array is not matched with the equals() removeAll() performes.
