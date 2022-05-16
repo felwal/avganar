@@ -26,4 +26,8 @@ class Color {
     static const DEPARTURE_NONE = Graphene.COLOR_BLACK;
     static const DEPARTURE_UNKNOWN = Graphene.COLOR_DK_GRAY;
 
+    //
+
+    static const DEVIATION = Graphene.COLOR_AMBER;
+
 }
