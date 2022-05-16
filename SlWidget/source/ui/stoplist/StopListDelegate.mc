@@ -59,7 +59,8 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
         var delegate = new SettingsMenuDelegate();
 
         menu.setTitle(rez(Rez.Strings.lbl_settings_title));
-        menu.addItem(rez(Rez.Strings.lbl_settings_apis), SettingsMenuDelegate.ITEM_API);
+        menu.addItem(rez(Rez.Strings.lbl_settings_api), SettingsMenuDelegate.ITEM_API);
+        menu.addItem(rez(Rez.Strings.lbl_settings_about), SettingsMenuDelegate.ITEM_ABOUT);
 
         WatchUi.pushView(menu, delegate, WatchUi.SLIDE_BLINK);
     }
