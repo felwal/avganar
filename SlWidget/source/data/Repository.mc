@@ -68,7 +68,7 @@ class Repository {
                 _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_GPS));
             }
             else {
-                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_SEARCHING));
+                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_REQUESTING_STOPS));
             }
         }
     }

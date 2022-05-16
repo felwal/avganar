@@ -20,7 +20,7 @@ class Stop {
     }
 
     function setSearching() {
-        _response = new ResponseError(ResponseError.ERROR_CODE_SEARCHING);
+        _response = new ResponseError(ResponseError.ERROR_CODE_REQUESTING_DEPARTURES);
     }
 
     // set
