@@ -79,9 +79,9 @@ class StopDetailView extends WatchUi.View {
 
             // page indicator
             dcc.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
-            dcc.dc.setColor(Color.ON_ACCENT, Color.ACCENT);
+            dcc.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
             dcc.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
-            dcc.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_ACCENT);
+            dcc.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_PRIMARY);
             dcc.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
         }
     }
@@ -93,7 +93,7 @@ class StopDetailView extends WatchUi.View {
 
     private function _drawFooter(dcc, distance) {
         // background
-        dcc.setColor(Color.ACCENT);
+        dcc.setColor(Color.PRIMARY);
         dcc.dc.fillRectangle(0, dcc.h - 42, dcc.w, 42);
 
         // calc pos to align with page number
@@ -118,7 +118,7 @@ class StopDetailView extends WatchUi.View {
         // TODO: round to km with 1 decimal
         var text = distance + "m";
 
-        dcc.dc.setColor(Color.ON_ACCENT, Color.ACCENT);
+        dcc.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
@@ -129,7 +129,7 @@ class StopDetailView extends WatchUi.View {
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        dcc.dc.setColor(Color.ON_ACCENT, Color.ACCENT);
+        dcc.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
