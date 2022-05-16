@@ -1,5 +1,6 @@
-using Toybox.Math;
 using Toybox.Application;
+using Toybox.System;
+using Toybox.Math;
 
 // math
 
@@ -29,4 +30,12 @@ function max(a, b) {
 (:glance)
 function rez(rezId) {
     return Application.loadResource(rezId);
+}
+
+// system
+
+(:glance)
+function hasGlance() {
+    var ds = System.getDeviceSettings();
+    return ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
 }

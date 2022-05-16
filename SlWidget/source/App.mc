@@ -32,11 +32,13 @@ class App extends Application.AppBase {
     //! Return the initial view of your application here
     function getInitialView() {
         var repo = new Repository(_footprint, _storage);
-        var viewModel = new StopListViewModel(repo);
-        var view = new StopListView(viewModel);
-        var delegate = new StopListDelegate(repo, viewModel);
 
-        return [ view, delegate ];
+        if (hasGlance() && !DEBUG) {
+            return _getStopList(repo);
+        }
+        else {
+            return _getStopPreview(repo);
+        }
     }
 
     //! Return the initial glance view of your application here
@@ -46,6 +48,24 @@ class App extends Application.AppBase {
         var view = new StopGlanceView(viewModel);
 
         return [ view ];
+    }
+
+    //
+
+    private function _getStopPreview(repo) {
+        var viewModel = new StopPreviewViewModel(repo);
+        var view = new StopPreviewView(viewModel);
+        var delegate = new StopPreviewDelegate(repo, viewModel);
+
+        return [ view, delegate ];
+    }
+
+    private function _getStopList(repo) {
+        var viewModel = new StopListViewModel(repo);
+        var view = new StopListView(viewModel);
+        var delegate = new StopListDelegate(repo, viewModel);
+
+        return [ view, delegate ];
     }
 
 }
