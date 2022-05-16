@@ -3,12 +3,13 @@ using Toybox.Lang;
 (:glance)
 class ResponseError {
 
-    static const ERROR_CODE_SEARCHING = -2000;
     static const ERROR_CODE_NO_DATA = 200;
-    static const ERROR_CODE_NO_GPS = -2001;
-    static const ERROR_CODE_OUTSIDE_BOUNDS = -2002;
-    static const ERROR_CODE_NO_STOPS = -2003;
-    static const ERROR_CODE_NO_DEPARTURES = -2004;
+    static const ERROR_CODE_REQUESTING_STOPS = -2000;
+    static const ERROR_CODE_REQUESTING_DEPARTURES = -2001;
+    static const ERROR_CODE_NO_GPS = -2002;
+    static const ERROR_CODE_OUTSIDE_BOUNDS = -2003;
+    static const ERROR_CODE_NO_STOPS = -2004;
+    static const ERROR_CODE_NO_DEPARTURES = -2005;
 
     var title = "";
     var message = "";
@@ -30,8 +31,11 @@ class ResponseError {
 
     private function _initStrings() {
         switch (_code) {
-            case ERROR_CODE_SEARCHING:
-                title = rez(Rez.Strings.lbl_i_departures_searching);
+            case ERROR_CODE_REQUESTING_STOPS:
+                title = rez(Rez.Strings.lbl_i_stops_requesting);
+                break;
+            case ERROR_CODE_REQUESTING_DEPARTURES:
+                title = rez(Rez.Strings.lbl_i_departures_requesting);
                 break;
             case ERROR_CODE_NO_DATA:
                 title = rez(Rez.Strings.lbl_e_null_data);
@@ -43,10 +47,10 @@ class ResponseError {
                 title = rez(Rez.Strings.lbl_i_stops_outside_bounds);
                 break;
             case ERROR_CODE_NO_STOPS:
-                title = rez(Rez.Strings.lbl_i_stops_no_gps);
+                title = rez(Rez.Strings.lbl_i_stops_none);
                 break;
             case ERROR_CODE_NO_DEPARTURES:
-                title = rez(Rez.Strings.lbl_i_departures_none_found);
+                title = rez(Rez.Strings.lbl_i_departures_none);
                 break;
 
             case Communications.BLE_CONNECTION_UNAVAILABLE:
@@ -90,7 +94,8 @@ class ResponseError {
 
     function isRerequestable() {
         return hasConnection()
-            && _code != ERROR_CODE_SEARCHING
+            && _code != ERROR_CODE_REQUESTING_STOPS
+            && _code != ERROR_CODE_REQUESTING_DEPARTURES
             && _code != ERROR_CODE_NO_GPS
             && _code != ERROR_CODE_OUTSIDE_BOUNDS
             && _code != null;

@@ -1,16 +1,18 @@
 <strings>
 
-    <string id="app_name">SlWidget</string>
+    <!-- app -->-->
+
+    <string id="app_name" scope="glance">Sl Widget</string>
 
     <!-- message -->
 
     <!-- info -->
-    <string id="lbl_i_stops_searching">Searching ...</string>
-    <string id="lbl_i_stops_none_found">No stops found</string>
+    <string id="lbl_i_stops_requesting">Searching ...</string>
+    <string id="lbl_i_stops_none">No stops found</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
     <string id="lbl_i_stops_no_gps">Wait for GPS ...</string>
-    <string id="lbl_i_departures_searching" scope="glance">Searching ...</string>
-    <string id="lbl_i_departures_none_found">No departures found</string>
+    <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
+    <string id="lbl_i_departures_none">No departures found</string>
 
     <!-- error -->
     <string id="lbl_e_queue_full">Queue full</string>
@@ -25,8 +27,8 @@
     <!-- view -->
 
     <!-- glance -->
-    <string id="lbl_glance_title" scope="glance">Closest stop</string>
-    <string id="lbl_glance_title_no_stops" scope="glance">No stops nearby</string>
+    <string id="lbl_glance_title" scope="glance">Nearest stop</string>
+    <string id="lbl_glance_caption_no_stops" scope="glance">No stops nearby</string>
 
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>

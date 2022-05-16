@@ -48,15 +48,15 @@ class StopGlanceView extends WatchUi.GlanceView {
     private function _draw(dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        _drawGlanceTitle(dc, rez(Rez.Strings.lbl_glance_title));
-        _drawGlanceValue(dc, _viewModel.getClosestStopName());
+        _drawGlanceTitle(dc, _viewModel.getTitle());
+        _drawGlanceCaption(dc, _viewModel.getCaption());
     }
 
     private function _drawGlanceTitle(dc, text) {
         dc.drawText(0, 8, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
     }
 
-    private function _drawGlanceValue(dc, text) {
+    private function _drawGlanceCaption(dc, text) {
         var font = Graphics.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
 
