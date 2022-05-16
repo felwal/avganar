@@ -2,14 +2,16 @@ using Toybox.WatchUi;
 using Toybox.Math;
 using Carbon.Graphene;
 
-class ApiInfoView extends WatchUi.View {
+class InfoView extends WatchUi.View {
 
-    private var textArea;
+    private var _text;
+    private var _textArea;
 
     // init
 
-    function initialize() {
+    function initialize(text) {
         View.initialize();
+        _text = text;
     }
 
     // override View
@@ -53,8 +55,8 @@ class ApiInfoView extends WatchUi.View {
         var x = -y;
         var size = 2 * y;
 
-        textArea = new WatchUi.TextArea({
-            :text => rez(Rez.Strings.lbl_apiinfo_info),
+        _textArea = new WatchUi.TextArea({
+            :text => _text,
             :color => Graphene.COLOR_BLACK,
             :font => [ Graphene.FONT_TINY, Graphene.FONT_XTINY ],
             :locX => dcc.cx + x,
@@ -63,8 +65,8 @@ class ApiInfoView extends WatchUi.View {
             :height => size
         });
 
-        textArea.setJustification(Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-        textArea.draw(dcc.dc);
+        _textArea.setJustification(Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        _textArea.draw(dcc.dc);
     }
 
 }
