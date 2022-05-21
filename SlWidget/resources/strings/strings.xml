@@ -1,6 +1,6 @@
 <strings>
 
-    <!-- app -->-->
+    <!-- app -->
 
     <string id="app_name" scope="glance">Sl Widget</string>
 
@@ -8,11 +8,11 @@
 
     <!-- info -->
     <string id="lbl_i_stops_requesting">Searching ...</string>
-    <string id="lbl_i_stops_none">No stops found</string>
+    <string id="lbl_i_stops_none">No nearby stops</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
     <string id="lbl_i_stops_no_gps">Wait for GPS ...</string>
     <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
-    <string id="lbl_i_departures_none">No departures found</string>
+    <string id="lbl_i_departures_none">No departures</string>
 
     <!-- error -->
     <string id="lbl_e_queue_full">Queue full</string>
