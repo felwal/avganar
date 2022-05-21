@@ -94,6 +94,8 @@ class ResponseError {
 
     function isRerequestable() {
         return hasConnection()
+            && _code != ERROR_CODE_NO_STOPS
+            && _code != ERROR_CODE_NO_DEPARTURES
             && _code != ERROR_CODE_REQUESTING_STOPS
             && _code != ERROR_CODE_REQUESTING_DEPARTURES
             && _code != ERROR_CODE_NO_GPS
