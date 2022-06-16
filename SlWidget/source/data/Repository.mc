@@ -14,6 +14,8 @@ class Repository {
     // api
 
     function requestNearbyStops() {
+        _setStopsSearching();
+
         if (DEBUG) {
             new SlNearbyStopsService(_storage).requestNearbyStops(debugLat, debugLon);
         }
@@ -37,6 +39,8 @@ class Repository {
     }
 
     private function _setPositionHandling(acquisitionType, onRegisterPosition) {
+        _setStopsSearching();
+
         // set location event listener and get last location while waiting
         _footprint.onRegisterPosition = onRegisterPosition;
         _footprint.enableLocationEvents(acquisitionType);
@@ -58,16 +62,13 @@ class Repository {
         return _storage.response;
     }
 
-    function getFavouriteStops() {
-        return [new Stop(1002, "T-Centralen", null), new Stop(9204, "Tekniska Högskolan", null)];
-    }
-
     function hasStops() {
-        return _storage.hasStops() || getFavouriteStops().size() > 0;
+        return _storage.hasStops();
     }
 
-    function setStopsSearching() {
-        if (_storage.hasResponseError()) {
+    private function _setStopsSearching() {
+        // don't override previously requested stops with "searching" message
+        if (!_storage.hasStops()) {
             if (!_footprint.isPositioned()) {
                 _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_GPS));
             }

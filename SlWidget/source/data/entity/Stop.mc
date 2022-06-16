@@ -31,6 +31,10 @@ class Stop {
 
     // get
 
+    function repr() {
+        return "Stop(" + id + ", " + name + ")";
+    }
+
     function equals(object) {
         return id == object.id;
     }

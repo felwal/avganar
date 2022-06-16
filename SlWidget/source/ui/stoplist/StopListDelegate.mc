@@ -55,10 +55,30 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
     //
 
     private function _pushSettings() {
+        var delegate = new SettingsMenuDelegate(_viewModel);
         var menu = new WatchUi.Menu();
-        var delegate = new SettingsMenuDelegate();
 
         menu.setTitle(rez(Rez.Strings.lbl_settings_title));
+
+        if (_viewModel.isFavorite()) {
+            var isInFavourites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
+
+            // move favorite
+            if (isInFavourites && _viewModel.stopCursor != 0) {
+                menu.addItem(rez(Rez.Strings.lbl_settings_favorite_move_up), SettingsMenuDelegate.ITEM_FAVORITE_MOVE_UP);
+            }
+            if (isInFavourites && _viewModel.stopCursor != _viewModel.getFavoriteCount() - 1) {
+                menu.addItem(rez(Rez.Strings.lbl_settings_favorite_move_down), SettingsMenuDelegate.ITEM_FAVORITE_MOVE_DOWN);
+            }
+
+            // remove favorite
+            menu.addItem(rez(Rez.Strings.lbl_settings_favorite_remove), SettingsMenuDelegate.ITEM_FAVORITE_REMOVE);
+        }
+        else {
+            // add favorite
+            menu.addItem(rez(Rez.Strings.lbl_settings_favorite_add), SettingsMenuDelegate.ITEM_FAVORITE_ADD);
+        }
+
         menu.addItem(rez(Rez.Strings.lbl_settings_api), SettingsMenuDelegate.ITEM_API);
         menu.addItem(rez(Rez.Strings.lbl_settings_about), SettingsMenuDelegate.ITEM_ABOUT);
 
