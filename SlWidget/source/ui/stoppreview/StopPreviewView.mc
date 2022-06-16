@@ -51,7 +51,7 @@ class StopPreviewView extends WatchUi.View {
         dcc.drawBitmap(dcc.cx, 60, Rez.Drawables.ic_launcher);
 
         // 3 nearest stops
-        if (stops == null) {
+        if (stops == null || stops.size() == 0) {
             dcc.drawDialog(rez(Rez.Strings.lbl_preview_title_no_stops), "");
         }
         else {

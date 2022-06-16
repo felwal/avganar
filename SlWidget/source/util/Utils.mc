@@ -2,6 +2,20 @@ using Toybox.Application;
 using Toybox.System;
 using Toybox.Math;
 
+// app
+
+(:glance)
+function buildStops(ids, names) {
+    var stops = [];
+
+    for (var i = 0; i < ids.size() && i < names.size(); i++) {
+        var stop = new Stop(ids[i], names[i], null);
+        stops.add(stop);
+    }
+
+    return stops;
+}
+
 // math
 
 //! The Monkey C modulo operator uses truncated division, which gives the remainder with same sign as the dividend.

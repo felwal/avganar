@@ -10,7 +10,7 @@
     <string id="lbl_i_stops_requesting">Searching ...</string>
     <string id="lbl_i_stops_none">No nearby stops</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
-    <string id="lbl_i_stops_no_gps">Wait for GPS ...</string>
+    <string id="lbl_i_stops_no_gps">Locating ...</string>
     <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
     <string id="lbl_i_departures_none">No departures</string>
 
@@ -34,6 +34,10 @@
 
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
+    <string id="lbl_settings_favorite_add">Set as Favorite</string>
+    <string id="lbl_settings_favorite_remove">Remove from Favorites</string>
+    <string id="lbl_settings_favorite_move_up">Move up</string>
+    <string id="lbl_settings_favorite_move_down">Move down</string>
     <string id="lbl_settings_api">APIs by Trafiklab</string>
     <string id="lbl_settings_about">About</string>
 

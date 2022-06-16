@@ -1,6 +1,10 @@
 (:glance)
 class ArrCompat {
 
+    static function in(arr, item) {
+        return arr.indexOf(item) != -1;
+    }
+
     static function merge(arr1, arr2) {
         var arr = new [arr1.size() + arr2.size()];
 

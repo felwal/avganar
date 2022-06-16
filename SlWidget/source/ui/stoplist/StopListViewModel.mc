@@ -9,21 +9,21 @@ class StopListViewModel {
     var stopCursor = 0;
 
     private var _repo;
+    private var _favStorage;
     private var _timer = new Timer.Timer();
 
     // init
 
     function initialize(repo) {
         _repo = repo;
+        _favStorage = new FavoriteStopsStorage();
 
-        var favCount = getFavouriteCount();
-        stopCursor = favCount;//getResponse() instanceof ResponseError ? favCount - 1 : favCount;
+        stopCursor = getFavoriteCount();
     }
 
     // request
 
     function enableRequests() {
-        _repo.setStopsSearching();
         _repo.enablePositionHandling();
         _startRequestTimer();
     }
@@ -59,12 +59,12 @@ class StopListViewModel {
     }
 
     function hasStops() {
-        return _repo.hasStops();
+        return _repo.hasStops() || _favStorage.favorites.size() > 0;
     }
 
     function getStops() {
         var response = getResponse();
-        var favs = _repo.getFavouriteStops();
+        var favs = _favStorage.favorites;
         return response instanceof ResponseError ? favs : ArrCompat.merge(favs, response);
     }
 
@@ -82,17 +82,22 @@ class StopListViewModel {
 
     function getStopCount() {
         var response = getResponse();
-        var favs = _repo.getFavouriteStops();
 
-        return getFavouriteCount() + (response instanceof ResponseError ? 1 : response.size());
+        return getFavoriteCount() + (response instanceof ResponseError ? 1 : response.size());
     }
 
-    function getFavouriteCount() {
-        return _repo.getFavouriteStops().size();
+    function getFavoriteCount() {
+        return _favStorage.favorites.size();
     }
 
     function getSelectedStop() {
-        return getStops()[stopCursor];
+        var stops = getStops();
+        return stopCursor < stops.size() ? stops[stopCursor] : null;
+    }
+
+    function isFavorite() {
+        var stop = getSelectedStop();
+        return stop != null && _favStorage.isFavorite(stop.id);
     }
 
     function isShowingMessage() {
@@ -104,6 +109,23 @@ class StopListViewModel {
     }
 
     // write
+
+    function addFavorite() {
+        _favStorage.addFavorite(getSelectedStop());
+        // navigate to newly added
+        stopCursor = getFavoriteCount() - 1;
+    }
+
+    function removeFavorite() {
+        _favStorage.removeFavorite(getSelectedStop());
+        // navigate to start
+        stopCursor = getFavoriteCount();
+    }
+
+    function moveFavorite(diff) {
+        _favStorage.moveFavorite(getSelectedStop().id, diff);
+        stopCursor += diff;
+    }
 
     function incStopCursor() {
         _rotStopCursor(1);

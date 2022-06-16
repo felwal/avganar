@@ -22,7 +22,7 @@ class App extends Application.AppBase {
     //! onStart() is called on application start up
     function onStart(state) {
         _footprint = new Carbon.Footprint();
-        _storage = new StorageModel();
+        _storage = new NearbyStopsStorage();
     }
 
     //! onStop() is called when your application is exiting

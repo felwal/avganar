@@ -73,9 +73,9 @@ class StopListView extends WatchUi.View {
 
     private function _drawStops(dcc) {
         var stopNames = _viewModel.getStopNames();
-        var favCount = _viewModel.getFavouriteCount();
+        var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
-        var favHints = [ "Favourites", "No favourites" ];
+        var favHints = [ "Favorites", "No favorites" ];
         var nearbyHints = [ "Nearby", "None nearby" ];
         var cc = new ColorContext(Color.PRIMARY, Color.ON_PRIMARY, Color.ON_PRIMARY_SECONDARY, Color.ON_PRIMARY_TERTIARY);
 
