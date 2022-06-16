@@ -58,8 +58,12 @@ class Repository {
         return _storage.response;
     }
 
+    function getFavouriteStops() {
+        return [new Stop(1002, "T-Centralen", null), new Stop(9204, "Tekniska Högskolan", null)];
+    }
+
     function hasStops() {
-        return _storage.hasStops();
+        return _storage.hasStops() || getFavouriteStops().size() > 0;
     }
 
     function setStopsSearching() {

@@ -49,72 +49,37 @@ class StopListView extends WatchUi.View {
     private function _draw(dcc) {
         var response = _viewModel.getResponse();
 
+        // stops
+        _drawStops(dcc);
+
         // error
-        if (response instanceof ResponseError) {
+        if (_viewModel.isShowingMessage()) {
             // info
             dcc.drawDialog(response.title, response.message);
 
+            // start indicator
+            if (response.isRerequestable()) {
+                // TODO: make clickable
+                dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+            }
+        }
+        /*if (response instanceof ResponseError) {
             // banner
             if (!response.hasConnection()) {
                 dcc.drawExclamationBanner();
             }
-
-            // start indicator
-            if (response.isRerequestable()) {
-                dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
-            }
-
-            _viewModel.stopCursor = 0;
-        }
-
-        // stops
-        else {
-            _drawStops(dcc, response);
-
-            // page indicator
-            var stopCount = response.size();
-            dcc.drawVerticalPageArrows(stopCount, _viewModel.stopCursor, Color.CONTROL_NORMAL, Color.CONTROL_NORMAL);
-            dcc.drawVerticalScrollbarCSmall(stopCount, max(_viewModel.stopCursor - 2, 0), min(_viewModel.stopCursor + 3, stopCount));
-        }
-
-        // at top
-        if (_viewModel.stopCursor == 0) {
-            // icon
-            dcc.drawBitmap(dcc.cx, 60, Rez.Drawables.ic_launcher);
-
-            // gps
-            //_drawGpsStatus(dcc);
-        }
+        }*/
     }
 
-    private function _drawStops(dcc, stops) {
-        var fontSelected = Graphene.FONT_LARGE;
-        var font = Graphene.FONT_TINY;
-        var fontHeight = dcc.dc.getFontHeight(font);
-        var lineHeight = 1.6;
-        var lineHeightPx = fontHeight * lineHeight;
-
+    private function _drawStops(dcc) {
+        var stopNames = _viewModel.getStopNames();
+        var favCount = _viewModel.getFavouriteCount();
         var cursor = _viewModel.stopCursor;
+        var favHints = [ "Favourites", "No favourites" ];
+        var nearbyHints = [ "Nearby", "None nearby" ];
+        var cc = new ColorContext(Color.PRIMARY, Color.ON_PRIMARY, Color.ON_PRIMARY_SECONDARY, Color.ON_PRIMARY_TERTIARY);
 
-        // only draw 2 stops above and 2 below cursor
-        var stopOffset = 2;
-        var firstStopIndex = max(0, cursor - stopOffset);
-        var lastStopIndex = min(stops.size(), cursor + stopOffset + 1);
-
-        for (var i = firstStopIndex; i < lastStopIndex; i++) {
-            var stop = stops[i];
-
-            var yText = dcc.cy + (i - cursor) * lineHeightPx;
-
-            if (i == cursor) {
-                dcc.setColor(Color.TEXT_PRIMARY);
-                dcc.dc.drawText(dcc.cx, yText, fontSelected, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-            }
-            else {
-                dcc.setColor(Color.TEXT_SECONDARY);
-                dcc.dc.drawText(dcc.cx, yText, font, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-            }
-        }
+        dcc.drawPanedList(stopNames, favCount, cursor, favHints, nearbyHints, cc);
     }
 
     private function _drawGpsStatus(dcc) {

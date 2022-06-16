@@ -113,6 +113,8 @@ class SlNearbyStopsService {
             else {
                 _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_STOPS));
             }
+
+            return;
         }
 
         // stops were found

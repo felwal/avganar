@@ -15,6 +15,9 @@ class StopListViewModel {
 
     function initialize(repo) {
         _repo = repo;
+
+        var favCount = getFavouriteCount();
+        stopCursor = favCount;//getResponse() instanceof ResponseError ? favCount - 1 : favCount;
     }
 
     // request
@@ -61,15 +64,39 @@ class StopListViewModel {
 
     function getStops() {
         var response = getResponse();
-        return response instanceof ResponseError ? null : response;
+        var favs = _repo.getFavouriteStops();
+        return response instanceof ResponseError ? favs : ArrCompat.merge(favs, response);
+    }
+
+    function getStopNames() {
+        var stops = getStops();
+        if (stops == null) { return null; }
+
+        var names = new [stops.size()];
+        for (var i = 0; i < names.size(); i++) {
+            names[i] = stops[i].name;
+        }
+
+        return names;
     }
 
     function getStopCount() {
-        return getStops().size();
+        var response = getResponse();
+        var favs = _repo.getFavouriteStops();
+
+        return getFavouriteCount() + (response instanceof ResponseError ? 1 : response.size());
+    }
+
+    function getFavouriteCount() {
+        return _repo.getFavouriteStops().size();
     }
 
     function getSelectedStop() {
         return getStops()[stopCursor];
+    }
+
+    function isShowingMessage() {
+        return getResponse() instanceof ResponseError && stopCursor == getStopCount() - 1;
     }
 
     function isPositionRegistered() {
