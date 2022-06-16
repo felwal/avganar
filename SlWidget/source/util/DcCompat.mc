@@ -190,6 +190,60 @@ class DcCompat {
         dc.drawText(cx, -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
     }
 
+    function drawHeader(color, strokeColor) {
+        var height = 42;
+
+        setColor(color);
+        dc.fillRectangle(0, 0, w, height);
+
+        if (strokeColor != null) {
+            setColor(strokeColor);
+            dc.drawLine(0, height, w, height);
+        }
+    }
+
+    function drawHeaderLarge(color, strokeColor, text, textColor) {
+        var height = 84;
+
+        setColor(color);
+        dc.fillRectangle(0, 0, w, height);
+
+        if (strokeColor != null) {
+            setColor(strokeColor);
+            dc.drawLine(0, height, w, height);
+        }
+
+        dc.setColor(textColor, color);
+        dc.drawText(w / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    function drawFooter(color, strokeColor) {
+        var height = 42;
+
+        setColor(color);
+        dc.fillRectangle(0, h - height, w, height);
+
+        if (strokeColor != null) {
+            setColor(strokeColor);
+            dc.drawLine(0, h - height, w, h - height);
+        }
+    }
+
+    function drawFooterLarge(color, strokeColor, text, textColor) {
+        var height = 84;
+
+        setColor(color);
+        dc.fillRectangle(0, h - height, w, height);
+
+        if (strokeColor != null) {
+            setColor(strokeColor);
+            dc.drawLine(0, h - height, w, h - height);
+        }
+
+        dc.setColor(textColor, color);
+        dc.drawText(w / 2, h - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
     // bar
 
     function drawStartIndicator() {
@@ -406,36 +460,177 @@ class DcCompat {
         _drawPageArrow([ cx, h - 4 ], _DIR_DOWN);
     }
 
+    function drawUpArrow(bottomTo) {
+        _drawPageArrow([ cx, bottomTo - 4 - 8 ], _DIR_UP);
+    }
+
+    function drawDownArrow(bottomTo) {
+        _drawPageArrow([ cx, bottomTo - 4 ], _DIR_DOWN);
+    }
+
     private function _drawPageArrow(point1, direction) {
-        var deltaHori = 8;
-        var deltaVert = 8;
+        var width = 8;
+        var height = 8;
 
         var point2;
         var point3;
 
         switch (direction) {
             case _DIR_LEFT:
-                point2 = ArrCompat.add(point1, [ deltaHori, deltaVert ]);
-                point3 = ArrCompat.add(point1, [ deltaHori, -deltaVert ]);
+                point2 = ArrCompat.add(point1, [ width, height ]);
+                point3 = ArrCompat.add(point1, [ width, -height ]);
                 break;
 
             case _DIR_RIGHT:
-                point2 = ArrCompat.add(point1, [ -deltaHori, deltaVert ]);
-                point3 = ArrCompat.add(point1, [ -deltaHori, -deltaVert ]);
+                point2 = ArrCompat.add(point1, [ -width, height ]);
+                point3 = ArrCompat.add(point1, [ -width, -height ]);
                 break;
 
             case _DIR_UP:
-                point2 = ArrCompat.add(point1, [ -deltaHori, deltaVert ]);
-                point3 = ArrCompat.add(point1, [ deltaHori, deltaVert ]);
+                point2 = ArrCompat.add(point1, [ -width, height ]);
+                point3 = ArrCompat.add(point1, [ width, height ]);
                 break;
 
             case _DIR_DOWN:
-                point2 = ArrCompat.add(point1, [ -deltaHori, -deltaVert ]);
-                point3 = ArrCompat.add(point1, [ deltaHori, -deltaVert ]);
+                point2 = ArrCompat.add(point1, [ -width, -height ]);
+                point3 = ArrCompat.add(point1, [ width, -height ]);
                 break;
         }
 
         dc.fillPolygon([ point1, point2, point3 ]);
+    }
+
+    // list
+
+    function drawPanedList(items, paneSize, cursor, paneHints, mainHints, cc) {
+        var paneHint = paneHints[0];
+        var mainHint = mainHints[0];
+
+        var hasPane = paneSize != 0;
+        var hasMain = paneSize != items.size();
+
+        var paneStrokeColor = null;
+
+        // pane is empty
+        if (!hasPane) {
+            paneHint = paneHints[1];
+            cc = ColorContext.black();
+            paneStrokeColor = Graphene.COLOR_DK_GRAY;
+        }
+
+        // main is empty
+        if (!hasMain) {
+            mainHint = mainHints[1];
+        }
+
+        // draw panes + page arrows
+
+        // inside pane
+        if (cursor < paneSize) {
+            fillBackground(cc.background);
+
+            // top header
+            if (cursor == 0) {
+                drawHeaderLarge(Color.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), Color.TEXT_TERTIARY);
+            }
+            else if (cursor == 1) {
+                drawHeader(Color.BACKGROUND, paneStrokeColor);
+                setColor(Color.CONTROL_NORMAL);
+                drawUpArrow(42);
+            }
+            else {
+                setColor(cc.textTertiary);
+                drawTopPageArrow();
+            }
+
+            // bottom header
+            if (cursor == paneSize - 2) {
+                drawFooter(Color.BACKGROUND, paneStrokeColor);
+                setColor(cc.textTertiary);
+                drawDownArrow(h - 42);
+            }
+            else if (cursor == paneSize - 1) {
+                drawFooterLarge(Color.BACKGROUND, paneStrokeColor, mainHint, Color.TEXT_TERTIARY);
+                setColor(cc.textTertiary);
+                drawDownArrow(h - 84);
+            }
+            else {
+                setColor(cc.textTertiary);
+                drawBottomPageArrow();
+            }
+        }
+
+        // outside pane
+        else {
+            // top header
+            if (cursor == paneSize) {
+                drawHeaderLarge(cc.background, paneStrokeColor, paneHint, cc.textTertiary);
+                setColor(cc.textTertiary);
+                if (hasPane) {
+                    drawUpArrow(84);
+                }
+            }
+            else if (cursor == paneSize + 1) {
+                drawHeader(cc.background, paneStrokeColor);
+                setColor(cc.textTertiary);
+                drawUpArrow(42);
+            }
+            else {
+                setColor(Color.CONTROL_NORMAL);
+                drawTopPageArrow();
+            }
+
+            // bottom header
+            if (hasMain && cursor != items.size() - 1) {
+                setColor(Color.CONTROL_NORMAL);
+                drawBottomPageArrow();
+            }
+        }
+
+        // draw items
+
+        var fontSelected = Graphene.FONT_LARGE;
+        var font = Graphene.FONT_TINY;
+        var fontHeight = dc.getFontHeight(font);
+        var lineHeight = 1.6;
+        var lineHeightPx = fontHeight * lineHeight;
+
+        var bgColor = cursor >= paneSize ? Color.BACKGROUND : cc.background;
+        var selectedColor;
+        var unselectedColor;
+
+        // only draw 2 items above and 2 below cursor
+        var itemOffset = 2;
+        var firstItemIndex = max(0, cursor - itemOffset);
+        var lastItemIndex = min(items.size(), cursor + itemOffset + 1);
+
+        // only draw one list at a time
+        if (cursor < paneSize) {
+            lastItemIndex = min(lastItemIndex, paneSize);
+            selectedColor = cc.textPrimary;
+            unselectedColor = cc.textSecondary;
+        }
+        else {
+            firstItemIndex = max(firstItemIndex, paneSize);
+            selectedColor = Color.TEXT_PRIMARY;
+            unselectedColor = Color.TEXT_SECONDARY;
+        }
+
+        // draw the items
+        for (var i = firstItemIndex; i < lastItemIndex; i++) {
+            var item = items[i];
+
+            var yText = cy + (i - cursor) * lineHeightPx;
+
+            if (i == cursor) {
+                dc.setColor(selectedColor, bgColor);
+                dc.drawText(cx, yText, fontSelected, item, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            }
+            else {
+                dc.setColor(unselectedColor, bgColor);
+                dc.drawText(cx, yText, font, item, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            }
+        }
     }
 
 }

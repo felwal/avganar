@@ -81,7 +81,7 @@ class StopDetailView extends WatchUi.View {
             dcc.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
             dcc.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
             dcc.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
-            dcc.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_PRIMARY);
+            dcc.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_PRIMARY_TERTIARY);
             dcc.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
         }
     }
@@ -93,8 +93,7 @@ class StopDetailView extends WatchUi.View {
 
     private function _drawFooter(dcc, distance) {
         // background
-        dcc.setColor(Color.PRIMARY);
-        dcc.dc.fillRectangle(0, dcc.h - 42, dcc.w, 42);
+        dcc.drawFooter(Color.PRIMARY, null);
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;

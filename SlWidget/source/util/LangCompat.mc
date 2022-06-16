@@ -1,6 +1,19 @@
 (:glance)
 class ArrCompat {
 
+    static function merge(arr1, arr2) {
+        var arr = new [arr1.size() + arr2.size()];
+
+        for (var i = 0; i < arr1.size(); i++) {
+            arr[i] = arr1[i];
+        }
+        for (var i = 0; i < arr2.size(); i++) {
+            arr[arr1.size() + i] = arr2[i];
+        }
+
+        return arr;
+    }
+
     static function add(arr1, arr2) {
         var sum = [];
         for (var i = 0; i < arr1.size() && i < arr2.size(); i++) {
