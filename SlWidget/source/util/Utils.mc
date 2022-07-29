@@ -1,4 +1,5 @@
 using Toybox.Application;
+using Toybox.Attention;
 using Toybox.System;
 using Toybox.Math;
 
@@ -52,4 +53,12 @@ function rez(rezId) {
 function hasGlance() {
     var ds = System.getDeviceSettings();
     return ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
+}
+
+function vibrate() {
+    if (Attention has :vibrate) {
+        var vibeData = [ new Attention.VibeProfile(25, 100) ];
+        Attention.vibrate(vibeData);
+        Log.d("vibrate");
+    }
 }
