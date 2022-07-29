@@ -27,6 +27,7 @@ class Stop {
 
     function setResponse(response) {
         _response = response;
+        vibrate();
     }
 
     // get

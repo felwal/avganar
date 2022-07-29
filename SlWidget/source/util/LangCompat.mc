@@ -1,6 +1,16 @@
 (:glance)
 class ArrCompat {
 
+    static function equals(arr1, arr2) {
+        if (arr1.size() != arr2.size()) { return false; }
+
+        for (var i = 0; i < arr1.size(); i++) {
+            if (arr1[i] != arr2[i]) { return false; }
+        }
+
+        return true;
+    }
+
     static function in(arr, item) {
         return arr.indexOf(item) != -1;
     }

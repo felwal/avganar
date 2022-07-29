@@ -26,6 +26,11 @@ class NearbyStopsStorage {
     }
 
     function setStops(stopIds, stopNames, stops) {
+        // only vibrate when data is changed
+        if (!ArrCompat.equals(_nearbyStopIds, stopIds)) {
+            vibrate();
+        }
+
         _nearbyStopIds = stopIds;
         _nearbyStopNames = stopNames;
         response = stops;
@@ -36,6 +41,7 @@ class NearbyStopsStorage {
         _nearbyStopIds = [];
         _nearbyStopNames = [];
         response = error;
+        vibrate();
     }
 
     function resetStops() {
