@@ -33,10 +33,11 @@ class SlNearbyStopsService {
             Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
 
             if (lat == 0.0 && lon == 0.0) {
-                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_GPS));
+                _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
             }
             else {
-                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_OUTSIDE_BOUNDS));
+                _storage.setStops([], [], []);
+                _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_OUTSIDE_BOUNDS));
             }
 
             WatchUi.requestUpdate();
@@ -111,7 +112,8 @@ class SlNearbyStopsService {
                 _storage.setResponseError(new ResponseError(data["Message"]));
             }
             else {
-                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_STOPS));
+                _storage.setStops([], [], []);
+                _storage.setResponseError(new ResponseError(ResponseError.CODE_RESPONSE_NO_STOPS));
             }
 
             return;

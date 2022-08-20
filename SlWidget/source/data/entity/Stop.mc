@@ -19,15 +19,19 @@ class Stop {
         setSearching();
     }
 
+    function toString() {
+        return id.toString();
+    }
+
     function setSearching() {
-        _response = new ResponseError(ResponseError.ERROR_CODE_REQUESTING_DEPARTURES);
+        _response = new ResponseError(ResponseError.CODE_STATUS_REQUESTING_DEPARTURES);
     }
 
     // set
 
     function setResponse(response) {
         _response = response;
-        vibrate();
+        vibrate("departures response");
     }
 
     // get

@@ -2,7 +2,7 @@ using Toybox.Application;
 using Carbon.Footprint;
 
 (:glance)
-const DEBUG = false;
+const DEBUG = true;
 
 (:glance)
 class App extends Application.AppBase {

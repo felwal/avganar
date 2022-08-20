@@ -55,10 +55,10 @@ function hasGlance() {
     return ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
 }
 
-function vibrate() {
+function vibrate(reason) {
     if (Attention has :vibrate) {
         var vibeData = [ new Attention.VibeProfile(25, 100) ];
         Attention.vibrate(vibeData);
-        Log.d("vibrate");
+        Log.d("vibrate: " + reason);
     }
 }

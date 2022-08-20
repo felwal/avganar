@@ -56,6 +56,10 @@ class Repository {
         return _footprint.isPositionRegistered;
     }
 
+    private function _isPositioned() {
+        return DEBUG || _footprint.isPositioned();
+    }
+
     // storage
 
     function getStopsResponse() {
@@ -67,13 +71,13 @@ class Repository {
     }
 
     private function _setStopsSearching() {
-        // don't override previously requested stops with "searching" message
-        if (!_storage.hasStops()) {
-            if (!_footprint.isPositioned()) {
-                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_NO_GPS));
+        // don't override previously requested stops or status message with "searching" message
+        if (_storage.hasErrorOrIsEmpty()) {
+            if (!_isPositioned()) {
+                _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
             }
             else {
-                _storage.setResponseError(new ResponseError(ResponseError.ERROR_CODE_REQUESTING_STOPS));
+                _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_REQUESTING_STOPS));
             }
         }
     }
