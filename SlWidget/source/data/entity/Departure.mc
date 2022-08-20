@@ -55,7 +55,15 @@ class Departure {
         var duration = now.subtract(_moment);
         var minutes = Math.round(duration.value() / 60.0).toNumber();
 
+        if (hasPassed()) {
+            minutes = minutes * -1;
+        }
+
         return minutes == 0 ? "Nu" : (minutes + " min");
+    }
+
+    function hasPassed() {
+        return C14.now().greaterThan(_moment);
     }
 
     function getColor() {

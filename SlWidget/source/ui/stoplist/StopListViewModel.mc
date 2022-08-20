@@ -3,14 +3,16 @@ using Toybox.WatchUi;
 
 class StopListViewModel {
 
-    private static const _REQUEST_TIME_INTERVAL = 60000;
+    private static const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
     private static const _REQUEST_TIME_DELAY = 500;
 
     var stopCursor = 0;
 
     private var _repo;
     private var _favStorage;
-    private var _timer = new Timer.Timer();
+
+    private var _delayTimer = new Timer.Timer();
+    private var _positionTimer = new Timer.Timer();
 
     // init
 
@@ -19,6 +21,10 @@ class StopListViewModel {
         _favStorage = new FavoriteStopsStorage();
 
         stopCursor = getFavoriteCount();
+    }
+
+    function stopTimers() {
+        _delayTimer.stop();
     }
 
     // request
@@ -30,16 +36,17 @@ class StopListViewModel {
 
     function disableRequests() {
         _repo.disablePositionHandling();
-        _timer.stop();
+        _delayTimer.stop();
+        _positionTimer.stop();
     }
 
     private function _requestDeparturesDelayed() {
         // delayed because otherwise it crashes. TODO: figure out why
-        new Timer.Timer().start(method(:requestPosition), _REQUEST_TIME_DELAY, false);
+        _delayTimer.start(method(:requestPosition), _REQUEST_TIME_DELAY, false);
     }
 
     private function _startRequestTimer() {
-        _timer.start(method(:onTimer), _REQUEST_TIME_INTERVAL, true);
+        _positionTimer.start(method(:onTimer), _REQUEST_TIME_INTERVAL, true);
     }
 
     function onTimer() {

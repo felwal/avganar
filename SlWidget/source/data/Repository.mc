@@ -4,6 +4,9 @@ class Repository {
     protected var _footprint;
     protected var _storage;
 
+    private var _lastLatRad;
+    private var _lastLonRad;
+
     // init
 
     function initialize(footprint, storage) {
@@ -14,7 +17,9 @@ class Repository {
     // api
 
     function requestNearbyStops() {
-        _setStopsSearching();
+        if (_storage.hasErrorOrIsEmpty()) {
+            _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_REQUESTING_STOPS));
+        }
 
         if (DEBUG) {
             new SlNearbyStopsService(_storage).requestNearbyStops(debugLat, debugLon);
@@ -22,6 +27,9 @@ class Repository {
         else {
             new SlNearbyStopsService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
         }
+
+        _lastLatRad = _footprint.getLatRad();
+        _lastLonRad = _footprint.getLonRad();
     }
 
     function requestDepartures(stop) {
@@ -35,16 +43,29 @@ class Repository {
     // position
 
     function enablePositionHandling() {
-        _setPositionHandling(Position.LOCATION_ONE_SHOT, method(:requestNearbyStops));
-    }
-
-    private function _setPositionHandling(acquisitionType, onRegisterPosition) {
-        _setStopsSearching();
+        if (_storage.hasErrorOrIsEmpty() && !_isPositioned()) {
+            _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
+        }
 
         // set location event listener and get last location while waiting
-        _footprint.onRegisterPosition = onRegisterPosition;
-        _footprint.enableLocationEvents(acquisitionType);
+        _footprint.onRegisterPosition = method(:onPosition);
+        _footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
         _footprint.registerLastKnownPosition();
+    }
+
+    function onPosition() {
+        // only request stops if the user has moved 100 m since last request
+        if (_lastLatRad != null && _lastLonRad != null) {
+            var movedDistance = distanceBetween(_lastLatRad, _lastLonRad, _footprint.getLatRad(), _footprint.getLonRad());
+            Log.d("moved distance: " + movedDistance);
+
+            if (movedDistance > 100) {
+                requestNearbyStops();
+            }
+        }
+        else {
+            requestNearbyStops();
+        }
     }
 
     function disablePositionHandling() {
@@ -68,18 +89,6 @@ class Repository {
 
     function hasStops() {
         return _storage.hasStops();
-    }
-
-    private function _setStopsSearching() {
-        // don't override previously requested stops or status message with "searching" message
-        if (_storage.hasErrorOrIsEmpty()) {
-            if (!_isPositioned()) {
-                _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
-            }
-            else {
-                _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_REQUESTING_STOPS));
-            }
-        }
     }
 
 }
