@@ -117,7 +117,7 @@ class SlDeparturesService {
         }
         else {
             Log.d("Departures response empty of departures");
-            _stop.setResponse(new ResponseError(ResponseError.ERROR_CODE_NO_DEPARTURES));
+            _stop.setResponse(new ResponseError(ResponseError.CODE_RESPONSE_NO_DEPARTURES));
         }
     }
 

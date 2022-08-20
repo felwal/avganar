@@ -3,13 +3,15 @@ using Toybox.Lang;
 (:glance)
 class ResponseError {
 
-    static const ERROR_CODE_NO_DATA = 200;
-    static const ERROR_CODE_REQUESTING_STOPS = -2000;
-    static const ERROR_CODE_REQUESTING_DEPARTURES = -2001;
-    static const ERROR_CODE_NO_GPS = -2002;
-    static const ERROR_CODE_OUTSIDE_BOUNDS = -2003;
-    static const ERROR_CODE_NO_STOPS = -2004;
-    static const ERROR_CODE_NO_DEPARTURES = -2005;
+    static const CODE_STATUS_REQUESTING_STOPS = -2000;
+    static const CODE_STATUS_REQUESTING_DEPARTURES = -2001;
+    static const CODE_STATUS_NO_GPS = -2002;
+    static const CODE_STATUS_OUTSIDE_BOUNDS = -2003;
+
+    static const CODE_RESPONSE_NO_STOPS = -2004;
+    static const CODE_RESPONSE_NO_DEPARTURES = -2005;
+
+    static const CODE_ERROR_NULL_DATA = 200;
 
     var title = "";
     var message = "";
@@ -29,30 +31,50 @@ class ResponseError {
         }
     }
 
+    function equals(other) {
+        if (!(other instanceof ResponseError)) {
+            return false;
+        }
+
+        return other.getCode() == _code;
+    }
+
+    function toString() {
+        return _code.toString();
+    }
+
+    function getCode() {
+        return _code;
+    }
+
     private function _initStrings() {
         switch (_code) {
-            case ERROR_CODE_REQUESTING_STOPS:
+            // status
+            case CODE_STATUS_REQUESTING_STOPS:
                 title = rez(Rez.Strings.lbl_i_stops_requesting);
                 break;
-            case ERROR_CODE_REQUESTING_DEPARTURES:
+            case CODE_STATUS_REQUESTING_DEPARTURES:
                 title = rez(Rez.Strings.lbl_i_departures_requesting);
                 break;
-            case ERROR_CODE_NO_DATA:
-                title = rez(Rez.Strings.lbl_e_null_data);
-                break;
-            case ERROR_CODE_NO_GPS:
+            case CODE_STATUS_NO_GPS:
                 title = rez(Rez.Strings.lbl_i_stops_no_gps);
                 break;
-            case ERROR_CODE_OUTSIDE_BOUNDS:
+            case CODE_STATUS_OUTSIDE_BOUNDS:
                 title = rez(Rez.Strings.lbl_i_stops_outside_bounds);
                 break;
-            case ERROR_CODE_NO_STOPS:
+
+            // response
+            case CODE_RESPONSE_NO_STOPS:
                 title = rez(Rez.Strings.lbl_i_stops_none);
                 break;
-            case ERROR_CODE_NO_DEPARTURES:
+            case CODE_RESPONSE_NO_DEPARTURES:
                 title = rez(Rez.Strings.lbl_i_departures_none);
                 break;
+            case CODE_ERROR_NULL_DATA:
+                title = rez(Rez.Strings.lbl_e_null_data);
+                break;
 
+            // request
             case Communications.BLE_CONNECTION_UNAVAILABLE:
                 title = rez(Rez.Strings.lbl_e_bluetooth);
                 break;
@@ -82,6 +104,22 @@ class ResponseError {
 
     //
 
+    function isStatusMessage() {
+        return _code == CODE_STATUS_REQUESTING_STOPS
+            || _code == CODE_STATUS_REQUESTING_DEPARTURES
+            || _code == CODE_STATUS_NO_GPS
+            || _code == CODE_STATUS_OUTSIDE_BOUNDS;
+    }
+
+    function isResponseMessage() {
+        return _code == CODE_RESPONSE_NO_STOPS
+            || _code == CODE_RESPONSE_NO_DEPARTURES;
+    }
+
+    function isErrorMessage() {
+        return !isStatusMessage() && !isResponseMessage();
+    }
+
     function isTooLarge() {
         return _code == Communications.NETWORK_RESPONSE_TOO_LARGE
             || _code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY;
@@ -94,12 +132,12 @@ class ResponseError {
 
     function isRerequestable() {
         return hasConnection()
-            && _code != ERROR_CODE_NO_STOPS
-            && _code != ERROR_CODE_NO_DEPARTURES
-            && _code != ERROR_CODE_REQUESTING_STOPS
-            && _code != ERROR_CODE_REQUESTING_DEPARTURES
-            && _code != ERROR_CODE_NO_GPS
-            && _code != ERROR_CODE_OUTSIDE_BOUNDS
+            && _code != CODE_RESPONSE_NO_STOPS
+            && _code != CODE_RESPONSE_NO_DEPARTURES
+            && _code != CODE_STATUS_REQUESTING_STOPS
+            && _code != CODE_STATUS_REQUESTING_DEPARTURES
+            && _code != CODE_STATUS_NO_GPS
+            && _code != CODE_STATUS_OUTSIDE_BOUNDS
             && _code != null;
     }
 
