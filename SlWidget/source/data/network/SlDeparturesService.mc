@@ -1,5 +1,7 @@
 using Toybox.Communications;
 using Toybox.WatchUi;
+using Toybox.Time;
+using Carbon.C14;
 
 class SlDeparturesService {
 
@@ -98,10 +100,22 @@ class SlDeparturesService {
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
                 var direction = departureData["DepartureDirection"];
-                var displayTime = departureData["DisplayTime"];
+                var dateTime = departureData["ExpectedDateTime"];
                 var hasDeviations = departureData["Deviations"] != null;
 
-                modeDepartures.add(new Departure(mode, group, line, destination, direction, displayTime, hasDeviations));
+                var moment = null;
+                if (dateTime != null) {
+                    moment = C14.iso8601StrToMoment(dateTime);
+
+                    if (moment != null) {
+                        // subtract timezone offset
+                        var utcOffsetSec = System.getClockTime().timeZoneOffset;
+                        var utcOffsetDur = new Time.Duration(utcOffsetSec);
+                        moment = moment.subtract(utcOffsetDur);
+                    }
+                }
+
+                modeDepartures.add(new Departure(mode, group, line, destination, direction, moment, hasDeviations));
             }
 
             // add null because an ampty array is not matched with the equals() removeAll() performes.
