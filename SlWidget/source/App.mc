@@ -32,6 +32,7 @@ class App extends Application.AppBase {
     //! Return the initial view of your application here
     function getInitialView() {
         var repo = new Repository(_footprint, _storage);
+        _storage.load();
 
         if (hasGlance() && !DEBUG) {
             return _getStopList(repo);

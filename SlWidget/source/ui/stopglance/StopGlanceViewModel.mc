@@ -1,23 +1,22 @@
 (:glance)
 class StopGlanceViewModel {
 
-    private var _storage;
+    private var _nearestStopName;
 
     // init
 
     function initialize(storage) {
-        _storage = storage;
+        _nearestStopName = storage.loadAndGetNearestStopName();
     }
 
     // read
 
     function getTitle() {
-        return _storage.hasStops() ? rez(Rez.Strings.lbl_glance_title) : rez(Rez.Strings.app_name);
+        return _nearestStopName != null ? rez(Rez.Strings.lbl_glance_title) : rez(Rez.Strings.app_name);
     }
 
     function getCaption() {
-        var stop = _storage.getStop(0);
-        return stop != null ? stop.name : rez(Rez.Strings.lbl_glance_caption_no_stops);
+        return _nearestStopName != null ? _nearestStopName : rez(Rez.Strings.lbl_glance_caption_no_stops);
     }
 
 }
