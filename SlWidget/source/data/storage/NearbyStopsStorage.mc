@@ -11,13 +11,6 @@ class NearbyStopsStorage {
     private var _nearbyStopIds;
     private var _nearbyStopNames;
 
-    // init
-
-
-    function initialize() {
-        _load();
-    }
-
     // set
 
     private function _save() {
@@ -56,10 +49,15 @@ class NearbyStopsStorage {
 
     // get
 
-    private function _load() {
+    function load() {
         _nearbyStopIds = StorageCompat.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
         response = buildStops(_nearbyStopIds, _nearbyStopNames);
+    }
+
+    function loadAndGetNearestStopName() {
+        var arr = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
+        return arr != null && arr.size() > 0 ? arr[0] : null;
     }
 
     function hasResponseError() {
