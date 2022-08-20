@@ -89,7 +89,7 @@ class DcCompat {
         degreeStart = Math.floor(degreeStart);
         degreeEnd = Math.ceil(degreeEnd);
 
-        var strokeDegreeOffset = pxToDeg(strokeWidth, self.r);
+        var strokeDegreeOffset = Math.ceil(pxToDeg(strokeWidth, self.r));
         var strokeDegreeStart = degreeStart - strokeDegreeOffset;
         var strokeDegreeEnd = degreeEnd + strokeDegreeOffset;
         var attr = Graphics.ARC_COUNTER_CLOCKWISE;
@@ -299,8 +299,11 @@ class DcCompat {
         var startDeg = 180 - sizeDeg / 2;
         var endDeg = 180 + sizeDeg / 2;
 
+        var strokeWidth = 1;
+        var outlineWidth = 3;
+
         // rail
-        strokeArcCompat(edgeOffset, 1, 1, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+        strokeArcCompat(edgeOffset, strokeWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
 
         var itemDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
         var itemStartDeg = startDeg + (endDeg - startDeg) * startIndex / itemCount.toFloat();
@@ -319,16 +322,19 @@ class DcCompat {
             return;
         }
 
-        var lengthDeg = 3;
+        var lengthDeg = 3; // length in degrees of one indicator
         var deltaDeg = lengthDeg + 2;
         var centerDeg = _BTN_START_DEG;
         var maxDeg = centerDeg + deltaDeg * (pageCount - 1) / 2f;
         var minDeg = maxDeg - pageCount * deltaDeg;
         var edgeOffset = 5;
         var stroke = 4;
-        var bgStroke = stroke + 6;
-        var bgMinDeg = minDeg + lengthDeg + 1.5;
-        var bgMaxDeg = maxDeg + lengthDeg + 1.5;
+
+        var outlineWidth = 3;
+        var outlineWidthDeg = Math.ceil(pxToDeg(outlineWidth, self.r - edgeOffset));
+        var bgStroke = stroke + 2 * outlineWidth;
+        var bgMinDeg = minDeg + deltaDeg - outlineWidthDeg;
+        var bgMaxDeg = maxDeg + lengthDeg + outlineWidthDeg;
 
         // bg outline
         setColor(Graphene.COLOR_BLACK);
