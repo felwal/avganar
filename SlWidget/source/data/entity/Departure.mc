@@ -1,3 +1,7 @@
+using Toybox.Time;
+using Toybox.Math;
+using Carbon.C14;
+
 (:glance)
 class Departure {
 
@@ -22,24 +26,36 @@ class Departure {
     private var _line;
     private var _destination;
     private var _direction;
-    private var _displayTime;
+    private var _moment;
 
     // init
 
-    function initialize(mode, group, line, destination, direction, displayTime, hasDeviations) {
+    function initialize(mode, group, line, destination, direction, moment, hasDeviations) {
         _mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
         _direction = direction;
-        _displayTime = displayTime;
+        _moment = moment;
         self.hasDeviations = hasDeviations;
     }
 
     // get
 
     function toString() {
-        return _displayTime + " " + _line + " " + _destination;
+        return _displayTime() + " " + _line + " " + _destination;
+    }
+
+    private function _displayTime() {
+        if (_moment == null) {
+            return "-";
+        }
+
+        var now = C14.now();
+        var duration = now.subtract(_moment);
+        var minutes = Math.round(duration.value() / 60.0).toNumber();
+
+        return minutes == 0 ? "Nu" : (minutes + " min");
     }
 
     function getColor() {
