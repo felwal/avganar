@@ -1,4 +1,5 @@
 using Toybox.Lang;
+using Carbon.C14;
 
 (:glance)
 class Stop {
@@ -8,6 +9,7 @@ class Stop {
     var distance;
 
     private var _response;
+    private var _responseTime;
 
     // init
 
@@ -31,6 +33,7 @@ class Stop {
 
     function setResponse(response) {
         _response = response;
+        _responseTime = C14.now();
         vibrate("departures response");
     }
 
@@ -44,28 +47,16 @@ class Stop {
         return id == object.id;
     }
 
+    function getDataAgeMillis() {
+        return _responseTime == null ? null : C14.now().subtract(_responseTime).value() * 1000;
+    }
+
     function hasResponseError() {
         return _response instanceof ResponseError;
     }
 
     function getModeCount() {
         return hasResponseError() ? null : _response.size();
-    }
-
-    function getDepartureCount(mode) {
-        if (hasResponseError()) {
-            return null;
-        }
-
-        if (mode < 0 || mode >= _response.size()) {
-            Log.w("getDepartureCount 'mode' (" + mode + ") out of range [0," + _response.size() + "]; returning 0");
-            return 0;
-        }
-        else if (!(_response[mode] instanceof Lang.Array)) {
-            Log.w("departures[" + mode + "] (not Array): " + _response[mode] + "; returning 0");
-            return 0;
-        }
-        return _response[mode].size();
     }
 
     function getDepartures(mode) {
@@ -88,19 +79,6 @@ class Stop {
 
     function getResponseError() {
         return hasResponseError() ? _response : null;
-    }
-
-    function hasDepartures() {
-        return !hasResponseError() && _response.size() > 0 && _response[0].size() > 0;
-    }
-
-    function getFirstDeparture() {
-        if (hasResponseError()) {
-            return null;
-        }
-
-        Log.d("departures shape: (" + _response.size() + ", " + (_response.size() > 0 ? _response[0].size() : "") + ")");
-        return hasDepartures() ? _response[0][0] : null;
     }
 
 }

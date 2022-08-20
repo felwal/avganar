@@ -1,10 +1,11 @@
 using Toybox.Timer;
 using Toybox.WatchUi;
 using Toybox.Math;
+using Carbon.Chem;
 
 class StopDetailViewModel {
 
-    private static const _REQUEST_TIME_INTERVAL = 30000;
+    private static const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
     private static const _REQUEST_TIME_DELAY = 500;
 
     static const DEPARTURES_PER_PAGE = 4; // TODO: dynamic
@@ -14,7 +15,9 @@ class StopDetailViewModel {
     var modeCursor = 0;
 
     private var _repo;
-    private var _timer = new Timer.Timer();
+
+    private var _delayTimer = new Timer.Timer();
+    private var _requestTimer = new Timer.Timer();
 
     // init
 
@@ -27,31 +30,46 @@ class StopDetailViewModel {
 
     function enableRequests() {
         _requestDeparturesDelayed();
-        _startRequestTimer();
     }
 
     function disableRequests() {
         _repo.disablePositionHandling();
-        _timer.stop();
+        _delayTimer.stop();
+        _requestTimer.stop();
     }
 
     private function _requestDeparturesDelayed() {
-        // delayed because otherwise it crashes. TODO: figure out why
-        new Timer.Timer().start(method(:requestDepartures), _REQUEST_TIME_DELAY, false);
+        var age = stop.getDataAgeMillis();
+
+        // never request more frequently than _REQUEST_TIME_INTERVAL.
+        // never request more quickly than _REQUEST_TIME_DELAY,
+        // because otherwise it crashes. TODO: figure out why
+        var delay = age == null
+            ? _REQUEST_TIME_DELAY
+            : Chem.max(_REQUEST_TIME_INTERVAL - age, _REQUEST_TIME_DELAY);
+
+        Log.d("age: " + age + ", delay: " + delay);
+
+        _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
+    }
+
+    function onDelayedDeparturesRequest() {
+        requestDepartures();
+        _startRequestTimer();
     }
 
     private function _startRequestTimer() {
-        _timer.start(method(:onTimer), _REQUEST_TIME_INTERVAL, true);
+        _requestTimer.start(method(:onRequestTimer), _REQUEST_TIME_INTERVAL, true);
     }
 
-    function onTimer() {
+    function onRequestTimer() {
         requestDepartures();
-        // request update to keep clock time synced
+        // update to keep clock time synced
         WatchUi.requestUpdate();
     }
 
     //! Make requests to SlApi neccessary for detail display.
-    //! This needs to be public to be able to be called by timer.
+    //! Needs to be public to be able to be called by timer.
     function requestDepartures() {
         _repo.requestDepartures(stop);
     }
