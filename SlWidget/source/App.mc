@@ -24,11 +24,11 @@ class App extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        if (hasGlance() && !DEBUG) {
-            return getMainView();
+        if (hasPreview()) {
+            return _getPreviewView();
         }
         else {
-            return _getPreviewView();
+            return getMainView();
         }
     }
 

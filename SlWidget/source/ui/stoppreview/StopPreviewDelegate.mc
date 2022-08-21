@@ -25,7 +25,7 @@ class StopPreviewDelegate extends WatchUi.BehaviorDelegate {
     private function _pushStopList() {
         var viewAndDelegate = Application.getApp().getMainView();
 
-        WatchUi.pushView(viewAndDelegate[0], viewAndDelegate[1], WatchUi.SLIDE_BLINK);
+        WatchUi.pushView(viewAndDelegate[0], viewAndDelegate[1], WatchUi.SLIDE_IMMEDIATE);
     }
 
 }

@@ -43,13 +43,13 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //! "BACK"
     function onBack() {
-       if (hasGlance()) {
-           return false;
-       }
-       else {
-           WatchUi.popView(WatchUi.SLIDE_BLINK);
-           return true;
-       }
+        if (hasPreview()) {
+            WatchUi.popView(WatchUi.SLIDE_BLINK);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     //
