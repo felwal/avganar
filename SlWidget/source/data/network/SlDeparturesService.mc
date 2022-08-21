@@ -103,17 +103,7 @@ class SlDeparturesService {
                 var dateTime = departureData["ExpectedDateTime"];
                 var hasDeviations = departureData["Deviations"] != null;
 
-                var moment = null;
-                if (dateTime != null) {
-                    moment = C14.iso8601StrToMoment(dateTime);
-
-                    if (moment != null) {
-                        // subtract timezone offset
-                        var utcOffsetSec = System.getClockTime().timeZoneOffset;
-                        var utcOffsetDur = new Time.Duration(utcOffsetSec);
-                        moment = moment.subtract(utcOffsetDur);
-                    }
-                }
+                var moment = C14.localIso8601StrToMoment(dateTime);
 
                 modeDepartures.add(new Departure(mode, group, line, destination, direction, moment, hasDeviations));
             }

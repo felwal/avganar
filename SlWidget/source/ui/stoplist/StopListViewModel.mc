@@ -1,5 +1,6 @@
 using Toybox.Timer;
 using Toybox.WatchUi;
+using Carbon.Chem;
 
 class StopListViewModel {
 
@@ -144,7 +145,7 @@ class StopListViewModel {
 
     private function _rotStopCursor(step) {
         if (hasStops()) {
-            stopCursor = mod(stopCursor + step, getStopCount());
+            stopCursor = Chem.mod(stopCursor + step, getStopCount());
             WatchUi.requestUpdate();
         }
     }

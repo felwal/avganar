@@ -133,7 +133,7 @@ class StopDetailViewModel {
     }
 
     private function _incModeCursor() {
-        modeCursor = mod(modeCursor + 1, stop.getModeCount());
+        modeCursor = Chem.mod(modeCursor + 1, stop.getModeCount());
         pageCursor = 0;
         WatchUi.requestUpdate();
     }
