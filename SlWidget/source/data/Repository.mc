@@ -1,16 +1,21 @@
+using Toybox.Application.Storage;
+
 class Repository {
 
-    protected var _footprint;
-    protected var _storage;
+    private static const _STORAGE_LAST_POS = "last_pos";
 
-    private var _lastLatRad;
-    private var _lastLonRad;
+    private var _footprint;
+    private var _storage;
+
+    private var _lastPos;
 
     // init
 
     function initialize(footprint, storage) {
         _footprint = footprint;
         _storage = storage;
+
+        _lastPos = StorageCompat.getArray(_STORAGE_LAST_POS);
     }
 
     // api
@@ -27,8 +32,10 @@ class Repository {
             new SlNearbyStopsService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
         }
 
-        _lastLatRad = _footprint.getLatRad();
-        _lastLonRad = _footprint.getLonRad();
+        // update last position
+        _lastPos = [ _footprint.getLatRad(), _footprint.getLonRad() ];
+        // save to storage to avoid requesting every time the user enters the app
+        Storage.setValue(_STORAGE_LAST_POS, _lastPos);
     }
 
     function requestDepartures(stop) {
@@ -54,8 +61,8 @@ class Repository {
 
     function onPosition() {
         // only request stops if the user has moved 100 m since last request
-        if (_lastLatRad != null && _lastLonRad != null) {
-            var movedDistance = _footprint.distanceTo(_lastLatRad, _lastLonRad);
+        if (_lastPos.size() == 2) {
+            var movedDistance = _footprint.distanceTo(_lastPos[0], _lastPos[1]);
             Log.d("moved distance: " + movedDistance);
 
             if (movedDistance > 100) {
