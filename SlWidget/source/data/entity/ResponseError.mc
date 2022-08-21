@@ -1,6 +1,5 @@
 using Toybox.Lang;
 
-(:glance)
 class ResponseError {
 
     static const CODE_STATUS_REQUESTING_STOPS = -2000;

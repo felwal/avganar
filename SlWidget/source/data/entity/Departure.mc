@@ -2,7 +2,6 @@ using Toybox.Time;
 using Toybox.Math;
 using Carbon.C14;
 
-(:glance)
 class Departure {
 
     private static const _MODE_METRO = "METRO";

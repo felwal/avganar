@@ -5,8 +5,8 @@ class StopGlanceViewModel {
 
     // init
 
-    function initialize(storage) {
-        _nearestStopName = storage.loadAndGetNearestStopName();
+    function initialize() {
+        _nearestStopName = NearbyStopsStorage.getNearestStopName();
     }
 
     // read

@@ -5,7 +5,6 @@ using Toybox.Math;
 
 // app
 
-(:glance)
 function buildStops(ids, names) {
     var stops = [];
 
@@ -26,7 +25,6 @@ function rez(rezId) {
 
 // system
 
-(:glance)
 function hasGlance() {
     var ds = System.getDeviceSettings();
     return ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
