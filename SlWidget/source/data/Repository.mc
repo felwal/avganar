@@ -56,7 +56,7 @@ class Repository {
     function onPosition() {
         // only request stops if the user has moved 100 m since last request
         if (_lastLatRad != null && _lastLonRad != null) {
-            var movedDistance = distanceBetween(_lastLatRad, _lastLonRad, _footprint.getLatRad(), _footprint.getLonRad());
+            var movedDistance = _footprint.distanceTo(_lastLatRad, _lastLonRad);
             Log.d("moved distance: " + movedDistance);
 
             if (movedDistance > 100) {

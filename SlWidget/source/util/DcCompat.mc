@@ -607,17 +607,17 @@ class DcCompat {
 
         // only draw 2 items above and 2 below cursor
         var itemOffset = 2;
-        var firstItemIndex = max(0, cursor - itemOffset);
-        var lastItemIndex = min(items.size(), cursor + itemOffset + 1);
+        var firstItemIndex = Chem.max(0, cursor - itemOffset);
+        var lastItemIndex = Chem.min(items.size(), cursor + itemOffset + 1);
 
         // only draw one list at a time
         if (cursor < paneSize) {
-            lastItemIndex = min(lastItemIndex, paneSize);
+            lastItemIndex = Chem.min(lastItemIndex, paneSize);
             selectedColor = cc.textPrimary;
             unselectedColor = cc.textSecondary;
         }
         else {
-            firstItemIndex = max(firstItemIndex, paneSize);
+            firstItemIndex = Chem.max(firstItemIndex, paneSize);
             selectedColor = Color.TEXT_PRIMARY;
             unselectedColor = Color.TEXT_SECONDARY;
         }

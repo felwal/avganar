@@ -1,3 +1,5 @@
+using Carbon.Chem;
+
 (:glance)
 class ArrCompat {
 
@@ -40,7 +42,7 @@ class ArrCompat {
         if (arr.size() == 0) {
             return null;
         }
-        return arr[coerceIn(index, 0, arr.size() - 1)];
+        return arr[Chem.coerceIn(index, 0, arr.size() - 1)];
     }
 
     static function swap(arr, i, j) {
