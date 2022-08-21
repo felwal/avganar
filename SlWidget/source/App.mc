@@ -4,12 +4,7 @@ using Carbon.Footprint;
 (:glance)
 const DEBUG = false;
 
-(:glance)
 class App extends Application.AppBase {
-
-    // model
-    private var _footprint;
-    private var _storage;
 
     // init
 
@@ -21,8 +16,6 @@ class App extends Application.AppBase {
 
     //! onStart() is called on application start up
     function onStart(state) {
-        _footprint = new Carbon.Footprint();
-        _storage = new NearbyStopsStorage();
     }
 
     //! onStop() is called when your application is exiting
@@ -31,21 +24,18 @@ class App extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        var repo = new Repository(_footprint, _storage);
-        _storage.load();
-
         if (hasGlance() && !DEBUG) {
-            return _getStopList(repo);
+            return getMainView();
         }
         else {
-            return _getStopPreview(repo);
+            return _getPreviewView();
         }
     }
 
     //! Return the initial glance view of your application here
     (:glance)
     function getGlanceView() {
-        var viewModel = new StopGlanceViewModel(_storage);
+        var viewModel = new StopGlanceViewModel();
         var view = new StopGlanceView(viewModel);
 
         return [ view ];
@@ -53,15 +43,19 @@ class App extends Application.AppBase {
 
     //
 
-    private function _getStopPreview(repo) {
-        var viewModel = new StopPreviewViewModel(repo);
+    private function _getPreviewView() {
+        var viewModel = new StopPreviewViewModel();
         var view = new StopPreviewView(viewModel);
-        var delegate = new StopPreviewDelegate(repo, viewModel);
+        var delegate = new StopPreviewDelegate(viewModel);
 
         return [ view, delegate ];
     }
 
-    private function _getStopList(repo) {
+    function getMainView() {
+        var footprint = new Carbon.Footprint();
+        var storage = new NearbyStopsStorage();
+        var repo = new Repository(footprint, storage);
+
         var viewModel = new StopListViewModel(repo);
         var view = new StopListView(viewModel);
         var delegate = new StopListDelegate(repo, viewModel);

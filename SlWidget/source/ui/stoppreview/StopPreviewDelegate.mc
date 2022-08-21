@@ -1,15 +1,14 @@
+using Toybox.Application;
 using Toybox.WatchUi;
 
 class StopPreviewDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _repo;
     private var _viewModel;
 
     // init
 
-    function initialize(repo, viewModel) {
+    function initialize(viewModel) {
         BehaviorDelegate.initialize();
-        _repo = repo;
         _viewModel = viewModel;
     }
 
@@ -24,11 +23,9 @@ class StopPreviewDelegate extends WatchUi.BehaviorDelegate {
     //
 
     private function _pushStopList() {
-        var viewModel = new StopListViewModel(_repo);
-        var view = new StopListView(viewModel);
-        var delegate = new StopListDelegate(_repo, viewModel);
+        var viewAndDelegate = Application.getApp().getMainView();
 
-        WatchUi.pushView(view, delegate, WatchUi.SLIDE_BLINK);
+        WatchUi.pushView(viewAndDelegate[0], viewAndDelegate[1], WatchUi.SLIDE_BLINK);
     }
 
 }

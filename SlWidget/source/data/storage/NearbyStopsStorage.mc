@@ -1,15 +1,21 @@
 using Toybox.Application.Storage;
 
-(:glance)
 class NearbyStopsStorage {
 
     private static const _STORAGE_NEARBY_STOP_IDS = "nearby_stop_ids";
+    (:glance)
     private static const _STORAGE_NEARBY_STOP_NAMES = "nearby_stop_names";
 
     var response;
 
     private var _nearbyStopIds;
     private var _nearbyStopNames;
+
+    // init
+
+    function initialize() {
+        _load();
+    }
 
     // set
 
@@ -49,15 +55,20 @@ class NearbyStopsStorage {
 
     // get
 
-    function load() {
+    private function _load() {
         _nearbyStopIds = StorageCompat.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
         response = buildStops(_nearbyStopIds, _nearbyStopNames);
     }
 
-    function loadAndGetNearestStopName() {
+    (:glance)
+    static function getNearestStopName() {
         var arr = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
-        return arr != null && arr.size() > 0 ? arr[0] : null;
+        return arr.size() > 0 ? arr[0] : null;
+    }
+
+    static function getNearestStopsNames(count) {
+        return StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES).slice(0, count);
     }
 
     function hasResponseError() {

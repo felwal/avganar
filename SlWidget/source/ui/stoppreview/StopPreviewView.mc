@@ -45,33 +45,31 @@ class StopPreviewView extends WatchUi.View {
     // draw
 
     private function _draw(dcc) {
-        var stops = _viewModel.getStops();
+        var stopNames = _viewModel.getStopNames();
 
         // icon
         dcc.drawBitmap(dcc.cx, 60, Rez.Drawables.ic_launcher);
 
         // 3 nearest stops
-        if (stops == null || stops.size() == 0) {
+        if (stopNames.size() == 0) {
             dcc.drawDialog(rez(Rez.Strings.lbl_preview_title_no_stops), "");
         }
         else {
-            _drawStops(dcc, stops);
+            _drawStops(dcc, stopNames);
         }
     }
 
-    private function _drawStops(dcc, stops) {
+    private function _drawStops(dcc, stopNames) {
         var font = Graphene.FONT_TINY;
         var fontHeight = dcc.dc.getFontHeight(font);
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
 
-        for (var i = 0; i < stops.size(); i++) {
-            var stop = stops[i];
-
+        for (var i = 0; i < stopNames.size(); i++) {
             var yText = dcc.cy + i * lineHeightPx;
 
             dcc.setColor(Color.TEXT_PRIMARY);
-            dcc.dc.drawText(dcc.cx, yText, font, stop.name, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            dcc.dc.drawText(dcc.cx, yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 

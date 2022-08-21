@@ -1,4 +1,3 @@
-(:glance)
 class Repository {
 
     protected var _footprint;

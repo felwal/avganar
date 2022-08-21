@@ -1,7 +1,6 @@
 using Toybox.Lang;
 using Carbon.C14;
 
-(:glance)
 class Stop {
 
     var id;
