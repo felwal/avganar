@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Math;
+using Toybox.Graphics;
 using Carbon.Graphene;
 using Carbon.Chem;
 
@@ -139,6 +140,27 @@ class DcCompat {
     }
 
     // text
+
+    function drawTextArea(x, y, w, h, fonts, text, justification, color) {
+        // compute location depending on justification, to match how `Dc#drawText` behaves
+        var locX = justification&Graphics.TEXT_JUSTIFY_CENTER
+            ? x - w / 2
+            : (justification&Graphics.TEXT_JUSTIFY_RIGHT ? x - w : x);
+        var locY = justification&Graphics.TEXT_JUSTIFY_VCENTER ? y - h / 2 : y;
+
+        var textArea = new WatchUi.TextArea({
+            :text => text,
+            :color => color,
+            :font => fonts,
+            :locX => locX,
+            :locY => locY,
+            :width => w,
+            :height => h,
+            :justification => justification
+        });
+
+        textArea.draw(dc);
+    }
 
     function drawViewTitle(text) {
         resetColor();
@@ -595,7 +617,7 @@ class DcCompat {
 
         // draw items
 
-        var fontSelected = Graphene.FONT_LARGE;
+        var fontsSelected = [ Graphene.FONT_LARGE, Graphene.FONT_MEDIUM, Graphene.FONT_SMALL ];
         var font = Graphene.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.6;
@@ -626,15 +648,20 @@ class DcCompat {
         for (var i = firstItemIndex; i < lastItemIndex; i++) {
             var item = items[i];
 
-            var yText = cy + (i - cursor) * lineHeightPx;
+            var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
             if (i == cursor) {
-                dc.setColor(selectedColor, bgColor);
-                dc.drawText(cx, yText, fontSelected, item, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+                var margin = 5;
+                var width = w - 2 * margin;
+                var height = dc.getFontHeight(fontsSelected[0]);
+
+                drawTextArea(cx, cy, width, height, fontsSelected, item, justification, selectedColor);
             }
             else {
+                var yText = cy + (i - cursor) * lineHeightPx;
+
                 dc.setColor(unselectedColor, bgColor);
-                dc.drawText(cx, yText, font, item, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+                dc.drawText(cx, yText, font, item, justification);
             }
         }
     }
