@@ -39,6 +39,7 @@ class FavoriteStopsStorage {
 
     static function removeFavorite(stop) {
         var success = _favStopIds.remove(stop.id);
+        // TODO: possibly the same stop with different id?
         success &= _favStopNames.remove(stop.name);
         success &= favorites.remove(stop);
 

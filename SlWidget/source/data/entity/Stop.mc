@@ -3,10 +3,13 @@ using Carbon.C14;
 
 class Stop {
 
+    private static const _DEFAULT_TIME_WINDOW = 60; // max 60 (minutes)
+
     var id;
     var name;
     var distance;
 
+    private var _departuresTimeWindow = _DEFAULT_TIME_WINDOW;
     private var _response;
     private var _responseTime;
 
@@ -33,6 +36,12 @@ class Stop {
     function setResponse(response) {
         _response = response;
         _responseTime = C14.now();
+
+        // for each too large response, halve the time window
+        if (hasResponseError() && _response.isTooLarge()) {
+            _departuresTimeWindow /= 2;
+        }
+
         vibrate("departures response");
     }
 
@@ -44,6 +53,10 @@ class Stop {
 
     function equals(object) {
         return id == object.id;
+    }
+
+    function getTimeWindow() {
+        return _departuresTimeWindow;
     }
 
     function getDataAgeMillis() {
