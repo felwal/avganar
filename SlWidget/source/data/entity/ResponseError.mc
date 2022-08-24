@@ -10,10 +10,14 @@ class ResponseError {
     static const CODE_RESPONSE_NO_STOPS = -2004;
     static const CODE_RESPONSE_NO_DEPARTURES = -2005;
 
+    static const CODE_ERROR_RETREIVAL_FAILED_1 = 5321;
+    static const CODE_ERROR_RETREIVAL_FAILED_2 = 5322;
+    static const CODE_ERROR_RETREIVAL_FAILED_3 = 5323;
+    static const CODE_ERROR_RETREIVAL_FAILED_4 = 5324;
+
     static const CODE_ERROR_NULL_DATA = 200;
 
     var title = "";
-    var message = "";
 
     private var _code;
 
@@ -72,6 +76,12 @@ class ResponseError {
             case CODE_ERROR_NULL_DATA:
                 title = rez(Rez.Strings.lbl_e_null_data);
                 break;
+            case CODE_ERROR_RETREIVAL_FAILED_1:
+            case CODE_ERROR_RETREIVAL_FAILED_2:
+            case CODE_ERROR_RETREIVAL_FAILED_3:
+            case CODE_ERROR_RETREIVAL_FAILED_4:
+                title = rez(Rez.Strings.lbl_e_retrieval);
+                break;
 
             // request
             case Communications.BLE_CONNECTION_UNAVAILABLE:
@@ -92,12 +102,18 @@ class ResponseError {
             case Communications.REQUEST_CANCELLED:
                 title = rez(Rez.Strings.lbl_e_cancelled);
                 break;
+            case Communications.BLE_HOST_TIMEOUT:
+                title = rez(Rez.Strings.lbl_e_timeout);
+                break;
             case Communications.NETWORK_RESPONSE_TOO_LARGE:
-                title = rez(Rez.Strings.lbl_e_response_size);
+                title = rez(Rez.Strings.lbl_e_size);
+                break;
+            case Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE:
+                title = rez(Rez.Strings.lbl_e_invalid);
                 break;
 
             default:
-                title = rez(Rez.Strings.lbl_e_general) + " " + _code;
+                title = (_code <= 0 ? rez(Rez.Strings.lbl_e_request) : rez(Rez.Strings.lbl_e_response)) + " " + _code;
         }
     }
 

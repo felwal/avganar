@@ -19,10 +19,14 @@
     <string id="lbl_e_bluetooth">No bluetooth</string>
     <string id="lbl_e_internet">No internet</string>
     <string id="lbl_e_memory">Out of memory</string>
-    <string id="lbl_e_response_size">Response too large</string>
+    <string id="lbl_e_size">Response too large</string>
     <string id="lbl_e_cancelled">Request cancelled</string>
-    <string id="lbl_e_general">Request failed</string>
+    <string id="lbl_e_timeout">Request timed out</string>
+    <string id="lbl_e_invalid">Invalid response</string>
     <string id="lbl_e_null_data">No data</string>
+    <string id="lbl_e_retrieval">Retrieval failed</string>
+    <string id="lbl_e_request">Request failed</string>
+    <string id="lbl_e_response">Response failed</string>
 
     <!-- view -->
 
@@ -30,6 +34,7 @@
     <string id="lbl_glance_title" scope="glance">Nearest stop</string>
     <string id="lbl_glance_caption_no_stops" scope="glance">No stops nearby</string>
 
+    <!-- preview -->
     <string id="lbl_preview_title_no_stops" scope="glance">No stops nearby</string>
 
     <!-- settings -->
