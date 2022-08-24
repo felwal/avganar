@@ -74,17 +74,6 @@ class StopDetailViewModel {
         _repo.requestDepartures(stop);
     }
 
-    private function _rerequestDepartures() {
-        if (stop.hasResponseError() && stop.getResponseError().isTooLarge()) {
-            _repo.requestFewerDepartures(stop);
-        }
-        else {
-            requestDepartures();
-        }
-
-        stop.setSearching();
-    }
-
     // read
 
     function getPageDepartures() {
@@ -122,10 +111,14 @@ class StopDetailViewModel {
 
     function onSelect() {
         var hasError = stop.hasResponseError();
+
+        // rerequest
         if (hasError && stop.getResponseError().isRerequestable()) {
-            _rerequestDepartures();
+            requestDepartures();
+            stop.setSearching();
             WatchUi.requestUpdate();
         }
+        // rotate mode
         else if (!hasError && stop.getModeCount() > 1) {
             _incModeCursor();
             WatchUi.requestUpdate();

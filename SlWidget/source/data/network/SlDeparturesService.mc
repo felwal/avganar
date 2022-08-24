@@ -10,27 +10,22 @@ class SlDeparturesService {
 
     private static const _RESPONSE_OK = 200;
 
-    private static const _MAX_DEPARTURES = 12; // per mode
-    private static const _TIME_WINDOW = 60; // max 60 (minutes)
+    private static const _MAX_DEPARTURES = 24; // per mode
     private static const _TIME_WINDOW_SHORT = 10;
 
     private var _stop;
-    private var _maxDepartures;
-    private var _timeWindow;
 
     // init
 
-    function initialize(stop, shortTimeWindow) {
+    function initialize(stop) {
         _stop = stop;
-        _maxDepartures = _MAX_DEPARTURES;
-        _timeWindow = shortTimeWindow ? _TIME_WINDOW_SHORT : _TIME_WINDOW;
     }
 
     // request
 
     function requestDepartures() {
         if (_stop != null) {
-            Log.i("Requesting departures for siteId " + _stop.id + " ...");
+            Log.i("Requesting departures for siteId " + _stop.id + " for " + _stop.getTimeWindow() + " min ...");
             _requestDepartures();
         }
     }
@@ -41,7 +36,7 @@ class SlDeparturesService {
         var params = {
             "key" => KEY_RI,
             "siteid" => _stop.id.toNumber(),
-            "timewindow" => _timeWindow
+            "timewindow" => _stop.getTimeWindow()
         };
 
         var options = {
@@ -92,7 +87,7 @@ class SlDeparturesService {
             var modeData = data["ResponseData"][modes[m]];
             var modeDepartures = [];
 
-            for (var d = 0; d < modeData.size() && modeDepartures.size() < _MAX_DEPARTURES; d++) {
+            for (var d = 0; d < modeData.size()/* && modeDepartures.size() < _MAX_DEPARTURES*/; d++) {
                 var departureData = modeData[d];
 
                 var mode = departureData["TransportMode"];

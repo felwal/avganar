@@ -39,11 +39,7 @@ class Repository {
     }
 
     function requestDepartures(stop) {
-        new SlDeparturesService(stop, false).requestDepartures();
-    }
-
-    function requestFewerDepartures(stop) {
-        new SlDeparturesService(stop, true).requestDepartures();
+        new SlDeparturesService(stop).requestDepartures();
     }
 
     // position
