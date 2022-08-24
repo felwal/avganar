@@ -60,7 +60,7 @@ class StopDetailView extends WatchUi.View {
             var error = stop.getResponseError();
 
             // info
-            dcc.drawDialog(error.title, error.message);
+            dcc.drawDialog(error.title, "");
 
             // banner
             if (!error.hasConnection()) {

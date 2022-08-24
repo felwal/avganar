@@ -55,7 +55,7 @@ class StopListView extends WatchUi.View {
         // error
         if (_viewModel.isShowingMessage()) {
             // info
-            dcc.drawDialog(response.title, response.message);
+            dcc.drawDialog(response.title, "");
 
             // start indicator
             if (response.isRerequestable()) {

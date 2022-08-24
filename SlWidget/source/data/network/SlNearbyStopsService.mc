@@ -93,12 +93,10 @@ class SlNearbyStopsService {
         // SL error
         if (DictCompat.hasKey(data, "StatusCode") || DictCompat.hasKey(data, "Message")) {
             var statusCode = data["StatusCode"];
-            var message = data["Message"];
 
-            Log.i("Stops SL request error (code " + statusCode + "): " + message);
+            Log.i("Stops SL request error (code " + statusCode + ")");
 
             var error = new ResponseError(statusCode);
-            error.message = message;
             _storage.setResponseError(error);
 
             return;

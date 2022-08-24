@@ -65,14 +65,12 @@ class SlDeparturesService {
 
     private function _handleDeparturesResponseOk(data) {
         var statusCode = data["StatusCode"];
-        var message = data["Message"];
 
         // SL error
-        if (statusCode != 0 || message != null) {
-            Log.i("Departures SL request error (code " + statusCode + "): " + message);
+        if (statusCode != 0) {
+            Log.i("Departures SL request error (code " + statusCode + ")");
 
             var error = new ResponseError(statusCode);
-            error.message = message;
             _stop.setResponse(error);
 
             return;
