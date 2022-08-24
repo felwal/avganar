@@ -36,7 +36,7 @@ function hasPreview() {
 
 function vibrate(reason) {
     if (Attention has :vibrate) {
-        var vibeData = [ new Attention.VibeProfile(25, 100) ];
+        var vibeData = [ new Attention.VibeProfile(75, 300) ];
         Attention.vibrate(vibeData);
         //Log.d("vibrate: " + reason);
     }
