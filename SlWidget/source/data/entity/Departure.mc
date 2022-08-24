@@ -54,15 +54,17 @@ class Departure {
         var duration = now.subtract(_moment);
         var minutes = Math.round(duration.value() / 60.0).toNumber();
 
-        if (hasPassed()) {
-            minutes = minutes * -1;
-        }
+        // NOTE: `Moment#subtract` returns a positive value. we don't need to
+        // negate it here, however, because the departure is removed in
+        // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
 
         return minutes == 0 ? "Nu" : (minutes + " min");
     }
 
-    function hasPassed() {
-        return C14.now().greaterThan(_moment);
+    function hasDeparted() {
+        // we will keep displayig "now" until 30 seconds after departure
+        var margin = new Time.Duration(30);
+        return C14.now().greaterThan(_moment.add(margin));
     }
 
     function getColor() {

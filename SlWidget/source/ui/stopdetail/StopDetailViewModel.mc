@@ -11,6 +11,7 @@ class StopDetailViewModel {
     static const DEPARTURES_PER_PAGE = 4; // TODO: dynamic
 
     var stop;
+    var pageCount = 1;
     var pageCursor = 0;
     var modeCursor = 0;
 
@@ -76,27 +77,36 @@ class StopDetailViewModel {
 
     // read
 
-    function getPageDepartures() {
+    function getModeDepartures() {
+        var departures = stop.getDepartures(modeCursor);
+        pageCount = _getPageCount(departures);
+
+        return departures;
+    }
+
+    function getPageDepartures(modeDepartures) {
+        // take `modeDepartures` as parameter to avoid calling `Stop#_trimDepartures`
+        // unnecessarily often
+
         var startIndex = pageCursor * DEPARTURES_PER_PAGE;
         var endIndex = startIndex + DEPARTURES_PER_PAGE;
 
-        return _getModeDepartures().slice(startIndex, endIndex);
+        return modeDepartures.slice(startIndex, endIndex);
     }
 
-    private function _getModeDepartures() {
-        return stop.getDepartures(modeCursor);
-    }
+    private function _getPageCount(modeDepartures) {
+        // take `modeDepartures` as parameter to avoid calling `Stop#_trimDepartures`
+        // unnecessarily often
 
-    function getPageCount() {
         return stop.hasResponseError()
             ? 1
-            : Math.ceil(_getModeDepartures().size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
+            : Math.ceil(modeDepartures.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
     }
 
     // write
 
     function incPageCursor() {
-        if (pageCursor < getPageCount() - 1) {
+        if (pageCursor < pageCount - 1) {
             pageCursor++;
             WatchUi.requestUpdate();
         }

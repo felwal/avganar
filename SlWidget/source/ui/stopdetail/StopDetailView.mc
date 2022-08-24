@@ -75,14 +75,17 @@ class StopDetailView extends WatchUi.View {
 
         // departures
         else {
-            _drawDepartures(dcc);
+            var departures = _viewModel.getModeDepartures();
+            var pageDepartures = _viewModel.getPageDepartures(departures);
+
+            _drawDepartures(dcc, pageDepartures);
 
             // page indicator
             dcc.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
             dcc.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
-            dcc.drawVerticalPageNumber(_viewModel.getPageCount(), _viewModel.pageCursor);
-            dcc.drawVerticalPageArrows(_viewModel.getPageCount(), _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_PRIMARY_TERTIARY);
-            dcc.drawVerticalScrollbarSmall(_viewModel.getPageCount(), _viewModel.pageCursor);
+            dcc.drawVerticalPageNumber(_viewModel.pageCount, _viewModel.pageCursor);
+            dcc.drawVerticalPageArrows(_viewModel.pageCount, _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_PRIMARY_TERTIARY);
+            dcc.drawVerticalScrollbarSmall(_viewModel.pageCount, _viewModel.pageCursor);
         }
     }
 
@@ -132,7 +135,7 @@ class StopDetailView extends WatchUi.View {
         dcc.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
-    private function _drawDepartures(dcc) {
+    private function _drawDepartures(dcc, pageDepartures) {
         var font = Graphene.FONT_TINY;
         var fontHeight = dcc.dc.getFontHeight(font);
         var lineHeight = 1.35;
@@ -141,10 +144,8 @@ class StopDetailView extends WatchUi.View {
         var yOffset = 50;
         var rCircle = 4;
 
-        var departures = _viewModel.getPageDepartures();
-
-        for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < departures.size(); d++) {
-            var departure = departures[d];
+        for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < pageDepartures.size(); d++) {
+            var departure = pageDepartures[d];
 
             var yText = yOffset + d * lineHeightPx;
             var yCircle = yText + fontHeight / 2;
