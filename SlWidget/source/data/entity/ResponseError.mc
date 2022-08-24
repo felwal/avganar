@@ -147,12 +147,9 @@ class ResponseError {
 
     function isRerequestable() {
         return hasConnection()
-            && _code != CODE_RESPONSE_NO_STOPS
-            && _code != CODE_RESPONSE_NO_DEPARTURES
-            && _code != CODE_STATUS_REQUESTING_STOPS
-            && _code != CODE_STATUS_REQUESTING_DEPARTURES
-            && _code != CODE_STATUS_NO_GPS
-            && _code != CODE_STATUS_OUTSIDE_BOUNDS
+            && !isResponseMessage()
+            && !isStatusMessage()
+            && !isTooLarge() // will auto-rerequest
             && _code != null;
     }
 
