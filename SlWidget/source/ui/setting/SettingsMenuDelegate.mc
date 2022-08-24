@@ -1,6 +1,6 @@
 using Toybox.WatchUi;
 
-class SettingsMenuDelegate extends WatchUi.MenuInputDelegate {
+class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     static const ITEM_FAVORITE_ADD = :addFavorite;
     static const ITEM_FAVORITE_REMOVE = :removeFavorite;
@@ -14,28 +14,28 @@ class SettingsMenuDelegate extends WatchUi.MenuInputDelegate {
     // init
 
     function initialize(viewModel) {
-        MenuInputDelegate.initialize();
+        Menu2InputDelegate.initialize();
         _viewModel = viewModel;
     }
 
-    // override MenuInputDelegate
+    // override Menu2InputDelegate
 
-    function onMenuItem(item) {
+    function onSelect(item) {
         var view = null;
 
-        switch (item) {
+        switch (item.getId()) {
             case ITEM_FAVORITE_ADD:
                 _viewModel.addFavorite();
-                return;
+                break;
             case ITEM_FAVORITE_REMOVE:
                 _viewModel.removeFavorite();
-                return;
+                break;
             case ITEM_FAVORITE_MOVE_UP:
                 _viewModel.moveFavorite(-1);
-                return;
+                break;
             case ITEM_FAVORITE_MOVE_DOWN:
                 _viewModel.moveFavorite(1);
-                return;
+                break;
             case ITEM_API:
                 view = new InfoView(rez(Rez.Strings.lbl_info_api));
                 break;
@@ -44,7 +44,17 @@ class SettingsMenuDelegate extends WatchUi.MenuInputDelegate {
                 break;
         }
 
-        WatchUi.pushView(view, null, WatchUi.SLIDE_LEFT);
+        if (view == null) {
+            WatchUi.popView(WatchUi.SLIDE_BLINK);
+        }
+        else {
+            WatchUi.pushView(view, null, WatchUi.SLIDE_LEFT);
+        }
+    }
+
+    function onBack() {
+        WatchUi.popView(WatchUi.SLIDE_BLINK);
+        return true;
     }
 
 }
