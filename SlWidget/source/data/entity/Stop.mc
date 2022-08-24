@@ -41,8 +41,10 @@ class Stop {
         if (hasResponseError() && _response.isTooLarge()) {
             _departuresTimeWindow /= 2;
         }
-
-        vibrate("departures response");
+        else {
+            // only vibrate if we are not auto-rerequesting
+            vibrate("departures response");
+        }
     }
 
     private function _removeDepartedDepartures(mode) {

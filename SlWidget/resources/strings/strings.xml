@@ -19,7 +19,7 @@
     <string id="lbl_e_bluetooth">No bluetooth</string>
     <string id="lbl_e_internet">No internet</string>
     <string id="lbl_e_memory">Out of memory</string>
-    <string id="lbl_e_size">Response too large</string>
+    <string id="lbl_e_size">Searching ...</string> <!-- don't let the user know we are requesting again -->
     <string id="lbl_e_cancelled">Request cancelled</string>
     <string id="lbl_e_timeout">Request timed out</string>
     <string id="lbl_e_invalid">Invalid response</string>
