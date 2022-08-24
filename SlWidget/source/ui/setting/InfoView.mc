@@ -5,7 +5,6 @@ using Carbon.Graphene;
 class InfoView extends WatchUi.View {
 
     private var _text;
-    private var _textArea;
 
     // init
 
@@ -51,22 +50,11 @@ class InfoView extends WatchUi.View {
 
         // inscribe a square on the circular screen
         var margin = 5;
-        var y = (dcc.r - margin) / Math.sqrt(2);
-        var x = -y;
-        var size = 2 * y;
+        var size = Math.sqrt(2) * (dcc.r - margin);
+        var fonts = [ Graphene.FONT_TINY, Graphene.FONT_XTINY ];
+        var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
-        _textArea = new WatchUi.TextArea({
-            :text => _text,
-            :color => Graphene.COLOR_BLACK,
-            :font => [ Graphene.FONT_TINY, Graphene.FONT_XTINY ],
-            :locX => dcc.cx + x,
-            :locY => dcc.cy - y,
-            :width => size,
-            :height => size
-        });
-
-        _textArea.setJustification(Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-        _textArea.draw(dcc.dc);
+        dcc.drawTextArea(dcc.cx, dcc.cy, size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
     }
 
 }
