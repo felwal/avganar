@@ -6,6 +6,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_FAVORITE_REMOVE = :removeFavorite;
     static const ITEM_FAVORITE_MOVE_UP = :moveFavoriteUp;
     static const ITEM_FAVORITE_MOVE_DOWN = :moveFavoriteDown;
+    static const ITEM_VIBRATE = :vibrateOnResponse;
     static const ITEM_API = :apiInfo;
     static const ITEM_ABOUT = :aboutInfo;
 
@@ -36,6 +37,9 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             case ITEM_FAVORITE_MOVE_DOWN:
                 _viewModel.moveFavorite(1);
                 break;
+            case ITEM_VIBRATE:
+                SettingsStorage.setVibrateOnResponse(item.isEnabled());
+                return;
             case ITEM_API:
                 view = new InfoView(rez(Rez.Strings.lbl_info_api));
                 break;

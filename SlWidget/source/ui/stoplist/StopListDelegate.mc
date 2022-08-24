@@ -91,6 +91,12 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
             ));
         }
 
+        // vibrate on response
+        menu.addItem(new WatchUi.ToggleMenuItem(
+            rez(Rez.Strings.lbl_settings_vibrate), { :enabled => "On", :disabled => "Off" },
+            SettingsMenuDelegate.ITEM_VIBRATE, SettingsStorage.getVibrateOnResponse(), {}
+        ));
+
         // api info
         menu.addItem(new WatchUi.MenuItem(
             rez(Rez.Strings.lbl_settings_api), "",
