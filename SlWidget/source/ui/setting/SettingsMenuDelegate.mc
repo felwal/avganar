@@ -11,12 +11,73 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_ABOUT = :aboutInfo;
 
     private var _viewModel;
+    private var _menu;
 
     // init
 
     function initialize(viewModel) {
         Menu2InputDelegate.initialize();
         _viewModel = viewModel;
+        _addItems();
+    }
+
+    private function _addItems() {
+        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
+
+        if (_viewModel.isFavorite()) {
+            var isInFavourites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
+
+            // move favorite
+            if (isInFavourites && _viewModel.stopCursor != 0) {
+                // move up
+                _menu.addItem(new WatchUi.MenuItem(
+                    rez(Rez.Strings.lbl_settings_favorite_move_up), "",
+                    ITEM_FAVORITE_MOVE_UP, {}
+                ));
+            }
+            if (isInFavourites && _viewModel.stopCursor != _viewModel.getFavoriteCount() - 1) {
+                // move down
+                _menu.addItem(new WatchUi.MenuItem(
+                    rez(Rez.Strings.lbl_settings_favorite_move_down), "",
+                    ITEM_FAVORITE_MOVE_DOWN, {}
+                ));
+            }
+
+            // remove favorite
+            _menu.addItem(new WatchUi.MenuItem(
+                rez(Rez.Strings.lbl_settings_favorite_remove), "",
+                ITEM_FAVORITE_REMOVE, {}
+            ));
+        }
+        else {
+            // add favorite
+            _menu.addItem(new WatchUi.MenuItem(
+                rez(Rez.Strings.lbl_settings_favorite_add), "",
+                ITEM_FAVORITE_ADD, {}
+            ));
+        }
+
+        // vibrate on response
+        _menu.addItem(new WatchUi.ToggleMenuItem(
+            rez(Rez.Strings.lbl_settings_vibrate), { :enabled => "On", :disabled => "Off" },
+            ITEM_VIBRATE, SettingsStorage.getVibrateOnResponse(), {}
+        ));
+
+        // api info
+        _menu.addItem(new WatchUi.MenuItem(
+            rez(Rez.Strings.lbl_settings_api), "",
+            ITEM_API, {}
+        ));
+
+        // about
+        _menu.addItem(new WatchUi.MenuItem(
+            rez(Rez.Strings.lbl_settings_about), "",
+            ITEM_ABOUT, {}
+        ));
+    }
+
+    function push(transition) {
+        WatchUi.pushView(_menu, me, transition);
     }
 
     // override Menu2InputDelegate
