@@ -27,11 +27,11 @@ class Stop {
         return id.toString();
     }
 
+    // set
+
     function setSearching() {
         _response = new ResponseError(ResponseError.CODE_STATUS_REQUESTING_DEPARTURES);
     }
-
-    // set
 
     function setResponse(response) {
         _response = response;
@@ -43,6 +43,32 @@ class Stop {
         }
 
         vibrate("departures response");
+    }
+
+    private function _removeDepartedDepartures(mode) {
+        var departures = _response[mode];
+        var firstIndex = -1;
+
+        if (!departures[0].hasDeparted()) {
+            return;
+        }
+
+        for (var i = 1; i < departures.size(); i++) {
+            // once we get the first departure that has not departed,
+            // add it and everything after
+            if (!departures[i].hasDeparted()) {
+                firstIndex = i;
+                break;
+            }
+        }
+
+        if (firstIndex != -1) {
+            _response[mode] = departures.slice(firstIndex, null);
+        }
+        else {
+            _response[mode] = [];
+            // TODO: set searching
+        }
     }
 
     // get
@@ -76,17 +102,13 @@ class Stop {
             return null;
         }
 
-        if (mode >= 0 && mode < _response.size()) {
-            return _response[mode];
-        }
-        else {
+        if (mode < 0 || mode >= _response.size()) {
             Log.w("getDepartures 'mode' (" + mode + ") out of range [0," + _response.size() + "]; returning []");
             return [];
         }
-    }
 
-    function getAllDepartures() {
-        return hasResponseError() ? null : _response;
+        _removeDepartedDepartures(mode);
+        return _response[mode];
     }
 
     function getResponseError() {
