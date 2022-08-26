@@ -70,14 +70,19 @@ class StopListViewModel {
         return _repo.hasStops() || _favStorage.favorites.size() > 0;
     }
 
-    function getStops() {
+    private function _getStops() {
         var response = getResponse();
         var favs = _favStorage.favorites;
-        return response instanceof ResponseError ? favs : ArrCompat.merge(favs, response);
+        var stops = response instanceof ResponseError ? favs : ArrCompat.merge(favs, response);
+
+        // coerce cursor
+        stopCursor = Chem.min(stopCursor, stops.size() - 1);
+
+        return stops;
     }
 
     function getStopNames() {
-        var stops = getStops();
+        var stops = _getStops();
         if (stops == null) { return null; }
 
         var names = new [stops.size()];
@@ -99,7 +104,7 @@ class StopListViewModel {
     }
 
     function getSelectedStop() {
-        var stops = getStops();
+        var stops = _getStops();
         return stopCursor < stops.size() ? stops[stopCursor] : null;
     }
 
