@@ -7,6 +7,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_FAVORITE_MOVE_UP = :moveFavoriteUp;
     static const ITEM_FAVORITE_MOVE_DOWN = :moveFavoriteDown;
     static const ITEM_VIBRATE = :vibrateOnResponse;
+    static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_API = :apiInfo;
     static const ITEM_ABOUT = :aboutInfo;
 
@@ -63,6 +64,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             ITEM_VIBRATE, SettingsStorage.getVibrateOnResponse(), {}
         ));
 
+        // default time window
+        _menu.addItem(new WatchUi.MenuItem(
+            rez(Rez.Strings.lbl_settings_time_window), SettingsStorage.getDefaultTimeWindow() + " min",
+            ITEM_TIME_WINDOW, {}
+        ));
+
         // api info
         _menu.addItem(new WatchUi.MenuItem(
             rez(Rez.Strings.lbl_settings_api), "",
@@ -98,6 +105,13 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             case ITEM_FAVORITE_MOVE_DOWN:
                 _viewModel.moveFavorite(1);
                 break;
+            case ITEM_TIME_WINDOW:
+                var title = rez(Rez.Strings.lbl_settings_time_window);
+                var labels = [ "60 min", "45 min", "30 min", "15 min" ];
+                var values = [ 60, 45, 30, 15 ];
+                var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
+                new RadioMenuDelegate(title, labels, values, focus, method(:onListMenuDelegateSelect)).push();
+                return;
             case ITEM_VIBRATE:
                 SettingsStorage.setVibrateOnResponse(item.isEnabled());
                 return;
@@ -120,6 +134,15 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onBack() {
         WatchUi.popView(WatchUi.SLIDE_BLINK);
         return true;
+    }
+
+    //
+
+    function onListMenuDelegateSelect(value) {
+        SettingsStorage.setDefaultTimeWindow(value);
+
+        var item = _menu.getItem(_menu.findItemById(ITEM_TIME_WINDOW));
+        item.setSubLabel(value + " min");
     }
 
 }

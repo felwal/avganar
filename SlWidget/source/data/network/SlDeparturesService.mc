@@ -11,7 +11,6 @@ class SlDeparturesService {
     private static const _RESPONSE_OK = 200;
 
     private static const _MAX_DEPARTURES = 24; // per mode
-    private static const _TIME_WINDOW_SHORT = 10;
 
     private var _stop;
 

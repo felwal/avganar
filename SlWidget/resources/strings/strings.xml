@@ -43,6 +43,7 @@
     <string id="lbl_settings_favorite_remove">Remove from Favorites</string>
     <string id="lbl_settings_favorite_move_up">Move up</string>
     <string id="lbl_settings_favorite_move_down">Move down</string>
+    <string id="lbl_settings_time_window">Default time window</string>
     <string id="lbl_settings_vibrate">Vibrate on response</string>
     <string id="lbl_settings_api">APIs by Trafiklab</string>
     <string id="lbl_settings_about">About</string>
