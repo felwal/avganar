@@ -3,13 +3,11 @@ using Carbon.C14;
 
 class Stop {
 
-    private static const _DEFAULT_TIME_WINDOW = 60; // max 60 (minutes)
-
     var id;
     var name;
     var distance;
 
-    private var _departuresTimeWindow = _DEFAULT_TIME_WINDOW;
+    private var _departuresTimeWindow;
     private var _response;
     private var _responseTime;
 
@@ -39,7 +37,9 @@ class Stop {
 
         // for each too large response, halve the time window
         if (hasResponseError() && _response.isTooLarge()) {
-            _departuresTimeWindow /= 2;
+            _departuresTimeWindow = _departuresTimeWindow != null
+                ? _departuresTimeWindow / 2
+                : SettingsStorage.getDefaultTimeWindow() / 2;
         }
         else {
             // only vibrate if we are not auto-rerequesting
@@ -84,7 +84,11 @@ class Stop {
     }
 
     function getTimeWindow() {
-        return _departuresTimeWindow;
+        // we don't want to initialize `_departuresTimeWindow` with `SettingsStorage.getDefaultTimeWindow()`,
+        // because then it wont sync when the setting is edited.
+        return _departuresTimeWindow != null
+            ? _departuresTimeWindow
+            : SettingsStorage.getDefaultTimeWindow();
     }
 
     function getDataAgeMillis() {
