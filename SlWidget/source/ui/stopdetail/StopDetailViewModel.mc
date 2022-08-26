@@ -81,6 +81,9 @@ class StopDetailViewModel {
         var departures = stop.getDepartures(modeCursor);
         pageCount = _getPageCount(departures);
 
+        // coerce cursor
+        pageCursor = Chem.min(pageCursor, pageCount - 1);
+
         return departures;
     }
 
