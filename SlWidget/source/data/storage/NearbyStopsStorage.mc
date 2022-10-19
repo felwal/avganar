@@ -39,7 +39,8 @@ class NearbyStopsStorage {
     function setResponse(stopIds, stopNames, response_) {
         // only vibrate when data is changed
         if (!ArrCompat.equals(_nearbyStopIds, stopIds)
-            || (response_ instanceof ResponseError && !response_.isStatusMessage() && !response_.equals(response))) {
+            || ((response_ instanceof ResponseError || response_ instanceof ResponseMessage)
+            && !response_.equals(response))) {
 
             vibrate("stops changed to " + stopIds.toString());
         }
@@ -63,12 +64,8 @@ class NearbyStopsStorage {
         return response instanceof StopsResponse;
     }
 
-    function hasResponseError() {
-        return response instanceof ResponseError;
-    }
-
     function hasErrorOrIsEmpty() {
-        return (hasResponseError() && response.isErrorMessage()) || getStopCount() == 0;
+        return response instanceof ResponseError || getStopCount() == 0;
     }
 
     function hasStops() {

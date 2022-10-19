@@ -57,8 +57,7 @@ class SlDeparturesService {
         else {
             Log.i("Departures response error (code " + responseCode + "): " + data);
 
-            var error = new ResponseError(responseCode);
-            _stop.setResponse(error);
+            _stop.setResponse(new ResponseError(responseCode));
 
             // auto rerequest if too large
             if (error.isTooLarge()) {
@@ -76,8 +75,7 @@ class SlDeparturesService {
         if (statusCode != 0) {
             Log.i("Departures SL request error (code " + statusCode + ")");
 
-            var error = new ResponseError(statusCode);
-            _stop.setResponse(error);
+            _stop.setResponse(new ResponseError(statusCode));
 
             return;
         }
@@ -120,7 +118,7 @@ class SlDeparturesService {
         }
         else {
             Log.d("Departures response empty of departures");
-            _stop.setResponse(new ResponseError(ResponseError.CODE_RESPONSE_NO_DEPARTURES));
+            _stop.setResponse(new ResponseMessage(rez(Rez.Strings.lbl_i_departures_none)));
         }
     }
 
