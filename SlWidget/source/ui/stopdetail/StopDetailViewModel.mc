@@ -101,9 +101,9 @@ class StopDetailViewModel {
         // take `modeDepartures` as parameter to avoid calling `Stop#_trimDepartures`
         // unnecessarily often
 
-        return stop.hasResponseError()
-            ? 1
-            : Math.ceil(modeDepartures.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
+        return stop.hasDepartures()
+            ? Math.ceil(modeDepartures.size().toFloat() / DEPARTURES_PER_PAGE).toNumber()
+            : 1;
     }
 
     // write
@@ -123,16 +123,16 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
-        var hasError = stop.hasResponseError();
-
-        // rerequest
-        if (hasError && stop.getResponseError().isRerequestable()) {
-            requestDepartures();
-            stop.setSearching();
-            WatchUi.requestUpdate();
+        if (stop.getResponseError() instanceof ResponseError) {
+            // rerequest
+            if (stop.getResponseError().isRerequestable()) {
+                requestDepartures();
+                stop.setSearching();
+                WatchUi.requestUpdate();
+            }
         }
-        // rotate mode
-        else if (!hasError && stop.getModeCount() > 1) {
+        else if (stop.getModeCount() > 1) {
+            // rotate mode
             _incModeCursor();
             WatchUi.requestUpdate();
         }

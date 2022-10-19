@@ -20,21 +20,17 @@ class Stop {
         setSearching();
     }
 
-    function toString() {
-        return id.toString();
-    }
-
     // set
 
     function setSearching() {
-        _response = new ResponseError(ResponseError.CODE_STATUS_REQUESTING_DEPARTURES);
+        _response = new StatusMessage(rez(Rez.Strings.lbl_i_departures_requesting));
     }
 
     function setResponse(response) {
         _response = response;
 
         // for each too large response, halve the time window
-        if (hasResponseError() && _response.isTooLarge()) {
+        if (_response instanceof ResponseError && _response.isTooLarge()) {
             _departuresTimeWindow = _departuresTimeWindow == null
                 ? SettingsStorage.getDefaultTimeWindow() / 2
                 : _departuresTimeWindow / 2;
@@ -71,10 +67,6 @@ class Stop {
         return _response instanceof DeparturesResponse;
     }
 
-    function hasResponseError() {
-        return _response instanceof ResponseError;
-    }
-
     function getModeCount() {
         return hasDepartures() ? _response.getModeCount() : null;
     }
@@ -84,7 +76,7 @@ class Stop {
     }
 
     function getResponseError() {
-        return hasResponseError() ? _response : null;
+        return hasDepartures() ? null : _response;
     }
 
 }

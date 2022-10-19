@@ -22,7 +22,8 @@ class Repository {
 
     function requestNearbyStops() {
         if (_storage.hasErrorOrIsEmpty()) {
-            _storage.setResponse([], [], new ResponseError(ResponseError.CODE_STATUS_REQUESTING_STOPS));
+            // set searching
+            _storage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
         }
 
         if (DEBUG) {
@@ -53,7 +54,7 @@ class Repository {
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
         if (_storage.hasErrorOrIsEmpty() && !_isPositioned()) {
-            _storage.setResponse([], [], new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
+            _storage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
         }
     }
 

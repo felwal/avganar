@@ -55,10 +55,10 @@ class StopListView extends WatchUi.View {
         // error
         if (_viewModel.isShowingMessage()) {
             // info
-            dcc.drawDialog(response.title, "");
+            dcc.drawDialog(response.getTitle(), "");
 
             // start indicator
-            if (response.isRerequestable()) {
+            if (response instanceof ResponseError && response.isRerequestable()) {
                 // TODO: make clickable
                 dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
             }

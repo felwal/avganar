@@ -73,7 +73,7 @@ class StopListViewModel {
     private function _getStops() {
         var response = getResponse();
         var favs = _favStorage.favorites;
-        var stops = response instanceof ResponseError ? favs : ArrCompat.merge(favs, response.getStops());
+        var stops = response instanceof StopsResponse ? ArrCompat.merge(favs, response.getStops()) : favs;
 
         // coerce cursor
         stopCursor = Chem.min(stopCursor, getStopCount() - 1);
@@ -96,7 +96,7 @@ class StopListViewModel {
     function getStopCount() {
         var response = getResponse();
 
-        return getFavoriteCount() + (response instanceof ResponseError ? 1 : response.getStopCount());
+        return getFavoriteCount() + (response instanceof StopsResponse ? response.getStopCount() : 1);
     }
 
     function getFavoriteCount() {
@@ -114,7 +114,7 @@ class StopListViewModel {
     }
 
     function isShowingMessage() {
-        return getResponse() instanceof ResponseError && stopCursor == getStopCount() - 1;
+        return !(getResponse() instanceof StopsResponse) && stopCursor == getStopCount() - 1;
     }
 
     function isPositionRegistered() {

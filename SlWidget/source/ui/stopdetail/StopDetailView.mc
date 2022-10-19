@@ -56,20 +56,22 @@ class StopDetailView extends WatchUi.View {
         _drawFooter(dcc, stop.distance);
 
         // error
-        if (stop.hasResponseError()) {
+        if (!stop.hasDepartures()) {
             var error = stop.getResponseError();
 
             // info
-            dcc.drawDialog(error.title, "");
+            dcc.drawDialog(error.getTitle(), "");
 
-            // banner
-            if (!error.hasConnection()) {
-                dcc.drawExclamationBanner();
-            }
+            if (error instanceof ResponseError) {
+                // banner
+                if (!error.hasConnection()) {
+                    dcc.drawExclamationBanner();
+                }
 
-            // start indicator
-            if (error.isRerequestable()) {
-                dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+                // start indicator
+                if (error.isRerequestable()) {
+                    dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+                }
             }
         }
 
