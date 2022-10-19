@@ -76,7 +76,7 @@ class StopListViewModel {
         var stops = response instanceof ResponseError ? favs : ArrCompat.merge(favs, response);
 
         // coerce cursor
-        stopCursor = Chem.min(stopCursor, stops.size() - 1);
+        stopCursor = Chem.min(stopCursor, getStopCount() - 1);
 
         return stops;
     }
@@ -130,9 +130,15 @@ class StopListViewModel {
     }
 
     function removeFavorite() {
+        var isInFavoritesPane = stopCursor < getFavoriteCount();
+
         _favStorage.removeFavorite(getSelectedStop());
-        // navigate to start
-        stopCursor = getFavoriteCount();
+
+        // keep cursor inside favorites panel
+        // – or where it was
+        stopCursor = isInFavoritesPane
+            ? Chem.coerceIn(stopCursor, 0, Chem.max(getFavoriteCount() - 1, 0))
+            : stopCursor - 1;
     }
 
     function moveFavorite(diff) {
