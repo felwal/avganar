@@ -12,7 +12,6 @@ class FavoriteStopsStorage {
 
     // init
 
-
     function initialize() {
         _load();
     }

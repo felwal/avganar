@@ -26,17 +26,17 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
 
         if (_viewModel.isFavorite()) {
-            var isInFavourites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
+            var isInFavorites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
 
             // move favorite
-            if (isInFavourites && _viewModel.stopCursor != 0) {
+            if (isInFavorites && _viewModel.stopCursor != 0) {
                 // move up
                 _menu.addItem(new WatchUi.MenuItem(
                     rez(Rez.Strings.lbl_settings_favorite_move_up), "",
                     ITEM_FAVORITE_MOVE_UP, {}
                 ));
             }
-            if (isInFavourites && _viewModel.stopCursor != _viewModel.getFavoriteCount() - 1) {
+            if (isInFavorites && _viewModel.stopCursor != _viewModel.getFavoriteCount() - 1) {
                 // move down
                 _menu.addItem(new WatchUi.MenuItem(
                     rez(Rez.Strings.lbl_settings_favorite_move_down), "",
