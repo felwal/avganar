@@ -17,6 +17,10 @@ class ArrCompat {
         return arr.indexOf(item) != -1;
     }
 
+    static function removeAt(arr, index) {
+        return arr.remove(arr[index]);
+    }
+
     static function merge(arr1, arr2) {
         var arr = new [arr1.size() + arr2.size()];
 

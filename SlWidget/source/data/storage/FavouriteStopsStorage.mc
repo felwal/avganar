@@ -38,10 +38,13 @@ class FavoriteStopsStorage {
     }
 
     static function removeFavorite(stop) {
-        var success = _favStopIds.remove(stop.id);
-        // TODO: possibly the same stop with different id?
-        success &= _favStopNames.remove(stop.name);
-        success &= favorites.remove(stop);
+        // use index of id, to avoid situations where two different
+        // stops share the same name
+        var index = _favStopIds.indexOf(stop.id);
+
+        var success = ArrCompat.removeAt(_favStopIds, index);
+        success &= ArrCompat.removeAt(_favStopNames, index);
+        success &= ArrCompat.removeAt(favorites, index);
 
         if (success) {
             _save();
