@@ -62,6 +62,10 @@ class DcCompat {
         dc.setColor(Graphene.COLOR_WHITE, background);
     }
 
+    function resetPenWidth() {
+        dc.setPenWidth(1);
+    }
+
     // draw shape
 
     function drawArcCompat(edgeOffset, degreeStart, degreeEnd) {
@@ -104,6 +108,8 @@ class DcCompat {
         setColor(color);
         dc.setPenWidth(width);
         dc.drawArc(x, y, r, attr, degreeStart, degreeEnd);
+
+        resetPenWidth();
     }
 
     //! Fill a circle with an outside stroke
@@ -335,6 +341,8 @@ class DcCompat {
         resetColor();
         dc.setPenWidth(3);
         drawArcCompat(edgeOffset, itemStartDeg, itemEndDeg);
+
+        resetPenWidth();
     }
 
     // page indicator
@@ -377,6 +385,8 @@ class DcCompat {
             }
             drawArcCompat(edgeOffset, startDeg, endDeg);
         }
+
+        resetPenWidth();
     }
 
     function drawVerticalPageIndicator(pageCount, index) {
@@ -416,6 +426,8 @@ class DcCompat {
                 //dc.drawCircle(x, y, radius + stroke / 2f);
             }
         }
+
+        resetPenWidth();
     }
 
     function drawVerticalPageNumber(pageCount, index) {
