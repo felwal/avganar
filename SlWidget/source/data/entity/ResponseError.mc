@@ -80,7 +80,7 @@ class ResponseError {
             case CODE_ERROR_RETREIVAL_FAILED_2:
             case CODE_ERROR_RETREIVAL_FAILED_3:
             case CODE_ERROR_RETREIVAL_FAILED_4:
-                title = rez(Rez.Strings.lbl_e_retrieval);
+                title = rez(Rez.Strings.lbl_e_retrieval) + " " + _code;
                 break;
 
             // request

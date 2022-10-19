@@ -17,49 +17,7 @@ class NearbyStopsStorage {
         _load();
     }
 
-    // set
-
-    private function _save() {
-        Storage.setValue(_STORAGE_NEARBY_STOP_IDS, _nearbyStopIds);
-        Storage.setValue(_STORAGE_NEARBY_STOP_NAMES, _nearbyStopNames);
-    }
-
-    function setStops(stopIds, stopNames, stops) {
-        // only vibrate when data is changed
-        if (!ArrCompat.equals(_nearbyStopIds, stopIds)) {
-            vibrate("stops changed to " + stopIds.toString());
-        }
-
-        _nearbyStopIds = stopIds;
-        _nearbyStopNames = stopNames;
-
-        // if we got no stops, we want to show a message, and therefore wont
-        // have to set `response` twice.
-        if (stopIds.size() != 0) {
-            response = stops;
-        }
-
-        _save();
-    }
-
-    function setResponseError(error) {
-        // only vibrate when data is changed
-        if (!error.isStatusMessage() && !error.equals(response)) {
-            vibrate(response.toString() + " changed to " + error.toString());
-        }
-
-        _nearbyStopIds = [];
-        _nearbyStopNames = [];
-        response = error;
-    }
-
-    // get
-
-    private function _load() {
-        _nearbyStopIds = StorageCompat.getArray(_STORAGE_NEARBY_STOP_IDS);
-        _nearbyStopNames = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
-        response = buildStops(_nearbyStopIds, _nearbyStopNames);
-    }
+    // static
 
     (:glance)
     static function getNearestStopName() {
@@ -71,28 +29,62 @@ class NearbyStopsStorage {
         return StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES).slice(0, count);
     }
 
+    // set
+
+    private function _save() {
+        Storage.setValue(_STORAGE_NEARBY_STOP_IDS, _nearbyStopIds);
+        Storage.setValue(_STORAGE_NEARBY_STOP_NAMES, _nearbyStopNames);
+    }
+
+    function setResponse(stopIds, stopNames, response_) {
+        // only vibrate when data is changed
+        if (!ArrCompat.equals(_nearbyStopIds, stopIds)
+            || (response_ instanceof ResponseError && !response_.isStatusMessage() && !response_.equals(response))) {
+
+            vibrate("stops changed to " + stopIds.toString());
+        }
+
+        _nearbyStopIds = stopIds;
+        _nearbyStopNames = stopNames;
+        response = response_;
+
+        _save();
+    }
+
+    // get
+
+    private function _load() {
+        _nearbyStopIds = StorageCompat.getArray(_STORAGE_NEARBY_STOP_IDS);
+        _nearbyStopNames = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
+        response = new StopsResponse(buildStops(_nearbyStopIds, _nearbyStopNames));
+    }
+
+    function hasStopsResponse() {
+        return response instanceof StopsResponse;
+    }
+
     function hasResponseError() {
         return response instanceof ResponseError;
     }
 
     function hasErrorOrIsEmpty() {
-        return (hasResponseError() && response.isErrorMessage()) || (response instanceof Array && response.size() == 0);
+        return (hasResponseError() && response.isErrorMessage()) || getStopCount() == 0;
     }
 
     function hasStops() {
-        return !hasResponseError() && response != null && response.size() > 0;
+        return getStopCount() > 0;
     }
 
     function getStop(index) {
-        return hasResponseError() ? null : ArrCompat.coerceGet(response, index);
+        return hasStopsResponse() ? response.getStop(index) : null;
     }
 
     function getStops() {
-        return hasResponseError() ? null : response;
+        return hasStopsResponse() ? response.getStops() : null;
     }
 
     function getStopCount() {
-        return hasResponseError() ? null : response.size();
+        return hasStopsResponse() ? response.getStopCount() : 0 ;
     }
 
 }
