@@ -40,7 +40,7 @@ class SlDeparturesService {
 
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            // TODO: url doesnt work without .json
+            // TODO: url doesnt work without ".json"
             //:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
@@ -116,7 +116,7 @@ class SlDeparturesService {
         departures.removeAll(null);
 
         if (departures.size() != 0) {
-            _stop.setResponse(departures);
+            _stop.setResponse(new DeparturesResponse(departures));
         }
         else {
             Log.d("Departures response empty of departures");

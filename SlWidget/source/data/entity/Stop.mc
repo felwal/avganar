@@ -9,7 +9,6 @@ class Stop {
 
     private var _departuresTimeWindow;
     private var _response;
-    private var _responseTime;
 
     // init
 
@@ -33,43 +32,16 @@ class Stop {
 
     function setResponse(response) {
         _response = response;
-        _responseTime = C14.now();
 
         // for each too large response, halve the time window
         if (hasResponseError() && _response.isTooLarge()) {
-            _departuresTimeWindow = _departuresTimeWindow != null
-                ? _departuresTimeWindow / 2
-                : SettingsStorage.getDefaultTimeWindow() / 2;
+            _departuresTimeWindow = _departuresTimeWindow == null
+                ? SettingsStorage.getDefaultTimeWindow() / 2
+                : _departuresTimeWindow / 2;
         }
         else {
             // only vibrate if we are not auto-rerequesting
             vibrate("departures response");
-        }
-    }
-
-    private function _removeDepartedDepartures(mode) {
-        var departures = _response[mode];
-        var firstIndex = -1;
-
-        if (!departures[0].hasDeparted()) {
-            return;
-        }
-
-        for (var i = 1; i < departures.size(); i++) {
-            // once we get the first departure that has not departed,
-            // add it and everything after
-            if (!departures[i].hasDeparted()) {
-                firstIndex = i;
-                break;
-            }
-        }
-
-        if (firstIndex != -1) {
-            _response[mode] = departures.slice(firstIndex, null);
-        }
-        else {
-            _response[mode] = [];
-            // TODO: set searching
         }
     }
 
@@ -92,7 +64,11 @@ class Stop {
     }
 
     function getDataAgeMillis() {
-        return _responseTime == null ? null : C14.now().subtract(_responseTime).value() * 1000;
+        return hasDepartures() ? _response.getDataAgeMillis() : null;
+    }
+
+    function hasDepartures() {
+        return _response instanceof DeparturesResponse;
     }
 
     function hasResponseError() {
@@ -100,21 +76,11 @@ class Stop {
     }
 
     function getModeCount() {
-        return hasResponseError() ? null : _response.size();
+        return hasDepartures() ? _response.getModeCount() : null;
     }
 
     function getDepartures(mode) {
-        if (hasResponseError()) {
-            return null;
-        }
-
-        if (mode < 0 || mode >= _response.size()) {
-            Log.w("getDepartures 'mode' (" + mode + ") out of range [0," + _response.size() + "]; returning []");
-            return [];
-        }
-
-        _removeDepartedDepartures(mode);
-        return _response[mode];
+        return hasDepartures() ? _response.getDepartures(mode) : null;
     }
 
     function getResponseError() {

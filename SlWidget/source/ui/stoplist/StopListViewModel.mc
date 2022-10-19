@@ -73,7 +73,7 @@ class StopListViewModel {
     private function _getStops() {
         var response = getResponse();
         var favs = _favStorage.favorites;
-        var stops = response instanceof ResponseError ? favs : ArrCompat.merge(favs, response);
+        var stops = response instanceof ResponseError ? favs : ArrCompat.merge(favs, response.getStops());
 
         // coerce cursor
         stopCursor = Chem.min(stopCursor, getStopCount() - 1);
@@ -96,7 +96,7 @@ class StopListViewModel {
     function getStopCount() {
         var response = getResponse();
 
-        return getFavoriteCount() + (response instanceof ResponseError ? 1 : response.size());
+        return getFavoriteCount() + (response instanceof ResponseError ? 1 : response.getStopCount());
     }
 
     function getFavoriteCount() {

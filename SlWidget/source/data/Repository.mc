@@ -22,7 +22,7 @@ class Repository {
 
     function requestNearbyStops() {
         if (_storage.hasErrorOrIsEmpty()) {
-            _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_REQUESTING_STOPS));
+            _storage.setResponse([], [], new ResponseError(ResponseError.CODE_STATUS_REQUESTING_STOPS));
         }
 
         if (DEBUG) {
@@ -45,28 +45,30 @@ class Repository {
     // position
 
     function enablePositionHandling() {
-        if (_storage.hasErrorOrIsEmpty() && !_isPositioned()) {
-            _storage.setResponseError(new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
-        }
-
         // set location event listener and get last location while waiting
         _footprint.onRegisterPosition = method(:onPosition);
         _footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
         _footprint.registerLastKnownPosition();
+
+        // set locating message after `registerLastKnownPosition` to avoid
+        // setting the response more times than necessary
+        if (_storage.hasErrorOrIsEmpty() && !_isPositioned()) {
+            _storage.setResponse([], [], new ResponseError(ResponseError.CODE_STATUS_NO_GPS));
+        }
     }
 
     function onPosition() {
-        // only request stops if the user has moved 100 m since last request
-        if (_lastPos.size() == 2) {
+        if (_lastPos.size() != 2 || !_storage.hasStopsResponse()) {
+            requestNearbyStops();
+        }
+        else if (_lastPos.size() == 2) {
             var movedDistance = _footprint.distanceTo(_lastPos[0], _lastPos[1]);
             Log.d("moved distance: " + movedDistance);
 
+            // only request stops if the user has moved 100 m since last request
             if (movedDistance > 100) {
                 requestNearbyStops();
             }
-        }
-        else {
-            requestNearbyStops();
         }
     }
 
