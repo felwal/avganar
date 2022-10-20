@@ -6,15 +6,17 @@
 
     <!-- message -->
 
-    <!-- info -->
+    <!-- status message -->
     <string id="lbl_i_stops_requesting">Searching ...</string>
+    <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
+
+    <!-- response message -->
     <string id="lbl_i_stops_none">No nearby stops</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
     <string id="lbl_i_stops_no_gps">Locating ...</string>
-    <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
     <string id="lbl_i_departures_none">No departures</string>
 
-    <!-- error -->
+    <!-- request error -->
     <string id="lbl_e_queue_full">Queue full</string>
     <string id="lbl_e_bluetooth">No bluetooth</string>
     <string id="lbl_e_internet">No internet</string>
@@ -22,11 +24,13 @@
     <string id="lbl_e_size">Searching ...</string> <!-- don't let the user know we are requesting again -->
     <string id="lbl_e_cancelled">Request cancelled</string>
     <string id="lbl_e_timeout">Request timed out</string>
+    <string id="lbl_e_request">Request failed</string>
+
+    <!-- response error -->
     <string id="lbl_e_invalid">Invalid response</string>
     <string id="lbl_e_null_data">No data</string>
     <string id="lbl_e_retrieval">Retrieval failed</string>
-    <string id="lbl_e_request">Request failed</string>
-    <string id="lbl_e_response">Response failed</string>
+    <string id="lbl_e_response">Response error</string>
 
     <!-- view -->
 

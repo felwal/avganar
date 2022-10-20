@@ -68,7 +68,7 @@ class Stop {
     }
 
     function getModeCount() {
-        return hasDepartures() ? _response.getModeCount() : null;
+        return hasDepartures() ? _response.getModeCount() : 1;
     }
 
     function getDepartures(mode) {

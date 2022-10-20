@@ -1,20 +1,6 @@
 using Toybox.Application;
 using Toybox.Attention;
 using Toybox.System;
-using Toybox.Math;
-
-// app
-
-function buildStops(ids, names) {
-    var stops = [];
-
-    for (var i = 0; i < ids.size() && i < names.size(); i++) {
-        var stop = new Stop(ids[i], names[i], null);
-        stops.add(stop);
-    }
-
-    return stops;
-}
 
 // resource
 
@@ -38,6 +24,5 @@ function vibrate(reason) {
     if (Attention has :vibrate && SettingsStorage.getVibrateOnResponse()) {
         var vibeData = [ new Attention.VibeProfile(75, 300) ];
         Attention.vibrate(vibeData);
-        //Log.d("vibrate: " + reason);
     }
 }
