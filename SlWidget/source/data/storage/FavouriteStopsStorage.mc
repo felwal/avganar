@@ -1,6 +1,6 @@
 using Toybox.Application.Storage;
 
-class FavoriteStopsStorage {
+class FavoriteStopsStorage extends StopsStorage {
 
     private static const _STORAGE_FAVORITE_STOP_IDS = "favorite_stop_ids";
     private static const _STORAGE_FAVORITE_STOP_NAMES = "favorite_stop_names";
@@ -13,6 +13,7 @@ class FavoriteStopsStorage {
     // init
 
     function initialize() {
+        StopsStorage.initialize();
         _load();
     }
 
@@ -68,7 +69,8 @@ class FavoriteStopsStorage {
     private function _load() {
         _favStopIds = StorageCompat.getArray(_STORAGE_FAVORITE_STOP_IDS);
         _favStopNames = StorageCompat.getArray(_STORAGE_FAVORITE_STOP_NAMES);
-        favorites = buildStops(_favStopIds, _favStopNames);
+
+        favorites = StopsStorage.buildStops(_favStopIds, _favStopNames);
     }
 
     static function isFavorite(stopId) {

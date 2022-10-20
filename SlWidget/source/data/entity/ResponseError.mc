@@ -2,11 +2,11 @@ using Toybox.Lang;
 
 class ResponseError {
 
-    static const CODE_ERROR_RETREIVAL_FAILED_1 = 5321;
-    static const CODE_ERROR_RETREIVAL_FAILED_2 = 5322;
-    static const CODE_ERROR_RETREIVAL_FAILED_3 = 5323;
-    static const CODE_ERROR_RETREIVAL_FAILED_4 = 5324;
-    static const CODE_ERROR_NULL_DATA = 200;
+    private static const _SL_NULL_DATA = 200;
+    private static const _SL_RETREIVAL_FAILED_1 = 5321;
+    private static const _SL_RETREIVAL_FAILED_2 = 5322;
+    private static const _SL_RETREIVAL_FAILED_3 = 5323;
+    private static const _SL_RETREIVAL_FAILED_4 = 5324;
 
     private var _code;
     private var _title = "";
@@ -39,13 +39,13 @@ class ResponseError {
     private function _setTitle() {
         switch (_code) {
             // Trafiklab
-            case CODE_ERROR_NULL_DATA:
+            case _SL_NULL_DATA:
                 _title = rez(Rez.Strings.lbl_e_null_data);
                 break;
-            case CODE_ERROR_RETREIVAL_FAILED_1:
-            case CODE_ERROR_RETREIVAL_FAILED_2:
-            case CODE_ERROR_RETREIVAL_FAILED_3:
-            case CODE_ERROR_RETREIVAL_FAILED_4:
+            case _SL_RETREIVAL_FAILED_1:
+            case _SL_RETREIVAL_FAILED_2:
+            case _SL_RETREIVAL_FAILED_3:
+            case _SL_RETREIVAL_FAILED_4:
                 _title = rez(Rez.Strings.lbl_e_retrieval) + " " + _code;
                 break;
 

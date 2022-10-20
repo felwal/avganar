@@ -34,13 +34,12 @@ class SlDeparturesService {
 
         var params = {
             "key" => KEY_RI,
-            "siteid" => _stop.id.toNumber(),
+            "siteid" => _stop.id,
             "timewindow" => _stop.getTimeWindow()
         };
-
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            // TODO: url doesnt work without ".json"
+            // NOTE: url doesnt work without ".json"; set type there instead of here
             //:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };

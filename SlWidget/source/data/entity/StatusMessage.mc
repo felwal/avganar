@@ -9,10 +9,6 @@ class StatusMessage {
         _title = title;
     }
 
-    function equals(other) {
-        return other instanceof StatusMessage && other.getTitle() == _title;
-    }
-
     function getTitle() {
         return _title;
     }

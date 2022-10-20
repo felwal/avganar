@@ -42,11 +42,16 @@ class ArrCompat {
         return sum;
     }
 
+    static function get(arr, index, def) {
+        return index >= 0 && index < arr.size()
+            ? arr[index]
+            : def;
+    }
+
     static function coerceGet(arr, index) {
-        if (arr.size() == 0) {
-            return null;
-        }
-        return arr[Chem.coerceIn(index, 0, arr.size() - 1)];
+        return arr.size() > 0
+            ? arr[Chem.coerceIn(index, 0, arr.size() - 1)]
+            : null;
     }
 
     static function swap(arr, i, j) {

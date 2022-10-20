@@ -52,7 +52,6 @@ class SlNearbyStopsService {
             "r" => _MAX_RADIUS,
             "maxNo" => _MAX_STOPS
         };
-
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,

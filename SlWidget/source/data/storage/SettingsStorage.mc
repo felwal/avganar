@@ -8,13 +8,11 @@ class SettingsStorage {
     // read
 
     static function getVibrateOnResponse() {
-        var enabled = Storage.getValue(_STORAGE_VIBRATE);
-        return enabled == null ? true : enabled;
+        return StorageCompat.getValue(_STORAGE_VIBRATE, true);
     }
 
     static function getDefaultTimeWindow() {
-        var timeWindow = Storage.getValue(_STORAGE_TIME_WINDOW);
-        return timeWindow == null ? 60 : timeWindow;
+        return StorageCompat.getValue(_STORAGE_TIME_WINDOW, 60);
     }
 
     // write
