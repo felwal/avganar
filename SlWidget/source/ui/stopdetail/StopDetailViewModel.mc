@@ -5,6 +5,7 @@ using Carbon.Chem;
 
 class StopDetailViewModel {
 
+    private static const _REFRESH_TIME_INTERVAL = 15 * 1000;
     private static const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
     private static const _REQUEST_TIME_DELAY = 500;
 
@@ -18,7 +19,7 @@ class StopDetailViewModel {
     private var _repo;
 
     private var _delayTimer = new Timer.Timer();
-    private var _requestTimer = new Timer.Timer();
+    private var _repeatTimer = new TimerWrapper();
 
     // init
 
@@ -36,7 +37,7 @@ class StopDetailViewModel {
     function disableRequests() {
         _repo.disablePositionHandling();
         _delayTimer.stop();
-        _requestTimer.stop();
+        _repeatTimer.stop();
     }
 
     private function _requestDeparturesDelayed() {
@@ -56,17 +57,22 @@ class StopDetailViewModel {
 
     function onDelayedDeparturesRequest() {
         requestDepartures();
-        _startRequestTimer();
+        _startRepeatTimer();
     }
 
-    private function _startRequestTimer() {
-        _requestTimer.start(method(:onRequestTimer), _REQUEST_TIME_INTERVAL, true);
+    private function _startRepeatTimer() {
+        var refreshTimer = new TimerRepr(method(:onRefreshTimer), 1);
+        var requestTimer = new TimerRepr(method(:onRequestTimer), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
+
+        _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ refreshTimer, requestTimer ]);
+    }
+
+    function onRefreshTimer() {
+        WatchUi.requestUpdate();
     }
 
     function onRequestTimer() {
         requestDepartures();
-        // update to keep clock time synced
-        WatchUi.requestUpdate();
     }
 
     //! Make requests to SlApi neccessary for detail display.
