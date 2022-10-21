@@ -68,7 +68,7 @@ class NearbyStopsStorage {
         var stops = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var stop = _stopFactory.createStop(ids[i], names[i], null);
+            var stop = _stopFactory.createStop(ids[i], names[i], null, null);
             stops.add(stop);
         }
 
@@ -89,6 +89,12 @@ class NearbyStopsStorage {
 
     function getStop(index) {
         return hasStopsResponse() ? response.getStop(index) : null;
+    }
+
+    function getStopById(id) {
+        var index = _nearbyStopIds.indexOf(id);
+
+        return hasStopsResponse() ? ArrUtil.get(response.getStops(), index, null) : null;
     }
 
     function getStops() {
