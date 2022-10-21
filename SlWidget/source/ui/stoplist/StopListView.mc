@@ -34,7 +34,7 @@ class StopListView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new DcCompat(dc));
+        _draw(new DcWrapper(dc));
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -46,32 +46,32 @@ class StopListView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dcc) {
+    private function _draw(dcw) {
         var response = _viewModel.getResponse();
 
         // stops
-        _drawStops(dcc);
+        _drawStops(dcw);
 
         // error
         if (_viewModel.isShowingMessage()) {
             // info
-            dcc.drawDialog(response.getTitle(), "");
+            dcw.drawDialog(response.getTitle(), "");
 
             // start indicator
             if (response instanceof ResponseError && response.isRerequestable()) {
                 // TODO: make clickable
-                dcc.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+                dcw.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
             }
         }
         /*if (response instanceof ResponseError) {
             // banner
             if (!response.hasConnection()) {
-                dcc.drawExclamationBanner();
+                dcw.drawExclamationBanner();
             }
         }*/
     }
 
-    private function _drawStops(dcc) {
+    private function _drawStops(dcw) {
         var stopNames = _viewModel.getStopNames();
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
@@ -79,19 +79,19 @@ class StopListView extends WatchUi.View {
         var nearbyHints = [ "Nearby", "None nearby" ];
         var cc = new ColorContext(Color.PRIMARY, Color.ON_PRIMARY, Color.ON_PRIMARY_SECONDARY, Color.ON_PRIMARY_TERTIARY);
 
-        dcc.drawPanedList(stopNames, favCount, cursor, favHints, nearbyHints, cc);
+        dcw.drawPanedList(stopNames, favCount, cursor, favHints, nearbyHints, cc);
     }
 
-    private function _drawGpsStatus(dcc) {
-        var x = dcc.cx + 45;
+    private function _drawGpsStatus(dcw) {
+        var x = dcw.cx + 45;
         var y = 60;
         var r = 5;
 
         var hasGps = _viewModel.isPositionRegistered();
         var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
 
-        dcc.setColor(color);
-        dcc.dc.fillCircle(x, y, r);
+        dcw.setColor(color);
+        dcw.dc.fillCircle(x, y, r);
     }
 
 }

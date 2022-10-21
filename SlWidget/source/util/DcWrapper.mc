@@ -4,7 +4,7 @@ using Toybox.Graphics;
 using Carbon.Graphene;
 using Carbon.Chem;
 
-class DcCompat {
+class DcWrapper {
 
     // directions
     private static const _DIR_LEFT = 0;
@@ -68,7 +68,7 @@ class DcCompat {
 
     // draw shape
 
-    function drawArcCompat(edgeOffset, degreeStart, degreeEnd) {
+    function drawArcCentered(edgeOffset, degreeStart, degreeEnd) {
         dc.drawArc(cx, cy, r - edgeOffset, Graphics.ARC_COUNTER_CLOCKWISE, degreeStart, degreeEnd);
     }
 
@@ -86,7 +86,7 @@ class DcCompat {
 
     // stroke shape
 
-    function strokeArcCompat(edgeOffset, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor) {
+    function strokeArcCentered(edgeOffset, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor) {
         strokeArc(cx, cy, r - edgeOffset, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor);
     }
 
@@ -275,7 +275,7 @@ class DcCompat {
     // bar
 
     function drawStartIndicator() {
-        strokeArcCompat(5, 4, 1, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        strokeArcCentered(5, 4, 1, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
     }
 
     function drawStartIndicatorWithBitmap(rezId) {
@@ -331,7 +331,7 @@ class DcCompat {
         var outlineWidth = 3;
 
         // rail
-        strokeArcCompat(edgeOffset, strokeWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+        strokeArcCentered(edgeOffset, strokeWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
 
         var itemDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
         var itemStartDeg = startDeg + (endDeg - startDeg) * startIndex / itemCount.toFloat();
@@ -340,7 +340,7 @@ class DcCompat {
         // bar
         resetColor();
         dc.setPenWidth(3);
-        drawArcCompat(edgeOffset, itemStartDeg, itemEndDeg);
+        drawArcCentered(edgeOffset, itemStartDeg, itemEndDeg);
 
         resetPenWidth();
     }
@@ -369,7 +369,7 @@ class DcCompat {
         // bg outline
         setColor(Graphene.COLOR_BLACK);
         dc.setPenWidth(bgStroke);
-        drawArcCompat(edgeOffset, bgMinDeg, bgMaxDeg);
+        drawArcCentered(edgeOffset, bgMinDeg, bgMaxDeg);
 
         // indicator
         dc.setPenWidth(stroke);
@@ -383,7 +383,7 @@ class DcCompat {
             else {
                 setColor(Graphene.COLOR_DK_GRAY);
             }
-            drawArcCompat(edgeOffset, startDeg, endDeg);
+            drawArcCentered(edgeOffset, startDeg, endDeg);
         }
 
         resetPenWidth();
@@ -517,23 +517,23 @@ class DcCompat {
 
         switch (direction) {
             case _DIR_LEFT:
-                point2 = ArrCompat.add(point1, [ width, height ]);
-                point3 = ArrCompat.add(point1, [ width, -height ]);
+                point2 = ArrUtil.add(point1, [ width, height ]);
+                point3 = ArrUtil.add(point1, [ width, -height ]);
                 break;
 
             case _DIR_RIGHT:
-                point2 = ArrCompat.add(point1, [ -width, height ]);
-                point3 = ArrCompat.add(point1, [ -width, -height ]);
+                point2 = ArrUtil.add(point1, [ -width, height ]);
+                point3 = ArrUtil.add(point1, [ -width, -height ]);
                 break;
 
             case _DIR_UP:
-                point2 = ArrCompat.add(point1, [ -width, height ]);
-                point3 = ArrCompat.add(point1, [ width, height ]);
+                point2 = ArrUtil.add(point1, [ -width, height ]);
+                point3 = ArrUtil.add(point1, [ width, height ]);
                 break;
 
             case _DIR_DOWN:
-                point2 = ArrCompat.add(point1, [ -width, -height ]);
-                point3 = ArrCompat.add(point1, [ width, -height ]);
+                point2 = ArrUtil.add(point1, [ -width, -height ]);
+                point3 = ArrUtil.add(point1, [ width, -height ]);
                 break;
         }
 

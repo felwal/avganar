@@ -22,12 +22,12 @@ class NearbyStopsStorage extends StopsStorage {
 
     (:glance)
     static function getNearestStopName() {
-        var arr = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
-        return ArrCompat.get(arr, 0, null);
+        var arr = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
+        return ArrUtil.get(arr, 0, null);
     }
 
     static function getNearestStopsNames(count) {
-        return StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES).slice(0, count);
+        return StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES).slice(0, count);
     }
 
     // set
@@ -39,7 +39,7 @@ class NearbyStopsStorage extends StopsStorage {
 
     function setResponse(stopIds, stopNames, response_) {
         // only vibrate when data is changed
-        if (!ArrCompat.equals(_nearbyStopIds, stopIds)
+        if (!ArrUtil.equals(_nearbyStopIds, stopIds)
             || ((response_ instanceof ResponseError || response_ instanceof ResponseMessage)
             && !response_.equals(response))) {
 
@@ -56,8 +56,8 @@ class NearbyStopsStorage extends StopsStorage {
     // get
 
     private function _load() {
-        _nearbyStopIds = StorageCompat.getArray(_STORAGE_NEARBY_STOP_IDS);
-        _nearbyStopNames = StorageCompat.getArray(_STORAGE_NEARBY_STOP_NAMES);
+        _nearbyStopIds = StorageUtil.getArray(_STORAGE_NEARBY_STOP_IDS);
+        _nearbyStopNames = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
 
         response = new StopsResponse(StopsStorage.buildStops(_nearbyStopIds, _nearbyStopNames));
     }

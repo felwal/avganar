@@ -50,7 +50,7 @@ class SlDeparturesService {
     // receive
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && DictCompat.hasKey(data, "ResponseData")) {
+        if (responseCode == _RESPONSE_OK && DictUtil.hasKey(data, "ResponseData")) {
             _handleDeparturesResponseOk(data);
         }
         else {
@@ -92,7 +92,7 @@ class SlDeparturesService {
                 var departureData = modeData[d];
 
                 var mode = departureData["TransportMode"];
-                var group = DictCompat.get(departureData, "GroupOfLine", "");
+                var group = DictUtil.get(departureData, "GroupOfLine", "");
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
                 var direction = departureData["DepartureDirection"];
@@ -109,7 +109,7 @@ class SlDeparturesService {
         }
 
         // swap order of metros and buses
-        ArrCompat.swap(departures, 0, 1);
+        ArrUtil.swap(departures, 0, 1);
         departures.removeAll(null);
 
         if (departures.size() != 0) {
