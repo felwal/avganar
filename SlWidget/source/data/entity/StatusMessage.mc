@@ -1,4 +1,3 @@
-
 class StatusMessage {
 
     private var _title = "";
