@@ -77,7 +77,7 @@ class StopListView extends WatchUi.View {
         var cursor = _viewModel.stopCursor;
         var favHints = [ "Favorites", "No favorites" ];
         var nearbyHints = [ "Nearby", "None nearby" ];
-        var cc = new ColorContext(Color.PRIMARY, Color.ON_PRIMARY, Color.ON_PRIMARY_SECONDARY, Color.ON_PRIMARY_TERTIARY);
+        var cc = new ColorContext(AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY);
 
         dcw.drawPanedList(stopNames, favCount, cursor, favHints, nearbyHints, cc);
     }
@@ -88,7 +88,7 @@ class StopListView extends WatchUi.View {
         var r = 5;
 
         var hasGps = _viewModel.isPositionRegistered();
-        var color = hasGps ? Graphene.COLOR_GREEN : Color.CONTROL_NORMAL;
+        var color = hasGps ? Graphene.COLOR_GREEN : AppColors.CONTROL_NORMAL;
 
         dcw.setColor(color);
         dcw.dc.fillCircle(x, y, r);
