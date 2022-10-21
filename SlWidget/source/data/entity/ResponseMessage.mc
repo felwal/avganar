@@ -1,4 +1,3 @@
-
 class ResponseMessage {
 
     private var _title = "";

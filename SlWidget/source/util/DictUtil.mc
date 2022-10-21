@@ -1,4 +1,3 @@
-
 module DictUtil {
 
     function hasKey(dict, key) {
