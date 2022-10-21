@@ -6,16 +6,25 @@ class StopFactory {
         _favStorage = favStorage;
     }
 
-    function createStop(id, name, distance) {
+    function createStop(id, name, distance, existingNearbyStop) {
         var fav = _favStorage.getFavorite(id);
+        var stop;
 
+        // if both are non-null they refer to the same object
         if (fav != null) {
-            fav.name = name;
-            fav.distance = distance;
-            return fav;
+            stop = fav;
+        }
+        else if (existingNearbyStop != null) {
+            stop = existingNearbyStop;
+        }
+        else {
+            return new Stop(id, name, distance);
         }
 
-        return new Stop(id, name, distance);
+        stop.name = name;
+        stop.distance = distance;
+
+        return stop;
     }
 
 }

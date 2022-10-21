@@ -127,7 +127,7 @@ class SlNearbyStopsService {
 
             stopIds.add(id);
             stopNames.add(name);
-            stops.add(_stopFactory.createStop(id, name, distance));
+            stops.add(_stopFactory.createStop(id, name, distance, _storage.getStopById(id)));
         }
 
         _storage.setResponse(stopIds, stopNames, new StopsResponse(stops));
