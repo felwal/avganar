@@ -1,27 +1,27 @@
 using Toybox.System;
 
 (:glance)
-class Log {
+module Log {
 
-    static function i(str) {
+    function i(str) {
         if (DEBUG) {
             System.println("I: " + str);
         }
     }
 
-    static function d(str) {
+    function d(str) {
         if (DEBUG) {
             System.println("D: " + str);
         }
     }
 
-    static function w(str) {
+    function w(str) {
         if (DEBUG) {
             System.println("W: " + str);
         }
     }
 
-    static function e(str) {
+    function e(str) {
         if (DEBUG) {
             System.println("E: " + str);
         }

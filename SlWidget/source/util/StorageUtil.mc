@@ -1,14 +1,14 @@
 using Toybox.Application.Storage;
 
 (:glance)
-class StorageUtil {
+module StorageUtil {
 
-    static function getValue(key, def) {
+    function getValue(key, def) {
         var val = Storage.getValue(key);
         return val != null ? val : def;
     }
 
-    static function getArray(key) {
+    function getArray(key) {
         return getValue(key, []);
     }
 
