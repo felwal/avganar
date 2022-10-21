@@ -15,7 +15,7 @@ class Repository {
         _footprint = footprint;
         _storage = storage;
 
-        _lastPos = StorageCompat.getArray(_STORAGE_LAST_POS);
+        _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
     }
 
     // api

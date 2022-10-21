@@ -1,7 +1,7 @@
 using Toybox.Application.Storage;
 
 (:glance)
-class StorageCompat {
+class StorageUtil {
 
     static function getValue(key, def) {
         var val = Storage.getValue(key);

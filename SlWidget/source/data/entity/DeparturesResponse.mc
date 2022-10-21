@@ -14,7 +14,7 @@ class DeparturesResponse {
 
     function getDepartures(mode) {
         _removeDepartedDepartures(mode);
-        return ArrCompat.coerceGet(_departures, mode);
+        return ArrUtil.coerceGet(_departures, mode);
     }
 
     function getDataAgeMillis() {
@@ -48,7 +48,6 @@ class DeparturesResponse {
         }
         else {
             _departures[mode] = [];
-            // TODO: set searching
         }
     }
 

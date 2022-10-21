@@ -17,7 +17,7 @@ class StopsResponse {
     }
 
     function getStop(index) {
-        return ArrCompat.coerceGet(_stops, index);
+        return ArrUtil.coerceGet(_stops, index);
     }
 
     function getStopCount() {
