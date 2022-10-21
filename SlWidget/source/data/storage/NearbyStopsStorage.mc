@@ -66,12 +66,12 @@ class NearbyStopsStorage extends StopsStorage {
         return response instanceof StopsResponse;
     }
 
-    function hasErrorOrIsEmpty() {
-        return response instanceof ResponseError || getStopCount() == 0;
-    }
-
     function hasStops() {
         return getStopCount() > 0;
+    }
+
+    function getStopCount() {
+        return hasStopsResponse() ? response.getStopCount() : 0 ;
     }
 
     function getStop(index) {
@@ -80,10 +80,6 @@ class NearbyStopsStorage extends StopsStorage {
 
     function getStops() {
         return hasStopsResponse() ? response.getStops() : null;
-    }
-
-    function getStopCount() {
-        return hasStopsResponse() ? response.getStopCount() : 0 ;
     }
 
 }

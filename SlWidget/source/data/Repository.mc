@@ -21,7 +21,7 @@ class Repository {
     // api
 
     function requestNearbyStops() {
-        if (_storage.hasErrorOrIsEmpty()) {
+        if (!_storage.hasStops()) {
             // set searching
             _storage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
         }
@@ -53,7 +53,7 @@ class Repository {
 
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
-        if (_storage.hasErrorOrIsEmpty() && !_isPositioned()) {
+        if (!_storage.hasStops() && !_isPositioned()) {
             _storage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
         }
     }
