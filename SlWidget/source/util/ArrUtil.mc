@@ -1,9 +1,9 @@
 using Carbon.Chem;
 
 (:glance)
-class ArrUtil {
+module ArrUtil {
 
-    static function equals(arr1, arr2) {
+    function equals(arr1, arr2) {
         if (arr1.size() != arr2.size()) { return false; }
 
         for (var i = 0; i < arr1.size(); i++) {
@@ -13,15 +13,15 @@ class ArrUtil {
         return true;
     }
 
-    static function in(arr, item) {
+    function in(arr, item) {
         return arr.indexOf(item) != -1;
     }
 
-    static function removeAt(arr, index) {
+    function removeAt(arr, index) {
         return arr.remove(arr[index]);
     }
 
-    static function merge(arr1, arr2) {
+    function merge(arr1, arr2) {
         var arr = new [arr1.size() + arr2.size()];
 
         for (var i = 0; i < arr1.size(); i++) {
@@ -34,7 +34,7 @@ class ArrUtil {
         return arr;
     }
 
-    static function add(arr1, arr2) {
+    function add(arr1, arr2) {
         var sum = [];
         for (var i = 0; i < arr1.size() && i < arr2.size(); i++) {
             sum.add(arr1[i] + arr2[i]);
@@ -42,19 +42,19 @@ class ArrUtil {
         return sum;
     }
 
-    static function get(arr, index, def) {
+    function get(arr, index, def) {
         return index >= 0 && index < arr.size()
             ? arr[index]
             : def;
     }
 
-    static function coerceGet(arr, index) {
+    function coerceGet(arr, index) {
         return arr.size() > 0
             ? arr[Chem.coerceIn(index, 0, arr.size() - 1)]
             : null;
     }
 
-    static function swap(arr, i, j) {
+    function swap(arr, i, j) {
         var temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;

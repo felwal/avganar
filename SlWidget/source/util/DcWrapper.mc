@@ -184,7 +184,7 @@ class DcWrapper {
             dc.drawText(cx, cy, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
         else if (title == null || title.equals("")) {
-            setColor(Color.TEXT_SECONDARY);
+            setColor(AppColors.TEXT_SECONDARY);
             dc.drawText(cx, cy, msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
         else {
@@ -197,7 +197,7 @@ class DcWrapper {
 
             resetColor();
             dc.drawText(cx, titleY, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-            setColor(Color.TEXT_SECONDARY);
+            setColor(AppColors.TEXT_SECONDARY);
             dc.drawText(cx, msgY, msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
@@ -571,11 +571,11 @@ class DcWrapper {
 
             // top header
             if (cursor == 0) {
-                drawHeaderLarge(Color.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), Color.TEXT_TERTIARY);
+                drawHeaderLarge(AppColors.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
             }
             else if (cursor == 1) {
-                drawHeader(Color.BACKGROUND, paneStrokeColor);
-                setColor(Color.CONTROL_NORMAL);
+                drawHeader(AppColors.BACKGROUND, paneStrokeColor);
+                setColor(AppColors.CONTROL_NORMAL);
                 drawUpArrow(42);
             }
             else {
@@ -585,12 +585,12 @@ class DcWrapper {
 
             // bottom header
             if (cursor == paneSize - 2) {
-                drawFooter(Color.BACKGROUND, paneStrokeColor);
+                drawFooter(AppColors.BACKGROUND, paneStrokeColor);
                 setColor(cc.textTertiary);
                 drawDownArrow(h - 42);
             }
             else if (cursor == paneSize - 1) {
-                drawFooterLarge(Color.BACKGROUND, paneStrokeColor, mainHint, Color.TEXT_TERTIARY);
+                drawFooterLarge(AppColors.BACKGROUND, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
                 setColor(cc.textTertiary);
                 drawDownArrow(h - 84);
             }
@@ -616,13 +616,13 @@ class DcWrapper {
                 drawUpArrow(42);
             }
             else {
-                setColor(Color.CONTROL_NORMAL);
+                setColor(AppColors.CONTROL_NORMAL);
                 drawTopPageArrow();
             }
 
             // bottom header
             if (hasMain && cursor != items.size() - 1) {
-                setColor(Color.CONTROL_NORMAL);
+                setColor(AppColors.CONTROL_NORMAL);
                 drawBottomPageArrow();
             }
         }
@@ -635,7 +635,7 @@ class DcWrapper {
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
 
-        var bgColor = cursor >= paneSize ? Color.BACKGROUND : cc.background;
+        var bgColor = cursor >= paneSize ? AppColors.BACKGROUND : cc.background;
         var selectedColor;
         var unselectedColor;
 
@@ -652,8 +652,8 @@ class DcWrapper {
         }
         else {
             firstItemIndex = Chem.max(firstItemIndex, paneSize);
-            selectedColor = Color.TEXT_PRIMARY;
-            unselectedColor = Color.TEXT_SECONDARY;
+            selectedColor = AppColors.TEXT_PRIMARY;
+            unselectedColor = AppColors.TEXT_SECONDARY;
         }
 
         // draw the items

@@ -68,7 +68,7 @@ class StopPreviewView extends WatchUi.View {
         for (var i = 0; i < stopNames.size(); i++) {
             var yText = dcw.cy + i * lineHeightPx;
 
-            dcw.setColor(Color.TEXT_PRIMARY);
+            dcw.setColor(AppColors.TEXT_PRIMARY);
             dcw.dc.drawText(dcw.cx, yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
