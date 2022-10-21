@@ -25,7 +25,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     private function _addItems() {
         _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
 
-        if (_viewModel.isFavorite()) {
+        if (_viewModel.isSelectedStopFavorite()) {
             var isInFavorites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
 
             // move favorite

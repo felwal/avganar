@@ -12,7 +12,7 @@ class SettingsStorage {
     }
 
     static function getDefaultTimeWindow() {
-        return StorageUtil.getValue(_STORAGE_TIME_WINDOW, 60);
+        return StorageUtil.getValue(_STORAGE_TIME_WINDOW, 30);
     }
 
     // write

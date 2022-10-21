@@ -18,11 +18,13 @@ class SlNearbyStopsService {
     private static const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     private var _storage;
+    private var _stopFactory;
 
     // init
 
-    function initialize(storage) {
+    function initialize(storage, stopFactory) {
         _storage = storage;
+        _stopFactory = stopFactory;
     }
 
     // request
@@ -125,7 +127,7 @@ class SlNearbyStopsService {
 
             stopIds.add(id);
             stopNames.add(name);
-            stops.add(new Stop(id, name, distance));
+            stops.add(_stopFactory.createStop(id, name, distance));
         }
 
         _storage.setResponse(stopIds, stopNames, new StopsResponse(stops));

@@ -10,7 +10,6 @@ class StopListViewModel {
     var stopCursor = 0;
 
     private var _repo;
-    private var _favStorage;
 
     private var _delayTimer = new Timer.Timer();
     private var _positionTimer = new Timer.Timer();
@@ -19,7 +18,6 @@ class StopListViewModel {
 
     function initialize(repo) {
         _repo = repo;
-        _favStorage = new FavoriteStopsStorage();
 
         stopCursor = getFavoriteCount();
     }
@@ -63,16 +61,16 @@ class StopListViewModel {
     // read
 
     function getResponse() {
-        return _repo.getStopsResponse();
+        return _repo.getNearbyStopsResponse();
     }
 
     function hasStops() {
-        return _repo.hasStops() || _favStorage.favorites.size() > 0;
+        return _repo.hasStops();
     }
 
     private function _getStops() {
         var response = getResponse();
-        var favs = _favStorage.favorites;
+        var favs = _repo.getFavorites();
         var stops = response instanceof StopsResponse ? ArrUtil.merge(favs, response.getStops()) : favs;
 
         // coerce cursor
@@ -100,7 +98,7 @@ class StopListViewModel {
     }
 
     function getFavoriteCount() {
-        return _favStorage.favorites.size();
+        return _repo.getFavorites().size();
     }
 
     function getSelectedStop() {
@@ -108,9 +106,9 @@ class StopListViewModel {
         return stopCursor < stops.size() ? stops[stopCursor] : null;
     }
 
-    function isFavorite() {
+    function isSelectedStopFavorite() {
         var stop = getSelectedStop();
-        return stop != null && _favStorage.isFavorite(stop.id);
+        return stop != null && _repo.isFavorite(stop.id);
     }
 
     function isShowingMessage() {
@@ -124,7 +122,7 @@ class StopListViewModel {
     // write
 
     function addFavorite() {
-        _favStorage.addFavorite(getSelectedStop());
+        _repo.addFavorite(getSelectedStop());
         // navigate to newly added
         stopCursor = getFavoriteCount() - 1;
     }
@@ -132,7 +130,7 @@ class StopListViewModel {
     function removeFavorite() {
         var isInFavoritesPane = stopCursor < getFavoriteCount();
 
-        _favStorage.removeFavorite(getSelectedStop());
+        _repo.removeFavorite(getSelectedStop().id);
 
         // keep cursor inside favorites panel
         // – or where it was
@@ -142,7 +140,7 @@ class StopListViewModel {
     }
 
     function moveFavorite(diff) {
-        _favStorage.moveFavorite(getSelectedStop().id, diff);
+        _repo.moveFavorite(getSelectedStop().id, diff);
         stopCursor += diff;
     }
 
