@@ -1,7 +1,7 @@
 using Carbon.Chem;
 
 (:glance)
-class ArrCompat {
+class ArrUtil {
 
     static function equals(arr1, arr2) {
         if (arr1.size() != arr2.size()) { return false; }
@@ -58,18 +58,6 @@ class ArrCompat {
         var temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
-    }
-
-}
-
-class DictCompat {
-
-    static function hasKey(dict, key) {
-        return dict != null && dict.hasKey(key) && dict[key] != null;
-    }
-
-    static function get(dict, key, defaultValue) {
-        return hasKey(dict, key) ? dict[key] : defaultValue;
     }
 
 }
