@@ -25,7 +25,7 @@ class FavoriteStopsStorage extends StopsStorage {
     }
 
     static function addFavorite(stop) {
-        if (ArrCompat.in(_favStopIds, stop.id)) {
+        if (ArrUtil.in(_favStopIds, stop.id)) {
             Log.w(stop.repr() + " already in favorites");
             return;
         }
@@ -42,9 +42,9 @@ class FavoriteStopsStorage extends StopsStorage {
         // stops share the same name
         var index = _favStopIds.indexOf(stop.id);
 
-        var success = ArrCompat.removeAt(_favStopIds, index);
-        success &= ArrCompat.removeAt(_favStopNames, index);
-        success &= ArrCompat.removeAt(favorites, index);
+        var success = ArrUtil.removeAt(_favStopIds, index);
+        success &= ArrUtil.removeAt(_favStopNames, index);
+        success &= ArrUtil.removeAt(favorites, index);
 
         if (success) {
             _save();
@@ -57,9 +57,9 @@ class FavoriteStopsStorage extends StopsStorage {
     static function moveFavorite(stopId, diff) {
         var index = _favStopIds.indexOf(stopId);
 
-        ArrCompat.swap(_favStopIds, index, index + diff);
-        ArrCompat.swap(_favStopNames, index, index + diff);
-        ArrCompat.swap(favorites, index, index + diff);
+        ArrUtil.swap(_favStopIds, index, index + diff);
+        ArrUtil.swap(_favStopNames, index, index + diff);
+        ArrUtil.swap(favorites, index, index + diff);
 
         _save();
     }
@@ -67,14 +67,14 @@ class FavoriteStopsStorage extends StopsStorage {
     // get
 
     private function _load() {
-        _favStopIds = StorageCompat.getArray(_STORAGE_FAVORITE_STOP_IDS);
-        _favStopNames = StorageCompat.getArray(_STORAGE_FAVORITE_STOP_NAMES);
+        _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
+        _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
 
         favorites = StopsStorage.buildStops(_favStopIds, _favStopNames);
     }
 
     static function isFavorite(stopId) {
-        return ArrCompat.in(_favStopIds, stopId);
+        return ArrUtil.in(_favStopIds, stopId);
     }
 
 }

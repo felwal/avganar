@@ -7,8 +7,6 @@ class ColorContext {
     var textSecondary;
     var textTertiary;
 
-    //
-
     function initialize(background, textPrimary, textSecondary, textTertiary) {
         self.background = background;
         self.textPrimary = textPrimary;
