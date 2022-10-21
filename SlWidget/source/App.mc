@@ -53,8 +53,11 @@ class App extends Application.AppBase {
 
     function getMainView() {
         var footprint = new Carbon.Footprint();
-        var storage = new NearbyStopsStorage();
-        var repo = new Repository(footprint, storage);
+        var favStorage = new FavoriteStopsStorage();
+        var stopFactory = new StopFactory(favStorage);
+        var nearbyStorage = new NearbyStopsStorage(stopFactory);
+        var stopsService = new SlNearbyStopsService(nearbyStorage, stopFactory);
+        var repo = new Repository(footprint, nearbyStorage, favStorage, stopFactory, stopsService);
 
         var viewModel = new StopListViewModel(repo);
         var view = new StopListView(viewModel);

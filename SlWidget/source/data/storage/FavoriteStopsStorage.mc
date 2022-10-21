@@ -1,6 +1,6 @@
 using Toybox.Application.Storage;
 
-class FavoriteStopsStorage extends StopsStorage {
+class FavoriteStopsStorage {
 
     private static const _STORAGE_FAVORITE_STOP_IDS = "favorite_stop_ids";
     private static const _STORAGE_FAVORITE_STOP_NAMES = "favorite_stop_names";
@@ -13,7 +13,6 @@ class FavoriteStopsStorage extends StopsStorage {
     // init
 
     function initialize() {
-        StopsStorage.initialize();
         _load();
     }
 
@@ -24,7 +23,7 @@ class FavoriteStopsStorage extends StopsStorage {
         Storage.setValue(_STORAGE_FAVORITE_STOP_NAMES, _favStopNames);
     }
 
-    static function addFavorite(stop) {
+    function addFavorite(stop) {
         if (ArrUtil.in(_favStopIds, stop.id)) {
             Log.w(stop.repr() + " already in favorites");
             return;
@@ -37,10 +36,10 @@ class FavoriteStopsStorage extends StopsStorage {
         _save();
     }
 
-    static function removeFavorite(stop) {
+    function removeFavorite(stopId) {
         // use index of id, to avoid situations where two different
         // stops share the same name
-        var index = _favStopIds.indexOf(stop.id);
+        var index = _favStopIds.indexOf(stopId);
 
         var success = ArrUtil.removeAt(_favStopIds, index);
         success &= ArrUtil.removeAt(_favStopNames, index);
@@ -50,11 +49,11 @@ class FavoriteStopsStorage extends StopsStorage {
             _save();
         }
         else {
-            Log.w("did not find " + stop.repr() + " in favorites");
+            Log.w("did not find stop id " + stopId + " in favorites");
         }
     }
 
-    static function moveFavorite(stopId, diff) {
+    function moveFavorite(stopId, diff) {
         var index = _favStopIds.indexOf(stopId);
 
         ArrUtil.swap(_favStopIds, index, index + diff);
@@ -70,11 +69,28 @@ class FavoriteStopsStorage extends StopsStorage {
         _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
         _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
 
-        favorites = StopsStorage.buildStops(_favStopIds, _favStopNames);
+        favorites = _buildStops(_favStopIds, _favStopNames);
     }
 
-    static function isFavorite(stopId) {
+    private function _buildStops(ids, names) {
+        var stops = [];
+
+        for (var i = 0; i < ids.size() && i < names.size(); i++) {
+            var stop = new Stop(ids[i], names[i], null);
+            stops.add(stop);
+        }
+
+        return stops;
+    }
+
+    function isFavorite(stopId) {
         return ArrUtil.in(_favStopIds, stopId);
+    }
+
+    function getFavorite(stopId) {
+        var index = _favStopIds.indexOf(stopId);
+
+        return ArrUtil.get(favorites, index, null);
     }
 
 }

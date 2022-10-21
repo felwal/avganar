@@ -5,15 +5,21 @@ class Repository {
     private static const _STORAGE_LAST_POS = "last_pos";
 
     private var _footprint;
-    private var _storage;
+    private var _nearbyStorage;
+    private var _favStorage;
+    private var _stopFactory;
+    private var _stopsService;
 
     private var _lastPos;
 
     // init
 
-    function initialize(footprint, storage) {
+    function initialize(footprint, nearbyStorage, favStorage, stopFactory, stopsService) {
         _footprint = footprint;
-        _storage = storage;
+        _nearbyStorage = nearbyStorage;
+        _favStorage = favStorage;
+        _stopFactory = stopFactory;
+        _stopsService = stopsService;
 
         _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
     }
@@ -21,16 +27,16 @@ class Repository {
     // api
 
     function requestNearbyStops() {
-        if (!_storage.hasStops()) {
+        if (!_nearbyStorage.hasStops()) {
             // set searching
-            _storage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
+            _nearbyStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
         }
 
         if (DEBUG) {
-            new SlNearbyStopsService(_storage).requestNearbyStops(debugLat, debugLon);
+            _stopsService.requestNearbyStops(debugLat, debugLon);
         }
         else {
-            new SlNearbyStopsService(_storage).requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+            _stopsService.requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
         }
 
         // update last position
@@ -53,13 +59,13 @@ class Repository {
 
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
-        if (!_storage.hasStops() && !_isPositioned()) {
-            _storage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
+        if (!_nearbyStorage.hasStops() && !_isPositioned()) {
+            _nearbyStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
         }
     }
 
     function onPosition() {
-        if (_lastPos.size() != 2 || !_storage.hasStopsResponse()) {
+        if (_lastPos.size() != 2 || !_nearbyStorage.hasStopsResponse()) {
             requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
@@ -83,17 +89,37 @@ class Repository {
     }
 
     private function _isPositioned() {
-        return DEBUG || _footprint.isPositioned();
+        return _footprint.isPositioned() || DEBUG;
     }
 
     // storage
 
-    function getStopsResponse() {
-        return _storage.response;
+    function getNearbyStopsResponse() {
+        return _nearbyStorage.response;
     }
 
     function hasStops() {
-        return _storage.hasStops();
+        return _nearbyStorage.hasStops() || getFavorites().size() > 0;
+    }
+
+    function getFavorites() {
+        return _favStorage.favorites;
+    }
+
+    function isFavorite(stopId) {
+        return _favStorage.isFavorite(stopId);
+    }
+
+    function addFavorite(stop) {
+        _favStorage.addFavorite(stop);
+    }
+
+    function removeFavorite(stopId) {
+        _favStorage.removeFavorite(stopId);
+    }
+
+    function moveFavorite(stopId, diff) {
+        _favStorage.moveFavorite(stopId, diff);
     }
 
 }

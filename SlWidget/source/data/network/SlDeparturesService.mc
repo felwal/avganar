@@ -10,8 +10,6 @@ class SlDeparturesService {
 
     private static const _RESPONSE_OK = 200;
 
-    private static const _MAX_DEPARTURES = 24; // per mode
-
     private var _stop;
 
     // init
@@ -88,7 +86,7 @@ class SlDeparturesService {
             var modeData = data["ResponseData"][modes[m]];
             var modeDepartures = [];
 
-            for (var d = 0; d < modeData.size()/* && modeDepartures.size() < _MAX_DEPARTURES*/; d++) {
+            for (var d = 0; d < modeData.size(); d++) {
                 var departureData = modeData[d];
 
                 var mode = departureData["TransportMode"];

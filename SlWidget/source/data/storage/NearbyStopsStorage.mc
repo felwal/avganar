@@ -1,6 +1,6 @@
 using Toybox.Application.Storage;
 
-class NearbyStopsStorage extends StopsStorage {
+class NearbyStopsStorage {
 
     private static const _STORAGE_NEARBY_STOP_IDS = "nearby_stop_ids";
     (:glance)
@@ -8,13 +8,15 @@ class NearbyStopsStorage extends StopsStorage {
 
     var response;
 
+    private var _stopFactory;
+
     private var _nearbyStopIds;
     private var _nearbyStopNames;
 
     // init
 
-    function initialize() {
-        StopsStorage.initialize();
+    function initialize(stopFactory) {
+        _stopFactory = stopFactory;
         _load();
     }
 
@@ -59,7 +61,18 @@ class NearbyStopsStorage extends StopsStorage {
         _nearbyStopIds = StorageUtil.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
 
-        response = new StopsResponse(StopsStorage.buildStops(_nearbyStopIds, _nearbyStopNames));
+        response = new StopsResponse(_buildStops(_nearbyStopIds, _nearbyStopNames));
+    }
+
+    private function _buildStops(ids, names) {
+        var stops = [];
+
+        for (var i = 0; i < ids.size() && i < names.size(); i++) {
+            var stop = _stopFactory.createStop(ids[i], names[i], null);
+            stops.add(stop);
+        }
+
+        return stops;
     }
 
     function hasStopsResponse() {
