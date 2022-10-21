@@ -54,7 +54,8 @@ class SlDeparturesService {
         else {
             Log.i("Departures response error (code " + responseCode + "): " + data);
 
-            _stop.setResponse(new ResponseError(responseCode));
+            var error = new ResponseError(responseCode);
+            _stop.setResponse(error);
 
             // auto rerequest if too large
             if (error.isTooLarge()) {
