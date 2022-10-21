@@ -1,4 +1,3 @@
-
 class StopsStorage {
 
     protected function buildStops(ids, names) {
