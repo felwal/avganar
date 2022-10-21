@@ -84,21 +84,21 @@ class StopDetailView extends WatchUi.View {
 
             // page indicator
             dcw.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
-            dcw.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
+            dcw.dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
             dcw.drawVerticalPageNumber(_viewModel.pageCount, _viewModel.pageCursor);
-            dcw.drawVerticalPageArrows(_viewModel.pageCount, _viewModel.pageCursor, Color.CONTROL_NORMAL, Color.ON_PRIMARY_TERTIARY);
+            dcw.drawVerticalPageArrows(_viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
             dcw.drawVerticalScrollbarSmall(_viewModel.pageCount, _viewModel.pageCursor);
         }
     }
 
     private function _drawHeader(dcw, text) {
-        dcw.setColor(Color.TEXT_SECONDARY);
+        dcw.setColor(AppColors.TEXT_SECONDARY);
         dcw.dc.drawText(dcw.cx, 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function _drawFooter(dcw, distance) {
         // background
-        dcw.drawFooter(Color.PRIMARY, null);
+        dcw.drawFooter(AppColors.PRIMARY, null);
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;
@@ -122,7 +122,7 @@ class StopDetailView extends WatchUi.View {
         // TODO: round to km with 1 decimal
         var text = distance + "m";
 
-        dcw.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
+        dcw.dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
         dcw.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
@@ -133,7 +133,7 @@ class StopDetailView extends WatchUi.View {
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        dcw.dc.setColor(Color.ON_PRIMARY, Color.PRIMARY);
+        dcw.dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
         dcw.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
@@ -160,7 +160,7 @@ class StopDetailView extends WatchUi.View {
             dcw.dc.fillCircle(xCircle, yCircle, rCircle);
 
             // draw text
-            dcw.setColor(departure.hasDeviations ? Color.DEVIATION : Color.TEXT_PRIMARY);
+            dcw.setColor(departure.hasDeviations ? AppColors.DEVIATION : AppColors.TEXT_PRIMARY);
             dcw.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
