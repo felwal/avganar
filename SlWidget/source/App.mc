@@ -53,7 +53,6 @@ class App extends Application.AppBase {
     function getMainView() {
         FavoriteStopsStorage.load();
         NearbyStopsStorage.load();
-        Repository.load();
 
         var viewModel = new StopListViewModel();
         var view = new StopListView(viewModel);

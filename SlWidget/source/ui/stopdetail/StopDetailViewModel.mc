@@ -32,7 +32,6 @@ class StopDetailViewModel {
     }
 
     function disableRequests() {
-        Repository.disablePositionHandling();
         _delayTimer.stop();
         _repeatTimer.stop();
     }
@@ -75,7 +74,7 @@ class StopDetailViewModel {
     //! Make requests to SlApi neccessary for detail display.
     //! Needs to be public to be able to be called by timer.
     function requestDepartures() {
-        Repository.requestDepartures(stop);
+        new SlDeparturesService(stop).requestDepartures();
     }
 
     // read

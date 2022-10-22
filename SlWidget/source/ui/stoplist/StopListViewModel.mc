@@ -1,36 +1,43 @@
 using Toybox.Timer;
 using Toybox.WatchUi;
+using Toybox.Application.Storage;
+using Toybox.Lang;
+using Toybox.Position;
+using Carbon.Footprint;
 using Carbon.Chem;
 
 class StopListViewModel {
 
     static private const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
     static private const _REQUEST_TIME_DELAY = 500;
+    static private const _STORAGE_LAST_POS = "last_pos";
 
     var stopCursor = 0;
 
     private var _delayTimer = new Timer.Timer();
     private var _positionTimer = new Timer.Timer();
+    private var _lastPos;
 
     // init
 
     function initialize() {
         stopCursor = getFavoriteCount();
+        _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
     }
 
     function stopTimers() {
         _delayTimer.stop();
     }
 
-    // request
+    // timer
 
     function enableRequests() {
-        Repository.enablePositionHandling();
+        _enablePositionHandling();
         _startRequestTimer();
     }
 
     function disableRequests() {
-        Repository.disablePositionHandling();
+        _disablePositionHandling();
         _delayTimer.stop();
         _positionTimer.stop();
     }
@@ -50,23 +57,83 @@ class StopListViewModel {
         WatchUi.requestUpdate();
     }
 
+    // position
+
     function requestPosition() {
-        Repository.enablePositionHandling();
+        _enablePositionHandling();
     }
 
-    // read
+    private function _enablePositionHandling() {
+        // set location event listener and get last location while waiting
+        Footprint.onRegisterPosition = method(:onPosition);
+        Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
+        Footprint.registerLastKnownPosition();
+
+        // set locating message after `registerLastKnownPosition` to avoid
+        // setting the response more times than necessary
+        if (!NearbyStopsStorage.hasStops() && !_isPositioned()) {
+            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
+        }
+    }
+
+    private function _disablePositionHandling() {
+        Footprint.enableLocationEvents(Position.LOCATION_DISABLE);
+        Footprint.onRegisterPosition = null;
+    }
+
+    function onPosition() {
+        if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStopsResponse()) {
+            requestNearbyStops();
+        }
+        else if (_lastPos.size() == 2) {
+            var movedDistance = Footprint.distanceTo(_lastPos[0], _lastPos[1]);
+            Log.d("moved distance: " + movedDistance);
+
+            // only request stops if the user has moved 100 m since last request
+            if (movedDistance > 100) {
+                requestNearbyStops();
+            }
+        }
+    }
+
+    function _isPositioned() {
+        return Footprint.isPositioned() || DEBUG;
+    }
+
+    // service
+
+    function requestNearbyStops() {
+        if (!NearbyStopsStorage.hasStops()) {
+            // set searching
+            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
+        }
+
+        if (DEBUG) {
+            SlNearbyStopsService.requestNearbyStops(debugLat, debugLon);
+        }
+        else {
+            SlNearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+        }
+
+        // update last position
+        _lastPos = [ Footprint.getLatRad(), Footprint.getLonRad() ];
+        // save to storage to avoid requesting every time the user enters the app
+        Storage.setValue(_STORAGE_LAST_POS, _lastPos);
+    }
+
+    // storage - read
 
     function getResponse() {
-        return Repository.getNearbyStopsResponse();
+        return NearbyStopsStorage.response;
     }
 
     function hasStops() {
-        return Repository.hasStops();
+        return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
     }
 
     private function _getStops() {
-        var response = getResponse();
-        var favs = Repository.getFavorites();
+        var response = NearbyStopsStorage.response;
+        var favs = FavoriteStopsStorage.favorites;
         var stops = response instanceof StopsResponse ? ArrUtil.merge(favs, response.getStops()) : favs;
 
         // coerce cursor
@@ -88,13 +155,13 @@ class StopListViewModel {
     }
 
     function getStopCount() {
-        var response = getResponse();
+        var response = NearbyStopsStorage.response;
 
         return getFavoriteCount() + (response instanceof StopsResponse ? response.getStopCount() : 1);
     }
 
     function getFavoriteCount() {
-        return Repository.getFavorites().size();
+        return FavoriteStopsStorage.favorites.size();
     }
 
     function getSelectedStop() {
@@ -104,21 +171,17 @@ class StopListViewModel {
 
     function isSelectedStopFavorite() {
         var stop = getSelectedStop();
-        return stop != null && Repository.isFavorite(stop.id);
+        return stop != null && FavoriteStopsStorage.isFavorite(stop.id);
     }
 
     function isShowingMessage() {
-        return !(getResponse() instanceof StopsResponse) && stopCursor == getStopCount() - 1;
+        return !(NearbyStopsStorage.response instanceof StopsResponse) && stopCursor == getStopCount() - 1;
     }
 
-    function isPositionRegistered() {
-        return Repository.isPositionRegistered();
-    }
-
-    // write
+    // storage - write
 
     function addFavorite() {
-        Repository.addFavorite(getSelectedStop());
+        FavoriteStopsStorage.addFavorite(getSelectedStop());
         // navigate to newly added
         stopCursor = getFavoriteCount() - 1;
     }
@@ -126,7 +189,7 @@ class StopListViewModel {
     function removeFavorite() {
         var isInFavoritesPane = stopCursor < getFavoriteCount();
 
-        Repository.removeFavorite(getSelectedStop().id);
+        FavoriteStopsStorage.removeFavorite(getSelectedStop().id);
 
         // keep cursor inside favorites panel
         // – or where it was
@@ -136,9 +199,11 @@ class StopListViewModel {
     }
 
     function moveFavorite(diff) {
-        Repository.moveFavorite(getSelectedStop().id, diff);
+        FavoriteStopsStorage.moveFavorite(getSelectedStop().id, diff);
         stopCursor += diff;
     }
+
+    //
 
     function incStopCursor() {
         _rotStopCursor(1);

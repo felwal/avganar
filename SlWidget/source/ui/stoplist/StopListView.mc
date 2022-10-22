@@ -1,6 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Carbon.Graphene;
+using Carbon.Footprint;
 
 class StopListView extends WatchUi.View {
 
@@ -47,7 +48,7 @@ class StopListView extends WatchUi.View {
     // draw
 
     private function _draw(dcw) {
-        var response = _viewModel.getResponse();
+        var response = NearbyStopsStorage.response;
 
         // stops
         _drawStops(dcw);
@@ -87,7 +88,7 @@ class StopListView extends WatchUi.View {
         var y = 60;
         var r = 5;
 
-        var hasGps = _viewModel.isPositionRegistered();
+        var hasGps = Footprint.isPositionRegistered;
         var color = hasGps ? Graphene.COLOR_GREEN : AppColors.CONTROL_NORMAL;
 
         dcw.setColor(color);
