@@ -515,26 +515,25 @@ class DcWrapper {
         var point2;
         var point3;
 
-        switch (direction) {
-            case _DIR_LEFT:
-                point2 = ArrUtil.add(point1, [ width, height ]);
-                point3 = ArrUtil.add(point1, [ width, -height ]);
-                break;
-
-            case _DIR_RIGHT:
-                point2 = ArrUtil.add(point1, [ -width, height ]);
-                point3 = ArrUtil.add(point1, [ -width, -height ]);
-                break;
-
-            case _DIR_UP:
-                point2 = ArrUtil.add(point1, [ -width, height ]);
-                point3 = ArrUtil.add(point1, [ width, height ]);
-                break;
-
-            case _DIR_DOWN:
-                point2 = ArrUtil.add(point1, [ -width, -height ]);
-                point3 = ArrUtil.add(point1, [ width, -height ]);
-                break;
+        if (direction ==_DIR_LEFT) {
+            point2 = ArrUtil.add(point1, [ width, height ]);
+            point3 = ArrUtil.add(point1, [ width, -height ]);
+        }
+        else if (direction ==_DIR_RIGHT) {
+            point2 = ArrUtil.add(point1, [ -width, height ]);
+            point3 = ArrUtil.add(point1, [ -width, -height ]);
+        }
+        else if (direction ==_DIR_UP) {
+            point2 = ArrUtil.add(point1, [ -width, height ]);
+            point3 = ArrUtil.add(point1, [ width, height ]);
+        }
+        else if (direction ==_DIR_DOWN) {
+            point2 = ArrUtil.add(point1, [ -width, -height ]);
+            point3 = ArrUtil.add(point1, [ width, -height ]);
+        }
+        else {
+            point2 = [ 0, 0 ];
+            point3 = [ 0, 0 ];
         }
 
         dc.fillPolygon([ point1, point2, point3 ]);
