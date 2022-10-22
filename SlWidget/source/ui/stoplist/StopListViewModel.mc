@@ -4,21 +4,17 @@ using Carbon.Chem;
 
 class StopListViewModel {
 
-    private static const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
-    private static const _REQUEST_TIME_DELAY = 500;
+    static private const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
+    static private const _REQUEST_TIME_DELAY = 500;
 
     var stopCursor = 0;
-
-    private var _repo;
 
     private var _delayTimer = new Timer.Timer();
     private var _positionTimer = new Timer.Timer();
 
     // init
 
-    function initialize(repo) {
-        _repo = repo;
-
+    function initialize() {
         stopCursor = getFavoriteCount();
     }
 
@@ -29,12 +25,12 @@ class StopListViewModel {
     // request
 
     function enableRequests() {
-        _repo.enablePositionHandling();
+        Repository.enablePositionHandling();
         _startRequestTimer();
     }
 
     function disableRequests() {
-        _repo.disablePositionHandling();
+        Repository.disablePositionHandling();
         _delayTimer.stop();
         _positionTimer.stop();
     }
@@ -55,22 +51,22 @@ class StopListViewModel {
     }
 
     function requestPosition() {
-        _repo.enablePositionHandling();
+        Repository.enablePositionHandling();
     }
 
     // read
 
     function getResponse() {
-        return _repo.getNearbyStopsResponse();
+        return Repository.getNearbyStopsResponse();
     }
 
     function hasStops() {
-        return _repo.hasStops();
+        return Repository.hasStops();
     }
 
     private function _getStops() {
         var response = getResponse();
-        var favs = _repo.getFavorites();
+        var favs = Repository.getFavorites();
         var stops = response instanceof StopsResponse ? ArrUtil.merge(favs, response.getStops()) : favs;
 
         // coerce cursor
@@ -98,7 +94,7 @@ class StopListViewModel {
     }
 
     function getFavoriteCount() {
-        return _repo.getFavorites().size();
+        return Repository.getFavorites().size();
     }
 
     function getSelectedStop() {
@@ -108,7 +104,7 @@ class StopListViewModel {
 
     function isSelectedStopFavorite() {
         var stop = getSelectedStop();
-        return stop != null && _repo.isFavorite(stop.id);
+        return stop != null && Repository.isFavorite(stop.id);
     }
 
     function isShowingMessage() {
@@ -116,13 +112,13 @@ class StopListViewModel {
     }
 
     function isPositionRegistered() {
-        return _repo.isPositionRegistered();
+        return Repository.isPositionRegistered();
     }
 
     // write
 
     function addFavorite() {
-        _repo.addFavorite(getSelectedStop());
+        Repository.addFavorite(getSelectedStop());
         // navigate to newly added
         stopCursor = getFavoriteCount() - 1;
     }
@@ -130,7 +126,7 @@ class StopListViewModel {
     function removeFavorite() {
         var isInFavoritesPane = stopCursor < getFavoriteCount();
 
-        _repo.removeFavorite(getSelectedStop().id);
+        Repository.removeFavorite(getSelectedStop().id);
 
         // keep cursor inside favorites panel
         // – or where it was
@@ -140,7 +136,7 @@ class StopListViewModel {
     }
 
     function moveFavorite(diff) {
-        _repo.moveFavorite(getSelectedStop().id, diff);
+        Repository.moveFavorite(getSelectedStop().id, diff);
         stopCursor += diff;
     }
 

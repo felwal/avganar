@@ -8,7 +8,7 @@ class SlDeparturesService {
     // Realtidsinformation 4
     // Bronze: 10_000/month, 30/min
 
-    private static const _RESPONSE_OK = 200;
+    static private const _RESPONSE_OK = 200;
 
     private var _stop;
 

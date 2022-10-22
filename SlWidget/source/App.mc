@@ -52,16 +52,13 @@ class App extends Application.AppBase {
     }
 
     function getMainView() {
-        var footprint = new Carbon.Footprint();
-        var favStorage = new FavoriteStopsStorage();
-        var stopFactory = new StopFactory(favStorage);
-        var nearbyStorage = new NearbyStopsStorage(stopFactory);
-        var stopsService = new SlNearbyStopsService(nearbyStorage, stopFactory);
-        var repo = new Repository(footprint, nearbyStorage, favStorage, stopFactory, stopsService);
+        FavoriteStopsStorage.load();
+        NearbyStopsStorage.load();
+        Repository.load();
 
-        var viewModel = new StopListViewModel(repo);
+        var viewModel = new StopListViewModel();
         var view = new StopListView(viewModel);
-        var delegate = new StopListDelegate(repo, viewModel);
+        var delegate = new StopListDelegate(viewModel);
 
         return [ view, delegate ];
     }

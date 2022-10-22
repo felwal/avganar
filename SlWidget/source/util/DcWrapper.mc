@@ -7,17 +7,17 @@ using Carbon.Chem;
 class DcWrapper {
 
     // directions
-    private static const _DIR_LEFT = 0;
-    private static const _DIR_RIGHT = 1;
-    private static const _DIR_UP = 2;
-    private static const _DIR_DOWN = 3;
+    static private const _DIR_LEFT = 0;
+    static private const _DIR_RIGHT = 1;
+    static private const _DIR_UP = 2;
+    static private const _DIR_DOWN = 3;
 
     // button angles
-    private static const _BTN_START_DEG = 30;
-    private static const _BTN_LIGHT_DEG = 150;
-    private static const _BTN_UP_DEG = 180;
-    private static const _BTN_DOWN_DEG = 210;
-    private static const _BTN_BACK_DEG = 330;
+    static private const _BTN_START_DEG = 30;
+    static private const _BTN_LIGHT_DEG = 150;
+    static private const _BTN_UP_DEG = 180;
+    static private const _BTN_DOWN_DEG = 210;
+    static private const _BTN_BACK_DEG = 330;
 
     var dc;
 

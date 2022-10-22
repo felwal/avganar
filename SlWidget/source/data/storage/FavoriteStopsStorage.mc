@@ -1,24 +1,18 @@
 using Toybox.Application.Storage;
 
-class FavoriteStopsStorage {
+module FavoriteStopsStorage {
 
-    private static const _STORAGE_FAVORITE_STOP_IDS = "favorite_stop_ids";
-    private static const _STORAGE_FAVORITE_STOP_NAMES = "favorite_stop_names";
+    const _STORAGE_FAVORITE_STOP_IDS = "favorite_stop_ids";
+    const _STORAGE_FAVORITE_STOP_NAMES = "favorite_stop_names";
 
     var favorites;
 
-    private var _favStopIds;
-    private var _favStopNames;
-
-    // init
-
-    function initialize() {
-        _load();
-    }
+    var _favStopIds;
+    var _favStopNames;
 
     // set
 
-    private function _save() {
+    function _save() {
         Storage.setValue(_STORAGE_FAVORITE_STOP_IDS, _favStopIds);
         Storage.setValue(_STORAGE_FAVORITE_STOP_NAMES, _favStopNames);
     }
@@ -65,14 +59,35 @@ class FavoriteStopsStorage {
 
     // get
 
-    private function _load() {
+    function load() {
         _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
         _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
 
         favorites = _buildStops(_favStopIds, _favStopNames);
     }
 
-    private function _buildStops(ids, names) {
+    function createStop(id, name, distance, existingNearbyStop) {
+        var fav = getFavorite(id);
+        var stop;
+
+        // if both are non-null they refer to the same object
+        if (fav != null) {
+            stop = fav;
+        }
+        else if (existingNearbyStop != null) {
+            stop = existingNearbyStop;
+        }
+        else {
+            return new Stop(id, name, distance);
+        }
+
+        stop.name = name;
+        stop.distance = distance;
+
+        return stop;
+    }
+
+    function _buildStops(ids, names) {
         var stops = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
