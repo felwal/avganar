@@ -91,36 +91,37 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     function onSelect(item) {
         var view = null;
+        var id = item.getId();
 
-        switch (item.getId()) {
-            case ITEM_FAVORITE_ADD:
-                _viewModel.addFavorite();
-                break;
-            case ITEM_FAVORITE_REMOVE:
-                _viewModel.removeFavorite();
-                break;
-            case ITEM_FAVORITE_MOVE_UP:
-                _viewModel.moveFavorite(-1);
-                break;
-            case ITEM_FAVORITE_MOVE_DOWN:
-                _viewModel.moveFavorite(1);
-                break;
-            case ITEM_TIME_WINDOW:
-                var title = rez(Rez.Strings.lbl_settings_time_window);
-                var labels = [ "60 min", "45 min", "30 min", "15 min" ];
-                var values = [ 60, 45, 30, 15 ];
-                var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
-                new RadioMenuDelegate(title, labels, values, focus, method(:onListMenuDelegateSelect)).push();
-                return;
-            case ITEM_VIBRATE:
-                SettingsStorage.setVibrateOnResponse(item.isEnabled());
-                return;
-            case ITEM_API:
-                view = new InfoView(rez(Rez.Strings.lbl_info_api));
-                break;
-            case ITEM_ABOUT:
-                view = new InfoView(rez(Rez.Strings.lbl_info_about));
-                break;
+        if (id == ITEM_FAVORITE_ADD){
+            _viewModel.addFavorite();
+        }
+        else if (id == ITEM_FAVORITE_REMOVE){
+            _viewModel.removeFavorite();
+        }
+        else if (id == ITEM_FAVORITE_MOVE_UP){
+            _viewModel.moveFavorite(-1);
+        }
+        else if (id == ITEM_FAVORITE_MOVE_DOWN){
+            _viewModel.moveFavorite(1);
+        }
+        else if (id == ITEM_TIME_WINDOW){
+            var title = rez(Rez.Strings.lbl_settings_time_window);
+            var labels = [ "60 min", "45 min", "30 min", "15 min" ];
+            var values = [ 60, 45, 30, 15 ];
+            var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
+            new RadioMenuDelegate(title, labels, values, focus, method(:onListMenuDelegateSelect)).push();
+            return;
+        }
+        else if (id == ITEM_VIBRATE){
+            SettingsStorage.setVibrateOnResponse(item.isEnabled());
+            return;
+        }
+        else if (id == ITEM_API){
+            view = new InfoView(rez(Rez.Strings.lbl_info_api));
+        }
+        else if (id == ITEM_ABOUT){
+            view = new InfoView(rez(Rez.Strings.lbl_info_about));
         }
 
         if (view == null) {

@@ -68,42 +68,51 @@ class Departure {
     }
 
     function getColor() {
-        switch (_mode) {
-            case _MODE_METRO:
-                switch (_group) {
-                    case _GROUP_METRO_RED: return AppColors.DEPARTURE_METRO_RED;
-                    case _GROUP_METRO_BLUE: return AppColors.DEPARTURE_METRO_BLUE;
-                    case _GROUP_METRO_GREEN: return AppColors.DEPARTURE_METRO_GREEN;
-                    default:
-                        Log.d("unknown metro group: " + _group);
-                        return AppColors.DEPARTURE_UNKNOWN;
-                }
-
-            case _MODE_BUS:
-                switch (_group) {
-                    case _GROUP_BUS_RED: return AppColors.DEPARTURE_BUS_RED;
-                    case _GROUP_BUS_BLUE: return AppColors.DEPARTURE_BUS_BLUE;
-                    case _GROUP_BUS_REPLACEMENT: return AppColors.DEPARTURE_BUS_REPLACEMENT;
-                    default:
-                        Log.d("unknown bus group: " + _group);
-                        return AppColors.DEPARTURE_UNKNOWN;
-                }
-
-            case _MODE_TRAIN:
-                return AppColors.DEPARTURE_TRAIN;
-
-            case _MODE_TRAM:
-                return AppColors.DEPARTURE_TRAM;
-
-            case _MODE_SHIP:
-                return AppColors.DEPARTURE_SHIP;
-
-            case _MODE_NONE:
-                return AppColors.DEPARTURE_NONE;
-
-            default:
-                Log.d("unknown mode: " + _mode);
+        if (_mode.equals(_MODE_METRO)) {
+            if (_group.equals(_GROUP_METRO_RED)) {
+                return AppColors.DEPARTURE_METRO_RED;
+            }
+            else if (_group.equals(_GROUP_METRO_BLUE)) {
+                return AppColors.DEPARTURE_METRO_BLUE;
+            }
+            else if (_group.equals(_GROUP_METRO_GREEN)) {
+                return AppColors.DEPARTURE_METRO_GREEN;
+            }
+            else {
+                Log.d("unknown metro group: " + _group);
                 return AppColors.DEPARTURE_UNKNOWN;
+            }
+        }
+        else if (_mode.equals(_MODE_BUS)) {
+            if (_group.equals(_GROUP_BUS_RED)){
+                return AppColors.DEPARTURE_BUS_RED;
+            }
+            else if (_group.equals(_GROUP_BUS_BLUE)) {
+                return AppColors.DEPARTURE_BUS_BLUE;
+            }
+            else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
+                return AppColors.DEPARTURE_BUS_REPLACEMENT;
+            }
+            else {
+                Log.d("unknown bus group: " + _group);
+                return AppColors.DEPARTURE_UNKNOWN;
+            }
+        }
+        else if (_mode.equals(_MODE_TRAIN)) {
+            return AppColors.DEPARTURE_TRAIN;
+        }
+        else if (_mode.equals(_MODE_TRAM)) {
+            return AppColors.DEPARTURE_TRAM;
+        }
+        else if (_mode.equals(_MODE_SHIP)) {
+            return AppColors.DEPARTURE_SHIP;
+        }
+        else if (_mode.equals(_MODE_NONE)) {
+            return AppColors.DEPARTURE_NONE;
+        }
+        else {
+            Log.d("unknown mode: " + _mode);
+            return AppColors.DEPARTURE_UNKNOWN;
         }
     }
 

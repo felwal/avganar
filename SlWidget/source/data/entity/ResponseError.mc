@@ -37,49 +37,44 @@ class ResponseError {
     }
 
     private function _setTitle() {
-        switch (_code) {
-            // Trafiklab
-            case _SL_NULL_DATA:
-                _title = rez(Rez.Strings.lbl_e_null_data);
-                break;
-            case _SL_RETREIVAL_FAILED_1:
-            case _SL_RETREIVAL_FAILED_2:
-            case _SL_RETREIVAL_FAILED_3:
-            case _SL_RETREIVAL_FAILED_4:
-                _title = rez(Rez.Strings.lbl_e_retrieval) + " " + _code;
-                break;
+        // Trafiklab
+        if (_code == _SL_NULL_DATA) {
+            _title = rez(Rez.Strings.lbl_e_null_data);
+        }
+        else if (_code == _SL_RETREIVAL_FAILED_1 || _code == _SL_RETREIVAL_FAILED_2
+            || _code == _SL_RETREIVAL_FAILED_3 || _code == _SL_RETREIVAL_FAILED_4) {
 
-            // Garmin
-            case Communications.BLE_CONNECTION_UNAVAILABLE:
-                _title = rez(Rez.Strings.lbl_e_bluetooth);
-                break;
-            case Communications.NETWORK_REQUEST_TIMED_OUT:
-                _title = rez(Rez.Strings.lbl_e_internet);
-                break;
-            case Communications.NETWORK_RESPONSE_OUT_OF_MEMORY:
-                _title = rez(Rez.Strings.lbl_e_memory);
-                break;
-            case Communications.BLE_QUEUE_FULL:
-                _title = rez(Rez.Strings.lbl_e_queue_full);
-                break;
-            case Communications.BLE_REQUEST_CANCELLED:
-                _title = rez(Rez.Strings.lbl_e_cancelled);
-                break;
-            case Communications.REQUEST_CANCELLED:
-                _title = rez(Rez.Strings.lbl_e_cancelled);
-                break;
-            case Communications.BLE_HOST_TIMEOUT:
-                _title = rez(Rez.Strings.lbl_e_timeout);
-                break;
-            case Communications.NETWORK_RESPONSE_TOO_LARGE:
-                _title = rez(Rez.Strings.lbl_e_size);
-                break;
-            case Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE:
-                _title = rez(Rez.Strings.lbl_e_invalid);
-                break;
+            _title = rez(Rez.Strings.lbl_e_retrieval) + " " + _code;
+        }
 
-            default:
-                _title = (_code <= 0 ? rez(Rez.Strings.lbl_e_request) : rez(Rez.Strings.lbl_e_response)) + " " + _code;
+        // Garmin
+        else if (_code == Communications.BLE_CONNECTION_UNAVAILABLE) {
+            _title = rez(Rez.Strings.lbl_e_bluetooth);
+        }
+        else if (_code == Communications.NETWORK_REQUEST_TIMED_OUT) {
+            _title = rez(Rez.Strings.lbl_e_internet);
+        }
+        else if (_code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY) {
+            _title = rez(Rez.Strings.lbl_e_memory);
+        }
+        else if (_code == Communications.BLE_QUEUE_FULL) {
+            _title = rez(Rez.Strings.lbl_e_queue_full);
+        }
+        else if (_code == Communications.BLE_REQUEST_CANCELLED || _code == Communications.REQUEST_CANCELLED) {
+            _title = rez(Rez.Strings.lbl_e_cancelled);
+        }
+        else if (_code == Communications.BLE_HOST_TIMEOUT) {
+            _title = rez(Rez.Strings.lbl_e_timeout);
+        }
+        else if (_code == Communications.NETWORK_RESPONSE_TOO_LARGE) {
+            _title = rez(Rez.Strings.lbl_e_size);
+        }
+        else if (_code == Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE) {
+            _title = rez(Rez.Strings.lbl_e_invalid);
+        }
+
+        else {
+            _title = (_code <= 0 ? rez(Rez.Strings.lbl_e_request) : rez(Rez.Strings.lbl_e_response)) + " " + _code;
         }
     }
 
