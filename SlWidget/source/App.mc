@@ -1,5 +1,4 @@
 using Toybox.Application;
-using Carbon.Footprint;
 
 (:glance)
 const DEBUG = false;

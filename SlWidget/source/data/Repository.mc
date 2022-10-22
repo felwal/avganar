@@ -7,13 +7,11 @@ module Repository {
 
     const _STORAGE_LAST_POS = "last_pos";
 
-    var _footprint;
     var _lastPos;
 
     // init
 
     function load() {
-        _footprint = new Carbon.Footprint();
         _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
     }
 
@@ -29,11 +27,11 @@ module Repository {
             SlNearbyStopsService.requestNearbyStops(debugLat, debugLon);
         }
         else {
-            SlNearbyStopsService.requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+            SlNearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
         }
 
         // update last position
-        _lastPos = [ _footprint.getLatRad(), _footprint.getLonRad() ];
+        _lastPos = [ Footprint.getLatRad(), Footprint.getLonRad() ];
         // save to storage to avoid requesting every time the user enters the app
         Storage.setValue(_STORAGE_LAST_POS, _lastPos);
     }
@@ -46,9 +44,9 @@ module Repository {
 
     function enablePositionHandling() {
         // set location event listener and get last location while waiting
-        _footprint.onRegisterPosition = new Lang.Method(Repository, :onPosition);
-        _footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
-        _footprint.registerLastKnownPosition();
+        Footprint.onRegisterPosition = new Lang.Method(Repository, :onPosition);
+        Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
+        Footprint.registerLastKnownPosition();
 
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
@@ -62,7 +60,7 @@ module Repository {
             requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
-            var movedDistance = _footprint.distanceTo(_lastPos[0], _lastPos[1]);
+            var movedDistance = Footprint.distanceTo(_lastPos[0], _lastPos[1]);
             Log.d("moved distance: " + movedDistance);
 
             // only request stops if the user has moved 100 m since last request
@@ -73,16 +71,16 @@ module Repository {
     }
 
     function disablePositionHandling() {
-        _footprint.enableLocationEvents(Position.LOCATION_DISABLE);
-        _footprint.onRegisterPosition = null;
+        Footprint.enableLocationEvents(Position.LOCATION_DISABLE);
+        Footprint.onRegisterPosition = null;
     }
 
     function isPositionRegistered() {
-        return _footprint.isPositionRegistered;
+        return Footprint.isPositionRegistered;
     }
 
     function _isPositioned() {
-        return _footprint.isPositioned() || DEBUG;
+        return Footprint.isPositioned() || DEBUG;
     }
 
     // storage
