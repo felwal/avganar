@@ -4,19 +4,19 @@ using Carbon.C14;
 
 class Departure {
 
-    private static const _MODE_METRO = "METRO";
-    private static const _MODE_BUS = "BUS";
-    private static const _MODE_TRAIN = "TRAIN";
-    private static const _MODE_TRAM = "TRAM";
-    private static const _MODE_SHIP = "SHIP";
-    private static const _MODE_NONE = "NONE";
+    static private const _MODE_METRO = "METRO";
+    static private const _MODE_BUS = "BUS";
+    static private const _MODE_TRAIN = "TRAIN";
+    static private const _MODE_TRAM = "TRAM";
+    static private const _MODE_SHIP = "SHIP";
+    static private const _MODE_NONE = "NONE";
 
-    private static const _GROUP_METRO_RED = "tunnelbanans röda linje";
-    private static const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
-    private static const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
-    private static const _GROUP_BUS_RED = "";
-    private static const _GROUP_BUS_BLUE = "blåbuss";
-    private static const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
+    static private const _GROUP_METRO_RED = "tunnelbanans röda linje";
+    static private const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
+    static private const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
+    static private const _GROUP_BUS_RED = "";
+    static private const _GROUP_BUS_BLUE = "blåbuss";
+    static private const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
     var hasDeviations = false;
 

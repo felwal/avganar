@@ -2,11 +2,11 @@ using Toybox.Lang;
 
 class ResponseError {
 
-    private static const _SL_NULL_DATA = 200;
-    private static const _SL_RETREIVAL_FAILED_1 = 5321;
-    private static const _SL_RETREIVAL_FAILED_2 = 5322;
-    private static const _SL_RETREIVAL_FAILED_3 = 5323;
-    private static const _SL_RETREIVAL_FAILED_4 = 5324;
+    static private const _SL_NULL_DATA = 200;
+    static private const _SL_RETREIVAL_FAILED_1 = 5321;
+    static private const _SL_RETREIVAL_FAILED_2 = 5322;
+    static private const _SL_RETREIVAL_FAILED_3 = 5323;
+    static private const _SL_RETREIVAL_FAILED_4 = 5324;
 
     private var _code;
     private var _title = "";

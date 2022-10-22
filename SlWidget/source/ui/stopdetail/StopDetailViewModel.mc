@@ -5,9 +5,9 @@ using Carbon.Chem;
 
 class StopDetailViewModel {
 
-    private static const _REFRESH_TIME_INTERVAL = 15 * 1000;
-    private static const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
-    private static const _REQUEST_TIME_DELAY = 500;
+    static private const _REFRESH_TIME_INTERVAL = 15 * 1000;
+    static private const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
+    static private const _REQUEST_TIME_DELAY = 500;
 
     static const DEPARTURES_PER_PAGE = 4; // TODO: dynamic
 
@@ -16,15 +16,12 @@ class StopDetailViewModel {
     var pageCursor = 0;
     var modeCursor = 0;
 
-    private var _repo;
-
     private var _delayTimer = new Timer.Timer();
     private var _repeatTimer = new TimerWrapper();
 
     // init
 
-    function initialize(repo, stop) {
-        _repo = repo;
+    function initialize(stop) {
         self.stop = stop;
     }
 
@@ -35,7 +32,7 @@ class StopDetailViewModel {
     }
 
     function disableRequests() {
-        _repo.disablePositionHandling();
+        Repository.disablePositionHandling();
         _delayTimer.stop();
         _repeatTimer.stop();
     }
@@ -78,7 +75,7 @@ class StopDetailViewModel {
     //! Make requests to SlApi neccessary for detail display.
     //! Needs to be public to be able to be called by timer.
     function requestDepartures() {
-        _repo.requestDepartures(stop);
+        Repository.requestDepartures(stop);
     }
 
     // read

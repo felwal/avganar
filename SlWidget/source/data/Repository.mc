@@ -1,42 +1,35 @@
 using Toybox.Application.Storage;
+using Toybox.Lang;
+using Toybox.Position;
+using Carbon.Footprint;
 
-class Repository {
+module Repository {
 
-    private static const _STORAGE_LAST_POS = "last_pos";
+    const _STORAGE_LAST_POS = "last_pos";
 
-    private var _footprint;
-    private var _nearbyStorage;
-    private var _favStorage;
-    private var _stopFactory;
-    private var _stopsService;
-
-    private var _lastPos;
+    var _footprint;
+    var _lastPos;
 
     // init
 
-    function initialize(footprint, nearbyStorage, favStorage, stopFactory, stopsService) {
-        _footprint = footprint;
-        _nearbyStorage = nearbyStorage;
-        _favStorage = favStorage;
-        _stopFactory = stopFactory;
-        _stopsService = stopsService;
-
+    function load() {
+        _footprint = new Carbon.Footprint();
         _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
     }
 
     // api
 
     function requestNearbyStops() {
-        if (!_nearbyStorage.hasStops()) {
+        if (!NearbyStopsStorage.hasStops()) {
             // set searching
-            _nearbyStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
+            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
         }
 
         if (DEBUG) {
-            _stopsService.requestNearbyStops(debugLat, debugLon);
+            SlNearbyStopsService.requestNearbyStops(debugLat, debugLon);
         }
         else {
-            _stopsService.requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
+            SlNearbyStopsService.requestNearbyStops(_footprint.getLatDeg(), _footprint.getLonDeg());
         }
 
         // update last position
@@ -53,19 +46,19 @@ class Repository {
 
     function enablePositionHandling() {
         // set location event listener and get last location while waiting
-        _footprint.onRegisterPosition = method(:onPosition);
+        _footprint.onRegisterPosition = new Lang.Method(Repository, :onPosition);
         _footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
         _footprint.registerLastKnownPosition();
 
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
-        if (!_nearbyStorage.hasStops() && !_isPositioned()) {
-            _nearbyStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
+        if (!NearbyStopsStorage.hasStops() && !_isPositioned()) {
+            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
         }
     }
 
     function onPosition() {
-        if (_lastPos.size() != 2 || !_nearbyStorage.hasStopsResponse()) {
+        if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStopsResponse()) {
             requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
@@ -88,38 +81,38 @@ class Repository {
         return _footprint.isPositionRegistered;
     }
 
-    private function _isPositioned() {
+    function _isPositioned() {
         return _footprint.isPositioned() || DEBUG;
     }
 
     // storage
 
     function getNearbyStopsResponse() {
-        return _nearbyStorage.response;
+        return NearbyStopsStorage.response;
     }
 
     function hasStops() {
-        return _nearbyStorage.hasStops() || getFavorites().size() > 0;
+        return NearbyStopsStorage.hasStops() || getFavorites().size() > 0;
     }
 
     function getFavorites() {
-        return _favStorage.favorites;
+        return FavoriteStopsStorage.favorites;
     }
 
     function isFavorite(stopId) {
-        return _favStorage.isFavorite(stopId);
+        return FavoriteStopsStorage.isFavorite(stopId);
     }
 
     function addFavorite(stop) {
-        _favStorage.addFavorite(stop);
+        FavoriteStopsStorage.addFavorite(stop);
     }
 
     function removeFavorite(stopId) {
-        _favStorage.removeFavorite(stopId);
+        FavoriteStopsStorage.removeFavorite(stopId);
     }
 
     function moveFavorite(stopId, diff) {
-        _favStorage.moveFavorite(stopId, diff);
+        FavoriteStopsStorage.moveFavorite(stopId, diff);
     }
 
 }
