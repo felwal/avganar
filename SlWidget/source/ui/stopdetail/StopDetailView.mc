@@ -35,7 +35,7 @@ class StopDetailView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new DcWrapper(dc));
+        _draw(dc);
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -47,29 +47,29 @@ class StopDetailView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dcw) {
+    private function _draw(dc) {
         var stop = _viewModel.stop;
 
         // text
-        _drawHeader(dcw, stop.name);
-        _drawFooter(dcw, stop.distance);
+        _drawHeader(dc, stop.name);
+        _drawFooter(dc, stop.distance);
 
         // error
         if (!stop.hasDepartures()) {
             var error = stop.getResponseError();
 
             // info
-            dcw.drawDialog(error.getTitle(), "");
+            DcUtil.drawDialog(dc, error.getTitle(), "");
 
             if (error instanceof ResponseError) {
                 // banner
                 if (!error.hasConnection()) {
-                    dcw.drawExclamationBanner();
+                    DcUtil.drawExclamationBanner(dc);
                 }
 
                 // start indicator
                 if (error.isRerequestable()) {
-                    dcw.drawStartIndicatorWithBitmap(Rez.Drawables.ic_refresh);
+                    DcUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
                 }
             }
         }
@@ -79,66 +79,66 @@ class StopDetailView extends WatchUi.View {
             var departures = _viewModel.getModeDepartures();
             var pageDepartures = _viewModel.getPageDepartures(departures);
 
-            _drawDepartures(dcw, pageDepartures);
+            _drawDepartures(dc, pageDepartures);
 
             // page indicator
-            dcw.drawHorizontalPageIndicator(stop.getModeCount(), _viewModel.modeCursor);
-            dcw.dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            dcw.drawVerticalPageNumber(_viewModel.pageCount, _viewModel.pageCursor);
-            dcw.drawVerticalPageArrows(_viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
-            dcw.drawVerticalScrollbarSmall(_viewModel.pageCount, _viewModel.pageCursor);
+            DcUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
+            dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
+            DcUtil.drawVerticalPageNumber(dc, _viewModel.pageCount, _viewModel.pageCursor);
+            DcUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
+            DcUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
         }
     }
 
-    private function _drawHeader(dcw, text) {
-        dcw.setColor(AppColors.TEXT_SECONDARY);
-        dcw.dc.drawText(dcw.cx, 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+    private function _drawHeader(dc, text) {
+        DcUtil.setColor(dc, AppColors.TEXT_SECONDARY);
+        dc.drawText(DcUtil.getCenterX(dc), 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    private function _drawFooter(dcw, distance) {
+    private function _drawFooter(dc, distance) {
         // background
-        dcw.drawFooter(AppColors.PRIMARY, null);
+        DcUtil.drawFooter(dc, AppColors.PRIMARY, null);
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
         var arrowNumberOffset = 8;
-        var x = dcw.cx - 24;
-        var yBottom = dcw.h - arrowEdgeOffset - arrowHeight - arrowNumberOffset;
+        var x = DcUtil.getCenterX(dc) - 24;
+        var yBottom = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset;
 
-        _drawDistance(dcw, distance, dcw.cx - 24, yBottom);
-        _drawClockTime(dcw, dcw.cx + 24, yBottom);
+        _drawDistance(dc, distance, DcUtil.getCenterX(dc) - 24, yBottom);
+        _drawClockTime(dc, DcUtil.getCenterX(dc) + 24, yBottom);
     }
 
-    private function _drawDistance(dcw, distance, x, yBottom) {
+    private function _drawDistance(dc, distance, x, yBottom) {
         if (distance == null) {
             return;
         }
 
         var font = Graphene.FONT_XTINY;
-        var y = yBottom - dcw.dc.getFontHeight(font);
+        var y = yBottom - dc.getFontHeight(font);
 
         // TODO: round to km with 1 decimal
         var text = distance + "m";
 
-        dcw.dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dcw.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
+        dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
-    private function _drawClockTime(dcw, x, yBottom) {
+    private function _drawClockTime(dc, x, yBottom) {
         var font = Graphene.FONT_XTINY;
-        var y = yBottom - dcw.dc.getFontHeight(font);
+        var y = yBottom - dc.getFontHeight(font);
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
-        dcw.dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dcw.dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
+        dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
-    private function _drawDepartures(dcw, pageDepartures) {
+    private function _drawDepartures(dc, pageDepartures) {
         var font = Graphene.FONT_TINY;
-        var fontHeight = dcw.dc.getFontHeight(font);
+        var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.35;
         var lineHeightPx = fontHeight * lineHeight;
         var xOffset = 10;
@@ -151,16 +151,16 @@ class StopDetailView extends WatchUi.View {
             var yText = yOffset + d * lineHeightPx;
             var yCircle = yText + fontHeight / 2;
 
-            var xCircle = Chem.minX(yOffset + fontHeight / 2, dcw.r) + xOffset + rCircle;
+            var xCircle = Chem.minX(yOffset + fontHeight / 2, DcUtil.getRadius(dc)) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
             // draw circle
-            dcw.setColor(departure.getColor());
-            dcw.dc.fillCircle(xCircle, yCircle, rCircle);
+            DcUtil.setColor(dc, departure.getColor());
+            dc.fillCircle(xCircle, yCircle, rCircle);
 
             // draw text
-            dcw.setColor(departure.hasDeviations ? AppColors.DEVIATION : AppColors.TEXT_PRIMARY);
-            dcw.dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
+            DcUtil.setColor(dc, departure.hasDeviations ? AppColors.DEVIATION : AppColors.TEXT_PRIMARY);
+            dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
 
