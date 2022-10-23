@@ -32,7 +32,7 @@ class StopPreviewView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new DcWrapper(dc));
+        _draw(dc);
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -43,32 +43,32 @@ class StopPreviewView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dcw) {
+    private function _draw(dc) {
         var stopNames = _viewModel.getStopNames();
 
         // icon
-        dcw.drawBitmap(dcw.cx, 60, Rez.Drawables.ic_launcher);
+        DcUtil.drawBitmap(dc, DcUtil.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
-            dcw.drawDialog(rez(Rez.Strings.lbl_preview_title_no_stops), "");
+            DcUtil.drawDialog(dc, rez(Rez.Strings.lbl_preview_title_no_stops), "");
         }
         else {
-            _drawStops(dcw, stopNames);
+            _drawStops(dc, stopNames);
         }
     }
 
-    private function _drawStops(dcw, stopNames) {
+    private function _drawStops(dc, stopNames) {
         var font = Graphene.FONT_TINY;
-        var fontHeight = dcw.dc.getFontHeight(font);
+        var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
 
         for (var i = 0; i < stopNames.size(); i++) {
-            var yText = dcw.cy + i * lineHeightPx;
+            var yText = DcUtil.getCenterY(dc) + i * lineHeightPx;
 
-            dcw.setColor(AppColors.TEXT_PRIMARY);
-            dcw.dc.drawText(dcw.cx, yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            DcUtil.setColor(dc, AppColors.TEXT_PRIMARY);
+            dc.drawText(DcUtil.getCenterX(dc), yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 

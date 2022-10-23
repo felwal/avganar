@@ -32,7 +32,7 @@ class InfoView extends WatchUi.View {
 
         // draw
         dc.setAntiAlias(true);
-        _draw(new DcWrapper(dc));
+        _draw(dc);
     }
 
     //! Called when this View is removed from the screen. Save the
@@ -43,17 +43,17 @@ class InfoView extends WatchUi.View {
 
     // draw
 
-    function _draw(dcw) {
+    function _draw(dc) {
         // invert colors
-        dcw.fillBackground(Graphene.COLOR_WHITE);
+        DcUtil.fillBackground(Graphene.COLOR_WHITE);
 
         // inscribe a square on the circular screen
         var margin = 5;
-        var size = Math.sqrt(2) * (dcw.r - margin);
+        var size = Math.sqrt(2) * (DcUtil.getRadius(dc) - margin);
         var fonts = [ Graphene.FONT_TINY, Graphene.FONT_XTINY ];
         var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
-        dcw.drawTextArea(dcw.cx, dcw.cy, size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
+        DcUtil.drawTextArea(DcUtil.getCenterX(dc), DcUtil.getCenterY(dc), size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
     }
 
 }
