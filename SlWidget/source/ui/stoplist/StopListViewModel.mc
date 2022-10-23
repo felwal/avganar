@@ -140,8 +140,7 @@ class StopListViewModel {
     }
 
     function getSelectedStop() {
-        var stops = _getStops();
-        return stopCursor < stops.size() ? stops[stopCursor] : null;
+        return _getStops()[stopCursor];
     }
 
     function isSelectedStopFavorite() {
