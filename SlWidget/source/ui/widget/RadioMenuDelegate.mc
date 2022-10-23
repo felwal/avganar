@@ -3,8 +3,7 @@ using Toybox.WatchUi;
 class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     private var _menu;
-
-    var _callback;
+    private var _callback;
 
     // init
 

@@ -14,7 +14,6 @@ class StopListViewModel {
 
     var stopCursor = 0;
 
-    private var _delayTimer = new Timer.Timer();
     private var _positionTimer = new Timer.Timer();
     private var _lastPos;
 
@@ -25,45 +24,21 @@ class StopListViewModel {
         _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
     }
 
-    function stopTimers() {
-        _delayTimer.stop();
-    }
-
     // timer
 
     function enableRequests() {
-        _enablePositionHandling();
-        _startRequestTimer();
+        requestPosition();
+        _positionTimer.start(method(:requestPosition), _REQUEST_TIME_INTERVAL, true);
     }
 
     function disableRequests() {
         _disablePositionHandling();
-        _delayTimer.stop();
         _positionTimer.stop();
-    }
-
-    private function _requestDeparturesDelayed() {
-        // delayed because otherwise it crashes. TODO: figure out why
-        _delayTimer.start(method(:requestPosition), _REQUEST_TIME_DELAY, false);
-    }
-
-    private function _startRequestTimer() {
-        _positionTimer.start(method(:onTimer), _REQUEST_TIME_INTERVAL, true);
-    }
-
-    function onTimer() {
-        requestPosition();
-        // request update to keep clock time synced
-        WatchUi.requestUpdate();
     }
 
     // position
 
     function requestPosition() {
-        _enablePositionHandling();
-    }
-
-    private function _enablePositionHandling() {
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);

@@ -36,7 +36,7 @@ module NearbyStopsStorage {
             || ((response_ instanceof ResponseError || response_ instanceof ResponseMessage)
             && !response_.equals(response))) {
 
-            vibrate("stops changed to " + stopIds.toString());
+            vibrate();
         }
 
         _nearbyStopIds = stopIds;

@@ -37,7 +37,7 @@ class Stop {
         }
         else {
             // only vibrate if we are not auto-rerequesting
-            vibrate("departures response");
+            vibrate();
         }
     }
 

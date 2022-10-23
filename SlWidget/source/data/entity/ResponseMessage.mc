@@ -9,7 +9,7 @@ class ResponseMessage {
     }
 
     function equals(other) {
-        return other instanceof ResponseMessage && other.getTitle() == _title;
+        return other instanceof ResponseMessage && other.getTitle().equals(_title);
     }
 
     function getTitle() {
