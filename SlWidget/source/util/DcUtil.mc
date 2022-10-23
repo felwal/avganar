@@ -161,11 +161,6 @@ module DcUtil {
         textArea.draw(dc);
     }
 
-    function drawViewTitle(dc, text) {
-        resetColor(dc);
-        dc.drawText(getCenterX(dc), 23, Graphene.FONT_SMALL, text, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
     function drawDialog(dc, title, msg) {
         resetColor(dc);
 
@@ -211,71 +206,17 @@ module DcUtil {
         dc.drawText(getCenterX(dc), -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    function drawHeader(dc, color, strokeColor) {
-        var height = 42;
-
-        setColor(dc, color);
-        dc.fillRectangle(0, 0, dc.getWidth(), height);
-
-        if (strokeColor != null) {
-            setColor(dc, strokeColor);
-            dc.drawLine(0, height, dc.getWidth(), height);
-        }
-    }
-
-    function drawHeaderLarge(dc, color, strokeColor, text, textColor) {
-        var height = 84;
-
-        setColor(dc, color);
-        dc.fillRectangle(0, 0, dc.getWidth(), height);
-
-        if (strokeColor != null) {
-            setColor(dc, strokeColor);
-            dc.drawLine(0, height, dc.getWidth(), height);
-        }
-
-        dc.setColor(textColor, color);
-        dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-    }
-
-    function drawFooter(dc, color, strokeColor) {
-        var height = 42;
-
-        setColor(dc, color);
-        dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
-
-        if (strokeColor != null) {
-            setColor(dc, strokeColor);
-            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
-        }
-    }
-
-    function drawFooterLarge(dc, color, strokeColor, text, textColor) {
-        var height = 84;
-
-        setColor(dc, color);
-        dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
-
-        if (strokeColor != null) {
-            setColor(dc, strokeColor);
-            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
-        }
-
-        dc.setColor(textColor, color);
-        dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-    }
-
     // bar
-
-    function drawStartIndicator(dc) {
-        strokeArcCentered(dc, 5, 4, 1, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
-    }
 
     function drawStartIndicatorWithBitmap(dc, rezId) {
         var pos = Chem.polarPos(getRadius(dc) - 23, Chem.rad(30), getCenterX(dc), getCenterY(dc));
 
         drawBitmap(dc, pos[0], pos[1], rezId);
         drawStartIndicator(dc);
+    }
+
+    function drawStartIndicator(dc) {
+        strokeArcCentered(dc, 5, 4, 1, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
     }
 
     function drawBitmap(dc, x, y, rezId) {
@@ -289,26 +230,6 @@ module DcUtil {
 
     function drawVerticalScrollbarSmall(dc, pageCount, index) {
         _drawVerticalScrollbar(dc, 50, pageCount, index, index + 1);
-    }
-
-    function drawVerticalScrollbarCSmall(dc, itemCount, startIndex, endIndex) {
-        _drawVerticalScrollbar(dc, 50, itemCount, startIndex, endIndex);
-    }
-
-    function drawVerticalScrollbarMedium(dc, pageCount, index) {
-        _drawVerticalScrollbar(dc, 70, pageCount, index, index + 1);
-    }
-
-    function drawVerticalScrollbarCMedium(dc, itemCount, startIndex, endIndex) {
-        _drawVerticalScrollbar(dc, 70, itemCount, startIndex, endIndex);
-    }
-
-    function drawVerticalScrollbarLarge(dc, pageCount, index) {
-        _drawVerticalScrollbar(dc, 100, pageCount, index, index + 1);
-    }
-
-    function drawVerticalScrollbarCLarge(dc, itemCount, startIndex, endIndex) {
-        _drawVerticalScrollbar(dc, 100, itemCount, startIndex, endIndex);
     }
 
     function _drawVerticalScrollbar(dc, sizeDeg, itemCount, startIndex, endIndex) {
@@ -382,47 +303,6 @@ module DcUtil {
         resetPenWidth(dc);
     }
 
-    function drawVerticalPageIndicator(dc, pageCount, index) {
-        if (pageCount <= 1) {
-            return;
-        }
-
-        var deltaDeg = 7;
-        var centerDeg = 180;
-        var minDeg = centerDeg - deltaDeg * (pageCount - 1) / 2f;
-        var edgeOffset = 8;
-        var amp = getRadius(dc) - edgeOffset;
-        var radius = 2;
-        var stroke = 2;
-        var bgStroke = 2;
-
-        dc.setPenWidth(stroke);
-
-        for (var i = 0; i < pageCount; i++) {
-            var deg = minDeg + i * deltaDeg;
-            var pos = Chem.polarPos(amp, Chem.rad(deg), getCenterX(dc), getCenterY(dc));
-            var x = pos[0];
-            var y = pos[1];
-
-            // bg outline
-            setColor(dc, Graphene.COLOR_BLACK);
-            dc.fillCircle(x, y, radius + stroke + bgStroke);
-
-            // indicator
-            if (i == index) {
-                resetColor(dc);
-                dc.fillCircle(x, y, radius + stroke);
-            }
-            else {
-                strokeCircle(dc, x, y, radius, stroke, Graphene.COLOR_BLACK, Graphene.COLOR_LT_GRAY);
-                //setColor(dc, Graphene.COLOR_LT_GRAY);
-                //dc.drawCircle(x, y, radius + stroke / 2f);
-            }
-        }
-
-        resetPenWidth(dc);
-    }
-
     function drawVerticalPageNumber(dc, pageCount, index) {
         if (pageCount <= 1) {
             return;
@@ -443,23 +323,6 @@ module DcUtil {
 
     // page arrow
 
-    function drawHorizontalPageArrows(dc, pageCount, index, leftColor, rightColor) {
-        if (pageCount <= 1) {
-            return;
-        }
-
-        if (index != 0) {
-            setColor(dc, leftColor);
-            drawLeftPageArrow(dc);
-        }
-        if (index != pageCount - 1) {
-            setColor(dc, rightColor);
-            drawRightPageArrow(dc);
-        }
-
-        resetColor(dc);
-    }
-
     function drawVerticalPageArrows(dc, pageCount, index, topColor, bottomColor) {
         if (pageCount <= 1) {
             return;
@@ -475,14 +338,6 @@ module DcUtil {
         }
 
         resetColor(dc);
-    }
-
-    function drawLeftPageArrow(dc) {
-        _drawPageArrow(dc, [ 4, getCenterY(dc) ], _DIR_LEFT);
-    }
-
-    function drawRightPageArrow(dc) {
-        _drawPageArrow(dc, [ dc.getWidth() - 4, getCenterY(dc) ], _DIR_RIGHT);
     }
 
     function drawTopPageArrow(dc) {
@@ -668,6 +523,60 @@ module DcUtil {
                 dc.drawText(getCenterX(dc), yText, font, item, justification);
             }
         }
+    }
+
+    function drawHeader(dc, color, strokeColor) {
+        var height = 42;
+
+        setColor(dc, color);
+        dc.fillRectangle(0, 0, dc.getWidth(), height);
+
+        if (strokeColor != null) {
+            setColor(dc, strokeColor);
+            dc.drawLine(0, height, dc.getWidth(), height);
+        }
+    }
+
+    function drawHeaderLarge(dc, color, strokeColor, text, textColor) {
+        var height = 84;
+
+        setColor(dc, color);
+        dc.fillRectangle(0, 0, dc.getWidth(), height);
+
+        if (strokeColor != null) {
+            setColor(dc, strokeColor);
+            dc.drawLine(0, height, dc.getWidth(), height);
+        }
+
+        dc.setColor(textColor, color);
+        dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    function drawFooter(dc, color, strokeColor) {
+        var height = 42;
+
+        setColor(dc, color);
+        dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
+
+        if (strokeColor != null) {
+            setColor(dc, strokeColor);
+            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+        }
+    }
+
+    function drawFooterLarge(dc, color, strokeColor, text, textColor) {
+        var height = 84;
+
+        setColor(dc, color);
+        dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
+
+        if (strokeColor != null) {
+            setColor(dc, strokeColor);
+            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+        }
+
+        dc.setColor(textColor, color);
+        dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
 }
