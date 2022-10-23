@@ -57,7 +57,7 @@ class StopListViewModel {
     }
 
     function onPosition() {
-        if (_lastPos.size() != 2 || !(NearbyStopsStorage.response instanceof StopsResponse)) {
+        if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStops()) {
             requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
