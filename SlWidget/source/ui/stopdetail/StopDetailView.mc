@@ -2,6 +2,7 @@ using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Time;
 using Carbon.Graphene;
+using Carbon.Graphite;
 using Carbon.Chem;
 
 class StopDetailView extends WatchUi.View {
@@ -91,8 +92,8 @@ class StopDetailView extends WatchUi.View {
     }
 
     private function _drawHeader(dc, text) {
-        DcUtil.setColor(dc, AppColors.TEXT_SECONDARY);
-        dc.drawText(DcUtil.getCenterX(dc), 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
+        dc.drawText(Graphite.getCenterX(dc), 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function _drawFooter(dc, distance) {
@@ -103,11 +104,11 @@ class StopDetailView extends WatchUi.View {
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
         var arrowNumberOffset = 8;
-        var x = DcUtil.getCenterX(dc) - 24;
+        var x = Graphite.getCenterX(dc) - 24;
         var yBottom = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset;
 
-        _drawDistance(dc, distance, DcUtil.getCenterX(dc) - 24, yBottom);
-        _drawClockTime(dc, DcUtil.getCenterX(dc) + 24, yBottom);
+        _drawDistance(dc, distance, Graphite.getCenterX(dc) - 24, yBottom);
+        _drawClockTime(dc, Graphite.getCenterX(dc) + 24, yBottom);
     }
 
     private function _drawDistance(dc, distance, x, yBottom) {
@@ -151,15 +152,15 @@ class StopDetailView extends WatchUi.View {
             var yText = yOffset + d * lineHeightPx;
             var yCircle = yText + fontHeight / 2;
 
-            var xCircle = Chem.minX(yOffset + fontHeight / 2, DcUtil.getRadius(dc)) + xOffset + rCircle;
+            var xCircle = Chem.minX(yOffset + fontHeight / 2, Graphite.getRadius(dc)) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
             // draw circle
-            DcUtil.setColor(dc, departure.getColor());
+            Graphite.setColor(dc, departure.getColor());
             dc.fillCircle(xCircle, yCircle, rCircle);
 
             // draw text
-            DcUtil.setColor(dc, departure.hasDeviations ? AppColors.DEVIATION : AppColors.TEXT_PRIMARY);
+            Graphite.setColor(dc, departure.hasDeviations ? AppColors.DEVIATION : AppColors.TEXT_PRIMARY);
             dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }

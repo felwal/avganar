@@ -1,6 +1,7 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
 using Carbon.Graphene;
+using Carbon.Graphite;
 
 class StopPreviewView extends WatchUi.View {
 
@@ -47,7 +48,7 @@ class StopPreviewView extends WatchUi.View {
         var stopNames = _viewModel.getStopNames();
 
         // icon
-        DcUtil.drawBitmap(dc, DcUtil.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
+        DcUtil.drawBitmap(dc, Graphite.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
@@ -65,10 +66,10 @@ class StopPreviewView extends WatchUi.View {
         var lineHeightPx = fontHeight * lineHeight;
 
         for (var i = 0; i < stopNames.size(); i++) {
-            var yText = DcUtil.getCenterY(dc) + i * lineHeightPx;
+            var yText = Graphite.getCenterY(dc) + i * lineHeightPx;
 
-            DcUtil.setColor(dc, AppColors.TEXT_PRIMARY);
-            dc.drawText(DcUtil.getCenterX(dc), yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            Graphite.setColor(dc, AppColors.TEXT_PRIMARY);
+            dc.drawText(Graphite.getCenterX(dc), yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 
