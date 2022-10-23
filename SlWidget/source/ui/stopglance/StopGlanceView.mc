@@ -18,7 +18,6 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     //! Load resources
     function onLayout(dc) {
-        setLayout(Rez.Layouts.stopglance_layout(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore
