@@ -53,37 +53,32 @@ module DcUtil {
         drawable.draw(dc);
     }
 
-    // banner
+    // banner/header/footer
 
     function drawExclamationBanner(dc) {
-        // bg stroke
-        Graphite.setColor(dc, Graphene.COLOR_BLACK);
-        dc.fillRectangle(0, 30, dc.getWidth(), 2);
-
-        // banner
-        Graphite.setColor(dc, Graphene.COLOR_RED);
-        dc.fillRectangle(0, 0, dc.getWidth(), 30);
+        dc.setPenWidth(2);
+        _drawHeader(dc, 30, Graphene.COLOR_RED, Graphene.COLOR_BLACK);
+        Graphite.resetPenWidth(dc);
 
         // text
         dc.setColor(Graphene.COLOR_WHITE, Graphene.COLOR_RED);
         dc.drawText(Graphite.getCenterX(dc), -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    function drawHeader(dc, color, strokeColor) {
-        var height = 42;
-
-        Graphite.setColor(dc, color);
-        dc.fillRectangle(0, 0, dc.getWidth(), height);
-
-        if (strokeColor != null) {
-            Graphite.setColor(dc, strokeColor);
-            dc.drawLine(0, height, dc.getWidth(), height);
-        }
+    function drawHeaderSmall(dc, color, strokeColor) {
+        _drawHeader(dc, 42, color, strokeColor);
     }
 
     function drawHeaderLarge(dc, color, strokeColor, text, textColor) {
         var height = 84;
 
+        _drawHeader(dc, height, color, strokeColor);
+
+        dc.setColor(textColor, color);
+        dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    function _drawHeader(dc, height, color, strokeColor) {
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
@@ -91,26 +86,22 @@ module DcUtil {
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, height, dc.getWidth(), height);
         }
-
-        dc.setColor(textColor, color);
-        dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    function drawFooter(dc, color, strokeColor) {
-        var height = 42;
-
-        Graphite.setColor(dc, color);
-        dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
-
-        if (strokeColor != null) {
-            Graphite.setColor(dc, strokeColor);
-            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
-        }
+    function drawFooterSmall(dc, color, strokeColor) {
+        _drawFooter(dc, 42, color, strokeColor);
     }
 
     function drawFooterLarge(dc, color, strokeColor, text, textColor) {
         var height = 84;
 
+        _drawFooter(dc, height, color, strokeColor);
+
+        dc.setColor(textColor, color);
+        dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    function _drawFooter(dc, height, color, strokeColor) {
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
@@ -118,9 +109,6 @@ module DcUtil {
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
         }
-
-        dc.setColor(textColor, color);
-        dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     // start indicator
@@ -331,7 +319,7 @@ module DcUtil {
                 drawHeaderLarge(dc, AppColors.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
             }
             else if (cursor == 1) {
-                drawHeader(dc, AppColors.BACKGROUND, paneStrokeColor);
+                drawHeaderSmall(dc, AppColors.BACKGROUND, paneStrokeColor);
                 Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
                 drawUpArrow(dc, 42);
             }
@@ -342,7 +330,7 @@ module DcUtil {
 
             // bottom header
             if (cursor == paneSize - 2) {
-                drawFooter(dc, AppColors.BACKGROUND, paneStrokeColor);
+                drawFooterSmall(dc, AppColors.BACKGROUND, paneStrokeColor);
                 Graphite.setColor(dc, cc.textTertiary);
                 drawDownArrow(dc, dc.getHeight() - 42);
             }
@@ -368,7 +356,7 @@ module DcUtil {
                 }
             }
             else if (cursor == paneSize + 1) {
-                drawHeader(dc, cc.background, paneStrokeColor);
+                drawHeaderSmall(dc, cc.background, paneStrokeColor);
                 Graphite.setColor(dc, cc.textTertiary);
                 drawUpArrow(dc, 42);
             }
