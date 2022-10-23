@@ -45,15 +45,15 @@ class InfoView extends WatchUi.View {
 
     function _draw(dc) {
         // invert colors
-        DcUtil.fillBackground(Graphene.COLOR_WHITE);
+        Graphite.fillBackground(Graphene.COLOR_WHITE);
 
         // inscribe a square on the circular screen
         var margin = 5;
-        var size = Math.sqrt(2) * (DcUtil.getRadius(dc) - margin);
+        var size = Math.sqrt(2) * (Graphite.getRadius(dc) - margin);
         var fonts = [ Graphene.FONT_TINY, Graphene.FONT_XTINY ];
         var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
-        DcUtil.drawTextArea(DcUtil.getCenterX(dc), DcUtil.getCenterY(dc), size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
+        Graphite.drawTextArea(Graphite.getCenterX(dc), Graphite.getCenterY(dc), size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
     }
 
 }
