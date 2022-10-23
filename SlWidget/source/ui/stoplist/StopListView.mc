@@ -78,7 +78,7 @@ class StopListView extends WatchUi.View {
         var cursor = _viewModel.stopCursor;
         var favHints = [ "Favorites", "No favorites" ];
         var nearbyHints = [ "Nearby", "None nearby" ];
-        var cc = new ColorContext(AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY);
+        var cc = [ AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
 
         WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, cc);
     }
