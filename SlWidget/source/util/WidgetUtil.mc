@@ -5,7 +5,7 @@ using Carbon.Graphene;
 using Carbon.Graphite;
 using Carbon.Chem;
 
-module DcUtil {
+module WidgetUtil {
 
     // directions
     const _DIR_LEFT = 0;

@@ -56,18 +56,18 @@ class StopListView extends WatchUi.View {
         // error
         if (_viewModel.isShowingMessage()) {
             // info
-            DcUtil.drawDialog(dc, response.getTitle(), "");
+            WidgetUtil.drawDialog(dc, response.getTitle(), "");
 
             // start indicator
             if (response instanceof ResponseError && response.isRerequestable()) {
                 // TODO: make clickable
-                DcUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
+                WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
             }
         }
         /*if (response instanceof ResponseError) {
             // banner
             if (!response.hasConnection()) {
-                DcUtil.drawExclamationBanner(dc);
+                WidgetUtil.drawExclamationBanner(dc);
             }
         }*/
     }
@@ -80,7 +80,7 @@ class StopListView extends WatchUi.View {
         var nearbyHints = [ "Nearby", "None nearby" ];
         var cc = new ColorContext(AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY);
 
-        DcUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, cc);
+        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, cc);
     }
 
     private function _drawGpsStatus(dc) {
