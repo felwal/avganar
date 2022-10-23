@@ -98,7 +98,7 @@ class StopDetailView extends WatchUi.View {
 
     private function _drawFooter(dc, distance) {
         // background
-        DcUtil.drawFooter(dc, AppColors.PRIMARY, null);
+        DcUtil.drawFooterSmall(dc, AppColors.PRIMARY, null);
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;
