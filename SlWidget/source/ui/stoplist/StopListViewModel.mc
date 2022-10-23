@@ -78,7 +78,7 @@ class StopListViewModel {
     // service
 
     function requestNearbyStops() {
-        if (!NearbyStopsStorage.hasStops()) {
+        if (!NearbyStopsStorage.hasStops() && !(NearbyStopsStorage.response instanceof ResponseError)) {
             // set searching
             NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
         }
