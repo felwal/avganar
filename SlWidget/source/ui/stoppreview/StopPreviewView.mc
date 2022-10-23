@@ -48,11 +48,11 @@ class StopPreviewView extends WatchUi.View {
         var stopNames = _viewModel.getStopNames();
 
         // icon
-        DcUtil.drawBitmap(dc, Graphite.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
+        WidgetUtil.drawBitmap(dc, Graphite.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
-            DcUtil.drawDialog(dc, rez(Rez.Strings.lbl_preview_title_no_stops), "");
+            WidgetUtil.drawDialog(dc, rez(Rez.Strings.lbl_preview_title_no_stops), "");
         }
         else {
             _drawStops(dc, stopNames);

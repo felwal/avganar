@@ -60,17 +60,17 @@ class StopDetailView extends WatchUi.View {
             var error = stop.getResponseError();
 
             // info
-            DcUtil.drawDialog(dc, error.getTitle(), "");
+            WidgetUtil.drawDialog(dc, error.getTitle(), "");
 
             if (error instanceof ResponseError) {
                 // banner
                 if (!error.hasConnection()) {
-                    DcUtil.drawExclamationBanner(dc);
+                    WidgetUtil.drawExclamationBanner(dc);
                 }
 
                 // start indicator
                 if (error.isRerequestable()) {
-                    DcUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
+                    WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
                 }
             }
         }
@@ -83,11 +83,11 @@ class StopDetailView extends WatchUi.View {
             _drawDepartures(dc, pageDepartures);
 
             // page indicator
-            DcUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
+            WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            DcUtil.drawVerticalPageNumber(dc, _viewModel.pageCount, _viewModel.pageCursor);
-            DcUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
-            DcUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
+            WidgetUtil.drawVerticalPageNumber(dc, _viewModel.pageCount, _viewModel.pageCursor);
+            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
+            WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
         }
     }
 
@@ -98,7 +98,7 @@ class StopDetailView extends WatchUi.View {
 
     private function _drawFooter(dc, distance) {
         // background
-        DcUtil.drawFooterSmall(dc, AppColors.PRIMARY, null);
+        WidgetUtil.drawFooterSmall(dc, AppColors.PRIMARY, null);
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;
