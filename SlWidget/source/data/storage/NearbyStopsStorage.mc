@@ -66,30 +66,26 @@ module NearbyStopsStorage {
         return stops;
     }
 
-    function hasStopsResponse() {
-        return response instanceof StopsResponse;
-    }
-
     function hasStops() {
         return getStopCount() > 0;
     }
 
     function getStopCount() {
-        return hasStopsResponse() ? response.getStopCount() : 0 ;
+        return response instanceof StopsResponse ? response.getStopCount() : 0 ;
     }
 
     function getStop(index) {
-        return hasStopsResponse() ? response.getStop(index) : null;
+        return response instanceof StopsResponse ? response.getStop(index) : null;
     }
 
     function getStopById(id) {
         var index = _nearbyStopIds.indexOf(id);
 
-        return hasStopsResponse() ? ArrUtil.get(response.getStops(), index, null) : null;
+        return response instanceof StopsResponse ? ArrUtil.get(response.getStops(), index, null) : null;
     }
 
     function getStops() {
-        return hasStopsResponse() ? response.getStops() : null;
+        return response instanceof StopsResponse ? response.getStops() : null;
     }
 
 }
