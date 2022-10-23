@@ -17,7 +17,6 @@ class InfoView extends WatchUi.View {
 
     //! Load resources
     function onLayout(dc) {
-        setLayout(Rez.Layouts.apiinfo_layout(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore

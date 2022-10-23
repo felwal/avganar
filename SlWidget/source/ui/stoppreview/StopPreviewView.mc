@@ -17,7 +17,6 @@ class StopPreviewView extends WatchUi.View {
 
     //! Load resources
     function onLayout(dc) {
-        setLayout(Rez.Layouts.stoppreview_layout(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore

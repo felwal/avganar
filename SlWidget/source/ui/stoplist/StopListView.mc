@@ -18,7 +18,6 @@ class StopListView extends WatchUi.View {
 
     //! Load resources
     function onLayout(dc) {
-        setLayout(Rez.Layouts.stoplist_layout(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore
