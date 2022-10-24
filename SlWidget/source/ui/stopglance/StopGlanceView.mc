@@ -5,13 +5,10 @@ using Carbon.Graphene;
 (:glance)
 class StopGlanceView extends WatchUi.GlanceView {
 
-    private var _viewModel;
-
     // init
 
-    function initialize(viewModel) {
+    function initialize() {
         GlanceView.initialize();
-        _viewModel = viewModel;
     }
 
     // override GlanceView
@@ -30,19 +27,17 @@ class StopGlanceView extends WatchUi.GlanceView {
     private function _draw(dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
-        _drawGlanceTitle(dc, _viewModel.getTitle());
-        _drawGlanceCaption(dc, _viewModel.getCaption());
-    }
+        var nearestStopName = NearbyStopsStorage.getNearestStopName();
+        var title = nearestStopName == null ? rez(Rez.Strings.app_name) : rez(Rez.Strings.lbl_glance_title);
+        var caption = nearestStopName == null ? rez(Rez.Strings.lbl_glance_caption_no_stops) : nearestStopName;
 
-    private function _drawGlanceTitle(dc, text) {
-        dc.drawText(0, 8, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
-    }
+        // title
+        dc.drawText(0, 8, Graphene.FONT_XTINY, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
 
-    private function _drawGlanceCaption(dc, text) {
+        // caption
         var font = Graphics.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
-
-        dc.drawText(0, dc.getHeight() - fontHeight - 4, font, text, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, dc.getHeight() - fontHeight - 4, font, caption, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 }

@@ -24,20 +24,13 @@ class App extends Application.AppBase {
 
     (:glance)
     function getGlanceView() {
-        var viewModel = new StopGlanceViewModel();
-        var view = new StopGlanceView(viewModel);
-
-        return [ view ];
+        return [ new StopGlanceView() ];
     }
 
     //
 
     private function _getPreviewView() {
-        var viewModel = new StopPreviewViewModel();
-        var view = new StopPreviewView(viewModel);
-        var delegate = new StopPreviewDelegate(viewModel);
-
-        return [ view, delegate ];
+        return [ new StopPreviewView(), new StopPreviewDelegate() ];
     }
 
     function getMainView() {
