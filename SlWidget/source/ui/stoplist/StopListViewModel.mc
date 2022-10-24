@@ -180,17 +180,6 @@ class StopListViewModel {
 
     //
 
-    function onDown() {
-        if (stopCursor == getItemCount() - 1 && NearbyStopsStorage.isRerequestable()) {
-            // rerequest
-            requestNearbyStops();
-            WatchUi.requestUpdate();
-        }
-        else {
-            incStopCursor();
-        }
-    }
-
     function incStopCursor() {
         _rotStopCursor(1);
     }
