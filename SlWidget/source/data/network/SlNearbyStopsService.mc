@@ -15,7 +15,6 @@ module SlNearbyStopsService {
 
     const _RESPONSE_OK = 200;
 
-    const _MAX_STOPS = 15; // default 9, max 1000
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     // request
@@ -43,7 +42,7 @@ module SlNearbyStopsService {
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
-            "maxNo" => _MAX_STOPS
+            "maxNo" => SettingsStorage.getMaxStops()
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
@@ -108,7 +107,7 @@ module SlNearbyStopsService {
         var stops = [];
 
         var stopsData = data["stopLocationOrCoordLocation"];
-        for (var i = 0; i < stopsData.size() && i < _MAX_STOPS; i++) {
+        for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
             var extId = stopData["mainMastExtId"];
