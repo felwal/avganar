@@ -7,6 +7,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_FAVORITE_MOVE_UP = :moveFavoriteUp;
     static const ITEM_FAVORITE_MOVE_DOWN = :moveFavoriteDown;
     static const ITEM_VIBRATE = :vibrateOnResponse;
+    static const ITEM_MAX_STOPS = :maxNoStops;
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_API = :apiInfo;
     static const ITEM_ABOUT = :aboutInfo;
@@ -25,6 +26,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     private function _addItems() {
         _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
 
+        // favorite settings
         if (_viewModel.isSelectedStopFavorite()) {
             var isInFavorites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
 
@@ -62,6 +64,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         _menu.addItem(new WatchUi.ToggleMenuItem(
             rez(Rez.Strings.lbl_settings_vibrate), { :enabled => "On", :disabled => "Off" },
             ITEM_VIBRATE, SettingsStorage.getVibrateOnResponse(), {}
+        ));
+
+        // max stops
+        _menu.addItem(new WatchUi.MenuItem(
+            rez(Rez.Strings.lbl_settings_max_stops), SettingsStorage.getMaxStops().toString(),
+            ITEM_MAX_STOPS, {}
         ));
 
         // default time window
@@ -105,12 +113,20 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         else if (id == ITEM_FAVORITE_MOVE_DOWN){
             _viewModel.moveFavorite(1);
         }
+        else if (id == ITEM_MAX_STOPS){
+            var title = rez(Rez.Strings.lbl_settings_max_stops);
+            var labels = [ "5", "10", "15", "20" ];
+            var values = [ 5, 10, 15, 20 ];
+            var focus = values.indexOf(SettingsStorage.getMaxStops());
+            new RadioMenuDelegate(title, labels, values, focus, method(:onMaxStopsSelect)).push();
+            return;
+        }
         else if (id == ITEM_TIME_WINDOW){
             var title = rez(Rez.Strings.lbl_settings_time_window);
-            var labels = [ "60 min", "45 min", "30 min", "15 min" ];
-            var values = [ 60, 45, 30, 15 ];
+            var labels = [ "15 min", "30 min", "45 min", "60 min" ];
+            var values = [ 15, 30, 45, 60 ];
             var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
-            new RadioMenuDelegate(title, labels, values, focus, method(:onListMenuDelegateSelect)).push();
+            new RadioMenuDelegate(title, labels, values, focus, method(:onTimeWindowSelect)).push();
             return;
         }
         else if (id == ITEM_VIBRATE){
@@ -139,7 +155,14 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     //
 
-    function onListMenuDelegateSelect(value) {
+    function onMaxStopsSelect(value) {
+        SettingsStorage.setMaxStops(value);
+
+        var item = _menu.getItem(_menu.findItemById(ITEM_MAX_STOPS));
+        item.setSubLabel(value.toString());
+    }
+
+    function onTimeWindowSelect(value) {
         SettingsStorage.setDefaultTimeWindow(value);
 
         var item = _menu.getItem(_menu.findItemById(ITEM_TIME_WINDOW));
