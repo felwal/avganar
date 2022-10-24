@@ -112,7 +112,7 @@ class StopListViewModel {
         var stops = response instanceof StopsResponse ? ArrUtil.merge(favs, response.getStops()) : favs;
 
         // coerce cursor
-        stopCursor = Chem.min(stopCursor, getStopCount() - 1);
+        stopCursor = Chem.min(stopCursor, getItemCount() - 1);
 
         return stops;
     }
@@ -129,7 +129,7 @@ class StopListViewModel {
         return names;
     }
 
-    function getStopCount() {
+    function getItemCount() {
         var response = NearbyStopsStorage.response;
 
         return getFavoriteCount() + (response instanceof StopsResponse ? response.getStopCount() : 1);
@@ -140,7 +140,8 @@ class StopListViewModel {
     }
 
     function getSelectedStop() {
-        return _getStops()[stopCursor];
+        var stops = _getStops();
+        return stopCursor < stops.size() ? stops[stopCursor] : null;
     }
 
     function isSelectedStopFavorite() {
@@ -149,7 +150,7 @@ class StopListViewModel {
     }
 
     function isShowingMessage() {
-        return !(NearbyStopsStorage.response instanceof StopsResponse) && stopCursor == getStopCount() - 1;
+        return !(NearbyStopsStorage.response instanceof StopsResponse) && stopCursor == getItemCount() - 1;
     }
 
     // storage - write
@@ -189,7 +190,7 @@ class StopListViewModel {
 
     private function _rotStopCursor(step) {
         if (hasStops()) {
-            stopCursor = Chem.mod(stopCursor + step, getStopCount());
+            stopCursor = Chem.mod(stopCursor + step, getItemCount());
             WatchUi.requestUpdate();
         }
     }

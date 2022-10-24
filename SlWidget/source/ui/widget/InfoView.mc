@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Math;
+using Carbon.Graphite;
 using Carbon.Graphene;
 
 class InfoView extends WatchUi.View {
@@ -45,7 +46,7 @@ class InfoView extends WatchUi.View {
 
     function _draw(dc) {
         // invert colors
-        Graphite.fillBackground(Graphene.COLOR_WHITE);
+        Graphite.fillBackground(dc, Graphene.COLOR_WHITE);
 
         // inscribe a square on the circular screen
         var margin = 5;
@@ -53,7 +54,7 @@ class InfoView extends WatchUi.View {
         var fonts = [ Graphene.FONT_TINY, Graphene.FONT_XTINY ];
         var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
-        Graphite.drawTextArea(Graphite.getCenterX(dc), Graphite.getCenterY(dc), size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
+        Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc), size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
     }
 
 }
