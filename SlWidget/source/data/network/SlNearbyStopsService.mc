@@ -112,6 +112,12 @@ module SlNearbyStopsService {
 
             var extId = stopData["mainMastExtId"];
             var id = extId.substring(5, extId.length()).toNumber();
+
+            // skip duplicate stops (same id but different names)
+            if (ArrUtil.in(stopIds, id)) {
+                continue;
+            }
+
             var name = stopData["name"];
             var distance = stopData["dist"].toNumber();
 
