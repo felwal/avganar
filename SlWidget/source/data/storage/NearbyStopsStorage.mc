@@ -87,4 +87,8 @@ module NearbyStopsStorage {
         return response instanceof StopsResponse ? response.getStops() : null;
     }
 
+    function isRerequestable() {
+        return response instanceof ResponseError && response.isRerequestable();
+    }
+
 }
