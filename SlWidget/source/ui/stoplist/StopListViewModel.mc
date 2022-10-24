@@ -154,9 +154,14 @@ class StopListViewModel {
     // storage - write
 
     function addFavorite() {
-        FavoriteStopsStorage.addFavorite(getSelectedStop());
-        // navigate to newly added
-        stopCursor = getFavoriteCount() - 1;
+        var stop = getSelectedStop();
+
+        // double check that we have a stop response
+        if (stop instanceof StopsResponse) {
+            FavoriteStopsStorage.addFavorite(stop);
+            // navigate to newly added
+            stopCursor = getFavoriteCount() - 1;
+        }
     }
 
     function removeFavorite() {

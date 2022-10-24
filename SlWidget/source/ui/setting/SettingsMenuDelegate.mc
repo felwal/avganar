@@ -53,7 +53,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
                 ITEM_FAVORITE_REMOVE, {}
             ));
         }
-        else {
+        else if (!_viewModel.isShowingMessage()) {
             // add favorite
             _menu.addItem(new WatchUi.MenuItem(
                 rez(Rez.Strings.lbl_settings_favorite_add), "",
