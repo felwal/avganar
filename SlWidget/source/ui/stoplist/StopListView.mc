@@ -58,9 +58,10 @@ class StopListView extends WatchUi.View {
             // info
             WidgetUtil.drawDialog(dc, response.getTitle(), "");
 
-            // rerequest
-            if (NearbyStopsStorage.isRerequestable()) {
-                WidgetUtil._drawFooter(dc, 42, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK, "Retry", Graphene.COLOR_BLACK);
+            // start indicator
+            if (response instanceof ResponseError && response.isRerequestable()) {
+                // TODO: make clickable
+                WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
             }
         }
         /*if (response instanceof ResponseError) {
