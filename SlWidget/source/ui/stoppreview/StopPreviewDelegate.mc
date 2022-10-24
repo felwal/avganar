@@ -3,13 +3,10 @@ using Toybox.WatchUi;
 
 class StopPreviewDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _viewModel;
-
     // init
 
-    function initialize(viewModel) {
+    function initialize() {
         BehaviorDelegate.initialize();
-        _viewModel = viewModel;
     }
 
     // override BehaviorDelegate

@@ -5,13 +5,10 @@ using Carbon.Graphite;
 
 class StopPreviewView extends WatchUi.View {
 
-    var _viewModel;
-
     // init
 
-    function initialize(viewModel) {
+    function initialize() {
         View.initialize();
-        _viewModel = viewModel;
     }
 
     // override View
@@ -28,7 +25,7 @@ class StopPreviewView extends WatchUi.View {
     // draw
 
     private function _draw(dc) {
-        var stopNames = _viewModel.getStopNames();
+        var stopNames = NearbyStopsStorage.getNearestStopsNames(3);
 
         // icon
         WidgetUtil.drawBitmap(dc, Graphite.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
