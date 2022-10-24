@@ -116,7 +116,7 @@ class SlDeparturesService {
         }
         else {
             Log.d("Departures response empty of departures");
-            _stop.setResponse(new ResponseMessage(rez(Rez.Strings.lbl_i_departures_none)));
+            _stop.setResponse(rez(Rez.Strings.lbl_i_departures_none));
         }
     }
 

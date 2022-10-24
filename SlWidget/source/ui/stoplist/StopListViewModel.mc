@@ -47,7 +47,7 @@ class StopListViewModel {
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
         if (!NearbyStopsStorage.hasStops() && !_isPositioned()) {
-            NearbyStopsStorage.setResponse([], [], new ResponseMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
+            NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_no_gps));
         }
     }
 
