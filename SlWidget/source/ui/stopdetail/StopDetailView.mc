@@ -49,7 +49,9 @@ class StopDetailView extends WatchUi.View {
             var error = stop.getResponseError();
 
             // info
-            WidgetUtil.drawDialog(dc, error.getTitle(), "");
+            WidgetUtil.drawDialog(dc,
+                error == null ? rez(Rez.Strings.lbl_i_departures_requesting) : error.getTitle(),
+                "");
 
             if (error instanceof ResponseError) {
                 // banner

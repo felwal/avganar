@@ -23,7 +23,7 @@ class Stop {
     // set
 
     function setSearching() {
-        _response = new StatusMessage(rez(Rez.Strings.lbl_i_departures_requesting));
+        _response = null;
     }
 
     function setResponse(response) {
