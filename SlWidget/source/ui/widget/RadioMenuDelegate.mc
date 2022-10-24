@@ -17,7 +17,7 @@ class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
     private function _addItems(title, labels, values, focus) {
         _menu = new WatchUi.Menu2({ :title => title });
 
-        for (var i = 0; i < labels.size(); i++) {
+        for (var i = 0; i < labels.size() && i < values.size(); i++) {
             _menu.addItem(new WatchUi.MenuItem(labels[i], "", values[i], {}));
         }
 
