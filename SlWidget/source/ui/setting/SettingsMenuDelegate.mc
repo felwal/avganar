@@ -11,6 +11,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_API = :apiInfo;
     static const ITEM_ABOUT = :aboutInfo;
+    static const ITEM_RESET = :resetStorage;
 
     private var _viewModel;
     private var _menu;
@@ -89,6 +90,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             rez(Rez.Strings.lbl_settings_about), "",
             ITEM_ABOUT, {}
         ));
+
+        // reset
+        _menu.addItem(new WatchUi.MenuItem(
+            "Reset storage", "",
+            ITEM_RESET, {}
+        ));
     }
 
     function push(transition) {
@@ -138,6 +145,9 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         else if (id == ITEM_ABOUT){
             view = new InfoView(rez(Rez.Strings.lbl_info_about));
+        }
+        else if (id == ITEM_RESET){
+            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
         }
 
         if (view == null) {
