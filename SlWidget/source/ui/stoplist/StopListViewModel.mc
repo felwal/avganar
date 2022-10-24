@@ -43,12 +43,6 @@ class StopListViewModel {
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
         Footprint.registerLastKnownPosition();
-
-        // set locating message after `registerLastKnownPosition` to avoid
-        // setting the response more times than necessary
-        if (!NearbyStopsStorage.hasStops() && !_isPositioned()) {
-            NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_no_gps));
-        }
     }
 
     private function _disablePositionHandling() {
@@ -98,8 +92,12 @@ class StopListViewModel {
 
     // storage - read
 
-    function getResponse() {
-        return NearbyStopsStorage.response;
+    function getMessage() {
+        var response = NearbyStopsStorage.response;
+
+        return response == null
+            ? rez(_isPositioned() ? Rez.Strings.lbl_i_stops_requesting : Rez.Strings.lbl_i_stops_no_gps)
+            : (response instanceof ResponseError ? response.getTitle() : response);
     }
 
     function hasStops() {

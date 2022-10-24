@@ -52,7 +52,7 @@ module NearbyStopsStorage {
         _nearbyStopIds = StorageUtil.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
 
-        response = new StopsResponse(_buildStops(_nearbyStopIds, _nearbyStopNames));
+        response = _nearbyStopIds.size() == 0 ? null : new StopsResponse(_buildStops(_nearbyStopIds, _nearbyStopNames));
     }
 
     function _buildStops(ids, names) {

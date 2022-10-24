@@ -7,13 +7,13 @@
     <!-- message -->
 
     <!-- status message -->
+    <string id="lbl_i_stops_no_gps">Locating ...</string>
     <string id="lbl_i_stops_requesting">Searching ...</string>
     <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
 
     <!-- response message -->
     <string id="lbl_i_stops_none">No nearby stops</string>
     <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
-    <string id="lbl_i_stops_no_gps">Locating ...</string>
     <string id="lbl_i_departures_none">No departures</string>
 
     <!-- request error -->

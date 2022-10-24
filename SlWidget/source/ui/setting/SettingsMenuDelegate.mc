@@ -147,7 +147,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             view = new InfoView(rez(Rez.Strings.lbl_info_about));
         }
         else if (id == ITEM_RESET){
-            NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_no_gps));
+            NearbyStopsStorage.setResponse([], [], null);
         }
 
         if (view == null) {

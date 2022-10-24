@@ -45,9 +45,7 @@ class StopListView extends WatchUi.View {
         // error
         if (_viewModel.isShowingMessage()) {
             // info
-            WidgetUtil.drawDialog(dc,
-                response == null ? rez(Rez.Strings.lbl_i_stops_requesting) : response.getTitle(),
-                "");
+            WidgetUtil.drawDialog(dc, _viewModel.getMessage(), "");
         }
     }
 

@@ -24,7 +24,9 @@ module SlNearbyStopsService {
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
 
-            NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_outside_bounds));
+            if (lat != 0.0 || lon != 0.0) {
+                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_outside_bounds));
+            }
 
             WatchUi.requestUpdate();
         }
