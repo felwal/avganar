@@ -13,15 +13,6 @@ class App extends Application.AppBase {
 
     // override AppBase
 
-    //! onStart() is called on application start up
-    function onStart(state) {
-    }
-
-    //! onStop() is called when your application is exiting
-    function onStop(state) {
-    }
-
-    //! Return the initial view of your application here
     function getInitialView() {
         if (hasPreview()) {
             return _getPreviewView();
@@ -31,7 +22,6 @@ class App extends Application.AppBase {
         }
     }
 
-    //! Return the initial glance view of your application here
     (:glance)
     function getGlanceView() {
         var viewModel = new StopGlanceViewModel();
