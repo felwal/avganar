@@ -9,7 +9,7 @@ class StopDetailViewModel {
     static private const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
     static private const _REQUEST_TIME_DELAY = 500;
 
-    static const DEPARTURES_PER_PAGE = 4; // TODO: dynamic
+    static const DEPARTURES_PER_PAGE = 4;
 
     var stop;
     var pageCount = 1;

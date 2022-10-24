@@ -47,7 +47,7 @@ class StopListViewModel {
         // set locating message after `registerLastKnownPosition` to avoid
         // setting the response more times than necessary
         if (!NearbyStopsStorage.hasStops() && !_isPositioned()) {
-            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
+            NearbyStopsStorage.setResponse([], [], new ResponseMessage(rez(Rez.Strings.lbl_i_stops_no_gps)));
         }
     }
 
@@ -80,7 +80,7 @@ class StopListViewModel {
     function requestNearbyStops() {
         if (!NearbyStopsStorage.hasStops() && !(NearbyStopsStorage.response instanceof ResponseError)) {
             // set searching
-            NearbyStopsStorage.setResponse([], [], new StatusMessage(rez(Rez.Strings.lbl_i_stops_requesting)));
+            NearbyStopsStorage.setResponse([], [], null);
         }
 
         if (DEBUG) {
