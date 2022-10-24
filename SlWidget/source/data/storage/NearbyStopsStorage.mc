@@ -1,4 +1,5 @@
 using Toybox.Application.Storage;
+using Toybox.Lang;
 
 module NearbyStopsStorage {
 
@@ -33,7 +34,7 @@ module NearbyStopsStorage {
     function setResponse(stopIds, stopNames, response_) {
         // only vibrate when data is changed
         if (!ArrUtil.equals(_nearbyStopIds, stopIds)
-            || ((response_ instanceof ResponseError || response_ instanceof ResponseMessage) && !response_.equals(response))) {
+            || ((response_ instanceof ResponseError || response_ instanceof Lang.String) && !response_.equals(response))) {
 
             vibrate();
         }
