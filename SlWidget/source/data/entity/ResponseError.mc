@@ -44,7 +44,7 @@ class ResponseError {
         else if (_code == _SL_RETREIVAL_FAILED_1 || _code == _SL_RETREIVAL_FAILED_2
             || _code == _SL_RETREIVAL_FAILED_3 || _code == _SL_RETREIVAL_FAILED_4) {
 
-            _title = rez(Rez.Strings.lbl_e_retrieval) + " " + _code;
+            _title = rez(Rez.Strings.lbl_e_retrieval);
         }
 
         // Garmin

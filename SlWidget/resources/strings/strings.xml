@@ -30,7 +30,7 @@
     <!-- response error -->
     <string id="lbl_e_invalid">Invalid response</string>
     <string id="lbl_e_null_data">No data</string>
-    <string id="lbl_e_retrieval">Retrieval failed</string>
+    <string id="lbl_e_retrieval">Server error</string>
     <string id="lbl_e_response">Response error</string>
 
     <!-- view -->

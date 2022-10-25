@@ -157,7 +157,7 @@ class StopListViewModel {
         var stop = getSelectedStop();
 
         // double check that we have a stop response
-        if (stop instanceof Lang.Array) {
+        if (stop instanceof Stop) {
             FavoriteStopsStorage.addFavorite(stop);
             // navigate to newly added
             stopCursor = getFavoriteCount() - 1;
