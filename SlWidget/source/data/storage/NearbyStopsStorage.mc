@@ -52,7 +52,7 @@ module NearbyStopsStorage {
         _nearbyStopIds = StorageUtil.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
 
-        response = _nearbyStopIds.size() == 0 ? null : new StopsResponse(_buildStops(_nearbyStopIds, _nearbyStopNames));
+        response = _nearbyStopIds.size() == 0 ? null : _buildStops(_nearbyStopIds, _nearbyStopNames);
     }
 
     function _buildStops(ids, names) {
@@ -71,21 +71,21 @@ module NearbyStopsStorage {
     }
 
     function getStopCount() {
-        return response instanceof StopsResponse ? response.getStopCount() : 0 ;
+        return response instanceof Lang.Array ? response.size() : 0 ;
     }
 
     function getStop(index) {
-        return response instanceof StopsResponse ? response.getStop(index) : null;
+        return response instanceof Lang.Array ? ArrUtil.coerceGet(response, index) : null;
     }
 
     function getStopById(id) {
         var index = _nearbyStopIds.indexOf(id);
 
-        return response instanceof StopsResponse ? ArrUtil.get(response.getStops(), index, null) : null;
+        return response instanceof Lang.Array ? ArrUtil.get(response, index, null) : null;
     }
 
     function getStops() {
-        return response instanceof StopsResponse ? response.getStops() : null;
+        return response instanceof Lang.Array ? response : null;
     }
 
 }

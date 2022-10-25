@@ -107,7 +107,7 @@ class StopListViewModel {
     private function _getStops() {
         var response = NearbyStopsStorage.response;
         var favs = FavoriteStopsStorage.favorites;
-        var stops = response instanceof StopsResponse ? ArrUtil.merge(favs, response.getStops()) : favs;
+        var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
 
         // coerce cursor
         stopCursor = Chem.min(stopCursor, getItemCount() - 1);
@@ -130,7 +130,7 @@ class StopListViewModel {
     function getItemCount() {
         var response = NearbyStopsStorage.response;
 
-        return getFavoriteCount() + (response instanceof StopsResponse ? response.getStopCount() : 1);
+        return getFavoriteCount() + (response instanceof Lang.Array ? response.size() : 1);
     }
 
     function getFavoriteCount() {
@@ -148,7 +148,7 @@ class StopListViewModel {
     }
 
     function isShowingMessage() {
-        return !(NearbyStopsStorage.response instanceof StopsResponse) && stopCursor == getItemCount() - 1;
+        return !(NearbyStopsStorage.response instanceof Lang.Array) && stopCursor == getItemCount() - 1;
     }
 
     // storage - write
@@ -157,7 +157,7 @@ class StopListViewModel {
         var stop = getSelectedStop();
 
         // double check that we have a stop response
-        if (stop instanceof StopsResponse) {
+        if (stop instanceof Lang.Array) {
             FavoriteStopsStorage.addFavorite(stop);
             // navigate to newly added
             stopCursor = getFavoriteCount() - 1;

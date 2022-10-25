@@ -128,7 +128,7 @@ module SlNearbyStopsService {
             stops.add(FavoriteStopsStorage.createStop(id, name, distance, NearbyStopsStorage.getStopById(id)));
         }
 
-        NearbyStopsStorage.setResponse(stopIds, stopNames, new StopsResponse(stops));
+        NearbyStopsStorage.setResponse(stopIds, stopNames, stops);
     }
 
 }
