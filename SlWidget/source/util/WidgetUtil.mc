@@ -44,15 +44,6 @@ module WidgetUtil {
         }
     }
 
-    // bitmap
-
-    function drawBitmap(dc, x, y, rezId) {
-        var drawable = new WatchUi.Bitmap({ :rezId => rezId });
-
-        drawable.setLocation(x - drawable.width / 2, y - drawable.height / 2);
-        drawable.draw(dc);
-    }
-
     // banner/header/footer
 
     function drawExclamationBanner(dc) {
@@ -116,7 +107,7 @@ module WidgetUtil {
     function drawStartIndicatorWithBitmap(dc, rezId) {
         var pos = Chem.polarPos(Graphite.getRadius(dc) - 23, Chem.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
 
-        drawBitmap(dc, pos[0], pos[1], rezId);
+        RezUtil.drawBitmap(dc, pos[0], pos[1], rezId);
         drawStartIndicator(dc);
     }
 
