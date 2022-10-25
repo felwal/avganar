@@ -112,7 +112,7 @@ class SlDeparturesService {
         departures.removeAll(null);
 
         if (departures.size() != 0) {
-            _stop.setResponse(new DeparturesResponse(departures));
+            _stop.setResponse(departures);
         }
         else {
             Log.d("Departures response empty of departures");

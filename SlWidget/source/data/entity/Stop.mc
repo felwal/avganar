@@ -9,6 +9,7 @@ class Stop {
 
     private var _departuresTimeWindow;
     private var _response;
+    private var _timeStamp;
 
     // init
 
@@ -24,10 +25,12 @@ class Stop {
 
     function setSearching() {
         _response = null;
+        _timeStamp = null;
     }
 
     function setResponse(response) {
         _response = response;
+        _timeStamp = C14.now();
 
         // for each too large response, halve the time window
         if (_response instanceof ResponseError && _response.isTooLarge()) {
@@ -59,24 +62,51 @@ class Stop {
             : SettingsStorage.getDefaultTimeWindow();
     }
 
-    function getDataAgeMillis() {
-        return hasDepartures() ? _response.getDataAgeMillis() : null;
+    function hasDepartures() {
+        return _response instanceof Lang.Array;
     }
 
-    function hasDepartures() {
-        return _response instanceof DeparturesResponse;
+    function getDataAgeMillis() {
+        return hasDepartures() ? C14.now().subtract(_timeStamp).value() * 1000 : null;
     }
 
     function getModeCount() {
-        return hasDepartures() ? _response.getModeCount() : 1;
+        return hasDepartures() ? _response.size() : 1;
     }
 
     function getDepartures(mode) {
-        return hasDepartures() ? _response.getDepartures(mode) : null;
+        _removeDepartedDepartures(mode);
+        return hasDepartures() ? ArrUtil.coerceGet(_response, mode) : null;
     }
 
     function getResponseError() {
         return hasDepartures() ? null : _response;
+    }
+
+    //
+
+    private function _removeDepartedDepartures(mode) {
+        var firstIndex = -1;
+
+        if (!_response[mode][0].hasDeparted()) {
+            return;
+        }
+
+        for (var i = 1; i < _response[mode].size(); i++) {
+            // once we get the first departure that has not departed,
+            // add it and everything after
+            if (!_response[mode][i].hasDeparted()) {
+                firstIndex = i;
+                break;
+            }
+        }
+
+        if (firstIndex != -1) {
+            _response[mode] = _response[mode].slice(firstIndex, null);
+        }
+        else {
+            _response[mode] = [];
+        }
     }
 
 }
