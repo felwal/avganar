@@ -18,7 +18,7 @@
 
     <!-- request error -->
     <string id="lbl_e_queue_full">Kön är full</string>
-    <string id="lbl_e_bluetooth">Ingen bluetooth</string>
+    <string id="lbl_e_bluetooth">Ingen Bluetooth</string>
     <string id="lbl_e_internet">Inget internet</string>
     <string id="lbl_e_memory">Slut på minne</string>
     <string id="lbl_e_size">Söker ...</string> <!-- don't let the user know we are requesting again -->
@@ -35,11 +35,11 @@
     <!-- view -->
 
     <!-- glance -->
-    <string id="lbl_glance_title" scope="glance">Närmaste hållplats</string>
-    <string id="lbl_glance_caption_no_stops" scope="glance">Inga hållplatser i närheten</string>
+    <string id="lbl_glance_title" scope="glance">Närmaste</string>
+    <string id="lbl_glance_caption_no_stops" scope="glance">Inga hållplatser</string>
 
     <!-- preview -->
-    <string id="lbl_preview_title_no_stops" scope="glance">Inga hållplatser i närheten</string>
+    <string id="lbl_preview_title_no_stops" scope="glance">Inga hållplatser</string>
 
     <!-- list -->
     <string id="lbl_list_nearby">Närliggande</string>
