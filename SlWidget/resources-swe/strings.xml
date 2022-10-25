@@ -41,6 +41,12 @@
     <!-- preview -->
     <string id="lbl_preview_title_no_stops" scope="glance">Inga hållplatser i närheten</string>
 
+    <!-- list -->
+    <string id="lbl_list_nearby">Närliggande</string>
+    <string id="lbl_list_nearby_none">Inga i närheten</string>
+    <string id="lbl_list_favorites">Favoriter</string>
+    <string id="lbl_list_favorites_none">Inga favoriter</string>
+
     <!-- settings -->
     <string id="lbl_settings_title">Inställningar</string>
     <string id="lbl_settings_favorite_add">Ställ in som favorit</string>
