@@ -31,7 +31,7 @@ class SlDeparturesService {
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
-            "key" => KEY_RI,
+            "key" => API_KEY_DEPARTURES,
             "siteid" => _stop.id,
             "timewindow" => _stop.getTimeWindow()
         };
