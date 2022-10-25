@@ -17,6 +17,7 @@
     <string id="lbl_i_departures_none">No departures</string>
 
     <!-- request error -->
+    <string id="lbl_e_unknown">Unknown error</string>
     <string id="lbl_e_queue_full">Queue full</string>
     <string id="lbl_e_bluetooth">No Bluetooth</string>
     <string id="lbl_e_internet">No internet</string>

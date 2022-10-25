@@ -48,6 +48,9 @@ class ResponseError {
         }
 
         // Garmin
+        else if (_code == Communications.UNKNOWN_ERROR) {
+            _title = rez(Rez.Strings.lbl_e_unknown);
+        }
         else if (_code == Communications.BLE_CONNECTION_UNAVAILABLE) {
             _title = rez(Rez.Strings.lbl_e_bluetooth);
         }

@@ -17,6 +17,7 @@
     <string id="lbl_i_departures_none">Inga avgångar</string>
 
     <!-- request error -->
+    <string id="lbl_e_unknown">Okänt fel</string>
     <string id="lbl_e_queue_full">Kön är full</string>
     <string id="lbl_e_bluetooth">Ingen Bluetooth</string>
     <string id="lbl_e_internet">Inget internet</string>
