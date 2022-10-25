@@ -84,7 +84,7 @@ class Departure {
             }
         }
         else if (_mode.equals(_MODE_BUS)) {
-            if (_group.equals(_GROUP_BUS_RED)){
+            if (_group.equals(_GROUP_BUS_RED)) {
                 return AppColors.DEPARTURE_BUS_RED;
             }
             else if (_group.equals(_GROUP_BUS_BLUE)) {

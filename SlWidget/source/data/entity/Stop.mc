@@ -46,14 +46,6 @@ class Stop {
 
     // get
 
-    function repr() {
-        return "Stop(" + id + ", " + name + ")";
-    }
-
-    function equals(object) {
-        return id == object.id;
-    }
-
     function getTimeWindow() {
         // we don't want to initialize `_departuresTimeWindow` with `SettingsStorage.getDefaultTimeWindow()`,
         // because then it wont sync when the setting is edited.

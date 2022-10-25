@@ -151,7 +151,7 @@ class StopDetailView extends WatchUi.View {
             dc.fillCircle(xCircle, yCircle, rCircle);
 
             // draw text
-            Graphite.setColor(dc, departure.hasDeviations ? AppColors.DEVIATION : AppColors.TEXT_PRIMARY);
+            Graphite.setColor(dc, departure.hasDeviations ? AppColors.DEPARTURE_DEVIATION : AppColors.TEXT_PRIMARY);
             dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
         }
     }
