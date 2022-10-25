@@ -1,20 +1,26 @@
 using Toybox.Application;
+using Toybox.System;
 
 (:glance)
 const DEBUG = false;
 
 class App extends Application.AppBase {
 
+    static var hasGlance;
+
     // init
 
     function initialize() {
         AppBase.initialize();
+
+        var ds = System.getDeviceSettings();
+        hasGlance = ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
     }
 
     // override AppBase
 
     function getInitialView() {
-        if (hasPreview()) {
+        if (!hasGlance || DEBUG) {
             return _getPreviewView();
         }
         else {
