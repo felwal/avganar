@@ -28,7 +28,7 @@ class StopPreviewView extends WatchUi.View {
         var stopNames = NearbyStopsStorage.getNearestStopsNames(3);
 
         // icon
-        WidgetUtil.drawBitmap(dc, Graphite.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
+        RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), 60, Rez.Drawables.ic_launcher);
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
