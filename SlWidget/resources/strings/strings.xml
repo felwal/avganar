@@ -50,7 +50,6 @@
     <string id="lbl_settings_max_stops">Max stops</string>
     <string id="lbl_settings_time_window">Default time window</string>
     <string id="lbl_settings_vibrate">Vibrate on response</string>
-    <string id="lbl_settings_api">APIs by Trafiklab</string>
     <string id="lbl_settings_about">About</string>
 
     <!-- info -->
