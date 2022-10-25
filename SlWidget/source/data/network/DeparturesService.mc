@@ -3,7 +3,7 @@ using Toybox.WatchUi;
 using Toybox.Time;
 using Carbon.C14;
 
-class SlDeparturesService {
+class DeparturesService {
 
     // Realtidsinformation 4
     // Bronze: 10_000/month, 30/min

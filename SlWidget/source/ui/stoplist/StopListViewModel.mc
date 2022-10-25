@@ -78,10 +78,10 @@ class StopListViewModel {
         }
 
         if (DEBUG) {
-            SlNearbyStopsService.requestNearbyStops(debugLat, debugLon);
+            NearbyStopsService.requestNearbyStops(debugLat, debugLon);
         }
         else {
-            SlNearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+            NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
         }
 
         // update last position

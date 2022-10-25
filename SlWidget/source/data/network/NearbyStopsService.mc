@@ -2,7 +2,7 @@ using Toybox.Communications;
 using Toybox.WatchUi;
 using Toybox.Lang;
 
-module SlNearbyStopsService {
+module NearbyStopsService {
 
     // Närliggande Hållplatser 2
     // Bronze: 10_000/month, 30/min
@@ -52,7 +52,7 @@ module SlNearbyStopsService {
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
 
-        Communications.makeWebRequest(url, params, options, new Lang.Method(SlNearbyStopsService, :onReceiveNearbyStops));
+        Communications.makeWebRequest(url, params, options, new Lang.Method(NearbyStopsService, :onReceiveNearbyStops));
     }
 
     // receive
