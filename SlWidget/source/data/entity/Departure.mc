@@ -58,7 +58,7 @@ class Departure {
         // negate it here, however, because the departure is removed in
         // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
 
-        return minutes == 0 ? "Nu" : (minutes + " min");
+        return minutes == 0 ? "Nu" : (minutes + "'");
     }
 
     function hasDeparted() {
