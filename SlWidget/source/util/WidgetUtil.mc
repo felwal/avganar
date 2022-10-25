@@ -47,29 +47,20 @@ module WidgetUtil {
     // banner/header/footer
 
     function drawExclamationBanner(dc) {
-        dc.setPenWidth(2);
-        _drawHeader(dc, 30, Graphene.COLOR_RED, Graphene.COLOR_BLACK);
-        Graphite.resetPenWidth(dc);
-
-        // text
-        dc.setColor(Graphene.COLOR_WHITE, Graphene.COLOR_RED);
-        dc.drawText(Graphite.getCenterX(dc), -1, Graphene.FONT_SMALL, "!", Graphics.TEXT_JUSTIFY_CENTER);
+        //dc.setPenWidth(2);
+        _drawHeader(dc, 30, Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
+        //Graphite.resetPenWidth(dc);
     }
 
     function drawHeaderSmall(dc, color, strokeColor) {
-        _drawHeader(dc, 42, color, strokeColor);
+        _drawHeader(dc, 42, color, strokeColor, null, null);
     }
 
     function drawHeaderLarge(dc, color, strokeColor, text, textColor) {
-        var height = 84;
-
-        _drawHeader(dc, height, color, strokeColor);
-
-        dc.setColor(textColor, color);
-        dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        _drawHeader(dc, 84, color, strokeColor, text, textColor);
     }
 
-    function _drawHeader(dc, height, color, strokeColor) {
+    function _drawHeader(dc, height, color, strokeColor, text, textColor) {
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
@@ -77,28 +68,33 @@ module WidgetUtil {
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, height, dc.getWidth(), height);
         }
+
+        if (text != null && !text.equals("")) {
+            dc.setColor(textColor, color);
+            dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        }
     }
 
     function drawFooterSmall(dc, color, strokeColor) {
-        _drawFooter(dc, 42, color, strokeColor);
+        _drawFooter(dc, 42, color, strokeColor, null, null);
     }
 
     function drawFooterLarge(dc, color, strokeColor, text, textColor) {
-        var height = 84;
-
-        _drawFooter(dc, height, color, strokeColor);
-
-        dc.setColor(textColor, color);
-        dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        _drawFooter(dc, 84, color, strokeColor, text, textColor);
     }
 
-    function _drawFooter(dc, height, color, strokeColor) {
+    function _drawFooter(dc, height, color, strokeColor, text, textColor) {
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
         if (strokeColor != null) {
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+        }
+
+        if (text != null && !text.equals("")) {
+            dc.setColor(textColor, color);
+            dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 
