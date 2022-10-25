@@ -40,7 +40,7 @@ module SlNearbyStopsService {
         var url = "https://api.sl.se/api2/nearbystopsv2";
 
         var params = {
-            "key" => KEY_NH,
+            "key" => API_KEY_STOPS,
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
