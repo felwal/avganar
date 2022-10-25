@@ -1,0 +1,58 @@
+<strings>
+
+    <!-- app -->
+
+    <string id="app_name" scope="glance">SL Widget</string>
+
+    <!-- message -->
+
+    <!-- status message -->
+    <string id="lbl_i_stops_no_gps">Letar ...</string>
+    <string id="lbl_i_stops_requesting">Söker ...</string>
+    <string id="lbl_i_departures_requesting" scope="glance">Söker ...</string>
+
+    <!-- response message -->
+    <string id="lbl_i_stops_none">Inga närliggande hållplatser</string>
+    <string id="lbl_i_stops_outside_bounds">Utanför banan</string>
+    <string id="lbl_i_departures_none">Inga avgångar</string>
+
+    <!-- request error -->
+    <string id="lbl_e_queue_full">Kön är full</string>
+    <string id="lbl_e_bluetooth">Ingen bluetooth</string>
+    <string id="lbl_e_internet">Inget internet</string>
+    <string id="lbl_e_memory">Slut på minne</string>
+    <string id="lbl_e_size">Söker ...</string> <!-- don't let the user know we are requesting again -->
+    <string id="lbl_e_cancelled">Begäran avbröts</string>
+    <string id="lbl_e_timeout">Begäran tog för lång tid</string>
+    <string id="lbl_e_request">Begäran misslyckades</string>
+
+    <!-- response error -->
+    <string id="lbl_e_invalid">Ogiltigt svar</string>
+    <string id="lbl_e_null_data">Ingen data</string>
+    <string id="lbl_e_retrieval">Hämtning misslyckades</string>
+    <string id="lbl_e_response">Svarsfel</string>
+
+    <!-- view -->
+
+    <!-- glance -->
+    <string id="lbl_glance_title" scope="glance">Närmaste hållplats</string>
+    <string id="lbl_glance_caption_no_stops" scope="glance">Inga hållplatser i närheten</string>
+
+    <!-- preview -->
+    <string id="lbl_preview_title_no_stops" scope="glance">Inga hållplatser i närheten</string>
+
+    <!-- settings -->
+    <string id="lbl_settings_title">Inställningar</string>
+    <string id="lbl_settings_favorite_add">Ställ in som favorit</string>
+    <string id="lbl_settings_favorite_remove">Ta bort från favoriter</string>
+    <string id="lbl_settings_favorite_move_up">Flytta upp</string>
+    <string id="lbl_settings_favorite_move_down">Flytta ned</string>
+    <string id="lbl_settings_max_stops">Högst antal hållplatser</string>
+    <string id="lbl_settings_time_window">Största tidsfönster</string>
+    <string id="lbl_settings_vibrate">Vibrera vid svar</string>
+    <string id="lbl_settings_about">Om</string>
+
+    <!-- info -->
+    <string id="lbl_info_about">Av Felix Wallin.\n\nAPI:er tillhandahålls av Trafiklab.</string>
+
+</strings>
