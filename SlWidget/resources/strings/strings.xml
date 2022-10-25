@@ -44,7 +44,6 @@
 
     <!-- list -->
     <string id="lbl_list_nearby">Nearby</string>
-    <string id="lbl_list_nearby_none">None nearby</string>
     <string id="lbl_list_favorites">Favorites</string>
     <string id="lbl_list_favorites_none">No favorites</string>
 

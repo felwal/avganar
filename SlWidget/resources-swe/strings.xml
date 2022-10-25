@@ -36,7 +36,7 @@
     <!-- view -->
 
     <!-- glance -->
-    <string id="lbl_glance_title" scope="glance">Närmaste</string>
+    <string id="lbl_glance_title" scope="glance">Närmast</string>
     <string id="lbl_glance_caption_no_stops" scope="glance">Inga hållplatser</string>
 
     <!-- preview -->
@@ -44,7 +44,6 @@
 
     <!-- list -->
     <string id="lbl_list_nearby">Närliggande</string>
-    <string id="lbl_list_nearby_none">Inga i närheten</string>
     <string id="lbl_list_favorites">Favoriter</string>
     <string id="lbl_list_favorites_none">Inga favoriter</string>
 
