@@ -9,7 +9,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_VIBRATE = :vibrateOnResponse;
     static const ITEM_MAX_STOPS = :maxNoStops;
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
-    static const ITEM_API = :apiInfo;
     static const ITEM_ABOUT = :aboutInfo;
     static const ITEM_RESET = :resetStorage;
 
@@ -79,12 +78,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             ITEM_TIME_WINDOW, {}
         ));
 
-        // api info
-        _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.lbl_settings_api), "",
-            ITEM_API, {}
-        ));
-
         // about
         _menu.addItem(new WatchUi.MenuItem(
             rez(Rez.Strings.lbl_settings_about), "",
@@ -139,9 +132,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         else if (id == ITEM_VIBRATE) {
             SettingsStorage.setVibrateOnResponse(item.isEnabled());
             return;
-        }
-        else if (id == ITEM_API) {
-            view = new InfoView(rez(Rez.Strings.lbl_info_api));
         }
         else if (id == ITEM_ABOUT) {
             view = new InfoView(rez(Rez.Strings.lbl_info_about));

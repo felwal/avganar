@@ -54,7 +54,6 @@
     <string id="lbl_settings_about">About</string>
 
     <!-- info -->
-    <string id="lbl_info_api">APIs are provided by Trafiklab, and information is retrieved from Trafiklab.se using: SL Nearby stops 2, SL Departures 4</string>
-    <string id="lbl_info_about">Made by Felix Wallin</string>
+    <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>
 
 </strings>
