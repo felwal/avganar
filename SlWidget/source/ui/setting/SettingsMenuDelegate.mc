@@ -108,19 +108,19 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         var view = null;
         var id = item.getId();
 
-        if (id == ITEM_FAVORITE_ADD){
+        if (id == ITEM_FAVORITE_ADD) {
             _viewModel.addFavorite();
         }
-        else if (id == ITEM_FAVORITE_REMOVE){
+        else if (id == ITEM_FAVORITE_REMOVE) {
             _viewModel.removeFavorite();
         }
-        else if (id == ITEM_FAVORITE_MOVE_UP){
+        else if (id == ITEM_FAVORITE_MOVE_UP) {
             _viewModel.moveFavorite(-1);
         }
-        else if (id == ITEM_FAVORITE_MOVE_DOWN){
+        else if (id == ITEM_FAVORITE_MOVE_DOWN) {
             _viewModel.moveFavorite(1);
         }
-        else if (id == ITEM_MAX_STOPS){
+        else if (id == ITEM_MAX_STOPS) {
             var title = rez(Rez.Strings.lbl_settings_max_stops);
             var labels = [ "5", "10", "15", "20" ];
             var values = [ 5, 10, 15, 20 ];
@@ -128,7 +128,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             new RadioMenuDelegate(title, labels, values, focus, method(:onMaxStopsSelect)).push();
             return;
         }
-        else if (id == ITEM_TIME_WINDOW){
+        else if (id == ITEM_TIME_WINDOW) {
             var title = rez(Rez.Strings.lbl_settings_time_window);
             var labels = [ "15 min", "30 min", "45 min", "60 min" ];
             var values = [ 15, 30, 45, 60 ];
@@ -136,17 +136,17 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             new RadioMenuDelegate(title, labels, values, focus, method(:onTimeWindowSelect)).push();
             return;
         }
-        else if (id == ITEM_VIBRATE){
+        else if (id == ITEM_VIBRATE) {
             SettingsStorage.setVibrateOnResponse(item.isEnabled());
             return;
         }
-        else if (id == ITEM_API){
+        else if (id == ITEM_API) {
             view = new InfoView(rez(Rez.Strings.lbl_info_api));
         }
-        else if (id == ITEM_ABOUT){
+        else if (id == ITEM_ABOUT) {
             view = new InfoView(rez(Rez.Strings.lbl_info_about));
         }
-        else if (id == ITEM_RESET){
+        else if (id == ITEM_RESET) {
             NearbyStopsStorage.setResponse([], [], null);
         }
 

@@ -287,10 +287,10 @@ module WidgetUtil {
 
             // top header
             if (cursor == 0) {
-                drawHeader(dc, 84, AppColors.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
+                drawHeader(dc, 84, Graphene.COLOR_BLACK, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
             }
             else if (cursor == 1) {
-                drawHeader(dc, 42, AppColors.BACKGROUND, paneStrokeColor, null, null);
+                drawHeader(dc, 42, Graphene.COLOR_BLACK, paneStrokeColor, null, null);
                 Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
                 drawUpArrow(dc, 42);
             }
@@ -301,12 +301,12 @@ module WidgetUtil {
 
             // bottom header
             if (cursor == paneSize - 2) {
-                drawFooter(dc, 42, AppColors.BACKGROUND, paneStrokeColor, null, null);
+                drawFooter(dc, 42, Graphene.COLOR_BLACK, paneStrokeColor, null, null);
                 Graphite.setColor(dc, cc[3]);
                 drawDownArrow(dc, dc.getHeight() - 42);
             }
             else if (cursor == paneSize - 1) {
-                drawFooter(dc, 84, AppColors.BACKGROUND, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
+                drawFooter(dc, 84, Graphene.COLOR_BLACK, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
                 Graphite.setColor(dc, cc[3]);
                 drawDownArrow(dc, dc.getHeight() - 84);
             }
@@ -351,7 +351,7 @@ module WidgetUtil {
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
 
-        var bgColor = cursor >= paneSize ? AppColors.BACKGROUND : cc[0];
+        var bgColor = cursor >= paneSize ? Graphene.COLOR_BLACK : cc[0];
         var selectedColor;
         var unselectedColor;
 

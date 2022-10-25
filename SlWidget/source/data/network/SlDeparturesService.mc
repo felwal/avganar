@@ -103,7 +103,7 @@ class SlDeparturesService {
                 modeDepartures.add(new Departure(mode, group, line, destination, direction, moment, hasDeviations));
             }
 
-            // add null because an ampty array is not matched with the equals() removeAll() performes.
+            // add null because an ampty array is not matched with the equals() that removeAll() performes.
             departures.add(modeDepartures.size() != 0 ? modeDepartures : null);
         }
 
