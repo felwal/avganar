@@ -41,8 +41,8 @@ class StopDetailView extends WatchUi.View {
         var stop = _viewModel.stop;
 
         // text
-        _drawHeader(dc, stop.name);
-        _drawFooter(dc, stop.distance);
+        drawHeader(dc, stop.name);
+        drawFooter(dc, stop.distance);
 
         // error
         if (!stop.hasDepartures()) {
@@ -82,14 +82,14 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    private function _drawHeader(dc, text) {
+    private function drawHeader(dc, text) {
         Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
         dc.drawText(Graphite.getCenterX(dc), 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    private function _drawFooter(dc, distance) {
+    private function drawFooter(dc, distance) {
         // background
-        WidgetUtil.drawFooterSmall(dc, AppColors.PRIMARY, null);
+        WidgetUtil.drawFooter(dc, 42, AppColors.PRIMARY, null, null, null);
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;

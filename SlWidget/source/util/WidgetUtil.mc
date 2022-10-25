@@ -44,23 +44,15 @@ module WidgetUtil {
         }
     }
 
-    // banner/header/footer
+    // header/footer
 
     function drawExclamationBanner(dc) {
-        //dc.setPenWidth(2);
-        _drawHeader(dc, 30, Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
-        //Graphite.resetPenWidth(dc);
+        dc.setPenWidth(2);
+        drawHeader(dc, 30, Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
+        Graphite.resetPenWidth(dc);
     }
 
-    function drawHeaderSmall(dc, color, strokeColor) {
-        _drawHeader(dc, 42, color, strokeColor, null, null);
-    }
-
-    function drawHeaderLarge(dc, color, strokeColor, text, textColor) {
-        _drawHeader(dc, 84, color, strokeColor, text, textColor);
-    }
-
-    function _drawHeader(dc, height, color, strokeColor, text, textColor) {
+    function drawHeader(dc, height, color, strokeColor, text, textColor) {
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
@@ -75,15 +67,7 @@ module WidgetUtil {
         }
     }
 
-    function drawFooterSmall(dc, color, strokeColor) {
-        _drawFooter(dc, 42, color, strokeColor, null, null);
-    }
-
-    function drawFooterLarge(dc, color, strokeColor, text, textColor) {
-        _drawFooter(dc, 84, color, strokeColor, text, textColor);
-    }
-
-    function _drawFooter(dc, height, color, strokeColor, text, textColor) {
+    function drawFooter(dc, height, color, strokeColor, text, textColor) {
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
@@ -303,10 +287,10 @@ module WidgetUtil {
 
             // top header
             if (cursor == 0) {
-                drawHeaderLarge(dc, AppColors.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
+                drawHeader(dc, 84, AppColors.BACKGROUND, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
             }
             else if (cursor == 1) {
-                drawHeaderSmall(dc, AppColors.BACKGROUND, paneStrokeColor);
+                drawHeader(dc, 42, AppColors.BACKGROUND, paneStrokeColor, null, null);
                 Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
                 drawUpArrow(dc, 42);
             }
@@ -317,12 +301,12 @@ module WidgetUtil {
 
             // bottom header
             if (cursor == paneSize - 2) {
-                drawFooterSmall(dc, AppColors.BACKGROUND, paneStrokeColor);
+                drawFooter(dc, 42, AppColors.BACKGROUND, paneStrokeColor, null, null);
                 Graphite.setColor(dc, cc[3]);
                 drawDownArrow(dc, dc.getHeight() - 42);
             }
             else if (cursor == paneSize - 1) {
-                drawFooterLarge(dc, AppColors.BACKGROUND, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
+                drawFooter(dc, 84, AppColors.BACKGROUND, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
                 Graphite.setColor(dc, cc[3]);
                 drawDownArrow(dc, dc.getHeight() - 84);
             }
@@ -336,14 +320,14 @@ module WidgetUtil {
         else {
             // top header
             if (cursor == paneSize) {
-                drawHeaderLarge(dc, cc[0], paneStrokeColor, paneHint, cc[3]);
+                drawHeader(dc, 84, cc[0], paneStrokeColor, paneHint, cc[3]);
                 Graphite.setColor(dc, cc[3]);
                 if (hasPane) {
                     drawUpArrow(dc, 84);
                 }
             }
             else if (cursor == paneSize + 1) {
-                drawHeaderSmall(dc, cc[0], paneStrokeColor);
+                drawHeader(dc, 42, cc[0], paneStrokeColor, null, null);
                 Graphite.setColor(dc, cc[3]);
                 drawUpArrow(dc, 42);
             }
