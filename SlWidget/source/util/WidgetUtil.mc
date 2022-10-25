@@ -63,7 +63,8 @@ module WidgetUtil {
 
         if (text != null && !text.equals("")) {
             dc.setColor(textColor, color);
-            dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text,
+                Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 
@@ -77,8 +78,13 @@ module WidgetUtil {
         }
 
         if (text != null && !text.equals("")) {
+            var font = Graphene.FONT_TINY;
+            // balance optically with 1/4 of font height
+            var y = dc.getHeight() - height / 2 - dc.getFontHeight(font) / 4;
+
             dc.setColor(textColor, color);
-            dc.drawText(dc.getWidth() / 2, dc.getHeight() - height / 2, Graphene.FONT_TINY, text, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(dc.getWidth() / 2, y, font, text,
+                Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 
