@@ -74,7 +74,7 @@ class StopDetailViewModel {
     //! Make requests to SlApi neccessary for detail display.
     //! Needs to be public to be able to be called by timer.
     function requestDepartures() {
-        new SlDeparturesService(stop).requestDepartures();
+        new DeparturesService(stop).requestDepartures();
     }
 
     // read

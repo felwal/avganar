@@ -20,4 +20,4 @@
 **/.settings
 
 # Secrets
-SlServiceSecrets.mc
+ServiceSecrets.mc
