@@ -41,6 +41,12 @@
     <!-- preview -->
     <string id="lbl_preview_title_no_stops" scope="glance">No stops nearby</string>
 
+    <!-- list -->
+    <string id="lbl_list_nearby">Nearby</string>
+    <string id="lbl_list_nearby_none">None nearby</string>
+    <string id="lbl_list_favorites">Favorites</string>
+    <string id="lbl_list_favorites_none">No favorites</string>
+
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
     <string id="lbl_settings_favorite_add">Set as Favorite</string>
