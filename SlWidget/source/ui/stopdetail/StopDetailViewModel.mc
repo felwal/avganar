@@ -58,18 +58,10 @@ class StopDetailViewModel {
     }
 
     private function _startRepeatTimer() {
-        var refreshTimer = new TimerRepr(method(:onRefreshTimer), 1);
-        var requestTimer = new TimerRepr(method(:onRequestTimer), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
+        var refreshTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
+        var requestTimer = new TimerRepr(method(:requestDepartures), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
 
         _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ refreshTimer, requestTimer ]);
-    }
-
-    function onRefreshTimer() {
-        WatchUi.requestUpdate();
-    }
-
-    function onRequestTimer() {
-        requestDepartures();
     }
 
     //! Needs to be public to be able to be called by timer.
