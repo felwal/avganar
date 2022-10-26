@@ -7,6 +7,7 @@ const DEBUG = false;
 class App extends Application.AppBase {
 
     static var hasGlance;
+    static var doNotDisturb;
 
     // init
 
@@ -15,6 +16,7 @@ class App extends Application.AppBase {
 
         var ds = System.getDeviceSettings();
         hasGlance = ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
+        doNotDisturb = ds has :doNotDisturb && ds.doNotDisturb;
     }
 
     // override AppBase
