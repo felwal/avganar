@@ -56,7 +56,7 @@ class Stop {
     }
 
     function getDataAgeMillis() {
-        return response instanceof Lang.Array
+        return response instanceof Lang.Array || response instanceof Lang.String
             ? C14.now().subtract(_timeStamp).value() * 1000
             : null;
     }
