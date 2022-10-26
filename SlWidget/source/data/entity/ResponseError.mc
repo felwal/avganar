@@ -78,7 +78,7 @@ class ResponseError {
         }
 
         else {
-            _title = (_code <= 0 ? rez(Rez.Strings.lbl_e_request) : rez(Rez.Strings.lbl_e_response)) + " " + _code;
+            _title = rez(Rez.Strings.lbl_e_default) + " " + _code;
         }
     }
 

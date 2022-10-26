@@ -24,13 +24,12 @@
     <string id="lbl_e_memory">Slut på minne</string>
     <string id="lbl_e_cancelled">Begäran avbröts</string>
     <string id="lbl_e_timeout">Begäran utgick</string>
-    <string id="lbl_e_request">Begäransfel</string>
+    <string id="lbl_e_default">Fel</string>
 
     <!-- response error -->
     <string id="lbl_e_invalid">Ogiltigt svar</string>
     <string id="lbl_e_null_data">Ingen data</string>
     <string id="lbl_e_retrieval">Serverfel</string>
-    <string id="lbl_e_response">Svarsfel</string>
 
     <!-- view -->
 
