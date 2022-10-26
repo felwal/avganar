@@ -22,10 +22,9 @@
     <string id="lbl_e_bluetooth">No Bluetooth</string>
     <string id="lbl_e_internet">No internet</string>
     <string id="lbl_e_memory">Out of memory</string>
-    <string id="lbl_e_size">Searching ...</string> <!-- don't let the user know we are requesting again -->
     <string id="lbl_e_cancelled">Request cancelled</string>
     <string id="lbl_e_timeout">Request timed out</string>
-    <string id="lbl_e_request">Request failed</string>
+    <string id="lbl_e_request">Request error</string>
 
     <!-- response error -->
     <string id="lbl_e_invalid">Invalid response</string>
@@ -40,7 +39,7 @@
     <string id="lbl_glance_caption_no_stops" scope="glance">No stops nearby</string>
 
     <!-- preview -->
-    <string id="lbl_preview_title_no_stops" scope="glance">No stops nearby</string>
+    <string id="lbl_preview_title_no_stops">No stops nearby</string>
 
     <!-- list -->
     <string id="lbl_list_nearby">Nearby</string>

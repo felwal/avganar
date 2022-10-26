@@ -70,7 +70,8 @@ class ResponseError {
             _title = rez(Rez.Strings.lbl_e_timeout);
         }
         else if (_code == Communications.NETWORK_RESPONSE_TOO_LARGE) {
-            _title = rez(Rez.Strings.lbl_e_size);
+            // don't let the user know we are requesting again
+            _title = rez(Rez.Strings.lbl_i_departures_requesting);
         }
         else if (_code == Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE) {
             _title = rez(Rez.Strings.lbl_e_invalid);
