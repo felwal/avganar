@@ -7,9 +7,9 @@ class DeparturesService {
     // Realtidsinformation 4
     // Bronze: 10_000/month, 30/min
 
-    static private const _RESPONSE_OK = 200;
+    static hidden const _RESPONSE_OK = 200;
 
-    private var _stop;
+    hidden var _stop;
 
     // init
 
@@ -26,7 +26,7 @@ class DeparturesService {
         }
     }
 
-    private function _requestDepartures() {
+    hidden function _requestDepartures() {
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
@@ -65,7 +65,7 @@ class DeparturesService {
         WatchUi.requestUpdate();
     }
 
-    private function _handleDeparturesResponseOk(data) {
+    hidden function _handleDeparturesResponseOk(data) {
         var statusCode = data["StatusCode"];
 
         // SL error

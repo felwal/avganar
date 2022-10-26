@@ -12,8 +12,8 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_ABOUT = :aboutInfo;
     static const ITEM_RESET = :resetStorage;
 
-    private var _viewModel;
-    private var _menu;
+    hidden var _viewModel;
+    hidden var _menu;
 
     // init
 
@@ -23,7 +23,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         _addItems();
     }
 
-    private function _addItems() {
+    hidden function _addItems() {
         _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
 
         // favorite settings

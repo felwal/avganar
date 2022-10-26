@@ -9,15 +9,15 @@ class Stop {
     var distance;
 
     var response;
-    private var _departuresTimeWindow;
-    private var _timeStamp;
+    hidden var _departuresTimeWindow;
+    hidden var _timeStamp;
 
     // init
 
     function initialize(id, name, distance) {
-        self.id = id;
-        self.name = name;
-        self.distance = distance;
+        me.id = id;
+        me.name = name;
+        me.distance = distance;
 
         setSearching();
     }
@@ -90,7 +90,7 @@ class Stop {
 
     //
 
-    private function _removeDepartedDepartures(mode) {
+    hidden function _removeDepartedDepartures(mode) {
         if (response[mode] == null || !response[mode][0].hasDeparted()) {
             return;
         }

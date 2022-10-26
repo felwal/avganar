@@ -4,28 +4,28 @@ using Carbon.C14;
 
 class Departure {
 
-    static private const _MODE_METRO = "METRO";
-    static private const _MODE_BUS = "BUS";
-    static private const _MODE_TRAIN = "TRAIN";
-    static private const _MODE_TRAM = "TRAM";
-    static private const _MODE_SHIP = "SHIP";
-    static private const _MODE_NONE = "NONE";
+    static hidden const _MODE_METRO = "METRO";
+    static hidden const _MODE_BUS = "BUS";
+    static hidden const _MODE_TRAIN = "TRAIN";
+    static hidden const _MODE_TRAM = "TRAM";
+    static hidden const _MODE_SHIP = "SHIP";
+    static hidden const _MODE_NONE = "NONE";
 
-    static private const _GROUP_METRO_RED = "tunnelbanans röda linje";
-    static private const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
-    static private const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
-    static private const _GROUP_BUS_RED = "";
-    static private const _GROUP_BUS_BLUE = "blåbuss";
-    static private const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
+    static hidden const _GROUP_METRO_RED = "tunnelbanans röda linje";
+    static hidden const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
+    static hidden const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
+    static hidden const _GROUP_BUS_RED = "";
+    static hidden const _GROUP_BUS_BLUE = "blåbuss";
+    static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
     var hasDeviations = false;
 
-    private var _mode;
-    private var _group;
-    private var _line;
-    private var _destination;
-    private var _direction;
-    private var _moment;
+    hidden var _mode;
+    hidden var _group;
+    hidden var _line;
+    hidden var _destination;
+    hidden var _direction;
+    hidden var _moment;
 
     // init
 
@@ -36,7 +36,7 @@ class Departure {
         _destination = destination;
         _direction = direction;
         _moment = moment;
-        self.hasDeviations = hasDeviations;
+        me.hasDeviations = hasDeviations;
     }
 
     // get
@@ -45,7 +45,7 @@ class Departure {
         return _displayTime() + " " + _line + " " + _destination;
     }
 
-    private function _displayTime() {
+    hidden function _displayTime() {
         if (_moment == null) {
             return "-";
         }

@@ -6,9 +6,9 @@ using Carbon.Chem;
 
 class StopDetailViewModel {
 
-    static private const _REFRESH_TIME_INTERVAL = 15 * 1000;
-    static private const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
-    static private const _REQUEST_TIME_DELAY = 500;
+    static hidden const _REFRESH_TIME_INTERVAL = 15 * 1000;
+    static hidden const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
+    static hidden const _REQUEST_TIME_DELAY = 500;
 
     static const DEPARTURES_PER_PAGE = 4;
 
@@ -17,13 +17,13 @@ class StopDetailViewModel {
     var pageCursor = 0;
     var modeCursor = 0;
 
-    private var _delayTimer = new Timer.Timer();
-    private var _repeatTimer = new TimerWrapper();
+    hidden var _delayTimer = new Timer.Timer();
+    hidden var _repeatTimer = new TimerWrapper();
 
     // init
 
     function initialize(stop) {
-        self.stop = stop;
+        me.stop = stop;
     }
 
     // request
@@ -37,7 +37,7 @@ class StopDetailViewModel {
         _repeatTimer.stop();
     }
 
-    private function _requestDeparturesDelayed() {
+    hidden function _requestDeparturesDelayed() {
         var age = stop.getDataAgeMillis();
 
         // never request more frequently than _REQUEST_TIME_INTERVAL.
@@ -57,7 +57,7 @@ class StopDetailViewModel {
         _startRepeatTimer();
     }
 
-    private function _startRepeatTimer() {
+    hidden function _startRepeatTimer() {
         var refreshTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
         var requestTimer = new TimerRepr(method(:requestDepartures), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
 
@@ -127,7 +127,7 @@ class StopDetailViewModel {
         }
     }
 
-    private function _incModeCursor() {
+    hidden function _incModeCursor() {
         modeCursor = Chem.mod(modeCursor + 1, stop.getModeCount());
         pageCursor = 0;
         WatchUi.requestUpdate();

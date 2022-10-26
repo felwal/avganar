@@ -8,14 +8,14 @@ using Carbon.Footprint;
 
 class StopListViewModel {
 
-    static private const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
-    static private const _REQUEST_TIME_DELAY = 500;
-    static private const _STORAGE_LAST_POS = "last_pos";
+    static hidden const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
+    static hidden const _REQUEST_TIME_DELAY = 500;
+    static hidden const _STORAGE_LAST_POS = "last_pos";
 
     var stopCursor = 0;
 
-    private var _positionTimer = new Timer.Timer();
-    private var _lastPos;
+    hidden var _positionTimer = new Timer.Timer();
+    hidden var _lastPos;
 
     // init
 
@@ -45,7 +45,7 @@ class StopListViewModel {
         Footprint.registerLastKnownPosition();
     }
 
-    private function _disablePositionHandling() {
+    hidden function _disablePositionHandling() {
         Footprint.enableLocationEvents(Position.LOCATION_DISABLE);
         Footprint.onRegisterPosition = null;
     }
@@ -104,7 +104,7 @@ class StopListViewModel {
         return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
     }
 
-    private function _getStops() {
+    hidden function _getStops() {
         var response = NearbyStopsStorage.response;
         var favs = FavoriteStopsStorage.favorites;
         var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
@@ -191,7 +191,7 @@ class StopListViewModel {
         _rotStopCursor(-1);
     }
 
-    private function _rotStopCursor(step) {
+    hidden function _rotStopCursor(step) {
         if (hasStops()) {
             stopCursor = Chem.mod(stopCursor + step, getItemCount());
             WatchUi.requestUpdate();

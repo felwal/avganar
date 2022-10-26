@@ -2,7 +2,7 @@ using Toybox.WatchUi;
 
 class StopListDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _viewModel;
+    hidden var _viewModel;
 
     // init
 
@@ -52,7 +52,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //
 
-    private function _pushStopDetail() {
+    hidden function _pushStopDetail() {
         var viewModel = new StopDetailViewModel(_viewModel.getSelectedStop());
         var view = new StopDetailView(viewModel);
         var delegate = new StopDetailDelegate(viewModel);

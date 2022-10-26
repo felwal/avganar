@@ -8,7 +8,7 @@ using Carbon.Graphite;
 
 class StopDetailView extends WatchUi.View {
 
-    private var _viewModel;
+    hidden var _viewModel;
 
     // init
 
@@ -38,7 +38,7 @@ class StopDetailView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dc) {
+    hidden function _draw(dc) {
         var stop = _viewModel.stop;
         var response = _viewModel.getPageResponse();
 
@@ -80,12 +80,12 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    private function _drawHeader(dc, text) {
+    hidden function _drawHeader(dc, text) {
         Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
         dc.drawText(Graphite.getCenterX(dc), 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    private function _drawFooter(dc, distance) {
+    hidden function _drawFooter(dc, distance) {
         // background
         WidgetUtil.drawFooter(dc, 42, AppColors.PRIMARY, null, null, null);
 
@@ -100,7 +100,7 @@ class StopDetailView extends WatchUi.View {
         _drawClockTime(dc, Graphite.getCenterX(dc) + 24, yBottom);
     }
 
-    private function _drawDistance(dc, distance, x, yBottom) {
+    hidden function _drawDistance(dc, distance, x, yBottom) {
         if (distance == null) {
             return;
         }
@@ -115,7 +115,7 @@ class StopDetailView extends WatchUi.View {
         dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
-    private function _drawClockTime(dc, x, yBottom) {
+    hidden function _drawClockTime(dc, x, yBottom) {
         var font = Graphene.FONT_XTINY;
         var y = yBottom - dc.getFontHeight(font);
 
@@ -126,7 +126,7 @@ class StopDetailView extends WatchUi.View {
         dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
-    private function _drawDepartures(dc, pageDepartures) {
+    hidden function _drawDepartures(dc, pageDepartures) {
         var font = Graphene.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.35;

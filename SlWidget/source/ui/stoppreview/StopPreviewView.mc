@@ -24,7 +24,7 @@ class StopPreviewView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dc) {
+    hidden function _draw(dc) {
         var stopNames = NearbyStopsStorage.getNearestStopsNames(3);
 
         // icon
@@ -39,7 +39,7 @@ class StopPreviewView extends WatchUi.View {
         }
     }
 
-    private function _drawStops(dc, stopNames) {
+    hidden function _drawStops(dc, stopNames) {
         var font = Graphene.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.6;
