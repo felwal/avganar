@@ -58,7 +58,9 @@ class Departure {
         // negate it here, however, because the departure is removed in
         // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
 
-        return minutes == 0 ? "Nu" : (minutes + "'");
+        return minutes == 0
+            ? rez(Rez.Strings.lbl_detail_now)
+            : (minutes + rez(Rez.Strings.lbl_detail_minutes));
     }
 
     function hasDeparted() {
