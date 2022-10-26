@@ -1,6 +1,5 @@
 using Toybox.Communications;
 using Toybox.WatchUi;
-using Toybox.Time;
 using Carbon.C14;
 
 class DeparturesService {

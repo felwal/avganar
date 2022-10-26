@@ -1,10 +1,10 @@
-using Toybox.WatchUi;
 using Toybox.Graphics;
 using Toybox.Lang;
 using Toybox.Time;
+using Toybox.WatchUi;
+using Carbon.Chem;
 using Carbon.Graphene;
 using Carbon.Graphite;
-using Carbon.Chem;
 
 class StopDetailView extends WatchUi.View {
 

@@ -1,8 +1,7 @@
 using Toybox.WatchUi;
-using Toybox.Graphics;
+using Carbon.Footprint;
 using Carbon.Graphene;
 using Carbon.Graphite;
-using Carbon.Footprint;
 
 class StopListView extends WatchUi.View {
 

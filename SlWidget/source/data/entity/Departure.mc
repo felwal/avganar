@@ -1,5 +1,5 @@
-using Toybox.Time;
 using Toybox.Math;
+using Toybox.Time;
 using Carbon.C14;
 
 class Departure {
