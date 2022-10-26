@@ -46,6 +46,10 @@
     <string id="lbl_list_favorites">Favorites</string>
     <string id="lbl_list_favorites_none">No Favorites</string>
 
+    <!-- detail -->
+    <string id="lbl_detail_now">Now</string>
+    <string id="lbl_detail_minutes">'</string>
+
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
     <string id="lbl_settings_favorite_add">Set as Favorite</string>
