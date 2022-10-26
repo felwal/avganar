@@ -1,7 +1,7 @@
 using Toybox.Lang;
+using Toybox.Math;
 using Toybox.Timer;
 using Toybox.WatchUi;
-using Toybox.Math;
 using Carbon.Chem;
 
 class StopDetailViewModel {

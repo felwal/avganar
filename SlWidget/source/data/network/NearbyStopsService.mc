@@ -1,6 +1,6 @@
 using Toybox.Communications;
-using Toybox.WatchUi;
 using Toybox.Lang;
+using Toybox.WatchUi;
 
 module NearbyStopsService {
 

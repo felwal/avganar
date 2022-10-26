@@ -1,5 +1,5 @@
-using Toybox.WatchUi;
 using Toybox.Graphics;
+using Toybox.WatchUi;
 using Carbon.Graphene;
 
 (:glance)

@@ -1,10 +1,10 @@
-using Toybox.Timer;
-using Toybox.WatchUi;
 using Toybox.Application.Storage;
 using Toybox.Lang;
 using Toybox.Position;
-using Carbon.Footprint;
+using Toybox.Timer;
+using Toybox.WatchUi;
 using Carbon.Chem;
+using Carbon.Footprint;
 
 class StopListViewModel {
 
