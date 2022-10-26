@@ -13,9 +13,7 @@
         version="0.0.0">
 
         <iq:products>
-            <iq:product id="fr245" />
             <iq:product id="fr745" />
-            <iq:product id="vivoactive4" />
         </iq:products>
 
         <iq:permissions>

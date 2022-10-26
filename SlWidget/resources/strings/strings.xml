@@ -24,13 +24,12 @@
     <string id="lbl_e_memory">Out of Memory</string>
     <string id="lbl_e_cancelled">Request Cancelled</string>
     <string id="lbl_e_timeout">Request Timed Out</string>
-    <string id="lbl_e_request">Request Error</string>
+    <string id="lbl_e_default">Error</string>
 
     <!-- response error -->
     <string id="lbl_e_invalid">Invalid Response</string>
     <string id="lbl_e_null_data">No Data</string>
     <string id="lbl_e_retrieval">Server Error</string>
-    <string id="lbl_e_response">Response Error</string>
 
     <!-- view -->
 
