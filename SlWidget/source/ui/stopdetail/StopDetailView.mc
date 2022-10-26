@@ -1,5 +1,6 @@
 using Toybox.WatchUi;
 using Toybox.Graphics;
+using Toybox.Lang;
 using Toybox.Time;
 using Carbon.Graphene;
 using Carbon.Graphite;
@@ -39,39 +40,15 @@ class StopDetailView extends WatchUi.View {
 
     private function _draw(dc) {
         var stop = _viewModel.stop;
+        var response = _viewModel.getPageResponse();
 
         // text
         drawHeader(dc, stop.name);
         drawFooter(dc, stop.distance);
 
-        // error
-        if (!stop.hasDepartures()) {
-            var error = stop.getResponseError();
-
-            // info
-            WidgetUtil.drawDialog(dc,
-                error == null ? rez(Rez.Strings.lbl_i_departures_requesting) : error.getTitle(),
-                "");
-
-            if (error instanceof ResponseError) {
-                // banner
-                if (!error.hasConnection()) {
-                    WidgetUtil.drawExclamationBanner(dc);
-                }
-
-                // start indicator
-                if (error.isRerequestable()) {
-                    WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
-                }
-            }
-        }
-
         // departures
-        else {
-            var departures = _viewModel.getModeDepartures();
-            var pageDepartures = _viewModel.getPageDepartures(departures);
-
-            _drawDepartures(dc, pageDepartures);
+        if (response instanceof Lang.Array) {
+            _drawDepartures(dc, response);
 
             // page indicator
             WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
@@ -79,6 +56,27 @@ class StopDetailView extends WatchUi.View {
             WidgetUtil.drawVerticalPageNumber(dc, _viewModel.pageCount, _viewModel.pageCursor);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
+        }
+
+        // error/message
+        else {
+            // info
+            WidgetUtil.drawDialog(dc, response == null
+                ? rez(Rez.Strings.lbl_i_departures_requesting)
+                : (response instanceof ResponseError ? response.getTitle() : response),
+                "");
+
+            if (response instanceof ResponseError) {
+                // banner
+                if (!response.hasConnection()) {
+                    WidgetUtil.drawExclamationBanner(dc);
+                }
+
+                // start indicator
+                if (response.isRerequestable()) {
+                    WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
+                }
+            }
         }
     }
 

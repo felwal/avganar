@@ -1,3 +1,4 @@
+using Toybox.Lang;
 using Toybox.Timer;
 using Toybox.WatchUi;
 using Toybox.Math;
@@ -78,33 +79,28 @@ class StopDetailViewModel {
 
     // read
 
-    function getModeDepartures() {
-        var departures = stop.getDepartures(modeCursor);
-        pageCount = _getPageCount(departures);
+    function getPageResponse() {
+        var responseAndMode = stop.getModeResponse(modeCursor);
+        var modeResponse = responseAndMode[0];
+        modeCursor = responseAndMode[1]; // the cursor might have been coerced
+        responseAndMode = null;
+
+        if (!(modeResponse instanceof Lang.Array)) {
+            pageCount = 1;
+            return modeResponse;
+        }
+
+        pageCount = Math.ceil(modeResponse.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
 
         // coerce cursor
         pageCursor = Chem.min(pageCursor, pageCount - 1);
 
-        return departures;
-    }
-
-    function getPageDepartures(modeDepartures) {
-        // take `modeDepartures` as parameter to avoid calling `Stop#_trimDepartures`
-        // unnecessarily often
-
+        // get page range
         var startIndex = pageCursor * DEPARTURES_PER_PAGE;
         var endIndex = startIndex + DEPARTURES_PER_PAGE;
 
-        return modeDepartures.slice(startIndex, endIndex);
-    }
-
-    private function _getPageCount(modeDepartures) {
-        // take `modeDepartures` as parameter to avoid calling `Stop#_trimDepartures`
-        // unnecessarily often
-
-        return stop.hasDepartures()
-            ? Math.ceil(modeDepartures.size().toFloat() / DEPARTURES_PER_PAGE).toNumber()
-            : 1;
+        // slice to page range
+        return modeResponse.slice(startIndex, endIndex);
     }
 
     // write
@@ -124,9 +120,9 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
-        if (stop.getResponseError() instanceof ResponseError) {
+        if (stop.response instanceof ResponseError) {
             // rerequest
-            if (stop.getResponseError().isRerequestable()) {
+            if (stop.response.isRerequestable()) {
                 requestDepartures();
                 stop.setSearching();
                 WatchUi.requestUpdate();
