@@ -1,4 +1,5 @@
 using Toybox.Lang;
+using Carbon.Chem;
 using Carbon.C14;
 
 class Stop {
@@ -7,8 +8,8 @@ class Stop {
     var name;
     var distance;
 
+    var response;
     private var _departuresTimeWindow;
-    private var _response;
     private var _timeStamp;
 
     // init
@@ -24,16 +25,16 @@ class Stop {
     // set
 
     function setSearching() {
-        _response = null;
+        response = null;
         _timeStamp = null;
     }
 
-    function setResponse(response) {
-        _response = response;
+    function setResponse(response_) {
+        response = response_;
         _timeStamp = C14.now();
 
-        // for each too large response, halve the time window
-        if (_response instanceof ResponseError && _response.isTooLarge()) {
+        // for each too large response_, halve the time window
+        if (response instanceof ResponseError && response.isTooLarge()) {
             _departuresTimeWindow = _departuresTimeWindow == null
                 ? SettingsStorage.getDefaultTimeWindow() / 2
                 : _departuresTimeWindow / 2;
@@ -54,50 +55,63 @@ class Stop {
             : SettingsStorage.getDefaultTimeWindow();
     }
 
-    function hasDepartures() {
-        return _response instanceof Lang.Array;
-    }
-
     function getDataAgeMillis() {
-        return hasDepartures() ? C14.now().subtract(_timeStamp).value() * 1000 : null;
+        return response instanceof Lang.Array
+            ? C14.now().subtract(_timeStamp).value() * 1000
+            : null;
     }
 
     function getModeCount() {
-        return hasDepartures() ? _response.size() : 1;
+        if (response instanceof Lang.Array) {
+            return response.size();
+        }
+
+        return 1;
     }
 
-    function getDepartures(mode) {
-        _removeDepartedDepartures(mode);
-        return hasDepartures() ? ArrUtil.coerceGet(_response, mode) : null;
-    }
+    function getModeResponse(mode) {
+        if (response instanceof Lang.Array) {
+            if (response.size() > 0) {
+                do {
+                    mode = Chem.coerceIn(mode, 0, response.size() - 1);
+                    _removeDepartedDepartures(mode);
+                }
+                while (response.removeAll(null) && response.size() > 0);
+            }
 
-    function getResponseError() {
-        return hasDepartures() ? null : _response;
+            return [ response.size() > 0
+                ? response[mode]
+                : rez(Rez.Strings.lbl_i_departures_none),
+                mode ];
+        }
+
+        return [ response, 0 ];
     }
 
     //
 
     private function _removeDepartedDepartures(mode) {
-        var firstIndex = -1;
-
-        if (!_response[mode][0].hasDeparted()) {
+        if (response[mode] == null || !response[mode][0].hasDeparted()) {
             return;
         }
 
-        for (var i = 1; i < _response[mode].size(); i++) {
+        var firstIndex = -1;
+
+        for (var i = 1; i < response[mode].size(); i++) {
             // once we get the first departure that has not departed,
             // add it and everything after
-            if (!_response[mode][i].hasDeparted()) {
+            if (!response[mode][i].hasDeparted()) {
                 firstIndex = i;
                 break;
             }
         }
 
         if (firstIndex != -1) {
-            _response[mode] = _response[mode].slice(firstIndex, null);
+            response[mode] = response[mode].slice(firstIndex, null);
         }
         else {
-            _response[mode] = [];
+            // add null because an ampty array is not matched with the equals() that removeAll() performes.
+            response[mode] = null;
         }
     }
 
