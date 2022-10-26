@@ -12,49 +12,49 @@
     <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
 
     <!-- response message -->
-    <string id="lbl_i_stops_none">No nearby stops</string>
-    <string id="lbl_i_stops_outside_bounds">Out of bounds</string>
-    <string id="lbl_i_departures_none">No departures</string>
+    <string id="lbl_i_stops_none">No Nearby Stops</string>
+    <string id="lbl_i_stops_outside_bounds">Out of Bounds</string>
+    <string id="lbl_i_departures_none">No Departures</string>
 
     <!-- request error -->
-    <string id="lbl_e_unknown">Unknown error</string>
-    <string id="lbl_e_queue_full">Queue full</string>
+    <string id="lbl_e_unknown">Unknown Error</string>
+    <string id="lbl_e_queue_full">Queue Full</string>
     <string id="lbl_e_bluetooth">No Bluetooth</string>
-    <string id="lbl_e_internet">No internet</string>
-    <string id="lbl_e_memory">Out of memory</string>
-    <string id="lbl_e_cancelled">Request cancelled</string>
-    <string id="lbl_e_timeout">Request timed out</string>
-    <string id="lbl_e_request">Request error</string>
+    <string id="lbl_e_internet">No Internet</string>
+    <string id="lbl_e_memory">Out of Memory</string>
+    <string id="lbl_e_cancelled">Request Cancelled</string>
+    <string id="lbl_e_timeout">Request Timed Out</string>
+    <string id="lbl_e_request">Request Error</string>
 
     <!-- response error -->
-    <string id="lbl_e_invalid">Invalid response</string>
-    <string id="lbl_e_null_data">No data</string>
-    <string id="lbl_e_retrieval">Server error</string>
-    <string id="lbl_e_response">Response error</string>
+    <string id="lbl_e_invalid">Invalid Response</string>
+    <string id="lbl_e_null_data">No Data</string>
+    <string id="lbl_e_retrieval">Server Error</string>
+    <string id="lbl_e_response">Response Error</string>
 
     <!-- view -->
 
     <!-- glance -->
-    <string id="lbl_glance_title" scope="glance">Nearest stop</string>
-    <string id="lbl_glance_caption_no_stops" scope="glance">No stops nearby</string>
+    <string id="lbl_glance_title" scope="glance">Nearest Stop</string>
+    <string id="lbl_glance_caption_no_stops" scope="glance">No Stops Nearby</string>
 
     <!-- preview -->
-    <string id="lbl_preview_title_no_stops">No stops nearby</string>
+    <string id="lbl_preview_title_no_stops">No Stops Nearby</string>
 
     <!-- list -->
     <string id="lbl_list_nearby">Nearby</string>
     <string id="lbl_list_favorites">Favorites</string>
-    <string id="lbl_list_favorites_none">No favorites</string>
+    <string id="lbl_list_favorites_none">No Favorites</string>
 
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
     <string id="lbl_settings_favorite_add">Set as Favorite</string>
     <string id="lbl_settings_favorite_remove">Remove from Favorites</string>
-    <string id="lbl_settings_favorite_move_up">Move up</string>
-    <string id="lbl_settings_favorite_move_down">Move down</string>
-    <string id="lbl_settings_max_stops">Max stops</string>
-    <string id="lbl_settings_time_window">Default time window</string>
-    <string id="lbl_settings_vibrate">Vibrate on response</string>
+    <string id="lbl_settings_favorite_move_up">Move Up</string>
+    <string id="lbl_settings_favorite_move_down">Move Down</string>
+    <string id="lbl_settings_max_stops">Max Stops</string>
+    <string id="lbl_settings_time_window">Default Time Window</string>
+    <string id="lbl_settings_vibrate">Vibrate on Response</string>
     <string id="lbl_settings_about">About</string>
 
     <!-- info -->
