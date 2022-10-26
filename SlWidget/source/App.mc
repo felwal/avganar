@@ -8,6 +8,7 @@ class App extends Application.AppBase {
 
     static var hasGlance;
     static var doNotDisturb;
+    static var vibrateOn;
 
     // init
 
@@ -17,6 +18,7 @@ class App extends Application.AppBase {
         var ds = System.getDeviceSettings();
         hasGlance = ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
         doNotDisturb = ds has :doNotDisturb && ds.doNotDisturb;
+        vibrateOn = ds has :vibrateOn && ds.vibrateOn;
     }
 
     // override AppBase
