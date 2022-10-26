@@ -35,7 +35,7 @@ class StopListView extends WatchUi.View {
 
     // draw
 
-    private function _draw(dc) {
+    hidden function _draw(dc) {
         var response = NearbyStopsStorage.response;
 
         // stops
@@ -48,7 +48,7 @@ class StopListView extends WatchUi.View {
         }
     }
 
-    private function _drawStops(dc) {
+    hidden function _drawStops(dc) {
         var stopNames = _viewModel.getStopNames();
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
@@ -59,7 +59,7 @@ class StopListView extends WatchUi.View {
         WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, cc);
     }
 
-    private function _drawGpsStatus(dc) {
+    hidden function _drawGpsStatus(dc) {
         var x = Graphite.getCenterX(dc) + 45;
         var y = 60;
         var r = 5;

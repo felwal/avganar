@@ -24,7 +24,7 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     // draw
 
-    private function _draw(dc) {
+    hidden function _draw(dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
         var nearestStopName = NearbyStopsStorage.getNearestStopName();

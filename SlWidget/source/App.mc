@@ -37,7 +37,7 @@ class App extends Application.AppBase {
 
     //
 
-    private function _getPreviewView() {
+    hidden function _getPreviewView() {
         return [ new StopPreviewView(), new StopPreviewDelegate() ];
     }
 

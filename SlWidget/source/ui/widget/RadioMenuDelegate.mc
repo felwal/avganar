@@ -2,8 +2,8 @@ using Toybox.WatchUi;
 
 class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
 
-    private var _menu;
-    private var _callback;
+    hidden var _menu;
+    hidden var _callback;
 
     // init
 
@@ -14,7 +14,7 @@ class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
         _addItems(title, labels, values, focus);
     }
 
-    private function _addItems(title, labels, values, focus) {
+    hidden function _addItems(title, labels, values, focus) {
         _menu = new WatchUi.Menu2({ :title => title });
 
         for (var i = 0; i < labels.size() && i < values.size(); i++) {

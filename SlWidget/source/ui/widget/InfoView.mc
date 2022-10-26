@@ -5,7 +5,7 @@ using Carbon.Graphene;
 
 class InfoView extends WatchUi.View {
 
-    private var _text;
+    hidden var _text;
 
     // init
 

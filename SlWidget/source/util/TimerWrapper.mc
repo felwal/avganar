@@ -2,9 +2,9 @@ using Toybox.Timer;
 
 class TimerWrapper {
 
-    private var _timer;
-    private var _baseTime;
-    private var _reprs;
+    hidden var _timer;
+    hidden var _baseTime;
+    hidden var _reprs;
 
     function initialize() {
         _timer = new Timer.Timer();
@@ -31,9 +31,9 @@ class TimerWrapper {
 
 class TimerRepr {
 
-    private var _callback;
-    private var _multiple;
-    private var _currentMultiple = 0;
+    hidden var _callback;
+    hidden var _multiple;
+    hidden var _currentMultiple = 0;
 
     function initialize(callback, multipleOfBaseTime) {
         _callback = callback;
