@@ -18,7 +18,7 @@ class StopGlanceView extends WatchUi.GlanceView {
         GlanceView.onUpdate(dc);
 
         // draw
-        dc.setAntiAlias(true);
+        enableAntiAlias(dc);
         _draw(dc);
     }
 
