@@ -28,7 +28,7 @@ class StopDetailView extends WatchUi.View {
         View.onUpdate(dc);
 
         // draw
-        dc.setAntiAlias(true);
+        enableAntiAlias(dc);
         _draw(dc);
     }
 
