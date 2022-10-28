@@ -14,7 +14,6 @@ class StopPreviewView extends WatchUi.View {
     // override View
 
     function onUpdate(dc) {
-        // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
 
         // draw

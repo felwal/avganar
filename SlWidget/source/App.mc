@@ -4,6 +4,7 @@ using Toybox.System;
 (:glance)
 const DEBUG = false;
 
+(:glance)
 class App extends Application.AppBase {
 
     static var hasGlance;
@@ -25,7 +26,7 @@ class App extends Application.AppBase {
 
     function getInitialView() {
         if (!hasGlance || DEBUG) {
-            return _getPreviewView();
+            return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
         else {
             return getMainView();
@@ -38,10 +39,6 @@ class App extends Application.AppBase {
     }
 
     //
-
-    hidden function _getPreviewView() {
-        return [ new StopPreviewView(), new StopPreviewDelegate() ];
-    }
 
     function getMainView() {
         FavoriteStopsStorage.load();
