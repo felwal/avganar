@@ -192,8 +192,11 @@ module WidgetUtil {
         var arrowNumberOffset = 8;
         var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
 
+        // make sure the text is fully within the footer.
+        // important for devices where XTINY is not really tiny.
+        y = Chem.max(y, dc.getHeight() - 42);
+
         dc.drawText(Graphite.getCenterX(dc), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
-        //dc.drawText(10, Graphite.getCenterY(dc) - fh / 2, font, (index + 1).toString(), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // page arrow

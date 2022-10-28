@@ -13,17 +13,17 @@
         version="0.0.0">
 
         <iq:products>
-            <iq:product id="d2delta" /> <!-- different XTINY height -->
-            <iq:product id="d2deltapx" /> <!-- different XTINY height -->
-            <iq:product id="d2deltas" /> <!-- different XTINY height -->
+            <iq:product id="d2delta" /> <!-- tested -->
+            <iq:product id="d2deltapx" /> <!-- tested -->
+            <iq:product id="d2deltas" /> <!-- tested -->
 
             <iq:product id="descentmk2" /> <!-- crashes -->
             <iq:product id="descentmk2s" /> <!-- crashes -->
 
-            <iq:product id="fenix5plus" /> <!-- different XTINY height -->
-            <iq:product id="fenix5splus" /> <!-- different XTINY height -->
-            <iq:product id="fenix5x" /> <!-- different XTINY height -->
-            <iq:product id="fenix5xplus" /> <!-- different XTINY height -->
+            <iq:product id="fenix5plus" /> <!-- tested -->
+            <iq:product id="fenix5splus" /> <!-- tested -->
+            <iq:product id="fenix5x" /> <!-- tested -->
+            <iq:product id="fenix5xplus" /> <!-- tested -->
             <iq:product id="fenix6pro" /> <!-- tested -->
             <iq:product id="fenix6spro" /> <!-- tested -->
             <iq:product id="fenix6xpro" /> <!-- tested -->
