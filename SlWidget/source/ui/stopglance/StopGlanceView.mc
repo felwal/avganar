@@ -14,7 +14,6 @@ class StopGlanceView extends WatchUi.GlanceView {
     // override GlanceView
 
     function onUpdate(dc) {
-        // Call the parent onUpdate function to redraw the layout
         GlanceView.onUpdate(dc);
 
         // draw

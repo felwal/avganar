@@ -17,8 +17,8 @@
             <iq:product id="d2deltapx" />
             <iq:product id="d2deltas" />
 
-            <iq:product id="descentmk2" /> <!-- crashes -->
-            <iq:product id="descentmk2s" /> <!-- crashes -->
+            <!--<iq:product id="descentmk2" />--> <!-- crashes -->
+            <!--<iq:product id="descentmk2s" />--> <!-- crashes -->
 
             <iq:product id="fenix5plus" />
             <iq:product id="fenix5splus" />
