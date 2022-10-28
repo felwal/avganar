@@ -6,7 +6,6 @@ class Stop {
 
     var id;
     var name;
-    var distance;
 
     var response;
     hidden var _departuresTimeWindow;
@@ -14,10 +13,9 @@ class Stop {
 
     // init
 
-    function initialize(id, name, distance) {
+    function initialize(id, name) {
         me.id = id;
         me.name = name;
-        me.distance = distance;
 
         setSearching();
     }

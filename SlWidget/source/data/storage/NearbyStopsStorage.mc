@@ -59,7 +59,7 @@ module NearbyStopsStorage {
         var stops = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var stop = FavoriteStopsStorage.createStop(ids[i], names[i], null, null);
+            var stop = FavoriteStopsStorage.createStop(ids[i], names[i], null);
             stops.add(stop);
         }
 

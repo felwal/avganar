@@ -178,27 +178,6 @@ module WidgetUtil {
         Graphite.resetPenWidth(dc);
     }
 
-    function drawVerticalPageNumber(dc, pageCount, index) {
-        if (pageCount <= 1) {
-            return;
-        }
-
-        var font = Graphene.FONT_XTINY;
-        var fh = dc.getFontHeight(font);
-        var text = (index + 1).toString() + "/" + pageCount.toString();
-
-        var arrowEdgeOffset = 4;
-        var arrowHeight = 8;
-        var arrowNumberOffset = 8;
-        var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - fh - arrowNumberOffset;
-
-        // make sure the text is fully within the footer.
-        // important for devices where XTINY is not really tiny.
-        y = Chem.max(y, dc.getHeight() - 42);
-
-        dc.drawText(Graphite.getCenterX(dc), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
     // page arrow
 
     function drawVerticalPageArrows(dc, pageCount, index, topColor, bottomColor) {
