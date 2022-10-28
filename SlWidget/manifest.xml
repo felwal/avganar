@@ -13,34 +13,34 @@
         version="0.0.0">
 
         <iq:products>
-            <iq:product id="d2delta" /> <!-- tested -->
-            <iq:product id="d2deltapx" /> <!-- tested -->
-            <iq:product id="d2deltas" /> <!-- tested -->
+            <iq:product id="d2delta" />
+            <iq:product id="d2deltapx" />
+            <iq:product id="d2deltas" />
 
             <iq:product id="descentmk2" /> <!-- crashes -->
             <iq:product id="descentmk2s" /> <!-- crashes -->
 
-            <iq:product id="fenix5plus" /> <!-- tested -->
-            <iq:product id="fenix5splus" /> <!-- tested -->
-            <iq:product id="fenix5x" /> <!-- tested -->
-            <iq:product id="fenix5xplus" /> <!-- tested -->
-            <iq:product id="fenix6pro" /> <!-- tested -->
-            <iq:product id="fenix6spro" /> <!-- tested -->
-            <iq:product id="fenix6xpro" /> <!-- tested -->
+            <iq:product id="fenix5plus" />
+            <iq:product id="fenix5splus" />
+            <iq:product id="fenix5x" />
+            <iq:product id="fenix5xplus" />
+            <iq:product id="fenix6pro" />
+            <iq:product id="fenix6spro" />
+            <iq:product id="fenix6xpro" />
 
-            <iq:product id="fr245m" /> <!-- tested -->
-            <iq:product id="fr745" /> <!-- tested -->
-            <iq:product id="fr945" /> <!-- tested -->
+            <iq:product id="fr245m" />
+            <iq:product id="fr745" />
+            <iq:product id="fr945" />
             <iq:product id="fr945lte" /> <!-- glance badly aligned -->
 
-            <iq:product id="marqadventurer" /> <!-- tested -->
-            <iq:product id="marqathlete" /> <!-- tested -->
-            <iq:product id="marqaviator" /> <!-- tested -->
-            <iq:product id="marqcaptain" /> <!-- tested -->
-            <iq:product id="marqcommander" /> <!-- tested -->
-            <iq:product id="marqdriver" /> <!-- tested -->
-            <iq:product id="marqexpedition" /> <!-- tested -->
-            <iq:product id="marqgolfer" /> <!-- tested -->
+            <iq:product id="marqadventurer" />
+            <iq:product id="marqathlete" />
+            <iq:product id="marqaviator" />
+            <iq:product id="marqcaptain" />
+            <iq:product id="marqcommander" />
+            <iq:product id="marqdriver" />
+            <iq:product id="marqexpedition" />
+            <iq:product id="marqgolfer" />
         </iq:products>
 
         <iq:permissions>
