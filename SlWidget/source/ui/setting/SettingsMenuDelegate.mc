@@ -123,8 +123,8 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         else if (id == ITEM_TIME_WINDOW) {
             var title = rez(Rez.Strings.lbl_settings_time_window);
-            var labels = [ "1 min", "15 min", "30 min", "45 min", "60 min" ];
-            var values = [ 1, 15, 30, 45, 60 ];
+            var labels = [ "1 min", "5 min", "15 min", "30 min", "45 min", "60 min" ];
+            var values = [ 1, 5, 15, 30, 45, 60 ];
             var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
             new RadioMenuDelegate(title, labels, values, focus, method(:onTimeWindowSelect)).push();
             return;
