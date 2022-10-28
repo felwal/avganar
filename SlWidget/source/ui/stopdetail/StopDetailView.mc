@@ -81,8 +81,14 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawHeader(dc, text) {
+        // 19 is font height for XTINY on fr745.
+        // set y to half and justify to vcenter for the title to
+        // look alright even on devices with different font size for XTINY.
+        var y = 23 + 19 / 2;
+
         Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-        dc.drawText(Graphite.getCenterX(dc), 23, Graphene.FONT_XTINY, text.toUpper(), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(Graphite.getCenterX(dc), y, Graphene.FONT_XTINY, text.toUpper(),
+            Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     hidden function _drawFooter(dc, distance) {
@@ -108,6 +114,10 @@ class StopDetailView extends WatchUi.View {
         var font = Graphene.FONT_XTINY;
         var y = yBottom - dc.getFontHeight(font);
 
+        // make sure the text is fully within the footer.
+        // important for devices where XTINY is not really tiny.
+        y = Chem.max(y, dc.getHeight() - 42);
+
         // TODO: round to km with 1 decimal
         var text = distance + "m";
 
@@ -118,6 +128,10 @@ class StopDetailView extends WatchUi.View {
     hidden function _drawClockTime(dc, x, yBottom) {
         var font = Graphene.FONT_XTINY;
         var y = yBottom - dc.getFontHeight(font);
+
+        // make sure the text is fully within the footer.
+        // important for devices where XTINY is not really tiny.
+        y = Chem.max(y, dc.getHeight() - 42);
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
