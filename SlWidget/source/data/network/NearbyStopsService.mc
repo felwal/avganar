@@ -121,11 +121,10 @@ module NearbyStopsService {
             }
 
             var name = stopData["name"];
-            var distance = stopData["dist"].toNumber();
 
             stopIds.add(id);
             stopNames.add(name);
-            stops.add(FavoriteStopsStorage.createStop(id, name, distance, NearbyStopsStorage.getStopById(id)));
+            stops.add(FavoriteStopsStorage.createStop(id, name, NearbyStopsStorage.getStopById(id)));
         }
 
         NearbyStopsStorage.setResponse(stopIds, stopNames, stops);

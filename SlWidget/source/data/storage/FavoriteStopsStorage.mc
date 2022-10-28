@@ -66,7 +66,7 @@ module FavoriteStopsStorage {
         favorites = _buildStops(_favStopIds, _favStopNames);
     }
 
-    function createStop(id, name, distance, existingNearbyStop) {
+    function createStop(id, name, existingNearbyStop) {
         var fav = getFavorite(id);
         var stop;
 
@@ -78,11 +78,10 @@ module FavoriteStopsStorage {
             stop = existingNearbyStop;
         }
         else {
-            return new Stop(id, name, distance);
+            return new Stop(id, name);
         }
 
         stop.name = name;
-        stop.distance = distance;
 
         return stop;
     }
@@ -91,7 +90,7 @@ module FavoriteStopsStorage {
         var stops = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var stop = new Stop(ids[i], names[i], null);
+            var stop = new Stop(ids[i], names[i]);
             stops.add(stop);
         }
 

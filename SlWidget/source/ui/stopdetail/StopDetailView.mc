@@ -44,7 +44,7 @@ class StopDetailView extends WatchUi.View {
 
         // text
         _drawHeader(dc, stop.name);
-        _drawFooter(dc, stop.distance);
+        _drawFooter(dc);
 
         // departures
         if (response instanceof Lang.Array) {
@@ -53,7 +53,6 @@ class StopDetailView extends WatchUi.View {
             // page indicator
             WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            WidgetUtil.drawVerticalPageNumber(dc, _viewModel.pageCount, _viewModel.pageCursor);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
         }
@@ -91,43 +90,19 @@ class StopDetailView extends WatchUi.View {
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    hidden function _drawFooter(dc, distance) {
+    hidden function _drawFooter(dc) {
         // background
         WidgetUtil.drawFooter(dc, 42, AppColors.PRIMARY, null, null, null);
+
+        // draw clock time
 
         // calc pos to align with page number
         var arrowEdgeOffset = 4;
         var arrowHeight = 8;
         var arrowNumberOffset = 8;
-        var x = Graphite.getCenterX(dc) - 24;
-        var yBottom = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset;
-
-        _drawDistance(dc, distance, Graphite.getCenterX(dc) - 24, yBottom);
-        _drawClockTime(dc, Graphite.getCenterX(dc) + 24, yBottom);
-    }
-
-    hidden function _drawDistance(dc, distance, x, yBottom) {
-        if (distance == null) {
-            return;
-        }
 
         var font = Graphene.FONT_XTINY;
-        var y = yBottom - dc.getFontHeight(font);
-
-        // make sure the text is fully within the footer.
-        // important for devices where XTINY is not really tiny.
-        y = Chem.max(y, dc.getHeight() - 42);
-
-        // TODO: round to km with 1 decimal
-        var text = distance + "m";
-
-        dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_RIGHT);
-    }
-
-    hidden function _drawClockTime(dc, x, yBottom) {
-        var font = Graphene.FONT_XTINY;
-        var y = yBottom - dc.getFontHeight(font);
+        var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
         // important for devices where XTINY is not really tiny.
@@ -137,7 +112,7 @@ class StopDetailView extends WatchUi.View {
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
         dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dc.drawText(x, y, font, text, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(Graphite.getCenterX(dc), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {
