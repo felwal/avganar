@@ -1,4 +1,4 @@
-# SL Widget
+# Avganar
 
 A Garmin Connect IQ widget displaying SL departures, using Trafiklab's APIs.
 
@@ -9,7 +9,7 @@ A Garmin Connect IQ widget displaying SL departures, using Trafiklab's APIs.
 ## Features
 
 - View nearby stops
-- Save favorite stops to view anywhere
+- Save favorite stops and view anywhere
 - View departures
   - Color coded and sectioned by mode
   - See if a departure has any deviations
