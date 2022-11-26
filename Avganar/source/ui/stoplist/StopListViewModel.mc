@@ -8,13 +8,10 @@ using Carbon.Footprint;
 
 class StopListViewModel {
 
-    static hidden const _REQUEST_TIME_INTERVAL = 1 * 60 * 1000;
-    static hidden const _REQUEST_TIME_DELAY = 500;
     static hidden const _STORAGE_LAST_POS = "last_pos";
 
     var stopCursor = 0;
 
-    hidden var _positionTimer = new Timer.Timer();
     hidden var _lastPos;
 
     // init
@@ -27,18 +24,16 @@ class StopListViewModel {
     // timer
 
     function enableRequests() {
-        requestPosition();
-        _positionTimer.start(method(:requestPosition), _REQUEST_TIME_INTERVAL, true);
+        _requestPosition();
     }
 
     function disableRequests() {
         _disablePositionHandling();
-        _positionTimer.stop();
     }
 
     // position
 
-    function requestPosition() {
+    hidden function _requestPosition() {
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
@@ -52,7 +47,7 @@ class StopListViewModel {
 
     function onPosition() {
         if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStops()) {
-            requestNearbyStops();
+            _requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
             var movedDistance = Footprint.distanceTo(_lastPos[0], _lastPos[1]);
@@ -60,18 +55,18 @@ class StopListViewModel {
 
             // only request stops if the user has moved 100 m since last request
             if (movedDistance > 100) {
-                requestNearbyStops();
+                _requestNearbyStops();
             }
         }
     }
 
-    function _isPositioned() {
+    hidden function _isPositioned() {
         return Footprint.isPositioned() || DEBUG;
     }
 
     // service
 
-    function requestNearbyStops() {
+    hidden function _requestNearbyStops() {
         if (!NearbyStopsStorage.hasStops() && !(NearbyStopsStorage.response instanceof ResponseError)) {
             // set searching
             NearbyStopsStorage.setResponse([], [], null);
