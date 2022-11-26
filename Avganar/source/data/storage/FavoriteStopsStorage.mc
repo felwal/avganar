@@ -81,7 +81,8 @@ module FavoriteStopsStorage {
             return new Stop(id, name);
         }
 
-        stop.name = name;
+        // set stop name to the most recent
+        //stop.name = name;
 
         return stop;
     }
