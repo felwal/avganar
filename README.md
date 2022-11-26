@@ -1,6 +1,6 @@
 # Avgånär: Stockholm departures
 
-A Garmin Connect IQ widget displaying SL departures, using Trafiklab's APIs.
+A Garmin Connect IQ widget displaying SL nearby stops and departures, using Trafiklab's APIs.
 
 ## Preview
 
