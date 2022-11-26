@@ -36,6 +36,7 @@ class Departure {
         _destination = destination;
         _direction = direction;
         _moment = moment;
+
         me.hasDeviations = hasDeviations;
     }
 
@@ -64,7 +65,11 @@ class Departure {
     }
 
     function hasDeparted() {
-        // we will keep displayig "now" until 30 seconds after departure
+        if (_moment == null) {
+            return false;
+        }
+
+        // we will keep displaying "now" until 30 seconds after departure
         var margin = new Time.Duration(30);
         return C14.now().greaterThan(_moment.add(margin));
     }
