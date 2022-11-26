@@ -1,4 +1,4 @@
-# Avganar
+# Avgånär: Stockholm departures
 
 A Garmin Connect IQ widget displaying SL departures, using Trafiklab's APIs.
 
