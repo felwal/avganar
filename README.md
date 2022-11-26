@@ -14,3 +14,7 @@ A Garmin Connect IQ widget displaying SL nearby stops and departures, using Traf
   - Color coded and sectioned by mode
   - See if a departure has any deviations
 - Settings for tuning max stops and departures time window
+
+## Dependencies
+
+- [Carbon Barrel](https://github.com/felwal/carbon-barrel)
