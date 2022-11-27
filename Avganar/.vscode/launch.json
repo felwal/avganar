@@ -6,6 +6,13 @@
             "request": "launch",
             "name": "Run App",
             "stopAtLaunch": false,
+            "device": "fr745"
+        },
+        {
+            "type": "monkeyc",
+            "request": "launch",
+            "name": "Test App",
+            "stopAtLaunch": false,
             "device": "${command:GetTargetDevice}"
         },
         {
