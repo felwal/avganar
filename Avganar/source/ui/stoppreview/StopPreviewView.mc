@@ -1,6 +1,5 @@
 using Toybox.Graphics;
 using Toybox.WatchUi;
-using Carbon.Graphene;
 using Carbon.Graphite;
 
 class StopPreviewView extends WatchUi.View {
@@ -39,7 +38,7 @@ class StopPreviewView extends WatchUi.View {
     }
 
     hidden function _drawStops(dc, stopNames) {
-        var font = Graphene.FONT_TINY;
+        var font = Graphics.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
