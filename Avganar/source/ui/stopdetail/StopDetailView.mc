@@ -3,7 +3,6 @@ using Toybox.Lang;
 using Toybox.Time;
 using Toybox.WatchUi;
 using Carbon.Chem;
-using Carbon.Graphene;
 using Carbon.Graphite;
 
 class StopDetailView extends WatchUi.View {
@@ -85,7 +84,7 @@ class StopDetailView extends WatchUi.View {
         var y = 23 + 19 / 2;
 
         Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-        dc.drawText(Graphite.getCenterX(dc), y, Graphene.FONT_XTINY, text.toUpper(),
+        dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, text.toUpper(),
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
@@ -100,7 +99,7 @@ class StopDetailView extends WatchUi.View {
         var arrowHeight = 8;
         var arrowNumberOffset = 8;
 
-        var font = Graphene.FONT_XTINY;
+        var font = Graphics.FONT_XTINY;
         var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
@@ -115,7 +114,7 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {
-        var font = Graphene.FONT_TINY;
+        var font = Graphics.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.35;
         var lineHeightPx = fontHeight * lineHeight;

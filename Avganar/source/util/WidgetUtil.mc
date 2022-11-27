@@ -18,8 +18,8 @@ module WidgetUtil {
     function drawDialog(dc, title, msg) {
         Graphite.resetColor(dc);
 
-        var titleFont = Graphene.FONT_SMALL;
-        var msgFont = Graphene.FONT_XTINY;
+        var titleFont = Graphics.FONT_SMALL;
+        var msgFont = Graphics.FONT_XTINY;
 
         if (msg == null || msg.equals("")) {
             Graphite.resetColor(dc);
@@ -63,7 +63,7 @@ module WidgetUtil {
 
         if (text != null && !text.equals("")) {
             dc.setColor(textColor, color);
-            dc.drawText(dc.getWidth() / 2, height / 2, Graphene.FONT_TINY, text,
+            dc.drawText(dc.getWidth() / 2, height / 2, Graphics.FONT_TINY, text,
                 Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
@@ -78,7 +78,7 @@ module WidgetUtil {
         }
 
         if (text != null && !text.equals("")) {
-            var font = Graphene.FONT_TINY;
+            var font = Graphics.FONT_TINY;
             // balance optically with 1/4 of font height
             var y = dc.getHeight() - height / 2 - dc.getFontHeight(font) / 4;
 
@@ -333,13 +333,13 @@ module WidgetUtil {
 
         // draw items
 
-        var fontsSelected = [ Graphene.FONT_LARGE, Graphene.FONT_MEDIUM, Graphene.FONT_SMALL ];
-        var font = Graphene.FONT_TINY;
+        var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL ];
+        var font = Graphics.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.6;
         var lineHeightPx = fontHeight * lineHeight;
 
-        var bgColor = cursor >= paneSize ? Graphene.COLOR_BLACK : cc[0];
+        var bgColor = cursor >= paneSize ? Graphics.COLOR_BLACK : cc[0];
         var selectedColor;
         var unselectedColor;
 

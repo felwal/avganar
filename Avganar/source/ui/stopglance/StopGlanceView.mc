@@ -1,6 +1,5 @@
 using Toybox.Graphics;
 using Toybox.WatchUi;
-using Carbon.Graphene;
 
 (:glance)
 class StopGlanceView extends WatchUi.GlanceView {
@@ -31,7 +30,7 @@ class StopGlanceView extends WatchUi.GlanceView {
         var caption = nearestStopName == null ? rez(Rez.Strings.lbl_glance_caption_no_stops) : nearestStopName;
 
         // title
-        dc.drawText(0, 8, Graphene.FONT_XTINY, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, 8, Graphics.FONT_XTINY, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
 
         // caption
         var font = Graphics.FONT_TINY;
