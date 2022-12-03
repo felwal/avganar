@@ -1,6 +1,7 @@
 using Toybox.Communications;
 using Toybox.WatchUi;
 using Carbon.C14;
+using Carbon.Chem;
 
 class DeparturesService {
 
@@ -94,11 +95,22 @@ class DeparturesService {
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
                 var dateTime = departureData["ExpectedDateTime"];
-                var hasDeviations = departureData["Deviations"] != null;
+                var deviations = DictUtil.get(departureData, "Deviations", []);
 
                 var moment = C14.localIso8601StrToMoment(dateTime);
+                var deviationLevel = 0;
 
-                modeDepartures.add(new Departure(mode, group, line, destination, moment, hasDeviations));
+                for (var i = 0; i < deviations.size(); i++) {
+                    if (deviations[i]["Consequence"] == "CANCELLED") {
+                        // ignore "expected departure time" if cancelled; display "-" instead.
+                        moment = null;
+                    }
+                    else {
+                        deviationLevel = Chem.max(deviationLevel, deviations[i]["ImportanceLevel"]);
+                    }
+                }
+
+                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel));
             }
 
             // add null because an ampty array is not matched with the equals() that removeAll() performes.

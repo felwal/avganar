@@ -1,6 +1,7 @@
 using Toybox.Math;
 using Toybox.Time;
 using Carbon.C14;
+using Carbon.Graphene;
 
 class Departure {
 
@@ -18,24 +19,22 @@ class Departure {
     static hidden const _GROUP_BUS_BLUE = "blåbuss";
     static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
-    var hasDeviations = false;
-
     hidden var _mode;
     hidden var _group;
     hidden var _line;
     hidden var _destination;
     hidden var _moment;
+    hidden var _deviationLevel;
 
     // init
 
-    function initialize(mode, group, line, destination, moment, hasDeviations) {
+    function initialize(mode, group, line, destination, moment, deviationLevel) {
         _mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
-
-        me.hasDeviations = hasDeviations;
+        _deviationLevel = deviationLevel;
     }
 
     // get
@@ -72,7 +71,26 @@ class Departure {
         return C14.now().greaterThan(_moment.add(margin));
     }
 
-    function getColor() {
+    function getDeviationColor() {
+        if (_deviationLevel == 0) {
+            return AppColors.TEXT_PRIMARY;
+        }
+        else if (_deviationLevel <= 2) {
+            return Graphene.COLOR_YELLOW;
+        }
+        else if (_deviationLevel <= 4) {
+            return Graphene.COLOR_AMBER;
+        }
+        else if (_deviationLevel <= 6) {
+            return Graphene.COLOR_VERMILION;
+        }
+        else {
+            // 7, 8 or 9
+            return Graphene.COLOR_RED;
+        }
+    }
+
+    function getModeColor() {
         if (_mode.equals(_MODE_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {
                 return AppColors.DEPARTURE_METRO_RED;

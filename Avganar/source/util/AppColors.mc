@@ -30,8 +30,4 @@ module AppColors {
     const DEPARTURE_NONE = Graphene.COLOR_BLACK;
     const DEPARTURE_UNKNOWN = Graphene.COLOR_DK_GRAY;
 
-    //
-
-    const DEPARTURE_DEVIATION = Graphene.COLOR_AMBER;
-
 }
