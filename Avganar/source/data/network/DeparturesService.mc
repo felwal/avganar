@@ -47,7 +47,7 @@ class DeparturesService {
     // receive
 
     function onReceiveDepartures(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && DictUtil.hasKey(data, "ResponseData")) {
+        if (responseCode == _RESPONSE_OK && DictUtil.hasValue(data, "ResponseData")) {
             _handleDeparturesResponseOk(data);
         }
         else {
