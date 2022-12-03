@@ -116,7 +116,7 @@ module NearbyStopsService {
             var id = extId.substring(5, extId.length()).toNumber();
 
             // skip duplicate stops (same id but different names)
-            if (ArrUtil.in(stopIds, id)) {
+            if (ArrUtil.contains(stopIds, id)) {
                 continue;
             }
 

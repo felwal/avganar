@@ -18,7 +18,7 @@ module FavoriteStopsStorage {
     }
 
     function addFavorite(stop) {
-        if (ArrUtil.in(_favStopIds, stop.id)) {
+        if (ArrUtil.contains(_favStopIds, stop.id)) {
             Log.w(stop.id + " already in favorites");
             return;
         }
@@ -99,7 +99,7 @@ module FavoriteStopsStorage {
     }
 
     function isFavorite(stopId) {
-        return ArrUtil.in(_favStopIds, stopId);
+        return ArrUtil.contains(_favStopIds, stopId);
     }
 
     function getFavorite(stopId) {

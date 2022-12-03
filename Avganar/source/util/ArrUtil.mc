@@ -13,7 +13,7 @@ module ArrUtil {
         return true;
     }
 
-    function in(arr, item) {
+    function contains(arr, item) {
         return arr.indexOf(item) != -1;
     }
 
