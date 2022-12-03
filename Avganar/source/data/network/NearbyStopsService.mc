@@ -64,7 +64,7 @@ module NearbyStopsService {
         else {
             Log.i("Stops response error (code " + responseCode + "): " + data);
 
-            if (DictUtil.hasKey(data, "Message")) {
+            if (DictUtil.hasValue(data, "Message")) {
                 NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
             }
             else {
@@ -78,7 +78,7 @@ module NearbyStopsService {
     //! @return If the selected stop has changed and departures should be requested
     function _handleNearbyStopsResponseOk(data) {
         // SL error
-        if (DictUtil.hasKey(data, "StatusCode") || DictUtil.hasKey(data, "Message")) {
+        if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
 
             Log.i("Stops SL request error (code " + statusCode + ")");
@@ -91,8 +91,8 @@ module NearbyStopsService {
         Log.d("Stops response success: " + data);
 
         // no stops were found
-        if (!DictUtil.hasKey(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
-            if (DictUtil.hasKey(data, "Message")) {
+        if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
+            if (DictUtil.hasValue(data, "Message")) {
                 NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
             }
             else {
