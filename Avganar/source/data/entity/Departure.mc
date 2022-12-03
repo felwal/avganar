@@ -24,17 +24,15 @@ class Departure {
     hidden var _group;
     hidden var _line;
     hidden var _destination;
-    hidden var _direction;
     hidden var _moment;
 
     // init
 
-    function initialize(mode, group, line, destination, direction, moment, hasDeviations) {
+    function initialize(mode, group, line, destination, moment, hasDeviations) {
         _mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
-        _direction = direction;
         _moment = moment;
 
         me.hasDeviations = hasDeviations;
