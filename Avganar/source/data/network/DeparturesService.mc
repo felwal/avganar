@@ -68,7 +68,7 @@ class DeparturesService {
     hidden function _handleDeparturesResponseOk(data) {
         var statusCode = data["StatusCode"];
 
-        // SL error
+        // Trafiklab error
         if (statusCode != 0) {
             Log.i("Departures SL request error (code " + statusCode + ")");
 
@@ -93,13 +93,12 @@ class DeparturesService {
                 var group = DictUtil.get(departureData, "GroupOfLine", "");
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
-                var direction = departureData["DepartureDirection"];
                 var dateTime = departureData["ExpectedDateTime"];
                 var hasDeviations = departureData["Deviations"] != null;
 
                 var moment = C14.localIso8601StrToMoment(dateTime);
 
-                modeDepartures.add(new Departure(mode, group, line, destination, direction, moment, hasDeviations));
+                modeDepartures.add(new Departure(mode, group, line, destination, moment, hasDeviations));
             }
 
             // add null because an ampty array is not matched with the equals() that removeAll() performes.
