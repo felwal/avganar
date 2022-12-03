@@ -2,12 +2,6 @@ using Toybox.Lang;
 
 class ResponseError {
 
-    static hidden const _SL_NULL_DATA = 200;
-    static hidden const _SL_RETREIVAL_FAILED_1 = 5321;
-    static hidden const _SL_RETREIVAL_FAILED_2 = 5322;
-    static hidden const _SL_RETREIVAL_FAILED_3 = 5323;
-    static hidden const _SL_RETREIVAL_FAILED_4 = 5324;
-
     hidden var _code;
     hidden var _title = "";
 
@@ -38,12 +32,10 @@ class ResponseError {
 
     hidden function _setTitle() {
         // Trafiklab
-        if (_code == _SL_NULL_DATA) {
+        if (_code == 200) {
             _title = rez(Rez.Strings.lbl_e_null_data);
         }
-        else if (_code == _SL_RETREIVAL_FAILED_1 || _code == _SL_RETREIVAL_FAILED_2
-            || _code == _SL_RETREIVAL_FAILED_3 || _code == _SL_RETREIVAL_FAILED_4) {
-
+        else if (_code == 5321 || _code == 5322 || _code == 5323 || _code == 5324) {
             _title = rez(Rez.Strings.lbl_e_retrieval);
         }
 
