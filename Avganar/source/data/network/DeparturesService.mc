@@ -58,7 +58,8 @@ class DeparturesService {
             _stop.setResponse(error);
 
             // auto rerequest if too large
-            if (error.isTooLarge()) {
+            // – but don't go below 1 min timewindow
+            if (error.isTooLarge() && _stop.getTimeWindow() >= 1) {
                 requestDepartures();
             }
         }
