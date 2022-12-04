@@ -1,4 +1,5 @@
 using Toybox.WatchUi;
+using Carbon.Chem;
 
 class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
 
@@ -17,8 +18,17 @@ class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
     hidden function _addItems(title, labels, values, focus) {
         _menu = new WatchUi.Menu2({ :title => title });
 
-        for (var i = 0; i < labels.size() && i < values.size(); i++) {
-            _menu.addItem(new WatchUi.MenuItem(labels[i], "", values[i], {}));
+        var itemCount = labels == null
+            ? values.size()
+            : Chem.min(labels.size(), values.size());
+
+        for (var i = 0; i < itemCount; i++) {
+            _menu.addItem(new WatchUi.MenuItem(
+                labels == null
+                    ? values[i].toString()
+                    : labels[i],
+                "", values[i], {}
+            ));
         }
 
         _menu.setFocus(focus);
