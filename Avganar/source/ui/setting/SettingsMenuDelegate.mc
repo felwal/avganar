@@ -8,6 +8,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_FAVORITE_MOVE_DOWN = :moveFavoriteDown;
     static const ITEM_VIBRATE = :vibrateOnResponse;
     static const ITEM_MAX_STOPS = :maxNoStops;
+    static const ITEM_MAX_DEPARTURES = :maxNoDepartures;
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_ABOUT = :aboutInfo;
     static const ITEM_RESET = :resetStorage;
@@ -72,6 +73,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             ITEM_MAX_STOPS, {}
         ));
 
+        // max departures
+        _menu.addItem(new WatchUi.MenuItem(
+            rez(Rez.Strings.lbl_settings_max_departures), SettingsStorage.getMaxDepartures().toString(),
+            ITEM_MAX_DEPARTURES, {}
+        ));
+
         // default time window
         _menu.addItem(new WatchUi.MenuItem(
             rez(Rez.Strings.lbl_settings_time_window), SettingsStorage.getDefaultTimeWindow() + " min",
@@ -121,6 +128,14 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             new RadioMenuDelegate(title, labels, values, focus, method(:onMaxStopsSelect)).push();
             return;
         }
+        else if (id == ITEM_MAX_DEPARTURES) {
+            var title = rez(Rez.Strings.lbl_settings_max_departures);
+            var labels = [ "10", "20", "40", "60" ];
+            var values = [ 10, 20, 40, 60 ];
+            var focus = values.indexOf(SettingsStorage.getMaxDepartures());
+            new RadioMenuDelegate(title, labels, values, focus, method(:onMaxDeparturesSelect)).push();
+            return;
+        }
         else if (id == ITEM_TIME_WINDOW) {
             var title = rez(Rez.Strings.lbl_settings_time_window);
             var labels = [ "1 min", "5 min", "15 min", "30 min", "45 min", "60 min" ];
@@ -159,6 +174,13 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         SettingsStorage.setMaxStops(value);
 
         var item = _menu.getItem(_menu.findItemById(ITEM_MAX_STOPS));
+        item.setSubLabel(value.toString());
+    }
+
+    function onMaxDeparturesSelect(value) {
+        SettingsStorage.setMaxDepartures(value);
+
+        var item = _menu.getItem(_menu.findItemById(ITEM_MAX_DEPARTURES));
         item.setSubLabel(value.toString());
     }
 

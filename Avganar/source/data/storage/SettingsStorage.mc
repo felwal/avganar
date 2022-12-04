@@ -4,6 +4,7 @@ module SettingsStorage {
 
     const _STORAGE_VIBRATE = "vibrate_on_response";
     const _STORAGE_MAX_STOPS = "max_no_stops";
+    const _STORAGE_MAX_DEPARTURES = "max_no_departures";
     const _STORAGE_TIME_WINDOW = "default_time_window";
 
     // read
@@ -14,6 +15,10 @@ module SettingsStorage {
 
     function getMaxStops() {
         return StorageUtil.getValue(_STORAGE_MAX_STOPS, 20);
+    }
+
+    function getMaxDepartures() {
+        return StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, 40);
     }
 
     function getDefaultTimeWindow() {
@@ -28,6 +33,10 @@ module SettingsStorage {
 
     function setMaxStops(maxNo) {
         Storage.setValue(_STORAGE_MAX_STOPS, maxNo);
+    }
+
+    function setMaxDepartures(maxNo) {
+        Storage.setValue(_STORAGE_MAX_DEPARTURES, maxNo);
     }
 
     function setDefaultTimeWindow(timeWindow) {
