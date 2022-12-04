@@ -122,18 +122,16 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         else if (id == ITEM_MAX_STOPS) {
             var title = rez(Rez.Strings.lbl_settings_max_stops);
-            var labels = [ "5", "10", "15", "20" ];
             var values = [ 5, 10, 15, 20 ];
             var focus = values.indexOf(SettingsStorage.getMaxStops());
-            new RadioMenuDelegate(title, labels, values, focus, method(:onMaxStopsSelect)).push();
+            new RadioMenuDelegate(title, null, values, focus, method(:onMaxStopsSelect)).push();
             return;
         }
         else if (id == ITEM_MAX_DEPARTURES) {
             var title = rez(Rez.Strings.lbl_settings_max_departures);
-            var labels = [ "10", "20", "40", "60" ];
             var values = [ 10, 20, 40, 60 ];
             var focus = values.indexOf(SettingsStorage.getMaxDepartures());
-            new RadioMenuDelegate(title, labels, values, focus, method(:onMaxDeparturesSelect)).push();
+            new RadioMenuDelegate(title, null, values, focus, method(:onMaxDeparturesSelect)).push();
             return;
         }
         else if (id == ITEM_TIME_WINDOW) {
