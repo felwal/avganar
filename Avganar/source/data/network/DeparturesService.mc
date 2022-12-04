@@ -78,16 +78,34 @@ class DeparturesService {
             return;
         }
 
-        Log.d("Departures response success: " + data);
+        //Log.d("Departures response success: " + data);
 
         var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
+        var modeCount = 0;
+
+        // get the number of active modes
+        // in order to calculate `maxDeparturesPerMode`
+        for (var m = 0; m < modes.size(); m++) {
+            var modeData = data["ResponseData"][modes[m]];
+
+            if (modeData.size() > 0) {
+                modeCount++;
+            }
+        }
+
+        var maxDeparturesPerMode = modeCount != 0
+            ? SettingsStorage.getMaxDepartures() / modeCount
+            : 0;
         var departures = [];
+
+        Log.d("mode count: " + modeCount);
+        Log.d("deps/mode: " + maxDeparturesPerMode);
 
         for (var m = 0; m < modes.size(); m++) {
             var modeData = data["ResponseData"][modes[m]];
             var modeDepartures = [];
 
-            for (var d = 0; d < modeData.size(); d++) {
+            for (var d = 0; d < maxDeparturesPerMode && d < modeData.size(); d++) {
                 var departureData = modeData[d];
 
                 var mode = departureData["TransportMode"];
@@ -113,7 +131,7 @@ class DeparturesService {
                 modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel));
             }
 
-            // add null because an ampty array is not matched with the equals() that removeAll() performes.
+            // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.
             departures.add(modeDepartures.size() != 0 ? modeDepartures : null);
         }
 

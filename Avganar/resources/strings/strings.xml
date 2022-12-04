@@ -56,6 +56,7 @@
     <string id="lbl_settings_favorite_move_up">Move Up</string>
     <string id="lbl_settings_favorite_move_down">Move Down</string>
     <string id="lbl_settings_max_stops">Max Stops</string>
+    <string id="lbl_settings_max_departures">Max Departures</string>
     <string id="lbl_settings_time_window">Default Time Window</string>
     <string id="lbl_settings_vibrate">Vibrate on Response</string>
     <string id="lbl_settings_about">About</string>

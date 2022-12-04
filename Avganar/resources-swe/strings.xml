@@ -56,6 +56,7 @@
     <string id="lbl_settings_favorite_move_up">Flytta upp</string>
     <string id="lbl_settings_favorite_move_down">Flytta ned</string>
     <string id="lbl_settings_max_stops">Högst antal hållplatser</string>
+    <string id="lbl_settings_max_departures">Högst antal avgångar</string>
     <string id="lbl_settings_time_window">Största tidsfönster</string>
     <string id="lbl_settings_vibrate">Vibrera vid svar</string>
     <string id="lbl_settings_about">Om</string>

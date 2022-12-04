@@ -88,7 +88,7 @@ module NearbyStopsService {
             return;
         }
 
-        Log.d("Stops response success: " + data);
+        //Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
