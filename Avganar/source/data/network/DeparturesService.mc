@@ -84,29 +84,39 @@ class DeparturesService {
         var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
         var modeCount = 0;
 
-        // get the number of active modes
-        // in order to calculate `maxDeparturesPerMode`
-        for (var m = 0; m < modes.size(); m++) {
-            var modeData = data["ResponseData"][modes[m]];
+        var maxDepartures = SettingsStorage.getMaxDepartures();
+        var maxDeparturesPerMode = null;
 
-            if (modeData.size() > 0) {
-                modeCount++;
+        if (maxDepartures != -1) {
+            // get the number of active modes
+            // in order to calculate `maxDeparturesPerMode`
+            for (var m = 0; m < modes.size(); m++) {
+                var modeData = data["ResponseData"][modes[m]];
+
+                if (modeData.size() > 0) {
+                    modeCount++;
+                }
             }
-        }
 
-        var maxDeparturesPerMode = modeCount != 0
-            ? SettingsStorage.getMaxDepartures() / modeCount
-            : 0;
-        var departures = [];
+            maxDeparturesPerMode = modeCount != 0
+                ? maxDepartures / modeCount
+                : 0;
+        }
 
         Log.d("mode count: " + modeCount);
         Log.d("deps/mode: " + maxDeparturesPerMode);
+
+        var departures = [];
 
         for (var m = 0; m < modes.size(); m++) {
             var modeData = data["ResponseData"][modes[m]];
             var modeDepartures = [];
 
-            for (var d = 0; d < maxDeparturesPerMode && d < modeData.size(); d++) {
+            var departureCount = maxDeparturesPerMode == null
+                ? modeData.size()
+                : Chem.min(maxDeparturesPerMode, modeData.size());
+
+            for (var d = 0; d < departureCount; d++) {
                 var departureData = modeData[d];
 
                 var mode = departureData["TransportMode"];

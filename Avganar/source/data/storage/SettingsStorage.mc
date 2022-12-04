@@ -18,7 +18,7 @@ module SettingsStorage {
     }
 
     function getMaxDepartures() {
-        return StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, 40);
+        return StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, -1);
     }
 
     function getDefaultTimeWindow() {
