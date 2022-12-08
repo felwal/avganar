@@ -58,22 +58,20 @@ class Departure {
     }
 
     function getDeviationColor() {
-        if (_deviationLevel == 0) {
-            return AppColors.TEXT_PRIMARY;
-        }
-        else if (_deviationLevel <= 2) {
-            return Graphene.COLOR_YELLOW;
-        }
-        else if (_deviationLevel <= 4) {
-            return Graphene.COLOR_AMBER;
-        }
-        else if (_deviationLevel <= 6) {
-            return Graphene.COLOR_VERMILION;
-        }
-        else {
-            // 7, 8 or 9
+        if (_deviationLevel >= 8) {
             return Graphene.COLOR_RED;
         }
+        else if (_deviationLevel >= 6) {
+            return Graphene.COLOR_VERMILION;
+        }
+        else if (_deviationLevel >= 4) {
+            return Graphene.COLOR_AMBER;
+        }
+        else if (_deviationLevel >= 1) {
+            return Graphene.COLOR_YELLOW;
+        }
+
+        return AppColors.TEXT_PRIMARY;
     }
 
     function getModeColor() {
