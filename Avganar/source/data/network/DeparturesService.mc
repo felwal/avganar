@@ -130,9 +130,9 @@ class DeparturesService {
                 var deviationLevel = 0;
 
                 for (var i = 0; i < deviations.size(); i++) {
-                    if (deviations[i]["Consequence"] == "CANCELLED") {
-                        // ignore "expected departure time" if cancelled; display "-" instead.
-                        moment = null;
+                    if (deviations[i]["Consequence"] == "CANCELLED" && deviations[i]["ImportanceLevel"] == 0) {
+                        // consider cancelled as a serious deviation
+                        deviationLevel = 9;
                     }
                     else {
                         deviationLevel = Chem.max(deviationLevel, deviations[i]["ImportanceLevel"]);
