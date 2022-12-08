@@ -123,10 +123,16 @@ class DeparturesService {
                 var group = DictUtil.get(departureData, "GroupOfLine", "");
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
-                var dateTime = departureData["ExpectedDateTime"];
+                var expectedDateTime = departureData["ExpectedDateTime"];
+                var timeTabledDateTime = departureData["TimeTabledDateTime"];
                 var deviations = DictUtil.get(departureData, "Deviations", []);
 
-                var moment = C14.localIso8601StrToMoment(dateTime);
+                var moment = expectedDateTime != null
+                    ? C14.localIso8601StrToMoment(expectedDateTime)
+                    : timeTabledDateTime != null
+                        ? C14.localIso8601StrToMoment(timeTabledDateTime)
+                        : null;
+
                 var deviationLevel = 0;
 
                 for (var i = 0; i < deviations.size(); i++) {
