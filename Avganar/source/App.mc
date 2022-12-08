@@ -7,9 +7,9 @@ const DEBUG = false;
 (:glance)
 class App extends Application.AppBase {
 
-    static var hasGlance;
-    static var doNotDisturb;
-    static var vibrateOn;
+    static var hasGlance = false;
+    static var doNotDisturb = false;
+    static var vibrateOn = true;
 
     // init
 
@@ -17,9 +17,11 @@ class App extends Application.AppBase {
         AppBase.initialize();
 
         var ds = System.getDeviceSettings();
-        hasGlance = ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
-        doNotDisturb = ds has :doNotDisturb && ds.doNotDisturb;
-        vibrateOn = ds has :vibrateOn && ds.vibrateOn;
+        if (ds != null) {
+            hasGlance = ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
+            doNotDisturb = ds has :doNotDisturb && ds.doNotDisturb;
+            vibrateOn = ds has :vibrateOn && ds.vibrateOn;
+        }
     }
 
     // override AppBase
