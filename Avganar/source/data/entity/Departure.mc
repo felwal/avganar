@@ -67,8 +67,14 @@ class Departure {
         else if (_deviationLevel >= 4) {
             return Graphene.COLOR_AMBER;
         }
-        else if (_deviationLevel >= 1) {
+        else if (_deviationLevel >= 3) {
             return Graphene.COLOR_YELLOW;
+        }
+        else if (_deviationLevel >= 2) {
+            return Graphene.COLOR_LT_YELLOW;
+        }
+        else if (_deviationLevel >= 1) {
+            return Graphene.COLOR_LR_YELLOW;
         }
 
         return AppColors.TEXT_PRIMARY;
