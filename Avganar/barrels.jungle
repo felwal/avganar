@@ -1,2 +1,2 @@
-Carbon = "\libs\Carbon-0.1.1.barrel"
+Carbon = "\libs\Carbon-0.1.2.barrel"
 base.barrelPath = $(base.barrelPath);$(Carbon)
