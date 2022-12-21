@@ -14,16 +14,16 @@
 
         <iq:products>
             <iq:product id="d2air" />
-            <!--<iq:product id="d2airx10" />--> <!-- View.onUpdate(dc) crashes -->
+            <iq:product id="d2airx10" /> <!-- badly aligned -->
             <iq:product id="d2delta" />
             <iq:product id="d2deltapx" />
             <iq:product id="d2deltas" />
-            <!--<iq:product id="d2mach1" />--> <!-- View.onUpdate(dc) crashes -->
+            <iq:product id="d2mach1" /> <!-- badly aligned -->
 
-            <!--<iq:product id="descentmk2" />--> <!-- View.onUpdate(dc) crashes -->
-            <!--<iq:product id="descentmk2s" />--> <!-- View.onUpdate(dc) crashes -->
+            <iq:product id="descentmk2" />
+            <iq:product id="descentmk2s" />
 
-            <!--<iq:product id="epix2" />--> <!-- View.onUpdate(dc) crashes -->
+            <iq:product id="epix2" /> <!-- badly aligned -->
 
             <iq:product id="fenix5plus" />
             <iq:product id="fenix5splus" />
@@ -32,28 +32,28 @@
             <iq:product id="fenix6pro" />
             <iq:product id="fenix6spro" />
             <iq:product id="fenix6xpro" />
-            <!--<iq:product id="fenix7" />--> <!-- just crashes -->
-            <!--<iq:product id="fenix7s" />--> <!-- just crashes -->
-            <!--<iq:product id="fenix7x" />--> <!-- just crashes -->
+            <iq:product id="fenix7" />
+            <iq:product id="fenix7s" />
+            <iq:product id="fenix7x" />
 
             <iq:product id="fr245m" />
-            <!--<iq:product id="fr255" />--> <!-- just crashes -->
-            <!--<iq:product id="fr255m" />--> <!-- just crashes -->
-            <!--<iq:product id="fr255s" />--> <!-- just crashes -->
-            <!--<iq:product id="fr255sm" />--> <!-- just crashes -->
+            <iq:product id="fr255" /> <!-- glance badly aligned -->
+            <iq:product id="fr255m" /> <!-- glance badly aligned -->
+            <iq:product id="fr255s" /> <!-- badly aligned -->
+            <iq:product id="fr255sm" /> <!-- badly aligned -->
             <iq:product id="fr645m" />
             <iq:product id="fr745" />
             <iq:product id="fr945" />
             <iq:product id="fr945lte" /> <!-- glance badly aligned -->
-            <!--<iq:product id="fr955" />--> <!-- just crashes -->
+            <iq:product id="fr955" />
 
             <iq:product id="legacyherocaptainmarvel" />
             <iq:product id="legacyherofirstavenger" />
             <iq:product id="legacysagadarthvader" />
             <iq:product id="legacysagarey" />
 
-            <!--<iq:product id="marq2" />--> <!-- just crashes -->
-            <!--<iq:product id="marq2aviator" />--> <!-- View.onUpdate(dc) crashes -->
+            <iq:product id="marq2" /> <!-- badly aligned -->
+            <iq:product id="marq2aviator" />
             <iq:product id="marqadventurer" />
             <iq:product id="marqathlete" />
             <iq:product id="marqaviator" />
@@ -63,12 +63,12 @@
             <iq:product id="marqexpedition" />
             <iq:product id="marqgolfer" />
 
-            <!--<iq:product id="venu" />--> <!-- View.onUpdate(dc) crashes -->
-            <!--<iq:product id="venu2" />--> <!-- just crashes -->
-            <!--<iq:product id="venu2plus" />--> <!-- just crashes -->
-            <!--<iq:product id="venu2s" />--> <!-- just crashes -->
+            <iq:product id="venu" /> <!-- badly aligned -->
+            <iq:product id="venu2" /> <!-- badly aligned -->
+            <iq:product id="venu2plus" /> <!-- badly aligned -->
+            <iq:product id="venu2s" /> <!-- badly aligned -->
             <iq:product id="venud" />
-            <!--<iq:product id="venusqm" />--> <!-- View.onUpdate(dc) crashes -->
+            <iq:product id="venusqm" /> <!-- square -->
 
             <iq:product id="vivoactive3m" /> <!-- departures overflows footer -->
             <iq:product id="vivoactive3mlte" /> <!-- departures overflows footer -->
