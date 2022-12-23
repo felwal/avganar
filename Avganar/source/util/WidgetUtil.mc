@@ -335,9 +335,8 @@ module WidgetUtil {
 
         var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL ];
         var font = Graphics.FONT_TINY;
-        var fontHeight = dc.getFontHeight(font);
-        var lineHeight = 1.6;
-        var lineHeightPx = fontHeight * lineHeight;
+        var h = dc.getHeight() - 2 * pxY(dc, 36);
+        var lineHeightPx = h / 4;
 
         var bgColor = cursor >= paneSize ? Graphics.COLOR_BLACK : cc[0];
         var selectedColor;

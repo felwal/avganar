@@ -115,29 +115,27 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _drawDepartures(dc, pageDepartures) {
         var font = Graphics.FONT_TINY;
-        var fontHeight = dc.getFontHeight(font);
-        var lineHeight = 1.35;
-        var lineHeightPx = fontHeight * lineHeight;
         var xOffset = pxX(dc, 10);
-        var yOffset = pxY(dc, 50);
+        var yOffset = pxY(dc, 68);
         var rCircle = px(dc, 4);
+
+        var h = dc.getHeight() - yOffset * 2;
+        var lineHeightPx = h / (StopDetailViewModel.DEPARTURES_PER_PAGE - 1);
 
         for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < pageDepartures.size(); d++) {
             var departure = pageDepartures[d];
 
-            var yText = yOffset + d * lineHeightPx;
-            var yCircle = yText + fontHeight / 2;
-
-            var xCircle = Chem.minX(yOffset + fontHeight / 2, Graphite.getRadius(dc)) + xOffset + rCircle;
+            var y = yOffset + d * lineHeightPx;
+            var xCircle = Chem.minX(yOffset, Graphite.getRadius(dc)) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
             // draw circle
             Graphite.setColor(dc, departure.getModeColor());
-            dc.fillCircle(xCircle, yCircle, rCircle);
+            dc.fillCircle(xCircle, y, rCircle);
 
             // draw text
             Graphite.setColor(dc, departure.getDeviationColor());
-            dc.drawText(xText, yText, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT);
+            dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
 

@@ -14,16 +14,16 @@
 
         <iq:products>
             <iq:product id="d2air" />
-            <iq:product id="d2airx10" /> <!-- badly aligned -->
+            <iq:product id="d2airx10" /> <!-- glance badly aligned (glass) -->
             <iq:product id="d2delta" />
             <iq:product id="d2deltapx" />
             <iq:product id="d2deltas" />
-            <iq:product id="d2mach1" /> <!-- badly aligned -->
+            <iq:product id="d2mach1" />
 
             <iq:product id="descentmk2" />
             <iq:product id="descentmk2s" />
 
-            <iq:product id="epix2" /> <!-- badly aligned -->
+            <iq:product id="epix2" />
 
             <iq:product id="fenix5plus" />
             <iq:product id="fenix5splus" />
@@ -39,12 +39,12 @@
             <iq:product id="fr245m" />
             <iq:product id="fr255" /> <!-- glance badly aligned -->
             <iq:product id="fr255m" /> <!-- glance badly aligned -->
-            <iq:product id="fr255s" /> <!-- badly aligned -->
-            <iq:product id="fr255sm" /> <!-- badly aligned -->
+            <iq:product id="fr255s" /> <!-- glance badly aligned -->
+            <iq:product id="fr255sm" /> <!-- glance badly aligned -->
             <iq:product id="fr645m" />
             <iq:product id="fr745" />
             <iq:product id="fr945" />
-            <iq:product id="fr945lte" /> <!-- glance badly aligned -->
+            <iq:product id="fr945lte" /> <!-- glance (very) badly aligned (sim bug?) -->
             <iq:product id="fr955" />
 
             <iq:product id="legacyherocaptainmarvel" />
@@ -52,7 +52,7 @@
             <iq:product id="legacysagadarthvader" />
             <iq:product id="legacysagarey" />
 
-            <iq:product id="marq2" /> <!-- badly aligned -->
+            <iq:product id="marq2" />
             <iq:product id="marq2aviator" />
             <iq:product id="marqadventurer" />
             <iq:product id="marqathlete" />
@@ -63,15 +63,15 @@
             <iq:product id="marqexpedition" />
             <iq:product id="marqgolfer" />
 
-            <iq:product id="venu" /> <!-- badly aligned -->
-            <iq:product id="venu2" /> <!-- badly aligned -->
-            <iq:product id="venu2plus" /> <!-- badly aligned -->
-            <iq:product id="venu2s" /> <!-- badly aligned -->
+            <iq:product id="venu" />
+            <iq:product id="venu2" />
+            <iq:product id="venu2plus" />
+            <iq:product id="venu2s" />
             <iq:product id="venud" />
             <iq:product id="venusqm" /> <!-- square -->
 
-            <iq:product id="vivoactive3m" /> <!-- departures overflows footer -->
-            <iq:product id="vivoactive3mlte" /> <!-- departures overflows footer -->
+            <iq:product id="vivoactive3m" />
+            <iq:product id="vivoactive3mlte" />
             <iq:product id="vivoactive4" />
             <iq:product id="vivoactive4s" />
         </iq:products>
