@@ -30,12 +30,12 @@ class StopGlanceView extends WatchUi.GlanceView {
         var caption = nearestStopName == null ? rez(Rez.Strings.lbl_glance_caption_no_stops) : nearestStopName;
 
         // title
-        dc.drawText(0, 8, Graphics.FONT_XTINY, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, pxGlanceY(dc, 8), Graphics.FONT_XTINY, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
 
         // caption
         var font = Graphics.FONT_TINY;
         var fontHeight = dc.getFontHeight(font);
-        dc.drawText(0, dc.getHeight() - fontHeight - 4, font, caption, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, dc.getHeight() - fontHeight - pxGlanceY(dc, 4), font, caption, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 }

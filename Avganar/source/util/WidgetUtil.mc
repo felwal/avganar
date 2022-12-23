@@ -47,8 +47,8 @@ module WidgetUtil {
     // header/footer
 
     function drawExclamationBanner(dc) {
-        dc.setPenWidth(2);
-        drawHeader(dc, 30, Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
+        dc.setPenWidth(px(dc, 2));
+        drawHeader(dc, pxY(dc, 30), Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
         Graphite.resetPenWidth(dc);
     }
 
@@ -91,14 +91,14 @@ module WidgetUtil {
     // start indicator
 
     function drawStartIndicatorWithBitmap(dc, rezId) {
-        var pos = Chem.polarPos(Graphite.getRadius(dc) - 23, Chem.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
+        var pos = Chem.polarPos(Graphite.getRadius(dc) - px(dc, 23), Chem.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
 
         RezUtil.drawBitmap(dc, pos[0], pos[1], rezId);
         drawStartIndicator(dc);
     }
 
     function drawStartIndicator(dc) {
-        Graphite.strokeArcCentered(dc, 5, 4, 1, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        Graphite.strokeArcCentered(dc, px(dc, 5), px(dc, 4), px(dc, 1), 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
     }
 
     // scrollbar
@@ -112,12 +112,12 @@ module WidgetUtil {
             return;
         }
 
-        var edgeOffset = 2;
+        var edgeOffset = pxX(dc, 2);
         var startDeg = 180 - sizeDeg / 2;
         var endDeg = 180 + sizeDeg / 2;
 
-        var strokeWidth = 1;
-        var outlineWidth = 3;
+        var strokeWidth = px(dc, 1);
+        var outlineWidth = px(dc, 3);
 
         // rail
         Graphite.strokeArcCentered(dc, edgeOffset, strokeWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
@@ -128,7 +128,7 @@ module WidgetUtil {
 
         // bar
         Graphite.resetColor(dc);
-        dc.setPenWidth(3);
+        dc.setPenWidth(px(dc, 3));
         Graphite.drawArcCentered(dc, edgeOffset, itemStartDeg, itemEndDeg);
 
         Graphite.resetPenWidth(dc);
@@ -146,12 +146,12 @@ module WidgetUtil {
         var centerDeg = 30; // _BTN_START_DEG
         var maxDeg = centerDeg + deltaDeg * (pageCount - 1) / 2f;
         var minDeg = maxDeg - pageCount * deltaDeg;
-        var edgeOffset = 5;
-        var stroke = 4;
+        var edgeOffset = px(dc, 5);
+        var stroke = px(dc, 4);
 
-        var outlineWidth = 3;
+        var outlineWidth = px(dc, 3);
         var outlineWidthDeg = Math.ceil(Graphite.pxToDeg(outlineWidth, Graphite.getRadius(dc) - edgeOffset));
-        var bgStroke = stroke + 2 * outlineWidth;
+        var bgStroke = stroke + px(dc, 2) * outlineWidth;
         var bgMinDeg = minDeg + deltaDeg - outlineWidthDeg;
         var bgMaxDeg = maxDeg + lengthDeg + outlineWidthDeg;
 
@@ -198,24 +198,24 @@ module WidgetUtil {
     }
 
     function drawTopPageArrow(dc) {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), 4 ], _DIR_UP);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), pxY(dc, 4) ], _DIR_UP);
     }
 
     function drawBottomPageArrow(dc) {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), dc.getHeight() - 4 ], _DIR_DOWN);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), dc.getHeight() - pxY(dc, 4) ], _DIR_DOWN);
     }
 
     function drawUpArrow(dc, bottomTo) {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - 4 - 8 ], _DIR_UP);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - pxY(dc, 4 + 8) ], _DIR_UP);
     }
 
     function drawDownArrow(dc, bottomTo) {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - 4 ], _DIR_DOWN);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - pxY(dc, 4) ], _DIR_DOWN);
     }
 
     function _drawPageArrow(dc, point1, direction) {
-        var width = 8;
-        var height = 8;
+        var width = pxX(dc, 8);
+        var height = pxY(dc, 8);
 
         var point2;
         var point3;
@@ -275,12 +275,12 @@ module WidgetUtil {
 
             // top header
             if (cursor == 0) {
-                drawHeader(dc, 84, Graphene.COLOR_BLACK, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
+                drawHeader(dc, pxY(dc, 84), Graphene.COLOR_BLACK, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
             }
             else if (cursor == 1) {
-                drawHeader(dc, 42, Graphene.COLOR_BLACK, paneStrokeColor, null, null);
+                drawHeader(dc, pxY(dc, 42), Graphene.COLOR_BLACK, paneStrokeColor, null, null);
                 Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
-                drawUpArrow(dc, 42);
+                drawUpArrow(dc, pxY(dc, 42));
             }
             else {
                 Graphite.setColor(dc, cc[3]);
@@ -289,14 +289,14 @@ module WidgetUtil {
 
             // bottom header
             if (cursor == paneSize - 2) {
-                drawFooter(dc, 42, Graphene.COLOR_BLACK, paneStrokeColor, null, null);
+                drawFooter(dc, pxY(dc, 42), Graphene.COLOR_BLACK, paneStrokeColor, null, null);
                 Graphite.setColor(dc, cc[3]);
-                drawDownArrow(dc, dc.getHeight() - 42);
+                drawDownArrow(dc, dc.getHeight() - pxY(dc, 42));
             }
             else if (cursor == paneSize - 1) {
-                drawFooter(dc, 84, Graphene.COLOR_BLACK, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
+                drawFooter(dc, pxY(dc, 84), Graphene.COLOR_BLACK, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
                 Graphite.setColor(dc, cc[3]);
-                drawDownArrow(dc, dc.getHeight() - 84);
+                drawDownArrow(dc, dc.getHeight() - pxY(dc, 84));
             }
             else {
                 Graphite.setColor(dc, cc[3]);
@@ -308,16 +308,16 @@ module WidgetUtil {
         else {
             // top header
             if (cursor == paneSize) {
-                drawHeader(dc, 84, cc[0], paneStrokeColor, paneHint, cc[3]);
+                drawHeader(dc, pxY(dc, 84), cc[0], paneStrokeColor, paneHint, cc[3]);
                 Graphite.setColor(dc, cc[3]);
                 if (hasPane) {
-                    drawUpArrow(dc, 84);
+                    drawUpArrow(dc, pxY(dc, 84));
                 }
             }
             else if (cursor == paneSize + 1) {
-                drawHeader(dc, 42, cc[0], paneStrokeColor, null, null);
+                drawHeader(dc, pxY(dc, 42), cc[0], paneStrokeColor, null, null);
                 Graphite.setColor(dc, cc[3]);
-                drawUpArrow(dc, 42);
+                drawUpArrow(dc, pxY(dc, 42));
             }
             else {
                 Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
@@ -367,7 +367,7 @@ module WidgetUtil {
             var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
             if (i == cursor) {
-                var margin = 5;
+                var margin = pxX(dc, 5);
                 var width = dc.getWidth() - 2 * margin;
                 var height = dc.getFontHeight(fontsSelected[0]);
 

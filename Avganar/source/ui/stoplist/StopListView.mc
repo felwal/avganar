@@ -59,9 +59,9 @@ class StopListView extends WatchUi.View {
     }
 
     hidden function _drawGpsStatus(dc) {
-        var x = Graphite.getCenterX(dc) + 45;
-        var y = 60;
-        var r = 5;
+        var x = Graphite.getCenterX(dc) + pxX(dc, 45);
+        var y = pxY(dc, 60);
+        var r = px(dc, 5);
 
         var hasGps = Footprint.isPositionRegistered;
         var color = hasGps ? Graphene.COLOR_GREEN : AppColors.CONTROL_NORMAL;
