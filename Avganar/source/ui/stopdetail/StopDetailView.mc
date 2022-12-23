@@ -81,7 +81,7 @@ class StopDetailView extends WatchUi.View {
         // 19 is font height for XTINY on fr745.
         // set y to half and justify to vcenter for the title to
         // look alright even on devices with different font size for XTINY.
-        var y = 23 + 19 / 2;
+        var y = pxY(dc, 23) + pxY(dc, 19) / 2;
 
         Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
         dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, text.toUpper(),
@@ -90,21 +90,21 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _drawFooter(dc) {
         // background
-        WidgetUtil.drawFooter(dc, 42, AppColors.PRIMARY, null, null, null);
+        WidgetUtil.drawFooter(dc, pxY(dc, 42), AppColors.PRIMARY, null, null, null);
 
         // draw clock time
 
         // calc pos to align with page number
-        var arrowEdgeOffset = 4;
-        var arrowHeight = 8;
-        var arrowNumberOffset = 8;
+        var arrowEdgeOffset = pxY(dc, 4);
+        var arrowHeight = pxY(dc, 8);
+        var arrowNumberOffset = pxY(dc, 8);
 
         var font = Graphics.FONT_XTINY;
         var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
         // important for devices where XTINY is not really tiny.
-        y = Chem.max(y, dc.getHeight() - 42);
+        y = Chem.max(y, dc.getHeight() - pxY(dc, 42));
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
@@ -118,9 +118,9 @@ class StopDetailView extends WatchUi.View {
         var fontHeight = dc.getFontHeight(font);
         var lineHeight = 1.35;
         var lineHeightPx = fontHeight * lineHeight;
-        var xOffset = 10;
-        var yOffset = 50;
-        var rCircle = 4;
+        var xOffset = pxX(dc, 10);
+        var yOffset = pxY(dc, 50);
+        var rCircle = px(dc, 4);
 
         for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < pageDepartures.size(); d++) {
             var departure = pageDepartures[d];
