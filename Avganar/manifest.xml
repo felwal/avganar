@@ -87,7 +87,7 @@
         </iq:languages>
 
         <iq:barrels>
-            <iq:depends name="Carbon" version="0.1.2" />
+            <iq:depends name="Carbon" version="0.1.3" />
         </iq:barrels>
 
     </iq:application>
