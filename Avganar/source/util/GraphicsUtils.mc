@@ -1,4 +1,3 @@
-using Toybox.Attention;
 using Toybox.Math;
 using Carbon.Chem;
 using Carbon.Graphite;
@@ -10,18 +9,11 @@ function enableAntiAlias(dc) {
     }
 }
 
-function vibrate() {
-    if (!App.doNotDisturb && App.vibrateOn && Attention has :vibrate && SettingsStorage.getVibrateOnResponse()) {
-        var vibeData = [ new Attention.VibeProfile(75, 300) ];
-        Attention.vibrate(vibeData);
-    }
-}
-
-//
-
 function degToY(dc, deg) {
     return (-Math.sin(Chem.rad(deg)) / 2 + 0.5) * dc.getHeight();
 }
+
+//
 
 function pxX(dc, pxOn240x240) {
     return Graphite.getWidthByRatio(dc, pxOn240x240 / 240f);
