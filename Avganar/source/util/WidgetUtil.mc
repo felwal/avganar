@@ -90,15 +90,45 @@ module WidgetUtil {
 
     // start indicator
 
+    (:round)
     function drawStartIndicatorWithBitmap(dc, rezId) {
-        var pos = Chem.polarPos(Graphite.getRadius(dc) - px(dc, 23), Chem.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
+        var r = Graphite.getRadius(dc) - px(dc, 23);
+        var pos = Chem.polarPos(r, Chem.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
 
         RezUtil.drawBitmap(dc, pos[0], pos[1], rezId);
         drawStartIndicator(dc);
     }
 
+    (:rectangle)
+    function drawStartIndicatorWithBitmap(dc, rezId) {
+        var x = dc.getWidth() - px(dc, 23);
+        var y = 0.5 * dc.getHeight(); // sin(30) = 0.5
+
+        RezUtil.drawBitmap(dc, x, y, rezId);
+        drawStartIndicator(dc);
+    }
+
+    (:round)
     function drawStartIndicator(dc) {
-        Graphite.strokeArcCentered(dc, px(dc, 5), px(dc, 4), px(dc, 1), 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        var offset = px(dc, 5);
+        var width = px(dc, 4);
+        var strokeWidth = px(dc, 1);
+
+        Graphite.strokeArcCentered(dc, offset, width, strokeWidth, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+    }
+
+    (:rectangle)
+    function drawStartIndicator(dc) {
+        var offset = pxX(dc, 5);
+        var width = pxX(dc, 4);
+        var strokeWidth = px(dc, 1);
+
+        var x = dc.getWidth() - offset;
+        var y = 0.34 * dc.getHeight(); // sin(20) = 0.34
+        var yBottom = 0.64 * dc.getHeight(); // sin(40) = 0.64
+        var height = yBottom - y;
+
+        Graphite.strokeRectangle(dc, x, y, width, height, strokeWidth, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
     }
 
     // scrollbar
@@ -107,6 +137,7 @@ module WidgetUtil {
         _drawVerticalScrollbar(dc, 50, pageCount, index, index + 1);
     }
 
+    (:round)
     function _drawVerticalScrollbar(dc, sizeDeg, itemCount, startIndex, endIndex) {
         if (itemCount <= 1) {
             return;
@@ -116,26 +147,57 @@ module WidgetUtil {
         var startDeg = 180 - sizeDeg / 2;
         var endDeg = 180 + sizeDeg / 2;
 
-        var strokeWidth = px(dc, 1);
+        var railWidth = px(dc, 1);
         var outlineWidth = px(dc, 3);
 
         // rail
-        Graphite.strokeArcCentered(dc, edgeOffset, strokeWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+        Graphite.strokeArcCentered(dc, edgeOffset, railWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
 
-        var itemDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
-        var itemStartDeg = startDeg + (endDeg - startDeg) * startIndex / itemCount.toFloat();
-        var itemEndDeg = itemStartDeg + itemDeltaDeg;
+        var barDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
+        var barStartDeg = startDeg + (endDeg - startDeg) * startIndex / itemCount.toFloat();
+        var barEndDeg = barStartDeg + barDeltaDeg;
 
         // bar
         Graphite.resetColor(dc);
         dc.setPenWidth(px(dc, 3));
-        Graphite.drawArcCentered(dc, edgeOffset, itemStartDeg, itemEndDeg);
+        Graphite.drawArcCentered(dc, edgeOffset, barStartDeg, barEndDeg);
+
+        Graphite.resetPenWidth(dc);
+    }
+
+    (:rectangle)
+    function _drawVerticalScrollbar(dc, sizeDeg, itemCount, startIndex, endIndex) {
+        if (itemCount <= 1) {
+            return;
+        }
+
+        var x = pxX(dc, 3);
+        var startDeg = 180 - sizeDeg / 2;
+        var endDeg = 180 + sizeDeg / 2;
+        var yStart = degToY(dc, startDeg);
+        var yEnd = degToY(dc, endDeg);
+        var height = Chem.abs(yEnd - yStart);
+
+        var railWidth = pxX(dc, 1);
+        var outlineWidth = pxX(dc, 3);
+
+        // rail
+        Graphite.strokeRectangleCentered(dc, x, Graphite.getCenterY(dc), railWidth, height, outlineWidth, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+
+        var barHeight = height * (endIndex - startIndex) / itemCount.toFloat();
+        var barStartY = yStart + height * startIndex / itemCount.toFloat();
+
+        // bar
+        Graphite.resetColor(dc);
+        dc.setPenWidth(pxX(dc, 3));
+        Graphite.fillRectangleCentered(dc, x, barStartY + barHeight / 2, px(dc, 3), barHeight);
 
         Graphite.resetPenWidth(dc);
     }
 
     // page indicator
 
+    (:round)
     function drawHorizontalPageIndicator(dc, pageCount, index) {
         if (pageCount <= 1) {
             return;
@@ -161,7 +223,9 @@ module WidgetUtil {
         Graphite.drawArcCentered(dc, edgeOffset, bgMinDeg, bgMaxDeg);
 
         // indicator
+
         dc.setPenWidth(stroke);
+
         for (var i = 0; i < pageCount; i++) {
             var startDeg = maxDeg - i * deltaDeg;
             var endDeg = startDeg + lengthDeg;
@@ -172,10 +236,54 @@ module WidgetUtil {
             else {
                 Graphite.setColor(dc, Graphene.COLOR_DK_GRAY);
             }
+
             Graphite.drawArcCentered(dc, edgeOffset, startDeg, endDeg);
         }
 
         Graphite.resetPenWidth(dc);
+    }
+
+    (:rectangle)
+    function drawHorizontalPageIndicator(dc, pageCount, index) {
+        if (pageCount <= 1) {
+            return;
+        }
+
+        var length = pxY(dc, 6); // length of one indicator
+        var delta = length + pxY(dc, 3);
+        var center = degToY(dc, 30); // _BTN_START_DEG
+        var max = center + delta * (pageCount - 1) / 2f;
+        var min = max - pageCount * delta;
+        var edgeOffset = pxX(dc, 5);
+        var stroke = pxX(dc, 4);
+
+        var outlineWidth = pxX(dc, 3);
+        var bgStroke = stroke + px(dc, 2) * outlineWidth;
+
+        // bg outline
+        Graphite.setColor(dc, Graphene.COLOR_BLACK);
+        dc.setPenWidth(bgStroke);
+        Graphite.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, center - 2 * outlineWidth, stroke + 2 * outlineWidth, max - min + 2 * outlineWidth);
+
+        // indicator
+        for (var i = 0; i < pageCount; i++) {
+            var start = min + i * delta;
+            var end = start + length;
+
+            var y = (end + start) / 2;
+            var height = Chem.abs(end - start);
+            Log.d("y " + y);
+            Log.d("h " + height);
+
+            if (i == index) {
+                Graphite.resetColor(dc);
+            }
+            else {
+                Graphite.setColor(dc, Graphene.COLOR_DK_GRAY);
+            }
+
+            Graphite.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, y, stroke, height);
+        }
     }
 
     // page arrow

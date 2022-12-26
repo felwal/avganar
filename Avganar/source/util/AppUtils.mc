@@ -1,4 +1,6 @@
 using Toybox.Attention;
+using Toybox.Math;
+using Carbon.Chem;
 using Carbon.Graphite;
 
 (:glance)
@@ -16,6 +18,10 @@ function vibrate() {
 }
 
 //
+
+function degToY(dc, deg) {
+    return (-Math.sin(Chem.rad(deg)) / 2 + 0.5) * dc.getHeight();
+}
 
 function pxX(dc, pxOn240x240) {
     return Graphite.getWidthByRatio(dc, pxOn240x240 / 240f);
