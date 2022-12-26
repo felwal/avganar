@@ -5,6 +5,20 @@ using Carbon.Graphene;
 
 class Departure {
 
+    static hidden const _MODE_METRO = "METRO";
+    static hidden const _MODE_BUS = "BUS";
+    static hidden const _MODE_TRAIN = "TRAIN";
+    static hidden const _MODE_TRAM = "TRAM";
+    static hidden const _MODE_SHIP = "SHIP";
+    static hidden const _MODE_NONE = "NONE";
+
+    static hidden const _GROUP_METRO_RED = "tunnelbanans röda linje";
+    static hidden const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
+    static hidden const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
+    static hidden const _GROUP_BUS_RED = "";
+    static hidden const _GROUP_BUS_BLUE = "blåbuss";
+    static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
+
     hidden var _mode;
     hidden var _group;
     hidden var _line;
@@ -81,51 +95,51 @@ class Departure {
     }
 
     function getModeColor() {
-        if (_mode.equals("METRO")) {
-            if (_group.equals("tunnelbanans röda linje")) {
-                return Graphene.COLOR_DR_RED;
+        if (_mode.equals(_MODE_METRO)) {
+            if (_group.equals(_GROUP_METRO_RED)) {
+                return AppColors.DEPARTURE_METRO_RED;
             }
-            else if (_group.equals("tunnelbanans blå linje")) {
-                return Graphene.COLOR_DR_BLUE;
+            else if (_group.equals(_GROUP_METRO_BLUE)) {
+                return AppColors.DEPARTURE_METRO_BLUE;
             }
-            else if (_group.equals("tunnelbanans gröna linje")) {
-                return Graphene.COLOR_DR_GREEN;
+            else if (_group.equals(_GROUP_METRO_GREEN)) {
+                return AppColors.DEPARTURE_METRO_GREEN;
             }
             else {
                 Log.d("unknown metro group: " + _group);
-                return Graphene.COLOR_DK_GRAY;
+                return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (_mode.equals("BUS")) {
-            if (_group.equals("")) {
-                return Graphene.COLOR_RED;
+        else if (_mode.equals(_MODE_BUS)) {
+            if (_group.equals(_GROUP_BUS_RED)) {
+                return AppColors.DEPARTURE_BUS_RED;
             }
-            else if (_group.equals("blåbuss")) {
-                return Graphene.COLOR_BLUE;
+            else if (_group.equals(_GROUP_BUS_BLUE)) {
+                return AppColors.DEPARTURE_BUS_BLUE;
             }
-            else if (_group.equals("Ersättningsbuss")) {
-                return Graphene.COLOR_VERMILION;
+            else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
+                return AppColors.DEPARTURE_BUS_REPLACEMENT;
             }
             else {
                 Log.d("unknown bus group: " + _group);
-                return Graphene.COLOR_DK_GRAY;
+                return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (_mode.equals("TRAIN")) {
-            return Graphene.COLOR_MAGENTA;
+        else if (_mode.equals(_MODE_TRAIN)) {
+            return AppColors.DEPARTURE_TRAIN;
         }
-        else if (_mode.equals("TRAM")) {
-            return Graphene.COLOR_AMBER;
+        else if (_mode.equals(_MODE_TRAM)) {
+            return AppColors.DEPARTURE_TRAM;
         }
-        else if (_mode.equals("SHIP")) {
-            return Graphene.COLOR_CAPRI;
+        else if (_mode.equals(_MODE_SHIP)) {
+            return AppColors.DEPARTURE_SHIP;
         }
-        else if (_mode.equals("NONE")) {
-            return Graphene.COLOR_BLACK;
+        else if (_mode.equals(_MODE_NONE)) {
+            return AppColors.DEPARTURE_NONE;
         }
         else {
             Log.d("unknown mode: " + _mode);
-            return Graphene.COLOR_DK_GRAY;
+            return AppColors.DEPARTURE_UNKNOWN;
         }
     }
 
