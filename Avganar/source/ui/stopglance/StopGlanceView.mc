@@ -1,7 +1,7 @@
 using Toybox.Graphics;
 using Toybox.WatchUi;
 
-(:glance)
+(:glance :glanceExclusive)
 class StopGlanceView extends WatchUi.GlanceView {
 
     // init

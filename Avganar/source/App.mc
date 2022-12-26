@@ -24,7 +24,7 @@ class App extends Application.AppBase {
         }
     }
 
-    (:glance)
+    (:glance :glanceExclusive)
     function getGlanceView() {
         return [ new StopGlanceView() ];
     }
