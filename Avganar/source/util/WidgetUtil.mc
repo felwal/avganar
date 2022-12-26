@@ -13,6 +13,13 @@ module WidgetUtil {
     const _DIR_UP = 2;
     const _DIR_DOWN = 3;
 
+    // button positions
+    const _BTN_START_DEG = 30;
+    const _BTN_LIGHT_DEG = 150;
+    const _BTN_UP_DEG = 180;
+    const _BTN_DOWN_DEG = 210;
+    const _BTN_BACK_DEG = 330;
+
     // text
 
     function drawDialog(dc, title, msg) {
@@ -205,7 +212,7 @@ module WidgetUtil {
 
         var lengthDeg = 3; // length in degrees of one indicator
         var deltaDeg = lengthDeg + 2;
-        var centerDeg = 30; // _BTN_START_DEG
+        var centerDeg = _BTN_START_DEG;
         var maxDeg = centerDeg + deltaDeg * (pageCount - 1) / 2f;
         var minDeg = maxDeg - pageCount * deltaDeg;
         var edgeOffset = px(dc, 5);
@@ -251,7 +258,7 @@ module WidgetUtil {
 
         var length = pxY(dc, 6); // length of one indicator
         var delta = length + pxY(dc, 3);
-        var center = degToY(dc, 30); // _BTN_START_DEG
+        var center = degToY(dc, _BTN_START_DEG);
         var max = center + delta * (pageCount - 1) / 2f;
         var min = max - pageCount * delta;
         var edgeOffset = pxX(dc, 5);
