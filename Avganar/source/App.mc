@@ -7,27 +7,16 @@ const DEBUG = true;
 (:glance)
 class App extends Application.AppBase {
 
-    static var hasGlance = false;
-    static var doNotDisturb = false;
-    static var vibrateOn = true;
-
     // init
 
     function initialize() {
         AppBase.initialize();
-
-        var ds = System.getDeviceSettings();
-        if (ds != null) {
-            hasGlance = ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
-            doNotDisturb = ds has :doNotDisturb && ds.doNotDisturb;
-            vibrateOn = ds has :vibrateOn && ds.vibrateOn;
-        }
     }
 
     // override AppBase
 
     function getInitialView() {
-        if (!hasGlance || DEBUG) {
+        if (!hasGlance() || DEBUG) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
         else {
