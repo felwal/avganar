@@ -8,8 +8,8 @@ Features:
 - Save favorite stops and view anywhere
 - View departures
   - Color coded and sectioned by mode
-  - See if a departure has any deviations
-- Settings for tuning max stops and departures time window
+  - See deviations and their importance level
+- Limit memory consumption by tuning settings
 
 The app uses internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
 
@@ -18,3 +18,5 @@ Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 
 By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
 For support, please contact me at felwal.studios@proton.me.
+
+Keywords: public transport, commute, departures, travel, train, bus, metro, tram
