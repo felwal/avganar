@@ -279,8 +279,6 @@ module WidgetUtil {
 
             var y = (end + start) / 2;
             var height = Chem.abs(end - start);
-            Log.d("y " + y);
-            Log.d("h " + height);
 
             if (i == index) {
                 Graphite.resetColor(dc);

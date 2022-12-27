@@ -106,7 +106,7 @@ class Departure {
                 return AppColors.DEPARTURE_METRO_GREEN;
             }
             else {
-                Log.d("unknown metro group: " + _group);
+                Log.w("unknown metro group: " + _group);
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
@@ -121,7 +121,7 @@ class Departure {
                 return AppColors.DEPARTURE_BUS_REPLACEMENT;
             }
             else {
-                Log.d("unknown bus group: " + _group);
+                Log.w("unknown bus group: " + _group);
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
@@ -138,7 +138,7 @@ class Departure {
             return AppColors.DEPARTURE_NONE;
         }
         else {
-            Log.d("unknown mode: " + _mode);
+            Log.w("unknown mode: " + _mode);
             return AppColors.DEPARTURE_UNKNOWN;
         }
     }
