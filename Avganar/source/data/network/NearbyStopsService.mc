@@ -62,8 +62,10 @@ module NearbyStopsService {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            Log.i("Stops response error (code " + responseCode + "): " + data);
+            Log.e("Stops response error (code " + responseCode + "): " + data);
 
+            // TODO: for some reason the error code is not displayed.
+            // "Stops SL response error" below, however, works.
             if (DictUtil.hasValue(data, "Message")) {
                 NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
             }
@@ -81,14 +83,12 @@ module NearbyStopsService {
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
 
-            Log.i("Stops SL request error (code " + statusCode + ")");
+            Log.e("Stops SL response error (code " + statusCode + ")");
 
             NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
 
             return;
         }
-
-        //Log.d("Stops response success: " + data);
 
         // no stops were found
         if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {

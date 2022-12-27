@@ -103,9 +103,6 @@ class DeparturesService {
                 : 0;
         }
 
-        Log.d("mode count: " + modeCount);
-        Log.d("deps/mode: " + maxDeparturesPerMode);
-
         var departures = [];
 
         for (var m = 0; m < modes.size(); m++) {
@@ -154,7 +151,7 @@ class DeparturesService {
             _stop.setResponse(departures);
         }
         else {
-            Log.d("Departures response empty of departures");
+            Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.lbl_i_departures_none));
         }
     }
