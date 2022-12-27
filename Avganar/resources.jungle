@@ -1,0 +1,35 @@
+base.resourcePath = resources
+
+# 30x30
+legacyherocaptainmarvel.resourcePath = $(legacyherocaptainmarvel.resourcePath); resources-launcher_30x30
+legacysagarey.resourcePath = $(legacysagarey.resourcePath); resources-launcher_30x30
+vivoactive4s.resourcePath = $(vivoactive4s.resourcePath); resources-launcher_30x30
+
+# 35x35
+legacyherofirstavenger.resourcePath = $(legacyherofirstavenger.resourcePath); resources-launcher_35x35
+legacysagadarthvader.resourcePath = $(legacysagadarthvader.resourcePath); resources-launcher_35x35
+vivoactive4.resourcePath = $(vivoactive4.resourcePath); resources-launcher_35x35
+
+# 36x36
+venusqm.resourcePath = $(venusqm.resourcePath); resources-launcher_36x36
+
+# 40x33
+vivoactive3m.resourcePath = $(vivoactive3m.resourcePath); resources-launcher_40x33
+vivoactive3mlte.resourcePath = $(vivoactive3mlte.resourcePath); resources-launcher_40x33
+
+# 60x60
+d2air.resourcePath = $(d2air.resourcePath); resources-launcher_60x60
+d2mach1.resourcePath = $(d2mach1.resourcePath); resources-launcher_60x60
+epix2.resourcePath = $(epix2.resourcePath); resources-launcher_60x60
+marq2.resourcePath = $(marq2.resourcePath); resources-launcher_60x60
+marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-launcher_60x60
+venu.resourcePath = $(venu.resourcePath); resources-launcher_60x60
+venud.resourcePath = $(venu.resourcePath); resources-launcher_60x60
+
+# 61x61
+venu2s.resourcePath = $(venu2s.resourcePath); resources-launcher_61x61
+
+# 70x70
+d2airx10.resourcePath = $(d2airx10.resourcePath); resources-launcher_70x70
+venu2.resourcePath = $(venu2.resourcePath); resources-launcher_70x70
+venu2plus.resourcePath = $(venu2plus.resourcePath); resources-launcher_70x70
