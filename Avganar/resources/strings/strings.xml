@@ -7,9 +7,9 @@
     <!-- message -->
 
     <!-- status message -->
-    <string id="lbl_i_stops_no_gps">Locating ...</string>
+    <string id="lbl_i_stops_no_gps">Wait for GPS ...</string>
     <string id="lbl_i_stops_requesting">Searching ...</string>
-    <string id="lbl_i_departures_requesting" scope="glance">Searching ...</string>
+    <string id="lbl_i_departures_requesting">Searching ...</string>
 
     <!-- response message -->
     <string id="lbl_i_stops_none">No Nearby Stops</string>
