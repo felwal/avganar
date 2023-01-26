@@ -61,8 +61,7 @@ class StopListView extends WatchUi.View {
             Graphene.COLOR_BLACK,
             _viewModel.areStopsCurrent() ? AppColors.TEXT_PRIMARY : AppColors.TEXT_SECONDARY,
             _viewModel.areStopsCurrent() ? AppColors.TEXT_SECONDARY : AppColors.TEXT_TERTIARY,
-            AppColors.TEXT_TERTIARY
-        ];
+            AppColors.TEXT_TERTIARY ];
 
         WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, favColors, nearbyColors);
     }

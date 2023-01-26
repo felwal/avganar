@@ -16,16 +16,9 @@ class Stop {
     function initialize(id, name) {
         me.id = id;
         me.name = name;
-
-        setSearching();
     }
 
     // set
-
-    function setSearching() {
-        response = null;
-        _timeStamp = null;
-    }
 
     function setResponse(response_) {
         response = response_;
@@ -40,6 +33,17 @@ class Stop {
         else {
             // only vibrate if we are not auto-rerequesting
             vibrate();
+        }
+    }
+
+    function resetResponse() {
+        response = null;
+        _timeStamp = null;
+    }
+
+    function resetResponseError() {
+        if (response instanceof ResponseError) {
+            resetResponse();
         }
     }
 
