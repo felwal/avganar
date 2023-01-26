@@ -32,6 +32,7 @@ class StopDetailView extends WatchUi.View {
 
     function onHide() {
         _viewModel.disableRequests();
+        _viewModel.stop.resetResponseError();
     }
 
     // draw

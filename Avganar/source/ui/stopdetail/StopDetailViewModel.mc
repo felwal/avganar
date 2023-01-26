@@ -115,8 +115,8 @@ class StopDetailViewModel {
         if (stop.response instanceof ResponseError) {
             // rerequest
             if (stop.response.isRerequestable()) {
+                stop.resetResponse();
                 requestDepartures();
-                stop.setSearching();
                 WatchUi.requestUpdate();
             }
         }
