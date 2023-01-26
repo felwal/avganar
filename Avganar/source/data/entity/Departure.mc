@@ -5,6 +5,8 @@ using Carbon.Graphene;
 
 class Departure {
 
+    static const CANCELLED = 10;
+
     static hidden const _MODE_METRO = "METRO";
     static hidden const _MODE_BUS = "BUS";
     static hidden const _MODE_TRAIN = "TRAIN";
@@ -72,9 +74,29 @@ class Departure {
     }
 
     function getTextColor() {
-        return _deviationLevel >= 1
-            ? AppColors.getDeviationColor(_deviationLevel)
-            : AppColors.TEXT_PRIMARY;
+        if (_deviationLevel == CANCELLED) {
+            return AppColors.TEXT_TERTIARY;
+        }
+        else if (_deviationLevel >= 8) {
+            return Graphene.COLOR_RED;
+        }
+        else if (_deviationLevel >= 6) {
+            return Graphene.COLOR_VERMILION;
+        }
+        else if (_deviationLevel >= 4) {
+            return Graphene.COLOR_AMBER;
+        }
+        else if (_deviationLevel >= 3) {
+            return Graphene.COLOR_YELLOW;
+        }
+        else if (_deviationLevel >= 2) {
+            return Graphene.COLOR_LT_YELLOW;
+        }
+        else if (_deviationLevel >= 1) {
+            return Graphene.COLOR_LR_YELLOW;
+        }
+
+        return AppColors.TEXT_PRIMARY;
     }
 
     function getModeColor() {

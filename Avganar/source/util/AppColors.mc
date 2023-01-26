@@ -30,29 +30,4 @@ module AppColors {
     const DEPARTURE_NONE = Graphene.COLOR_BLACK;
     const DEPARTURE_UNKNOWN = Graphene.COLOR_DK_GRAY;
 
-    //
-
-    function getDeviationColor(level) {
-        if (level >= 8) {
-            return Graphene.COLOR_RED;
-        }
-        else if (level >= 6) {
-            return Graphene.COLOR_VERMILION;
-        }
-        else if (level >= 4) {
-            return Graphene.COLOR_AMBER;
-        }
-        else if (level >= 3) {
-            return Graphene.COLOR_YELLOW;
-        }
-        else if (level >= 2) {
-            return Graphene.COLOR_LT_YELLOW;
-        }
-        else if (level >= 1) {
-            return Graphene.COLOR_LR_YELLOW;
-        }
-
-        return null;
-    }
-
 }

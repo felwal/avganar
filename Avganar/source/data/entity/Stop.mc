@@ -92,9 +92,26 @@ class Stop {
     }
 
     function getTitleColor() {
-        return deviationLevel >= 1
-            ? AppColors.getDeviationColor(deviationLevel)
-            : AppColors.TEXT_SECONDARY;
+        if (deviationLevel >= 8) {
+            return Graphene.COLOR_RED;
+        }
+        else if (deviationLevel >= 6) {
+            return Graphene.COLOR_VERMILION;
+        }
+        else if (deviationLevel >= 4) {
+            return Graphene.COLOR_AMBER;
+        }
+        else if (deviationLevel >= 3) {
+            return Graphene.COLOR_YELLOW;
+        }
+        else if (deviationLevel >= 2) {
+            return Graphene.COLOR_LT_YELLOW;
+        }
+        else if (deviationLevel >= 1) {
+            return Graphene.COLOR_LR_YELLOW;
+        }
+
+        return AppColors.TEXT_SECONDARY;
     }
 
     //
