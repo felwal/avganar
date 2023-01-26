@@ -13,7 +13,7 @@
 
     <!-- response message -->
     <string id="lbl_i_stops_none">No Nearby Stops</string>
-    <string id="lbl_i_stops_outside_bounds">Out of Bounds</string>
+    <string id="lbl_i_stops_outside_bounds">No Nearby Stops</string>
     <string id="lbl_i_departures_none">No Departures</string>
 
     <!-- request error -->
