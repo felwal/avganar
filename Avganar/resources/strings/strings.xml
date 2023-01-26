@@ -34,11 +34,7 @@
     <!-- view -->
 
     <!-- glance -->
-    <string id="lbl_glance_title" scope="glance">Nearest Stop</string>
-    <string id="lbl_glance_caption_no_stops" scope="glance">No Stops Nearby</string>
-
-    <!-- preview -->
-    <string id="lbl_preview_title_no_stops">No Stops Nearby</string>
+    <string id="lbl_glance_caption_no_stops" scope="glance">No Recent Stops</string>
 
     <!-- list -->
     <string id="lbl_list_nearby">Nearby</string>

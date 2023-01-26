@@ -34,11 +34,7 @@
     <!-- view -->
 
     <!-- glance -->
-    <string id="lbl_glance_title" scope="glance">Närmast</string>
     <string id="lbl_glance_caption_no_stops" scope="glance">Inga hållplatser</string>
-
-    <!-- preview -->
-    <string id="lbl_preview_title_no_stops">Inga hållplatser</string>
 
     <!-- list -->
     <string id="lbl_list_nearby">Närliggande</string>
