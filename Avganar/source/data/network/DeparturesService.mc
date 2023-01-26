@@ -81,6 +81,8 @@ class DeparturesService {
 
         //Log.d("Departures response success: " + data);
 
+        // departure count per mode
+
         var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
         var modeCount = 0;
 
@@ -102,6 +104,8 @@ class DeparturesService {
                 ? maxDepartures / modeCount
                 : 0;
         }
+
+        // departures
 
         var departures = [];
 
@@ -154,6 +158,19 @@ class DeparturesService {
             Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.lbl_i_departures_none));
         }
+
+        // stop point deviation
+
+        var stopDeviations = data["ResponseData"]["StopPointDeviations"];
+        var stopDeviationLevel = 0;
+
+        for (var i = 0; i < stopDeviations.size(); i++) {
+            stopDeviationLevel = Chem.max(
+                stopDeviationLevel,
+                DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "ImportanceLevel", 0));
+        }
+
+        _stop.deviationLevel = stopDeviationLevel;
     }
 
 }

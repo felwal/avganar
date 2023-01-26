@@ -42,7 +42,7 @@ class StopDetailView extends WatchUi.View {
         var response = _viewModel.getPageResponse();
 
         // text
-        _drawHeader(dc, stop.name);
+        _drawHeader(dc, stop);
         _drawFooter(dc);
 
         // departures
@@ -78,14 +78,14 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    hidden function _drawHeader(dc, text) {
+    hidden function _drawHeader(dc, stop) {
         // 19 is font height for XTINY on fr745.
         // set y to half and justify to vcenter for the title to
         // look alright even on devices with different font size for XTINY.
         var y = pxY(dc, 23) + pxY(dc, 19) / 2;
 
-        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-        dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, text.toUpper(),
+        Graphite.setColor(dc, stop.getTitleColor());
+        dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, stop.name.toUpper(),
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
@@ -135,7 +135,7 @@ class StopDetailView extends WatchUi.View {
             dc.fillCircle(xCircle, y, rCircle);
 
             // draw text
-            Graphite.setColor(dc, departure.getDeviationColor());
+            Graphite.setColor(dc, departure.getTextColor());
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
