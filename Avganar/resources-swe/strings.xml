@@ -7,9 +7,9 @@
     <!-- message -->
 
     <!-- status message -->
-    <string id="lbl_i_stops_no_gps">Vänta på GPS ...</string>
-    <string id="lbl_i_stops_requesting">Söker ...</string>
-    <string id="lbl_i_departures_requesting">Söker ...</string>
+    <string id="lbl_i_stops_no_gps">Väntar på GPS ...</string>
+    <string id="lbl_i_stops_requesting">Läser in ...</string>
+    <string id="lbl_i_departures_requesting">Läser in ...</string>
 
     <!-- response message -->
     <string id="lbl_i_stops_none">Inga närliggande</string>
