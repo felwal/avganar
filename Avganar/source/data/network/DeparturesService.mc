@@ -131,13 +131,12 @@ class DeparturesService {
                 var deviationLevel = 0;
 
                 for (var i = 0; i < deviations.size(); i++) {
-                    if (deviations[i]["Consequence"] == "CANCELLED" && deviations[i]["ImportanceLevel"] == 0) {
-                        // consider cancelled as a serious deviation
-                        deviationLevel = 9;
+                    if (deviations[i]["Consequence"] == "CANCELLED") {
+                        deviationLevel = Departure.CANCELLED;
+                        break;
                     }
-                    else {
-                        deviationLevel = Chem.max(deviationLevel, deviations[i]["ImportanceLevel"]);
-                    }
+
+                    deviationLevel = Chem.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
                 modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel));
