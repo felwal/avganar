@@ -6,8 +6,9 @@ class Stop {
 
     var id;
     var name;
-
     var response;
+    var deviationLevel = 0;
+
     hidden var _departuresTimeWindow;
     hidden var _timeStamp;
 
@@ -88,6 +89,12 @@ class Stop {
         }
 
         return [ response, 0 ];
+    }
+
+    function getTitleColor() {
+        return deviationLevel >= 1
+            ? AppColors.getDeviationColor(deviationLevel)
+            : AppColors.TEXT_SECONDARY;
     }
 
     //
