@@ -13,7 +13,7 @@
 
     <!-- response message -->
     <string id="lbl_i_stops_none">Inga närliggande</string>
-    <string id="lbl_i_stops_outside_bounds">Utanför banan</string>
+    <string id="lbl_i_stops_outside_bounds">Inga närliggande</string>
     <string id="lbl_i_departures_none">Inga avgångar</string>
 
     <!-- request error -->
