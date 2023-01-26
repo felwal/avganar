@@ -8,6 +8,7 @@ module NearbyStopsStorage {
     const _STORAGE_NEARBY_STOP_NAMES = "nearby_stop_names";
 
     var response;
+    var isResponseCurrent = false;
 
     var _nearbyStopIds;
     var _nearbyStopNames;
@@ -42,6 +43,7 @@ module NearbyStopsStorage {
         _nearbyStopIds = stopIds;
         _nearbyStopNames = stopNames;
         response = response_;
+        isResponseCurrent = true;
 
         _save();
     }

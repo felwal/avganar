@@ -359,7 +359,7 @@ module WidgetUtil {
 
     // list
 
-    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, cc) {
+    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, paneColors, mainColors) {
         var paneHint = paneHints[0];
         var mainHint = mainHints[0];
 
@@ -371,8 +371,8 @@ module WidgetUtil {
         // pane is empty
         if (!hasPane) {
             paneHint = paneHints[1];
-            cc = [ Graphene.COLOR_BLACK, Graphene.COLOR_WHITE, Graphene.COLOR_LT_GRAY, Graphene.COLOR_DK_GRAY ];
-            paneStrokeColor = Graphene.COLOR_DK_GRAY;
+            paneColors = mainColors;
+            paneStrokeColor = mainColors[3];
         }
 
         // main is empty
@@ -384,35 +384,35 @@ module WidgetUtil {
 
         // inside pane
         if (cursor < paneSize) {
-            Graphite.fillBackground(dc, cc[0]);
+            Graphite.fillBackground(dc, paneColors[0]);
 
             // top header
             if (cursor == 0) {
-                drawHeader(dc, pxY(dc, 84), Graphene.COLOR_BLACK, paneStrokeColor, rez(Rez.Strings.app_name), AppColors.TEXT_TERTIARY);
+                drawHeader(dc, pxY(dc, 84), mainColors[0], paneStrokeColor, rez(Rez.Strings.app_name), mainColors[3]);
             }
             else if (cursor == 1) {
-                drawHeader(dc, pxY(dc, 42), Graphene.COLOR_BLACK, paneStrokeColor, null, null);
-                Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
+                drawHeader(dc, pxY(dc, 42), mainColors[0], paneStrokeColor, null, null);
+                Graphite.setColor(dc, mainColors[3]);
                 drawUpArrow(dc, pxY(dc, 42));
             }
             else {
-                Graphite.setColor(dc, cc[3]);
+                Graphite.setColor(dc, paneColors[3]);
                 drawTopPageArrow(dc);
             }
 
             // bottom header
             if (cursor == paneSize - 2) {
-                drawFooter(dc, pxY(dc, 42), Graphene.COLOR_BLACK, paneStrokeColor, null, null);
-                Graphite.setColor(dc, cc[3]);
+                drawFooter(dc, pxY(dc, 42), mainColors[0], paneStrokeColor, null, null);
+                Graphite.setColor(dc, paneColors[3]);
                 drawDownArrow(dc, dc.getHeight() - pxY(dc, 42));
             }
             else if (cursor == paneSize - 1) {
-                drawFooter(dc, pxY(dc, 84), Graphene.COLOR_BLACK, paneStrokeColor, mainHint, AppColors.TEXT_TERTIARY);
-                Graphite.setColor(dc, cc[3]);
+                drawFooter(dc, pxY(dc, 84), mainColors[0], paneStrokeColor, mainHint, mainColors[3]);
+                Graphite.setColor(dc, paneColors[3]);
                 drawDownArrow(dc, dc.getHeight() - pxY(dc, 84));
             }
             else {
-                Graphite.setColor(dc, cc[3]);
+                Graphite.setColor(dc, paneColors[3]);
                 drawBottomPageArrow(dc);
             }
         }
@@ -421,25 +421,25 @@ module WidgetUtil {
         else {
             // top header
             if (cursor == paneSize) {
-                drawHeader(dc, pxY(dc, 84), cc[0], paneStrokeColor, paneHint, cc[3]);
-                Graphite.setColor(dc, cc[3]);
+                drawHeader(dc, pxY(dc, 84), paneColors[0], paneStrokeColor, paneHint, paneColors[3]);
+                Graphite.setColor(dc, paneColors[3]);
                 if (hasPane) {
                     drawUpArrow(dc, pxY(dc, 84));
                 }
             }
             else if (cursor == paneSize + 1) {
-                drawHeader(dc, pxY(dc, 42), cc[0], paneStrokeColor, null, null);
-                Graphite.setColor(dc, cc[3]);
+                drawHeader(dc, pxY(dc, 42), paneColors[0], paneStrokeColor, null, null);
+                Graphite.setColor(dc, paneColors[3]);
                 drawUpArrow(dc, pxY(dc, 42));
             }
             else {
-                Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
+                Graphite.setColor(dc, mainColors[3]);
                 drawTopPageArrow(dc);
             }
 
             // bottom header
             if (hasMain && cursor != items.size() - 1) {
-                Graphite.setColor(dc, AppColors.CONTROL_NORMAL);
+                Graphite.setColor(dc, mainColors[3]);
                 drawBottomPageArrow(dc);
             }
         }
@@ -451,7 +451,7 @@ module WidgetUtil {
         var h = dc.getHeight() - 2 * pxY(dc, 36);
         var lineHeightPx = h / 4;
 
-        var bgColor = cursor >= paneSize ? Graphics.COLOR_BLACK : cc[0];
+        var bgColor = cursor >= paneSize ? Graphics.COLOR_BLACK : paneColors[0];
         var selectedColor;
         var unselectedColor;
 
@@ -463,13 +463,13 @@ module WidgetUtil {
         // only draw one list at a time
         if (cursor < paneSize) {
             lastItemIndex = Chem.min(lastItemIndex, paneSize);
-            selectedColor = cc[1];
-            unselectedColor = cc[2];
+            selectedColor = paneColors[1];
+            unselectedColor = paneColors[2];
         }
         else {
             firstItemIndex = Chem.max(firstItemIndex, paneSize);
-            selectedColor = AppColors.TEXT_PRIMARY;
-            unselectedColor = AppColors.TEXT_SECONDARY;
+            selectedColor = mainColors[1];
+            unselectedColor = mainColors[2];
         }
 
         // draw the items

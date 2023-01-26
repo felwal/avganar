@@ -45,7 +45,7 @@ class StopPreviewView extends WatchUi.View {
         for (var i = 0; i < stopNames.size(); i++) {
             var yText = Graphite.getCenterY(dc) + i * lineHeightPx;
 
-            Graphite.setColor(dc, AppColors.TEXT_PRIMARY);
+            Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
             dc.drawText(Graphite.getCenterX(dc), yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
