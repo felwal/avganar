@@ -51,11 +51,20 @@ class StopListView extends WatchUi.View {
         var stopNames = _viewModel.getStopNames();
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
+
         var favHints = [ rez(Rez.Strings.lbl_list_favorites), rez(Rez.Strings.lbl_list_favorites_none) ];
         var nearbyHints = [ rez(Rez.Strings.lbl_list_nearby), rez(Rez.Strings.lbl_list_nearby) ];
-        var cc = [ AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
 
-        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, cc);
+        var favColors = [ AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
+        // gray out stops if not current (waiting for GPS or request)
+        var nearbyColors = [
+            Graphene.COLOR_BLACK,
+            _viewModel.areStopsCurrent() ? AppColors.TEXT_PRIMARY : AppColors.TEXT_SECONDARY,
+            _viewModel.areStopsCurrent() ? AppColors.TEXT_SECONDARY : AppColors.TEXT_TERTIARY,
+            AppColors.TEXT_TERTIARY
+        ];
+
+        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, favColors, nearbyColors);
     }
 
     hidden function _drawGpsStatus(dc) {

@@ -2,7 +2,7 @@ using Toybox.Application;
 using Toybox.System;
 
 (:glance)
-const DEBUG = true;
+const DEBUG = false;
 
 (:glance)
 class App extends Application.AppBase {
