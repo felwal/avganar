@@ -30,7 +30,7 @@ class StopPreviewView extends WatchUi.View {
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
-            WidgetUtil.drawDialog(dc, rez(Rez.Strings.lbl_preview_title_no_stops), "");
+            WidgetUtil.drawDialog(dc, rez(Rez.Strings.app_name), "");
         }
         else {
             _drawStops(dc, stopNames);
