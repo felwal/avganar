@@ -19,9 +19,8 @@ class App extends Application.AppBase {
         if (!hasGlance() || DEBUG) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
-        else {
-            return getMainView();
-        }
+
+        return getMainView();
     }
 
     (:glance :glanceExclusive)

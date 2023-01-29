@@ -22,7 +22,7 @@ class DeparturesService {
 
     function requestDepartures() {
         if (_stop != null) {
-            Log.i("Requesting departures for siteId " + _stop.id + " for " + _stop.getTimeWindow() + " min ...");
+            Log.i("Requesting departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
             _requestDepartures();
         }
     }
@@ -32,7 +32,7 @@ class DeparturesService {
 
         var params = {
             "key" => API_KEY_DEPARTURES,
-            "siteid" => _stop.id,
+            "siteid" => _stop.getId(),
             "timewindow" => _stop.getTimeWindow()
         };
         var options = {
@@ -169,7 +169,7 @@ class DeparturesService {
                 DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "ImportanceLevel", 0));
         }
 
-        _stop.deviationLevel = stopDeviationLevel;
+        _stop.setDeviationLevel(stopDeviationLevel);
     }
 
 }
