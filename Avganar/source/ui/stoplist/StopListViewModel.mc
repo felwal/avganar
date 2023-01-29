@@ -25,6 +25,11 @@ class StopListViewModel {
     // timer
 
     function enableRequests() {
+        if (DEBUG) {
+            _requestNearbyStops();
+            return;
+        }
+
         _requestPosition();
     }
 
@@ -79,10 +84,10 @@ class StopListViewModel {
 
         if (DEBUG) {
             NearbyStopsService.requestNearbyStops(debugLat, debugLon);
+            return;
         }
-        else {
-            NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
-        }
+
+        NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
 
         // update last position
         _lastPos = [ Footprint.getLatRad(), Footprint.getLonRad() ];
@@ -144,7 +149,7 @@ class StopListViewModel {
 
     function isSelectedStopFavorite() {
         var stop = getSelectedStop();
-        return stop != null && FavoriteStopsStorage.isFavorite(stop.id);
+        return stop != null && FavoriteStopsStorage.isFavorite(stop);
     }
 
     function isShowingMessage() {
@@ -161,7 +166,7 @@ class StopListViewModel {
         var stop = getSelectedStop();
 
         // double check that we have a stop response
-        if (stop instanceof Stop) {
+        if (stop instanceof Stop || stop instanceof StopDouble) {
             FavoriteStopsStorage.addFavorite(stop);
             // navigate to newly added
             stopCursor = getFavoriteCount() - 1;
@@ -171,7 +176,7 @@ class StopListViewModel {
     function removeFavorite() {
         var isInFavoritesPane = stopCursor < getFavoriteCount();
 
-        FavoriteStopsStorage.removeFavorite(getSelectedStop().id);
+        FavoriteStopsStorage.removeFavorite(getSelectedStop());
 
         // keep cursor inside favorites panel
         // – or where it was
@@ -181,7 +186,7 @@ class StopListViewModel {
     }
 
     function moveFavorite(diff) {
-        FavoriteStopsStorage.moveFavorite(getSelectedStop().id, diff);
+        FavoriteStopsStorage.moveFavorite(getSelectedStop(), diff);
         stopCursor += diff;
     }
 

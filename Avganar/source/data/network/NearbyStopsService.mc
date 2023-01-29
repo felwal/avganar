@@ -104,6 +104,8 @@ module NearbyStopsService {
 
         // stops were found
 
+        //Log.d("Stops response success: " + data);
+
         var stopIds = [];
         var stopNames = [];
         var stops = [];
@@ -114,17 +116,21 @@ module NearbyStopsService {
 
             var extId = stopData["mainMastExtId"];
             var id = extId.substring(5, extId.length()).toNumber();
+            var name = stopData["name"];
 
             // skip duplicate stops (same id but different names)
-            if (ArrUtil.contains(stopIds, id)) {
+            if (ArrUtil.contains(stops, new StopDummy(id, name))) {
                 continue;
             }
 
-            var name = stopData["name"];
+            var existingId = stopIds.indexOf(id);
+            var existingStop = existingId == -1
+                ? NearbyStopsStorage.getStopByIdAndName(id, name)
+                : stops[existingId];
 
             stopIds.add(id);
             stopNames.add(name);
-            stops.add(FavoriteStopsStorage.createStop(id, name, NearbyStopsStorage.getStopById(id)));
+            stops.add(NearbyStopsStorage.createStop(id, name, existingStop));
         }
 
         NearbyStopsStorage.setResponse(stopIds, stopNames, stops);

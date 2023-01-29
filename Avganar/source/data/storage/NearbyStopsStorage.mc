@@ -42,6 +42,7 @@ module NearbyStopsStorage {
 
         _nearbyStopIds = stopIds;
         _nearbyStopNames = stopNames;
+
         response = response_;
         isResponseCurrent = true;
 
@@ -57,12 +58,46 @@ module NearbyStopsStorage {
         response = _nearbyStopIds.size() == 0 ? null : _buildStops(_nearbyStopIds, _nearbyStopNames);
     }
 
+    function createStop(id, name, existingNearbyStop) {
+        var fav = FavoriteStopsStorage.getFavorite(id, name);
+        var stop;
+
+        if (fav != null) {
+            if (fav.name.equals(name)) {
+                stop = fav;
+            }
+            else {
+                stop = new StopDouble(fav, name);
+            }
+        }
+        // we can use `else if ` because
+        // if both are non-null they refer to the same stop
+        else if (existingNearbyStop != null) {
+            if (existingNearbyStop.name.equals(name)) {
+                stop = existingNearbyStop;
+            }
+            else {
+                stop = new StopDouble(existingNearbyStop, name);
+            }
+        }
+        else {
+            return new Stop(id, name);
+        }
+
+        return stop;
+    }
+
     function _buildStops(ids, names) {
         var stops = [];
+        var addedIds = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var stop = FavoriteStopsStorage.createStop(ids[i], names[i], null);
+            var existingId = addedIds.indexOf(ids[i]);
+            var existingStop = existingId != -1 ? stops[existingId] : null;
+            var stop = createStop(ids[i], names[i], existingStop);
+
             stops.add(stop);
+            addedIds.add(ids[i]);
         }
 
         return stops;
@@ -80,10 +115,13 @@ module NearbyStopsStorage {
         return response instanceof Lang.Array ? ArrUtil.coerceGet(response, index) : null;
     }
 
-    function getStopById(id) {
-        var index = _nearbyStopIds.indexOf(id);
+    function getStopByIdAndName(id, name) {
+        if (!(response instanceof Lang.Array)) {
+            return null;
+        }
 
-        return response instanceof Lang.Array ? ArrUtil.get(response, index, null) : null;
+        var index = response.indexOf(new StopDummy(id, name));
+        return ArrUtil.get(response, index, null);
     }
 
     function getStops() {

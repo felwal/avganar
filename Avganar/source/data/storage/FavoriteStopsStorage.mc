@@ -18,22 +18,20 @@ module FavoriteStopsStorage {
     }
 
     function addFavorite(stop) {
-        if (ArrUtil.contains(_favStopIds, stop.id)) {
-            Log.w(stop.id + " already in favorites");
+        if (ArrUtil.contains(favorites, stop)) {
+            Log.w(stop.name + " already in favorites");
             return;
         }
 
-        _favStopIds.add(stop.id);
+        _favStopIds.add(stop.getId());
         _favStopNames.add(stop.name);
         favorites.add(stop);
 
         _save();
     }
 
-    function removeFavorite(stopId) {
-        // use index of id, to avoid situations where two different
-        // stops share the same name
-        var index = _favStopIds.indexOf(stopId);
+    function removeFavorite(stop) {
+        var index = favorites.indexOf(stop);
 
         var success = ArrUtil.removeAt(_favStopIds, index);
         success &= ArrUtil.removeAt(_favStopNames, index);
@@ -43,12 +41,12 @@ module FavoriteStopsStorage {
             _save();
         }
         else {
-            Log.w("did not find stop id " + stopId + " in favorites");
+            Log.w("did not find stop id " + stop.getId() + " in favorites");
         }
     }
 
-    function moveFavorite(stopId, diff) {
-        var index = _favStopIds.indexOf(stopId);
+    function moveFavorite(stop, diff) {
+        var index = favorites.indexOf(stop);
 
         ArrUtil.swap(_favStopIds, index, index + diff);
         ArrUtil.swap(_favStopNames, index, index + diff);
@@ -66,44 +64,37 @@ module FavoriteStopsStorage {
         favorites = _buildStops(_favStopIds, _favStopNames);
     }
 
-    function createStop(id, name, existingNearbyStop) {
-        var fav = getFavorite(id);
-        var stop;
-
-        // if both are non-null they refer to the same object
-        if (fav != null) {
-            stop = fav;
-        }
-        else if (existingNearbyStop != null) {
-            stop = existingNearbyStop;
-        }
-        else {
-            return new Stop(id, name);
-        }
-
-        // set stop name to the most recent
-        //stop.name = name;
-
-        return stop;
-    }
-
     function _buildStops(ids, names) {
         var stops = [];
+        var addedIds = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var stop = new Stop(ids[i], names[i]);
+            var existingId = addedIds.indexOf(ids[i]);
+            var stop;
+
+            if (existingId != -1) {
+                // we got multiple favorites with the same id
+                var existingStop = stops[existingId];
+                stop = new StopDouble(existingStop, names[i]);
+            }
+            else {
+                stop = new Stop(ids[i], names[i]);
+                addedIds.add(ids[i]);
+            }
+
             stops.add(stop);
         }
 
         return stops;
     }
 
-    function isFavorite(stopId) {
-        return ArrUtil.contains(_favStopIds, stopId);
+    function isFavorite(stop) {
+        return ArrUtil.contains(favorites, stop);
     }
 
-    function getFavorite(stopId) {
-        var index = _favStopIds.indexOf(stopId);
+    function getFavorite(stopId, stopName) {
+        var index = favorites.indexOf(new StopDummy(stopId, stopName));
+        Log.d("index:" + index);
 
         return ArrUtil.get(favorites, index, null);
     }

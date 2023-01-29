@@ -1,32 +1,38 @@
 using Toybox.Lang;
 using Carbon.Chem;
 using Carbon.C14;
+using Carbon.Graphene;
 
 class Stop {
 
-    var id;
     var name;
-    var response;
-    var deviationLevel = 0;
 
+    hidden var _id;
+    hidden var _response;
+    hidden var _deviationLevel = 0;
     hidden var _departuresTimeWindow;
     hidden var _timeStamp;
 
     // init
 
     function initialize(id, name) {
-        me.id = id;
+        _id = id;
         me.name = name;
+    }
+
+    function equals(other) {
+        return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
+            && other.getId() == _id && other.name.equals(name);
     }
 
     // set
 
-    function setResponse(response_) {
-        response = response_;
+    function setResponse(response) {
+        _response = response;
         _timeStamp = C14.now();
 
-        // for each too large response_, halve the time window
-        if (response instanceof ResponseError && response.isTooLarge()) {
+        // for each too large response, halve the time window
+        if (_response instanceof ResponseError && _response.isTooLarge()) {
             _departuresTimeWindow = _departuresTimeWindow == null
                 ? SettingsStorage.getDefaultTimeWindow() / 2
                 : _departuresTimeWindow / 2;
@@ -38,17 +44,29 @@ class Stop {
     }
 
     function resetResponse() {
-        response = null;
+        _response = null;
         _timeStamp = null;
     }
 
     function resetResponseError() {
-        if (response instanceof ResponseError) {
+        if (_response instanceof ResponseError) {
             resetResponse();
         }
     }
 
+    function setDeviationLevel(level) {
+        _deviationLevel = level;
+    }
+
     // get
+
+    function getId() {
+        return _id;
+    }
+
+    function getResponse() {
+        return _response;
+    }
 
     function getTimeWindow() {
         // we don't want to initialize `_departuresTimeWindow` with `SettingsStorage.getDefaultTimeWindow()`,
@@ -59,55 +77,53 @@ class Stop {
     }
 
     function getDataAgeMillis() {
-        return response instanceof Lang.Array || response instanceof Lang.String
+        return _response instanceof Lang.Array || _response instanceof Lang.String
             ? C14.now().subtract(_timeStamp).value() * 1000
             : null;
     }
 
     function getModeCount() {
-        if (response instanceof Lang.Array) {
-            return response.size();
+        if (_response instanceof Lang.Array) {
+            return _response.size();
         }
 
         return 1;
     }
 
     function getModeResponse(mode) {
-        if (response instanceof Lang.Array) {
-            if (response.size() > 0) {
+        if (_response instanceof Lang.Array) {
+            if (_response.size() > 0) {
                 do {
-                    mode = Chem.coerceIn(mode, 0, response.size() - 1);
+                    mode = Chem.coerceIn(mode, 0, _response.size() - 1);
                     _removeDepartedDepartures(mode);
                 }
-                while (response.removeAll(null) && response.size() > 0);
+                while (_response.removeAll(null) && _response.size() > 0);
             }
 
-            return [ response.size() > 0
-                ? response[mode]
-                : rez(Rez.Strings.lbl_i_departures_none),
+            return [ _response.size() > 0 ? _response[mode] : rez(Rez.Strings.lbl_i_departures_none),
                 mode ];
         }
 
-        return [ response, 0 ];
+        return [ _response, 0 ];
     }
 
     function getTitleColor() {
-        if (deviationLevel >= 8) {
+        if (_deviationLevel >= 8) {
             return Graphene.COLOR_RED;
         }
-        else if (deviationLevel >= 6) {
+        else if (_deviationLevel >= 6) {
             return Graphene.COLOR_VERMILION;
         }
-        else if (deviationLevel >= 4) {
+        else if (_deviationLevel >= 4) {
             return Graphene.COLOR_AMBER;
         }
-        else if (deviationLevel >= 3) {
+        else if (_deviationLevel >= 3) {
             return Graphene.COLOR_YELLOW;
         }
-        else if (deviationLevel >= 2) {
+        else if (_deviationLevel >= 2) {
             return Graphene.COLOR_LT_YELLOW;
         }
-        else if (deviationLevel >= 1) {
+        else if (_deviationLevel >= 1) {
             return Graphene.COLOR_LR_YELLOW;
         }
 
@@ -117,27 +133,27 @@ class Stop {
     //
 
     hidden function _removeDepartedDepartures(mode) {
-        if (response[mode] == null || !response[mode][0].hasDeparted()) {
+        if (_response[mode] == null || !_response[mode][0].hasDeparted()) {
             return;
         }
 
         var firstIndex = -1;
 
-        for (var i = 1; i < response[mode].size(); i++) {
+        for (var i = 1; i < _response[mode].size(); i++) {
             // once we get the first departure that has not departed,
             // add it and everything after
-            if (!response[mode][i].hasDeparted()) {
+            if (!_response[mode][i].hasDeparted()) {
                 firstIndex = i;
                 break;
             }
         }
 
         if (firstIndex != -1) {
-            response[mode] = response[mode].slice(firstIndex, null);
+            _response[mode] = _response[mode].slice(firstIndex, null);
         }
         else {
             // add null because an ampty array is not matched with the equals() that removeAll() performes.
-            response[mode] = null;
+            _response[mode] = null;
         }
     }
 

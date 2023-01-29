@@ -45,9 +45,8 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
             WatchUi.popView(WatchUi.SLIDE_BLINK);
             return true;
         }
-        else {
-            return false;
-        }
+
+        return false;
     }
 
     //

@@ -112,9 +112,9 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
-        if (stop.response instanceof ResponseError) {
+        if (stop.getResponse() instanceof ResponseError) {
             // rerequest
-            if (stop.response.isRerequestable()) {
+            if (stop.getResponse().isRerequestable()) {
                 stop.resetResponse();
                 requestDepartures();
                 WatchUi.requestUpdate();
