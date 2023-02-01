@@ -446,7 +446,7 @@ module WidgetUtil {
 
         // draw items
 
-        var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL ];
+        var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY ];
         var font = Graphics.FONT_TINY;
         var h = dc.getHeight() - 2 * pxY(dc, 36);
         var lineHeightPx = h / 4;
@@ -479,11 +479,12 @@ module WidgetUtil {
             var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
             if (i == cursor) {
-                var margin = pxX(dc, 5);
+                var margin = pxX(dc, 2);
                 var width = dc.getWidth() - 2 * margin;
                 var height = dc.getFontHeight(fontsSelected[0]);
 
-                Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc), width, height, fontsSelected, item, justification, selectedColor);
+                Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc), width, height,
+                    fontsSelected, item, justification, selectedColor);
             }
             else {
                 var yText = Graphite.getCenterY(dc) + (i - cursor) * lineHeightPx;
