@@ -43,7 +43,7 @@ class StopListView extends WatchUi.View {
         // error
         if (_viewModel.isShowingMessage()) {
             // info
-            WidgetUtil.drawDialog(dc, _viewModel.getMessage(), "");
+            WidgetUtil.drawDialog(dc, _viewModel.getMessage());
         }
     }
 

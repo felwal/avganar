@@ -3,6 +3,8 @@ using Toybox.System;
 
 (:glance)
 const DEBUG = false;
+(:glance)
+const PREVIEW = false;
 
 (:glance)
 class App extends Application.AppBase {
@@ -16,7 +18,7 @@ class App extends Application.AppBase {
     // override AppBase
 
     function getInitialView() {
-        if (!hasGlance() || DEBUG) {
+        if (!hasGlance() || DEBUG || PREVIEW) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
 

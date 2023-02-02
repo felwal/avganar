@@ -22,33 +22,22 @@ module WidgetUtil {
 
     // text
 
-    function drawDialog(dc, title, msg) {
+    function drawDialog(dc, text) {
+        var fonts = [ Graphics.FONT_SMALL ];
+        var fh = Graphics.getFontHeight(fonts[0]);
+        var w = dc.getWidth() - pxX(dc, 12);
+        var h = dc.getHeight() / 2;
+
         Graphite.resetColor(dc);
+        Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc) - fh / 2,
+            w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, Graphene.COLOR_WHITE);
+    }
 
-        var titleFont = Graphics.FONT_SMALL;
-        var msgFont = Graphics.FONT_XTINY;
+    function drawPreviewTitle(dc, rezId, text) {
+        RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), pxY(dc, 30), rezId);
 
-        if (msg == null || msg.equals("")) {
-            Graphite.resetColor(dc);
-            dc.drawText(Graphite.getCenterX(dc), Graphite.getCenterY(dc), titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-        }
-        else if (title == null || title.equals("")) {
-            Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-            dc.drawText(Graphite.getCenterX(dc), Graphite.getCenterY(dc), msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-        }
-        else {
-            var titleFontHeight = dc.getFontHeight(titleFont);
-            var msgFontHeight = dc.getFontHeight(msgFont);
-            var lineHeight = 1.15;
-
-            var titleY = Graphite.getCenterX(dc) - lineHeight * titleFontHeight / 2;
-            var msgY = Graphite.getCenterX(dc) + lineHeight * msgFontHeight / 2;
-
-            Graphite.resetColor(dc);
-            dc.drawText(Graphite.getCenterX(dc), titleY, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-            Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-            dc.drawText(Graphite.getCenterX(dc), msgY, msgFont, msg, Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-        }
+        dc.drawText(Graphite.getCenterX(dc), pxY(dc, 68), Graphics.FONT_SMALL, text,
+            Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     // header/footer
