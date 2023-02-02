@@ -33,6 +33,9 @@
 
     <!-- view -->
 
+    <!-- preview -->
+    <string id="lbl_preview_msg_no_stops">Öppna för att visa hållplatser</string>
+
     <!-- glance -->
     <string id="lbl_glance_caption_no_stops" scope="glance">Inga hållplatser</string>
 

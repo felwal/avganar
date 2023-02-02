@@ -33,6 +33,9 @@
 
     <!-- view -->
 
+    <!-- preview -->
+    <string id="lbl_preview_msg_no_stops">Open to view nearby stops</string>
+
     <!-- glance -->
     <string id="lbl_glance_caption_no_stops" scope="glance">No Recent Stops</string>
 
