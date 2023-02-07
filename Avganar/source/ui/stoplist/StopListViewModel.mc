@@ -33,7 +33,7 @@ class StopListViewModel {
     }
 
     function disableRequests() {
-        _disablePositionHandling();
+        Footprint.disableLocationEvents();
     }
 
     // position
@@ -41,13 +41,8 @@ class StopListViewModel {
     hidden function _requestPosition() {
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
-        Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
+        Footprint.enableLocationEvents(false);
         Footprint.registerLastKnownPosition();
-    }
-
-    hidden function _disablePositionHandling() {
-        Footprint.enableLocationEvents(Position.LOCATION_DISABLE);
-        Footprint.onRegisterPosition = null;
     }
 
     function onPosition() {
