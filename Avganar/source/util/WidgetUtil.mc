@@ -377,7 +377,7 @@ module WidgetUtil {
 
             // top header
             if (cursor == 0) {
-                drawHeader(dc, pxY(dc, 84), mainColors[0], paneStrokeColor, rez(Rez.Strings.app_name), mainColors[3]);
+                drawHeader(dc, pxY(dc, 84), mainColors[0], paneStrokeColor, rez(Rez.Strings.app_name), mainColors[1]);
             }
             else if (cursor == 1) {
                 drawHeader(dc, pxY(dc, 42), mainColors[0], paneStrokeColor, null, null);
