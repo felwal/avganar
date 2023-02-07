@@ -1,6 +1,5 @@
 using Toybox.Graphics;
 using Toybox.Lang;
-using Toybox.Math;
 using Toybox.Time;
 using Toybox.WatchUi;
 using Carbon.Chem;
@@ -118,7 +117,6 @@ class StopDetailView extends WatchUi.View {
         var xOffset = pxX(dc, 10);
         var yOffset = pxY(dc, 68);
         var rCircle = px(dc, 4);
-        var rTriangle = px(dc, 5);
 
         var h = dc.getHeight() - yOffset * 2;
         var lineHeightPx = h / (StopDetailViewModel.DEPARTURES_PER_PAGE - 1);
@@ -131,29 +129,10 @@ class StopDetailView extends WatchUi.View {
             var xText = xCircle + rCircle + xOffset;
 
             // draw circle
-
             Graphite.setColor(dc, departure.getModeColor());
-            var cCircle = [ xCircle, y ];
-            var b = 2f / Math.sqrt(3) * rTriangle; // half the base
-
-            if (departure.direction == 1) {
-                dc.fillPolygon([
-                    ArrUtil.add(cCircle, [ rTriangle, 0 ]),
-                    ArrUtil.add(cCircle, [ -rTriangle, b ]),
-                    ArrUtil.add(cCircle, [ -rTriangle, -b ]) ]);
-            }
-            else if (departure.direction == 2) {
-                dc.fillPolygon([
-                    ArrUtil.add(cCircle, [ -rTriangle, 0 ]),
-                    ArrUtil.add(cCircle, [ rTriangle, b ]),
-                    ArrUtil.add(cCircle, [ rTriangle, -b ]) ]);
-            }
-            else {
-                dc.fillCircle(xCircle, y, rCircle);
-            }
+            dc.fillCircle(xCircle, y, rCircle);
 
             // draw text
-
             Graphite.setColor(dc, departure.getTextColor());
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
         }
