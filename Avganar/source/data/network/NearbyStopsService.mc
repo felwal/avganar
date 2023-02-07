@@ -17,6 +17,8 @@ module NearbyStopsService {
 
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
+    var isRequesting = false;
+
     // request
 
     function requestNearbyStops(lat, lon) {
@@ -37,6 +39,8 @@ module NearbyStopsService {
     }
 
     function _requestNearbyStops(lat, lon) {
+        isRequesting = true;
+
         var url = "https://api.sl.se/api2/nearbystopsv2";
 
         var params = {
@@ -74,6 +78,7 @@ module NearbyStopsService {
             }
         }
 
+        isRequesting = false;
         WatchUi.requestUpdate();
     }
 

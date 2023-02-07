@@ -154,6 +154,8 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             view = new InfoView(rez(Rez.Strings.lbl_info_about));
         }
         else if (id == ITEM_RESET) {
+            // does not request immediatly,
+            // but thats ok since it is a dev-temp
             NearbyStopsStorage.setResponse([], [], null);
         }
 
