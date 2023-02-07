@@ -17,9 +17,17 @@ class Departure {
     static hidden const _GROUP_METRO_RED = "tunnelbanans röda linje";
     static hidden const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
     static hidden const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
+
     static hidden const _GROUP_BUS_RED = "";
     static hidden const _GROUP_BUS_BLUE = "blåbuss";
+
     static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
+    static hidden const _GROUP_TRAM_SPÅRVÄGCITY = "Spårväg City";
+    static hidden const _GROUP_TRAM_NOCKEBYBANAN = "Nockebybanan";
+    static hidden const _GROUP_TRAM_LIDINGÖBANAN = "Lidingöbanan";
+    static hidden const _GROUP_TRAM_TVÄRBANAN = "Tvärbanan";
+    static hidden const _GROUP_TRAM_SALTSJÖBANAN = "Saltsjöbanan";
+    static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
     hidden var _mode;
     hidden var _group;
@@ -134,7 +142,28 @@ class Departure {
             return AppColors.DEPARTURE_TRAIN;
         }
         else if (_mode.equals(_MODE_TRAM)) {
-            return AppColors.DEPARTURE_TRAM;
+            if (_group.equals(_GROUP_TRAM_SPÅRVÄGCITY)) {
+                return AppColors.DEPARTURE_TRAM_SPÅRVÄGCITY;
+            }
+            else if (_group.equals(_GROUP_TRAM_NOCKEBYBANAN)) {
+                return AppColors.DEPARTURE_TRAM_NOCKEBYBANAN;
+            }
+            else if (_group.equals(_GROUP_TRAM_LIDINGÖBANAN)) {
+                return AppColors.DEPARTURE_TRAM_LIDINGÖBANAN;
+            }
+            else if (_group.equals(_GROUP_TRAM_TVÄRBANAN)) {
+                return AppColors.DEPARTURE_TRAM_TVÄRBANAN;
+            }
+            else if (_group.equals(_GROUP_TRAM_SALTSJÖBANAN)) {
+                return AppColors.DEPARTURE_TRAM_SALTSJÖBANAN;
+            }
+            else if (_group.equals(_GROUP_TRAM_ROSLAGSBANAN)) {
+                return AppColors.DEPARTURE_TRAM_ROSLAGSBANAN;
+            }
+            else {
+                Log.w("unknown tram group: " + _group);
+                return AppColors.DEPARTURE_UNKNOWN;
+            }
         }
         else if (_mode.equals(_MODE_SHIP)) {
             return AppColors.DEPARTURE_SHIP;
