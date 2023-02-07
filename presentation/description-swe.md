@@ -5,11 +5,13 @@ Avgånär är en widget som visar närliggande hållplatser och avgångar inom S
 Funktioner:
 
 - Visa närliggande hållplatser
-- Spara favoriter och visa var som helst
+- Spara favoriter (via menyn) och visa var som helst
 - Visa avgångar
   - Färgkodade och uppdelade efter transporttyp
   - Se avvikelser och deras viktighetsnivå
-- Begränsa minnesbelastning genom att justera inställningar
+- Begränsa minnesbelastning genom att justera inställningar (via menyn)
+
+Avgångstiderna som presenteras är de förutspådda, dvs. inklusive förseningar.
 
 Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.
 
@@ -19,4 +21,4 @@ Genom att ladda ned och använda appen godkänner du integritetspolicyn (https:/
 
 För support, vänligen kontakta mig via felwal.studios@proton.me.
 
-Nyckelord: lokaltrafik, kommunaltrafik, kollektivtrafik, pendel, avgångar, resa, tåg, buss, tunnelbana,
+Nyckelord: lokaltrafik, kommunaltrafik, kollektivtrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
