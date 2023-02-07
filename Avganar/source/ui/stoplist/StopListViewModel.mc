@@ -11,7 +11,6 @@ class StopListViewModel {
     static hidden const _STORAGE_LAST_POS = "last_pos";
 
     var stopCursor = 0;
-    var areStoredStopsCurrent = false;
 
     hidden var _lastPos;
 
@@ -43,8 +42,7 @@ class StopListViewModel {
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(Position.LOCATION_ONE_SHOT);
-        // probably not necessary; only confuses `areStopsCurrent`.
-        //Footprint.registerLastKnownPosition();
+        Footprint.registerLastKnownPosition();
     }
 
     hidden function _disablePositionHandling() {
@@ -63,9 +61,6 @@ class StopListViewModel {
             // only request stops if the user has moved 100 m since last request
             if (movedDistance > 100) {
                 _requestNearbyStops();
-            }
-            else {
-                areStoredStopsCurrent = true;
             }
         }
     }
@@ -156,10 +151,6 @@ class StopListViewModel {
         return !(NearbyStopsStorage.response instanceof Lang.Array) && stopCursor == getItemCount() - 1;
     }
 
-    function areStopsCurrent() {
-        return areStoredStopsCurrent || NearbyStopsStorage.isResponseCurrent;
-    }
-
     // storage - write
 
     function addFavorite() {
@@ -191,6 +182,10 @@ class StopListViewModel {
     }
 
     //
+
+    function getNearbyCursor() {
+        return stopCursor - getFavoriteCount();
+    }
 
     function incStopCursor() {
         _rotStopCursor(1);

@@ -39,6 +39,7 @@ class StopListView extends WatchUi.View {
 
         // stops
         _drawStops(dc);
+        _drawLoadingStatus(dc);
 
         // error
         if (_viewModel.isShowingMessage()) {
@@ -56,26 +57,51 @@ class StopListView extends WatchUi.View {
         var nearbyHints = [ rez(Rez.Strings.lbl_list_nearby), rez(Rez.Strings.lbl_list_nearby) ];
 
         var favColors = [ AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
-        // gray out stops if not current (waiting for GPS or request)
-        var nearbyColors = [
-            Graphene.COLOR_BLACK,
-            _viewModel.areStopsCurrent() ? AppColors.TEXT_PRIMARY : AppColors.TEXT_SECONDARY,
-            _viewModel.areStopsCurrent() ? AppColors.TEXT_SECONDARY : AppColors.TEXT_TERTIARY,
-            AppColors.TEXT_TERTIARY ];
+        var nearbyColors = [ Graphene.COLOR_BLACK, AppColors.TEXT_PRIMARY, AppColors.TEXT_SECONDARY, AppColors.TEXT_TERTIARY ];
 
         WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, favColors, nearbyColors);
     }
 
-    hidden function _drawGpsStatus(dc) {
-        var x = Graphite.getCenterX(dc) + pxX(dc, 45);
-        var y = pxY(dc, 60);
-        var r = px(dc, 5);
+    hidden function _drawLoadingStatus(dc) {
+        var w = dc.getWidth();
+        var middle;
 
-        var hasGps = Footprint.isPositionRegistered;
-        var color = hasGps ? Graphene.COLOR_GREEN : AppColors.CONTROL_NORMAL;
+        if (NearbyStopsService.isRequesting) {
+            middle = w * 0.67f;
+        }
+        else if (!Footprint.isPositionRegistered) {
+            middle = w * 0.33f;
+        }
+        else {
+            return;
+        }
 
-        Graphite.setColor(dc, color);
-        dc.fillCircle(x, y, r);
+        var cursor = _viewModel.getNearbyCursor();
+        var y;
+
+        if (cursor == 0) {
+            y = pxY(dc, 84);
+        }
+        else if (cursor == 1) {
+            y = pxY(dc, 42);
+        }
+        else if (cursor == -1) {
+            y = dc.getHeight() - pxY(dc, 84);
+        }
+        else if (cursor == -2) {
+            y = dc.getHeight() - pxY(dc, 42);
+        }
+        else {
+            return;
+        }
+
+        var h = pxY(dc, 3);
+        var hasFavs = _viewModel.getFavoriteCount() > 0;
+
+        Graphite.setColor(dc, hasFavs ? Graphene.COLOR_LT_AZURE : Graphene.COLOR_LT_GRAY);
+        dc.fillRectangle(0, y, middle, h);
+        Graphite.setColor(dc, hasFavs ? AppColors.ON_PRIMARY_TERTIARY : Graphene.COLOR_DK_GRAY);
+        dc.fillRectangle(middle, y, w, h);
     }
 
 }
