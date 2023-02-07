@@ -98,13 +98,12 @@ class StopDetailView extends WatchUi.View {
         // calc pos to align with page number
         var arrowEdgeOffset = pxY(dc, 4);
         var arrowHeight = pxY(dc, 8);
-        var arrowNumberOffset = pxY(dc, 8);
+        var arrowTextOffset = pxY(dc, 8);
 
-        var font = Graphics.FONT_XTINY;
-        var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowNumberOffset - dc.getFontHeight(font);
+        var font = Graphics.FONT_TINY;
+        var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
-        // important for devices where XTINY is not really tiny.
         y = Chem.max(y, dc.getHeight() - pxY(dc, 42));
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
