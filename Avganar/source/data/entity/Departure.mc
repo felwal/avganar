@@ -21,8 +21,6 @@ class Departure {
     static hidden const _GROUP_BUS_BLUE = "blåbuss";
     static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
-    var direction;
-
     hidden var _mode;
     hidden var _group;
     hidden var _line;
@@ -32,15 +30,13 @@ class Departure {
 
     // init
 
-    function initialize(mode, group, line, destination, direction, moment, deviationLevel) {
+    function initialize(mode, group, line, destination, moment, deviationLevel) {
         _mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
         _deviationLevel = deviationLevel;
-
-        me.direction = direction;
     }
 
     // get

@@ -124,7 +124,6 @@ class DeparturesService {
                 var group = DictUtil.get(departureData, "GroupOfLine", "");
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
-                var direction = departureData["JourneyDirection"];
                 var dateTime = departureData["ExpectedDateTime"];
                 var deviations = DictUtil.get(departureData, "Deviations", []);
 
@@ -140,7 +139,7 @@ class DeparturesService {
                     deviationLevel = Chem.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
-                modeDepartures.add(new Departure(mode, group, line, destination, direction, moment, deviationLevel));
+                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel));
             }
 
             // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.
