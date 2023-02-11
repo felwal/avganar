@@ -1,5 +1,48 @@
 base.resourcePath = resources
 
+# screen size
+
+# 218x218
+fr255s.resourcePath = $(fr255s.resourcePath); resources-218x218
+fr255sm.resourcePath = $(fr255sm.resourcePath); resources-218x218
+legacyherocaptainmarvel.resourcePath = $(legacyherocaptainmarvel.resourcePath); resources-218x218
+legacysagarey.resourcePath = $(legacysagarey.resourcePath); resources-218x218
+vivoactive4s.resourcePath = $(vivoactive4s.resourcePath); resources-218x218
+
+# 260x260
+fenix6pro.resourcePath = $(fenix6pro.resourcePath); resources-260x260
+fenix7.resourcePath = $(fenix7.resourcePath); resources-260x260
+fr255.resourcePath = $(fr255.resourcePath); resources-260x260
+fr255m.resourcePath = $(fr255m.resourcePath); resources-260x260
+fr955.resourcePath = $(fr955.resourcePath); resources-260x260
+legacyherofirstavenger.resourcePath = $(legacyherofirstavenger.resourcePath); resources-260x260
+legacysagadarthvader.resourcePath = $(legacysagadarthvader.resourcePath); resources-260x260
+vivoactive4.resourcePath = $(vivoactive4.resourcePath); resources-260x260
+
+# 280x280
+descentmk2.resourcePath = $(descentmk2.resourcePath); resources-280x280
+fenix6xpro.resourcePath = $(fenix6xpro.resourcePath); resources-280x280
+fenix7x.resourcePath = $(fenix7x.resourcePath); resources-280x280
+
+# 360x360
+venu2s.resourcePath = $(venu2s.resourcePath); resources-360x360
+
+# 390x390
+d2air.resourcePath = $(d2air.resourcePath); resources-390x390
+marq2.resourcePath = $(marq2.resourcePath); resources-390x390
+marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390
+venu.resourcePath = $(venu.resourcePath); resources-390x390
+venud.resourcePath = $(venud.resourcePath); resources-390x390
+
+# 416x416
+d2airx10.resourcePath = $(d2airx10.resourcePath); resources-416x416
+d2mach1.resourcePath = $(d2mach1.resourcePath); resources-416x416
+epix2.resourcePath = $(epix2.resourcePath); resources-416x416
+venu2.resourcePath = $(venu2.resourcePath); resources-416x416
+venu2plus.resourcePath = $(venu2plus.resourcePath); resources-416x416
+
+# launcher icon
+
 # 30x30
 legacyherocaptainmarvel.resourcePath = $(legacyherocaptainmarvel.resourcePath); resources-launcher_30x30
 legacysagarey.resourcePath = $(legacysagarey.resourcePath); resources-launcher_30x30

@@ -80,22 +80,22 @@ class StopListView extends WatchUi.View {
         var y;
 
         if (cursor == 0) {
-            y = pxY(dc, 84);
+            y = px(84);
         }
         else if (cursor == 1) {
-            y = pxY(dc, 42);
+            y = px(42);
         }
         else if (cursor == -1) {
-            y = dc.getHeight() - pxY(dc, 84);
+            y = dc.getHeight() - px(84);
         }
         else if (cursor == -2) {
-            y = dc.getHeight() - pxY(dc, 42);
+            y = dc.getHeight() - px(42);
         }
         else {
             return;
         }
 
-        var h = pxY(dc, 3);
+        var h = px(3);
         var hasFavs = _viewModel.getFavoriteCount() > 0;
 
         Graphite.setColor(dc, hasFavs ? Graphene.COLOR_LT_AZURE : Graphene.COLOR_LT_GRAY);

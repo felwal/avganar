@@ -39,7 +39,7 @@ class StopPreviewView extends WatchUi.View {
 
     hidden function _drawStops(dc, stopNames) {
         var font = Graphics.FONT_TINY;
-        var h = dc.getHeight() - 2 * pxY(dc, 36);
+        var h = dc.getHeight() - 2 * px(36);
         var lineHeightPx = h / 4;
 
         Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
