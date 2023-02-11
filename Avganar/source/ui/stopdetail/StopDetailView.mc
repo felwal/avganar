@@ -81,7 +81,7 @@ class StopDetailView extends WatchUi.View {
         // 19 is font height for XTINY on fr745.
         // set y to half and justify to vcenter for the title to
         // look alright even on devices with different font size for XTINY.
-        var y = pxY(dc, 23) + pxY(dc, 19) / 2;
+        var y = px(23) + px(19) / 2;
 
         Graphite.setColor(dc, stop.getTitleColor());
         dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, stop.name.toUpper(),
@@ -90,20 +90,20 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _drawFooter(dc) {
         // background
-        WidgetUtil.drawFooter(dc, pxY(dc, 42), AppColors.PRIMARY, null, null, null);
+        WidgetUtil.drawFooter(dc, px(42), AppColors.PRIMARY, null, null, null);
 
         // draw clock time
 
         // calc pos to align with page number
-        var arrowEdgeOffset = pxY(dc, 4);
-        var arrowHeight = pxY(dc, 8);
-        var arrowTextOffset = pxY(dc, 8);
+        var arrowEdgeOffset = px(4);
+        var arrowHeight = px(8);
+        var arrowTextOffset = px(8);
 
         var font = Graphics.FONT_TINY;
         var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
-        y = Chem.max(y, dc.getHeight() - pxY(dc, 42));
+        y = Chem.max(y, dc.getHeight() - px(42));
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
@@ -114,9 +114,9 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _drawDepartures(dc, pageDepartures) {
         var font = Graphics.FONT_TINY;
-        var xOffset = pxX(dc, 10);
-        var yOffset = pxY(dc, 68);
-        var rCircle = px(dc, 4);
+        var xOffset = px(10);
+        var yOffset = px(68);
+        var rCircle = px(4);
 
         var h = dc.getHeight() - yOffset * 2;
         var lineHeightPx = h / (StopDetailViewModel.DEPARTURES_PER_PAGE - 1);
