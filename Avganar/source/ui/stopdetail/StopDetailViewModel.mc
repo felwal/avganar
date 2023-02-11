@@ -47,7 +47,6 @@ class StopDetailViewModel {
             ? _REQUEST_TIME_DELAY
             : Chem.max(_REQUEST_TIME_INTERVAL - age, _REQUEST_TIME_DELAY);
 
-        Log.d("age: " + age + ", delay: " + delay);
 
         _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
     }

@@ -51,7 +51,6 @@ class StopListViewModel {
         }
         else if (_lastPos.size() == 2) {
             var movedDistance = Footprint.distanceTo(_lastPos[0], _lastPos[1]);
-            Log.d("distance moved: " + movedDistance);
 
             // only request stops if the user has moved 100 m since last request
             if (movedDistance > 100) {
