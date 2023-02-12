@@ -2,23 +2,19 @@
 
 ## 1.2.0
 
-- Indikera 'Väntar på GPS ...' och 'Laddar ...' med en progress bar
+- Indikera 'laddar'-status med en progress bar
 - Visa och synka hållplats-dubletter
-- Visa om en hållplats har några avvikelser (genom att färga hållplatsnamnet)
+- Visa hållplats-avvikelser (med färg)
 - Visa inställda avgångar med mörkgrå
 - Lägg till färger för lokalbana
-- Trunkera inte långa hållplastsnamn lika ofta
-- Gör klock-tiden större
+- Förbättra UI
 - Förbättra laddar-meddelanden
-- Standardisera preview-vyn
-- Fixa en bugg där den fortsatte köras i bakgrunden medan en gps-aktivitet spelas in
+- Buggfixar och förbättringar
 
 ## 1.1.0
 
-- Visa avvikelsers viktighetsnivå med färg (gul–röd)
+- Visa avgångs-avvikelser (med färg)
 - Lägg till 'högst antal avgångar'-inställning
-- Lägg till ikoner för olika skärm- och launcher-storlekar
-- Anpassa till olika skärmstorlekar
-- Anpassa till rektangulär skärm
+- Anpassa till olika skärmformer och -storlekar
 - Buggfixar och förbättringar
 - Stöd alla enheter med widget-minne 262 kB och API 3.1.0
