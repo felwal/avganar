@@ -36,7 +36,8 @@ class ResponseError {
             _title = rez(Rez.Strings.lbl_e_null_data);
         }
         else if (_code == 5321 || _code == 5322 || _code == 5323 || _code == 5324) {
-            _title = rez(Rez.Strings.lbl_e_retrieval);
+            // don't let the user know we are requesting again
+            _title = rez(Rez.Strings.lbl_i_departures_requesting);
         }
 
         // Garmin
@@ -81,6 +82,13 @@ class ResponseError {
             || _code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY;
     }
 
+    function isServerError() {
+        return _code == 5321
+            || _code == 5322
+            || _code == 5323
+            || _code == 5324;
+    }
+
     function hasConnection() {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
@@ -89,6 +97,7 @@ class ResponseError {
     function isRerequestable() {
         return hasConnection()
             && !isTooLarge() // will auto-rerequest
+            && !isServerError() // will auto-rerequest
             && _code != null;
     }
 
