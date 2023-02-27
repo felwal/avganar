@@ -6,6 +6,7 @@ using Carbon.Graphene;
 class Stop {
 
     var name;
+    var failedRequestCount = 0;
 
     hidden var _id;
     hidden var _response;
@@ -36,10 +37,16 @@ class Stop {
             _departuresTimeWindow = _departuresTimeWindow == null
                 ? SettingsStorage.getDefaultTimeWindow() / 2
                 : _departuresTimeWindow / 2;
+
+            failedRequestCount++;
+        }
+        else if (_response instanceof ResponseError && _response.isServerError()) {
+            failedRequestCount++;
         }
         else {
             // only vibrate if we are not auto-rerequesting
             vibrate();
+            failedRequestCount = 0;
         }
     }
 
@@ -74,6 +81,12 @@ class Stop {
         return _departuresTimeWindow != null
             ? _departuresTimeWindow
             : SettingsStorage.getDefaultTimeWindow();
+    }
+
+    function shouldAutoRerequest() {
+        return _response instanceof ResponseError
+            && getTimeWindow() >= 1
+            && (_response.isTooLarge() || _response.isServerError());
     }
 
     function getDataAgeMillis() {

@@ -84,6 +84,22 @@ module WidgetUtil {
         }
     }
 
+    function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
+        var r = Graphite.getRadius(dc);
+        var start = Chem.minX(y, r);
+        var end = Chem.maxX(y, r);
+        var w = end - start;
+        var middle = w * progress;
+
+        Graphite.setColor(dc, activeColor);
+        dc.fillRectangle(start, y, start + middle, h);
+
+        Graphite.setColor(dc, inactiveColor);
+        dc.fillRectangle(start + middle, y, end, h);
+
+        Graphite.resetColor(dc);
+    }
+
     // start indicator
 
     (:round)

@@ -64,13 +64,13 @@ class StopListView extends WatchUi.View {
 
     hidden function _drawLoadingStatus(dc) {
         var w = dc.getWidth();
-        var middle;
+        var progress;
 
         if (NearbyStopsService.isRequesting) {
-            middle = w * 0.67f;
+            progress = 0.67f;
         }
         else if (!Footprint.isPositionRegistered) {
-            middle = w * 0.33f;
+            progress = 0.33f;
         }
         else {
             return;
@@ -95,13 +95,12 @@ class StopListView extends WatchUi.View {
             return;
         }
 
-        var h = px(3);
         var hasFavs = _viewModel.getFavoriteCount() > 0;
+        var h = px(hasFavs ? 3 : 2);
+        var activeColor = hasFavs ? Graphene.COLOR_LT_AZURE : Graphene.COLOR_LT_GRAY;
+        var inactiveColor = hasFavs ? AppColors.ON_PRIMARY_TERTIARY : Graphene.COLOR_DK_GRAY;
 
-        Graphite.setColor(dc, hasFavs ? Graphene.COLOR_LT_AZURE : Graphene.COLOR_LT_GRAY);
-        dc.fillRectangle(0, y, middle, h);
-        Graphite.setColor(dc, hasFavs ? AppColors.ON_PRIMARY_TERTIARY : Graphene.COLOR_DK_GRAY);
-        dc.fillRectangle(middle, y, w, h);
+        WidgetUtil.drawProgressBar(dc, y, h, progress, activeColor, inactiveColor);
     }
 
 }

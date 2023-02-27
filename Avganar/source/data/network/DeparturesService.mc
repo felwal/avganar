@@ -12,6 +12,8 @@ class DeparturesService {
 
     hidden var _stop;
 
+    static var isRequesting = false;
+
     // init
 
     function initialize(stop) {
@@ -28,6 +30,9 @@ class DeparturesService {
     }
 
     hidden function _requestDepartures() {
+        DeparturesService.isRequesting = true;
+        WatchUi.requestUpdate();
+
         var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
 
         var params = {
@@ -48,18 +53,18 @@ class DeparturesService {
     // receive
 
     function onReceiveDepartures(responseCode, data) {
+        DeparturesService.isRequesting = false;
+
         if (responseCode == _RESPONSE_OK && DictUtil.hasValue(data, "ResponseData")) {
             _handleDeparturesResponseOk(data);
         }
         else {
             Log.i("Departures response error (code " + responseCode + "): " + data);
 
-            var error = new ResponseError(responseCode);
-            _stop.setResponse(error);
+            _stop.setResponse(new ResponseError(responseCode));
 
             // auto rerequest if too large
-            // – but don't go below 1 min timewindow
-            if (error.isTooLarge() && _stop.getTimeWindow() >= 1) {
+            if (_stop.shouldAutoRerequest()) {
                 requestDepartures();
             }
         }
@@ -75,6 +80,11 @@ class DeparturesService {
             Log.i("Departures SL request error (code " + statusCode + ")");
 
             _stop.setResponse(new ResponseError(statusCode));
+
+            // auto rerequest if server error
+            if (_stop.shouldAutoRerequest()) {
+                requestDepartures();
+            }
 
             return;
         }

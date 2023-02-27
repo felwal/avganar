@@ -3,6 +3,7 @@ using Toybox.Lang;
 using Toybox.Time;
 using Toybox.WatchUi;
 using Carbon.Chem;
+using Carbon.Graphene;
 using Carbon.Graphite;
 
 class StopDetailView extends WatchUi.View {
@@ -43,7 +44,7 @@ class StopDetailView extends WatchUi.View {
 
         // text
         _drawHeader(dc, stop);
-        _drawFooter(dc);
+        _drawFooter(dc, stop);
 
         // departures
         if (response instanceof Lang.Array) {
@@ -88,9 +89,12 @@ class StopDetailView extends WatchUi.View {
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    hidden function _drawFooter(dc) {
+    hidden function _drawFooter(dc, stop) {
+        var hFooter = px(42);
+        var h = dc.getHeight();
+
         // background
-        WidgetUtil.drawFooter(dc, px(42), AppColors.PRIMARY, null, null, null);
+        WidgetUtil.drawFooter(dc, hFooter, AppColors.PRIMARY, null, null, null);
 
         // draw clock time
 
@@ -100,16 +104,34 @@ class StopDetailView extends WatchUi.View {
         var arrowTextOffset = px(8);
 
         var font = Graphics.FONT_TINY;
-        var y = dc.getHeight() - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
+        var y = h - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
-        y = Chem.max(y, dc.getHeight() - px(42));
+        y = Chem.max(y, h - hFooter);
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
         dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
         dc.drawText(Graphite.getCenterX(dc), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+
+        // progress bar
+
+        if (!DeparturesService.isRequesting && stop.getResponse() != null) {
+            return;
+        }
+
+        var hProgressBar = px(3);
+        var yProgressBar = h - hFooter - hProgressBar;
+        var progress = _recursiveThird(0, stop.failedRequestCount);
+
+        WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
+            Graphene.COLOR_LT_AZURE, AppColors.ON_PRIMARY_TERTIARY);
+    }
+
+    hidden function _recursiveThird(prevVal, level) {
+        var newVal = prevVal + (1 - prevVal) * 0.33f;
+        return level <= 0 ? newVal : _recursiveThird(newVal, level - 1);
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {
