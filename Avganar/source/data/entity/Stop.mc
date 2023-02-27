@@ -5,6 +5,8 @@ using Carbon.Graphene;
 
 class Stop {
 
+    hidden static var AUTO_REQUEST_LIMIT = 10;
+
     var name;
     var failedRequestCount = 0;
 
@@ -84,9 +86,16 @@ class Stop {
     }
 
     function shouldAutoRerequest() {
-        return _response instanceof ResponseError
-            && getTimeWindow() >= 1
-            && (_response.isTooLarge() || _response.isServerError());
+        if (!(_response instanceof ResponseError)) {
+            return false;
+        }
+
+        if (failedRequestCount >= AUTO_REQUEST_LIMIT || getTimeWindow() < 1) {
+            setResponse(new ResponseError(ResponseError.CODE_E_AUTO_LIMIT));
+            return false;
+        }
+
+        return _response.isTooLarge() || _response.isServerError();
     }
 
     function getDataAgeMillis() {
