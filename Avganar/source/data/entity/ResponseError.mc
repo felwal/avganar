@@ -2,6 +2,9 @@ using Toybox.Lang;
 
 class ResponseError {
 
+    static var CODES_E_SERVER = [ 5321, 5322, 5323, 5324 ];
+    static var CODE_E_AUTO_LIMIT = -2000;
+
     hidden var _code;
     hidden var _title = "";
 
@@ -35,7 +38,7 @@ class ResponseError {
         if (_code == 200) {
             _title = rez(Rez.Strings.lbl_e_null_data);
         }
-        else if (_code == 5321 || _code == 5322 || _code == 5323 || _code == 5324) {
+        else if (ArrUtil.contains(CODES_E_SERVER, _code)) {
             // don't let the user know we are requesting again
             _title = rez(Rez.Strings.lbl_i_departures_requesting);
         }
@@ -70,6 +73,11 @@ class ResponseError {
             _title = rez(Rez.Strings.lbl_e_invalid);
         }
 
+        // custom
+        else if (_code == CODE_E_AUTO_LIMIT) {
+            _title = rez(Rez.Strings.lbl_e_auto_limit);
+        }
+
         else {
             _title = rez(Rez.Strings.lbl_e_default) + " " + _code;
         }
@@ -83,10 +91,7 @@ class ResponseError {
     }
 
     function isServerError() {
-        return _code == 5321
-            || _code == 5322
-            || _code == 5323
-            || _code == 5324;
+        return ArrUtil.contains(CODES_E_SERVER, _code);
     }
 
     function hasConnection() {
