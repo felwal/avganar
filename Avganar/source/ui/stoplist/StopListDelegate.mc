@@ -36,6 +36,10 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
         if (_viewModel.hasStops() && !_viewModel.isShowingMessage()) {
             _pushStopDetail();
         }
+        else {
+            _viewModel.onSelectMessage();
+        }
+
         return true;
     }
 

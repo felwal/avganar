@@ -43,9 +43,16 @@ module WidgetUtil {
     // header/footer
 
     function drawExclamationBanner(dc) {
-        dc.setPenWidth(px(2));
         drawHeader(dc, px(30), Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
         Graphite.resetPenWidth(dc);
+    }
+
+    function drawActionFooter(dc, message) {
+        drawFooter(dc, px(45), Graphene.COLOR_WHITE, Graphene.COLOR_BLACK, message, Graphene.COLOR_BLACK);
+
+        Graphite.setColor(dc, Graphene.COLOR_BLACK);
+        drawBottomPageArrow(dc);
+        Graphite.resetColor(dc);
     }
 
     function drawHeader(dc, height, color, strokeColor, text, textColor) {
@@ -53,8 +60,10 @@ module WidgetUtil {
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
         if (strokeColor != null) {
+            dc.setPenWidth(px(2));
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, height, dc.getWidth(), height);
+            Graphite.resetPenWidth(dc);
         }
 
         if (text != null && !text.equals("")) {

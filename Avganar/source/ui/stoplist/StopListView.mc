@@ -1,4 +1,5 @@
 using Toybox.WatchUi;
+using Carbon.Chem;
 using Carbon.Footprint;
 using Carbon.Graphene;
 using Carbon.Graphite;
@@ -35,8 +36,6 @@ class StopListView extends WatchUi.View {
     // draw
 
     hidden function _draw(dc) {
-        var response = NearbyStopsStorage.response;
-
         // stops
         _drawStops(dc);
         _drawLoadingStatus(dc);
@@ -45,6 +44,11 @@ class StopListView extends WatchUi.View {
         if (_viewModel.isShowingMessage()) {
             // info
             WidgetUtil.drawDialog(dc, _viewModel.getMessage());
+
+            // retry
+            if (_viewModel.isRerequestable()) {
+                WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
+            }
         }
     }
 

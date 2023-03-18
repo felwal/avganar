@@ -96,7 +96,8 @@ class ResponseError {
 
     function hasConnection() {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
-            && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
+            && _code != Communications.NETWORK_REQUEST_TIMED_OUT
+            && _code != 404;
     }
 
     function isRerequestable() {

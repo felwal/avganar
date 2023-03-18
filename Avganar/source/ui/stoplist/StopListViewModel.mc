@@ -177,11 +177,29 @@ class StopListViewModel {
 
     //
 
+    function isRerequestable() {
+        return NearbyStopsStorage.response instanceof ResponseError
+            && NearbyStopsStorage.response.isRerequestable();
+    }
+
+    function onSelectMessage() {
+        if (isRerequestable()) {
+            _requestNearbyStops();
+            WatchUi.requestUpdate();
+        }
+    }
+
     function getNearbyCursor() {
         return stopCursor - getFavoriteCount();
     }
 
     function incStopCursor() {
+        if (isShowingMessage() && isRerequestable()) {
+            _requestNearbyStops();
+            WatchUi.requestUpdate();
+            return;
+        }
+
         _rotStopCursor(1);
     }
 
