@@ -19,8 +19,7 @@
     <!-- request error -->
     <string id="lbl_e_unknown">Okänt fel</string>
     <string id="lbl_e_queue_full">Kön är full</string>
-    <string id="lbl_e_bluetooth">Ingen Bluetooth</string>
-    <string id="lbl_e_internet">Inget internet</string>
+    <string id="lbl_e_connection">Ingen uppkoppling</string>
     <string id="lbl_e_memory">Slut på minne</string>
     <string id="lbl_e_cancelled">Begäran avbröts</string>
     <string id="lbl_e_timeout">Begäran utgick</string>

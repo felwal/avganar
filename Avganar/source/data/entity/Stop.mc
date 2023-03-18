@@ -95,7 +95,7 @@ class Stop {
         }
 
         if (_failedRequestCount >= AUTO_REQUEST_LIMIT || getTimeWindow() < 1) {
-            setResponse(new ResponseError(ResponseError.CODE_E_AUTO_LIMIT));
+            setResponse(new ResponseError(ResponseError.CODE_CUSTOM_AUTO_LIMIT_REACHED));
             return false;
         }
 
