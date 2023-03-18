@@ -5,13 +5,13 @@ using Carbon.Graphene;
 
 class Stop {
 
-    hidden static var AUTO_REQUEST_LIMIT = 10;
+    hidden static var AUTO_REQUEST_LIMIT = 8;
 
     var name;
-    var failedRequestCount = 0;
 
     hidden var _id;
     hidden var _response;
+    hidden var _failedRequestCount = 0;
     hidden var _deviationLevel = 0;
     hidden var _departuresTimeWindow;
     hidden var _timeStamp;
@@ -40,15 +40,15 @@ class Stop {
                 ? SettingsStorage.getDefaultTimeWindow() / 2
                 : _departuresTimeWindow / 2;
 
-            failedRequestCount++;
+            _failedRequestCount++;
         }
         else if (_response instanceof ResponseError && _response.isServerError()) {
-            failedRequestCount++;
+            _failedRequestCount++;
         }
         else {
             // only vibrate if we are not auto-rerequesting
             vibrate();
-            failedRequestCount = 0;
+            _failedRequestCount = 0;
         }
     }
 
@@ -77,6 +77,10 @@ class Stop {
         return _response;
     }
 
+    function getFailedRequestCount() {
+        return _failedRequestCount;
+    }
+
     function getTimeWindow() {
         // we don't want to initialize `_departuresTimeWindow` with `SettingsStorage.getDefaultTimeWindow()`,
         // because then it wont sync when the setting is edited.
@@ -90,7 +94,7 @@ class Stop {
             return false;
         }
 
-        if (failedRequestCount >= AUTO_REQUEST_LIMIT || getTimeWindow() < 1) {
+        if (_failedRequestCount >= AUTO_REQUEST_LIMIT || getTimeWindow() < 1) {
             setResponse(new ResponseError(ResponseError.CODE_E_AUTO_LIMIT));
             return false;
         }

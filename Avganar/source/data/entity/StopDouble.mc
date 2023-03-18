@@ -44,6 +44,10 @@ class StopDouble {
         return _stop.getResponse();
     }
 
+    function getFailedRequestCount() {
+        return _stop.getFailedRequestCount();
+    }
+
     function getTimeWindow() {
         return _stop.getTimeWindow();
     }
