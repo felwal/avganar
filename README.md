@@ -1,6 +1,8 @@
 # Avgånär: Stockholm departures
 
-A Garmin Connect IQ widget displaying SL nearby stops and departures, using Trafiklab's APIs.
+A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL). Uses Trafiklab's APIs.
+
+Get it on [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3edd-4298-8348-5bd818376a2a)
 
 ## Preview
 
@@ -12,9 +14,23 @@ A Garmin Connect IQ widget displaying SL nearby stops and departures, using Traf
 - Save favorite stops and view anywhere
 - View departures
   - Color coded and sectioned by mode
-  - See if a departure has any deviations
-- Settings for tuning max stops and departures time window
+  - See deviations and their importance level
+- Limit memory consumption by tuning settings
 
-## Dependencies
+## Roadmap
+
+- [ ] extend to the whole of Sweden
+- [ ] open source
+
+## APIs
+
+- [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
+- [SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)
+
+## Build tools
+
+- [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc)
+
+## Barrels
 
 - [Carbon Barrel](https://github.com/felwal/carbon-barrel)
