@@ -23,7 +23,7 @@ class StopPreviewView extends WatchUi.View {
     // draw
 
     hidden function _draw(dc) {
-        var stopNames = NearbyStopsStorage.getNearestStopsNames(3);
+        var stopNames = NearbyStopsStorage.getNearestStopsNames(2);
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
