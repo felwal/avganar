@@ -1,6 +1,7 @@
 using Toybox.Application.Storage;
 using Toybox.Lang;
 
+(:glance)
 module NearbyStopsStorage {
 
     const _STORAGE_NEARBY_STOP_IDS = "nearby_stop_ids";
