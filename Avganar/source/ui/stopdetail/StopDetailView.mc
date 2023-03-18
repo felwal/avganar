@@ -123,7 +123,7 @@ class StopDetailView extends WatchUi.View {
 
         var hProgressBar = px(3);
         var yProgressBar = h - hFooter - hProgressBar;
-        var progress = _recursiveThird(0, stop.failedRequestCount);
+        var progress = _recursiveThird(0, stop.getFailedRequestCount());
 
         WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
             Graphene.COLOR_LT_AZURE, AppColors.ON_PRIMARY_TERTIARY);
