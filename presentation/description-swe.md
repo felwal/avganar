@@ -21,4 +21,4 @@ Genom att ladda ned och använda appen godkänner du integritetspolicyn (https:/
 
 För support, vänligen kontakta mig via felwal.studios@proton.me.
 
-Nyckelord: kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
+Nyckelord: Avganar, kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn

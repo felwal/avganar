@@ -1,8 +1,15 @@
 # Changelog
 
+## 1.3.0
+
+- Indikera 'laddar avgångar' med en progress bar
+- Automatiskt försök igen vid serverfel
+- Lägg till 'försök igen'-knapp för hållplatser-förfrågansfel
+- Förbättra UI
+
 ## 1.2.0
 
-- Indikera 'laddar'-status med en progress bar
+- Indikera 'laddar hållplatser' med en progress bar
 - Visa och synka hållplats-dubletter
 - Visa hållplats-avvikelser (med färg)
 - Visa inställda avgångar med mörkgrå

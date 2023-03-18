@@ -1,8 +1,15 @@
 # Changelog
 
+## 1.3.0
+
+- Indicate 'loading departures' with a progress bar
+- Auto-retry server errors
+- Add 'retry' action to stops request error
+- Improve UI
+
 ## 1.2.0
 
-- Indicate 'loading' status with a progress bar
+- Indicate 'loading stops' with a progress bar
 - Show and sync stop duplicates
 - Display stop deviations (using color)
 - Display cancelled departures with dark gray

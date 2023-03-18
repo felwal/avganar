@@ -21,4 +21,4 @@ By downloading and using this app, you agree to the Privacy Policy (https://gith
 
 For support, please contact me at felwal.studios@proton.me.
 
-Keywords: public transport, commute, departures, travel, train, bus, metro, tram, light rail
+Keywords: Avganar, public transport, commute, departures, travel, train, bus, metro, tram, light rail
