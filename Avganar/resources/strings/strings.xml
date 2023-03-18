@@ -19,8 +19,7 @@
     <!-- request error -->
     <string id="lbl_e_unknown">Unknown Error</string>
     <string id="lbl_e_queue_full">Queue Full</string>
-    <string id="lbl_e_bluetooth">No Bluetooth</string>
-    <string id="lbl_e_internet">No Internet</string>
+    <string id="lbl_e_connection">No Connection</string>
     <string id="lbl_e_memory">Out of Memory</string>
     <string id="lbl_e_cancelled">Request Cancelled</string>
     <string id="lbl_e_timeout">Request Timed Out</string>
