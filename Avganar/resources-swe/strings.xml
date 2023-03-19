@@ -49,6 +49,10 @@
     <string id="lbl_detail_now">Nu</string>
     <string id="lbl_detail_minutes">'</string>
 
+    <!-- dialog -->
+    <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
+    <string id="lbl_dialog_no_favorites_msg">Ställ in hållplatser som favoriter via menyn</string>
+
     <!-- settings -->
     <string id="lbl_settings_title">Inställningar</string>
     <string id="lbl_settings_favorite_add">Ställ in som favorit</string>

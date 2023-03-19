@@ -204,7 +204,12 @@ class StopListViewModel {
     }
 
     function decStopCursor() {
+        if (getFavoriteCount() == 0 && stopCursor == 0) {
+            return false;
+        }
+
         _rotStopCursor(-1);
+        return true;
     }
 
     hidden function _rotStopCursor(step) {

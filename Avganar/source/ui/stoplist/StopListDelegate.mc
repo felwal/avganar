@@ -21,7 +21,15 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //! "UP"
     function onPreviousPage() {
-        _viewModel.decStopCursor();
+        if (_viewModel.decStopCursor()) {
+            return true;
+        }
+
+        DialogView.push(
+            rez(Rez.Strings.lbl_dialog_no_favorites_title),
+            rez(Rez.Strings.lbl_dialog_no_favorites_msg),
+            WatchUi.SLIDE_DOWN);
+
         return true;
     }
 

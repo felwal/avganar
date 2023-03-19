@@ -34,7 +34,7 @@ class StopPreviewView extends WatchUi.View {
         }
 
         // icon
-        WidgetUtil.drawPreviewTitle(dc, Rez.Drawables.ic_launcher, rez(Rez.Strings.app_name));
+        WidgetUtil.drawPreviewTitle(dc, rez(Rez.Strings.app_name), Rez.Drawables.ic_launcher);
     }
 
     hidden function _drawStops(dc, stopNames) {

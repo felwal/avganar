@@ -33,10 +33,15 @@ module WidgetUtil {
             w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, Graphene.COLOR_WHITE);
     }
 
-    function drawPreviewTitle(dc, rezId, text) {
-        RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), px(30), rezId);
+    function drawPreviewTitle(dc, text, rezId) {
+        var yText = px(45);
 
-        dc.drawText(Graphite.getCenterX(dc), px(68), Graphics.FONT_SMALL, text,
+        if (rezId != null) {
+            RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), px(30), rezId);
+            yText = px(68);
+        }
+
+        dc.drawText(Graphite.getCenterX(dc), yText, Graphics.FONT_SMALL, text,
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 

@@ -49,6 +49,10 @@
     <string id="lbl_detail_now">Now</string>
     <string id="lbl_detail_minutes">'</string>
 
+    <!-- dialog -->
+    <string id="lbl_dialog_no_favorites_title">No Favorites</string>
+    <string id="lbl_dialog_no_favorites_msg">Set stops as favorites via the menu</string>
+
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
     <string id="lbl_settings_favorite_add">Set as Favorite</string>
