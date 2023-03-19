@@ -54,7 +54,7 @@
     <string id="lbl_dialog_no_favorites_msg">Set stops as favorites via the menu</string>
 
     <!-- settings -->
-    <string id="lbl_settings_title">Settings</string>
+    <string id="lbl_settings_title">Options</string>
     <string id="lbl_settings_favorite_add">Set as Favorite</string>
     <string id="lbl_settings_favorite_remove">Remove from Favorites</string>
     <string id="lbl_settings_favorite_move_up">Move Up</string>
