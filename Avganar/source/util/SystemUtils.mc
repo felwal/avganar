@@ -1,3 +1,4 @@
+using Toybox.Attention;
 using Toybox.System;
 
 function hasGlance() {
@@ -5,12 +6,12 @@ function hasGlance() {
     return ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
 }
 
-function doNotDisturb() {
+function shouldNotDisturb() {
     var ds = System.getDeviceSettings();
     return ds has :doNotDisturb && ds.doNotDisturb;
 }
 
 function isVibrateOn() {
     var ds = System.getDeviceSettings();
-    return ds has :vibrateOn && ds.vibrateOn;
+    return Attention has :vibrate && ds has :vibrateOn && ds.vibrateOn;
 }

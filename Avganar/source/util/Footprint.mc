@@ -4,6 +4,7 @@ using Toybox.Math;
 using Toybox.Position;
 using Toybox.WatchUi;
 
+//! The Footprint module provides extended position functionality
 (:glance)
 module Footprint {
 

@@ -7,6 +7,7 @@ function px(dp) {
     return Math.round(dp * rez(Rez.JsonData.pxPerDp));
 }
 
+//! The Graphite module provides extended drawing functionality
 (:glance)
 module Graphite {
 

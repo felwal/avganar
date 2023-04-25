@@ -1,7 +1,6 @@
+//! The Graphene module contains extended (quaternary) color constants
 (:glance)
 module Graphene {
-
-    // quaternary colors
 
     // abbreviations:
     // - DR: darker (value)

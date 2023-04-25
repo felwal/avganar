@@ -1,19 +1,9 @@
 using Toybox.WatchUi;
 
 function invertTransition(transition) {
-    if (transition == WatchUi.SLIDE_UP) {
-        return WatchUi.SLIDE_DOWN;
-    }
-    else if (transition == WatchUi.SLIDE_DOWN) {
-        return WatchUi.SLIDE_UP;
-    }
-    if (transition == WatchUi.SLIDE_RIGHT) {
-        return WatchUi.SLIDE_LEFT;
-    }
-    else if (transition == WatchUi.SLIDE_LEFT) {
-        return WatchUi.SLIDE_RIGHT;
-    }
-    else {
-        return transition;
-    }
+    return transition == WatchUi.SLIDE_UP ? WatchUi.SLIDE_DOWN
+        : transition == WatchUi.SLIDE_DOWN ? WatchUi.SLIDE_UP
+        : transition == WatchUi.SLIDE_RIGHT ? atchUi.SLIDE_LEFT
+        : transition == WatchUi.SLIDE_LEFT ? WatchUi.SLIDE_RIGHT
+        : transition;
 }
