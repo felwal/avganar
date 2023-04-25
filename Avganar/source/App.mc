@@ -1,5 +1,4 @@
 using Toybox.Application;
-using Toybox.System;
 
 (:glance)
 const DEBUG = true;

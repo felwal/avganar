@@ -1,6 +1,5 @@
 using Toybox.Graphics;
 using Toybox.Math;
-using Toybox.WatchUi;
 
 module WidgetUtil {
 
