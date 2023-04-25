@@ -1,8 +1,6 @@
 using Toybox.Graphics;
 using Toybox.Math;
 using Toybox.WatchUi;
-using Carbon.Graphite;
-using Carbon.Graphene;
 
 class InfoView extends WatchUi.View {
 
@@ -21,7 +19,7 @@ class InfoView extends WatchUi.View {
         View.onUpdate(dc);
 
         // draw
-        enableAntiAlias(dc);
+        Graphite.enableAntiAlias(dc);
         _draw(dc);
     }
 

@@ -1,5 +1,3 @@
-using Carbon.Graphene;
-
 module AppColors {
 
     const TEXT_PRIMARY = Graphene.COLOR_WHITE;

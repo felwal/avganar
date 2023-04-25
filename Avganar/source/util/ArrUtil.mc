@@ -1,5 +1,3 @@
-using Carbon.Chem;
-
 (:glance)
 module ArrUtil {
 
@@ -50,7 +48,7 @@ module ArrUtil {
 
     function coerceGet(arr, index) {
         return arr.size() > 0
-            ? arr[Chem.coerceIn(index, 0, arr.size() - 1)]
+            ? arr[MathUtil.coerceIn(index, 0, arr.size() - 1)]
             : null;
     }
 

@@ -1,6 +1,5 @@
 using Toybox.Graphics;
 using Toybox.WatchUi;
-using Carbon.Graphite;
 
 class StopPreviewView extends WatchUi.View {
 
@@ -16,7 +15,7 @@ class StopPreviewView extends WatchUi.View {
         View.onUpdate(dc);
 
         // draw
-        enableAntiAlias(dc);
+        Graphite.enableAntiAlias(dc);
         _draw(dc);
     }
 

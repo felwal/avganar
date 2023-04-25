@@ -2,7 +2,6 @@ using Toybox.Lang;
 using Toybox.Math;
 using Toybox.Timer;
 using Toybox.WatchUi;
-using Carbon.Chem;
 
 class StopDetailViewModel {
 
@@ -45,7 +44,7 @@ class StopDetailViewModel {
         // because otherwise it crashes. TODO: figure out why
         var delay = age == null
             ? _REQUEST_TIME_DELAY
-            : Chem.max(_REQUEST_TIME_INTERVAL - age, _REQUEST_TIME_DELAY);
+            : MathUtil.max(_REQUEST_TIME_INTERVAL - age, _REQUEST_TIME_DELAY);
 
 
         _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
@@ -63,7 +62,7 @@ class StopDetailViewModel {
         _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ refreshTimer, requestTimer ]);
     }
 
-    //! Needs to be public to be able to be called by timer.
+    //! Needs to be to be able to be called by timer.
     function requestDepartures() {
         new DeparturesService(stop).requestDepartures();
     }
@@ -84,7 +83,7 @@ class StopDetailViewModel {
         pageCount = Math.ceil(modeResponse.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
 
         // coerce cursor
-        pageCursor = Chem.min(pageCursor, pageCount - 1);
+        pageCursor = MathUtil.min(pageCursor, pageCount - 1);
 
         // get page range
         var startIndex = pageCursor * DEPARTURES_PER_PAGE;
@@ -127,7 +126,7 @@ class StopDetailViewModel {
     }
 
     hidden function _incModeCursor() {
-        modeCursor = Chem.mod(modeCursor + 1, stop.getModeCount());
+        modeCursor = MathUtil.mod(modeCursor + 1, stop.getModeCount());
         pageCursor = 0;
         WatchUi.requestUpdate();
     }

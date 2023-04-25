@@ -1,7 +1,4 @@
 using Toybox.Lang;
-using Carbon.Chem;
-using Carbon.C14;
-using Carbon.Graphene;
 
 class Stop {
 
@@ -32,7 +29,7 @@ class Stop {
 
     function setResponse(response) {
         _response = response;
-        _timeStamp = C14.now();
+        _timeStamp = TimeUtil.now();
 
         // for each too large response, halve the time window
         if (_response instanceof ResponseError && _response.isTooLarge()) {
@@ -104,7 +101,7 @@ class Stop {
 
     function getDataAgeMillis() {
         return _response instanceof Lang.Array || _response instanceof Lang.String
-            ? C14.now().subtract(_timeStamp).value() * 1000
+            ? TimeUtil.now().subtract(_timeStamp).value() * 1000
             : null;
     }
 
@@ -120,7 +117,7 @@ class Stop {
         if (_response instanceof Lang.Array) {
             if (_response.size() > 0) {
                 do {
-                    mode = Chem.coerceIn(mode, 0, _response.size() - 1);
+                    mode = MathUtil.coerceIn(mode, 0, _response.size() - 1);
                     _removeDepartedDepartures(mode);
                 }
                 while (_response.removeAll(null) && _response.size() > 0);

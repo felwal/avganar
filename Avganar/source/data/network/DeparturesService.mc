@@ -1,7 +1,5 @@
 using Toybox.Communications;
 using Toybox.WatchUi;
-using Carbon.C14;
-using Carbon.Chem;
 
 class DeparturesService {
 
@@ -125,7 +123,7 @@ class DeparturesService {
 
             var departureCount = maxDeparturesPerMode == null
                 ? modeData.size()
-                : Chem.min(maxDeparturesPerMode, modeData.size());
+                : MathUtil.min(maxDeparturesPerMode, modeData.size());
 
             for (var d = 0; d < departureCount; d++) {
                 var departureData = modeData[d];
@@ -137,7 +135,7 @@ class DeparturesService {
                 var dateTime = departureData["ExpectedDateTime"];
                 var deviations = DictUtil.get(departureData, "Deviations", []);
 
-                var moment = C14.localIso8601StrToMoment(dateTime);
+                var moment = TimeUtil.localIso8601StrToMoment(dateTime);
                 var deviationLevel = 0;
 
                 for (var i = 0; i < deviations.size(); i++) {
@@ -146,7 +144,7 @@ class DeparturesService {
                         break;
                     }
 
-                    deviationLevel = Chem.max(deviationLevel, deviations[i]["ImportanceLevel"]);
+                    deviationLevel = MathUtil.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
                 modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel));
@@ -174,7 +172,7 @@ class DeparturesService {
         var stopDeviationLevel = 0;
 
         for (var i = 0; i < stopDeviations.size(); i++) {
-            stopDeviationLevel = Chem.max(
+            stopDeviationLevel = MathUtil.max(
                 stopDeviationLevel,
                 DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "ImportanceLevel", 0));
         }

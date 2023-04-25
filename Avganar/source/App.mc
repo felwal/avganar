@@ -2,7 +2,7 @@ using Toybox.Application;
 using Toybox.System;
 
 (:glance)
-const DEBUG = false;
+const DEBUG = true;
 (:glance)
 const PREVIEW = false;
 

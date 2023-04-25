@@ -2,9 +2,6 @@ using Toybox.Graphics;
 using Toybox.Lang;
 using Toybox.Time;
 using Toybox.WatchUi;
-using Carbon.Chem;
-using Carbon.Graphene;
-using Carbon.Graphite;
 
 class StopDetailView extends WatchUi.View {
 
@@ -27,7 +24,7 @@ class StopDetailView extends WatchUi.View {
         View.onUpdate(dc);
 
         // draw
-        enableAntiAlias(dc);
+        Graphite.enableAntiAlias(dc);
         _draw(dc);
     }
 
@@ -107,7 +104,7 @@ class StopDetailView extends WatchUi.View {
         var y = h - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
 
         // make sure the text is fully within the footer.
-        y = Chem.max(y, h - hFooter);
+        y = MathUtil.max(y, h - hFooter);
 
         var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
@@ -147,7 +144,7 @@ class StopDetailView extends WatchUi.View {
             var departure = pageDepartures[d];
 
             var y = yOffset + d * lineHeightPx;
-            var xCircle = Chem.minX(yOffset, Graphite.getRadius(dc)) + xOffset + rCircle;
+            var xCircle = MathUtil.minX(yOffset, Graphite.getRadius(dc)) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
             // draw circle

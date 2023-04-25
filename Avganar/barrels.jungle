@@ -1,2 +1,0 @@
-Carbon = barrels/Carbon-0.1.5.barrel
-base.barrelPath = $(base.barrelPath); $(Carbon)

@@ -3,8 +3,6 @@ using Toybox.Lang;
 using Toybox.Position;
 using Toybox.Timer;
 using Toybox.WatchUi;
-using Carbon.Chem;
-using Carbon.Footprint;
 
 class StopListViewModel {
 
@@ -104,7 +102,7 @@ class StopListViewModel {
         var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
 
         // coerce cursor
-        stopCursor = Chem.min(stopCursor, getItemCount() - 1);
+        stopCursor = MathUtil.min(stopCursor, getItemCount() - 1);
 
         return stops;
     }
@@ -166,7 +164,7 @@ class StopListViewModel {
         // keep cursor inside favorites panel
         // – or where it was
         stopCursor = isInFavoritesPane
-            ? Chem.coerceIn(stopCursor, 0, Chem.max(getFavoriteCount() - 1, 0))
+            ? MathUtil.coerceIn(stopCursor, 0, MathUtil.max(getFavoriteCount() - 1, 0))
             : stopCursor - 1;
     }
 
@@ -214,7 +212,7 @@ class StopListViewModel {
 
     hidden function _rotStopCursor(step) {
         if (hasStops()) {
-            stopCursor = Chem.mod(stopCursor + step, getItemCount());
+            stopCursor = MathUtil.mod(stopCursor + step, getItemCount());
             WatchUi.requestUpdate();
         }
     }

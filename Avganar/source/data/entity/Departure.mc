@@ -1,7 +1,5 @@
 using Toybox.Math;
 using Toybox.Time;
-using Carbon.C14;
-using Carbon.Graphene;
 
 class Departure {
 
@@ -58,7 +56,7 @@ class Departure {
             return "-";
         }
 
-        var now = C14.now();
+        var now = TimeUtil.now();
         var duration = now.subtract(_moment);
         var minutes = Math.round(duration.value() / 60.0).toNumber();
 
@@ -78,7 +76,7 @@ class Departure {
 
         // we will keep displaying "now" until 30 seconds after departure
         var margin = new Time.Duration(30);
-        return C14.now().greaterThan(_moment.add(margin));
+        return TimeUtil.now().greaterThan(_moment.add(margin));
     }
 
     function getTextColor() {

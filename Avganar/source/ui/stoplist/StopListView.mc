@@ -1,8 +1,4 @@
 using Toybox.WatchUi;
-using Carbon.Chem;
-using Carbon.Footprint;
-using Carbon.Graphene;
-using Carbon.Graphite;
 
 class StopListView extends WatchUi.View {
 
@@ -25,7 +21,7 @@ class StopListView extends WatchUi.View {
         View.onUpdate(dc);
 
         // draw
-        enableAntiAlias(dc);
+        Graphite.enableAntiAlias(dc);
         _draw(dc);
     }
 

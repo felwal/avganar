@@ -1,9 +1,6 @@
 using Toybox.Graphics;
 using Toybox.Math;
 using Toybox.WatchUi;
-using Carbon.Chem;
-using Carbon.Graphene;
-using Carbon.Graphite;
 
 module WidgetUtil {
 
@@ -100,8 +97,8 @@ module WidgetUtil {
 
     function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
         var r = Graphite.getRadius(dc);
-        var start = Chem.minX(y, r);
-        var end = Chem.maxX(y, r);
+        var start = MathUtil.minX(y, r);
+        var end = MathUtil.maxX(y, r);
         var w = end - start;
         var middle = w * progress;
 
@@ -119,7 +116,7 @@ module WidgetUtil {
     (:round)
     function drawStartIndicatorWithBitmap(dc, rezId) {
         var r = Graphite.getRadius(dc) - px(23);
-        var pos = Chem.polarPos(r, Chem.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
+        var pos = MathUtil.polarPos(r, MathUtil.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
 
         RezUtil.drawBitmap(dc, pos[0], pos[1], rezId);
         drawStartIndicator(dc);
@@ -200,9 +197,9 @@ module WidgetUtil {
         var x = px(3);
         var startDeg = 180 - sizeDeg / 2;
         var endDeg = 180 + sizeDeg / 2;
-        var yStart = degToY(dc, startDeg);
-        var yEnd = degToY(dc, endDeg);
-        var height = Chem.abs(yEnd - yStart);
+        var yStart = Graphite.degToY(dc, startDeg);
+        var yEnd = Graphite.degToY(dc, endDeg);
+        var height = MathUtil.abs(yEnd - yStart);
 
         var railWidth = px(1);
         var outlineWidth = px(3);
@@ -277,7 +274,7 @@ module WidgetUtil {
 
         var length = px(6); // length of one indicator
         var delta = length + px(3);
-        var center = degToY(dc, _BTN_START_DEG);
+        var center = Graphite.degToY(dc, _BTN_START_DEG);
         var max = center + delta * (pageCount - 1) / 2f;
         var min = max - pageCount * delta;
         var edgeOffset = px(5);
@@ -297,7 +294,7 @@ module WidgetUtil {
             var end = start + length;
 
             var y = (end + start) / 2;
-            var height = Chem.abs(end - start);
+            var height = MathUtil.abs(end - start);
 
             if (i == index) {
                 Graphite.resetColor(dc);
@@ -476,17 +473,17 @@ module WidgetUtil {
 
         // only draw 2 items above and 2 below cursor
         var itemOffset = 2;
-        var firstItemIndex = Chem.max(0, cursor - itemOffset);
-        var lastItemIndex = Chem.min(items.size(), cursor + itemOffset + 1);
+        var firstItemIndex = MathUtil.max(0, cursor - itemOffset);
+        var lastItemIndex = MathUtil.min(items.size(), cursor + itemOffset + 1);
 
         // only draw one list at a time
         if (cursor < paneSize) {
-            lastItemIndex = Chem.min(lastItemIndex, paneSize);
+            lastItemIndex = MathUtil.min(lastItemIndex, paneSize);
             selectedColor = paneColors[1];
             unselectedColor = paneColors[2];
         }
         else {
-            firstItemIndex = Chem.max(firstItemIndex, paneSize);
+            firstItemIndex = MathUtil.max(firstItemIndex, paneSize);
             selectedColor = mainColors[1];
             unselectedColor = mainColors[2];
         }

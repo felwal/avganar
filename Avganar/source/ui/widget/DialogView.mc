@@ -1,5 +1,4 @@
 using Toybox.WatchUi;
-using Carbon.Graphite;
 
 class DialogView extends WatchUi.View {
 
@@ -30,7 +29,7 @@ class DialogView extends WatchUi.View {
         View.onUpdate(dc);
 
         // draw
-        enableAntiAlias(dc);
+        Graphite.enableAntiAlias(dc);
         _draw(dc);
     }
 
