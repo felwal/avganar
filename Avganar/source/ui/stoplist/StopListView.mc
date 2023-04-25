@@ -57,7 +57,8 @@ class StopListView extends WatchUi.View {
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
 
-        var favHints = [ rez(Rez.Strings.lbl_list_favorites), rez(Rez.Strings.lbl_list_favorites_none) ];
+        var favHints = [ favCount == 1 ? rez(Rez.Strings.lbl_list_favorites_one) : rez(Rez.Strings.lbl_list_favorites),
+            rez(Rez.Strings.lbl_list_favorites_none) ];
         var nearbyHints = [ rez(Rez.Strings.lbl_list_nearby), rez(Rez.Strings.lbl_list_nearby) ];
 
         var favColors = [ AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];

@@ -42,6 +42,7 @@
     <!-- list -->
     <string id="lbl_list_nearby">Närliggande</string>
     <string id="lbl_list_favorites">Favoriter</string>
+    <string id="lbl_list_favorites_one">Favorit</string>
     <string id="lbl_list_favorites_none">Inga favoriter</string>
     <string id="lbl_list_retry">Försök igen</string>
 
