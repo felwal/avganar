@@ -53,7 +53,7 @@ class Departure {
 
     hidden function _displayTime() {
         if (_moment == null) {
-            return "-";
+            return "—";
         }
 
         var now = TimeUtil.now();
