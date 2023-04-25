@@ -56,19 +56,23 @@
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
     <string id="lbl_dialog_no_favorites_msg">Set stops as favorites via the menu</string>
 
+    <!-- options -->
+    <string id="lbl_options_title">Options</string>
+    <string id="lbl_options_favorite_add">Set as Favorite</string>
+    <string id="lbl_options_favorite_remove">Remove from Favorites</string>
+    <string id="lbl_options_favorite_move_up">Move Up</string>
+    <string id="lbl_options_favorite_move_down">Move Down</string>
+    <string id="lbl_options_settings">Settings</string>
+    <string id="lbl_options_about">About</string>
+
     <!-- settings -->
-    <string id="lbl_settings_title">Options</string>
-    <string id="lbl_settings_favorite_add">Set as Favorite</string>
-    <string id="lbl_settings_favorite_remove">Remove from Favorites</string>
-    <string id="lbl_settings_favorite_move_up">Move Up</string>
-    <string id="lbl_settings_favorite_move_down">Move Down</string>
     <string id="lbl_settings_max_stops">Max Stops</string>
     <string id="lbl_settings_max_departures">Max Departures</string>
     <string id="lbl_settings_max_departures_unlimited">No Limit</string>
     <string id="lbl_settings_time_window">Default Time Window</string>
     <string id="lbl_settings_vibrate">Vibrate on Response</string>
     <string id="lbl_settings_minute_symbol">Minute symbol</string>
-    <string id="lbl_settings_about">About</string>
+
 
     <!-- info -->
     <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>

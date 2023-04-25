@@ -56,19 +56,22 @@
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
     <string id="lbl_dialog_no_favorites_msg">Ställ in hållplatser som favoriter via menyn</string>
 
+    <!-- options -->
+    <string id="lbl_options_title">Alternativ</string>
+    <string id="lbl_options_favorite_add">Ställ in som favorit</string>
+    <string id="lbl_options_favorite_remove">Ta bort från favoriter</string>
+    <string id="lbl_options_favorite_move_up">Flytta upp</string>
+    <string id="lbl_options_favorite_move_down">Flytta ned</string>
+    <string id="lbl_options_settings">Inställningar</string>
+    <string id="lbl_options_about">Om</string>
+
     <!-- settings -->
-    <string id="lbl_settings_title">Inställningar</string>
-    <string id="lbl_settings_favorite_add">Ställ in som favorit</string>
-    <string id="lbl_settings_favorite_remove">Ta bort från favoriter</string>
-    <string id="lbl_settings_favorite_move_up">Flytta upp</string>
-    <string id="lbl_settings_favorite_move_down">Flytta ned</string>
     <string id="lbl_settings_max_stops">Högst antal hållplatser</string>
     <string id="lbl_settings_max_departures">Högst antal avgångar</string>
     <string id="lbl_settings_max_departures_unlimited">Ingen gräns</string>
     <string id="lbl_settings_time_window">Största tidsfönster</string>
     <string id="lbl_settings_vibrate">Vibrera vid svar</string>
     <string id="lbl_settings_minute_symbol">Minut-symbol</string>
-    <string id="lbl_settings_about">Om</string>
 
     <!-- info -->
     <string id="lbl_info_about">Av Felix Wallin.\n\nAPI:er tillhandahålls av Trafiklab.</string>

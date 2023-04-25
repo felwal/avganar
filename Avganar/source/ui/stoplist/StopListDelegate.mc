@@ -35,7 +35,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //! "long UP"
     function onMenu() {
-        new SettingsMenuDelegate(_viewModel).push(WatchUi.SLIDE_BLINK);
+        new OptionsMenuDelegate(_viewModel).push(WatchUi.SLIDE_BLINK);
         return true;
     }
 
