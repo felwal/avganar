@@ -27,10 +27,6 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 - [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
 - [SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)
 
-## Build tools
+## Build
 
-- [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc)
-
-## Barrels
-
-- [Carbon Barrel](https://github.com/felwal/carbon-barrel)
+I develop on `main` and build on `release` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
