@@ -10,6 +10,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_MAX_STOPS = :maxNoStops;
     static const ITEM_MAX_DEPARTURES = :maxNoDepartures;
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
+    static const ITEM_MINUTE_SYMBOL = :minuteSymbol;
     static const ITEM_ABOUT = :aboutInfo;
     static const ITEM_RESET = :resetStorage;
 
@@ -88,6 +89,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             ITEM_TIME_WINDOW, {}
         ));
 
+        // minute symbol
+        _menu.addItem(new WatchUi.MenuItem(
+            rez(Rez.Strings.lbl_settings_minute_symbol), SettingsStorage.getMinuteSymbol(),
+            ITEM_MINUTE_SYMBOL, {}
+        ));
+
         // about
         _menu.addItem(new WatchUi.MenuItem(
             rez(Rez.Strings.lbl_settings_about), "",
@@ -150,6 +157,17 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             SettingsStorage.setVibrateOnResponse(item.isEnabled());
             return;
         }
+        else if (id == ITEM_MINUTE_SYMBOL) {
+            var title = rez(Rez.Strings.lbl_settings_minute_symbol);
+            var labels = [
+                rez(Rez.Strings.lbl_detail_minutes_min),
+                rez(Rez.Strings.lbl_detail_minutes_m),
+                rez(Rez.Strings.lbl_detail_minutes_prime) ];
+            var values = [ "min", "m", "prime" ];
+            var focus = labels.indexOf(SettingsStorage.getMinuteSymbol());
+            new RadioMenuDelegate(title, labels, values, focus, method(:onMinuteSymbolSelect)).push();
+            return;
+        }
         else if (id == ITEM_ABOUT) {
             view = new InfoView(rez(Rez.Strings.lbl_info_about));
         }
@@ -195,6 +213,13 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         var item = _menu.getItem(_menu.findItemById(ITEM_TIME_WINDOW));
         item.setSubLabel(value + " min");
+    }
+
+    function onMinuteSymbolSelect(value) {
+        SettingsStorage.setMinuteSymbol(value);
+
+        var item = _menu.getItem(_menu.findItemById(ITEM_MINUTE_SYMBOL));
+        item.setSubLabel(SettingsStorage.getMinuteSymbol());
     }
 
 }

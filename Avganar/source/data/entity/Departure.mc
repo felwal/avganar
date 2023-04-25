@@ -66,7 +66,7 @@ class Departure {
 
         return minutes == 0
             ? rez(Rez.Strings.lbl_detail_now)
-            : (minutes + rez(Rez.Strings.lbl_detail_minutes));
+            : (minutes + SettingsStorage.getMinuteSymbol());
     }
 
     function hasDeparted() {

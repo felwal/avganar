@@ -48,7 +48,9 @@
 
     <!-- detail -->
     <string id="lbl_detail_now">Now</string>
-    <string id="lbl_detail_minutes">'</string>
+    <string id="lbl_detail_minutes_prime">'</string>
+    <string id="lbl_detail_minutes_m">m</string>
+    <string id="lbl_detail_minutes_min"> min</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
@@ -65,6 +67,7 @@
     <string id="lbl_settings_max_departures_unlimited">No Limit</string>
     <string id="lbl_settings_time_window">Default Time Window</string>
     <string id="lbl_settings_vibrate">Vibrate on Response</string>
+    <string id="lbl_settings_minute_symbol">Minute symbol</string>
     <string id="lbl_settings_about">About</string>
 
     <!-- info -->

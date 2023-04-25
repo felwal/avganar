@@ -48,7 +48,9 @@
 
     <!-- detail -->
     <string id="lbl_detail_now">Nu</string>
-    <string id="lbl_detail_minutes">'</string>
+    <string id="lbl_detail_minutes_prime">'</string>
+    <string id="lbl_detail_minutes_m">m</string>
+    <string id="lbl_detail_minutes_min"> min</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
@@ -65,6 +67,7 @@
     <string id="lbl_settings_max_departures_unlimited">Ingen gräns</string>
     <string id="lbl_settings_time_window">Största tidsfönster</string>
     <string id="lbl_settings_vibrate">Vibrera vid svar</string>
+    <string id="lbl_settings_minute_symbol">Minut-symbol</string>
     <string id="lbl_settings_about">Om</string>
 
     <!-- info -->

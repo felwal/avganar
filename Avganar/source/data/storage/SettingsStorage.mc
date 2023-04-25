@@ -6,6 +6,7 @@ module SettingsStorage {
     const _STORAGE_MAX_STOPS = "max_no_stops";
     const _STORAGE_MAX_DEPARTURES = "max_no_departures";
     const _STORAGE_TIME_WINDOW = "default_time_window";
+    const _STORAGE_MINUTE_SYMBOL = "minute_symbol";
 
     // read
 
@@ -25,6 +26,14 @@ module SettingsStorage {
         return StorageUtil.getValue(_STORAGE_TIME_WINDOW, 30);
     }
 
+    function getMinuteSymbol() {
+        var value = StorageUtil.getValue(_STORAGE_MINUTE_SYMBOL, "min");
+
+        return value.equals("prime") ? rez(Rez.Strings.lbl_detail_minutes_prime)
+            : value.equals("m") ? rez(Rez.Strings.lbl_detail_minutes_m)
+            : rez(Rez.Strings.lbl_detail_minutes_min);
+    }
+
     // write
 
     function setVibrateOnResponse(enabled) {
@@ -41,6 +50,10 @@ module SettingsStorage {
 
     function setDefaultTimeWindow(timeWindow) {
         Storage.setValue(_STORAGE_TIME_WINDOW, timeWindow);
+    }
+
+    function setMinuteSymbol(symbol) {
+        Storage.setValue(_STORAGE_MINUTE_SYMBOL, symbol);
     }
 
 }
