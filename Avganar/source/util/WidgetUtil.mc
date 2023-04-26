@@ -94,10 +94,27 @@ module WidgetUtil {
         }
     }
 
+    (:round)
     function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
         var r = Graphite.getRadius(dc);
         var start = MathUtil.minX(y, r);
         var end = MathUtil.maxX(y, r);
+        var w = end - start;
+        var middle = w * progress;
+
+        Graphite.setColor(dc, activeColor);
+        dc.fillRectangle(start, y, start + middle, h);
+
+        Graphite.setColor(dc, inactiveColor);
+        dc.fillRectangle(start + middle, y, end, h);
+
+        Graphite.resetColor(dc);
+    }
+
+    (:rectangle)
+    function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
+        var start = 0;
+        var end = dc.getWidth();
         var w = end - start;
         var middle = w * progress;
 
