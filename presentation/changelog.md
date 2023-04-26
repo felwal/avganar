@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- Add support for fr265, fr265s, fr965
+
 ## 1.4.0
 
 - Add 'no favories' dialog view
