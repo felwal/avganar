@@ -22,11 +22,6 @@ class StopListViewModel {
     // timer
 
     function enableRequests() {
-        if (DEBUG) {
-            _requestNearbyStops();
-            return;
-        }
-
         _requestPosition();
     }
 
@@ -57,21 +52,12 @@ class StopListViewModel {
         }
     }
 
-    hidden function _isPositioned() {
-        return Footprint.isPositioned() || DEBUG;
-    }
-
     // service
 
     hidden function _requestNearbyStops() {
         if (!NearbyStopsStorage.hasStops() && !(NearbyStopsStorage.response instanceof ResponseError)) {
             // set searching
             NearbyStopsStorage.setResponse([], [], null);
-        }
-
-        if (DEBUG) {
-            NearbyStopsService.requestNearbyStops(debugLat, debugLon);
-            return;
         }
 
         NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
@@ -88,7 +74,7 @@ class StopListViewModel {
         var response = NearbyStopsStorage.response;
 
         return response == null
-            ? rez(_isPositioned() ? Rez.Strings.lbl_i_stops_requesting : Rez.Strings.lbl_i_stops_no_gps)
+            ? rez(Footprint.isPositioned() ? Rez.Strings.lbl_i_stops_requesting : Rez.Strings.lbl_i_stops_no_gps)
             : (response instanceof ResponseError ? response.getTitle() : response);
     }
 

@@ -24,8 +24,6 @@ module NearbyStopsService {
     function requestNearbyStops(lat, lon) {
         // check if outside bounds, to not make unnecessary calls outside the SL zone
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
-            Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
-
             if (lat != 0.0 || lon != 0.0) {
                 NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_outside_bounds));
             }
@@ -33,7 +31,6 @@ module NearbyStopsService {
             WatchUi.requestUpdate();
         }
         else {
-            Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
             _requestNearbyStops(lat, lon);
         }
     }
@@ -66,8 +63,6 @@ module NearbyStopsService {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            Log.e("Stops response error (code " + responseCode + "): " + data);
-
             // TODO: for some reason the error code is not displayed.
             // "Stops SL response error" below, however, works.
             if (DictUtil.hasValue(data, "Message")) {
@@ -88,8 +83,6 @@ module NearbyStopsService {
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
 
-            Log.e("Stops SL response error (code " + statusCode + ")");
-
             NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
 
             return;
@@ -108,8 +101,6 @@ module NearbyStopsService {
         }
 
         // stops were found
-
-        //Log.d("Stops response success: " + data);
 
         var stopIds = [];
         var stopNames = [];

@@ -22,7 +22,6 @@ class DeparturesService {
 
     function requestDepartures() {
         if (_stop != null) {
-            Log.i("Requesting departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
             _requestDepartures();
         }
     }
@@ -57,8 +56,6 @@ class DeparturesService {
             _handleDeparturesResponseOk(data);
         }
         else {
-            Log.i("Departures response error (code " + responseCode + "): " + data);
-
             _stop.setResponse(new ResponseError(responseCode));
 
             // auto rerequest if too large
@@ -75,8 +72,6 @@ class DeparturesService {
 
         // Trafiklab error
         if (statusCode != 0) {
-            Log.i("Departures SL request error (code " + statusCode + ")");
-
             _stop.setResponse(new ResponseError(statusCode));
 
             // auto rerequest if server error
@@ -86,8 +81,6 @@ class DeparturesService {
 
             return;
         }
-
-        //Log.d("Departures response success: " + data);
 
         // departure count per mode
 
@@ -162,7 +155,6 @@ class DeparturesService {
             _stop.setResponse(departures);
         }
         else {
-            Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.lbl_i_departures_none));
         }
 

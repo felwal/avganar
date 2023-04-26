@@ -19,7 +19,6 @@ module FavoriteStopsStorage {
 
     function addFavorite(stop) {
         if (ArrUtil.contains(favorites, stop)) {
-            Log.w(stop.name + " already in favorites");
             return;
         }
 
@@ -41,7 +40,6 @@ module FavoriteStopsStorage {
             _save();
         }
         else {
-            Log.w("did not find stop id " + stop.getId() + " in favorites");
         }
     }
 

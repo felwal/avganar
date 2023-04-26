@@ -8,7 +8,6 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_FAVORITE_MOVE_DOWN = :moveFavoriteDown;
     static const ITEM_SETTINGS = :settings;
     static const ITEM_ABOUT = :aboutInfo;
-    static const ITEM_RESET = :resetStorage;
 
     hidden var _viewModel;
     hidden var _menu;
@@ -69,12 +68,6 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
             rez(Rez.Strings.lbl_options_about), "",
             ITEM_ABOUT, {}
         ));
-
-        // reset
-        _menu.addItem(new WatchUi.MenuItem(
-            "Reset storage", "",
-            ITEM_RESET, {}
-        ));
     }
 
     function push(transition) {
@@ -105,11 +98,6 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
         else if (id == ITEM_ABOUT) {
             view = new InfoView(rez(Rez.Strings.lbl_info_about));
-        }
-        else if (id == ITEM_RESET) {
-            // does not request immediatly,
-            // but thats ok since it is a dev-temp
-            NearbyStopsStorage.setResponse([], [], null);
         }
 
         if (view == null) {
