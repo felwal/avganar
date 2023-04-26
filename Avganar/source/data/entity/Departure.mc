@@ -105,6 +105,28 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
+    function getModeSymbol() {
+        if (_mode.equals(_MODE_METRO)) {
+            return "T";
+        }
+        else if (_mode.equals(_MODE_BUS)) {
+            return "B";
+        }
+        else if (_mode.equals(_MODE_TRAIN)) {
+            return "J";
+        }
+        else if (_mode.equals(_MODE_TRAM)) {
+            return "L";
+        }
+        else if (_mode.equals(_MODE_SHIP)) {
+            return "F";
+        }
+        else {
+            Log.w("unknown mode: " + _mode);
+            return "?";
+        }
+    }
+
     function getModeColor() {
         if (_mode.equals(_MODE_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {

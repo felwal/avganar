@@ -144,6 +144,14 @@ class Stop {
         return AppColors.TEXT_SECONDARY;
     }
 
+    function getModeSymbol(mode) {
+        if (!(_response instanceof Lang.Array) || _response.size() == 0) {
+            return "";
+        }
+
+        return _response[mode][0].getModeSymbol();
+    }
+
     //
 
     hidden function _removeDepartedDepartures(mode) {

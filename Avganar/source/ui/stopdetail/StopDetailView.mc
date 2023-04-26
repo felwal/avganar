@@ -1,5 +1,6 @@
 using Toybox.Graphics;
 using Toybox.Lang;
+using Toybox.Math;
 using Toybox.Time;
 using Toybox.WatchUi;
 
@@ -93,7 +94,7 @@ class StopDetailView extends WatchUi.View {
         // background
         WidgetUtil.drawFooter(dc, hFooter, AppColors.PRIMARY, null, null, null);
 
-        // draw clock time
+        // clock time
 
         // calc pos to align with page number
         var arrowEdgeOffset = px(4);
@@ -102,6 +103,7 @@ class StopDetailView extends WatchUi.View {
 
         var font = Graphics.FONT_TINY;
         var y = h - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
+        var cx = Graphite.getCenterX(dc);
 
         // make sure the text is fully within the footer.
         y = MathUtil.max(y, h - hFooter);
@@ -110,20 +112,38 @@ class StopDetailView extends WatchUi.View {
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
         dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dc.drawText(Graphite.getCenterX(dc), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(cx, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
 
         // progress bar
 
-        if (!DeparturesService.isRequesting && stop.getResponse() != null) {
+        if (DeparturesService.isRequesting || stop.getResponse() == null) {
+            var hProgressBar = px(3);
+            var yProgressBar = h - hFooter - hProgressBar;
+            var progress = _recursiveThird(0, stop.getFailedRequestCount());
+
+            WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
+                Graphene.COLOR_LT_AZURE, AppColors.ON_PRIMARY_TERTIARY);
+        }
+
+        // mode symbol
+
+        var modeSymbol = stop.getModeSymbol(_viewModel.modeCursor);
+
+        if (modeSymbol.equals("")) {
             return;
         }
 
-        var hProgressBar = px(3);
-        var yProgressBar = h - hFooter - hProgressBar;
-        var progress = _recursiveThird(0, stop.getFailedRequestCount());
+        var xMode = cx + px(48);
+        var yMode = y - px(7);
+        var fontMode = Graphics.FONT_TINY;
+        var fh = dc.getFontHeight(fontMode);
+        var r = Math.ceil(fh / 2f);
 
-        WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
-            Graphene.COLOR_LT_AZURE, AppColors.ON_PRIMARY_TERTIARY);
+        Graphite.setColor(dc, Graphene.COLOR_WHITE);
+        dc.fillCircle(xMode, yMode + r, r + 2);
+
+        dc.setColor(AppColors.ON_PRIMARY_SECONDARY, Graphene.COLOR_WHITE);
+        dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     hidden function _recursiveThird(prevVal, level) {
