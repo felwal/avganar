@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0
+
+- Add 'no favories' dialog view
+- Add setting for 'minute symbol'
+- Display mode with a letter
+- Improve UI
+
 ## 1.3.0
 
 - Indicate 'loading departures' with a progress bar
