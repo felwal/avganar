@@ -41,11 +41,14 @@
             <iq:product id="fr255m" /> <!-- glance badly aligned -->
             <iq:product id="fr255s" /> <!-- glance badly aligned -->
             <iq:product id="fr255sm" /> <!-- glance badly aligned -->
+            <iq:product id="fr265" /> <!-- glance badly aligned -->
+            <iq:product id="fr265s" /> <!-- glance badly aligned -->
             <iq:product id="fr645m" />
             <iq:product id="fr745" />
             <iq:product id="fr945" />
             <iq:product id="fr945lte" /> <!-- glance (very) badly aligned (sim bug?) -->
             <iq:product id="fr955" />
+            <iq:product id="fr965" /> <!-- glance badly aligned -->
 
             <iq:product id="legacyherocaptainmarvel" />
             <iq:product id="legacyherofirstavenger" />
