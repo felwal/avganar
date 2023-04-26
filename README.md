@@ -27,6 +27,15 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 - [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
 - [SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)
 
+## Develop
+
+Place your API keys in `ServiceSecrets.mc`:
+
+```
+const API_KEY_STOPS = "<KEY>";
+const API_KEY_DEPARTURES = "<KEY>";
+```
+
 ## Build
 
 I develop on `main` and build on `release` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
