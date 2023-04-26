@@ -20,7 +20,6 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 ## Roadmap
 
 - [ ] extend to the whole of Sweden
-- [ ] open source
 
 ## APIs
 
@@ -39,3 +38,7 @@ const API_KEY_DEPARTURES = "<KEY>";
 ## Build
 
 I develop on `main` and build on `release` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
+
+## Fork
+
+You are more than welcome to make a fork and adapt the project to your own country's public transport.
