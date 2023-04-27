@@ -30,11 +30,6 @@ class App extends Application.AppBase {
         FavoriteStopsStorage.load();
         NearbyStopsStorage.load();
 
-        // this function is gitignored.
-        // define it to keep favorites between
-        // development and testing release builds.
-        //addDevFavStops();
-
         var viewModel = new StopListViewModel();
         var view = new StopListView(viewModel);
         var delegate = new StopListDelegate(viewModel);
