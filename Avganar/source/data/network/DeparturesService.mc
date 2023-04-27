@@ -137,17 +137,18 @@ class DeparturesService {
 
                 var moment = TimeUtil.localIso8601StrToMoment(dateTime);
                 var deviationLevel = 0;
+                var cancelled = false;
 
                 for (var i = 0; i < deviations.size(); i++) {
-                    if (deviations[i]["Consequence"] == "CANCELLED") {
-                        deviationLevel = Departure.CANCELLED;
-                        break;
+                    if (deviations[i]["Consequence"].equals("CANCELLED")) {
+                        cancelled = true;
+                        continue;
                     }
 
                     deviationLevel = MathUtil.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
-                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel));
+                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel, cancelled));
             }
 
             // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.
