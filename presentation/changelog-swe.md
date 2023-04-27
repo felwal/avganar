@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- Stöd fr265, fr265s, fr965
+
 ## 1.4.0
 
 - Lägg till 'inga favoriter' dialogvy

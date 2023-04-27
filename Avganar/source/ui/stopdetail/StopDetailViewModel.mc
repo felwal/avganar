@@ -7,7 +7,6 @@ class StopDetailViewModel {
 
     static hidden const _REFRESH_TIME_INTERVAL = 15 * 1000;
     static hidden const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
-    static hidden const _REQUEST_TIME_DELAY = 500;
 
     static const DEPARTURES_PER_PAGE = 4;
 
@@ -38,16 +37,16 @@ class StopDetailViewModel {
 
     hidden function _requestDeparturesDelayed() {
         var age = stop.getDataAgeMillis();
-
         // never request more frequently than _REQUEST_TIME_INTERVAL.
-        // never request more quickly than _REQUEST_TIME_DELAY,
-        // because otherwise it crashes. TODO: figure out why
-        var delay = age == null
-            ? _REQUEST_TIME_DELAY
-            : MathUtil.max(_REQUEST_TIME_INTERVAL - age, _REQUEST_TIME_DELAY);
+        var delay = age == null ? 0 : _REQUEST_TIME_INTERVAL - age;
 
-
-        _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
+        // 50 ms is the minimum time value
+        if (delay <= 50) {
+            onDelayedDeparturesRequest();
+        }
+        else {
+            _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
+        }
     }
 
     function onDelayedDeparturesRequest() {
