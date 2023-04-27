@@ -52,6 +52,10 @@ class StopDouble {
         return _stop.getTimeWindow();
     }
 
+    function shouldAutoRerequest() {
+        return _stop.shouldAutoRerequest();
+    }
+
     function getDataAgeMillis() {
         return _stop.getDataAgeMillis();
     }
@@ -66,6 +70,10 @@ class StopDouble {
 
     function getTitleColor() {
         return _stop.getTitleColor();
+    }
+
+    function getModeSymbol(mode) {
+        return _stop.getModeSymbol(mode);
     }
 
 }

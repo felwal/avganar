@@ -25,6 +25,9 @@ class Stop {
             && other.getId() == _id && other.name.equals(name);
     }
 
+    // when adding functions, remember to add
+    // corresponding ones to ´StopDouble´
+
     // set
 
     function setResponse(response) {
