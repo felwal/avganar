@@ -92,6 +92,10 @@ class StopDetailViewModel {
         return modeResponse.slice(startIndex, endIndex);
     }
 
+    function canNavigateToDeviation() {
+        return pageCursor == 0 && stop.getDeviationMessages().size() != 0;
+    }
+
     // write
 
     function incPageCursor() {
@@ -105,6 +109,9 @@ class StopDetailViewModel {
         if (pageCursor > 0) {
             pageCursor--;
             WatchUi.requestUpdate();
+        }
+        else if (canNavigateToDeviation()) {
+            DialogView.push(null, stop.getDeviationMessages(), null, WatchUi.SLIDE_DOWN);
         }
     }
 

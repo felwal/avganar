@@ -30,8 +30,8 @@ class StopDouble {
         _stop.resetResponseError();
     }
 
-    function setDeviationLevel(level) {
-        _stop.setDeviationLevel(level);
+    function setDeviation(level, message) {
+        _stop.setDeviation(level, message);
     }
 
     // get
@@ -52,6 +52,10 @@ class StopDouble {
         return _stop.getTimeWindow();
     }
 
+    function getDeviationMessages() {
+        return _stop.getDeviationMessages();
+    }
+
     function shouldAutoRerequest() {
         return _stop.shouldAutoRerequest();
     }
@@ -68,8 +72,8 @@ class StopDouble {
         return _stop.getModeResponse(mode);
     }
 
-    function getTitleColor() {
-        return _stop.getTitleColor();
+    function getDeviationColor() {
+        return _stop.getDeviationColor();
     }
 
     function getModeSymbol(mode) {

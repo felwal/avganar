@@ -2,23 +2,22 @@ using Toybox.WatchUi;
 
 class DialogView extends WatchUi.View {
 
-    hidden var _title;
-    hidden var _message;
+    hidden var _viewModel;
     hidden var _transition;
 
     // init
 
-    function initialize(title, message, transition) {
+    function initialize(viewModel, transition) {
         View.initialize();
 
-        _title = title;
-        _message = message;
+        _viewModel = viewModel;
         _transition = transition;
     }
 
-    function push(title, message, transition) {
-        var view = new DialogView(title, message, transition);
-        var delegate = new DialogDelegate(invertTransition(transition));
+    function push(title, messages, iconRezId, transition) {
+        var viewModel = new DialogViewModel(title, messages, iconRezId);
+        var view = new DialogView(viewModel, transition);
+        var delegate = new DialogDelegate(viewModel, invertTransition(transition));
 
         WatchUi.pushView(view, delegate, transition);
     }
@@ -38,11 +37,9 @@ class DialogView extends WatchUi.View {
     function _draw(dc) {
         Graphite.resetColor(dc);
 
-        if (_title != null) {
-            WidgetUtil.drawPreviewTitle(dc, _title, null);
-        }
+        WidgetUtil.drawPreviewTitle(dc, _viewModel.title, _viewModel.iconRezId, true);
 
-        WidgetUtil.drawDialog(dc, _message);
+        Graphite.fillTextArea(dc, _viewModel.getMessage(), Graphene.COLOR_WHITE);
         Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
 
         if (_transition == WatchUi.SLIDE_DOWN) {
@@ -53,6 +50,9 @@ class DialogView extends WatchUi.View {
         }
 
         Graphite.resetColor(dc);
+
+        // page indicator
+        WidgetUtil.drawHorizontalPageIndicator(dc, _viewModel.messages.size(), _viewModel.pageCursor);
     }
 
 }

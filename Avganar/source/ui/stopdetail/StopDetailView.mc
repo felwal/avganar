@@ -53,6 +53,13 @@ class StopDetailView extends WatchUi.View {
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
+
+            // stop deviation
+            if (_viewModel.canNavigateToDeviation()) {
+                Graphite.setColor(dc, stop.getDeviationColor());
+                WidgetUtil.drawTopPageArrow(dc);
+                Graphite.resetColor(dc);
+            }
         }
 
         // error/message
@@ -82,7 +89,7 @@ class StopDetailView extends WatchUi.View {
         // look alright even on devices with different font size for XTINY.
         var y = px(23) + px(19) / 2;
 
-        Graphite.setColor(dc, stop.getTitleColor());
+        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
         dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, stop.name.toUpper(),
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
