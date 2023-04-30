@@ -111,7 +111,7 @@ class StopDetailViewModel {
             WatchUi.requestUpdate();
         }
         else if (canNavigateToDeviation()) {
-            DialogView.push(null, stop.getDeviationMessages(), null, WatchUi.SLIDE_DOWN);
+            DialogView.push(null, stop.getDeviationMessages(), Rez.Drawables.ic_warning, WatchUi.SLIDE_DOWN);
         }
     }
 
