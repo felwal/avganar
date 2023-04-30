@@ -2,9 +2,13 @@ using Toybox.Lang;
 
 class ResponseError {
 
+    // API
     static var CODES_RESPONSE_SERVER_ERROR = [ 5321, 5322, 5323, 5324 ];
     static var CODE_REQUEST_NOT_FOUND = 404;
-    static var CODE_CUSTOM_AUTO_LIMIT_REACHED = -2000;
+
+    // custom
+    static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
+    static var CODE_AUTO_REQUEST_LIMIT_MEMORY = -2001;
 
     hidden var _code;
     hidden var _title = "";
@@ -60,8 +64,11 @@ class ResponseError {
             // don't let the user know we are requesting again
             _title = rez(Rez.Strings.lbl_i_departures_requesting);
         }
-        else if (_code == CODE_CUSTOM_AUTO_LIMIT_REACHED) {
-            _title = rez(Rez.Strings.lbl_e_auto_limit);
+        else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
+            _title = rez(Rez.Strings.lbl_e_server);
+        }
+        else if (_code == CODE_AUTO_REQUEST_LIMIT_MEMORY) {
+            _title = rez(Rez.Strings.lbl_e_memory);
         }
 
         else {

@@ -25,7 +25,6 @@
     <string id="lbl_e_invalid">Ogiltigt svar</string>
     <string id="lbl_e_null_data">Ingen data</string>
     <string id="lbl_e_server">Serverfel</string>
-    <string id="lbl_e_auto_limit">Begäran misslyckades</string>
 
     <!-- view -->
 

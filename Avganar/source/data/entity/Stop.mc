@@ -2,7 +2,8 @@ using Toybox.Lang;
 
 class Stop {
 
-    hidden static var AUTO_REQUEST_LIMIT = 8;
+    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 8;
+    hidden static var _MEMORY_MIN_TIME_WINDOW = 2;
 
     var name;
 
@@ -94,8 +95,13 @@ class Stop {
             return false;
         }
 
-        if (_failedRequestCount >= AUTO_REQUEST_LIMIT || getTimeWindow() < 1) {
-            setResponse(new ResponseError(ResponseError.CODE_CUSTOM_AUTO_LIMIT_REACHED));
+        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _response.isServerError()) {
+            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
+            return false;
+        }
+
+        if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
+            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
             return false;
         }
 
