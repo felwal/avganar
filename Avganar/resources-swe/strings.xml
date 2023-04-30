@@ -25,6 +25,8 @@
     <string id="lbl_e_invalid">Ogiltigt svar</string>
     <string id="lbl_e_null_data">Ingen data</string>
     <string id="lbl_e_server">Serverfel</string>
+    <string id="lbl_e_limit_minute">Kvota överstigen (minut)</string>
+    <string id="lbl_e_limit_month">Kvota överstigen (månad)</string>
 
     <!-- view -->
 

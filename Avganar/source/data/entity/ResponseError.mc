@@ -5,6 +5,8 @@ class ResponseError {
     // API
     static var CODES_RESPONSE_SERVER_ERROR = [ 5321, 5322, 5323, 5324 ];
     static var CODE_REQUEST_NOT_FOUND = 404;
+    static var CODE_REQUEST_LIMIT_MINUTE = 1006;
+    static var CODE_REQUEST_LIMIT_MONTH = 1007;
 
     // custom
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
@@ -64,6 +66,12 @@ class ResponseError {
             // don't let the user know we are requesting again
             _title = rez(Rez.Strings.lbl_i_departures_requesting);
         }
+        else if (_code == CODE_REQUEST_LIMIT_MINUTE) {
+            _title = rez(Rez.Strings.lbl_e_limit_minute);
+        }
+        else if (_code == CODE_REQUEST_LIMIT_MONTH) {
+            _title = rez(Rez.Strings.lbl_e_limit_month);
+        }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
             _title = rez(Rez.Strings.lbl_e_server);
         }
@@ -97,6 +105,7 @@ class ResponseError {
         return hasConnection()
             && !isTooLarge() // will auto-rerequest
             && !isServerError() // will auto-rerequest
+            && _code != CODE_REQUEST_LIMIT_MONTH
             && _code != null;
     }
 
