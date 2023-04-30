@@ -49,9 +49,9 @@
 
     <!-- detail -->
     <string id="lbl_detail_now">Now</string>
-    <string id="lbl_detail_minutes_prime">'</string>
-    <string id="lbl_detail_minutes_m">m</string>
-    <string id="lbl_detail_minutes_min"> min</string>
+    <string id="lbl_detail_minutes_long"> min</string>
+    <string id="lbl_detail_minutes_short">m</string>
+    <string id="lbl_detail_minutes_tiny">'</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
@@ -73,7 +73,6 @@
     <string id="lbl_settings_time_window">Default Time Window</string>
     <string id="lbl_settings_vibrate">Vibrate on Response</string>
     <string id="lbl_settings_minute_symbol">Minute symbol</string>
-
 
     <!-- info -->
     <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>

@@ -1,9 +1,5 @@
 <strings>
 
-    <!-- app -->
-
-    <string id="app_name" scope="glance">Avgånär</string>
-
     <!-- message -->
 
     <!-- status message -->
@@ -48,9 +44,6 @@
 
     <!-- detail -->
     <string id="lbl_detail_now">Nu</string>
-    <string id="lbl_detail_minutes_prime">'</string>
-    <string id="lbl_detail_minutes_m">m</string>
-    <string id="lbl_detail_minutes_min"> min</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
