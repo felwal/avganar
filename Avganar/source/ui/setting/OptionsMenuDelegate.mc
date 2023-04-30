@@ -104,7 +104,8 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
             return;
         }
         else if (id == ITEM_ABOUT) {
-            view = new InfoView(rez(Rez.Strings.lbl_info_about));
+            var text = rez(Rez.Strings.app_version) + ". " + rez(Rez.Strings.lbl_info_about);
+            view = new InfoView(text);
         }
         else if (id == ITEM_RESET) {
             // does not request immediatly,
