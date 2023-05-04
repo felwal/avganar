@@ -54,7 +54,7 @@ class Departure {
 
     hidden function _displayTime() {
         if (_moment == null) {
-            return "—";
+            return rez(Rez.Strings.lbl_detail_null);
         }
 
         var now = TimeUtil.now();

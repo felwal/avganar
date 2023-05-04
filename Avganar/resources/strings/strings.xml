@@ -49,6 +49,7 @@
     <string id="lbl_list_retry">Retry</string>
 
     <!-- detail -->
+    <string id="lbl_detail_null">–</string>
     <string id="lbl_detail_now">Now</string>
     <string id="lbl_detail_minutes_long"> min</string>
     <string id="lbl_detail_minutes_short">m</string>
