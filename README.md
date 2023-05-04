@@ -42,3 +42,7 @@ I develop on `main` and build on `release` using [Prettier Monkey C](https://git
 ## Fork
 
 You are more than welcome to make a fork and adapt the project to your own country's public transport.
+
+## Credits
+
+Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign).
