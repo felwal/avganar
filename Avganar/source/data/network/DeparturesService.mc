@@ -164,7 +164,7 @@ class DeparturesService {
         }
         else {
             Log.i("Departures response empty of departures");
-            _stop.setResponse(rez(Rez.Strings.lbl_i_departures_none));
+            _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
         // stop point deviation

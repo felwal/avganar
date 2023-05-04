@@ -54,7 +54,7 @@ class Departure {
 
     hidden function _displayTime() {
         if (_moment == null) {
-            return rez(Rez.Strings.lbl_detail_null);
+            return rez(Rez.Strings.itm_detail_departure_null);
         }
 
         var now = TimeUtil.now();
@@ -66,7 +66,7 @@ class Departure {
         // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
 
         return minutes == 0
-            ? rez(Rez.Strings.lbl_detail_now)
+            ? rez(Rez.Strings.itm_detail_departure_now)
             : (minutes + SettingsStorage.getMinuteSymbol());
     }
 

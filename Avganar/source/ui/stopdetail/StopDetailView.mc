@@ -66,7 +66,7 @@ class StopDetailView extends WatchUi.View {
         else {
             // info
             WidgetUtil.drawDialog(dc, response == null
-                ? rez(Rez.Strings.lbl_i_departures_requesting)
+                ? rez(Rez.Strings.msg_i_departures_requesting)
                 : (response instanceof ResponseError ? response.getTitle() : response));
 
             if (response instanceof ResponseError) {

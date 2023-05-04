@@ -32,41 +32,41 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
             if (isInFavorites && _viewModel.stopCursor != 0) {
                 // move up
                 _menu.addItem(new WatchUi.MenuItem(
-                    rez(Rez.Strings.lbl_options_favorite_move_up), "",
+                    rez(Rez.Strings.itm_options_favorite_move_up), "",
                     ITEM_FAVORITE_MOVE_UP, {}
                 ));
             }
             if (isInFavorites && _viewModel.stopCursor != _viewModel.getFavoriteCount() - 1) {
                 // move down
                 _menu.addItem(new WatchUi.MenuItem(
-                    rez(Rez.Strings.lbl_options_favorite_move_down), "",
+                    rez(Rez.Strings.itm_options_favorite_move_down), "",
                     ITEM_FAVORITE_MOVE_DOWN, {}
                 ));
             }
 
             // remove favorite
             _menu.addItem(new WatchUi.MenuItem(
-                rez(Rez.Strings.lbl_options_favorite_remove), "",
+                rez(Rez.Strings.itm_options_favorite_remove), "",
                 ITEM_FAVORITE_REMOVE, {}
             ));
         }
         else if (!_viewModel.isShowingMessage()) {
             // add favorite
             _menu.addItem(new WatchUi.MenuItem(
-                rez(Rez.Strings.lbl_options_favorite_add), "",
+                rez(Rez.Strings.itm_options_favorite_add), "",
                 ITEM_FAVORITE_ADD, {}
             ));
         }
 
         // settings
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.lbl_options_settings), "",
+            rez(Rez.Strings.lbl_settings_title), "",
             ITEM_SETTINGS, {}
         ));
 
         // about
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.lbl_options_about), "",
+            rez(Rez.Strings.itm_options_about), "",
             ITEM_ABOUT, {}
         ));
 

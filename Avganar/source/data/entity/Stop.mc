@@ -139,7 +139,7 @@ class Stop {
                 while (_response.removeAll(null) && _response.size() > 0);
             }
 
-            return [ _response.size() > 0 ? _response[mode] : rez(Rez.Strings.lbl_i_departures_none),
+            return [ _response.size() > 0 ? _response[mode] : rez(Rez.Strings.msg_i_departures_none),
                 mode ];
         }
 

@@ -8,30 +8,30 @@
     <!-- message -->
 
     <!-- status message -->
-    <string id="lbl_i_stops_no_gps">Waiting for GPS ...</string>
-    <string id="lbl_i_stops_requesting">Loading ...</string>
-    <string id="lbl_i_departures_requesting">Loading ...</string>
+    <string id="msg_i_stops_no_gps">Waiting for GPS ...</string>
+    <string id="msg_i_stops_requesting">Loading ...</string>
+    <string id="msg_i_departures_requesting">Loading ...</string>
 
     <!-- response message -->
-    <string id="lbl_i_stops_none">No Nearby Stops</string>
-    <string id="lbl_i_stops_outside_bounds">Only Available in Stockholm</string>
-    <string id="lbl_i_departures_none">No Departures</string>
+    <string id="msg_i_stops_none">No Nearby Stops</string>
+    <string id="msg_i_stops_outside_bounds">Only Available in Stockholm</string>
+    <string id="msg_i_departures_none">No Departures</string>
 
     <!-- request error -->
-    <string id="lbl_e_unknown">Unknown Error</string>
-    <string id="lbl_e_queue_full">Queue Full</string>
-    <string id="lbl_e_connection">No Connection</string>
-    <string id="lbl_e_memory">Out of Memory</string>
-    <string id="lbl_e_cancelled">Request Cancelled</string>
-    <string id="lbl_e_timeout">Request Timed Out</string>
-    <string id="lbl_e_default">Error</string>
+    <string id="msg_e_unknown">Unknown Error</string>
+    <string id="msg_e_queue_full">Queue Full</string>
+    <string id="msg_e_connection">No Connection</string>
+    <string id="msg_e_memory">Out of Memory</string>
+    <string id="msg_e_cancelled">Request Cancelled</string>
+    <string id="msg_e_timeout">Request Timed Out</string>
+    <string id="msg_e_default">Error</string>
 
     <!-- response error -->
-    <string id="lbl_e_invalid">Invalid Response</string>
-    <string id="lbl_e_null_data">No Data</string>
-    <string id="lbl_e_server">Server Error</string>
-    <string id="lbl_e_limit_minute">Quota exceeded (minute)</string>
-    <string id="lbl_e_limit_month">Quota exceeded (month)</string>
+    <string id="msg_e_invalid">Invalid Response</string>
+    <string id="msg_e_null_data">No Data</string>
+    <string id="msg_e_server">Server Error</string>
+    <string id="msg_e_limit_minute">Quota exceeded (minute)</string>
+    <string id="msg_e_limit_month">Quota exceeded (month)</string>
 
     <!-- view -->
 
@@ -49,11 +49,11 @@
     <string id="lbl_list_retry">Retry</string>
 
     <!-- detail -->
-    <string id="lbl_detail_null">–</string>
-    <string id="lbl_detail_now">Now</string>
-    <string id="lbl_detail_minutes_long"> min</string>
-    <string id="lbl_detail_minutes_short">m</string>
-    <string id="lbl_detail_minutes_tiny">'</string>
+    <string id="itm_detail_departure_null">–</string>
+    <string id="itm_detail_departure_now">Now</string>
+    <string id="itm_detail_departure_minutes_long"> min</string>
+    <string id="itm_detail_departure_minutes_short">m</string>
+    <string id="itm_detail_departure_minutes_tiny">'</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
@@ -61,20 +61,20 @@
 
     <!-- options -->
     <string id="lbl_options_title">Options</string>
-    <string id="lbl_options_favorite_add">Set as Favorite</string>
-    <string id="lbl_options_favorite_remove">Remove from Favorites</string>
-    <string id="lbl_options_favorite_move_up">Move Up</string>
-    <string id="lbl_options_favorite_move_down">Move Down</string>
-    <string id="lbl_options_settings">Settings</string>
-    <string id="lbl_options_about">About</string>
+    <string id="itm_options_favorite_add">Set as Favorite</string>
+    <string id="itm_options_favorite_remove">Remove from Favorites</string>
+    <string id="itm_options_favorite_move_up">Move Up</string>
+    <string id="itm_options_favorite_move_down">Move Down</string>
+    <string id="itm_options_about">About</string>
 
     <!-- settings -->
-    <string id="lbl_settings_max_stops">Max Stops</string>
-    <string id="lbl_settings_max_departures">Max Departures</string>
-    <string id="lbl_settings_max_departures_unlimited">No Limit</string>
-    <string id="lbl_settings_time_window">Default Time Window</string>
-    <string id="lbl_settings_vibrate">Vibrate on Response</string>
-    <string id="lbl_settings_minute_symbol">Minute symbol</string>
+    <string id="lbl_settings_title">Settings</string>
+    <string id="itm_settings_max_stops">Max Stops</string>
+    <string id="itm_settings_max_departures">Max Departures</string>
+    <string id="itm_settings_max_departures_unlimited">No Limit</string>
+    <string id="itm_settings_time_window">Default Time Window</string>
+    <string id="itm_settings_vibrate">Vibrate on Response</string>
+    <string id="itm_settings_minute_symbol">Minute symbol</string>
 
     <!-- info -->
     <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>

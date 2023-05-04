@@ -88,7 +88,7 @@ class StopListViewModel {
         var response = NearbyStopsStorage.response;
 
         return response == null
-            ? rez(_isPositioned() ? Rez.Strings.lbl_i_stops_requesting : Rez.Strings.lbl_i_stops_no_gps)
+            ? rez(_isPositioned() ? Rez.Strings.msg_i_stops_requesting : Rez.Strings.msg_i_stops_no_gps)
             : (response instanceof ResponseError ? response.getTitle() : response);
     }
 
