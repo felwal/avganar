@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.4.2
+
+- Stryk över inställda avgångar
+- Buggfixar och förbättringar
+
 ## 1.4.1
 
 - Stöd fr265, fr265s, fr965

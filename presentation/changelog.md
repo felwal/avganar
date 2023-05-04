@@ -1,12 +1,17 @@
 # Changelog
 
+### 1.4.2
+
+- Strikethrough cancelled departures
+- Bug fixes and improvements
+
 ## 1.4.1
 
 - Add support for fr265, fr265s, fr965
 
 ## 1.4.0
 
-- Add 'no favories' dialog view
+- Add 'no favorites' dialog view
 - Add setting for 'minute symbol'
 - Display mode with a letter
 - Improve UI
