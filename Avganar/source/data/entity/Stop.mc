@@ -14,7 +14,6 @@ class Stop {
     hidden var _id;
     hidden var _response;
     hidden var _failedRequestCount = 0;
-    hidden var _deviationLevel = 0;
     hidden var _deviationMessages = [];
     hidden var _departuresTimeWindow;
     hidden var _timeStamp;
@@ -66,8 +65,7 @@ class Stop {
         }
     }
 
-    function setDeviation(level, messages) {
-        _deviationLevel = level;
+    function setDeviation(messages) {
         _deviationMessages = messages;
     }
 
@@ -144,18 +142,6 @@ class Stop {
         }
 
         return [ _response, 0 ];
-    }
-
-    function getDeviationColor() {
-        if (_deviationLevel >= 7) {
-            return Graphene.COLOR_DK_RED;
-        }
-        else if (_deviationLevel >= 4) {
-            return Graphene.COLOR_DK_ORANGE;
-        }
-        else {
-            return Graphene.COLOR_DK_YELLOW;
-        }
     }
 
     function getModeSymbol(mode) {

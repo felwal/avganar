@@ -30,8 +30,8 @@ class StopDouble {
         _stop.resetResponseError();
     }
 
-    function setDeviation(level, message) {
-        _stop.setDeviation(level, message);
+    function setDeviation(message) {
+        _stop.setDeviation(message);
     }
 
     // get
@@ -70,10 +70,6 @@ class StopDouble {
 
     function getModeResponse(mode) {
         return _stop.getModeResponse(mode);
-    }
-
-    function getDeviationColor() {
-        return _stop.getDeviationColor();
     }
 
     function getModeSymbol(mode) {
