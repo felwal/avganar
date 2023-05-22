@@ -17,7 +17,7 @@ class DialogViewModel {
         return messages[pageCursor];
     }
 
-    function onSelect() {
+    function onNextMessage() {
         if (messages.size() <= 1) {
             return;
         }

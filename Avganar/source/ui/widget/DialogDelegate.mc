@@ -32,8 +32,17 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
+    function onSwipe(swipeEvent) {
+        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
+            _viewModel.onNextMessage();
+            return true;
+        }
+
+        return false;
+    }
+
     function onSelect() {
-        _viewModel.onSelect();
+        _viewModel.onNextMessage();
         return true;
     }
 

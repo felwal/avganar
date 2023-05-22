@@ -25,6 +25,15 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
+    function onSwipe(swipeEvent) {
+        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
+            _viewModel.onNextMode();
+            return true;
+        }
+
+        return false;
+    }
+
     //! "START-STOP"
     function onSelect() {
         _viewModel.onSelect();

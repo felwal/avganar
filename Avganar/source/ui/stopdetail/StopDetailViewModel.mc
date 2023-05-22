@@ -124,7 +124,13 @@ class StopDetailViewModel {
                 WatchUi.requestUpdate();
             }
         }
-        else if (stop.getModeCount() > 1) {
+        else {
+            onNextMode();
+        }
+    }
+
+    function onNextMode() {
+        if (stop.getModeCount() > 1) {
             // rotate mode
             _incModeCursor();
             WatchUi.requestUpdate();
