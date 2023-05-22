@@ -22,7 +22,7 @@ class StopPreviewView extends WatchUi.View {
     // draw
 
     hidden function _draw(dc) {
-        var stopNames = NearbyStopsStorage.getNearestStopsNames(2);
+        var stopNames = NearbyStopsStorage.getNearestStopsNames(1);
 
         // 3 nearest stops
         if (stopNames.size() == 0) {
@@ -37,17 +37,16 @@ class StopPreviewView extends WatchUi.View {
     }
 
     hidden function _drawStops(dc, stopNames) {
-        var font = Graphics.FONT_TINY;
-        var h = dc.getHeight() - 2 * px(36);
-        var lineHeightPx = h / 4;
+        var fonts = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM ];
+        var fh = dc.getFontHeight(fonts[0]);
+        var height = 2 * fh;
 
-        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
+        var minXAtTextBottom = MathUtil.minX(Graphite.getCenterY(dc) - fh / 2 + height, Graphite.getRadius(dc));
+        var margin = minXAtTextBottom + px(2);
+        var width = dc.getWidth() - 2 * margin;
 
-        for (var i = 0; i < stopNames.size(); i++) {
-            var yText = Graphite.getCenterY(dc) + i * lineHeightPx;
-
-            dc.drawText(Graphite.getCenterX(dc), yText, font, stopNames[i], Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-        }
+        Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc) - fh / 2, width, height,
+            fonts, stopNames[0], Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
 
         Graphite.resetColor(dc);
     }
