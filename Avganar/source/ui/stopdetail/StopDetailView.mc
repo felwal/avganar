@@ -56,7 +56,7 @@ class StopDetailView extends WatchUi.View {
 
             // stop deviation
             if (_viewModel.canNavigateToDeviation()) {
-                Graphite.setColor(dc, stop.getDeviationColor());
+                Graphite.setColor(dc, AppColors.WARNING);
                 WidgetUtil.drawTopPageArrow(dc);
                 Graphite.resetColor(dc);
             }

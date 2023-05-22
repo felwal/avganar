@@ -40,7 +40,7 @@ module WidgetUtil {
                 yText = px(63);
             }
             else {
-                yIcon = px(25);
+                yIcon = px(30);
                 yText = px(68);
             }
 
