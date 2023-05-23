@@ -10,6 +10,7 @@ module AppColors {
     const ON_PRIMARY = Graphene.COLOR_BLACK;
     const ON_PRIMARY_SECONDARY = Graphene.COLOR_DR_BLUE;
     const ON_PRIMARY_TERTIARY = Graphene.COLOR_DK_BLUE;
+    const ON_PRIMARY_SECONDARY_INVERTED = Graphene.COLOR_LT_AZURE;
 
     const WARNING = Graphene.COLOR_VERMILION;
 
