@@ -22,21 +22,20 @@ class StopPreviewView extends WatchUi.View {
     // draw
 
     hidden function _draw(dc) {
-        var stopNames = NearbyStopsStorage.getNearestStopsNames(1);
+        var stopName = NearbyStopsStorage.getNearestStopName();
 
-        // 3 nearest stops
-        if (stopNames.size() == 0) {
+        if (stopName == null) {
             WidgetUtil.drawDialog(dc, rez(Rez.Strings.lbl_preview_msg_no_stops));
         }
         else {
-            _drawStops(dc, stopNames);
+            _drawStop(dc, stopName);
         }
 
         // icon
         WidgetUtil.drawPreviewTitle(dc, rez(Rez.Strings.app_name), Rez.Drawables.ic_launcher, false);
     }
 
-    hidden function _drawStops(dc, stopNames) {
+    hidden function _drawStop(dc, stopName) {
         var fonts = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM ];
         var fh = dc.getFontHeight(fonts[0]);
         var height = 2 * fh;
@@ -46,7 +45,7 @@ class StopPreviewView extends WatchUi.View {
         var width = dc.getWidth() - 2 * margin;
 
         Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc) - fh / 2, width, height,
-            fonts, stopNames[0], Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
+            fonts, stopName, Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
 
         Graphite.resetColor(dc);
     }
