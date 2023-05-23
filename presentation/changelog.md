@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.5.0
+
+- Add a view showing stop deviations
+- Improve UI
+- Add support for approachs7042mm, approachs7047mm
+
 ### 1.4.2
 
 - Strikethrough cancelled departures

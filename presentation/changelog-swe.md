@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.5.0
+
+- Lägg till en vy för hållplats-avvikelser
+- Förbättra UI
+- Stöd approachs7042mm, approachs7047mm
+
 ### 1.4.2
 
 - Stryk över inställda avgångar
