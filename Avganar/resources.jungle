@@ -57,6 +57,7 @@ venu2s.resourcePath = $(venu2s.resourcePath); resources-360x360
 fr265s.resourcePath = $(fr265s.resourcePath); resources-360x360
 
 # 390x390
+approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-390x390
 d2air.resourcePath = $(d2air.resourcePath); resources-390x390
 marq2.resourcePath = $(marq2.resourcePath); resources-390x390
 marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390
@@ -72,6 +73,7 @@ venu2plus.resourcePath = $(venu2plus.resourcePath); resources-416x416
 fr265.resourcePath = $(fr265.resourcePath); resources-416x416
 
 # 454x454
+approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-454x454
 fr965.resourcePath = $(fr965.resourcePath); resources-454x454
 
 # launcher icon
@@ -129,6 +131,8 @@ marqexpedition.resourcePath = $(marqexpedition.resourcePath); resources-launcher
 marqgolfer.resourcePath = $(marqgolfer.resourcePath); resources-launcher_40x40
 
 # 60x60
+# approachs7042mm is guessed. TODO: check reference when updated
+approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-launcher_60x60
 d2air.resourcePath = $(d2air.resourcePath); resources-launcher_60x60
 d2mach1.resourcePath = $(d2mach1.resourcePath); resources-launcher_60x60
 epix2.resourcePath = $(epix2.resourcePath); resources-launcher_60x60
@@ -143,6 +147,8 @@ fr265s.resourcePath = $(fr265s.resourcePath); resources-launcher_60x60
 venu2s.resourcePath = $(venu2s.resourcePath); resources-launcher_61x61
 
 # 65x65
+# approachs7047mm is guessed. TODO: check reference when updated
+approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-launcher_65x65
 fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65
 
 # 70x70
