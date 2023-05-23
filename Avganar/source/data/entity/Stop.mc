@@ -2,14 +2,19 @@ using Toybox.Lang;
 
 class Stop {
 
-    hidden static var AUTO_REQUEST_LIMIT = 8;
+    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 6;
+    hidden static var _MEMORY_MIN_TIME_WINDOW = 2;
+
+    // NOTE: instead of adding public fields, add getters.
+    // and when adding functions, remember to add
+    // corresponding ones to ´StopDouble´
 
     var name;
 
     hidden var _id;
     hidden var _response;
     hidden var _failedRequestCount = 0;
-    hidden var _deviationLevel = 0;
+    hidden var _deviationMessages = [];
     hidden var _departuresTimeWindow;
     hidden var _timeStamp;
 
@@ -24,9 +29,6 @@ class Stop {
         return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
             && other.getId() == _id && other.name.equals(name);
     }
-
-    // when adding functions, remember to add
-    // corresponding ones to ´StopDouble´
 
     // set
 
@@ -63,8 +65,8 @@ class Stop {
         }
     }
 
-    function setDeviationLevel(level) {
-        _deviationLevel = level;
+    function setDeviation(messages) {
+        _deviationMessages = messages;
     }
 
     // get
@@ -89,13 +91,22 @@ class Stop {
             : SettingsStorage.getDefaultTimeWindow();
     }
 
+    function getDeviationMessages() {
+        return _deviationMessages;
+    }
+
     function shouldAutoRerequest() {
         if (!(_response instanceof ResponseError)) {
             return false;
         }
 
-        if (_failedRequestCount >= AUTO_REQUEST_LIMIT || getTimeWindow() < 1) {
-            setResponse(new ResponseError(ResponseError.CODE_CUSTOM_AUTO_LIMIT_REACHED));
+        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _response.isServerError()) {
+            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
+            return false;
+        }
+
+        if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
+            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
             return false;
         }
 
@@ -126,25 +137,11 @@ class Stop {
                 while (_response.removeAll(null) && _response.size() > 0);
             }
 
-            return [ _response.size() > 0 ? _response[mode] : rez(Rez.Strings.lbl_i_departures_none),
+            return [ _response.size() > 0 ? _response[mode] : rez(Rez.Strings.msg_i_departures_none),
                 mode ];
         }
 
         return [ _response, 0 ];
-    }
-
-    function getTitleColor() {
-        if (_deviationLevel >= 7) {
-            return Graphene.COLOR_DK_RED;
-        }
-        else if (_deviationLevel >= 4) {
-            return Graphene.COLOR_DK_ORANGE;
-        }
-        else if (_deviationLevel >= 1) {
-            return Graphene.COLOR_DK_YELLOW;
-        }
-
-        return AppColors.TEXT_SECONDARY;
     }
 
     function getModeSymbol(mode) {

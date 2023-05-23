@@ -29,9 +29,9 @@ module SettingsStorage {
     function getMinuteSymbol() {
         var value = StorageUtil.getValue(_STORAGE_MINUTE_SYMBOL, "m");
 
-        return value.equals("prime") ? rez(Rez.Strings.lbl_detail_minutes_prime)
-            : value.equals("m") ? rez(Rez.Strings.lbl_detail_minutes_m)
-            : rez(Rez.Strings.lbl_detail_minutes_min);
+        return value.equals("prime") ? rez(Rez.Strings.itm_detail_departure_minutes_tiny)
+            : value.equals("m") ? rez(Rez.Strings.itm_detail_departure_minutes_short)
+            : rez(Rez.Strings.itm_detail_departure_minutes_long);
     }
 
     // write

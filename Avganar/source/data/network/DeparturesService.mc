@@ -156,21 +156,20 @@ class DeparturesService {
             _stop.setResponse(departures);
         }
         else {
-            _stop.setResponse(rez(Rez.Strings.lbl_i_departures_none));
+            _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
         // stop point deviation
 
         var stopDeviations = data["ResponseData"]["StopPointDeviations"];
-        var stopDeviationLevel = 0;
+        var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
-            stopDeviationLevel = MathUtil.max(
-                stopDeviationLevel,
-                DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "ImportanceLevel", 0));
+            var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
+            stopDeviationMessages.add(msg);
         }
 
-        _stop.setDeviationLevel(stopDeviationLevel);
+        _stop.setDeviation(stopDeviationMessages);
     }
 
 }

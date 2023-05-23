@@ -25,7 +25,7 @@ module NearbyStopsService {
         // check if outside bounds, to not make unnecessary calls outside the SL zone
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             if (lat != 0.0 || lon != 0.0) {
-                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_outside_bounds));
+                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_outside_bounds));
             }
 
             WatchUi.requestUpdate();
@@ -94,7 +94,7 @@ module NearbyStopsService {
                 NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
             }
             else {
-                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.lbl_i_stops_none));
+                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_none));
             }
 
             return;

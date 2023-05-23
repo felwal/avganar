@@ -26,16 +26,8 @@ class InfoView extends WatchUi.View {
     // draw
 
     function _draw(dc) {
-        // invert colors
         Graphite.fillBackground(dc, Graphene.COLOR_WHITE);
-
-        // inscribe a square on the circular screen
-        var margin = px(5);
-        var size = Math.sqrt(2) * (Graphite.getRadius(dc) - margin);
-        var fonts = [ Graphics.FONT_TINY, Graphics.FONT_XTINY ];
-        var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
-
-        Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc), size, size, fonts, _text, justification, Graphene.COLOR_BLACK);
+        Graphite.fillTextArea(dc, _text, Graphene.COLOR_BLACK);
     }
 
 }

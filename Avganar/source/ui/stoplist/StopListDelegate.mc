@@ -27,8 +27,8 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
         DialogView.push(
             rez(Rez.Strings.lbl_dialog_no_favorites_title),
-            rez(Rez.Strings.lbl_dialog_no_favorites_msg),
-            WatchUi.SLIDE_DOWN);
+            [rez(Rez.Strings.lbl_dialog_no_favorites_msg)],
+            null, WatchUi.SLIDE_DOWN);
 
         return true;
     }

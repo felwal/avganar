@@ -150,4 +150,15 @@ module Graphite {
         textArea.draw(dc);
     }
 
+    function fillTextArea(dc, text, color) {
+        // inscribe a square on the circular screen
+        var margin = px(4);
+        var size = Math.sqrt(2) * (Graphite.getRadius(dc) - margin);
+        var fonts = [ Graphics.FONT_TINY, Graphics.FONT_XTINY ];
+        var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
+
+        drawTextArea(dc, getCenterX(dc), getCenterY(dc),
+            size, size, fonts, text, justification, color);
+    }
+
 }

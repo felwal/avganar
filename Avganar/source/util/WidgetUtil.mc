@@ -19,7 +19,7 @@ module WidgetUtil {
     // text
 
     function drawDialog(dc, text) {
-        var fonts = [ Graphics.FONT_SMALL ];
+        var fonts = [ Graphics.FONT_SMALL, Graphics.FONT_TINY ];
         var fh = Graphics.getFontHeight(fonts[0]);
         var w = dc.getWidth() - px(12);
         var h = dc.getHeight() / 2;
@@ -29,16 +29,28 @@ module WidgetUtil {
             w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, Graphene.COLOR_WHITE);
     }
 
-    function drawPreviewTitle(dc, text, rezId) {
+    function drawPreviewTitle(dc, text, rezId, smallIcon) {
         var yText = px(45);
 
         if (rezId != null) {
-            RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), px(30), rezId);
-            yText = px(68);
+            var yIcon;
+
+            if (smallIcon) {
+                yIcon = px(25);
+                yText = px(63);
+            }
+            else {
+                yIcon = px(30);
+                yText = px(68);
+            }
+
+            RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), yIcon, rezId);
         }
 
-        dc.drawText(Graphite.getCenterX(dc), yText, Graphics.FONT_SMALL, text,
-            Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        if (text != null && !text.equals("")) {
+            dc.drawText(Graphite.getCenterX(dc), yText, Graphics.FONT_SMALL, text,
+                Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+        }
     }
 
     // header/footer
@@ -97,7 +109,7 @@ module WidgetUtil {
     (:round)
     function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
         var r = Graphite.getRadius(dc);
-        var start = MathUtil.minX(y, r);
+        var start = MathUtil.minX(y, r) - h;
         var end = MathUtil.maxX(y, r);
         var w = end - start;
         var middle = w * progress;

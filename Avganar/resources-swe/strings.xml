@@ -1,35 +1,32 @@
 <strings>
 
-    <!-- app -->
-
-    <string id="app_name" scope="glance">Avgånär</string>
-
     <!-- message -->
 
     <!-- status message -->
-    <string id="lbl_i_stops_no_gps">Väntar på GPS ...</string>
-    <string id="lbl_i_stops_requesting">Läser in ...</string>
-    <string id="lbl_i_departures_requesting">Läser in ...</string>
+    <string id="msg_i_stops_no_gps">Väntar på GPS ...</string>
+    <string id="msg_i_stops_requesting">Läser in ...</string>
+    <string id="msg_i_departures_requesting">Läser in ...</string>
 
     <!-- response message -->
-    <string id="lbl_i_stops_none">Inga närliggande</string>
-    <string id="lbl_i_stops_outside_bounds">Endast tillgänglig i Stockholm</string>
-    <string id="lbl_i_departures_none">Inga avgångar</string>
+    <string id="msg_i_stops_none">Inga närliggande</string>
+    <string id="msg_i_stops_outside_bounds">Endast tillgänglig i Stockholm</string>
+    <string id="msg_i_departures_none">Inga avgångar</string>
 
     <!-- request error -->
-    <string id="lbl_e_unknown">Okänt fel</string>
-    <string id="lbl_e_queue_full">Kön är full</string>
-    <string id="lbl_e_connection">Ingen uppkoppling</string>
-    <string id="lbl_e_memory">Slut på minne</string>
-    <string id="lbl_e_cancelled">Begäran avbröts</string>
-    <string id="lbl_e_timeout">Begäran utgick</string>
-    <string id="lbl_e_default">Fel</string>
+    <string id="msg_e_unknown">Okänt fel</string>
+    <string id="msg_e_queue_full">Kön är full</string>
+    <string id="msg_e_connection">Ingen uppkoppling</string>
+    <string id="msg_e_memory">Slut på minne</string>
+    <string id="msg_e_cancelled">Begäran avbröts</string>
+    <string id="msg_e_timeout">Begäran utgick</string>
+    <string id="msg_e_default">Fel</string>
 
     <!-- response error -->
-    <string id="lbl_e_invalid">Ogiltigt svar</string>
-    <string id="lbl_e_null_data">Ingen data</string>
-    <string id="lbl_e_server">Serverfel</string>
-    <string id="lbl_e_auto_limit">Begäran misslyckades</string>
+    <string id="msg_e_invalid">Ogiltigt svar</string>
+    <string id="msg_e_null_data">Ingen data</string>
+    <string id="msg_e_server">Serverfel</string>
+    <string id="msg_e_limit_minute">Kvota överstigen (minut)</string>
+    <string id="msg_e_limit_month">Kvota överstigen (månad)</string>
 
     <!-- view -->
 
@@ -47,10 +44,7 @@
     <string id="lbl_list_retry">Försök igen</string>
 
     <!-- detail -->
-    <string id="lbl_detail_now">Nu</string>
-    <string id="lbl_detail_minutes_prime">'</string>
-    <string id="lbl_detail_minutes_m">m</string>
-    <string id="lbl_detail_minutes_min"> min</string>
+    <string id="itm_detail_departure_now">Nu</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
@@ -58,20 +52,20 @@
 
     <!-- options -->
     <string id="lbl_options_title">Alternativ</string>
-    <string id="lbl_options_favorite_add">Ställ in som favorit</string>
-    <string id="lbl_options_favorite_remove">Ta bort från favoriter</string>
-    <string id="lbl_options_favorite_move_up">Flytta upp</string>
-    <string id="lbl_options_favorite_move_down">Flytta ned</string>
-    <string id="lbl_options_settings">Inställningar</string>
-    <string id="lbl_options_about">Om</string>
+    <string id="itm_options_favorite_add">Ställ in som favorit</string>
+    <string id="itm_options_favorite_remove">Ta bort från favoriter</string>
+    <string id="itm_options_favorite_move_up">Flytta upp</string>
+    <string id="itm_options_favorite_move_down">Flytta ned</string>
+    <string id="lbl_settings_title">Inställningar</string>
+    <string id="itm_options_about">Om</string>
 
     <!-- settings -->
-    <string id="lbl_settings_max_stops">Högst antal hållplatser</string>
-    <string id="lbl_settings_max_departures">Högst antal avgångar</string>
-    <string id="lbl_settings_max_departures_unlimited">Ingen gräns</string>
-    <string id="lbl_settings_time_window">Största tidsfönster</string>
-    <string id="lbl_settings_vibrate">Vibrera vid svar</string>
-    <string id="lbl_settings_minute_symbol">Minut-symbol</string>
+    <string id="itm_settings_max_stops">Högst antal hållplatser</string>
+    <string id="itm_settings_max_departures">Högst antal avgångar</string>
+    <string id="itm_settings_max_departures_unlimited">Ingen gräns</string>
+    <string id="itm_settings_time_window">Största tidsfönster</string>
+    <string id="itm_settings_vibrate">Vibrera vid svar</string>
+    <string id="itm_settings_minute_symbol">Minut-symbol</string>
 
     <!-- info -->
     <string id="lbl_info_about">Av Felix Wallin.\n\nAPI:er tillhandahålls av Trafiklab.</string>

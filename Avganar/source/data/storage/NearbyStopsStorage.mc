@@ -20,10 +20,6 @@ module NearbyStopsStorage {
         return ArrUtil.get(arr, 0, null);
     }
 
-    function getNearestStopsNames(count) {
-        return StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES).slice(0, count);
-    }
-
     // set
 
     function _save() {

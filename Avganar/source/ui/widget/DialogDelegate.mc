@@ -2,12 +2,15 @@ using Toybox.WatchUi;
 
 class DialogDelegate extends WatchUi.BehaviorDelegate {
 
+    hidden var _viewModel;
     hidden var _transition;
 
     // init
 
-    function initialize(transition) {
+    function initialize(viewModel, transition) {
         BehaviorDelegate.initialize();
+
+        _viewModel = viewModel;
         _transition = transition;
     }
 
@@ -27,6 +30,20 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
         }
 
         return false;
+    }
+
+    function onSwipe(swipeEvent) {
+        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
+            _viewModel.onNextMessage();
+            return true;
+        }
+
+        return false;
+    }
+
+    function onSelect() {
+        _viewModel.onNextMessage();
+        return true;
     }
 
     function onBack() {

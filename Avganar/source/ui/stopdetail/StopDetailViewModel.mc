@@ -92,6 +92,10 @@ class StopDetailViewModel {
         return modeResponse.slice(startIndex, endIndex);
     }
 
+    function canNavigateToDeviation() {
+        return pageCursor == 0 && stop.getDeviationMessages().size() != 0;
+    }
+
     // write
 
     function incPageCursor() {
@@ -106,6 +110,9 @@ class StopDetailViewModel {
             pageCursor--;
             WatchUi.requestUpdate();
         }
+        else if (canNavigateToDeviation()) {
+            DialogView.push(null, stop.getDeviationMessages(), Rez.Drawables.ic_warning, WatchUi.SLIDE_DOWN);
+        }
     }
 
     function onSelect() {
@@ -117,7 +124,13 @@ class StopDetailViewModel {
                 WatchUi.requestUpdate();
             }
         }
-        else if (stop.getModeCount() > 1) {
+        else {
+            onNextMode();
+        }
+    }
+
+    function onNextMode() {
+        if (stop.getModeCount() > 1) {
             // rotate mode
             _incModeCursor();
             WatchUi.requestUpdate();
