@@ -131,8 +131,8 @@ marqexpedition.resourcePath = $(marqexpedition.resourcePath); resources-launcher
 marqgolfer.resourcePath = $(marqgolfer.resourcePath); resources-launcher_40x40
 
 # 60x60
-# approachs7042mm is guessed. TODO: check reference when updated
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-launcher_60x60
+approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-launcher_60x60
 d2air.resourcePath = $(d2air.resourcePath); resources-launcher_60x60
 d2mach1.resourcePath = $(d2mach1.resourcePath); resources-launcher_60x60
 epix2.resourcePath = $(epix2.resourcePath); resources-launcher_60x60
@@ -147,8 +147,6 @@ fr265s.resourcePath = $(fr265s.resourcePath); resources-launcher_60x60
 venu2s.resourcePath = $(venu2s.resourcePath); resources-launcher_61x61
 
 # 65x65
-# approachs7047mm is guessed. TODO: check reference when updated
-approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-launcher_65x65
 fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65
 
 # 70x70
