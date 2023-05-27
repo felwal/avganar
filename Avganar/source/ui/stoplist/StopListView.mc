@@ -99,7 +99,7 @@ class StopListView extends WatchUi.View {
         var hasFavs = _viewModel.getFavoriteCount() > 0;
         var h = px(hasFavs ? 3 : 2);
         var activeColor = hasFavs ? AppColors.PRIMARY_LT : AppColors.TEXT_SECONDARY;
-        var inactiveColor = hasFavs ? AppColors.ON_PRIMARY_TERTIARY : AppColors.TEXT_TERTIARY;
+        var inactiveColor = hasFavs ? AppColors.ON_PRIMARY_TERTIARY : null;
 
         WidgetUtil.drawProgressBar(dc, y, h, progress, activeColor, inactiveColor);
     }
