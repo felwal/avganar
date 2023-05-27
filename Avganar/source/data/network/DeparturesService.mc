@@ -75,7 +75,7 @@ class DeparturesService {
 
         // Trafiklab error
         if (statusCode != 0) {
-            Log.i("Departures SL request error (code " + statusCode + ")");
+            Log.i("Departures operator request error (code " + statusCode + ")");
 
             _stop.setResponse(new ResponseError(statusCode));
 

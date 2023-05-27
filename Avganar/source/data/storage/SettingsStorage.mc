@@ -15,7 +15,7 @@ module SettingsStorage {
     }
 
     function getMaxStops() {
-        return StorageUtil.getValue(_STORAGE_MAX_STOPS, 10);
+        return StorageUtil.getValue(_STORAGE_MAX_STOPS, 15);
     }
 
     function getMaxDepartures() {

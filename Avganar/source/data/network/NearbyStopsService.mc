@@ -4,10 +4,10 @@ using Toybox.WatchUi;
 
 module NearbyStopsService {
 
-    // Närliggande Hållplatser 2
+    // Närliggande hållplatser 2
     // Bronze: 10_000/month, 30/min
 
-    // edges of the SL zone, with an extra 2 km offset
+    // edges of the operator zone, with an extra 2 km offset
     const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
     const _BOUNDS_NORTH = 60.225171; // Ellans Vändplan (Norrtälje)
     const _BOUNDS_WEST = 17.239541; // Dammen (Nykvarn)
@@ -22,7 +22,7 @@ module NearbyStopsService {
     // request
 
     function requestNearbyStops(lat, lon) {
-        // check if outside bounds, to not make unnecessary calls outside the SL zone
+        // check if outside bounds, to not make unnecessary calls outside the operator zone
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
 
@@ -69,7 +69,7 @@ module NearbyStopsService {
             Log.e("Stops response error (code " + responseCode + "): " + data);
 
             // TODO: for some reason the error code is not displayed.
-            // "Stops SL response error" below, however, works.
+            // "Stops operator response error" below, however, works.
             if (DictUtil.hasValue(data, "Message")) {
                 NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
             }
@@ -84,11 +84,11 @@ module NearbyStopsService {
 
     //! @return If the selected stop has changed and departures should be requested
     function _handleNearbyStopsResponseOk(data) {
-        // SL error
+        // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
 
-            Log.e("Stops SL response error (code " + statusCode + ")");
+            Log.e("Stops operator response error (code " + statusCode + ")");
 
             NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
 

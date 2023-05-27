@@ -4,8 +4,6 @@ module AppColors {
     const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
     const TEXT_TERTIARY = Graphene.COLOR_DK_GRAY;
 
-    const CONTROL_NORMAL = TEXT_TERTIARY;
-
     const PRIMARY = Graphene.COLOR_CERULIAN;
     const PRIMARY_DK = Graphene.COLOR_DR_BLUE;
     const PRIMARY_LT = Graphene.COLOR_LT_AZURE;
@@ -18,13 +16,13 @@ module AppColors {
 
     // departure
 
-    const DEPARTURE_METRO_RED = Graphene.COLOR_DR_RED;
-    const DEPARTURE_METRO_BLUE = Graphene.COLOR_DR_BLUE;
-    const DEPARTURE_METRO_GREEN = Graphene.COLOR_DR_GREEN;
-
     const DEPARTURE_BUS_RED = Graphene.COLOR_RED;
     const DEPARTURE_BUS_BLUE = Graphene.COLOR_BLUE;
     const DEPARTURE_BUS_REPLACEMENT = WARNING;
+
+    const DEPARTURE_METRO_RED = Graphene.COLOR_DR_RED;
+    const DEPARTURE_METRO_BLUE = Graphene.COLOR_DR_BLUE;
+    const DEPARTURE_METRO_GREEN = Graphene.COLOR_DR_GREEN;
 
     const DEPARTURE_TRAM_SPÅRVÄGCITY = Graphene.COLOR_DK_GRAY;
     const DEPARTURE_TRAM_NOCKEBYBANAN = Graphene.COLOR_LT_GRAY;
