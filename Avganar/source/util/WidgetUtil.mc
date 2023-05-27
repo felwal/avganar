@@ -117,8 +117,10 @@ module WidgetUtil {
         Graphite.setColor(dc, activeColor);
         dc.fillRectangle(start, y, start + middle, h);
 
-        Graphite.setColor(dc, inactiveColor);
-        dc.fillRectangle(start + middle, y, end, h);
+        if (inactiveColor != null) {
+            Graphite.setColor(dc, inactiveColor);
+            dc.fillRectangle(start + middle, y, end, h);
+        }
 
         Graphite.resetColor(dc);
     }
@@ -133,8 +135,10 @@ module WidgetUtil {
         Graphite.setColor(dc, activeColor);
         dc.fillRectangle(start, y, start + middle, h);
 
-        Graphite.setColor(dc, inactiveColor);
-        dc.fillRectangle(start + middle, y, end, h);
+        if (inactiveColor != null) {
+            Graphite.setColor(dc, inactiveColor);
+            dc.fillRectangle(start + middle, y, end, h);
+        }
 
         Graphite.resetColor(dc);
     }
