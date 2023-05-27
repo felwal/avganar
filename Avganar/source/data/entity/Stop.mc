@@ -155,7 +155,7 @@ class Stop {
     //
 
     hidden function _removeDepartedDepartures(mode) {
-        if (_response[mode] == null || !_response[mode][0].hasDeparted()) {
+        if (_response[mode] == null || _response[mode].size() == 0 || !_response[mode][0].hasDeparted()) {
             return;
         }
 

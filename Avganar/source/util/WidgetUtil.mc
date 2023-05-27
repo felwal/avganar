@@ -490,7 +490,7 @@ module WidgetUtil {
 
         // draw items
 
-        var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY ];
+        var fontsSelected = [ Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY ];
         var font = Graphics.FONT_TINY;
         var h = dc.getHeight() - 2 * px(36);
         var lineHeightPx = h / 4;

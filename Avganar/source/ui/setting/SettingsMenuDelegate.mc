@@ -65,7 +65,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         if (id == ITEM_MAX_STOPS) {
             var title = rez(Rez.Strings.itm_settings_max_stops);
-            var values = [ 5, 10, 15, 20 ];
+            var values = [ 1, 5, 10, 15 ];
             var focus = values.indexOf(SettingsStorage.getMaxStops());
             new RadioMenuDelegate(title, null, values, focus, method(:onMaxStopsSelect)).push();
             return;

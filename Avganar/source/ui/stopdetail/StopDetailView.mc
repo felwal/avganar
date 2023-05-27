@@ -129,7 +129,7 @@ class StopDetailView extends WatchUi.View {
             var progress = _recursiveThird(0, stop.getFailedRequestCount());
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
-                AppColors.ON_PRIMARY_SECONDARY_INVERTED, AppColors.ON_PRIMARY_TERTIARY);
+                AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
         }
 
         // mode symbol
@@ -149,7 +149,7 @@ class StopDetailView extends WatchUi.View {
         Graphite.setColor(dc, Graphene.COLOR_WHITE);
         dc.fillCircle(xMode, yMode + r, r + 2);
 
-        dc.setColor(AppColors.ON_PRIMARY_SECONDARY, Graphene.COLOR_WHITE);
+        dc.setColor(AppColors.PRIMARY_DK, Graphene.COLOR_WHITE);
         dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
