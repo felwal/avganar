@@ -3,30 +3,16 @@ using Toybox.Time;
 
 class Departure {
 
-    static hidden const _MODE_BUS = "BUS";
-    static hidden const _MODE_METRO = "METRO";
-    static hidden const _MODE_TRAIN = "TRAIN";
-    static hidden const _MODE_TRAM = "TRAM";
-    static hidden const _MODE_SHIP = "SHIP";
-    static hidden const _MODE_NONE = "NONE";
-
-    static hidden const _GROUP_BUS_RED = "";
-    static hidden const _GROUP_BUS_BLUE = "blåbuss";
-    static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
-
-    static hidden const _GROUP_METRO_RED = "tunnelbanans röda linje";
-    static hidden const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
-    static hidden const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
-
-    static hidden const _GROUP_TRAM_SPÅRVÄGCITY = "Spårväg City";
-    static hidden const _GROUP_TRAM_NOCKEBYBANAN = "Nockebybanan";
-    static hidden const _GROUP_TRAM_LIDINGÖBANAN = "Lidingöbanan";
-    static hidden const _GROUP_TRAM_TVÄRBANAN = "Tvärbanan";
-    static hidden const _GROUP_TRAM_SALTSJÖBANAN = "Saltsjöbanan";
-    static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
+    static hidden const _MODE_BUS_LOCAL = 7;
+    static hidden const _MODE_BUS_EXPRESS = 3;
+    static hidden const _MODE_METRO = 5;
+    static hidden const _MODE_TRAIN_LOCAL = 4;
+    static hidden const _MODE_TRAIN_REGIONAL = 2;
+    static hidden const _MODE_TRAIN_EXPRESS = 1;
+    static hidden const _MODE_TRAM = 6;
+    static hidden const _MODE_SHIP = 8;
 
     hidden var _mode;
-    hidden var _group;
     hidden var _line;
     hidden var _destination;
     hidden var _moment;
@@ -36,9 +22,8 @@ class Departure {
 
     // init
 
-    function initialize(mode, group, line, destination, moment, deviationLevel, cancelled) {
+    function initialize(mode, line, destination, moment, deviationLevel, cancelled) {
         _mode = mode;
-        _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
@@ -104,19 +89,19 @@ class Departure {
     }
 
     function getModeSymbol() {
-        if (_mode.equals(_MODE_BUS)) {
+        if (_mode == _MODE_BUS_LOCAL || _mode == _MODE_BUS_EXPRESS) {
             return "B";
         }
-        else if (_mode.equals(_MODE_METRO)) {
+        else if (_mode == _MODE_METRO) {
             return "T";
         }
-        else if (_mode.equals(_MODE_TRAIN)) {
+        else if (_mode == _MODE_TRAIN_LOCAL || _mode == _MODE_TRAIN_REGIONAL || _mode == _MODE_TRAIN_EXPRESS) {
             return "J";
         }
-        else if (_mode.equals(_MODE_TRAM)) {
+        else if (_mode == _MODE_TRAM) {
             return "L";
         }
-        else if (_mode.equals(_MODE_SHIP)) {
+        else if (_mode == _MODE_SHIP) {
             return "F";
         }
         else {
@@ -126,68 +111,29 @@ class Departure {
     }
 
     function getModeColor() {
-        if (_mode.equals(_MODE_BUS)) {
-            if (_group.equals(_GROUP_BUS_RED)) {
-                return AppColors.DEPARTURE_BUS_RED;
-            }
-            else if (_group.equals(_GROUP_BUS_BLUE)) {
-                return AppColors.DEPARTURE_BUS_BLUE;
-            }
-            else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
-                return AppColors.DEPARTURE_BUS_REPLACEMENT;
-            }
-            else {
-                Log.w("unknown bus group: " + _group);
-                return AppColors.DEPARTURE_UNKNOWN;
-            }
+        if (_mode == _MODE_BUS_LOCAL) {
+            return AppColors.DEPARTURE_BUS_LOCAL;
         }
-        else if (_mode.equals(_MODE_METRO)) {
-            if (_group.equals(_GROUP_METRO_RED)) {
-                return AppColors.DEPARTURE_METRO_RED;
-            }
-            else if (_group.equals(_GROUP_METRO_BLUE)) {
-                return AppColors.DEPARTURE_METRO_BLUE;
-            }
-            else if (_group.equals(_GROUP_METRO_GREEN)) {
-                return AppColors.DEPARTURE_METRO_GREEN;
-            }
-            else {
-                Log.w("unknown metro group: " + _group);
-                return AppColors.DEPARTURE_UNKNOWN;
-            }
+        else if (_mode == _MODE_BUS_EXPRESS) {
+            return AppColors.DEPARTURE_BUS_EXPRESS;
         }
-        else if (_mode.equals(_MODE_TRAIN)) {
-            return AppColors.DEPARTURE_TRAIN;
+        else if (_mode == _MODE_METRO) {
+           return AppColors.DEPARTURE_METRO;
         }
-        else if (_mode.equals(_MODE_TRAM)) {
-            if (_group.equals(_GROUP_TRAM_SPÅRVÄGCITY)) {
-                return AppColors.DEPARTURE_TRAM_SPÅRVÄGCITY;
-            }
-            else if (_group.equals(_GROUP_TRAM_NOCKEBYBANAN)) {
-                return AppColors.DEPARTURE_TRAM_NOCKEBYBANAN;
-            }
-            else if (_group.equals(_GROUP_TRAM_LIDINGÖBANAN)) {
-                return AppColors.DEPARTURE_TRAM_LIDINGÖBANAN;
-            }
-            else if (_group.equals(_GROUP_TRAM_TVÄRBANAN)) {
-                return AppColors.DEPARTURE_TRAM_TVÄRBANAN;
-            }
-            else if (_group.equals(_GROUP_TRAM_SALTSJÖBANAN)) {
-                return AppColors.DEPARTURE_TRAM_SALTSJÖBANAN;
-            }
-            else if (_group.equals(_GROUP_TRAM_ROSLAGSBANAN)) {
-                return AppColors.DEPARTURE_TRAM_ROSLAGSBANAN;
-            }
-            else {
-                Log.w("unknown tram group: " + _group);
-                return AppColors.DEPARTURE_UNKNOWN;
-            }
+        else if (_mode == _MODE_TRAIN_LOCAL) {
+            return AppColors.DEPARTURE_TRAIN_LOCAL;
         }
-        else if (_mode.equals(_MODE_SHIP)) {
+        else if (_mode == _MODE_TRAIN_REGIONAL) {
+            return AppColors.DEPARTURE_TRAIN_REGIONAL;
+        }
+        else if (_mode == _MODE_TRAIN_EXPRESS) {
+            return AppColors.DEPARTURE_TRAIN_EXPRESS;
+        }
+        else if (_mode == _MODE_TRAM) {
+            return AppColors.DEPARTURE_TRAM;
+        }
+        else if (_mode == _MODE_SHIP) {
             return AppColors.DEPARTURE_SHIP;
-        }
-        else if (_mode.equals(_MODE_NONE)) {
-            return AppColors.DEPARTURE_NONE;
         }
         else {
             Log.w("unknown mode: " + _mode);

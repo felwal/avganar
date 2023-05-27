@@ -4,14 +4,14 @@ using Toybox.WatchUi;
 
 module NearbyStopsService {
 
-    // Närliggande hållplatser 2
-    // Bronze: 10_000/month, 30/min
+    // Resrobot v2.1 Nearby stops
+    // Bronze: 30_000/month, 45/min
 
-    // edges of the operator zone, with an extra 2 km offset
-    const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
-    const _BOUNDS_NORTH = 60.225171; // Ellans Vändplan (Norrtälje)
-    const _BOUNDS_WEST = 17.239541; // Dammen (Nykvarn)
-    const _BOUNDS_EAST = 19.116554; // Räfsnäs Brygga (Norrtälje)
+    // edges of the operator zone
+    const _BOUNDS_SOUTH = 55.33; // Smygehuk (Trelleborg)
+    const _BOUNDS_NORTH = 69.06; // Treriksröset (Kiruna)
+    const _BOUNDS_WEST = 10.95; // Stora Drammen (Strömstad)
+    const _BOUNDS_EAST = 24.16; // Kataja (Haparanda)
 
     const _RESPONSE_OK = 200;
 
@@ -41,18 +41,20 @@ module NearbyStopsService {
     function _requestNearbyStops(lat, lon) {
         isRequesting = true;
 
-        var url = "https://api.sl.se/api2/nearbystopsv2";
+        var url = "https://api.resrobot.se/v2.1/location.nearbystops";
 
         var params = {
-            "key" => API_KEY_STOPS,
+            "accessId" => API_KEY,
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
-            "maxNo" => SettingsStorage.getMaxStops()
+            "maxNo" => SettingsStorage.getMaxStops(),
+            "lang" => "sv",
+            "format" => "json"
+
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
 
@@ -119,9 +121,14 @@ module NearbyStopsService {
         for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
-            var extId = stopData["mainMastExtId"];
-            var id = extId.substring(5, extId.length()).toNumber();
+            var id = stopData["extId"];
             var name = stopData["name"];
+
+            // remove e.g. "(Stockholm kn)"
+            var nameEndIndex = name.find("(");
+            if (nameEndIndex != null) {
+                name = name.substring(0, nameEndIndex);
+            }
 
             // skip duplicate stops (same id but different names)
             if (ArrUtil.contains(stops, new StopDummy(id, name))) {
