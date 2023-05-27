@@ -5,7 +5,7 @@
 
     <iq:application
         entry="App"
-        id="068550afc2a34d17a19ecd471b704e98"
+        id="844a64bb-497f-4f2e-9c52-14f307359ac1"
         launcherIcon="@Drawables.ic_launcher"
         minSdkVersion="3.1.0"
         name="@Strings.app_name"
