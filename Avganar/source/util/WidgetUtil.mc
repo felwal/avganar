@@ -112,14 +112,14 @@ module WidgetUtil {
         var start = MathUtil.minX(y, r) - h;
         var end = MathUtil.maxX(y, r);
         var w = end - start;
-        var middle = w * progress;
+        var middle = Math.round(w * progress);
 
         Graphite.setColor(dc, activeColor);
-        dc.fillRectangle(start, y, start + middle, h);
+        dc.fillRectangle(start, y, middle, h);
 
         if (inactiveColor != null) {
             Graphite.setColor(dc, inactiveColor);
-            dc.fillRectangle(start + middle, y, end, h);
+            dc.fillRectangle(start + middle, y, w - middle, h);
         }
 
         Graphite.resetColor(dc);
