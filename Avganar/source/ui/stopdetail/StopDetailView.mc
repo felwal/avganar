@@ -129,7 +129,7 @@ class StopDetailView extends WatchUi.View {
             var progress = _recursiveThird(0, stop.getFailedRequestCount());
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
-                AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
+                AppColors.PRIMARY_LT, AppColors.PRIMARY_DK);
         }
 
         // mode symbol
