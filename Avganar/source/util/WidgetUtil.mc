@@ -110,7 +110,7 @@ module WidgetUtil {
     function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
         var r = Graphite.getRadius(dc);
         var start = MathUtil.minX(y, r) - h;
-        var end = MathUtil.maxX(y, r);
+        var end = MathUtil.maxX(y, r) + h;
         var w = end - start;
         var middle = Math.round(w * progress);
 
