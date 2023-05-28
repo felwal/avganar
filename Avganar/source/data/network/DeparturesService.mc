@@ -117,19 +117,19 @@ class DeparturesService {
 
             var departure = new Departure(mode, line, destination, moment, 0, false);
 
-            if (mode == 3 || mode == 7) {
+            if (ArrUtil.contains(Departure.MODES_BUS, mode)) {
                 modeDepartures["BUS"].add(departure);
             }
-            else if (mode == 5) {
+            else if (mode == Departure.MODE_METRO) {
                 modeDepartures["METRO"].add(departure);
             }
-            else if (mode == 1 || mode == 2 || mode == 4) {
+            else if (ArrUtil.contains(Departure.MODES_TRAIN, mode)) {
                 modeDepartures["TRAIN"].add(departure);
             }
-            else if (mode == 6) {
+            else if (mode == Departure.MODE_TRAM) {
                 modeDepartures["TRAM"].add(departure);
             }
-            else if (mode == 8) {
+            else if (mode == Departure.MODE_SHIP) {
                 modeDepartures["SHIP"].add(departure);
             }
         }

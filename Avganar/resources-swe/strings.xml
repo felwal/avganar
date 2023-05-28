@@ -9,7 +9,7 @@
 
     <!-- response message -->
     <string id="msg_i_stops_none">Inga närliggande</string>
-    <string id="msg_i_stops_outside_bounds">Endast tillgänglig i Stockholm</string>
+    <string id="msg_i_stops_outside_bounds">Endast tillgänglig i Sverige</string>
     <string id="msg_i_departures_none">Inga avgångar</string>
 
     <!-- request error -->

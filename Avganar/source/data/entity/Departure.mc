@@ -3,14 +3,17 @@ using Toybox.Time;
 
 class Departure {
 
-    static hidden const _MODE_BUS_LOCAL = 7;
-    static hidden const _MODE_BUS_EXPRESS = 3;
-    static hidden const _MODE_METRO = 5;
-    static hidden const _MODE_TRAIN_LOCAL = 4;
-    static hidden const _MODE_TRAIN_REGIONAL = 2;
-    static hidden const _MODE_TRAIN_EXPRESS = 1;
-    static hidden const _MODE_TRAM = 6;
-    static hidden const _MODE_SHIP = 8;
+    static const MODE_BUS_LOCAL = 7;
+    static const MODE_BUS_EXPRESS = 3;
+    static const MODE_METRO = 5;
+    static const MODE_TRAIN_LOCAL = 4;
+    static const MODE_TRAIN_REGIONAL = 2;
+    static const MODE_TRAIN_EXPRESS = 1;
+    static const MODE_TRAM = 6;
+    static const MODE_SHIP = 8;
+
+    static const MODES_BUS = [ MODE_BUS_LOCAL, MODE_BUS_EXPRESS ];
+    static const MODES_TRAIN = [ MODE_TRAIN_LOCAL, MODE_TRAIN_REGIONAL, MODE_TRAIN_EXPRESS ];
 
     hidden var _mode;
     hidden var _line;
@@ -34,7 +37,10 @@ class Departure {
     // get
 
     function toString() {
-        return _displayTime() + " " + _line + " " + _destination;
+        return _displayTime() + " "
+            // skip train line numbers
+            + (ArrUtil.contains(MODES_TRAIN, _mode) ? "" : _line + " ")
+            + _destination;
     }
 
     hidden function _displayTime() {
@@ -89,19 +95,19 @@ class Departure {
     }
 
     function getModeSymbol() {
-        if (_mode == _MODE_BUS_LOCAL || _mode == _MODE_BUS_EXPRESS) {
+        if (_mode == MODE_BUS_LOCAL || _mode == MODE_BUS_EXPRESS) {
             return "B";
         }
-        else if (_mode == _MODE_METRO) {
+        else if (_mode == MODE_METRO) {
             return "T";
         }
-        else if (_mode == _MODE_TRAIN_LOCAL || _mode == _MODE_TRAIN_REGIONAL || _mode == _MODE_TRAIN_EXPRESS) {
+        else if (_mode == MODE_TRAIN_LOCAL || _mode == MODE_TRAIN_REGIONAL || _mode == MODE_TRAIN_EXPRESS) {
             return "J";
         }
-        else if (_mode == _MODE_TRAM) {
+        else if (_mode == MODE_TRAM) {
             return "L";
         }
-        else if (_mode == _MODE_SHIP) {
+        else if (_mode == MODE_SHIP) {
             return "F";
         }
         else {
@@ -111,28 +117,28 @@ class Departure {
     }
 
     function getModeColor() {
-        if (_mode == _MODE_BUS_LOCAL) {
+        if (_mode == MODE_BUS_LOCAL) {
             return AppColors.DEPARTURE_BUS_LOCAL;
         }
-        else if (_mode == _MODE_BUS_EXPRESS) {
+        else if (_mode == MODE_BUS_EXPRESS) {
             return AppColors.DEPARTURE_BUS_EXPRESS;
         }
-        else if (_mode == _MODE_METRO) {
+        else if (_mode == MODE_METRO) {
            return AppColors.DEPARTURE_METRO;
         }
-        else if (_mode == _MODE_TRAIN_LOCAL) {
+        else if (_mode == MODE_TRAIN_LOCAL) {
             return AppColors.DEPARTURE_TRAIN_LOCAL;
         }
-        else if (_mode == _MODE_TRAIN_REGIONAL) {
+        else if (_mode == MODE_TRAIN_REGIONAL) {
             return AppColors.DEPARTURE_TRAIN_REGIONAL;
         }
-        else if (_mode == _MODE_TRAIN_EXPRESS) {
+        else if (_mode == MODE_TRAIN_EXPRESS) {
             return AppColors.DEPARTURE_TRAIN_EXPRESS;
         }
-        else if (_mode == _MODE_TRAM) {
+        else if (_mode == MODE_TRAM) {
             return AppColors.DEPARTURE_TRAM;
         }
-        else if (_mode == _MODE_SHIP) {
+        else if (_mode == MODE_SHIP) {
             return AppColors.DEPARTURE_SHIP;
         }
         else {

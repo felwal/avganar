@@ -6,10 +6,10 @@ module AppColors {
 
     const PRIMARY = Graphene.COLOR_DK_GREEN;
     const PRIMARY_DK = Graphene.COLOR_DR_GREEN;
-    const PRIMARY_LT = Graphene.COLOR_LR_GREEN;
+    const PRIMARY_LT = Graphene.COLOR_LT_GREEN;
 
     const ON_PRIMARY = Graphene.COLOR_WHITE;
-    const ON_PRIMARY_SECONDARY = PRIMARY_LT;
+    const ON_PRIMARY_SECONDARY = Graphene.COLOR_LR_GREEN;
     const ON_PRIMARY_TERTIARY = Graphene.COLOR_LT_GREEN;
 
     const WARNING = Graphene.COLOR_VERMILION;
@@ -17,8 +17,8 @@ module AppColors {
     // departure
 
     const DEPARTURE_BUS_LOCAL = Graphene.COLOR_RED;
-    const DEPARTURE_BUS_EXPRESS = Graphene.COLOR_LT_GRAY;
-    const DEPARTURE_METRO = Graphene.COLOR_DK_BLUE;
+    const DEPARTURE_BUS_EXPRESS = Graphene.COLOR_LR_RED;
+    const DEPARTURE_METRO = Graphene.COLOR_BLUE;
     const DEPARTURE_TRAIN_LOCAL = Graphene.COLOR_CERISE;
     const DEPARTURE_TRAIN_REGIONAL = Graphene.COLOR_GREEN;
     const DEPARTURE_TRAIN_EXPRESS = Graphene.COLOR_YELLOW;
