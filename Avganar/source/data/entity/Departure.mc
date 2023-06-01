@@ -19,18 +19,18 @@ class Departure {
     hidden var _line;
     hidden var _destination;
     hidden var _moment;
-    hidden var _deviationLevel;
+    hidden var _hasDeviation;
 
     var cancelled;
 
     // init
 
-    function initialize(mode, line, destination, moment, deviationLevel, cancelled) {
+    function initialize(mode, line, destination, moment, hasDeviation, cancelled) {
         _mode = mode;
         _line = line;
         _destination = destination;
         _moment = moment;
-        _deviationLevel = deviationLevel;
+        _hasDeviation = hasDeviation;
         me.cancelled = cancelled;
     }
 
@@ -72,26 +72,7 @@ class Departure {
     }
 
     function getTextColor() {
-        if (_deviationLevel >= 8) {
-            return Graphene.COLOR_RED;
-        }
-        else if (_deviationLevel >= 6) {
-            return Graphene.COLOR_VERMILION;
-        }
-        else if (_deviationLevel >= 4) {
-            return Graphene.COLOR_AMBER;
-        }
-        else if (_deviationLevel >= 3) {
-            return Graphene.COLOR_YELLOW;
-        }
-        else if (_deviationLevel >= 2) {
-            return Graphene.COLOR_LT_YELLOW;
-        }
-        else if (_deviationLevel >= 1) {
-            return Graphene.COLOR_LR_YELLOW;
-        }
-
-        return AppColors.TEXT_PRIMARY;
+        return _hasDeviation ? AppColors.WARNING : AppColors.TEXT_PRIMARY;
     }
 
     function getModeSymbol() {
