@@ -84,7 +84,6 @@ module NearbyStopsService {
         WatchUi.requestUpdate();
     }
 
-    //! @return If the selected stop has changed and departures should be requested
     function _handleNearbyStopsResponseOk(data) {
         // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
@@ -130,15 +129,10 @@ module NearbyStopsService {
                 name = name.substring(0, nameEndIndex);
             }
 
-            // skip duplicate stops (same id but different names)
-            if (ArrUtil.contains(stops, new StopDummy(id, name))) {
-                continue;
-            }
-
-            var existingId = stopIds.indexOf(id);
-            var existingStop = existingId == -1
+            var existingIdIndex = stopIds.indexOf(id);
+            var existingStop = existingIdIndex == -1
                 ? NearbyStopsStorage.getStopByIdAndName(id, name)
-                : stops[existingId];
+                : stops[existingIdIndex];
 
             stopIds.add(id);
             stopNames.add(name);
