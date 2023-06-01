@@ -127,7 +127,7 @@ class DeparturesService {
                 destination = destination.substring(0, destEndIndex);
             }
 
-            var departure = new Departure(mode, line, destination, moment, hasDeviation, false);
+            var departure = new Departure(mode, line, destination, moment, hasDeviation);
 
             // add to array
             if (ArrUtil.contains(Departure.MODES_BUS, mode)) {

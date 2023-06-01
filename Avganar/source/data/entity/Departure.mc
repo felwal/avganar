@@ -21,17 +21,14 @@ class Departure {
     hidden var _moment;
     hidden var _hasDeviation;
 
-    var cancelled;
-
     // init
 
-    function initialize(mode, line, destination, moment, hasDeviation, cancelled) {
+    function initialize(mode, line, destination, moment, hasDeviation) {
         _mode = mode;
         _line = line;
         _destination = destination;
         _moment = moment;
         _hasDeviation = hasDeviation;
-        me.cancelled = cancelled;
     }
 
     // get

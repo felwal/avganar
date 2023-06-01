@@ -182,11 +182,6 @@ class StopDetailView extends WatchUi.View {
             var textColor = departure.getTextColor();
             Graphite.setColor(dc, textColor);
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
-
-            // strikethrough
-            if (departure.cancelled) {
-                Graphite.strokeRectangle(dc, xText, y, dc.getWidth() - xText, px(1), px(2), textColor, Graphene.COLOR_BLACK);
-            }
         }
     }
 
