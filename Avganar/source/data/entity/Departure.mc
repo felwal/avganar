@@ -74,23 +74,23 @@ class Departure {
 
     function getModeSymbol() {
         if (_mode == MODE_BUS_LOCAL || _mode == MODE_BUS_EXPRESS) {
-            return "B";
+            return rez(Rez.Strings.lbl_detail_mode_bus);
         }
         else if (_mode == MODE_METRO) {
-            return "T";
+            return rez(Rez.Strings.lbl_detail_mode_metro);
         }
         else if (_mode == MODE_TRAIN_LOCAL || _mode == MODE_TRAIN_REGIONAL || _mode == MODE_TRAIN_EXPRESS) {
-            return "J";
+            return rez(Rez.Strings.lbl_detail_mode_train);
         }
         else if (_mode == MODE_TRAM) {
-            return "L";
+            return rez(Rez.Strings.lbl_detail_mode_tram);
         }
         else if (_mode == MODE_SHIP) {
-            return "F";
+            return rez(Rez.Strings.lbl_detail_mode_ship);
         }
         else {
             Log.w("unknown mode: " + _mode);
-            return "?";
+            return rez(Rez.Strings.lbl_detail_mode_unknown);
         }
     }
 
