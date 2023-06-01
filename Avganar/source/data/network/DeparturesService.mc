@@ -117,7 +117,7 @@ class DeparturesService {
             // rtTime and rtDate are realtime data
             var time = departureData.hasKey("rtTime") ? departureData["rtTime"] : DictUtil.get(departureData, "time", null);
             var date = departureData.hasKey("rtDate") ? departureData["rtDate"] : DictUtil.get(departureData, "date", null);
-            var hasDeviation = !departureData["reachable"].equals("true");
+            var hasDeviation = !departureData["reachable"];
 
             var moment = TimeUtil.localIso8601StrToMoment(date + "T" + time);
 
