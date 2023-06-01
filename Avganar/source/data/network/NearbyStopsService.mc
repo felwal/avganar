@@ -120,7 +120,7 @@ module NearbyStopsService {
         for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"];
 
-            var id = stopData["extId"];
+            var id = stopData["extId"].toNumber();
             var name = stopData["name"];
 
             // remove e.g. "(Stockholm kn)"
