@@ -98,25 +98,37 @@ class DeparturesService {
             return;
         }
 
-        var maxDepartures = SettingsStorage.getMaxDepartures(); // -1
+        // taxis and flights are irrelevant
         var modes = [ "BUS", "METRO", "TRAIN", "TRAM", "SHIP" ];
         var modeDepartures = { "BUS" => [], "METRO" => [], "TRAIN" => [], "TRAM" => [], "SHIP" => [] };
         var departuresData = data["Departure"];
 
-        for (var d = 0; d < departuresData.size(); d++) {
+        var maxDepartures = SettingsStorage.getMaxDepartures();
+        var departureCount = maxDepartures == -1
+            ? departuresData.size()
+            : MathUtil.min(departuresData.size(), maxDepartures);
+
+        for (var d = 0; d < departureCount; d++) {
             var departureData = departuresData[d];
 
             var mode = departureData["ProductAtStop"]["catCode"].toNumber();
             var line = departureData["ProductAtStop"]["displayNumber"];
             var destination = departureData["direction"];
-            var time = departureData["time"];
-            var date = departureData["date"];
+            // rtTime and rtDate are realtime data
+            var time = departureData.hasKey("rtTime") ? departureData["rtTime"] : DictUtil.get(departureData, "time", null);
+            var date = departureData.hasKey("rtDate") ? departureData["rtDate"] : DictUtil.get(departureData, "date", null);
 
-            var dateTime = date + "T" + time;
-            var moment = TimeUtil.localIso8601StrToMoment(dateTime);
+            var moment = TimeUtil.localIso8601StrToMoment(date + "T" + time);
+
+            // remove unneccessary "T-bana"
+            var destEndIndex = destination.find(" T-bana");
+            if (destEndIndex != null) {
+                destination = destination.substring(0, destEndIndex);
+            }
 
             var departure = new Departure(mode, line, destination, moment, 0, false);
 
+            // add to array
             if (ArrUtil.contains(Departure.MODES_BUS, mode)) {
                 modeDepartures["BUS"].add(departure);
             }

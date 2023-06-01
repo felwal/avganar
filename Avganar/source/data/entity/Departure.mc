@@ -38,7 +38,7 @@ class Departure {
 
     function toString() {
         return _displayTime() + " "
-            // skip train line numbers
+            // skip train line numbers since they're wrong anyway
             + (ArrUtil.contains(MODES_TRAIN, _mode) ? "" : _line + " ")
             + _destination;
     }
