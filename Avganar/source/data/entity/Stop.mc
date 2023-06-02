@@ -14,7 +14,6 @@ class Stop {
     hidden var _id;
     hidden var _response;
     hidden var _failedRequestCount = 0;
-    hidden var _deviationMessages = [];
     hidden var _departuresTimeWindow;
     hidden var _timeStamp;
 
@@ -65,10 +64,6 @@ class Stop {
         }
     }
 
-    function setDeviation(messages) {
-        _deviationMessages = messages;
-    }
-
     // get
 
     function getId() {
@@ -89,10 +84,6 @@ class Stop {
         return _departuresTimeWindow != null
             ? _departuresTimeWindow
             : SettingsStorage.getDefaultTimeWindow();
-    }
-
-    function getDeviationMessages() {
-        return _deviationMessages;
     }
 
     function shouldAutoRerequest() {

@@ -30,10 +30,6 @@ class StopDouble {
         _stop.resetResponseError();
     }
 
-    function setDeviation(message) {
-        _stop.setDeviation(message);
-    }
-
     // get
 
     function getId() {
@@ -50,10 +46,6 @@ class StopDouble {
 
     function getTimeWindow() {
         return _stop.getTimeWindow();
-    }
-
-    function getDeviationMessages() {
-        return _stop.getDeviationMessages();
     }
 
     function shouldAutoRerequest() {

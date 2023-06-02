@@ -53,13 +53,6 @@ class StopDetailView extends WatchUi.View {
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
-
-            // stop deviation
-            if (_viewModel.canNavigateToDeviation()) {
-                Graphite.setColor(dc, AppColors.WARNING);
-                WidgetUtil.drawTopPageArrow(dc);
-                Graphite.resetColor(dc);
-            }
         }
 
         // error/message
