@@ -2,6 +2,8 @@
 
 Avgånär är en widget som visar närliggande hållplatser och avgångar inom Stockholms Lokaltrafik (SL) i Sverige.
 
+För täckning av hela Sverige, se Avgånär: Sverige avgångar.
+
 Funktioner:
 
 - Visa närliggande hållplatser
