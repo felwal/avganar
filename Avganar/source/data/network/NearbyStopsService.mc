@@ -31,7 +31,7 @@ module NearbyStopsService {
             WatchUi.requestUpdate();
         }
         else {
-            Log.i("Requesting stops for coords (" + lat + ", " + lon + ") ...");
+            Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + lat + ", " + lon + ") ...");
             _requestNearbyStops(lat, lon);
         }
     }
@@ -46,7 +46,7 @@ module NearbyStopsService {
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
-            "maxNo" => SettingsStorage.getMaxStops(),
+            "maxNo" => NearbyStopsStorage.maxStops == null ? SettingsStorage.getMaxStops() : NearbyStopsStorage.maxStops,
             "lang" => rez(Rez.Strings.lang_code),
             "format" => "json"
 
@@ -62,6 +62,8 @@ module NearbyStopsService {
     // receive
 
     function onReceiveNearbyStops(responseCode, data) {
+        isRequesting = false;
+
         if (responseCode == ResponseError.HTTP_OK && data != null) {
             _handleNearbyStopsResponseOk(data);
         }
@@ -69,15 +71,14 @@ module NearbyStopsService {
             var errorCode = DictUtil.get(data, "errorCode", null);
             NearbyStopsStorage.setResponse([], [], new ResponseError(responseCode, errorCode));
 
-            Log.e("Stops response error (responseCode " + responseCode + ", errorCode + " + errorCode + "): " + data);
+            Log.e("Stops response error (responseCode " + responseCode + ", errorCode " + errorCode + "): " + data);
 
             // auto rerequest if too large
             if (NearbyStopsStorage.shouldAutoRerequest()) {
-                _requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+                requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
             }
         }
 
-        isRequesting = false;
         WatchUi.requestUpdate();
     }
 
