@@ -5,6 +5,8 @@
     <string id="app_name" scope="glance">Avgånär</string>
     <string id="app_version" scope="glance">v1.5.0</string>
 
+    <string id="lang_code" scope="glance">en</string>
+
     <!-- message -->
 
     <!-- status message -->

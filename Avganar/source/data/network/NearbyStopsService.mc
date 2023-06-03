@@ -49,7 +49,7 @@ module NearbyStopsService {
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
             "maxNo" => SettingsStorage.getMaxStops(),
-            "lang" => "sv",
+            "lang" => rez(Rez.Strings.lang_code),
             "format" => "json"
 
         };

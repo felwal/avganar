@@ -37,8 +37,7 @@ class DeparturesService {
             "accessId" => API_KEY,
             "id" => _stop.getId(),
             "duration" => _stop.getTimeWindow(),
-            "maxJourneys" => 2,
-            "lang" => "sv",
+            "lang" => rez(Rez.Strings.lang_code),
             "format" => "json"
         };
         var options = {

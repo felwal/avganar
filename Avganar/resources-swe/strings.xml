@@ -1,5 +1,9 @@
 <strings>
 
+    <!-- app -->
+
+    <string id="lang_code" scope="glance">sv</string>
+
     <!-- message -->
 
     <!-- status message -->
