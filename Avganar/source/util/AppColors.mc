@@ -17,7 +17,7 @@ module AppColors {
     // departure
 
     const DEPARTURE_BUS_LOCAL = Graphene.COLOR_RED;
-    const DEPARTURE_BUS_EXPRESS = Graphene.COLOR_LR_RED;
+    const DEPARTURE_BUS_EXPRESS = Graphene.COLOR_LT_RED;
     const DEPARTURE_METRO = Graphene.COLOR_BLUE;
     const DEPARTURE_TRAIN_LOCAL = Graphene.COLOR_CERISE;
     const DEPARTURE_TRAIN_REGIONAL = Graphene.COLOR_GREEN;
