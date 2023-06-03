@@ -1,6 +1,6 @@
-# Avgånär: Stockholm departures
+# Avgånär: Sweden departures
 
-A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL). Uses Trafiklab's APIs.
+A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Sweden. Uses Trafiklab's API.
 
 Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3edd-4298-8348-5bd818376a2a).
 
@@ -14,25 +14,18 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 - Save favorite stops and view anywhere
 - View departures
   - Color coded and sectioned by mode
-  - See deviations and their importance level
 - Limit memory consumption by tuning settings
 
-## Roadmap
+## API
 
-- [ ] extend to the whole of Sweden
-
-## APIs
-
-- [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
-- [SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)
+- [Resrobot 2.1](https://www.trafiklab.se/api/trafiklab-apis/resrobot-v21/)
 
 ## Develop
 
-Place your API keys in `ServiceSecrets.mc`:
+Place your API key in `ServiceSecrets.mc`:
 
 ```
-const API_KEY_STOPS = "<KEY>";
-const API_KEY_DEPARTURES = "<KEY>";
+const API_KEY = "<KEY>";
 ```
 
 ## Build
