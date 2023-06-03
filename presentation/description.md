@@ -1,6 +1,8 @@
 # Description
 
-Avgånär is a widget for viewing nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
+Avgånär is a widget for viewing nearby stops and departures within Sweden.
+
+For better data and more features within Stockholm, see Avgånär: Stockholm departures.
 
 Features:
 
@@ -8,14 +10,13 @@ Features:
 - Save favorite stops (via the menu) and view anywhere
 - View departures
   - Color coded and sectioned by mode
-  - See deviations and their importance level
 - Limit memory consumption by tuning settings (via the menu)
 
 The departure times that are presented are the predicted, that is including delays.
 
 The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
 
-Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 4". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
+Data is retrieved using Trafiklab's API "Resrobot 2.1". Avgånär is in no way affiliated with Trafiklab. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
 
 By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
