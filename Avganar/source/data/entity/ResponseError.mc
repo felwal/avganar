@@ -2,14 +2,14 @@ using Toybox.Lang;
 
 class ResponseError {
 
-    // API
-    static var CODES_RESPONSE_SERVER_ERROR = [ 5321, 5322, 5323, 5324 ];
-    static var CODE_REQUEST_NOT_FOUND = 404;
-    static var CODE_REQUEST_LIMIT_MINUTE = 1006;
-    static var CODE_REQUEST_LIMIT_MONTH = 1007;
+    // HTTP
+    static var HTTP_OK = 200;
+    static var HTTP_NOT_FOUND = 404;
+    static var HTTP_TOO_MANY_REQUESTS = 429;
+    static var HTTP_INTERNAL_SERVER_ERROR = 500;
+    static var HTTP_SERVICE_UNAVAILABLE = 503;
 
     // custom
-    static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
     static var CODE_AUTO_REQUEST_LIMIT_MEMORY = -2001;
 
     hidden var _code;
@@ -17,15 +17,15 @@ class ResponseError {
 
     // init
 
-    function initialize(codeOrTitle) {
-        if (codeOrTitle instanceof Lang.Number) {
-            _code = codeOrTitle;
-            _setTitle();
+    function initialize(httpCode, apiCode) {
+        if (("API_QUOTA").equals(apiCode)) {
+            _code = HTTP_TOO_MANY_REQUESTS;
         }
         else {
-            _code = null;
-            _title = codeOrTitle;
+            _code = httpCode;
         }
+
+        _setTitle();
     }
 
     function equals(other) {
@@ -41,7 +41,7 @@ class ResponseError {
     }
 
     hidden function _setTitle() {
-        if (_code == 200) {
+        if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
         else if (_code == Communications.UNKNOWN_ERROR) {
@@ -62,25 +62,25 @@ class ResponseError {
         else if (_code == Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE) {
             _title = rez(Rez.Strings.msg_e_invalid);
         }
-        else if (isServerError() || isTooLarge()) {
+        else if (isTooLarge()) {
             // don't let the user know we are requesting again
             _title = rez(Rez.Strings.msg_i_departures_requesting);
         }
-        else if (_code == CODE_REQUEST_LIMIT_MINUTE) {
-            _title = rez(Rez.Strings.msg_e_limit_minute);
+        else if (_code == HTTP_TOO_MANY_REQUESTS) {
+            _title = rez(Rez.Strings.msg_e_limit);
         }
-        else if (_code == CODE_REQUEST_LIMIT_MONTH) {
-            _title = rez(Rez.Strings.msg_e_limit_month);
-        }
-        else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
+        else if (_code == HTTP_INTERNAL_SERVER_ERROR) {
             _title = rez(Rez.Strings.msg_e_server);
+        }
+        else if (_code == HTTP_SERVICE_UNAVAILABLE) {
+            _title = rez(Rez.Strings.msg_e_unavailable);
         }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_MEMORY) {
             _title = rez(Rez.Strings.msg_e_memory);
         }
 
         else {
-            _title = rez(Rez.Strings.msg_e_default) + " " + _code;
+            _title = rez(Rez.Strings.msg_e_general) + " " + _code;
         }
     }
 
@@ -91,21 +91,16 @@ class ResponseError {
             || _code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY;
     }
 
-    function isServerError() {
-        return ArrUtil.contains(CODES_RESPONSE_SERVER_ERROR, _code);
-    }
-
     function hasConnection() {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT
-            && _code != CODE_REQUEST_NOT_FOUND;
+            && _code != HTTP_NOT_FOUND;
     }
 
     function isRerequestable() {
         return hasConnection()
             && !isTooLarge() // will auto-rerequest
-            && !isServerError() // will auto-rerequest
-            && _code != CODE_REQUEST_LIMIT_MONTH
+            && _code != HTTP_TOO_MANY_REQUESTS
             && _code != null;
     }
 

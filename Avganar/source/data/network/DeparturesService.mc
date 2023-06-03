@@ -6,8 +6,6 @@ class DeparturesService {
     // Resrobot v2.1 Timetables
     // Bronze: 30_000/month, 45/min
 
-    static hidden const _RESPONSE_OK = 200;
-
     hidden var _stop;
 
     static var isRequesting = false;
@@ -53,13 +51,14 @@ class DeparturesService {
     function onReceiveDepartures(responseCode, data) {
         DeparturesService.isRequesting = false;
 
-        if (responseCode == _RESPONSE_OK) {
+        if (responseCode == ResponseError.HTTP_OK) {
             _handleDeparturesResponseOk(data);
         }
         else {
-            Log.i("Departures response error (code " + responseCode + "): " + data);
+            var errorCode = DictUtil.get(data, "errorCode", null);
+            _stop.setResponse(new ResponseError(responseCode, errorCode));
 
-            _stop.setResponse(new ResponseError(responseCode));
+            Log.e("Stops response error (responseCode " + responseCode + ", errorCode + " + errorCode + "): " + data);
 
             // auto rerequest if too large
             if (_stop.shouldAutoRerequest()) {
@@ -71,31 +70,16 @@ class DeparturesService {
     }
 
     hidden function _handleDeparturesResponseOk(data) {
-        var errorCode = data["errorCode"];
-
-        // Trafiklab error
-        if (errorCode != null) {
-            Log.i("Departures operator request error (code " + errorCode + ")");
-
-            _stop.setResponse(new ResponseError(errorCode));
-
-            // auto rerequest if server error
-            if (_stop.shouldAutoRerequest()) {
-                requestDepartures();
-            }
-
-            return;
-        }
-
-        //Log.d("Departures response success: " + data);
-
-        // departures
-
-        if (!data.hasKey("Departure") || data["Departure"].size() == 0) {
+        // no departures were found
+        if (!DictUtil.hasValue(data, "Departure") || data["Departure"].size() == 0) {
             Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
             return;
         }
+
+        // departures
+
+        //Log.d("Departures response success: " + data);
 
         // taxis and flights are irrelevant
         var modes = [ "BUS", "METRO", "TRAIN", "TRAM", "SHIP" ];

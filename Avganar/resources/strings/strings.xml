@@ -26,14 +26,14 @@
     <string id="msg_e_memory">Out of Memory</string>
     <string id="msg_e_cancelled">Request Cancelled</string>
     <string id="msg_e_timeout">Request Timed Out</string>
-    <string id="msg_e_default">Error</string>
+    <string id="msg_e_general">Error</string>
 
     <!-- response error -->
     <string id="msg_e_invalid">Invalid Response</string>
     <string id="msg_e_null_data">No Data</string>
     <string id="msg_e_server">Server Error</string>
-    <string id="msg_e_limit_minute">Quota exceeded (minute)</string>
-    <string id="msg_e_limit_month">Quota exceeded (month)</string>
+    <string id="msg_e_unavailable">Service Unavailable</string>
+    <string id="msg_e_limit">Quota exceeded</string>
 
     <!-- view -->
 

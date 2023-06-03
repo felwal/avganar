@@ -43,9 +43,6 @@ class Stop {
 
             _failedRequestCount++;
         }
-        else if (_response instanceof ResponseError && _response.isServerError()) {
-            _failedRequestCount++;
-        }
         else {
             // only vibrate if we are not auto-rerequesting
             vibrate();
@@ -91,17 +88,12 @@ class Stop {
             return false;
         }
 
-        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _response.isServerError()) {
-            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
-            return false;
-        }
-
         if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
-            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
+            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY, null));
             return false;
         }
 
-        return _response.isTooLarge() || _response.isServerError();
+        return _response.isTooLarge();
     }
 
     function getDataAgeMillis() {

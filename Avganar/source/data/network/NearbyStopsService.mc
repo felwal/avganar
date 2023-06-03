@@ -13,8 +13,6 @@ module NearbyStopsService {
     const _BOUNDS_WEST = 10.95; // Stora Drammen (Strömstad)
     const _BOUNDS_EAST = 24.16; // Kataja (Haparanda)
 
-    const _RESPONSE_OK = 200;
-
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     var isRequesting = false;
@@ -64,20 +62,14 @@ module NearbyStopsService {
     // receive
 
     function onReceiveNearbyStops(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && data != null) {
+        if (responseCode == ResponseError.HTTP_OK && data != null) {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            Log.e("Stops response error (code " + responseCode + "): " + data);
+            var errorCode = DictUtil.get(data, "errorCode", null);
+            NearbyStopsStorage.setResponse([], [], new ResponseError(responseCode, errorCode));
 
-            // TODO: for some reason the error code is not displayed.
-            // "Stops operator response error" below, however, works.
-            if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
-            }
-            else {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(responseCode));
-            }
+            Log.e("Stops response error (responseCode " + responseCode + ", errorCode + " + errorCode + "): " + data);
         }
 
         isRequesting = false;
@@ -85,26 +77,9 @@ module NearbyStopsService {
     }
 
     function _handleNearbyStopsResponseOk(data) {
-        // operator error
-        if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
-            var statusCode = data["StatusCode"];
-
-            Log.e("Stops operator response error (code " + statusCode + ")");
-
-            NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
-
-            return;
-        }
-
         // no stops were found
-        if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
-            if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
-            }
-            else {
-                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_none));
-            }
-
+        if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation")) {
+            NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_none));
             return;
         }
 
