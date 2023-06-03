@@ -70,6 +70,11 @@ module NearbyStopsService {
             NearbyStopsStorage.setResponse([], [], new ResponseError(responseCode, errorCode));
 
             Log.e("Stops response error (responseCode " + responseCode + ", errorCode + " + errorCode + "): " + data);
+
+            // auto rerequest if too large
+            if (NearbyStopsStorage.shouldAutoRerequest()) {
+                _requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+            }
         }
 
         isRequesting = false;
