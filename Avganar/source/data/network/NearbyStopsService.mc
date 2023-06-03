@@ -49,7 +49,6 @@ module NearbyStopsService {
             "maxNo" => NearbyStopsStorage.maxStops == null ? SettingsStorage.getMaxStops() : NearbyStopsStorage.maxStops,
             "lang" => rez(Rez.Strings.lang_code),
             "format" => "json"
-
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,

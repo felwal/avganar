@@ -12,6 +12,7 @@ module NearbyStopsStorage {
 
     var response;
     var maxStops;
+    var failedRequestCount = 0;
 
     var _nearbyStopIds;
     var _nearbyStopNames;
@@ -37,11 +38,14 @@ module NearbyStopsStorage {
             maxStops = Math.ceil(maxStops == null
                 ? SettingsStorage.getMaxStops() / 2f
                 : maxStops / 2f).toNumber();
+
+            failedRequestCount++;
         }
         else {
             // reset maxStops for next request, which will be
             // at a different place
             maxStops = SettingsStorage.getMaxStops();
+            failedRequestCount = 0;
 
             // only vibrate if we are not auto-rerequesting and data is changed
             if (!ArrUtil.equals(_nearbyStopIds, stopIds)

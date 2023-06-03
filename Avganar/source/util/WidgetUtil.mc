@@ -494,7 +494,7 @@ module WidgetUtil {
 
         // draw items
 
-        var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY ];
+        var fontsSelected = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY ];
         var font = Graphics.FONT_TINY;
         var h = dc.getHeight() - 2 * px(36);
         var lineHeightPx = h / 4;
@@ -527,7 +527,7 @@ module WidgetUtil {
             var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
             if (i == cursor) {
-                var margin = px(2);
+                var margin = px(4);
                 var width = dc.getWidth() - 2 * margin;
                 var height = dc.getFontHeight(fontsSelected[0]);
 

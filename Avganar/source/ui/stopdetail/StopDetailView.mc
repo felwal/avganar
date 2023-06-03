@@ -119,7 +119,7 @@ class StopDetailView extends WatchUi.View {
         if (DeparturesService.isRequesting || stop.getResponse() == null) {
             var hProgressBar = px(3);
             var yProgressBar = h - hFooter - hProgressBar;
-            var progress = _recursiveThird(0, stop.getFailedRequestCount());
+            var progress = MathUtil.recursiveShare(0.33f, 0, stop.getFailedRequestCount());
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
                 AppColors.PRIMARY_LT, AppColors.PRIMARY_DK);
@@ -144,11 +144,6 @@ class StopDetailView extends WatchUi.View {
 
         dc.setColor(AppColors.PRIMARY_DK, Graphene.COLOR_WHITE);
         dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
-    hidden function _recursiveThird(prevVal, level) {
-        var newVal = prevVal + (1 - prevVal) * 0.33f;
-        return level <= 0 ? newVal : _recursiveThird(newVal, level - 1);
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {
