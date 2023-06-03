@@ -19,16 +19,14 @@ class Departure {
     hidden var _line;
     hidden var _destination;
     hidden var _moment;
-    hidden var _hasDeviation;
 
     // init
 
-    function initialize(mode, line, destination, moment, hasDeviation) {
+    function initialize(mode, line, destination, moment) {
         _mode = mode;
         _line = line;
         _destination = destination;
         _moment = moment;
-        _hasDeviation = hasDeviation;
     }
 
     // get
@@ -66,10 +64,6 @@ class Departure {
         // we will keep displaying "now" until 30 seconds after departure
         var margin = new Time.Duration(30);
         return TimeUtil.now().greaterThan(_moment.add(margin));
-    }
-
-    function getTextColor() {
-        return _hasDeviation ? AppColors.WARNING : AppColors.TEXT_PRIMARY;
     }
 
     function getModeSymbol() {

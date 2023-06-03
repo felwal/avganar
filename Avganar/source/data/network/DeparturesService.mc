@@ -100,7 +100,6 @@ class DeparturesService {
             // rtTime and rtDate are realtime data
             var time = departureData.hasKey("rtTime") ? departureData["rtTime"] : DictUtil.get(departureData, "time", null);
             var date = departureData.hasKey("rtDate") ? departureData["rtDate"] : DictUtil.get(departureData, "date", null);
-            var hasDeviation = !departureData["reachable"];
 
             var moment = TimeUtil.localIso8601StrToMoment(date + "T" + time);
 
@@ -116,7 +115,7 @@ class DeparturesService {
                 destination = destination.substring(0, destEndIndex);
             }
 
-            var departure = new Departure(mode, line, destination, moment, hasDeviation);
+            var departure = new Departure(mode, line, destination, moment);
 
             // add to array
             if (ArrUtil.contains(Departure.MODES_BUS, mode)) {
