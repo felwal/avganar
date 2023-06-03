@@ -17,10 +17,6 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
   - See deviations and their importance level
 - Limit memory consumption by tuning settings
 
-## Roadmap
-
-- [ ] extend to the whole of Sweden
-
 ## APIs
 
 - [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
