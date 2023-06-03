@@ -104,8 +104,14 @@ class DeparturesService {
 
             var moment = TimeUtil.localIso8601StrToMoment(date + "T" + time);
 
+            // remove e.g. "(Stockholm kn)"
+            var destEndIndex = destination.find("(");
+            if (destEndIndex != null) {
+                destination = destination.substring(0, destEndIndex);
+            }
+
             // remove unneccessary "T-bana"
-            var destEndIndex = destination.find(" T-bana");
+            destEndIndex = destination.find(" T-bana");
             if (destEndIndex != null) {
                 destination = destination.substring(0, destEndIndex);
             }
