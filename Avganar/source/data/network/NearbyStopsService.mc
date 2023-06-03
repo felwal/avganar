@@ -109,6 +109,12 @@ module NearbyStopsService {
                 name = name.substring(0, nameEndIndex);
             }
 
+            // remove unneccessary "T-bana"
+            nameEndIndex = name.find(" T-bana");
+            if (nameEndIndex != null) {
+                name = name.substring(0, nameEndIndex);
+            }
+
             var existingIdIndex = stopIds.indexOf(id);
             var existingStop = existingIdIndex == -1
                 ? NearbyStopsStorage.getStopByIdAndName(id, name)
