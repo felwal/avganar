@@ -13,8 +13,6 @@ module NearbyStopsService {
     const _BOUNDS_WEST = 17.239541; // Dammen (Nykvarn)
     const _BOUNDS_EAST = 19.116554; // Räfsnäs Brygga (Norrtälje)
 
-    const _RESPONSE_OK = 200;
-
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     var isRequesting = false;
@@ -62,20 +60,13 @@ module NearbyStopsService {
     // receive
 
     function onReceiveNearbyStops(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && data != null) {
+        if (responseCode == ResponseError.HTTP_OK && data != null) {
             _handleNearbyStopsResponseOk(data);
         }
         else {
             Log.e("Stops response error (code " + responseCode + "): " + data);
 
-            // TODO: for some reason the error code is not displayed.
-            // "Stops operator response error" below, however, works.
-            if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
-            }
-            else {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(responseCode));
-            }
+            NearbyStopsStorage.setResponse([], [], new ResponseError(DictUtil.get(data, "Message", responseCode)));
         }
 
         isRequesting = false;
@@ -86,10 +77,9 @@ module NearbyStopsService {
         // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
+            NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
 
             Log.e("Stops operator response error (code " + statusCode + ")");
-
-            NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
 
             return;
         }
