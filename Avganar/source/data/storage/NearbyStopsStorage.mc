@@ -34,9 +34,9 @@ module NearbyStopsStorage {
     function setResponse(stopIds, stopNames, response_) {
         // for each too large response, halve the time window
         if (response_ instanceof ResponseError && response_.isTooLarge()) {
-            maxStops = maxStops == null
-                ? SettingsStorage.getMaxStops() / 2
-                : Math.ceil(maxStops / 2f);
+            maxStops = Math.ceil(maxStops == null
+                ? SettingsStorage.getMaxStops() / 2f
+                : maxStops / 2f).toNumber();
         }
         else {
             // reset maxStops for next request, which will be
@@ -143,7 +143,7 @@ module NearbyStopsStorage {
         }
 
         if (maxStops < _MEMORY_MIN_MAX_STOPS) {
-            setResponse([], [], new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
+            setResponse([], [], new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY, null));
             return false;
         }
 

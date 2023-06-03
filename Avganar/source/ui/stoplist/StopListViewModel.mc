@@ -69,11 +69,6 @@ class StopListViewModel {
             NearbyStopsStorage.setResponse([], [], null);
         }
 
-        if (DEBUG) {
-            NearbyStopsService.requestNearbyStops(debugLat, debugLon);
-            return;
-        }
-
         NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
 
         // update last position
