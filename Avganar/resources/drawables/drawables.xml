@@ -2,6 +2,6 @@
 
     <bitmap id="ic_launcher" filename="ic_launcher-swe.png" />
     <bitmap id="ic_refresh" filename="ic_refresh.png" />
-    <bitmap id="ic_warning" filename="ic_warning.png" />
+    <bitmap id="ic_warning" filename="ic_warning1.png" />
 
 </drawables>
