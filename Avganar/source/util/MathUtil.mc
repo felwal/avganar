@@ -67,4 +67,11 @@ module MathUtil {
         return remainder;
     }
 
+    //
+
+    function recursiveShare(share, prevVal, level) {
+        var newVal = prevVal + (1 - prevVal) * share;
+        return level <= 0 ? newVal : recursiveShare(share, newVal, level - 1);
+    }
+
 }

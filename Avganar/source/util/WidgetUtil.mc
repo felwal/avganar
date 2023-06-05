@@ -73,7 +73,7 @@ module WidgetUtil {
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
         if (strokeColor != null) {
-            dc.setPenWidth(px(2));
+            dc.setPenWidth(px(1));
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, height, dc.getWidth(), height);
             Graphite.resetPenWidth(dc);
@@ -91,8 +91,10 @@ module WidgetUtil {
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
         if (strokeColor != null) {
+            dc.setPenWidth(px(1));
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+            Graphite.resetPenWidth(dc);
         }
 
         if (text != null && !text.equals("")) {
@@ -110,15 +112,17 @@ module WidgetUtil {
     function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
         var r = Graphite.getRadius(dc);
         var start = MathUtil.minX(y, r) - h;
-        var end = MathUtil.maxX(y, r);
+        var end = MathUtil.maxX(y, r) + h;
         var w = end - start;
-        var middle = w * progress;
+        var middle = Math.round(w * progress);
 
         Graphite.setColor(dc, activeColor);
-        dc.fillRectangle(start, y, start + middle, h);
+        dc.fillRectangle(start, y, middle, h);
 
-        Graphite.setColor(dc, inactiveColor);
-        dc.fillRectangle(start + middle, y, end, h);
+        if (inactiveColor != null) {
+            Graphite.setColor(dc, inactiveColor);
+            dc.fillRectangle(start + middle, y, w - middle, h);
+        }
 
         Graphite.resetColor(dc);
     }
@@ -133,8 +137,10 @@ module WidgetUtil {
         Graphite.setColor(dc, activeColor);
         dc.fillRectangle(start, y, start + middle, h);
 
-        Graphite.setColor(dc, inactiveColor);
-        dc.fillRectangle(start + middle, y, end, h);
+        if (inactiveColor != null) {
+            Graphite.setColor(dc, inactiveColor);
+            dc.fillRectangle(start + middle, y, end, h);
+        }
 
         Graphite.resetColor(dc);
     }
@@ -264,7 +270,7 @@ module WidgetUtil {
 
         var outlineWidth = px(3);
         var outlineWidthDeg = Math.ceil(Graphite.pxToDeg(outlineWidth, Graphite.getRadius(dc) - edgeOffset));
-        var bgStroke = stroke + px(2) * outlineWidth;
+        var bgStroke = stroke + 2 * outlineWidth;
         var bgMinDeg = minDeg + deltaDeg - outlineWidthDeg;
         var bgMaxDeg = maxDeg + lengthDeg + outlineWidthDeg;
 
@@ -523,7 +529,7 @@ module WidgetUtil {
             var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 
             if (i == cursor) {
-                var margin = px(2);
+                var margin = px(4);
                 var width = dc.getWidth() - 2 * margin;
                 var height = dc.getFontHeight(fontsSelected[0]);
 

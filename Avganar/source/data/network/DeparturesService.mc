@@ -6,8 +6,6 @@ class DeparturesService {
     // Realtidsinformation 4
     // Bronze: 10_000/month, 30/min
 
-    static hidden const _RESPONSE_OK = 200;
-
     hidden var _stop;
 
     static var isRequesting = false;
@@ -52,7 +50,7 @@ class DeparturesService {
     function onReceiveDepartures(responseCode, data) {
         DeparturesService.isRequesting = false;
 
-        if (responseCode == _RESPONSE_OK && DictUtil.hasValue(data, "ResponseData")) {
+        if (responseCode == ResponseError.HTTP_OK && DictUtil.hasValue(data, "ResponseData")) {
             _handleDeparturesResponseOk(data);
         }
         else {

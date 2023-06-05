@@ -3,7 +3,7 @@
     <!-- app -->
 
     <string id="app_name" scope="glance">Avgånär</string>
-    <string id="app_version" scope="glance">v1.5.0</string>
+    <string id="app_version" scope="glance">v1.5.1</string>
 
     <!-- message -->
 
@@ -24,7 +24,7 @@
     <string id="msg_e_memory">Out of Memory</string>
     <string id="msg_e_cancelled">Request Cancelled</string>
     <string id="msg_e_timeout">Request Timed Out</string>
-    <string id="msg_e_default">Error</string>
+    <string id="msg_e_general">Error</string>
 
     <!-- response error -->
     <string id="msg_e_invalid">Invalid Response</string>
@@ -54,6 +54,12 @@
     <string id="itm_detail_departure_minutes_long"> min</string>
     <string id="itm_detail_departure_minutes_short">m</string>
     <string id="itm_detail_departure_minutes_tiny">'</string>
+    <string id="lbl_detail_mode_bus">B</string>
+    <string id="lbl_detail_mode_metro">T</string>
+    <string id="lbl_detail_mode_train">J</string>
+    <string id="lbl_detail_mode_tram">L</string>
+    <string id="lbl_detail_mode_ship">F</string>
+    <string id="lbl_detail_mode_unknown">?</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>

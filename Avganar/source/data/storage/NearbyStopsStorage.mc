@@ -1,5 +1,6 @@
 using Toybox.Application.Storage;
 using Toybox.Lang;
+using Toybox.Math;
 
 module NearbyStopsStorage {
 
@@ -7,7 +8,11 @@ module NearbyStopsStorage {
     (:glance)
     const _STORAGE_NEARBY_STOP_NAMES = "nearby_stop_names";
 
+    const _MEMORY_MIN_MAX_STOPS = 1;
+
     var response;
+    var maxStops;
+    var failedRequestCount = 0;
 
     var _nearbyStopIds;
     var _nearbyStopNames;
@@ -28,16 +33,30 @@ module NearbyStopsStorage {
     }
 
     function setResponse(stopIds, stopNames, response_) {
-        // only vibrate when data is changed
-        if (!ArrUtil.equals(_nearbyStopIds, stopIds)
-            || ((response_ instanceof ResponseError || response_ instanceof Lang.String) && !response_.equals(response))) {
+        // for each too large response, halve the time window
+        if (response_ instanceof ResponseError && response_.isTooLarge()) {
+            maxStops = Math.ceil(maxStops == null
+                ? SettingsStorage.getMaxStops() / 2f
+                : maxStops / 2f).toNumber();
 
-            vibrate();
+            failedRequestCount++;
+        }
+        else {
+            // reset maxStops for next request, which will be
+            // at a different place
+            maxStops = SettingsStorage.getMaxStops();
+            failedRequestCount = 0;
+
+            // only vibrate if we are not auto-rerequesting and data is changed
+            if (!ArrUtil.equals(_nearbyStopIds, stopIds)
+                || ((response_ instanceof ResponseError || response_ instanceof Lang.String) && !response_.equals(response))) {
+
+                vibrate();
+            }
         }
 
         _nearbyStopIds = stopIds;
         _nearbyStopNames = stopNames;
-
         response = response_;
 
         _save();
@@ -120,6 +139,19 @@ module NearbyStopsStorage {
 
     function getStops() {
         return response instanceof Lang.Array ? response : null;
+    }
+
+    function shouldAutoRerequest() {
+        if (!(response instanceof ResponseError)) {
+            return false;
+        }
+
+        if (maxStops < _MEMORY_MIN_MAX_STOPS) {
+            setResponse([], [], new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY, null));
+            return false;
+        }
+
+        return response.isTooLarge();
     }
 
 }

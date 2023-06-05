@@ -4,16 +4,14 @@ using Toybox.WatchUi;
 
 module NearbyStopsService {
 
-    // Närliggande Hållplatser 2
+    // Närliggande hållplatser 2
     // Bronze: 10_000/month, 30/min
 
-    // edges of the SL zone, with an extra 2 km offset
+    // edges of the operator zone, with an extra 2 km offset
     const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
     const _BOUNDS_NORTH = 60.225171; // Ellans Vändplan (Norrtälje)
     const _BOUNDS_WEST = 17.239541; // Dammen (Nykvarn)
     const _BOUNDS_EAST = 19.116554; // Räfsnäs Brygga (Norrtälje)
-
-    const _RESPONSE_OK = 200;
 
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
@@ -22,7 +20,7 @@ module NearbyStopsService {
     // request
 
     function requestNearbyStops(lat, lon) {
-        // check if outside bounds, to not make unnecessary calls outside the SL zone
+        // check if outside bounds, to not make unnecessary calls outside the operator zone
         if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             if (lat != 0.0 || lon != 0.0) {
                 NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_outside_bounds));
@@ -45,7 +43,7 @@ module NearbyStopsService {
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
-            "maxNo" => SettingsStorage.getMaxStops()
+            "maxNo" => def(NearbyStopsStorage.maxStops, SettingsStorage.getMaxStops())
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
@@ -59,30 +57,27 @@ module NearbyStopsService {
     // receive
 
     function onReceiveNearbyStops(responseCode, data) {
-        if (responseCode == _RESPONSE_OK && data != null) {
+        isRequesting = false;
+
+        if (responseCode == ResponseError.HTTP_OK && data != null) {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            // TODO: for some reason the error code is not displayed.
-            // "Stops SL response error" below, however, works.
-            if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
-            }
-            else {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(responseCode));
+            NearbyStopsStorage.setResponse([], [], new ResponseError(DictUtil.get(data, "Message", responseCode)));
+
+            // auto rerequest if too large
+            if (NearbyStopsStorage.shouldAutoRerequest()) {
+                requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
             }
         }
 
-        isRequesting = false;
         WatchUi.requestUpdate();
     }
 
-    //! @return If the selected stop has changed and departures should be requested
     function _handleNearbyStopsResponseOk(data) {
-        // SL error
+        // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
-
             NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
 
             return;
@@ -114,15 +109,10 @@ module NearbyStopsService {
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
 
-            // skip duplicate stops (same id but different names)
-            if (ArrUtil.contains(stops, new StopDummy(id, name))) {
-                continue;
-            }
-
-            var existingId = stopIds.indexOf(id);
-            var existingStop = existingId == -1
+            var existingIdIndex = stopIds.indexOf(id);
+            var existingStop = existingIdIndex == -1
                 ? NearbyStopsStorage.getStopByIdAndName(id, name)
-                : stops[existingId];
+                : stops[existingIdIndex];
 
             stopIds.add(id);
             stopNames.add(name);

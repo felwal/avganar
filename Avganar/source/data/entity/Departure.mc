@@ -3,21 +3,21 @@ using Toybox.Time;
 
 class Departure {
 
-    static hidden const _MODE_METRO = "METRO";
     static hidden const _MODE_BUS = "BUS";
+    static hidden const _MODE_METRO = "METRO";
     static hidden const _MODE_TRAIN = "TRAIN";
     static hidden const _MODE_TRAM = "TRAM";
     static hidden const _MODE_SHIP = "SHIP";
     static hidden const _MODE_NONE = "NONE";
 
+    static hidden const _GROUP_BUS_RED = "";
+    static hidden const _GROUP_BUS_BLUE = "blåbuss";
+    static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
+
     static hidden const _GROUP_METRO_RED = "tunnelbanans röda linje";
     static hidden const _GROUP_METRO_BLUE = "tunnelbanans blå linje";
     static hidden const _GROUP_METRO_GREEN = "tunnelbanans gröna linje";
 
-    static hidden const _GROUP_BUS_RED = "";
-    static hidden const _GROUP_BUS_BLUE = "blåbuss";
-
-    static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
     static hidden const _GROUP_TRAM_SPÅRVÄGCITY = "Spårväg City";
     static hidden const _GROUP_TRAM_NOCKEBYBANAN = "Nockebybanan";
     static hidden const _GROUP_TRAM_LIDINGÖBANAN = "Lidingöbanan";
@@ -104,42 +104,28 @@ class Departure {
     }
 
     function getModeSymbol() {
-        if (_mode.equals(_MODE_METRO)) {
-            return "T";
+        if (_mode.equals(_MODE_BUS)) {
+            return rez(Rez.Strings.lbl_detail_mode_bus);
         }
-        else if (_mode.equals(_MODE_BUS)) {
-            return "B";
+        else if (_mode.equals(_MODE_METRO)) {
+            return rez(Rez.Strings.lbl_detail_mode_metro);
         }
         else if (_mode.equals(_MODE_TRAIN)) {
-            return "J";
+            return rez(Rez.Strings.lbl_detail_mode_train);
         }
         else if (_mode.equals(_MODE_TRAM)) {
-            return "L";
+            return rez(Rez.Strings.lbl_detail_mode_tram);
         }
         else if (_mode.equals(_MODE_SHIP)) {
-            return "F";
+            return rez(Rez.Strings.lbl_detail_mode_ship);
         }
         else {
-            return "?";
+            return rez(Rez.Strings.lbl_detail_mode_unknown);
         }
     }
 
     function getModeColor() {
-        if (_mode.equals(_MODE_METRO)) {
-            if (_group.equals(_GROUP_METRO_RED)) {
-                return AppColors.DEPARTURE_METRO_RED;
-            }
-            else if (_group.equals(_GROUP_METRO_BLUE)) {
-                return AppColors.DEPARTURE_METRO_BLUE;
-            }
-            else if (_group.equals(_GROUP_METRO_GREEN)) {
-                return AppColors.DEPARTURE_METRO_GREEN;
-            }
-            else {
-                return AppColors.DEPARTURE_UNKNOWN;
-            }
-        }
-        else if (_mode.equals(_MODE_BUS)) {
+        if (_mode.equals(_MODE_BUS)) {
             if (_group.equals(_GROUP_BUS_RED)) {
                 return AppColors.DEPARTURE_BUS_RED;
             }
@@ -148,6 +134,20 @@ class Departure {
             }
             else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
                 return AppColors.DEPARTURE_BUS_REPLACEMENT;
+            }
+            else {
+                return AppColors.DEPARTURE_UNKNOWN;
+            }
+        }
+        else if (_mode.equals(_MODE_METRO)) {
+            if (_group.equals(_GROUP_METRO_RED)) {
+                return AppColors.DEPARTURE_METRO_RED;
+            }
+            else if (_group.equals(_GROUP_METRO_BLUE)) {
+                return AppColors.DEPARTURE_METRO_BLUE;
+            }
+            else if (_group.equals(_GROUP_METRO_GREEN)) {
+                return AppColors.DEPARTURE_METRO_GREEN;
             }
             else {
                 return AppColors.DEPARTURE_UNKNOWN;

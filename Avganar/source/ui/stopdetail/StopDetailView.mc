@@ -51,7 +51,7 @@ class StopDetailView extends WatchUi.View {
             // page indicator
             WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.CONTROL_NORMAL, AppColors.ON_PRIMARY_TERTIARY);
+            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
 
             // stop deviation
@@ -126,10 +126,10 @@ class StopDetailView extends WatchUi.View {
         if (DeparturesService.isRequesting || stop.getResponse() == null) {
             var hProgressBar = px(3);
             var yProgressBar = h - hFooter - hProgressBar;
-            var progress = _recursiveThird(0, stop.getFailedRequestCount());
+            var progress = MathUtil.recursiveShare(0.33f, 0, stop.getFailedRequestCount());
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
-                Graphene.COLOR_LT_AZURE, AppColors.ON_PRIMARY_TERTIARY);
+                AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
         }
 
         // mode symbol
@@ -149,13 +149,8 @@ class StopDetailView extends WatchUi.View {
         Graphite.setColor(dc, Graphene.COLOR_WHITE);
         dc.fillCircle(xMode, yMode + r, r + 2);
 
-        dc.setColor(AppColors.ON_PRIMARY_SECONDARY, Graphene.COLOR_WHITE);
+        dc.setColor(AppColors.PRIMARY_DK, Graphene.COLOR_WHITE);
         dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
-    hidden function _recursiveThird(prevVal, level) {
-        var newVal = prevVal + (1 - prevVal) * 0.33f;
-        return level <= 0 ? newVal : _recursiveThird(newVal, level - 1);
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {

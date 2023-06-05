@@ -3,10 +3,13 @@ using Toybox.Lang;
 class ResponseError {
 
     // API
-    static var CODES_RESPONSE_SERVER_ERROR = [ 5321, 5322, 5323, 5324 ];
-    static var CODE_REQUEST_NOT_FOUND = 404;
-    static var CODE_REQUEST_LIMIT_MINUTE = 1006;
-    static var CODE_REQUEST_LIMIT_MONTH = 1007;
+    static var API_RESPONSE_SERVER_ERRORS = [ 5321, 5322, 5323, 5324 ];
+    static var API_REQUEST_LIMIT_MINUTE = 1006;
+    static var API_REQUEST_LIMIT_MONTH = 1007;
+
+    // HTTP
+    static var HTTP_OK = 200;
+    static var HTTP_NOT_FOUND = 404;
 
     // custom
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
@@ -41,7 +44,7 @@ class ResponseError {
     }
 
     hidden function _setTitle() {
-        if (_code == 200) {
+        if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
         else if (_code == Communications.UNKNOWN_ERROR) {
@@ -66,10 +69,10 @@ class ResponseError {
             // don't let the user know we are requesting again
             _title = rez(Rez.Strings.msg_i_departures_requesting);
         }
-        else if (_code == CODE_REQUEST_LIMIT_MINUTE) {
+        else if (_code == API_REQUEST_LIMIT_MINUTE) {
             _title = rez(Rez.Strings.msg_e_limit_minute);
         }
-        else if (_code == CODE_REQUEST_LIMIT_MONTH) {
+        else if (_code == API_REQUEST_LIMIT_MONTH) {
             _title = rez(Rez.Strings.msg_e_limit_month);
         }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
@@ -80,7 +83,7 @@ class ResponseError {
         }
 
         else {
-            _title = rez(Rez.Strings.msg_e_default) + " " + _code;
+            _title = rez(Rez.Strings.msg_e_general) + " " + _code;
         }
     }
 
@@ -92,20 +95,20 @@ class ResponseError {
     }
 
     function isServerError() {
-        return ArrUtil.contains(CODES_RESPONSE_SERVER_ERROR, _code);
+        return ArrUtil.contains(API_RESPONSE_SERVER_ERRORS, _code);
     }
 
     function hasConnection() {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT
-            && _code != CODE_REQUEST_NOT_FOUND;
+            && _code != HTTP_NOT_FOUND;
     }
 
     function isRerequestable() {
         return hasConnection()
             && !isTooLarge() // will auto-rerequest
             && !isServerError() // will auto-rerequest
-            && _code != CODE_REQUEST_LIMIT_MONTH
+            && _code != API_REQUEST_LIMIT_MONTH
             && _code != null;
     }
 
