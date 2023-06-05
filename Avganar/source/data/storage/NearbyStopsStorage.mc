@@ -147,7 +147,7 @@ module NearbyStopsStorage {
         }
 
         if (maxStops < _MEMORY_MIN_MAX_STOPS) {
-            setResponse([], [], new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
+            setResponse([], [], new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY, null));
             return false;
         }
 
