@@ -46,7 +46,7 @@ module NearbyStopsService {
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
-            "maxNo" => NearbyStopsStorage.maxStops == null ? SettingsStorage.getMaxStops() : NearbyStopsStorage.maxStops,
+            "maxNo" => def(NearbyStopsStorage.maxStops, SettingsStorage.getMaxStops()),
             "lang" => rez(Rez.Strings.lang_code),
             "format" => "json"
         };
