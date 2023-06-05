@@ -10,7 +10,7 @@
         minSdkVersion="3.1.0"
         name="@Strings.app_name"
         type="widget"
-        version="1.5.0">
+        version="1.5.1">
 
         <iq:products>
             <iq:product id="approachs7042mm" />
