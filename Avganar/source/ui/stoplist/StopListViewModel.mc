@@ -22,11 +22,6 @@ class StopListViewModel {
     // timer
 
     function enableRequests() {
-        if (DEBUG) {
-            _requestNearbyStops();
-            return;
-        }
-
         _requestPosition();
     }
 
@@ -57,10 +52,6 @@ class StopListViewModel {
         }
     }
 
-    hidden function _isPositioned() {
-        return Footprint.isPositioned() || DEBUG;
-    }
-
     // service
 
     hidden function _requestNearbyStops() {
@@ -83,7 +74,7 @@ class StopListViewModel {
         var response = NearbyStopsStorage.response;
 
         return response == null
-            ? rez(_isPositioned() ? Rez.Strings.msg_i_stops_requesting : Rez.Strings.msg_i_stops_no_gps)
+            ? rez(Footprint.isPositioned() ? Rez.Strings.msg_i_stops_requesting : Rez.Strings.msg_i_stops_no_gps)
             : (response instanceof ResponseError ? response.getTitle() : response);
     }
 

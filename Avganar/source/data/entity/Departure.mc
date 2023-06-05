@@ -83,7 +83,6 @@ class Departure {
             return rez(Rez.Strings.lbl_detail_mode_ship);
         }
         else {
-            Log.w("unknown mode: " + _mode);
             return rez(Rez.Strings.lbl_detail_mode_unknown);
         }
     }
@@ -114,7 +113,6 @@ class Departure {
             return AppColors.DEPARTURE_SHIP;
         }
         else {
-            Log.w("unknown mode: " + _mode);
             return AppColors.DEPARTURE_UNKNOWN;
         }
     }

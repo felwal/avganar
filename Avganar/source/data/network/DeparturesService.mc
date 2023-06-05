@@ -20,7 +20,6 @@ class DeparturesService {
 
     function requestDepartures() {
         if (_stop != null) {
-            Log.i("Requesting departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
             _requestDepartures();
         }
     }
@@ -58,8 +57,6 @@ class DeparturesService {
             var errorCode = DictUtil.get(data, "errorCode", null);
             _stop.setResponse(new ResponseError(responseCode, errorCode));
 
-            Log.e("Stops response error (responseCode " + responseCode + ", errorCode + " + errorCode + "): " + data);
-
             // auto rerequest if too large
             if (_stop.shouldAutoRerequest()) {
                 requestDepartures();
@@ -72,14 +69,11 @@ class DeparturesService {
     hidden function _handleDeparturesResponseOk(data) {
         // no departures were found
         if (!DictUtil.hasValue(data, "Departure") || data["Departure"].size() == 0) {
-            Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
             return;
         }
 
         // departures
-
-        //Log.d("Departures response success: " + data);
 
         // taxis and flights are irrelevant
         var modes = [ "BUS", "METRO", "TRAIN", "TRAM", "SHIP" ];
@@ -143,7 +137,6 @@ class DeparturesService {
             }
         }
 
-        //Log.d("deps: " + departures);
         _stop.setResponse(departures);
     }
 

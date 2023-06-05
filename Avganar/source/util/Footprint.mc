@@ -42,12 +42,12 @@ module Footprint {
 
     //! Get latitude in degrees
     function getLatDeg() {
-        return DEBUG ? debugLat : MathUtil.deg(_lat);
+        return MathUtil.deg(_lat);
     }
 
     //! Get longitude in degrees
     function getLonDeg() {
-        return DEBUG ? debugLon : MathUtil.deg(_lon);
+        return MathUtil.deg(_lon);
     }
 
     function distanceTo(lat, lon) {
