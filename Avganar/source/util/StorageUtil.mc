@@ -5,7 +5,7 @@ module StorageUtil {
 
     function getValue(key, def) {
         var val = Storage.getValue(key);
-        return val != null ? val : def;
+        return def(val, def);
     }
 
     function getArray(key) {
