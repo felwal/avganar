@@ -73,7 +73,7 @@ module WidgetUtil {
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
         if (strokeColor != null) {
-            dc.setPenWidth(px(2));
+            dc.setPenWidth(px(1));
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, height, dc.getWidth(), height);
             Graphite.resetPenWidth(dc);
@@ -91,8 +91,10 @@ module WidgetUtil {
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
         if (strokeColor != null) {
+            dc.setPenWidth(px(1));
             Graphite.setColor(dc, strokeColor);
             dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+            Graphite.resetPenWidth(dc);
         }
 
         if (text != null && !text.equals("")) {
@@ -268,7 +270,7 @@ module WidgetUtil {
 
         var outlineWidth = px(3);
         var outlineWidthDeg = Math.ceil(Graphite.pxToDeg(outlineWidth, Graphite.getRadius(dc) - edgeOffset));
-        var bgStroke = stroke + px(2) * outlineWidth;
+        var bgStroke = stroke + 2 * outlineWidth;
         var bgMinDeg = minDeg + deltaDeg - outlineWidthDeg;
         var bgMaxDeg = maxDeg + lengthDeg + outlineWidthDeg;
 
