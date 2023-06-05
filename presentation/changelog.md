@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.5.1
+
+- Bug fixes and improvements
+
 ### 1.5.0
 
 - Add a view showing stop deviations

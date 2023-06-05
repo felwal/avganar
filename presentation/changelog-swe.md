@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.5.1
+
+- Buggfixar och förbättringar
+
 ### 1.5.0
 
 - Lägg till en vy för hållplats-avvikelser
