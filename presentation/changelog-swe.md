@@ -3,6 +3,7 @@
 ### 1.5.1
 
 - Buggfixar och förbättringar
+- Stöd epix2pro42mm, epix2pro47, epix2pro51mmmm, fenix7pro, fenix7spro, fenix7xpro
 
 ### 1.5.0
 
