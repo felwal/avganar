@@ -33,8 +33,8 @@ class Departure {
 
     function toString() {
         return _displayTime() + " "
-            // skip train line numbers since they're wrong anyway
-            + (ArrUtil.contains(MODES_TRAIN, _mode) || _line.equals(".") ? "" : _line + " ")
+            // skip some line numbers which are wrong anyway
+            + (ArrUtil.contains(MODES_TRAIN, _mode) || _line.length() >= 5 || _line.equals(".") ? "" : _line + " ")
             + _destination;
     }
 
