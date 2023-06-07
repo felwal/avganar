@@ -1,6 +1,6 @@
 # Beskrivning
 
-Avgånär är en widget som visar närliggande hållplatser och avgångar inom Sverige.
+Avgånär är en widget för kollektivtrafik som visar närliggande hållplatser och avgångar inom Sverige.
 
 För bättre data och fler funktioner inom Stockholm, se Avgånär: Stockholm avgångar.
 
