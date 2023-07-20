@@ -15,3 +15,8 @@ function isVibrateOn() {
     var ds = System.getDeviceSettings();
     return Attention has :vibrate && ds has :vibrateOn && ds.vibrateOn;
 }
+
+function isLangSwe() {
+    var ds = System.getDeviceSettings();
+    return ds.systemLanguage == System.LANGUAGE_SWE;
+}

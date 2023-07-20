@@ -172,6 +172,19 @@ class DeparturesService {
 
         for (var i = 0; i < stopDeviations.size(); i++) {
             var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
+
+            // some messages are in both Swedish and English,
+            // separated by a "*"
+            var langSplitIndex = msg.find(" * ");
+            if (langSplitIndex != null) {
+                //Log.d("stop deviation msg: " + msg);
+                var isSwe = isLangSwe();
+
+                msg = msg.substring(
+                    isSwe ? 0 : langSplitIndex + 3,
+                    isSwe ? langSplitIndex : msg.length());
+            }
+
             stopDeviationMessages.add(msg);
         }
 
