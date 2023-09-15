@@ -133,6 +133,7 @@ class DeparturesService {
                 var dateTime = departureData["ExpectedDateTime"];
                 var deviations = DictUtil.get(departureData, "Deviations", []);
 
+                var isRealTime = !dateTime.equals(departureData["TimeTabledDateTime"]);
                 var moment = TimeUtil.localIso8601StrToMoment(dateTime);
                 var deviationLevel = 0;
                 var cancelled = false;
@@ -146,7 +147,7 @@ class DeparturesService {
                     deviationLevel = MathUtil.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
-                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel, cancelled));
+                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel, cancelled, isRealTime));
             }
 
             // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.

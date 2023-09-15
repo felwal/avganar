@@ -33,10 +33,11 @@ class Departure {
     hidden var _deviationLevel;
 
     var cancelled;
+    var isRealTime;
 
     // init
 
-    function initialize(mode, group, line, destination, moment, deviationLevel, cancelled) {
+    function initialize(mode, group, line, destination, moment, deviationLevel, cancelled, isRealTime) {
         _mode = mode;
         _group = group;
         _line = line;
@@ -44,15 +45,16 @@ class Departure {
         _moment = moment;
         _deviationLevel = deviationLevel;
         me.cancelled = cancelled;
+        me.isRealTime = isRealTime;
     }
 
     // get
 
     function toString() {
-        return _displayTime() + " " + _line + " " + _destination;
+        return displayTime() + " " + _line + " " + _destination;
     }
 
-    hidden function _displayTime() {
+    function displayTime() {
         if (_moment == null) {
             return rez(Rez.Strings.itm_detail_departure_null);
         }
