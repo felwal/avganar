@@ -67,6 +67,7 @@ marq2.resourcePath = $(marq2.resourcePath); resources-390x390
 marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390
 venu.resourcePath = $(venu.resourcePath); resources-390x390
 venud.resourcePath = $(venud.resourcePath); resources-390x390
+venu3s.resourcePath = $(venu3s.resourcePath); resources-390x390
 
 # 416x416
 d2airx10.resourcePath = $(d2airx10.resourcePath); resources-416x416
@@ -81,6 +82,7 @@ fr265.resourcePath = $(fr265.resourcePath); resources-416x416
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-454x454
 epix2pro51mm.resourcePath = $(epix2pro51mm.resourcePath); resources-454x454
 fr965.resourcePath = $(fr965.resourcePath); resources-454x454
+venu3.resourcePath = $(venu3.resourcePath); resources-454x454
 
 # launcher icon
 
@@ -165,3 +167,5 @@ fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65
 d2airx10.resourcePath = $(d2airx10.resourcePath); resources-launcher_70x70
 venu2.resourcePath = $(venu2.resourcePath); resources-launcher_70x70
 venu2plus.resourcePath = $(venu2plus.resourcePath); resources-launcher_70x70
+venu3.resourcePath = $(venu3.resourcePath); resources-launcher_70x70
+venu3s.resourcePath = $(venu3s.resourcePath); resources-launcher_70x70
