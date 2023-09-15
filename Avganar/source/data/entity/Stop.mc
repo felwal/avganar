@@ -2,7 +2,7 @@ using Toybox.Lang;
 
 class Stop {
 
-    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 6;
+    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
     hidden static var _MEMORY_MIN_TIME_WINDOW = 2;
 
     // NOTE: instead of adding public fields, add getters.
