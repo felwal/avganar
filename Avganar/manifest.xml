@@ -13,7 +13,6 @@ You should have received a copy of the GNU General Public License along with Avg
 If not, see <https://www.gnu.org/licenses/>.
 -->
 
-<?xml version="1.0"?>
 <iq:manifest
     xmlns:iq="http://www.garmin.com/xml/connectiq"
     version="3">
