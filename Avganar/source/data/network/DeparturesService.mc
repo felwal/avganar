@@ -143,11 +143,12 @@ class DeparturesService {
                 var group = DictUtil.get(departureData, "GroupOfLine", "");
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
-                var dateTime = departureData["ExpectedDateTime"];
+                var plannedDateTime = departureData["TimeTabledDateTime"];
+                var expectedDateTime = departureData["ExpectedDateTime"];
                 var deviations = DictUtil.get(departureData, "Deviations", []);
 
-                var isRealTime = !dateTime.equals(departureData["TimeTabledDateTime"]);
-                var moment = TimeUtil.localIso8601StrToMoment(dateTime);
+                var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
+                var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
                 var deviationLevel = 0;
                 var cancelled = false;
 
