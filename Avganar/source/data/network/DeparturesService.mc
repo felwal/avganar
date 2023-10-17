@@ -189,15 +189,37 @@ class DeparturesService {
             var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
 
             // some messages are in both Swedish and English,
-            // separated by a "*"
-            var langSplitIndex = msg.find(" * ");
+            // separated by a " * "
+            var langSeparator = " * ";
+            var langSplitIndex = msg.find(langSeparator);
             if (langSplitIndex != null) {
                 //Log.d("stop deviation msg: " + msg);
                 var isSwe = isLangSwe();
 
                 msg = msg.substring(
-                    isSwe ? 0 : langSplitIndex + 3,
+                    isSwe ? 0 : langSplitIndex + langSeparator.length(),
                     isSwe ? langSplitIndex : msg.length());
+            }
+
+            // remove references at the end of messages
+
+            var references = [
+                " Sök din resa på sl.se eller i appen.",
+                " För mer information, se sl.se",
+                " Se sl.se eller i appen.",
+                " Läs mer på sl.se.",
+                " Läs mer på sl.se",
+                " Se sl.se.",
+                " Se sl.se"
+            ];
+
+            for (var j = 0; j < references.size(); j++) {
+                var refStartIndex = msg.find(references[j]);
+                if (refStartIndex != null) {
+                    msg = msg.substring(0, refStartIndex);
+                    // each message will contain max one reference
+                    break;
+                }
             }
 
             stopDeviationMessages.add(msg);
