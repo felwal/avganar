@@ -81,6 +81,7 @@ marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390
 venu.resourcePath = $(venu.resourcePath); resources-390x390
 venud.resourcePath = $(venud.resourcePath); resources-390x390
 venu3s.resourcePath = $(venu3s.resourcePath); resources-390x390
+vivoactive5.resourcePath = $(vivoactive5.resourcePath); resources-390x390
 
 # 416x416
 d2airx10.resourcePath = $(d2airx10.resourcePath); resources-416x416
@@ -182,3 +183,4 @@ venu2.resourcePath = $(venu2.resourcePath); resources-launcher_70x70
 venu2plus.resourcePath = $(venu2plus.resourcePath); resources-launcher_70x70
 venu3.resourcePath = $(venu3.resourcePath); resources-launcher_70x70
 venu3s.resourcePath = $(venu3s.resourcePath); resources-launcher_70x70
+vivoactive5.resourcePath = $(vivoactive5.resourcePath); resources-launcher_70x70
