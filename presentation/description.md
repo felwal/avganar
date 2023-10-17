@@ -23,4 +23,4 @@ By downloading and using this app, you agree to the Privacy Policy (https://gith
 
 For support, please contact me at felwal.studios@proton.me.
 
-Keywords: public transport, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
+Keywords: public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
