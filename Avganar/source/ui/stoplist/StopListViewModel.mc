@@ -57,7 +57,13 @@ class StopListViewModel {
     }
 
     function onPosition() {
-        if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStops()) {
+        // request directly if there is no last position saved,
+        // there has been no request,
+        // or if last request resulted in an error.
+        if (_lastPos.size() != 2
+            || NearbyStopsStorage.response == null
+            || NearbyStopsStorage.response instanceof ResponseError) {
+
             _requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
