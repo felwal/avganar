@@ -62,7 +62,12 @@ class StopDetailView extends WatchUi.View {
             _drawDepartures(dc, response);
 
             // page indicator
-            WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
+            if (_viewModel.isDepartureState) {
+                //WidgetUtil.drawStartIndicator(dc);
+            }
+            else {
+                WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
+            }
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
@@ -186,8 +191,11 @@ class StopDetailView extends WatchUi.View {
             Graphite.setColor(dc, departure.getModeColor());
             dc.fillCircle(xCircle, y, rCircle);
 
+            // highlight selected departure
+            var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == d;
+
             // draw text
-            var textColor = departure.getTextColor();
+            var textColor = isSelected ? Graphene.COLOR_GREEN : departure.getTextColor();
             Graphite.setColor(dc, textColor);
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
 

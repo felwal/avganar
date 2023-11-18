@@ -44,19 +44,24 @@ class Departure {
     hidden var _destination;
     hidden var _moment;
     hidden var _deviationLevel;
+    hidden var _deviationMessages = [];
 
     var cancelled;
     var isRealTime;
 
     // init
 
-    function initialize(mode, group, line, destination, moment, deviationLevel, cancelled, isRealTime) {
+    function initialize(mode, group, line, destination, moment, deviationLevel, deviationMessages,
+        cancelled, isRealTime) {
+
         _mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
         _deviationLevel = deviationLevel;
+        _deviationMessages = deviationMessages;
+
         me.cancelled = cancelled;
         me.isRealTime = isRealTime;
     }
@@ -208,6 +213,10 @@ class Departure {
             Log.w("unknown mode: " + _mode);
             return AppColors.DEPARTURE_UNKNOWN;
         }
+    }
+
+    function getDeviationMessages() {
+        return _deviationMessages;
     }
 
 }

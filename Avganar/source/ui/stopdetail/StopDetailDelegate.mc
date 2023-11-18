@@ -28,13 +28,13 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     //! "DOWN"
     function onNextPage() {
-        _viewModel.incPageCursor();
+        _viewModel.incCursor();
         return true;
     }
 
     //! "UP"
     function onPreviousPage() {
-        _viewModel.decPageCursor();
+        _viewModel.decCursor();
         return true;
     }
 
@@ -47,10 +47,26 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
+    //! "long UP"
+    function onMenu() {
+        _viewModel.toggleDepartureState();
+        return true;
+    }
+
     //! "START-STOP"
     function onSelect() {
         _viewModel.onSelect();
         return true;
+    }
+
+    function onBack() {
+        if (_viewModel.isDepartureState) {
+            _viewModel.isDepartureState = false;
+            WatchUi.requestUpdate();
+            return true;
+        }
+
+        return false;
     }
 
 }

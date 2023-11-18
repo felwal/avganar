@@ -150,9 +150,13 @@ class DeparturesService {
                 var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
                 var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
                 var deviationLevel = 0;
+                var deviationMessages = [];
                 var cancelled = false;
 
                 for (var i = 0; i < deviations.size(); i++) {
+                    var msg = DictUtil.get(deviations[i], "Text", null);
+                    deviationMessages.add(msg);
+
                     if (deviations[i]["Consequence"].equals("CANCELLED")) {
                         cancelled = true;
                         continue;
@@ -161,7 +165,12 @@ class DeparturesService {
                     deviationLevel = MathUtil.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
-                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel, cancelled, isRealTime));
+                // remove empty messages
+                deviationMessages.removeAll(null);
+
+                var departure = new Departure(mode, group, line, destination, moment, deviationLevel,
+                    deviationMessages, cancelled, isRealTime);
+                modeDepartures.add(departure);
             }
 
             // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.

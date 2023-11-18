@@ -27,7 +27,10 @@ class StopDetailViewModel {
     var pageCount = 1;
     var pageCursor = 0;
     var modeCursor = 0;
+    var departureCursor = 0;
+    var isDepartureState = false;
 
+    hidden var _lastPageDepartureCount = 0;
     hidden var _delayTimer = new Timer.Timer();
     hidden var _repeatTimer = new TimerWrapper();
 
@@ -89,9 +92,14 @@ class StopDetailViewModel {
 
         if (!(modeResponse instanceof Lang.Array)) {
             pageCount = 1;
+            isDepartureState = false;
             return modeResponse;
         }
 
+        _lastPageDepartureCount = modeResponse.size() % DEPARTURES_PER_PAGE;
+        if (_lastPageDepartureCount == 0) {
+            _lastPageDepartureCount = DEPARTURES_PER_PAGE;
+        }
         pageCount = Math.ceil(modeResponse.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
 
         // coerce cursor
@@ -106,26 +114,72 @@ class StopDetailViewModel {
     }
 
     function canNavigateToDeviation() {
-        return pageCursor == 0 && stop.getDeviationMessages().size() != 0;
+        return !isDepartureState
+            && pageCursor == 0
+            && stop.getDeviationMessages().size() != 0;
     }
 
     // write
 
-    function incPageCursor() {
-        if (pageCursor < pageCount - 1) {
-            pageCursor++;
-            WatchUi.requestUpdate();
-        }
+    function toggleDepartureState() {
+        isDepartureState = !isDepartureState;
+        departureCursor = 0;
+        WatchUi.requestUpdate();
     }
 
-    function decPageCursor() {
+    function incCursor() {
+        if (isDepartureState) {
+            if (departureCursor < DEPARTURES_PER_PAGE - 1
+                && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
+
+                departureCursor++;
+            }
+            else if (_incPageCursor()) {
+                departureCursor = 0;
+            }
+        }
+        else {
+            _incPageCursor();
+        }
+
+        WatchUi.requestUpdate();
+    }
+
+    function decCursor() {
+        if (isDepartureState) {
+            if (departureCursor > 0) {
+                departureCursor--;
+            }
+            else if (_decPageCursor()) {
+                departureCursor = DEPARTURES_PER_PAGE - 1;
+            }
+        }
+        else {
+            _decPageCursor();
+        }
+
+        WatchUi.requestUpdate();
+    }
+
+    hidden function _incPageCursor() {
+        if (pageCursor < pageCount - 1) {
+            pageCursor++;
+            return true;
+        }
+
+        return false;
+    }
+
+    hidden function _decPageCursor() {
         if (pageCursor > 0) {
             pageCursor--;
-            WatchUi.requestUpdate();
+            return true;
         }
         else if (canNavigateToDeviation()) {
             DialogView.push(null, stop.getDeviationMessages(), Rez.Drawables.ic_warning, WatchUi.SLIDE_DOWN);
         }
+
+        return false;
     }
 
     function onSelect() {
@@ -136,6 +190,18 @@ class StopDetailViewModel {
                 requestDepartures();
                 WatchUi.requestUpdate();
             }
+        }
+        else if (isDepartureState) {
+            var responseAndMode = stop.getModeResponse(modeCursor);
+            var modeResponse = responseAndMode[0];
+            var selectedDeparture = modeResponse[pageCursor * 4 + departureCursor];
+            var messages = selectedDeparture.getDeviationMessages();
+
+            if (messages.size() == 0) {
+                messages.add("No deviations");
+            }
+
+            DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
         }
         else {
             onNextMode();

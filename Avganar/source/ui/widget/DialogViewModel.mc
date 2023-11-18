@@ -27,7 +27,7 @@ class DialogViewModel {
     }
 
     function getMessage() {
-        return messages[pageCursor];
+        return ArrUtil.get(messages, pageCursor, "");
     }
 
     function onNextMessage() {
