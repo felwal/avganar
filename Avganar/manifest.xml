@@ -39,6 +39,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
             <iq:product id="descentmk2" />
             <iq:product id="descentmk2s" />
+            <iq:product id="descentmk351mm" />
 
             <iq:product id="epix2" />
             <iq:product id="epix2pro42mm" />
@@ -54,10 +55,12 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="fenix6xpro" />
             <iq:product id="fenix7" />
             <iq:product id="fenix7pro" />
+            <iq:product id="fenix7pronowifi" />
             <iq:product id="fenix7s" />
             <iq:product id="fenix7spro" />
             <iq:product id="fenix7x" />
             <iq:product id="fenix7xpro" />
+            <iq:product id="fenix7xpronowifi" />
 
             <iq:product id="fr245m" />
             <iq:product id="fr255" />
