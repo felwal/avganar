@@ -70,6 +70,10 @@ fenix7x.resourcePath = $(fenix7x.resourcePath); resources-280x280
 fenix7xpro.resourcePath = $(fenix7xpro.resourcePath); resources-280x280
 fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath); resources-280x280
 
+# 320x360
+venusq2.resourcePath = $(venusq2.resourcePath); resources-360x360
+venusq2m.resourcePath = $(venusq2m.resourcePath); resources-360x360
+
 # 360x360
 venu2s.resourcePath = $(venu2s.resourcePath); resources-360x360
 fr265s.resourcePath = $(fr265s.resourcePath); resources-360x360
@@ -159,6 +163,10 @@ marqcommander.resourcePath = $(marqcommander.resourcePath); resources-launcher_4
 marqdriver.resourcePath = $(marqdriver.resourcePath); resources-launcher_40x40
 marqexpedition.resourcePath = $(marqexpedition.resourcePath); resources-launcher_40x40
 marqgolfer.resourcePath = $(marqgolfer.resourcePath); resources-launcher_40x40
+# correct according to reference, but looks too small
+venusq2.resourcePath = $(venusq2.resourcePath); resources-launcher_40x40
+# correct according to reference, but looks too small
+venusq2m.resourcePath = $(venusq2m.resourcePath); resources-launcher_40x40
 
 # 60x60
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-launcher_60x60
