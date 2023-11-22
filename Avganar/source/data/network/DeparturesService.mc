@@ -206,7 +206,6 @@ class DeparturesService {
         var langSplitIndex = msg.find(langSeparator);
 
         if (langSplitIndex != null) {
-            //Log.d("stop deviation msg: " + msg);
             var isSwe = isLangSwe();
 
             msg = msg.substring(
