@@ -49,4 +49,7 @@ module AppColors {
     const DEPARTURE_NONE = Graphene.COLOR_BLACK;
     const DEPARTURE_UNKNOWN = Graphene.COLOR_WHITE;
 
+    const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
+    const DEPARTURE_SELECTED = Graphene.COLOR_GREEN;
+
 }

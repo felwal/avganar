@@ -62,10 +62,7 @@ class StopDetailView extends WatchUi.View {
             _drawDepartures(dc, response);
 
             // page indicator
-            if (_viewModel.isDepartureState) {
-                //WidgetUtil.drawStartIndicator(dc);
-            }
-            else {
+            if (!_viewModel.isDepartureState) {
                 WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
             }
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
@@ -195,13 +192,13 @@ class StopDetailView extends WatchUi.View {
             var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == d;
 
             // draw text
-            var textColor = isSelected ? Graphene.COLOR_GREEN : departure.getTextColor();
+            var textColor = isSelected ? AppColors.DEPARTURE_SELECTED : departure.getTextColor();
             Graphite.setColor(dc, textColor);
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
 
             // mark realtime
             if (departure.isRealTime) {
-                Graphite.setColor(dc, Graphene.COLOR_GREEN);
+                Graphite.setColor(dc, AppColors.DEPARTURE_REALTIME);
                 dc.drawText(xText, y, font, departure.displayTime(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
             }
 
