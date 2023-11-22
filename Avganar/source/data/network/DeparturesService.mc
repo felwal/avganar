@@ -153,8 +153,10 @@ class DeparturesService {
                 var deviationMessages = [];
                 var cancelled = false;
 
+                // departure deviations
                 for (var i = 0; i < deviations.size(); i++) {
                     var msg = DictUtil.get(deviations[i], "Text", null);
+                    msg = _splitDeviationMessageByLang(msg); // (not often the case)
                     deviationMessages.add(msg);
 
                     if (deviations[i]["Consequence"].equals("CANCELLED")) {
@@ -168,8 +170,8 @@ class DeparturesService {
                 // remove empty messages
                 deviationMessages.removeAll(null);
 
-                var departure = new Departure(mode, group, line, destination, moment, deviationLevel,
-                    deviationMessages, cancelled, isRealTime);
+                var departure = new Departure(mode, group, line, destination, moment,
+                    deviationLevel, deviationMessages, cancelled, isRealTime);
                 modeDepartures.add(departure);
             }
 
@@ -189,52 +191,70 @@ class DeparturesService {
             _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
-        // stop point deviation
+        // stop point deviations
 
         var stopDeviations = data["ResponseData"]["StopPointDeviations"];
         var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
             var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
-
-            // some messages are in both Swedish and English,
-            // separated by a " * "
-            var langSeparator = " * ";
-            var langSplitIndex = msg.find(langSeparator);
-            if (langSplitIndex != null) {
-                //Log.d("stop deviation msg: " + msg);
-                var isSwe = isLangSwe();
-
-                msg = msg.substring(
-                    isSwe ? 0 : langSplitIndex + langSeparator.length(),
-                    isSwe ? langSplitIndex : msg.length());
-            }
-
-            // remove references at the end of messages
-
-            var references = [
-                " Sök din resa på sl.se eller i appen.",
-                " För mer information, se sl.se",
-                " Se sl.se eller i appen.",
-                " Läs mer på sl.se.",
-                " Läs mer på sl.se",
-                " Se sl.se.",
-                " Se sl.se"
-            ];
-
-            for (var j = 0; j < references.size(); j++) {
-                var refStartIndex = msg.find(references[j]);
-                if (refStartIndex != null) {
-                    msg = msg.substring(0, refStartIndex);
-                    // each message will contain max one reference
-                    break;
-                }
-            }
-
+            msg = _splitDeviationMessageByLang(msg);
+            msg = _cleanDeviationMessage(msg);
             stopDeviationMessages.add(msg);
         }
 
         _stop.setDeviation(stopDeviationMessages);
+    }
+
+    hidden function _splitDeviationMessageByLang(msg) {
+        // some messages are in both Swedish and English,
+        // separated by a " * "
+        var langSeparator = " * ";
+        var langSplitIndex = msg.find(langSeparator);
+
+        if (langSplitIndex != null) {
+            //Log.d("stop deviation msg: " + msg);
+            var isSwe = isLangSwe();
+
+            msg = msg.substring(
+                isSwe ? 0 : langSplitIndex + langSeparator.length(),
+                isSwe ? langSplitIndex : msg.length());
+        }
+
+        return msg;
+    }
+
+    hidden function _cleanDeviationMessage(msg) {
+        // remove references at the end of messages
+
+        var references = [
+            "Sök din resa på sl.se eller i appen.",
+            "För mer information, se sl.se",
+            "Se sl.se eller i appen.",
+            "Läs mer på sl.se.",
+            "Läs mer på sl.se",
+            "Se sl.se.",
+            "Se sl.se",
+            ", se sl.se"
+        ];
+
+        for (var j = 0; j < references.size(); j++) {
+            var refStartIndex = msg.find(references[j]);
+
+            if (refStartIndex != null) {
+                // the reference is always at the end
+                msg = msg.substring(0, refStartIndex);
+                // each message will contain max one reference
+                break;
+            }
+        }
+
+        // remove space and (less common) newline endings
+        if (ArrUtil.contains([" ", "\n"], StringUtil.charAt(msg, msg.length() - 1))) {
+            msg = msg.substring(0, msg.length() - 1);
+        }
+
+        return msg;
     }
 
 }
