@@ -1,8 +1,26 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
+//! The colors used in the app.
 module AppColors {
+
+    const BACKGROUND = Graphene.COLOR_BLACK;
+    const BACKGROUND_INVERTED = Graphene.COLOR_WHITE;
 
     const TEXT_PRIMARY = Graphene.COLOR_WHITE;
     const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
     const TEXT_TERTIARY = Graphene.COLOR_DK_GRAY;
+    const TEXT_INVERTED = Graphene.COLOR_BLACK;
 
     const PRIMARY = Graphene.COLOR_CERULIAN;
     const PRIMARY_DK = Graphene.COLOR_DR_BLUE;
@@ -13,6 +31,7 @@ module AppColors {
     const ON_PRIMARY_TERTIARY = Graphene.COLOR_DK_BLUE;
 
     const WARNING = Graphene.COLOR_VERMILION;
+    const ERROR = Graphene.COLOR_RED;
 
     // departure
 
@@ -35,5 +54,8 @@ module AppColors {
     const DEPARTURE_SHIP = Graphene.COLOR_CAPRI;
     const DEPARTURE_NONE = Graphene.COLOR_BLACK;
     const DEPARTURE_UNKNOWN = Graphene.COLOR_WHITE;
+
+    const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
+    const DEPARTURE_SELECTED = Graphene.COLOR_GREEN;
 
 }

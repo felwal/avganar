@@ -1,3 +1,16 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Graphics;
 using Toybox.Lang;
 using Toybox.Math;
@@ -49,9 +62,12 @@ class StopDetailView extends WatchUi.View {
             _drawDepartures(dc, response);
 
             // page indicator
-            WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
+            if (!_viewModel.isDepartureState) {
+                WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
+            }
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
+            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor,
+                AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
 
             // stop deviation
@@ -146,10 +162,10 @@ class StopDetailView extends WatchUi.View {
         var fh = dc.getFontHeight(fontMode);
         var r = Math.ceil(fh / 2f);
 
-        Graphite.setColor(dc, Graphene.COLOR_WHITE);
+        Graphite.setColor(dc, AppColors.BACKGROUND_INVERTED);
         dc.fillCircle(xMode, yMode + r, r + 2);
 
-        dc.setColor(AppColors.PRIMARY_DK, Graphene.COLOR_WHITE);
+        dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);
         dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
@@ -173,14 +189,23 @@ class StopDetailView extends WatchUi.View {
             Graphite.setColor(dc, departure.getModeColor());
             dc.fillCircle(xCircle, y, rCircle);
 
+            // highlight selected departure
+            var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == d;
+
             // draw text
-            var textColor = departure.getTextColor();
+            var textColor = isSelected ? AppColors.DEPARTURE_SELECTED : departure.getTextColor();
             Graphite.setColor(dc, textColor);
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
 
+            // mark realtime
+            if (departure.isRealTime) {
+                Graphite.setColor(dc, AppColors.DEPARTURE_REALTIME);
+                dc.drawText(xText, y, font, departure.displayTime(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+            }
+
             // strikethrough
             if (departure.cancelled) {
-                Graphite.strokeRectangle(dc, xText, y, dc.getWidth() - xText, px(1), px(2), textColor, Graphene.COLOR_BLACK);
+                Graphite.strokeRectangle(dc, xText, y, dc.getWidth() - xText, px(1), px(2), textColor, AppColors.BACKGROUND);
             }
         }
     }

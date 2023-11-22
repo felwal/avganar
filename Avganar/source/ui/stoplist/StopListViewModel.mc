@@ -1,3 +1,16 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Application.Storage;
 using Toybox.Lang;
 using Toybox.Position;
@@ -39,7 +52,13 @@ class StopListViewModel {
     }
 
     function onPosition() {
-        if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStops()) {
+        // request directly if there is no last position saved,
+        // there has been no request,
+        // or if last request resulted in an error.
+        if (_lastPos.size() != 2
+            || NearbyStopsStorage.response == null
+            || NearbyStopsStorage.response instanceof ResponseError) {
+
             _requestNearbyStops();
         }
         else if (_lastPos.size() == 2) {
@@ -55,8 +74,8 @@ class StopListViewModel {
     // service
 
     hidden function _requestNearbyStops() {
-        if (!NearbyStopsStorage.hasStops() && !(NearbyStopsStorage.response instanceof ResponseError)) {
-            // set searching
+        if (!NearbyStopsStorage.hasStops()) {
+            // set searching (override errors, but not stops)
             NearbyStopsStorage.setResponse([], [], null);
         }
 
@@ -177,6 +196,7 @@ class StopListViewModel {
         return stopCursor - getFavoriteCount();
     }
 
+    //! Scroll down
     function incStopCursor() {
         if (isShowingMessage() && isRerequestable()) {
             _requestNearbyStops();
@@ -187,7 +207,11 @@ class StopListViewModel {
         _rotStopCursor(1);
     }
 
+    //! Scroll up
+    //! @return true if successfully rotating,
     function decStopCursor() {
+        // if the user has no favorites, scrolling off-screen
+        // should not result in going back round.
         if (getFavoriteCount() == 0 && stopCursor == 0) {
             return false;
         }

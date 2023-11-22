@@ -1,10 +1,10 @@
 # Beskrivning
 
-Avgånär är en widget som visar närliggande hållplatser och avgångar inom Stockholms Lokaltrafik (SL) i Sverige.
+Avgånär är en widget för kollektivtrafik som visar närliggande hållplatser och avgångar inom Stockholms Lokaltrafik (SL) i Sverige.
 
 För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 
-Funktioner:
+**Funktioner**:
 
 - Visa närliggande hållplatser
 - Spara favoriter (via menyn) och visa var som helst
@@ -13,14 +13,24 @@ Funktioner:
   - Se avvikelser och deras viktighetsnivå
 - Begränsa minnesbelastning genom att justera inställningar (via menyn)
 
-Avgångstiderna som presenteras är de förutspådda, dvs. inklusive förseningar.
+**Färgkodning**:
 
-Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.
+1. Avgångstider: planerade (vit), förväntade (grön)
+2. Avvikelsers viktighetsnivå: låg (gul), medium (orange), hög (röd), inställd (genomstruken)
+3. Transporttyp: matchar SL:s färgkodning
 
-Data hämtas från Trafiklabs API:er "SL Närliggande hållplatser 2" och "SL Realtidsinformation 4". Avgånär är inte på något sätt ansluten till Trafiklab eller SL. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta.
+**Behörigheter**. Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.
 
-Genom att ladda ned och använda appen godkänner du integritetspolicyn (https://github.com/felwal/avganar/blob/main/PRIVACY.md). I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
+**API:er**. Data hämtas från Trafiklabs API:er "SL Närliggande hållplatser 2" och "SL Realtidsinformation 4". Avgånär är inte på något sätt ansluten till Trafiklab eller SL. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta.
 
-För support, vänligen kontakta mig via felwal.studios@proton.me.
+**Integritet**. Genom att ladda ned och använda appen godkänner du integritetspolicyn (https://github.com/felwal/avganar/blob/main/PRIVACY.md). I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
 
-Nyckelord: kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
+**Support**. För support, vänligen kontakta mig via felwal.studios@proton.me.
+
+**Nyckelord**: kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
+
+## FAQ
+
+**Närliggande hållpatser uppdaterar inte**. Att hämta närliggande hållplatser kräver GPS-signal vilket kan ta lite tid. Försök med att vänta ett tag, eller gå utomhus. Progress-baren indikerar om appen väntar på platsdata (⅓) eller på API-svar (⅔).
+
+**Jag fortsätter att få "Serverfel"**. Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.

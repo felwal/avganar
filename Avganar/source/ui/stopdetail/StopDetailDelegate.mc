@@ -1,3 +1,16 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.WatchUi;
 
 class StopDetailDelegate extends WatchUi.BehaviorDelegate {
@@ -15,18 +28,20 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     //! "DOWN"
     function onNextPage() {
-        _viewModel.incPageCursor();
+        _viewModel.incCursor();
         return true;
     }
 
     //! "UP"
     function onPreviousPage() {
-        _viewModel.decPageCursor();
+        _viewModel.decCursor();
         return true;
     }
 
     function onSwipe(swipeEvent) {
-        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
+        // enable swiping left between modes.
+        // swiping right is disabled to avoid interference with ´onBack´.
+        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT && !_viewModel.isDepartureState) {
             _viewModel.onNextMode();
             return true;
         }
@@ -34,10 +49,27 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
+    //! "long UP"
+    function onMenu() {
+        _viewModel.toggleDepartureState();
+        return true;
+    }
+
     //! "START-STOP"
     function onSelect() {
         _viewModel.onSelect();
         return true;
+    }
+
+    function onBack() {
+        if (_viewModel.isDepartureState) {
+            // exit departure selection
+            _viewModel.isDepartureState = false;
+            WatchUi.requestUpdate();
+            return true;
+        }
+
+        return false;
     }
 
 }

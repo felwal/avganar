@@ -1,3 +1,16 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Math;
 using Toybox.Time;
 
@@ -31,28 +44,35 @@ class Departure {
     hidden var _destination;
     hidden var _moment;
     hidden var _deviationLevel;
+    hidden var _deviationMessages = [];
 
     var cancelled;
+    var isRealTime;
 
     // init
 
-    function initialize(mode, group, line, destination, moment, deviationLevel, cancelled) {
+    function initialize(mode, group, line, destination, moment, deviationLevel, deviationMessages,
+        cancelled, isRealTime) {
+
         _mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
         _deviationLevel = deviationLevel;
+        _deviationMessages = deviationMessages;
+
         me.cancelled = cancelled;
+        me.isRealTime = isRealTime;
     }
 
     // get
 
     function toString() {
-        return _displayTime() + " " + _line + " " + _destination;
+        return displayTime() + " " + _line + " " + _destination;
     }
 
-    hidden function _displayTime() {
+    function displayTime() {
         if (_moment == null) {
             return rez(Rez.Strings.itm_detail_departure_null);
         }
@@ -188,6 +208,10 @@ class Departure {
         else {
             return AppColors.DEPARTURE_UNKNOWN;
         }
+    }
+
+    function getDeviationMessages() {
+        return _deviationMessages;
     }
 
 }

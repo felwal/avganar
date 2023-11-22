@@ -1,9 +1,23 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Communications;
 using Toybox.WatchUi;
 
+//! Requests and handles departure data.
 class DeparturesService {
 
-    // Realtidsinformation 4
+    // API: SL Departures 4
     // Bronze: 10_000/month, 30/min
 
     hidden var _stop;
@@ -123,14 +137,22 @@ class DeparturesService {
                 var group = DictUtil.get(departureData, "GroupOfLine", "");
                 var line = departureData["LineNumber"];
                 var destination = departureData["Destination"];
-                var dateTime = departureData["ExpectedDateTime"];
+                var plannedDateTime = departureData["TimeTabledDateTime"];
+                var expectedDateTime = departureData["ExpectedDateTime"];
                 var deviations = DictUtil.get(departureData, "Deviations", []);
 
-                var moment = TimeUtil.localIso8601StrToMoment(dateTime);
+                var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
+                var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
                 var deviationLevel = 0;
+                var deviationMessages = [];
                 var cancelled = false;
 
+                // departure deviations
                 for (var i = 0; i < deviations.size(); i++) {
+                    var msg = DictUtil.get(deviations[i], "Text", null);
+                    msg = _splitDeviationMessageByLang(msg); // (not often the case)
+                    deviationMessages.add(msg);
+
                     if (deviations[i]["Consequence"].equals("CANCELLED")) {
                         cancelled = true;
                         continue;
@@ -139,7 +161,12 @@ class DeparturesService {
                     deviationLevel = MathUtil.max(deviationLevel, deviations[i]["ImportanceLevel"]);
                 }
 
-                modeDepartures.add(new Departure(mode, group, line, destination, moment, deviationLevel, cancelled));
+                // remove empty messages
+                deviationMessages.removeAll(null);
+
+                var departure = new Departure(mode, group, line, destination, moment,
+                    deviationLevel, deviationMessages, cancelled, isRealTime);
+                modeDepartures.add(departure);
             }
 
             // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.
@@ -157,17 +184,70 @@ class DeparturesService {
             _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
-        // stop point deviation
+        // stop point deviations
 
         var stopDeviations = data["ResponseData"]["StopPointDeviations"];
         var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
             var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
+            msg = _splitDeviationMessageByLang(msg);
+            msg = _cleanDeviationMessage(msg);
             stopDeviationMessages.add(msg);
         }
 
         _stop.setDeviation(stopDeviationMessages);
+    }
+
+    hidden function _splitDeviationMessageByLang(msg) {
+        // some messages are in both Swedish and English,
+        // separated by a " * "
+        var langSeparator = " * ";
+        var langSplitIndex = msg.find(langSeparator);
+
+        if (langSplitIndex != null) {
+            //Log.d("stop deviation msg: " + msg);
+            var isSwe = isLangSwe();
+
+            msg = msg.substring(
+                isSwe ? 0 : langSplitIndex + langSeparator.length(),
+                isSwe ? langSplitIndex : msg.length());
+        }
+
+        return msg;
+    }
+
+    hidden function _cleanDeviationMessage(msg) {
+        // remove references at the end of messages
+
+        var references = [
+            "Sök din resa på sl.se eller i appen.",
+            "För mer information, se sl.se",
+            "Se sl.se eller i appen.",
+            "Läs mer på sl.se.",
+            "Läs mer på sl.se",
+            "Se sl.se.",
+            "Se sl.se",
+            ", se sl.se"
+        ];
+
+        for (var j = 0; j < references.size(); j++) {
+            var refStartIndex = msg.find(references[j]);
+
+            if (refStartIndex != null) {
+                // the reference is always at the end
+                msg = msg.substring(0, refStartIndex);
+                // each message will contain max one reference
+                break;
+            }
+        }
+
+        // remove space and (less common) newline endings
+        if (ArrUtil.contains([" ", "\n"], StringUtil.charAt(msg, msg.length() - 1))) {
+            msg = msg.substring(0, msg.length() - 1);
+        }
+
+        return msg;
     }
 
 }

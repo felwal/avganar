@@ -1,8 +1,23 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Lang;
 
+//! Must have the same interface as `StopDouble` since we often don't
+//! know whether our stops are of `Stop` or `StopDouble`.
 class Stop {
 
-    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 6;
+    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
     hidden static var _MEMORY_MIN_TIME_WINDOW = 2;
 
     // NOTE: instead of adding public fields, add getters.

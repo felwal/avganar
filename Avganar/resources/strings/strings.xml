@@ -60,6 +60,7 @@
     <string id="lbl_detail_mode_tram">L</string>
     <string id="lbl_detail_mode_ship">F</string>
     <string id="lbl_detail_mode_unknown">?</string>
+    <string id="lbl_detail_deviation_none">No deviations</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>

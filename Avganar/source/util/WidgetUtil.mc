@@ -1,6 +1,20 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Graphics;
 using Toybox.Math;
 
+//! Draw more complex but common widgets.
 module WidgetUtil {
 
     // directions
@@ -26,7 +40,7 @@ module WidgetUtil {
 
         Graphite.resetColor(dc);
         Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc) - fh / 2,
-            w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, Graphene.COLOR_WHITE);
+            w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
     }
 
     function drawPreviewTitle(dc, text, rezId, smallIcon) {
@@ -56,14 +70,14 @@ module WidgetUtil {
     // header/footer
 
     function drawExclamationBanner(dc) {
-        drawHeader(dc, px(30), Graphene.COLOR_RED, Graphene.COLOR_BLACK, "!", Graphene.COLOR_WHITE);
+        drawHeader(dc, px(30), AppColors.ERROR, AppColors.BACKGROUND, "!", AppColors.TEXT_PRIMARY);
         Graphite.resetPenWidth(dc);
     }
 
     function drawActionFooter(dc, message) {
-        drawFooter(dc, px(45), Graphene.COLOR_WHITE, Graphene.COLOR_BLACK, message, Graphene.COLOR_BLACK);
+        drawFooter(dc, px(45), AppColors.BACKGROUND_INVERTED, AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
 
-        Graphite.setColor(dc, Graphene.COLOR_BLACK);
+        Graphite.setColor(dc, AppColors.TEXT_INVERTED);
         drawBottomPageArrow(dc);
         Graphite.resetColor(dc);
     }
@@ -171,7 +185,7 @@ module WidgetUtil {
         var width = px(4);
         var strokeWidth = px(1);
 
-        Graphite.strokeArcCentered(dc, offset, width, strokeWidth, 20, 40, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        Graphite.strokeArcCentered(dc, offset, width, strokeWidth, 20, 40, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
 
     (:rectangle)
@@ -185,7 +199,7 @@ module WidgetUtil {
         var yBottom = 0.64 * dc.getHeight(); // sin(40) = 0.64
         var height = yBottom - y;
 
-        Graphite.strokeRectangle(dc, x, y, width, height, strokeWidth, Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        Graphite.strokeRectangle(dc, x, y, width, height, strokeWidth, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
 
     // scrollbar
@@ -208,7 +222,8 @@ module WidgetUtil {
         var outlineWidth = px(3);
 
         // rail
-        Graphite.strokeArcCentered(dc, edgeOffset, railWidth, outlineWidth, startDeg, endDeg, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+        Graphite.strokeArcCentered(dc, edgeOffset, railWidth, outlineWidth, startDeg, endDeg,
+            AppColors.TEXT_TERTIARY, AppColors.BACKGROUND);
 
         var barDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
         var barStartDeg = startDeg + (endDeg - startDeg) * startIndex / itemCount.toFloat();
@@ -239,7 +254,8 @@ module WidgetUtil {
         var outlineWidth = px(3);
 
         // rail
-        Graphite.strokeRectangleCentered(dc, x, Graphite.getCenterY(dc), railWidth, height, outlineWidth, Graphene.COLOR_DK_GRAY, Graphene.COLOR_BLACK);
+        Graphite.strokeRectangleCentered(dc, x, Graphite.getCenterY(dc), railWidth, height, outlineWidth,
+            AppColors.TEXT_TERTIARY, AppColors.BACKGROUND);
 
         var barHeight = height * (endIndex - startIndex) / itemCount.toFloat();
         var barStartY = yStart + height * startIndex / itemCount.toFloat();
@@ -275,7 +291,7 @@ module WidgetUtil {
         var bgMaxDeg = maxDeg + lengthDeg + outlineWidthDeg;
 
         // bg outline
-        Graphite.setColor(dc, Graphene.COLOR_BLACK);
+        Graphite.setColor(dc, AppColors.BACKGROUND);
         dc.setPenWidth(bgStroke);
         Graphite.drawArcCentered(dc, edgeOffset, bgMinDeg, bgMaxDeg);
 
@@ -291,7 +307,7 @@ module WidgetUtil {
                 Graphite.resetColor(dc);
             }
             else {
-                Graphite.setColor(dc, Graphene.COLOR_DK_GRAY);
+                Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
             }
 
             Graphite.drawArcCentered(dc, edgeOffset, startDeg, endDeg);
@@ -318,7 +334,7 @@ module WidgetUtil {
         var bgStroke = stroke + px(2) * outlineWidth;
 
         // bg outline
-        Graphite.setColor(dc, Graphene.COLOR_BLACK);
+        Graphite.setColor(dc, AppColors.BACKGROUND);
         dc.setPenWidth(bgStroke);
         Graphite.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, center - 2 * outlineWidth, stroke + 2 * outlineWidth, max - min + 2 * outlineWidth);
 
@@ -334,7 +350,7 @@ module WidgetUtil {
                 Graphite.resetColor(dc);
             }
             else {
-                Graphite.setColor(dc, Graphene.COLOR_DK_GRAY);
+                Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
             }
 
             Graphite.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, y, stroke, height);
@@ -501,7 +517,7 @@ module WidgetUtil {
         var h = dc.getHeight() - 2 * px(36);
         var lineHeightPx = h / 4;
 
-        var bgColor = cursor >= paneSize ? Graphics.COLOR_BLACK : paneColors[0];
+        var bgColor = cursor >= paneSize ? AppColors.BACKGROUND : paneColors[0];
         var selectedColor;
         var unselectedColor;
 

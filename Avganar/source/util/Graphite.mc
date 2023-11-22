@@ -1,3 +1,16 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
 using Toybox.Graphics;
 using Toybox.Math;
 using Toybox.WatchUi;
@@ -47,12 +60,12 @@ module Graphite {
 
     //! Set the current foreground color
     function setColor(dc, foreground) {
-        dc.setColor(foreground, Graphene.COLOR_BLACK);
+        dc.setColor(foreground, AppColors.BACKGROUND);
     }
 
     //! Set the current fg and bg colors to white and black
     function resetColor(dc) {
-        dc.setColor(Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        dc.setColor(Graphene.COLOR_WHITE, AppColors.BACKGROUND);
     }
 
     function resetPenWidth(dc) {

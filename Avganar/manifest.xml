@@ -1,4 +1,18 @@
-<?xml version="1.0"?>
+<!--
+This file is part of Avgånär.
+
+Avgånär is free software: you can redistribute it and/or modify it under the terms of
+the GNU General Public License as published by the Free Software Foundation,
+either version 3 of the License, or (at your option) any later version.
+
+Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with Avgånär.
+If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <iq:manifest
     xmlns:iq="http://www.garmin.com/xml/connectiq"
     version="3">
@@ -25,6 +39,7 @@
 
             <iq:product id="descentmk2" />
             <iq:product id="descentmk2s" />
+            <iq:product id="descentmk351mm" />
 
             <iq:product id="epix2" />
             <iq:product id="epix2pro42mm" />
@@ -40,10 +55,12 @@
             <iq:product id="fenix6xpro" />
             <iq:product id="fenix7" />
             <iq:product id="fenix7pro" />
+            <iq:product id="fenix7pronowifi" />
             <iq:product id="fenix7s" />
             <iq:product id="fenix7spro" />
             <iq:product id="fenix7x" />
             <iq:product id="fenix7xpro" />
+            <iq:product id="fenix7xpronowifi" />
 
             <iq:product id="fr245m" />
             <iq:product id="fr255" />
@@ -79,13 +96,18 @@
             <iq:product id="venu2" />
             <iq:product id="venu2plus" />
             <iq:product id="venu2s" />
+            <iq:product id="venu3" />
+            <iq:product id="venu3s" />
             <iq:product id="venud" />
-            <iq:product id="venusqm" /> <!-- square -->
+            <iq:product id="venusqm" />
+            <iq:product id="venusq2" />
+            <iq:product id="venusq2m" />
 
             <iq:product id="vivoactive3m" />
             <iq:product id="vivoactive3mlte" />
             <iq:product id="vivoactive4" />
             <iq:product id="vivoactive4s" />
+            <iq:product id="vivoactive5" />
         </iq:products>
 
         <iq:permissions>
