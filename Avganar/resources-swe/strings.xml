@@ -45,6 +45,7 @@
 
     <!-- detail -->
     <string id="itm_detail_departure_now">Nu</string>
+    <string id="lbl_detail_deviation_none">Inga avvikelser</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
