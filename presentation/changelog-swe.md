@@ -7,7 +7,7 @@
 - Lägg till vy för avgång-avvikelser (nå via avgång-val)
 - Avvikelse-meddelanden:
   - Respektera språkinställningar när möjligt
-  - Ta bort onödiga "se sl.se" och liknande
+  - Ta bort onödiga "se sl-se" och liknande
 - Buggfixar och förbättringar
 - Stöd venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 
