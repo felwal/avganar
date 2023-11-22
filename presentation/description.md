@@ -4,7 +4,7 @@ Avgånär is a public transport widget for viewing nearby stops and departures w
 
 For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
-Features:
+**Features**:
 
 - View nearby stops
 - Save favorite stops (via the menu) and view anywhere
@@ -13,14 +13,24 @@ Features:
   - See deviations and their importance level
 - Limit memory consumption by tuning settings (via the menu)
 
-The departure times that are presented are the predicted, that is including delays.
+**Color coding**:
 
-The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
+1. Departure times: planned (white), expected (green)
+2. Deviation importance level: low (yellow), medium (orange), high (red)
+3. Transport mode: matches SLs color coding
 
-Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 4". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
+**Permissions**. The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
 
-By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
+**APIs**. Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 4". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
 
-For support, please contact me at felwal.studios@proton.me.
+**Privacy**. By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
-Keywords: public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
+**Support**. For support, please contact me at felwal.studios@proton.me.
+
+**Keywords**: public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
+
+## FAQ
+
+**Nearby stops aren't updating**. Fetching nearby stops requires a GPS signal which might take some time. Try waiting a while, or going outside. The progress bar indicates if the app is waiting for location (⅓) or for API response (⅔).
+
+**I keep getting "Server Error"**. This is SLs problem and happens from time to time. All we can do is have patience.
