@@ -13,6 +13,7 @@
 
 using Toybox.Application.Storage;
 
+//! Handles storage for user preferences.
 module SettingsStorage {
 
     const _STORAGE_VIBRATE = "vibrate_on_response";

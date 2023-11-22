@@ -11,6 +11,7 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+//! The colors used in the app.
 module AppColors {
 
     const TEXT_PRIMARY = Graphene.COLOR_WHITE;

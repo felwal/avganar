@@ -15,6 +15,9 @@ using Toybox.Application.Storage;
 using Toybox.Lang;
 using Toybox.Math;
 
+//! Handles storage for nearby stops.
+//! We want to persist these between sessions to achieve continuity
+//! and avoid redundant API requests.
 module NearbyStopsStorage {
 
     const _STORAGE_NEARBY_STOP_IDS = "nearby_stop_ids";

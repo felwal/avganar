@@ -13,6 +13,7 @@
 
 using Toybox.Application.Storage;
 
+//! Handles storage for favorite stops.
 module FavoriteStopsStorage {
 
     const _STORAGE_FAVORITE_STOP_IDS = "favorite_stop_ids";

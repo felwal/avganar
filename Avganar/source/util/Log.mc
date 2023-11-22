@@ -13,6 +13,8 @@
 
 using Toybox.System;
 
+//! Logging made (a bit) simpler.
+//! Should not be included in release builds.
 (:glance)
 module Log {
 

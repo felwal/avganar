@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+//! Use the StopDummy to compare / search for stops
+//! by only name and id.
 class StopDummy {
 
     var name;

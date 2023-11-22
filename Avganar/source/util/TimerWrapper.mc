@@ -13,6 +13,7 @@
 
 using Toybox.Timer;
 
+//! Synthesise multiple timers by only using one `Timer`.
 class TimerWrapper {
 
     hidden var _timer;
@@ -23,6 +24,8 @@ class TimerWrapper {
         _timer = new Timer.Timer();
     }
 
+    //! @baseTime the smallest "timer" duration, of wich all other "timers"
+    //! should be multiples
     function start(baseTime, reprs) {
         _baseTime = baseTime;
         _reprs = reprs;
@@ -42,6 +45,7 @@ class TimerWrapper {
 
 }
 
+//! Representation of a Timer.
 class TimerRepr {
 
     hidden var _callback;

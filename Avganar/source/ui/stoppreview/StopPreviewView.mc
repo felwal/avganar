@@ -14,6 +14,9 @@
 using Toybox.Graphics;
 using Toybox.WatchUi;
 
+//! The preview is functionally equivalent to and replaces `StopGlanceView`
+//! on devices not supporting glance.
+//! This is mostly to reduce computation on merely scrolling past the widget.
 class StopPreviewView extends WatchUi.View {
 
     // init

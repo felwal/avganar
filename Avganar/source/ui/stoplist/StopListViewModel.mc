@@ -205,6 +205,7 @@ class StopListViewModel {
         return stopCursor - getFavoriteCount();
     }
 
+    //! Scroll down
     function incStopCursor() {
         if (isShowingMessage() && isRerequestable()) {
             _requestNearbyStops();
@@ -215,7 +216,11 @@ class StopListViewModel {
         _rotStopCursor(1);
     }
 
+    //! Scroll up
+    //! @return true if successfully rotating,
     function decStopCursor() {
+        // if the user has no favorites, scrolling off-screen
+        // should not result in going back round.
         if (getFavoriteCount() == 0 && stopCursor == 0) {
             return false;
         }

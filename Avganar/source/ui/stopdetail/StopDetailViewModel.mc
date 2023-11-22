@@ -84,6 +84,8 @@ class StopDetailViewModel {
 
     // read
 
+    //! Get only the departures that should be
+    //! displayed on the current page
     function getPageResponse() {
         var responseAndMode = stop.getModeResponse(modeCursor);
         var modeResponse = responseAndMode[0];
@@ -127,6 +129,7 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
+    //! Scrolling down
     function incCursor() {
         if (isDepartureState) {
             if (departureCursor < DEPARTURES_PER_PAGE - 1
@@ -145,6 +148,7 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
+    //! Scrolling up
     function decCursor() {
         if (isDepartureState) {
             if (departureCursor > 0) {

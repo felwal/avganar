@@ -39,7 +39,9 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onSwipe(swipeEvent) {
-        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
+        // enable swiping left between modes.
+        // swiping right is disabled to avoid interference with ´onBack´.
+        if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT && !_viewModel.isDepartureState) {
             _viewModel.onNextMode();
             return true;
         }
@@ -61,6 +63,7 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
     function onBack() {
         if (_viewModel.isDepartureState) {
+            // exit departure selection
             _viewModel.isDepartureState = false;
             WatchUi.requestUpdate();
             return true;

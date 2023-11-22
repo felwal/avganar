@@ -14,6 +14,7 @@
 using Toybox.Graphics;
 using Toybox.Math;
 
+//! Draw more complex but common widgets.
 module WidgetUtil {
 
     // directions

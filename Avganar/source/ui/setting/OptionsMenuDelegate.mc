@@ -13,6 +13,7 @@
 
 using Toybox.WatchUi;
 
+//! The StopList options menu, handling favorites and about info.
 class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     static const ITEM_FAVORITE_ADD = :addFavorite;

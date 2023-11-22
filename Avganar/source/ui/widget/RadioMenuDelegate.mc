@@ -13,6 +13,7 @@
 
 using Toybox.WatchUi;
 
+//! An abstraction for creating select-one options menus.
 class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     hidden var _menu;

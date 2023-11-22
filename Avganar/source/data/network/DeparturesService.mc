@@ -14,9 +14,10 @@
 using Toybox.Communications;
 using Toybox.WatchUi;
 
+//! Requests and handles departure data.
 class DeparturesService {
 
-    // Realtidsinformation 4
+    // API: SL Departures 4
     // Bronze: 10_000/month, 30/min
 
     hidden var _stop;

@@ -50,11 +50,12 @@ class DialogView extends WatchUi.View {
     function _draw(dc) {
         Graphite.resetColor(dc);
 
+        // text
         WidgetUtil.drawPreviewTitle(dc, _viewModel.title, _viewModel.iconRezId, true);
-
         Graphite.fillTextArea(dc, _viewModel.getMessage(), Graphene.COLOR_WHITE);
         Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
 
+        // arrow
         if (_transition == WatchUi.SLIDE_DOWN) {
             WidgetUtil.drawBottomPageArrow(dc);
         }

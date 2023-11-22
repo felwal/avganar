@@ -14,6 +14,7 @@
 using Toybox.Graphics;
 using Toybox.WatchUi;
 
+//! The glance displays app name and last saved nearest stop.
 (:glance :glanceExclusive)
 class StopGlanceView extends WatchUi.GlanceView {
 

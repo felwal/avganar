@@ -15,9 +15,10 @@ using Toybox.Communications;
 using Toybox.Lang;
 using Toybox.WatchUi;
 
+// Requests and handles stop data.
 module NearbyStopsService {
 
-    // Närliggande hållplatser 2
+    // API: SL Nearby Stops 2
     // Bronze: 10_000/month, 30/min
 
     // edges of the operator zone, with an extra 2 km offset

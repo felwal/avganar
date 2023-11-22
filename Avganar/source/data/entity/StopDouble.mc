@@ -11,6 +11,12 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+//! The StopDouble represents a stop which has the same
+//! id as another stop, but different name.
+//! Since the ids are the same, they should present the same content.
+//!
+//! Must have the same interface as `Stop` since we often don't
+//! know whether our stops are of `Stop` or `StopDouble`.
 class StopDouble {
 
     var name;

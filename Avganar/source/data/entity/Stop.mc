@@ -13,6 +13,8 @@
 
 using Toybox.Lang;
 
+//! Must have the same interface as `StopDouble` since we often don't
+//! know whether our stops are of `Stop` or `StopDouble`.
 class Stop {
 
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;

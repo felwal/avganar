@@ -13,6 +13,7 @@
 
 using Toybox.WatchUi;
 
+//! The StopList settings menu, handling user preferences.
 class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     static const ITEM_VIBRATE = :vibrateOnResponse;

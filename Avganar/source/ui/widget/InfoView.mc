@@ -15,6 +15,8 @@ using Toybox.Graphics;
 using Toybox.Math;
 using Toybox.WatchUi;
 
+//! An asbtraction for an info/about page, similar to
+//! the stock Menu/Settings/System/About page.
 class InfoView extends WatchUi.View {
 
     hidden var _text;
