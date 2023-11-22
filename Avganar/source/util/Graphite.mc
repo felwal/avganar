@@ -60,12 +60,12 @@ module Graphite {
 
     //! Set the current foreground color
     function setColor(dc, foreground) {
-        dc.setColor(foreground, Graphene.COLOR_BLACK);
+        dc.setColor(foreground, AppColors.BACKGROUND);
     }
 
     //! Set the current fg and bg colors to white and black
     function resetColor(dc) {
-        dc.setColor(Graphene.COLOR_WHITE, Graphene.COLOR_BLACK);
+        dc.setColor(Graphene.COLOR_WHITE, AppColors.BACKGROUND);
     }
 
     function resetPenWidth(dc) {

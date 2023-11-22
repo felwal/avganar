@@ -66,7 +66,8 @@ class StopDetailView extends WatchUi.View {
                 WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
             }
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor, AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
+            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor,
+                AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
             WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
 
             // stop deviation
@@ -161,10 +162,10 @@ class StopDetailView extends WatchUi.View {
         var fh = dc.getFontHeight(fontMode);
         var r = Math.ceil(fh / 2f);
 
-        Graphite.setColor(dc, Graphene.COLOR_WHITE);
+        Graphite.setColor(dc, AppColors.BACKGROUND_INVERTED);
         dc.fillCircle(xMode, yMode + r, r + 2);
 
-        dc.setColor(AppColors.PRIMARY_DK, Graphene.COLOR_WHITE);
+        dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);
         dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
@@ -204,7 +205,7 @@ class StopDetailView extends WatchUi.View {
 
             // strikethrough
             if (departure.cancelled) {
-                Graphite.strokeRectangle(dc, xText, y, dc.getWidth() - xText, px(1), px(2), textColor, Graphene.COLOR_BLACK);
+                Graphite.strokeRectangle(dc, xText, y, dc.getWidth() - xText, px(1), px(2), textColor, AppColors.BACKGROUND);
             }
         }
     }

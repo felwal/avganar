@@ -41,8 +41,8 @@ class InfoView extends WatchUi.View {
     // draw
 
     function _draw(dc) {
-        Graphite.fillBackground(dc, Graphene.COLOR_WHITE);
-        Graphite.fillTextArea(dc, _text, Graphene.COLOR_BLACK);
+        Graphite.fillBackground(dc, AppColors.BACKGROUND_INVERTED);
+        Graphite.fillTextArea(dc, _text, AppColors.TEXT_INVERTED);
     }
 
 }

@@ -14,9 +14,13 @@
 //! The colors used in the app.
 module AppColors {
 
+    const BACKGROUND = Graphene.COLOR_BLACK;
+    const BACKGROUND_INVERTED = Graphene.COLOR_WHITE;
+
     const TEXT_PRIMARY = Graphene.COLOR_WHITE;
     const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
     const TEXT_TERTIARY = Graphene.COLOR_DK_GRAY;
+    const TEXT_INVERTED = Graphene.COLOR_BLACK;
 
     const PRIMARY = Graphene.COLOR_CERULIAN;
     const PRIMARY_DK = Graphene.COLOR_DR_BLUE;
@@ -27,6 +31,7 @@ module AppColors {
     const ON_PRIMARY_TERTIARY = Graphene.COLOR_DK_BLUE;
 
     const WARNING = Graphene.COLOR_VERMILION;
+    const ERROR = Graphene.COLOR_RED;
 
     // departure
 

@@ -45,7 +45,7 @@ class StopGlanceView extends WatchUi.GlanceView {
         // title
         var font = Graphics.FONT_GLANCE;
         var fh = dc.getFontHeight(font);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK); // TODO: remove?
         dc.drawText(0, cy - fh - px(1), font, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
 
         // caption

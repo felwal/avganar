@@ -52,7 +52,7 @@ class DialogView extends WatchUi.View {
 
         // text
         WidgetUtil.drawPreviewTitle(dc, _viewModel.title, _viewModel.iconRezId, true);
-        Graphite.fillTextArea(dc, _viewModel.getMessage(), Graphene.COLOR_WHITE);
+        Graphite.fillTextArea(dc, _viewModel.getMessage(), AppColors.TEXT_PRIMARY);
         Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
 
         // arrow
