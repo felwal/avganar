@@ -16,7 +16,7 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 **Färgkodning**:
 
 1. Avgångstider: planerade (vit), förväntade (grön)
-2. Avvikelsers viktighetsnivå: låg (gul), medium (orange), hög (röd)
+2. Avvikelsers viktighetsnivå: låg (gul), medium (orange), hög (röd), inställd (genomstruken)
 3. Transporttyp: matchar SL:s färgkodning
 
 **Behörigheter**. Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.

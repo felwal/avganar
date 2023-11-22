@@ -16,7 +16,7 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 **Color coding**:
 
 1. Departure times: planned (white), expected (green)
-2. Deviation importance level: low (yellow), medium (orange), high (red)
+2. Deviation importance level: low (yellow), medium (orange), high (red), cancelled (strikethrough)
 3. Transport mode: matches SLs color coding
 
 **Permissions**. The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
