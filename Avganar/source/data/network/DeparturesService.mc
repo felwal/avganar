@@ -154,6 +154,12 @@ class DeparturesService {
                 var deviationMessages = [];
                 var cancelled = false;
 
+                // NOTE: API limitation
+                // remove duplicate "subline" in e.g. "571X X Arlandastad"
+                if (destination.substring(0, 2).equals(StringUtil.charAt(line, line.length() - 1) + " ")) {
+                    destination = destination.substring(2, destination.length());
+                }
+
                 // departure deviations
                 for (var i = 0; i < deviations.size(); i++) {
                     var msg = DictUtil.get(deviations[i], "Text", null);
