@@ -11,6 +11,7 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+//! NOTE: API limitation
 //! The StopDouble represents a stop which has the same
 //! id as another stop, but different name.
 //! Since the ids are the same, they should present the same content.
