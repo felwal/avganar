@@ -232,6 +232,7 @@ class DeparturesService {
     }
 
     hidden function _cleanDeviationMessage(msg) {
+        // NOTE: API limitation
         // remove references at the end of messages
 
         var references = [
@@ -242,7 +243,8 @@ class DeparturesService {
             "Läs mer på sl.se",
             "Se sl.se.",
             "Se sl.se",
-            ", se sl.se"
+            ", se sl.se",
+            "Läs mer på Trafikläget."
         ];
 
         for (var j = 0; j < references.size(); j++) {
