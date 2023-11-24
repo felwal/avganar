@@ -207,7 +207,12 @@ class DeparturesService {
             var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
             msg = _splitDeviationMessageByLang(msg);
             msg = _cleanDeviationMessage(msg);
-            stopDeviationMessages.add(msg);
+
+            // NOTE: API limitation
+            // sometimes we get duplicate deviation messages. skip these.
+            if (!ArrUtil.contains(stopDeviationMessages, msg)) {
+                stopDeviationMessages.add(msg);
+            }
         }
 
         _stop.setDeviation(stopDeviationMessages);
