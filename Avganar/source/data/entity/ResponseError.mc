@@ -23,6 +23,7 @@ class ResponseError {
     // HTTP
     static var HTTP_OK = 200;
     static var HTTP_NOT_FOUND = 404;
+    static var HTTP_NO_CODE = 1002;
 
     // custom
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
@@ -60,7 +61,7 @@ class ResponseError {
         if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
-        else if (_code == Communications.UNKNOWN_ERROR) {
+        else if (_code == Communications.UNKNOWN_ERROR || _code == HTTP_NO_CODE) {
             _title = rez(Rez.Strings.msg_e_unknown);
         }
         else if (!hasConnection()) {
