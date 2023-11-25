@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.6.1
+
+- Buggfixar och förbättringar
+- Stöd descentmk343mm
+
 ### 1.6.0
 
 - Visa om avgångstider är planerade (vit) eller förväntade (grön)
