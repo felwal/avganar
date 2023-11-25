@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.6.1
+
+- Bug fixes and improvements
+- Add support for descentmk343mm
+
 ### 1.6.0
 
 - Display if departure times are planned (white) or expected (green)
