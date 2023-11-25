@@ -147,6 +147,12 @@ class DeparturesService {
                 var deviationMessages = [];
                 var cancelled = false;
 
+                // NOTE: API limitation
+                // remove duplicate "subline" in e.g. "571X X Arlandastad"
+                if (destination.substring(0, 2).equals(StringUtil.charAt(line, line.length() - 1) + " ")) {
+                    destination = destination.substring(2, destination.length());
+                }
+
                 // departure deviations
                 for (var i = 0; i < deviations.size(); i++) {
                     var msg = DictUtil.get(deviations[i], "Text", null);
@@ -193,7 +199,12 @@ class DeparturesService {
             var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
             msg = _splitDeviationMessageByLang(msg);
             msg = _cleanDeviationMessage(msg);
-            stopDeviationMessages.add(msg);
+
+            // NOTE: API limitation
+            // sometimes we get duplicate deviation messages. skip these.
+            if (!ArrUtil.contains(stopDeviationMessages, msg)) {
+                stopDeviationMessages.add(msg);
+            }
         }
 
         _stop.setDeviation(stopDeviationMessages);
@@ -217,6 +228,7 @@ class DeparturesService {
     }
 
     hidden function _cleanDeviationMessage(msg) {
+        // NOTE: API limitation
         // remove references at the end of messages
 
         var references = [
@@ -227,7 +239,8 @@ class DeparturesService {
             "Läs mer på sl.se",
             "Se sl.se.",
             "Se sl.se",
-            ", se sl.se"
+            ", se sl.se",
+            "Läs mer på Trafikläget."
         ];
 
         for (var j = 0; j < references.size(); j++) {

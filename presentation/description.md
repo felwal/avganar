@@ -15,22 +15,22 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 **Color coding**:
 
-1. Departure times: planned (white), expected (green)
-2. Deviation importance level: low (yellow), medium (orange), high (red), cancelled (strikethrough)
-3. Transport mode: matches SLs color coding
+- Departure times: planned (white), expected (green)
+- Deviation importance level: low (yellow), medium (orange), high (red), cancelled (strikethrough)
+- Transport mode: matches SLs color coding
 
-**Permissions**. The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
+**Permissions** – The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
 
-**APIs**. Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 4". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
+**APIs** – Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 4". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
 
-**Privacy**. By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
+**Privacy** – By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
-**Support**. For support, please contact me at felwal.studios@proton.me.
+**Support** – For support, please contact me at felwal.studios@proton.me.
 
 **Keywords**: public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
 
 ## FAQ
 
-**Nearby stops aren't updating**. Fetching nearby stops requires a GPS signal which might take some time. Try waiting a while, or going outside. The progress bar indicates if the app is waiting for location (⅓) or for API response (⅔).
+**Nearby stops aren't updating** – Fetching nearby stops requires a GPS signal which might take some time. Try waiting a while, or going outside. The progress bar indicates if the app is waiting for location (⅓) or for API response (⅔).
 
-**I keep getting "Server Error"**. This is SLs problem and happens from time to time. All we can do is have patience.
+**I keep getting "Server Error"** – This is SLs problem and happens from time to time. All we can do is have patience.

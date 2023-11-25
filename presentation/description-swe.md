@@ -15,22 +15,22 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 
 **Färgkodning**:
 
-1. Avgångstider: planerade (vit), förväntade (grön)
-2. Avvikelsers viktighetsnivå: låg (gul), medium (orange), hög (röd), inställd (genomstruken)
-3. Transporttyp: matchar SL:s färgkodning
+- Avgångstider: planerade (vit), förväntade (grön)
+- Avvikelsers viktighetsnivå: låg (gul), medium (orange), hög (röd), inställd (genomstruken)
+- Transporttyp: matchar SL:s färgkodning
 
-**Behörigheter**. Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.
+**Behörigheter** – Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.
 
-**API:er**. Data hämtas från Trafiklabs API:er "SL Närliggande hållplatser 2" och "SL Realtidsinformation 4". Avgånär är inte på något sätt ansluten till Trafiklab eller SL. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta.
+**API:er** – Data hämtas från Trafiklabs API:er "SL Närliggande hållplatser 2" och "SL Realtidsinformation 4". Avgånär är inte på något sätt ansluten till Trafiklab eller SL. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta.
 
-**Integritet**. Genom att ladda ned och använda appen godkänner du integritetspolicyn (https://github.com/felwal/avganar/blob/main/PRIVACY.md). I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
+**Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn (https://github.com/felwal/avganar/blob/main/PRIVACY.md). I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
 
-**Support**. För support, vänligen kontakta mig via felwal.studios@proton.me.
+**Support** – För support, vänligen kontakta mig via felwal.studios@proton.me.
 
-**Nyckelord**: kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
+**Nyckelord** – kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
 
 ## FAQ
 
-**Närliggande hållpatser uppdaterar inte**. Att hämta närliggande hållplatser kräver GPS-signal vilket kan ta lite tid. Försök med att vänta ett tag, eller gå utomhus. Progress-baren indikerar om appen väntar på platsdata (⅓) eller på API-svar (⅔).
+**Närliggande hållpatser uppdaterar inte** – Att hämta närliggande hållplatser kräver GPS-signal vilket kan ta lite tid. Försök med att vänta ett tag, eller gå utomhus. Progress-baren indikerar om appen väntar på platsdata (⅓) eller på API-svar (⅔).
 
-**Jag fortsätter att få "Serverfel"**. Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.
+**Jag fortsätter att få "Serverfel"** – Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.

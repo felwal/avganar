@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.6.1
+
+- Buggfixar och förbättringar
+- Stöd descentmk343mm
+
 ### 1.6.0
 
 - Visa om avgångstider är planerade (vit) eller förväntade (grön)
@@ -7,7 +12,7 @@
 - Lägg till vy för avgång-avvikelser (nå via avgång-val)
 - Avvikelse-meddelanden:
   - Respektera språkinställningar när möjligt
-  - Ta bort onödiga "se sl.se" och liknande
+  - Ta bort onödiga "se sl-se" och liknande
 - Buggfixar och förbättringar
 - Stöd venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 

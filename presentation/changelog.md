@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.6.1
+
+- Bug fixes and improvements
+- Add support for descentmk343mm
+
 ### 1.6.0
 
 - Display if departure times are planned (white) or expected (green)
@@ -7,7 +12,7 @@
 - Add departure deviations view (access via departure selection)
 - Deviation messages:
   - Respect language settings when possible
-  - Remove unnecessary "visit sl.se" messages
+  - Remove unnecessary "visit sl-se" messages
 - Bug fixes and improvements
 - Add support for venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 

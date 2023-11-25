@@ -489,9 +489,9 @@ module WidgetUtil {
             if (cursor == paneSize) {
                 drawHeader(dc, px(84), paneColors[0], paneStrokeColor, paneHint, paneColors[3]);
                 Graphite.setColor(dc, paneColors[3]);
-                if (hasPane) {
-                    drawUpArrow(dc, px(84));
-                }
+                // (app specific) show up arrow even if pane is empty,
+                // to indicate navigation to empty page dialog
+                drawUpArrow(dc, px(84));
             }
             else if (cursor == paneSize + 1) {
                 drawHeader(dc, px(42), paneColors[0], paneStrokeColor, null, null);
