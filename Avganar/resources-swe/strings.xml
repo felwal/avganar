@@ -19,6 +19,7 @@
     <string id="msg_e_memory">Slut på minne</string>
     <string id="msg_e_cancelled">Begäran avbröts</string>
     <string id="msg_e_timeout">Begäran utgick</string>
+    <string id="msg_e_not_found">Ogiltig begäran</string>
     <string id="msg_e_general">Fel</string>
 
     <!-- response error -->
