@@ -3,6 +3,7 @@
 ### 1.6.2
 
 - Migrera till den nya API URL:en (Nearby Stops)
+  - Vänligen uppdatera senast 2024-03-14
 
 ### 1.6.1
 

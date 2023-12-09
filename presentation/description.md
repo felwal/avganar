@@ -33,4 +33,6 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 **Nearby stops aren't updating** – Fetching nearby stops requires a GPS signal which might take some time. Try waiting a while, or going outside. The progress bar indicates if the app is waiting for location (⅓) or for API response (⅔).
 
+**I keep getting "Invalid Request"** – This is likely due to breaking API changes. Please try updating to the latest version.
+
 **I keep getting "Server Error"** – This is SLs problem and happens from time to time. All we can do is have patience.

@@ -3,6 +3,7 @@
 ### 1.6.2
 
 - Migrate to the new API URL (Nearby Stops)
+  - Please update by 2024-03-14
 
 ### 1.6.1
 

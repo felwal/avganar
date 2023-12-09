@@ -33,4 +33,6 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 
 **Närliggande hållpatser uppdaterar inte** – Att hämta närliggande hållplatser kräver GPS-signal vilket kan ta lite tid. Försök med att vänta ett tag, eller gå utomhus. Progress-baren indikerar om appen väntar på platsdata (⅓) eller på API-svar (⅔).
 
+**Jag fortsätter få "Ogiltig begäran"** – Detta är troligen pga API-förändringar. Vänligen pröva uppdatera till den senaste versionen.
+
 **Jag fortsätter att få "Serverfel"** – Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.
