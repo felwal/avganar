@@ -50,6 +50,13 @@ class StopListViewModel {
     // position
 
     hidden function _requestPosition() {
+        // check if location use is turned off
+        if (!SettingsStorage.getUseLocation()) {
+            NearbyStopsStorage.setResponse([], [], null);
+            WatchUi.requestUpdate();
+            return;
+        }
+
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(false);
@@ -77,7 +84,8 @@ class StopListViewModel {
     }
 
     hidden function _isPositioned() {
-        return Footprint.isPositioned() || DEBUG;
+        return (Footprint.isPositioned() || DEBUG)
+            && SettingsStorage.getUseLocation();
     }
 
     // service
@@ -101,9 +109,16 @@ class StopListViewModel {
     function getMessage() {
         var response = NearbyStopsStorage.response;
 
-        return response == null
-            ? rez(_isPositioned() ? Rez.Strings.msg_i_stops_requesting : Rez.Strings.msg_i_stops_no_gps)
-            : (response instanceof ResponseError ? response.getTitle() : response);
+        if (response == null) {
+            return rez(_isPositioned()
+                ? Rez.Strings.msg_i_stops_requesting
+                : (SettingsStorage.getUseLocation()
+                    ? Rez.Strings.msg_i_stops_no_gps
+                    : Rez.Strings.msg_i_stops_location_off));
+        }
+        else {
+            return response instanceof ResponseError ? response.getTitle() : response;
+        }
     }
 
     function hasStops() {

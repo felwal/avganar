@@ -5,6 +5,7 @@
     <!-- status message -->
     <string id="msg_i_stops_no_gps">Väntar på GPS ...</string>
     <string id="msg_i_stops_requesting">Läser in ...</string>
+    <string id="msg_i_stops_location_off">Platsdata är av</string>
     <string id="msg_i_departures_requesting">Läser in ...</string>
 
     <!-- response message -->
@@ -63,10 +64,11 @@
 
     <!-- settings -->
     <string id="itm_settings_max_stops">Högst antal hållplatser</string>
+    <string id="itm_settings_location">Använd platsdata</string>
+    <string id="itm_settings_vibrate">Vibrera vid svar</string>
     <string id="itm_settings_max_departures">Högst antal avgångar</string>
     <string id="itm_settings_max_departures_unlimited">Ingen gräns</string>
     <string id="itm_settings_time_window">Största tidsfönster</string>
-    <string id="itm_settings_vibrate">Vibrera vid svar</string>
     <string id="itm_settings_minute_symbol">Minut-symbol</string>
 
     <!-- info -->

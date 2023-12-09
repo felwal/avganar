@@ -16,6 +16,7 @@ using Toybox.Application.Storage;
 //! Handles storage for user preferences.
 module SettingsStorage {
 
+    const _STORAGE_LOCATION = "use_location";
     const _STORAGE_VIBRATE = "vibrate_on_response";
     const _STORAGE_MAX_STOPS = "max_no_stops";
     const _STORAGE_MAX_DEPARTURES = "max_no_departures";
@@ -23,6 +24,10 @@ module SettingsStorage {
     const _STORAGE_MINUTE_SYMBOL = "minute_symbol";
 
     // read
+
+    function getUseLocation() {
+        return StorageUtil.getValue(_STORAGE_LOCATION, true);
+    }
 
     function getVibrateOnResponse() {
         return StorageUtil.getValue(_STORAGE_VIBRATE, true);
@@ -49,6 +54,10 @@ module SettingsStorage {
     }
 
     // write
+
+    function setUseLocation(enabled) {
+        Storage.setValue(_STORAGE_LOCATION, enabled);
+    }
 
     function setVibrateOnResponse(enabled) {
         Storage.setValue(_STORAGE_VIBRATE, enabled);

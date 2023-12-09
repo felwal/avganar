@@ -34,8 +34,13 @@ module NearbyStopsService {
     // request
 
     function requestNearbyStops(lat, lon) {
+        // final check if location use is turned off
+        if (!SettingsStorage.getUseLocation()) {
+            NearbyStopsStorage.setResponse([], [], null);
+            WatchUi.requestUpdate();
+        }
         // check if outside bounds, to not make unnecessary calls outside the operator zone
-        if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
+        else if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
 
             if (lat != 0.0 || lon != 0.0) {

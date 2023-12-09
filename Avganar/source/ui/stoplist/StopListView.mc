@@ -83,6 +83,9 @@ class StopListView extends WatchUi.View {
         if (NearbyStopsService.isRequesting) {
             progress = MathUtil.recursiveShare(0.5f, 0.33f, NearbyStopsStorage.failedRequestCount);
         }
+        else if (!SettingsStorage.getUseLocation()) {
+            return;
+        }
         else if (!Footprint.isPositionRegistered) {
             progress = 0.33f;
         }
