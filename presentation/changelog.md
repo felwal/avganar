@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.6.2
+
+- Migrate to the new API URL (Nearby Stops)
+
 ### 1.6.1
 
 - Bug fixes and improvements

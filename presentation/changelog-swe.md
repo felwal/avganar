@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.6.2
+
+- Migrera till den nya API URL:en (Nearby Stops)
+
 ### 1.6.1
 
 - Buggfixar och förbättringar
