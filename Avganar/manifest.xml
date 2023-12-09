@@ -24,7 +24,7 @@ If not, see <https://www.gnu.org/licenses/>.
         minSdkVersion="3.1.0"
         name="@Strings.app_name"
         type="widget"
-        version="1.6.1">
+        version="1.6.2">
 
         <iq:products>
             <iq:product id="approachs7042mm" />
