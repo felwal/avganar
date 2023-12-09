@@ -87,33 +87,55 @@ module NearbyStopsStorage {
         response = _nearbyStopIds.size() == 0 ? null : _buildStops(_nearbyStopIds, _nearbyStopNames);
     }
 
-    function createStop(id, name, existingNearbyStop) {
+    //! Create a new stop, a `StopDouble`, refer to another, or return `null`
+    //! depending on if it already exists with `id` and `name`
+    function createStop(id, name, currentlyNearbyStops) {
         var fav = FavoriteStopsStorage.getFavorite(id, name);
-        var stop;
+        var previouslyNearbyStop = getStopByIdAndName(id, name);
 
-        if (fav != null) {
+        // check if stop already exists as nearby
+        if (currentlyNearbyStops.size() != 0) {
+            var stopDouble = null;
+
+            for (var i = 0; i < currentlyNearbyStops.size(); i++) {
+                if (currentlyNearbyStops[i].name.equals(name)) {
+                    // ignore duplicates of both id and name.
+                    // takes priority over creating a double.
+                    return null;
+                }
+                else if (stopDouble == null) {
+                    // create a double if same id but different name
+                    stopDouble = new StopDouble(currentlyNearbyStops[i], name);
+                }
+            }
+
+            return stopDouble;
+        }
+        // check if stop already exists as favorite
+        else if (fav != null) {
             if (fav.name.equals(name)) {
-                stop = fav;
+                // use existing stop if same id and name
+                return fav;
             }
             else {
-                stop = new StopDouble(fav, name);
+                // create a double if same id but different name
+                return new StopDouble(fav, name);
             }
         }
-        // we can use `else if ` because
-        // if both are non-null they refer to the same stop
-        else if (existingNearbyStop != null) {
-            if (existingNearbyStop.name.equals(name)) {
-                stop = existingNearbyStop;
+        // check if stop exists as nearby in last response
+        else if (previouslyNearbyStop != null) {
+            if (previouslyNearbyStop.name.equals(name)) {
+                // use existing stop if same id and name
+                return previouslyNearbyStop;
             }
             else {
-                stop = new StopDouble(existingNearbyStop, name);
+                // create a double if same id but different name
+                return new StopDouble(previouslyNearbyStop, name);
             }
-        }
-        else {
-            return new Stop(id, name);
         }
 
-        return stop;
+        // if no existing stops of same id, create new stop
+        return new Stop(id, name);
     }
 
     function _buildStops(ids, names) {
@@ -121,9 +143,9 @@ module NearbyStopsStorage {
         var addedIds = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var existingId = addedIds.indexOf(ids[i]);
-            var existingStop = existingId != -1 ? stops[existingId] : null;
-            var stop = createStop(ids[i], names[i], existingStop);
+            var existingIdIndices = ArrUtil.indexOfAll(addedIds, ids[i]);
+            var existingStops = ArrUtil.getAll(stops, existingIdIndices);
+            var stop = createStop(ids[i], names[i], existingStops);
 
             stops.add(stop);
             addedIds.add(ids[i]);

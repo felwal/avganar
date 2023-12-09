@@ -19,7 +19,7 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 
 ## APIs
 
-Avgånär uses SL's APIs, provided by Trafiklab:
+Avgånär uses SL's APIs, provided by [Trafiklab](trafiklab.se):
 
 - [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
 - [SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)

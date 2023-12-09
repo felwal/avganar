@@ -50,14 +50,16 @@ module NearbyStopsService {
     function _requestNearbyStops(lat, lon) {
         isRequesting = true;
 
-        var url = "https://api.sl.se/api2/nearbystopsv2";
+        // transition to new url 2023-12-04--2024-03-15
+        var url = "https://journeyplanner.integration.sl.se/v1/nearbystopsv2.json";
 
         var params = {
             "key" => API_KEY_STOPS,
             "originCoordLat" => lat,
             "originCoordLong" => lon,
             "r" => _MAX_RADIUS,
-            "maxNo" => def(NearbyStopsStorage.maxStops, SettingsStorage.getMaxStops())
+            "maxNo" => def(NearbyStopsStorage.maxStops, SettingsStorage.getMaxStops()),
+            "type" => "S" // stations only
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
@@ -123,14 +125,20 @@ module NearbyStopsService {
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
 
-            var existingIdIndex = stopIds.indexOf(id);
-            var existingStop = existingIdIndex == -1
-                ? NearbyStopsStorage.getStopByIdAndName(id, name)
-                : stops[existingIdIndex];
+            // we need to consider all existing stops, since
+            // "id1 name1" should return existing "id1 name1" over "id1 name2"
+            var existingIdIndices = ArrUtil.indexOfAll(stopIds, id);
+            var existingStops = ArrUtil.getAll(stops, existingIdIndices);
+
+            // stop will be null if it is a duplicate in both `id` and `name`
+            var stop = NearbyStopsStorage.createStop(id, name, existingStops);
+            if (stop == null) {
+                continue;
+            }
 
             stopIds.add(id);
             stopNames.add(name);
-            stops.add(NearbyStopsStorage.createStop(id, name, existingStop));
+            stops.add(stop);
         }
 
         NearbyStopsStorage.setResponse(stopIds, stopNames, stops);

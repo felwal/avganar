@@ -59,6 +59,36 @@ module ArrUtil {
             : def;
     }
 
+    function getAll(arr, indices) {
+        var items = [];
+
+        for (var i = 0; i < indices.size(); i++) {
+            var index = indices[i];
+            items.add(arr[index]);
+        }
+
+        return items;
+    }
+
+    function indexOfAll(arr, item) {
+        var indices = [];
+        var index = null;
+        var sliceIndex = 0;
+
+        for (var i = 0; i < arr.size(); i++) {
+            index = arr.indexOf(item);
+            if (index == -1) {
+                break;
+            }
+
+            indices.add(index + sliceIndex);
+            arr = arr.slice(index + 1, arr.size());
+            sliceIndex += index + 1;
+        }
+
+        return indices;
+    }
+
     function coerceGet(arr, index) {
         return arr.size() > 0
             ? arr[MathUtil.coerceIn(index, 0, arr.size() - 1)]

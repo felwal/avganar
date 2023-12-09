@@ -61,6 +61,9 @@ class ResponseError {
         if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
+        else if (_code == HTTP_NOT_FOUND) {
+            _title = rez(Rez.Strings.msg_e_not_found);
+        }
         else if (_code == Communications.UNKNOWN_ERROR || _code == HTTP_NO_CODE) {
             _title = rez(Rez.Strings.msg_e_unknown);
         }
@@ -117,8 +120,7 @@ class ResponseError {
 
     function hasConnection() {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
-            && _code != Communications.NETWORK_REQUEST_TIMED_OUT
-            && _code != HTTP_NOT_FOUND;
+            && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
     }
 
     function isRerequestable() {
