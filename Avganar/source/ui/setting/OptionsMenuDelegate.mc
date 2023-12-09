@@ -122,7 +122,7 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
             view = new InfoView(text);
         }
         else if (id == ITEM_RESET) {
-            // does not request immediatly,
+            // does not request immediately,
             // but thats ok since it is a dev-temp
             NearbyStopsStorage.setResponse([], [], null);
         }

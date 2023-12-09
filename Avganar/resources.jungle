@@ -13,6 +13,8 @@
 
 base.resourcePath = resources
 
+# refer to https://developer.garmin.com/connect-iq/reference-guides/devices-reference/
+
 # screen size
 
 # 218x218

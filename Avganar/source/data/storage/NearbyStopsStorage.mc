@@ -48,6 +48,11 @@ module NearbyStopsStorage {
         Storage.setValue(_STORAGE_NEARBY_STOP_NAMES, _nearbyStopNames);
     }
 
+    //! The response is represented by:
+    //! - `Array<Stop>` - success
+    //! - `ResponseError` - error
+    //! - `String` - response message (e.g. "No Stops")
+    //! - `null` - status message (e.g. "Loading ...", determined in `StopListViewModel#getMessage`)
     function setResponse(stopIds, stopNames, response_) {
         // for each too large response, halve the time window
         if (response_ instanceof ResponseError && response_.isTooLarge()) {

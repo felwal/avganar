@@ -109,6 +109,7 @@ class StopListViewModel {
     function getMessage() {
         var response = NearbyStopsStorage.response;
 
+        // status message
         if (response == null) {
             return rez(_isPositioned()
                 ? Rez.Strings.msg_i_stops_requesting
@@ -116,6 +117,7 @@ class StopListViewModel {
                     ? Rez.Strings.msg_i_stops_no_gps
                     : Rez.Strings.msg_i_stops_location_off));
         }
+        // error or response message
         else {
             return response instanceof ResponseError ? response.getTitle() : response;
         }

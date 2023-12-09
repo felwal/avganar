@@ -59,13 +59,13 @@
     <string id="itm_options_favorite_remove">Ta bort från favoriter</string>
     <string id="itm_options_favorite_move_up">Flytta upp</string>
     <string id="itm_options_favorite_move_down">Flytta ned</string>
-    <string id="lbl_settings_title">Inställningar</string>
     <string id="itm_options_about">Om</string>
 
     <!-- settings -->
-    <string id="itm_settings_max_stops">Högst antal hållplatser</string>
+    <string id="lbl_settings_title">Inställningar</string>
     <string id="itm_settings_location">Använd platsdata</string>
     <string id="itm_settings_vibrate">Vibrera vid svar</string>
+    <string id="itm_settings_max_stops">Högst antal hållplatser</string>
     <string id="itm_settings_max_departures">Högst antal avgångar</string>
     <string id="itm_settings_max_departures_unlimited">Ingen gräns</string>
     <string id="itm_settings_time_window">Största tidsfönster</string>
