@@ -93,15 +93,20 @@ module NearbyStopsStorage {
     }
 
     //! Create a new stop, a `StopDouble`, refer to another, or return `null`
-    //! depending on if it already exists with `id` and `name`
-    function createStop(id, name, currentlyNearbyStops) {
-        var fav = FavoriteStopsStorage.getFavorite(id, name);
-        var previouslyNearbyStop = getStopByIdAndName(id, name);
+    //! depending on if it already exists with `id` or `id` and `name`
+    function createStop(id, name, addedStopIds, addedStops) {
+        // we need to consider all existing stops, since
+        // "id1 name1" should return existing "id1 name1" over "id1 name2"
+        var addedStopsWithSameIdIndices = ArrUtil.indicesOf(addedStopIds, id);
+        var addedStopsWithSameId = ArrUtil.getAll(addedStops, addedStopsWithSameIdIndices);
+
+        var favStopWithSameId = FavoriteStopsStorage.getFavorite(id, name);
+        var previousStopsWithSameId = getStopByIdAndName(id, name);
 
         // check if stop already exists as nearby
-        if (currentlyNearbyStops.size() != 0) {
-            for (var i = 0; i < currentlyNearbyStops.size(); i++) {
-                if (currentlyNearbyStops[i].name.equals(name)) {
+        if (addedStopsWithSameId.size() != 0) {
+            for (var i = 0; i < addedStopsWithSameId.size(); i++) {
+                if (addedStopsWithSameId[i].name.equals(name)) {
                     // ignore duplicates of both id and name.
                     // takes priority over creating a double.
                     return null;
@@ -110,30 +115,30 @@ module NearbyStopsStorage {
 
             // create a double if same id but different name.
             // doesn't matter which one we take, since all have the same id
-            return new StopDouble(currentlyNearbyStops[0], name);
+            return new StopDouble(addedStopsWithSameId[0], name);
         }
 
         // check if stop already exists as favorite
-        else if (fav != null) {
-            if (fav.name.equals(name)) {
+        else if (favStopWithSameId != null) {
+            if (favStopWithSameId.name.equals(name)) {
                 // use existing stop if same id and name
-                return fav;
+                return favStopWithSameId;
             }
             else {
                 // create a double if same id but different name
-                return new StopDouble(fav, name);
+                return new StopDouble(favStopWithSameId, name);
             }
         }
 
         // check if stop exists as nearby in last response
-        else if (previouslyNearbyStop != null) {
-            if (previouslyNearbyStop.name.equals(name)) {
+        else if (previousStopsWithSameId != null) {
+            if (previousStopsWithSameId.name.equals(name)) {
                 // use existing stop if same id and name
-                return previouslyNearbyStop;
+                return previousStopsWithSameId;
             }
             else {
                 // create a double if same id but different name
-                return new StopDouble(previouslyNearbyStop, name);
+                return new StopDouble(previousStopsWithSameId, name);
             }
         }
 
@@ -142,20 +147,18 @@ module NearbyStopsStorage {
     }
 
     function _buildStops(ids, names) {
-        var stops = [];
+        var addedStops = [];
         var addedIds = [];
         var addedNames = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            var existingIdIndices = ArrUtil.indicesOf(addedIds, ids[i]);
-            var existingStops = ArrUtil.getAll(stops, existingIdIndices);
-            var stop = createStop(ids[i], names[i], existingStops);
-
+            // null if duplicate
+            var stop = createStop(ids[i], names[i], addedIds, addedStops);
             if (stop == null) {
                 continue;
             }
 
-            stops.add(stop);
+            addedStops.add(stop);
             addedIds.add(ids[i]);
             addedNames.add(names[i]);
         }
@@ -165,7 +168,7 @@ module NearbyStopsStorage {
         _nearbyStopIds = addedIds;
         _nearbyStopNames = addedNames;
 
-        return stops;
+        return addedStops;
     }
 
     function hasStops() {

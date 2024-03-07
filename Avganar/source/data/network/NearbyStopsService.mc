@@ -139,13 +139,8 @@ module NearbyStopsService {
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
 
-            // we need to consider all existing stops, since
-            // "id1 name1" should return existing "id1 name1" over "id1 name2"
-            var existingIdIndices = ArrUtil.indicesOf(stopIds, id);
-            var existingStops = ArrUtil.getAll(stops, existingIdIndices);
-
-            // stop will be null if it is a duplicate in both `id` and `name`
-            var stop = NearbyStopsStorage.createStop(id, name, existingStops);
+            // null if duplicate
+            var stop = NearbyStopsStorage.createStop(id, name, stopIds, stops);
             if (stop == null) {
                 continue;
             }
