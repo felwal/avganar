@@ -141,7 +141,7 @@ module NearbyStopsService {
 
             // we need to consider all existing stops, since
             // "id1 name1" should return existing "id1 name1" over "id1 name2"
-            var existingIdIndices = ArrUtil.indexOfAll(stopIds, id);
+            var existingIdIndices = ArrUtil.indicesOf(stopIds, id);
             var existingStops = ArrUtil.getAll(stops, existingIdIndices);
 
             // stop will be null if it is a duplicate in both `id` and `name`
