@@ -64,7 +64,9 @@ module ArrUtil {
 
         for (var i = 0; i < indices.size(); i++) {
             var index = indices[i];
-            items.add(arr[index]);
+            if (index < arr.size()) {
+                items.add(arr[index]);
+            }
         }
 
         return items;

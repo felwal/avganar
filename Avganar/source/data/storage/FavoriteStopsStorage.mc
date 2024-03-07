@@ -106,9 +106,13 @@ module FavoriteStopsStorage {
         return ArrUtil.contains(favorites, stop);
     }
 
+    function getFavoriteById(stopId) {
+        var index = _favStopIds.indexOf(stopId);
+        return ArrUtil.get(favorites, index, null);
+    }
+
     function getFavorite(stopId, stopName) {
         var index = favorites.indexOf(new StopDummy(stopId, stopName));
-
         return ArrUtil.get(favorites, index, null);
     }
 

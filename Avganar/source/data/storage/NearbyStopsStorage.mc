@@ -94,14 +94,11 @@ module NearbyStopsStorage {
 
     //! Create a new stop, a `StopDouble`, refer to another, or return `null`
     //! depending on if it already exists with `id` or `id` and `name`
-    function createStop(id, name, addedStopIds, addedStops) {
-        // we need to consider all existing stops, since
+    function createStop(id, name, addedStops, addedStopIds, addedStopNames) {
+        // we need to consider all already added stops, since
         // "id1 name1" should return existing "id1 name1" over "id1 name2"
         var addedStopsWithSameIdIndices = ArrUtil.indicesOf(addedStopIds, id);
         var addedStopsWithSameId = ArrUtil.getAll(addedStops, addedStopsWithSameIdIndices);
-
-        var favStopWithSameId = FavoriteStopsStorage.getFavorite(id, name);
-        var previousStopsWithSameId = getStopByIdAndName(id, name);
 
         // check if stop already exists as nearby
         if (addedStopsWithSameId.size() != 0) {
@@ -111,6 +108,26 @@ module NearbyStopsStorage {
                     // takes priority over creating a double.
                     return null;
                 }
+
+                // check for supernames and subnames, eg "Odenplan Vasagatan" and "Odenplan"
+                // – keep the smallest name
+                else if (name.find(addedStopsWithSameId[i].name) != null) {
+                    // new name is supername of already added
+                    // – keep that
+                    return null;
+                }
+                else if (addedStopsWithSameId[i].name.find(name) != null) {
+                    // new name is subname of already added
+                    // – keep this (in practice, just rename that)
+                    var ind = addedStops.indexOf(addedStopsWithSameId[i]);
+                    if (ind == -1) {
+                        continue;
+                    }
+
+                    addedStopsWithSameId[i].name = name; // same as addedStops[ind]
+                    addedStopNames[ind] = name;
+                    return null;
+                }
             }
 
             // create a double if same id but different name.
@@ -118,8 +135,10 @@ module NearbyStopsStorage {
             return new StopDouble(addedStopsWithSameId[0], name);
         }
 
+        var favStopWithSameId = FavoriteStopsStorage.getFavoriteById(id);
+
         // check if stop already exists as favorite
-        else if (favStopWithSameId != null) {
+        if (favStopWithSameId != null) {
             if (favStopWithSameId.name.equals(name)) {
                 // use existing stop if same id and name
                 return favStopWithSameId;
@@ -130,16 +149,17 @@ module NearbyStopsStorage {
             }
         }
 
+        var previousStopWithSameId = getStopById(id);
+
         // check if stop exists as nearby in last response
-        else if (previousStopsWithSameId != null) {
-            if (previousStopsWithSameId.name.equals(name)) {
-                // use existing stop if same id and name
-                return previousStopsWithSameId;
+        if (previousStopWithSameId != null) {
+            // use existing stop if same id
+            if (!previousStopWithSameId.name.equals(name)) {
+                // just rename if different name
+                // – we don't want StopDoubles of previous stops
+                previousStopWithSameId.name = name;
             }
-            else {
-                // create a double if same id but different name
-                return new StopDouble(previousStopsWithSameId, name);
-            }
+            return previousStopWithSameId;
         }
 
         // if no existing stops of same id, create new stop
@@ -153,7 +173,7 @@ module NearbyStopsStorage {
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
             // null if duplicate
-            var stop = createStop(ids[i], names[i], addedIds, addedStops);
+            var stop = createStop(ids[i], names[i], addedStops, addedIds, addedNames);
             if (stop == null) {
                 continue;
             }
@@ -181,6 +201,15 @@ module NearbyStopsStorage {
 
     function getStop(index) {
         return response instanceof Lang.Array ? ArrUtil.coerceGet(response, index) : null;
+    }
+
+    function getStopById(id) {
+        if (!(response instanceof Lang.Array)) {
+            return null;
+        }
+
+        var index = _nearbyStopIds.indexOf(id);
+        return ArrUtil.get(response, index, null);
     }
 
     function getStopByIdAndName(id, name) {

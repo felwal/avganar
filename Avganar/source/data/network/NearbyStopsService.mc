@@ -140,7 +140,7 @@ module NearbyStopsService {
             var name = stopData["name"];
 
             // null if duplicate
-            var stop = NearbyStopsStorage.createStop(id, name, stopIds, stops);
+            var stop = NearbyStopsStorage.createStop(id, name, stops, stopIds, stopNames);
             if (stop == null) {
                 continue;
             }
