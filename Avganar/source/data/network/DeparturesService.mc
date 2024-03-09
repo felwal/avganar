@@ -79,7 +79,9 @@ class DeparturesService {
             _stop.setResponse(new ResponseError(errorMsg));
 
             // auto rerequest if server error
-            // probably can't happen with new API
+            // TODO: probably can't happen with new API
+            // – but look for messages which might correspond
+            // with the previous server errors
             /*if (_stop.shouldAutoRerequest()) {
                 requestDepartures();
             }*/
@@ -127,6 +129,13 @@ class DeparturesService {
             var departureData = departuresData[d];
 
             var mode = departureData["line"]["transport_mode"];
+
+            // TODO: check if there are other modes we should include.
+            // for now, skip them
+            if (!modeDepartures.hasKey(mode)) {
+                continue;
+            }
+
             var group = DictUtil.get(departureData["line"], "group_of_lines", "");
             var line = departureData["line"]["designation"]; // TODO: or "id"?
             var destination = departureData["destination"]; // TODO: or "direction"?
@@ -169,9 +178,7 @@ class DeparturesService {
                 deviationLevel, deviationMessages, cancelled, isRealTime);
 
             // add to array
-            if (modeDepartures.hasKey(mode)) {
-                modeDepartures[mode].add(departure);
-            }
+            modeDepartures[mode].add(departure);
         }
 
         var departures = [];
