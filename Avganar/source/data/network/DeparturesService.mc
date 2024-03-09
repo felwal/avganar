@@ -109,7 +109,7 @@ class DeparturesService {
             Departure.MODE_TRAIN,
             Departure.MODE_TRAM,
             Departure.MODE_SHIP
-        ]; // determines ordering of modes. TODO: simplify
+        ]; // determines ordering of modes
         var modeDepartures = {
             modes[0] => [],
             modes[1] => [],
@@ -138,7 +138,7 @@ class DeparturesService {
 
             var group = DictUtil.get(departureData["line"], "group_of_lines", "");
             var line = departureData["line"]["designation"]; // TODO: or "id"?
-            var destination = departureData["destination"]; // TODO: or "direction"?
+            var destination = departureData["destination"];
             var plannedDateTime = departureData["scheduled"];
             var expectedDateTime = departureData["expected"];
             var deviations = DictUtil.get(departureData, "deviations", []);
@@ -159,19 +159,21 @@ class DeparturesService {
             // departure deviations
             for (var i = 0; i < deviations.size(); i++) {
                 var msg = DictUtil.get(deviations[i], "message", null);
-
                 if (msg != null) {
                     msg = _splitDeviationMessageByLang(msg); // (not often the case)
                     deviationMessages.add(msg);
                 }
 
-                if (deviations[i]["consequence"].equals("CANCELLED")) {
+                if ("CANCELLED".equals(deviations[i]["consequence"])) {
                     cancelled = true;
                     // don't let cancelled inform deviationLevel
                     continue;
                 }
 
-                deviationLevel = MathUtil.max(deviationLevel, deviations[i]["importance"]);
+                var level = deviations[i]["importance"];
+                if (level != null) {
+                    deviationLevel = MathUtil.max(deviationLevel, level);
+                }
             }
 
             var departure = new Departure(mode, group, line, destination, moment,
