@@ -17,8 +17,8 @@ using Toybox.WatchUi;
 //! Requests and handles departure data.
 class DeparturesService {
 
-    // API: SL Departures 4
-    // Bronze: 10_000/month, 30/min
+    // API: SL Transport 1
+    // no key, no limit
 
     hidden var _stop;
 
@@ -43,17 +43,13 @@ class DeparturesService {
         DeparturesService.isRequesting = true;
         WatchUi.requestUpdate();
 
-        var url = "https://api.sl.se/api2/realtimedeparturesv4.json";
+        var url = "https://transport.integration.sl.se/v1/sites/" + _stop.getId() + "/departures";
 
         var params = {
-            "key" => API_KEY_DEPARTURES,
-            "siteid" => _stop.getId(),
-            "timewindow" => _stop.getTimeWindow()
+            "forecast" => _stop.getTimeWindow()
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            // NOTE: url doesnt work without ".json"; set type there instead of here
-            //:responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
 
@@ -65,10 +61,7 @@ class DeparturesService {
     function onReceiveDepartures(responseCode, data) {
         DeparturesService.isRequesting = false;
 
-        if (responseCode == ResponseError.HTTP_OK && DictUtil.hasValue(data, "ResponseData")) {
-            _handleDeparturesResponseOk(data);
-        }
-        else {
+        if (responseCode != ResponseError.HTTP_OK) {
             Log.i("Departures response error (code " + responseCode + "): " + data);
 
             _stop.setResponse(new ResponseError(responseCode));
@@ -78,117 +71,116 @@ class DeparturesService {
                 requestDepartures();
             }
         }
+        else if (!DictUtil.hasValue(data, "departures")) {
+            var errorMsg = DictUtil.get(data, "message", "no error msg");
+
+            Log.i("Departures operator request error (" + errorMsg + ")");
+
+            _stop.setResponse(new ResponseError(errorMsg));
+
+            // auto rerequest if server error
+            // probably can't happen with new API
+            /*if (_stop.shouldAutoRerequest()) {
+                requestDepartures();
+            }*/
+        }
+        else {
+            _handleDeparturesResponseOk(data);
+        }
 
         WatchUi.requestUpdate();
     }
 
     hidden function _handleDeparturesResponseOk(data) {
-        var statusCode = data["StatusCode"];
-
-        // Trafiklab error
-        if (statusCode != 0) {
-            Log.i("Departures operator request error (code " + statusCode + ")");
-
-            _stop.setResponse(new ResponseError(statusCode));
-
-            // auto rerequest if server error
-            if (_stop.shouldAutoRerequest()) {
-                requestDepartures();
-            }
-
-            return;
-        }
-
         //Log.d("Departures response success: " + data);
 
-        // departure count per mode
+        var departuresData = data["departures"];
 
-        var modes = [ "Metros", "Buses", "Trains", "Trams", "Ships" ];
-        var modeCount = 0;
-
-        var maxDepartures = SettingsStorage.getMaxDepartures();
-        var maxDeparturesPerMode = null;
-
-        if (maxDepartures != -1) {
-            // get the number of active modes
-            // in order to calculate `maxDeparturesPerMode`
-            for (var m = 0; m < modes.size(); m++) {
-                var modeData = data["ResponseData"][modes[m]];
-
-                if (modeData.size() > 0) {
-                    modeCount++;
-                }
-            }
-
-            maxDeparturesPerMode = modeCount != 0
-                ? maxDepartures / modeCount
-                : 0;
+        if (departuresData.size() == 0) {
+            Log.i("Departures response empty of departures");
+            _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
+        var modes = [
+            Departure.MODE_BUS,
+            Departure.MODE_METRO,
+            Departure.MODE_TRAIN,
+            Departure.MODE_TRAM,
+            Departure.MODE_SHIP
+        ]; // determines ordering of modes. TODO: simplify
+        var modeDepartures = {
+            modes[0] => [],
+            modes[1] => [],
+            modes[2] => [],
+            modes[3] => [],
+            modes[4] => []
+        };
+
+        var maxDepartures = SettingsStorage.getMaxDepartures();
+        var departureCount = maxDepartures == -1
+            ? departuresData.size()
+            : MathUtil.min(departuresData.size(), maxDepartures);
+
         // departures
+
+        for (var d = 0; d < departureCount; d++) {
+            var departureData = departuresData[d];
+
+            var mode = departureData["line"]["transport_mode"];
+            var group = DictUtil.get(departureData["line"], "group_of_lines", "");
+            var line = departureData["line"]["designation"]; // TODO: or "id"?
+            var destination = departureData["destination"]; // TODO: or "direction"?
+            var plannedDateTime = departureData["scheduled"];
+            var expectedDateTime = departureData["expected"];
+            var deviations = DictUtil.get(departureData, "deviations", []);
+
+            var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
+            var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
+            var deviationLevel = 0;
+            var deviationMessages = [];
+            var cancelled = false;
+
+            // NOTE: API limitation
+            // TODO: check if still necessary for new API
+            // remove duplicate "subline" in e.g. "571X X Arlandastad"
+            if (destination.substring(0, 2).equals(StringUtil.charAt(line, line.length() - 1) + " ")) {
+                destination = destination.substring(2, destination.length());
+            }
+
+            // departure deviations
+            for (var i = 0; i < deviations.size(); i++) {
+                var msg = DictUtil.get(deviations[i], "message", null);
+
+                if (msg != null) {
+                    msg = _splitDeviationMessageByLang(msg); // (not often the case)
+                    deviationMessages.add(msg);
+                }
+
+                if (deviations[i]["consequence"].equals("CANCELLED")) {
+                    cancelled = true;
+                    // don't let cancelled inform deviationLevel
+                    continue;
+                }
+
+                deviationLevel = MathUtil.max(deviationLevel, deviations[i]["importance"]);
+            }
+
+            var departure = new Departure(mode, group, line, destination, moment,
+                deviationLevel, deviationMessages, cancelled, isRealTime);
+
+            // add to array
+            if (modeDepartures.hasKey(mode)) {
+                modeDepartures[mode].add(departure);
+            }
+        }
 
         var departures = [];
 
         for (var m = 0; m < modes.size(); m++) {
-            var modeData = data["ResponseData"][modes[m]];
-            var modeDepartures = [];
-
-            var departureCount = maxDeparturesPerMode == null
-                ? modeData.size()
-                : MathUtil.min(maxDeparturesPerMode, modeData.size());
-
-            for (var d = 0; d < departureCount; d++) {
-                var departureData = modeData[d];
-
-                var mode = departureData["TransportMode"];
-                var group = DictUtil.get(departureData, "GroupOfLine", "");
-                var line = departureData["LineNumber"];
-                var destination = departureData["Destination"];
-                var plannedDateTime = departureData["TimeTabledDateTime"];
-                var expectedDateTime = departureData["ExpectedDateTime"];
-                var deviations = DictUtil.get(departureData, "Deviations", []);
-
-                var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
-                var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
-                var deviationLevel = 0;
-                var deviationMessages = [];
-                var cancelled = false;
-
-                // NOTE: API limitation
-                // remove duplicate "subline" in e.g. "571X X Arlandastad"
-                if (destination.substring(0, 2).equals(StringUtil.charAt(line, line.length() - 1) + " ")) {
-                    destination = destination.substring(2, destination.length());
-                }
-
-                // departure deviations
-                for (var i = 0; i < deviations.size(); i++) {
-                    var msg = DictUtil.get(deviations[i], "Text", null);
-                    msg = _splitDeviationMessageByLang(msg); // (not often the case)
-                    deviationMessages.add(msg);
-
-                    if (deviations[i]["Consequence"].equals("CANCELLED")) {
-                        cancelled = true;
-                        continue;
-                    }
-
-                    deviationLevel = MathUtil.max(deviationLevel, deviations[i]["ImportanceLevel"]);
-                }
-
-                // remove empty messages
-                deviationMessages.removeAll(null);
-
-                var departure = new Departure(mode, group, line, destination, moment,
-                    deviationLevel, deviationMessages, cancelled, isRealTime);
-                modeDepartures.add(departure);
+            if (modeDepartures[modes[m]].size() != 0) {
+                departures.add(modeDepartures[modes[m]]);
             }
-
-            // add null because an ampty array is not matched with the `equals()` that `removeAll()` performs.
-            departures.add(modeDepartures.size() != 0 ? modeDepartures : null);
         }
-
-        // swap order of metros and buses
-        ArrUtil.swap(departures, 0, 1);
-        departures.removeAll(null);
 
         if (departures.size() != 0) {
             _stop.setResponse(departures);
@@ -200,15 +192,21 @@ class DeparturesService {
 
         // stop point deviations
 
-        var stopDeviations = data["ResponseData"]["StopPointDeviations"];
+        var stopDeviations = data["stop_deviations"];
         var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
-            var msg = DictUtil.get(DictUtil.get(stopDeviations[i], "Deviation", null), "Text", null);
+            var msg = DictUtil.get(stopDeviations[i], "message", null);
+
+            if (msg == null) {
+                continue;
+            }
+
             msg = _splitDeviationMessageByLang(msg);
             msg = _cleanDeviationMessage(msg);
 
             // NOTE: API limitation
+            // TODO: check if still necessary for new API
             // sometimes we get duplicate deviation messages. skip these.
             if (!ArrUtil.contains(stopDeviationMessages, msg)) {
                 stopDeviationMessages.add(msg);
@@ -219,8 +217,11 @@ class DeparturesService {
     }
 
     hidden function _splitDeviationMessageByLang(msg) {
+        // NOTE: API limitation
+        // TODO: check if still necessary for new API
         // some messages are in both Swedish and English,
         // separated by a " * "
+
         var langSeparator = " * ";
         var langSplitIndex = msg.find(langSeparator);
 
