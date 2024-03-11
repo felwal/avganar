@@ -19,6 +19,7 @@ class ResponseError {
     static var API_RESPONSE_SERVER_ERRORS = [ 5321, 5322, 5323, 5324 ];
     static var API_REQUEST_LIMIT_MINUTE = 1006;
     static var API_REQUEST_LIMIT_MONTH = 1007;
+    static var API_RESPONSE_PROXY = 1008;
 
     // HTTP
     static var HTTP_OK = 200;
@@ -94,6 +95,9 @@ class ResponseError {
         }
         else if (_code == API_REQUEST_LIMIT_MONTH) {
             _title = rez(Rez.Strings.msg_e_limit_month);
+        }
+        else if (_code == API_RESPONSE_PROXY) {
+            _title = rez(Rez.Strings.msg_e_proxy);
         }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
             _title = rez(Rez.Strings.msg_e_server);
