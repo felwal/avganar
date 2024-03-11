@@ -68,7 +68,7 @@ module NearbyStopsStorage {
             maxStops = SettingsStorage.getMaxStops();
             failedRequestCount = 0;
 
-            // only vibrate if we are not auto-rerequesting and data is changed
+            // only vibrate if we are not auto-refreshing and data is changed
             if (!ArrUtil.equals(_nearbyStopIds, stopIds)
                 || ((response_ instanceof ResponseError || response_ instanceof Lang.String) && !response_.equals(response))) {
 
@@ -225,7 +225,7 @@ module NearbyStopsStorage {
         return response instanceof Lang.Array ? response : null;
     }
 
-    function shouldAutoRerequest() {
+    function shouldAutoRefresh() {
         if (!(response instanceof ResponseError)) {
             return false;
         }

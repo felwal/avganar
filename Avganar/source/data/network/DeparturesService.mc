@@ -67,8 +67,8 @@ class DeparturesService {
 
             _stop.setResponse(new ResponseError(responseCode));
 
-            // auto rerequest if too large
-            if (_stop.shouldAutoRerequest()) {
+            // auto-refresh if too large
+            if (_stop.shouldAutoRefresh()) {
                 requestDepartures();
             }
         }
@@ -79,11 +79,11 @@ class DeparturesService {
 
             _stop.setResponse(new ResponseError(errorMsg));
 
-            // auto rerequest if server error
+            // auto-refresh if server error
             // TODO: probably can't happen with new API
             // – but look for messages which might correspond
             // with the previous server errors
-            /*if (_stop.shouldAutoRerequest()) {
+            /*if (_stop.shouldAutoRefresh()) {
                 requestDepartures();
             }*/
         }

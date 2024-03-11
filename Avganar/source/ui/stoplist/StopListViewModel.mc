@@ -206,13 +206,15 @@ class StopListViewModel {
 
     //
 
-    function isRerequestable() {
+    function isUserRefreshable() {
         return NearbyStopsStorage.response instanceof ResponseError
-            && NearbyStopsStorage.response.isRerequestable();
+            && NearbyStopsStorage.response.isUserRefreshable();
     }
 
     function onSelectMessage() {
-        if (isRerequestable()) {
+        // for now we let the user trigger a refresh also
+        // by clicking on the error msg. TODO: remove?
+        if (isUserRefreshable()) {
             _requestNearbyStops();
             WatchUi.requestUpdate();
         }
@@ -224,7 +226,7 @@ class StopListViewModel {
 
     //! Scroll down
     function incStopCursor() {
-        if (isShowingMessage() && isRerequestable()) {
+        if (isShowingMessage() && isUserRefreshable()) {
             _requestNearbyStops();
             WatchUi.requestUpdate();
             return;

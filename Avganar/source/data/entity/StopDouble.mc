@@ -80,8 +80,8 @@ class StopDouble {
         return _stop.getDeviationMessages();
     }
 
-    function shouldAutoRerequest() {
-        return _stop.shouldAutoRerequest();
+    function shouldAutoRefresh() {
+        return _stop.shouldAutoRefresh();
     }
 
     function getDataAgeMillis() {

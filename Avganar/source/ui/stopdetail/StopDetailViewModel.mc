@@ -66,19 +66,27 @@ class StopDetailViewModel {
     }
 
     function onDelayedDeparturesRequest() {
-        requestDepartures();
+        _requestDepartures();
         _startRepeatTimer();
     }
 
     hidden function _startRepeatTimer() {
-        var refreshTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimerRepr(method(:requestDepartures), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
+        var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
+        var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
 
-        _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ refreshTimer, requestTimer ]);
+        _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ screenTimer, requestTimer ]);
     }
 
-    //! Needs to be to be able to be called by timer.
-    function requestDepartures() {
+    function onTimer() {
+        if (stop.getResponse() instanceof ResponseError
+            && !stop.getResponse().isTimerRefreshable()) {
+            return;
+        }
+
+        _requestDepartures();
+    }
+
+    hidden function _requestDepartures() {
         new DeparturesService(stop).requestDepartures();
     }
 
@@ -188,10 +196,10 @@ class StopDetailViewModel {
 
     function onSelect() {
         if (stop.getResponse() instanceof ResponseError) {
-            // rerequest
-            if (stop.getResponse().isRerequestable()) {
+            // refresh
+            if (stop.getResponse().isUserRefreshable()) {
                 stop.resetResponse();
-                requestDepartures();
+                _requestDepartures();
                 WatchUi.requestUpdate();
             }
         }

@@ -92,7 +92,7 @@ class StopDetailView extends WatchUi.View {
                 }
 
                 // start indicator
-                if (response.isRerequestable()) {
+                if (response.isUserRefreshable()) {
                     WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
                 }
             }

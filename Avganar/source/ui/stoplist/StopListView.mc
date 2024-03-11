@@ -55,7 +55,7 @@ class StopListView extends WatchUi.View {
             WidgetUtil.drawDialog(dc, _viewModel.getMessage());
 
             // retry
-            if (_viewModel.isRerequestable()) {
+            if (_viewModel.isUserRefreshable()) {
                 WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
             }
         }

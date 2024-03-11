@@ -126,13 +126,32 @@ class ResponseError {
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
     }
 
-    function isRerequestable() {
+    function isRequestLimitShortReached() {
+        return _code == API_REQUEST_LIMIT_MINUTE
+            || _code == CODE_AUTO_REQUEST_LIMIT_SERVER;
+    }
+
+    function isRequestLimitLongReached() {
+        return _code == API_REQUEST_LIMIT_MONTH
+            || _code == CODE_AUTO_REQUEST_LIMIT_MEMORY;
+    }
+
+    function isAutoRefreshable() {
+        return isTooLarge()
+            || isServerError();
+    }
+
+    function isTimerRefreshable() {
         return hasConnection()
-            && !isTooLarge() // will auto-rerequest
-            && !isServerError() // will auto-rerequest
-            && _code != API_REQUEST_LIMIT_MONTH
+            && !isAutoRefreshable()
+            && !isRequestLimitLongReached()
             && _code != HTTP_BAD_REQUEST // shouldn't be repeated
             && _code != null;
+    }
+
+    function isUserRefreshable() {
+        return isTimerRefreshable()
+            && !isRequestLimitShortReached();
     }
 
 }

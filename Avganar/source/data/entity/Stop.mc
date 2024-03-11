@@ -72,7 +72,7 @@ class Stop {
             _failedRequestCount++;
         }
         else {
-            // only vibrate if we are not auto-rerequesting
+            // only vibrate if we are not auto-refreshing
             vibrate();
             _failedRequestCount = 0;
         }
@@ -119,7 +119,7 @@ class Stop {
         return _deviationMessages;
     }
 
-    function shouldAutoRerequest() {
+    function shouldAutoRefresh() {
         if (!(_response instanceof ResponseError)) {
             return false;
         }
@@ -134,7 +134,7 @@ class Stop {
             return false;
         }
 
-        return _response.isTooLarge() || _response.isServerError();
+        return _response.isAutoRefreshable();
     }
 
     function getDataAgeMillis() {

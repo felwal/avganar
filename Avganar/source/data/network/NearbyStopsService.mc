@@ -91,8 +91,8 @@ module NearbyStopsService {
 
             NearbyStopsStorage.setResponse([], [], new ResponseError(DictUtil.get(data, "Message", responseCode)));
 
-            // auto rerequest if too large
-            if (NearbyStopsStorage.shouldAutoRerequest()) {
+            // auto-refresh if too large
+            if (NearbyStopsStorage.shouldAutoRefresh()) {
                 requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
             }
         }
