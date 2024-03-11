@@ -22,6 +22,7 @@ class ResponseError {
 
     // HTTP
     static var HTTP_OK = 200;
+    static var HTTP_BAD_REQUEST = 400;
     static var HTTP_NOT_FOUND = 404;
     static var HTTP_NO_CODE = 1002;
 
@@ -61,6 +62,9 @@ class ResponseError {
         if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
+        else if (_code == HTTP_BAD_REQUEST) {
+            _title = rez(Rez.Strings.msg_e_bad_request);
+        }
         else if (_code == HTTP_NOT_FOUND) {
             _title = rez(Rez.Strings.msg_e_not_found);
         }
@@ -83,7 +87,6 @@ class ResponseError {
             _title = rez(Rez.Strings.msg_e_invalid);
         }
         else if (isServerError() || isTooLarge()) {
-            // don't let the user know we are requesting again
             _title = rez(Rez.Strings.msg_i_departures_requesting);
         }
         else if (_code == API_REQUEST_LIMIT_MINUTE) {
@@ -128,6 +131,7 @@ class ResponseError {
             && !isTooLarge() // will auto-rerequest
             && !isServerError() // will auto-rerequest
             && _code != API_REQUEST_LIMIT_MONTH
+            && _code != HTTP_BAD_REQUEST // shouldn't be repeated
             && _code != null;
     }
 

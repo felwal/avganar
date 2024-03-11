@@ -46,6 +46,7 @@ class DeparturesService {
         var url = "https://transport.integration.sl.se/v1/sites/" + _stop.getId() + "/departures";
 
         var params = {
+            // NOTE: the API seems to ignore this whenever it feels like it
             "forecast" => _stop.getTimeWindow()
         };
         var options = {
