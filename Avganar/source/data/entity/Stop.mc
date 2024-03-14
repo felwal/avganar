@@ -18,7 +18,7 @@ using Toybox.Lang;
 class Stop {
 
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
-    hidden static var _MEMORY_MIN_TIME_WINDOW = 2;
+    hidden static var _MEMORY_MIN_TIME_WINDOW = 5;
 
     // NOTE: instead of adding public fields, add getters.
     // and when adding functions, remember to add
@@ -53,9 +53,18 @@ class Stop {
 
         // for each too large response, halve the time window
         if (_response instanceof ResponseError && _response.isTooLarge()) {
-            _departuresTimeWindow = _departuresTimeWindow == null
-                ? SettingsStorage.getDefaultTimeWindow() / 2
-                : _departuresTimeWindow / 2;
+            if (_departuresTimeWindow == null) {
+                _departuresTimeWindow = SettingsStorage.getDefaultTimeWindow() / 2;
+            }
+            else if (_departuresTimeWindow > _MEMORY_MIN_TIME_WINDOW
+                && _departuresTimeWindow < 2 * _MEMORY_MIN_TIME_WINDOW) {
+                // if halving would result in less than the minimum,
+                // use the minimum
+                _departuresTimeWindow = _MEMORY_MIN_TIME_WINDOW;
+            }
+            else {
+                _departuresTimeWindow /= 2;
+            }
 
             _failedRequestCount++;
         }
@@ -63,7 +72,7 @@ class Stop {
             _failedRequestCount++;
         }
         else {
-            // only vibrate if we are not auto-rerequesting
+            // only vibrate if we are not auto-refreshing
             vibrate();
             _failedRequestCount = 0;
         }
@@ -110,7 +119,7 @@ class Stop {
         return _deviationMessages;
     }
 
-    function shouldAutoRerequest() {
+    function shouldAutoRefresh() {
         if (!(_response instanceof ResponseError)) {
             return false;
         }
@@ -125,7 +134,7 @@ class Stop {
             return false;
         }
 
-        return _response.isTooLarge() || _response.isServerError();
+        return _response.isAutoRefreshable();
     }
 
     function getDataAgeMillis() {

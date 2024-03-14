@@ -1,15 +1,23 @@
 # Changelog
 
-### 1.6.2
+## 1.7.0
 
-- Migrate to the new API URL (Nearby Stops)
+- Ignore stop duplicates introduced by recent API update
+- Add setting to turn off location
+- Bug fixes and improvements
+- Add support for fr165, fr165m
 
-### 1.6.1
+## 1.6.2
+
+- Migrate to the new Nearby Stops API
+  - Please update by 2024-03-14
+
+## 1.6.1
 
 - Bug fixes and improvements
 - Add support for descentmk343mm
 
-### 1.6.0
+## 1.6.0
 
 - Display if departure times are planned (white) or expected (green)
 - Add departure selecton (access via menu)
@@ -20,18 +28,18 @@
 - Bug fixes and improvements
 - Add support for venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 
-### 1.5.1
+## 1.5.1
 
 - Bug fixes and improvements
 - Add support for epix2pro42mm, epix2pro47, epix2pro51mmmm, fenix7pro, fenix7spro, fenix7xpro
 
-### 1.5.0
+## 1.5.0
 
 - Add a view showing stop deviations
 - Improve UI
 - Add support for approachs7042mm, approachs7047mm
 
-### 1.4.2
+## 1.4.2
 
 - Strikethrough cancelled departures
 - Bug fixes and improvements

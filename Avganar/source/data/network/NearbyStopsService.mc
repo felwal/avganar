@@ -34,8 +34,13 @@ module NearbyStopsService {
     // request
 
     function requestNearbyStops(lat, lon) {
+        // final check if location use is turned off
+        if (!SettingsStorage.getUseLocation()) {
+            NearbyStopsStorage.setResponse([], [], null);
+            WatchUi.requestUpdate();
+        }
         // check if outside bounds, to not make unnecessary calls outside the operator zone
-        if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
+        else if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             if (lat != 0.0 || lon != 0.0) {
                 NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_outside_bounds));
             }
@@ -81,8 +86,8 @@ module NearbyStopsService {
         else {
             NearbyStopsStorage.setResponse([], [], new ResponseError(DictUtil.get(data, "Message", responseCode)));
 
-            // auto rerequest if too large
-            if (NearbyStopsStorage.shouldAutoRerequest()) {
+            // auto-refresh if too large
+            if (NearbyStopsStorage.shouldAutoRefresh()) {
                 requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
             }
         }
@@ -125,13 +130,8 @@ module NearbyStopsService {
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
 
-            // we need to consider all existing stops, since
-            // "id1 name1" should return existing "id1 name1" over "id1 name2"
-            var existingIdIndices = ArrUtil.indexOfAll(stopIds, id);
-            var existingStops = ArrUtil.getAll(stops, existingIdIndices);
-
-            // stop will be null if it is a duplicate in both `id` and `name`
-            var stop = NearbyStopsStorage.createStop(id, name, existingStops);
+            // null if duplicate
+            var stop = NearbyStopsStorage.createStop(id, name, stops, stopIds, stopNames);
             if (stop == null) {
                 continue;
             }

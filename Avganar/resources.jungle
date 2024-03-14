@@ -13,6 +13,8 @@
 
 base.resourcePath = resources
 
+# refer to https://developer.garmin.com/connect-iq/reference-guides/devices-reference/
+
 # screen size
 
 # 218x218
@@ -84,6 +86,8 @@ approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-390x39
 d2air.resourcePath = $(d2air.resourcePath); resources-390x390
 descentmk343mm.resourcePath = $(descentmk343mm.resourcePath); resources-390x390
 epix2pro42mm.resourcePath = $(epix2pro42mm.resourcePath); resources-390x390
+fr165.resourcePath = $(fr165.resourcePath); resources-390x390
+fr165m.resourcePath = $(fr165m.resourcePath); resources-390x390
 marq2.resourcePath = $(marq2.resourcePath); resources-390x390
 marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390
 venu.resourcePath = $(venu.resourcePath); resources-390x390
@@ -175,6 +179,10 @@ d2air.resourcePath = $(d2air.resourcePath); resources-launcher_60x60
 d2mach1.resourcePath = $(d2mach1.resourcePath); resources-launcher_60x60
 descentmk343mm.resourcePath = $(descentmk343mm.resourcePath); resources-launcher_60x60
 descentmk351mm.resourcePath = $(descentmk351mm.resourcePath); resources-launcher_60x60
+# guessed, TODO: confirm
+fr165.resourcePath = $(fr165.resourcePath); resources-launcher_60x60
+# guessed, TODO: confirm
+fr165m.resourcePath = $(fr165m.resourcePath); resources-launcher_60x60
 epix2.resourcePath = $(epix2.resourcePath); resources-launcher_60x60
 epix2pro42mm.resourcePath = $(epix2pro42mm.resourcePath); resources-launcher_60x60
 epix2pro47mm.resourcePath = $(epix2pro47mm.resourcePath); resources-launcher_60x60

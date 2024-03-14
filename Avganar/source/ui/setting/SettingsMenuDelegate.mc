@@ -16,6 +16,7 @@ using Toybox.WatchUi;
 //! The StopList settings menu, handling user preferences.
 class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
+    static const ITEM_LOCATION = :useLocation;
     static const ITEM_VIBRATE = :vibrateOnResponse;
     static const ITEM_MAX_STOPS = :maxNoStops;
     static const ITEM_MAX_DEPARTURES = :maxNoDepartures;
@@ -33,6 +34,12 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
     hidden function _addItems() {
         _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
+
+        // use location
+        _menu.addItem(new WatchUi.ToggleMenuItem(
+            rez(Rez.Strings.itm_settings_location), { :enabled => "On", :disabled => "Off" },
+            ITEM_LOCATION, SettingsStorage.getUseLocation(), {}
+        ));
 
         // vibrate on response
         _menu.addItem(new WatchUi.ToggleMenuItem(
@@ -77,7 +84,15 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     function onSelect(item) {
         var id = item.getId();
 
-        if (id == ITEM_MAX_STOPS) {
+        if (id == ITEM_LOCATION) {
+            SettingsStorage.setUseLocation(item.isEnabled());
+            return;
+        }
+        else if (id == ITEM_VIBRATE) {
+            SettingsStorage.setVibrateOnResponse(item.isEnabled());
+            return;
+        }
+        else if (id == ITEM_MAX_STOPS) {
             var title = rez(Rez.Strings.itm_settings_max_stops);
             var values = [ 5, 10, 15, 20 ];
             var focus = values.indexOf(SettingsStorage.getMaxStops());
@@ -98,10 +113,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             var values = [ 5, 15, 30, 45, 60 ];
             var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
             new RadioMenuDelegate(title, labels, values, focus, method(:onTimeWindowSelect)).push();
-            return;
-        }
-        else if (id == ITEM_VIBRATE) {
-            SettingsStorage.setVibrateOnResponse(item.isEnabled());
             return;
         }
         else if (id == ITEM_MINUTE_SYMBOL) {

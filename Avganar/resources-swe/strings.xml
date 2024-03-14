@@ -5,6 +5,7 @@
     <!-- status message -->
     <string id="msg_i_stops_no_gps">Väntar på GPS ...</string>
     <string id="msg_i_stops_requesting">Läser in ...</string>
+    <string id="msg_i_stops_location_off">Platsdata är av</string>
     <string id="msg_i_departures_requesting">Läser in ...</string>
 
     <!-- response message -->
@@ -19,6 +20,7 @@
     <string id="msg_e_memory">Slut på minne</string>
     <string id="msg_e_cancelled">Begäran avbröts</string>
     <string id="msg_e_timeout">Begäran utgick</string>
+    <string id="msg_e_bad_request">Klientfel</string>
     <string id="msg_e_not_found">Ogiltig begäran</string>
     <string id="msg_e_general">Fel</string>
 
@@ -26,6 +28,7 @@
     <string id="msg_e_invalid">Ogiltigt svar</string>
     <string id="msg_e_null_data">Ingen data</string>
     <string id="msg_e_server">Serverfel</string>
+    <string id="msg_e_proxy">Serverfel</string>
     <string id="msg_e_limit_minute">Kvota överstigen (minut)</string>
     <string id="msg_e_limit_month">Kvota överstigen (månad)</string>
 
@@ -58,15 +61,16 @@
     <string id="itm_options_favorite_remove">Ta bort från favoriter</string>
     <string id="itm_options_favorite_move_up">Flytta upp</string>
     <string id="itm_options_favorite_move_down">Flytta ned</string>
-    <string id="lbl_settings_title">Inställningar</string>
     <string id="itm_options_about">Om</string>
 
     <!-- settings -->
+    <string id="lbl_settings_title">Inställningar</string>
+    <string id="itm_settings_location">Använd platsdata</string>
+    <string id="itm_settings_vibrate">Vibrera vid svar</string>
     <string id="itm_settings_max_stops">Högst antal hållplatser</string>
     <string id="itm_settings_max_departures">Högst antal avgångar</string>
     <string id="itm_settings_max_departures_unlimited">Ingen gräns</string>
     <string id="itm_settings_time_window">Största tidsfönster</string>
-    <string id="itm_settings_vibrate">Vibrera vid svar</string>
     <string id="itm_settings_minute_symbol">Minut-symbol</string>
 
     <!-- info -->

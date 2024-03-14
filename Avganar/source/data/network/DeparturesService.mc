@@ -70,8 +70,8 @@ class DeparturesService {
         else {
             _stop.setResponse(new ResponseError(responseCode));
 
-            // auto rerequest if too large
-            if (_stop.shouldAutoRerequest()) {
+            // auto-refresh if too large
+            if (_stop.shouldAutoRefresh()) {
                 requestDepartures();
             }
         }
@@ -86,8 +86,8 @@ class DeparturesService {
         if (statusCode != 0) {
             _stop.setResponse(new ResponseError(statusCode));
 
-            // auto rerequest if server error
-            if (_stop.shouldAutoRerequest()) {
+            // auto-refresh if server error
+            if (_stop.shouldAutoRefresh()) {
                 requestDepartures();
             }
 

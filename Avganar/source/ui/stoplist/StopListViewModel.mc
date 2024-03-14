@@ -45,6 +45,13 @@ class StopListViewModel {
     // position
 
     hidden function _requestPosition() {
+        // check if location use is turned off
+        if (!SettingsStorage.getUseLocation()) {
+            NearbyStopsStorage.setResponse([], [], null);
+            WatchUi.requestUpdate();
+            return;
+        }
+
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(false);
@@ -71,6 +78,10 @@ class StopListViewModel {
         }
     }
 
+    hidden function _isPositioned() {
+        return Footprint.isPositioned() && SettingsStorage.getUseLocation();
+    }
+
     // service
 
     hidden function _requestNearbyStops() {
@@ -92,9 +103,18 @@ class StopListViewModel {
     function getMessage() {
         var response = NearbyStopsStorage.response;
 
-        return response == null
-            ? rez(Footprint.isPositioned() ? Rez.Strings.msg_i_stops_requesting : Rez.Strings.msg_i_stops_no_gps)
-            : (response instanceof ResponseError ? response.getTitle() : response);
+        // status message
+        if (response == null) {
+            return rez(_isPositioned()
+                ? Rez.Strings.msg_i_stops_requesting
+                : (SettingsStorage.getUseLocation()
+                    ? Rez.Strings.msg_i_stops_no_gps
+                    : Rez.Strings.msg_i_stops_location_off));
+        }
+        // error or response message
+        else {
+            return response instanceof ResponseError ? response.getTitle() : response;
+        }
     }
 
     function hasStops() {
@@ -180,13 +200,15 @@ class StopListViewModel {
 
     //
 
-    function isRerequestable() {
+    function isUserRefreshable() {
         return NearbyStopsStorage.response instanceof ResponseError
-            && NearbyStopsStorage.response.isRerequestable();
+            && NearbyStopsStorage.response.isUserRefreshable();
     }
 
     function onSelectMessage() {
-        if (isRerequestable()) {
+        // for now we let the user trigger a refresh also
+        // by clicking on the error msg. TODO: remove?
+        if (isUserRefreshable()) {
             _requestNearbyStops();
             WatchUi.requestUpdate();
         }
@@ -198,7 +220,7 @@ class StopListViewModel {
 
     //! Scroll down
     function incStopCursor() {
-        if (isShowingMessage() && isRerequestable()) {
+        if (isShowingMessage() && isUserRefreshable()) {
             _requestNearbyStops();
             WatchUi.requestUpdate();
             return;

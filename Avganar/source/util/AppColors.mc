@@ -53,7 +53,7 @@ module AppColors {
     const DEPARTURE_TRAIN = Graphene.COLOR_CERISE;
     const DEPARTURE_SHIP = Graphene.COLOR_CAPRI;
     const DEPARTURE_NONE = Graphene.COLOR_BLACK;
-    const DEPARTURE_UNKNOWN = Graphene.COLOR_WHITE;
+    const DEPARTURE_UNKNOWN = Graphene.COLOR_BLACK;
 
     const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
     const DEPARTURE_SELECTED = Graphene.COLOR_GREEN;

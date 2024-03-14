@@ -64,26 +64,21 @@ module ArrUtil {
 
         for (var i = 0; i < indices.size(); i++) {
             var index = indices[i];
-            items.add(arr[index]);
+            if (index < arr.size()) {
+                items.add(arr[index]);
+            }
         }
 
         return items;
     }
 
-    function indexOfAll(arr, item) {
+    function indicesOf(arr, item) {
         var indices = [];
-        var index = null;
-        var sliceIndex = 0;
 
         for (var i = 0; i < arr.size(); i++) {
-            index = arr.indexOf(item);
-            if (index == -1) {
-                break;
+            if (arr[i].equals(item)) {
+                indices.add(i);
             }
-
-            indices.add(index + sliceIndex);
-            arr = arr.slice(index + 1, arr.size());
-            sliceIndex += index + 1;
         }
 
         return indices;

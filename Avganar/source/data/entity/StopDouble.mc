@@ -27,13 +27,17 @@ class StopDouble {
     // init
 
     function initialize(stop, name) {
-        _stop = stop;
+        _stop = stop instanceof Stop ? stop : stop.getRootStop();
         me.name = name;
     }
 
     function equals(other) {
         return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
             && other.getId() == getId() && other.name.equals(name);
+    }
+
+    function getRootStop() {
+        return _stop instanceof Stop ? _stop : _stop.getRootStop();
     }
 
     // set
@@ -76,8 +80,8 @@ class StopDouble {
         return _stop.getDeviationMessages();
     }
 
-    function shouldAutoRerequest() {
-        return _stop.shouldAutoRerequest();
+    function shouldAutoRefresh() {
+        return _stop.shouldAutoRefresh();
     }
 
     function getDataAgeMillis() {
