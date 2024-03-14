@@ -7,11 +7,13 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 **Features**:
 
 - View nearby stops
-- Save favorite stops (via the menu) and view anywhere
+- Save favorite stops (via the menu*) and view anywhere
 - View departures
   - Color coded and sectioned by mode
   - See deviations and their importance level
-- Limit memory consumption by tuning settings (via the menu)
+- Limit memory consumption by tuning settings*
+
+\* Menu and settings are reached in the same way as usual. On some watches you long-press UP, on others BACK.
 
 **Color coding**:
 
@@ -27,7 +29,7 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 **Support** – For support, please contact me at felwal.studios@proton.me.
 
-**Keywords**: public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
+**Keywords** – public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
 
 ## FAQ
 
@@ -35,4 +37,8 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 **I keep getting "Invalid Request"** – This is likely due to breaking API changes. Please try updating to the latest version.
 
-**I keep getting "Server Error"** – This is SLs problem and happens from time to time. All we can do is have patience.
+**I keep getting "Server Error"** – This is SL's problem and happens from time to time. All we can do is have patience.
+
+**I keep getting "Client Error"** – This likely means that I have made some mistake. If you wouldn't mind, please get in touch with details.
+
+**Long loading times** – If the loading bar consistently goes very far, this means that the responses are too large and must be requested again, asking for less data. Consider lowering “Default Time Window” in settings.

@@ -7,11 +7,13 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 **Funktioner**:
 
 - Visa närliggande hållplatser
-- Spara favoriter (via menyn) och visa var som helst
+- Spara favoriter (via menyn*) och visa var som helst
 - Visa avgångar
   - Färgkodade och uppdelade efter transporttyp
   - Se avvikelser och deras viktighetsnivå
-- Begränsa minnesbelastning genom att justera inställningar (via menyn)
+- Begränsa minnesbelastning genom att justera inställningar*
+
+\* Meny och inställningar nås på samma sätt som vanligt. På vissa klockor håller man inne UP, på andra BACK.
 
 **Färgkodning**:
 
@@ -35,4 +37,8 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 
 **Jag fortsätter få "Ogiltig begäran"** – Detta är troligen pga API-förändringar. Vänligen pröva uppdatera till den senaste versionen.
 
-**Jag fortsätter att få "Serverfel"** – Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.
+**Jag fortsätter få "Serverfel"** – Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.
+
+**Jag fortsätter få "Klientfel"** – Detta är troligen mitt fel. Jag kulle uppskatta om du ville skicka detaljer till mailadressen ovan.
+
+**Långa laddningstider** – Om progress-baren konsekvent går väldigt långt betyder detta att svaren är för stora och måste bes om igen, med mindre data. Överväg att minska "Största tidsfönster" i inställningarna.
