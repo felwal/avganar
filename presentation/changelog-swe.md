@@ -1,16 +1,23 @@
 # Changelog
 
-### 1.6.2
+## 1.7.0
 
-- Migrera till den nya API URL:en (Nearby Stops)
+- Ignorera hållplats-dubletter introducerade av tidigare API-uppdatering
+- Lägg till inställning för att stänga av platsdata
+- Buggfixar och förbättringar
+- Stöd fr165, fr165m
+
+## 1.6.2
+
+- Migrera till den nya Nearby Stops API:et
   - Vänligen uppdatera senast 2024-03-14
 
-### 1.6.1
+## 1.6.1
 
 - Buggfixar och förbättringar
 - Stöd descentmk343mm
 
-### 1.6.0
+## 1.6.0
 
 - Visa om avgångstider är planerade (vit) eller förväntade (grön)
 - Lägg till 'val av avgång'-läge (nå via menyn)
@@ -21,18 +28,18 @@
 - Buggfixar och förbättringar
 - Stöd venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 
-### 1.5.1
+## 1.5.1
 
 - Buggfixar och förbättringar
 - Stöd epix2pro42mm, epix2pro47, epix2pro51mmmm, fenix7pro, fenix7spro, fenix7xpro
 
-### 1.5.0
+## 1.5.0
 
 - Lägg till en vy för hållplats-avvikelser
 - Förbättra UI
 - Stöd approachs7042mm, approachs7047mm
 
-### 1.4.2
+## 1.4.2
 
 - Stryk över inställda avgångar
 - Buggfixar och förbättringar
