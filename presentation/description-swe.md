@@ -27,7 +27,7 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 
 **Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn (https://github.com/felwal/avganar/blob/main/PRIVACY.md). I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
 
-**Support** – För support, vänligen kontakta mig via felwal.studios@proton.me.
+**Support** – För support, vänligen kontakta mig via felwal.studios@proton.me. Jag svarar så snart jag kan.
 
 **Nyckelord** – kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
 

@@ -27,7 +27,7 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 **Privacy** – By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
-**Support** – For support, please contact me at felwal.studios@proton.me.
+**Support** – For support, please contact me at felwal.studios@proton.me. I'll get back to you as soon as I can.
 
 **Keywords** – public transport, public transit, commute, departures, travel, train, bus, metro, tram, light rail; kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn
 
