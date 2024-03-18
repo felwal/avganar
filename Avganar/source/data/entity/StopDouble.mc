@@ -42,6 +42,10 @@ class StopDouble {
 
     // set
 
+    function setProducts(products) {
+        _stop.setProducts(products);
+    }
+
     function setResponse(response) {
         _stop.setResponse(response);
     }

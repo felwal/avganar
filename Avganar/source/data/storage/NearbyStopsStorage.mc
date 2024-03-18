@@ -147,6 +147,10 @@ module NearbyStopsStorage {
 
         // check if stop already exists as favorite
         if (favStopWithSameId != null) {
+            // NOTE: migration to 1.8.0
+            // always update favs' products when they are nearby
+            FavoriteStopsStorage.updateFavoriteProducts(id, products);
+
             if (favStopWithSameId.name.equals(name)) {
                 // use existing stop if same id and name
                 return favStopWithSameId;
@@ -161,6 +165,10 @@ module NearbyStopsStorage {
 
         // check if stop exists as nearby in last response
         if (previousStopWithSameId != null) {
+            // NOTE: migration to 1.8.0
+            // make sure we don't pass along old null products
+            previousStopWithSameId.setProducts(products);
+
             // use existing stop if same id
             if (!previousStopWithSameId.name.equals(name)) {
                 // just rename if different name
@@ -181,7 +189,7 @@ module NearbyStopsStorage {
         var addedProducts = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            // shouldn't happen, but just in case
+            // shouldn't happen, but just in case. TODO: remove?
             var products_ = i < products.size() ? products[i] : null;
 
             // null if duplicate

@@ -50,6 +50,10 @@ class Stop {
 
     // set
 
+    function setProducts(products) {
+        _products = products;
+    }
+
     function setResponse(response) {
         _response = response;
         _timeStamp = TimeUtil.now();
@@ -161,7 +165,11 @@ class Stop {
 
     function getAddableModes() {
         if (_products == null) {
-            return [ Departure.MODE_BUS, Departure.MODE_METRO, Departure.MODE_TRAIN, "NULL" ];
+            // NOTE: migration to 1.8.0
+            // if products are unknown, just return all possibilites
+            // TODO: any better way?
+            return [ Departure.MODE_BUS, Departure.MODE_METRO, Departure.MODE_TRAIN,
+                Departure.MODE_TRAM, Departure.MODE_SHIP ];
         }
 
         var addableProducts = _products - _addedProducts;
@@ -178,9 +186,10 @@ class Stop {
 
     function getModeString(mode) {
         if (!(_response instanceof Lang.Array) || _response.size() == 0) {
+            // TODO: just return ""?
             return _products == null
-                ? Departure.MODE_BUS
-                : Departure.getModesByBits(_products)[0];
+                ? Departure.MODE_BUS // NOTE: migration to 1.8.0
+                : Departure.getModesByBits(_products)[0]; // TODO: more efficient
         }
 
         return _response[mode][0].mode;

@@ -75,6 +75,18 @@ module FavoriteStopsStorage {
         _save();
     }
 
+    function updateFavoriteProducts(stopId, products) {
+        var index = _favStopIds.indexOf(stopId);
+        if (index == -1) {
+            Log.w("couldn't find fav with id " + stopId);
+            return;
+        }
+
+        favorites[index].setProducts(products);
+        _favStopProducts[index] = products;
+        _save();
+    }
+
     // get
 
     function load() {
@@ -91,7 +103,7 @@ module FavoriteStopsStorage {
         var addedIds = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            // shouldn't happen, but just in case
+            // shouldn't happen, but just in case. TODO: remove?
             var products_ = i < products.size() ? products[i] : null;
 
             var existingId = addedIds.indexOf(ids[i]);
