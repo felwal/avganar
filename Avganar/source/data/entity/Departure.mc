@@ -16,12 +16,26 @@ using Toybox.Time;
 
 class Departure {
 
+    static const BIT_BUS = 8;
+    static const BIT_METRO = 2;
+    static const BIT_TRAIN = 1;
+    static const BIT_TRAM = 4;
+    static const BIT_SHIP = 64;
+
     static const MODE_BUS = "BUS";
     static const MODE_METRO = "METRO";
     static const MODE_TRAIN = "TRAIN";
     static const MODE_TRAM = "TRAM";
     static const MODE_SHIP = "SHIP";
     static const MODE_NONE = "NONE";
+
+    static const MODE_TO_BIT = {
+        MODE_BUS => BIT_BUS,
+        MODE_METRO => BIT_METRO,
+        MODE_TRAIN => BIT_TRAIN,
+        MODE_TRAM => BIT_TRAM,
+        MODE_SHIP => BIT_SHIP,
+    };
 
     static hidden const _GROUP_BUS_RED = "";
     static hidden const _GROUP_BUS_BLUE = "Blåbuss";
@@ -38,7 +52,7 @@ class Departure {
     static hidden const _GROUP_TRAM_SALTSJÖBANAN = "Saltsjöbanan";
     static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
-    hidden var _mode;
+    var mode;
     hidden var _group;
     hidden var _line;
     hidden var _destination;
@@ -54,7 +68,7 @@ class Departure {
     function initialize(mode, group, line, destination, moment, deviationLevel, deviationMessages,
         cancelled, isRealTime) {
 
-        _mode = mode;
+        me.mode = mode;
         _group = group;
         _line = line;
         _destination = destination;
@@ -64,6 +78,28 @@ class Departure {
 
         me.cancelled = cancelled;
         me.isRealTime = isRealTime;
+    }
+
+    static function getModesByBits(bits) {
+        var modes = [];
+
+        if (bits&BIT_BUS != 0) {
+            modes.add(MODE_BUS);
+        }
+        if (bits&BIT_METRO != 0) {
+            modes.add(MODE_METRO);
+        }
+        if (bits&BIT_TRAIN != 0) {
+            modes.add(MODE_TRAIN);
+        }
+        if (bits&BIT_TRAM != 0) {
+            modes.add(MODE_TRAM);
+        }
+        if (bits&BIT_SHIP != 0) {
+            modes.add(MODE_SHIP);
+        }
+
+        return modes;
     }
 
     // get
@@ -124,29 +160,29 @@ class Departure {
     }
 
     function getModeSymbol() {
-        if (_mode.equals(MODE_BUS)) {
+        if (mode.equals(MODE_BUS)) {
             return rez(Rez.Strings.lbl_detail_mode_bus);
         }
-        else if (_mode.equals(MODE_METRO)) {
+        else if (mode.equals(MODE_METRO)) {
             return rez(Rez.Strings.lbl_detail_mode_metro);
         }
-        else if (_mode.equals(MODE_TRAIN)) {
+        else if (mode.equals(MODE_TRAIN)) {
             return rez(Rez.Strings.lbl_detail_mode_train);
         }
-        else if (_mode.equals(MODE_TRAM)) {
+        else if (mode.equals(MODE_TRAM)) {
             return rez(Rez.Strings.lbl_detail_mode_tram);
         }
-        else if (_mode.equals(MODE_SHIP)) {
+        else if (mode.equals(MODE_SHIP)) {
             return rez(Rez.Strings.lbl_detail_mode_ship);
         }
         else {
-            Log.w("unknown mode: " + _mode);
+            Log.w("unknown mode: " + mode);
             return rez(Rez.Strings.lbl_detail_mode_unknown);
         }
     }
 
     function getModeColor() {
-        if (_mode.equals(MODE_BUS)) {
+        if (mode.equals(MODE_BUS)) {
             if (_group.equals(_GROUP_BUS_RED)) {
                 return AppColors.DEPARTURE_BUS_RED;
             }
@@ -161,7 +197,7 @@ class Departure {
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (_mode.equals(MODE_METRO)) {
+        else if (mode.equals(MODE_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {
                 return AppColors.DEPARTURE_METRO_RED;
             }
@@ -176,10 +212,10 @@ class Departure {
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (_mode.equals(MODE_TRAIN)) {
+        else if (mode.equals(MODE_TRAIN)) {
             return AppColors.DEPARTURE_TRAIN;
         }
-        else if (_mode.equals(MODE_TRAM)) {
+        else if (mode.equals(MODE_TRAM)) {
             if (_group.equals(_GROUP_TRAM_SPÅRVÄGCITY)) {
                 return AppColors.DEPARTURE_TRAM_SPÅRVÄGCITY;
             }
@@ -203,14 +239,14 @@ class Departure {
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (_mode.equals(MODE_SHIP)) {
+        else if (mode.equals(MODE_SHIP)) {
             return AppColors.DEPARTURE_SHIP;
         }
-        else if (_mode.equals(MODE_NONE)) {
+        else if (mode.equals(MODE_NONE)) {
             return AppColors.DEPARTURE_NONE;
         }
         else {
-            Log.w("unknown mode: " + _mode);
+            Log.w("unknown mode: " + mode);
             return AppColors.DEPARTURE_UNKNOWN;
         }
     }

@@ -561,4 +561,58 @@ module WidgetUtil {
         }
     }
 
+    function drawSideList(dc, items, cursor, blackBg) {
+        var colorBg = blackBg ? AppColors.BACKGROUND : AppColors.BACKGROUND_INVERTED;
+        var colorSelected = blackBg ? AppColors.TEXT_PRIMARY : AppColors.TEXT_INVERTED;
+        var colorUnselected = blackBg ? AppColors.TEXT_SECONDARY: AppColors.TEXT_TERTIARY;
+
+        var h = dc.getHeight();
+        var w = dc.getWidth();
+        var xBg = px(62);
+        var wBorder = px(2);
+        var wIndicator = px(4);
+        var hIndicator = px(42);
+
+        // bg
+        Graphite.setColor(dc, colorBg);
+        dc.fillRectangle(xBg, 0, w - xBg, h);
+
+        // border
+        Graphite.setColor(dc, colorSelected);
+        dc.fillRectangle(xBg - wBorder, 0, wBorder, dc.getHeight());
+
+        // indicator
+        dc.fillRectangle(xBg + px(3), h / 2 - hIndicator / 2, wIndicator, hIndicator);
+
+        // draw items
+
+        var fontSelected =  Graphics.FONT_MEDIUM;
+        var font = Graphics.FONT_SMALL;
+        var lineHeight = (h - 2 * px(20)) / 5;
+        var xText = xBg + px(10);
+
+        // only draw 2 items above and 2 below cursor
+        var itemOffset = 2;
+        var firstItemIndex = MathUtil.max(0, cursor - itemOffset);
+        var lastItemIndex = MathUtil.min(items.size(), cursor + itemOffset + 1);
+
+        // draw the items
+        for (var i = firstItemIndex; i < lastItemIndex; i++) {
+            var item = items[i];
+
+            var justification = Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER;
+            var yText = Graphite.getCenterY(dc) + (i - cursor) * lineHeight;
+            var margin = px(4);
+
+            if (i == cursor) {
+                dc.setColor(colorSelected, colorBg);
+                dc.drawText(xText, yText, fontSelected, item, justification);
+            }
+            else {
+                dc.setColor(colorUnselected, colorBg);
+                dc.drawText(xText, yText, font, item, justification);
+            }
+        }
+    }
+
 }

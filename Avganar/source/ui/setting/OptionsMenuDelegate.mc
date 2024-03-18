@@ -124,7 +124,7 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
         else if (id == ITEM_RESET) {
             // does not request immediately,
             // but thats ok since it is a dev-temp
-            NearbyStopsStorage.setResponse([], [], null);
+            NearbyStopsStorage.setResponse([], [], [], null);
         }
 
         if (view == null) {

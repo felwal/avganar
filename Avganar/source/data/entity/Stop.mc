@@ -27,6 +27,8 @@ class Stop {
     var name;
 
     hidden var _id;
+    hidden var _products = null;
+    hidden var _addedProducts = 0;
     hidden var _response;
     hidden var _failedRequestCount = 0;
     hidden var _deviationMessages = [];
@@ -35,8 +37,9 @@ class Stop {
 
     // init
 
-    function initialize(id, name) {
+    function initialize(id, name, products) {
         _id = id;
+        _products = products;
         me.name = name;
     }
 
@@ -67,14 +70,23 @@ class Stop {
             }
 
             _failedRequestCount++;
+            return;
         }
         else if (_response instanceof ResponseError && _response.isServerError()) {
             _failedRequestCount++;
+            return;
+        }
+
+        // only vibrate if we are not auto-refreshing
+        vibrate();
+        _failedRequestCount = 0;
+
+        if (_response instanceof Lang.Array && _response.size() > 0 && _response[0].size() > 0) {
+            // TODO: a better way that works also if no departures
+            _addedProducts = Departure.MODE_TO_BIT[_response[0][0].mode];
         }
         else {
-            // only vibrate if we are not auto-refreshing
-            vibrate();
-            _failedRequestCount = 0;
+            _addedProducts = 0;
         }
     }
 
@@ -97,6 +109,10 @@ class Stop {
 
     function getId() {
         return _id;
+    }
+
+    function getProducts() {
+        return _products;
     }
 
     function getResponse() {
@@ -143,12 +159,31 @@ class Stop {
             : null;
     }
 
-    function getModeCount() {
+    function getAddableModes() {
+        if (_products == null) {
+            return [ Departure.MODE_BUS, Departure.MODE_METRO, Departure.MODE_TRAIN, "NULL" ];
+        }
+
+        var addableProducts = _products - _addedProducts;
+        return Departure.getModesByBits(addableProducts);
+    }
+
+    function getAddedModesCount() {
         if (_response instanceof Lang.Array) {
             return _response.size();
         }
 
         return 1;
+    }
+
+    function getModeString(mode) {
+        if (!(_response instanceof Lang.Array) || _response.size() == 0) {
+            return _products == null
+                ? Departure.MODE_BUS
+                : Departure.getModesByBits(_products)[0];
+        }
+
+        return _response[mode][0].mode;
     }
 
     function getModeResponse(mode) {
@@ -169,7 +204,7 @@ class Stop {
     }
 
     function getModeSymbol(mode) {
-        if (!(_response instanceof Lang.Array) || _response.size() == 0) {
+        if (!(_response instanceof Lang.Array) || mode >= _response.size() || _response[mode].size() == 0) {
             return "";
         }
 

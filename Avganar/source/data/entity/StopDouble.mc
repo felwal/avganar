@@ -64,6 +64,10 @@ class StopDouble {
         return _stop.getId();
     }
 
+    function getProducts() {
+        return _stop.getProducts();
+    }
+
     function getResponse() {
         return _stop.getResponse();
     }
@@ -88,8 +92,16 @@ class StopDouble {
         return _stop.getDataAgeMillis();
     }
 
-    function getModeCount() {
-        return _stop.getModeCount();
+    function getAddableModes() {
+        return _stop.getAddableModes();
+    }
+
+    function getAddedModesCount() {
+        return _stop.getAddedModesCount();
+    }
+
+    function getModeString(mode) {
+        return _stop.getModeString(mode);
     }
 
     function getModeResponse(mode) {

@@ -52,7 +52,7 @@ class StopListViewModel {
     hidden function _requestPosition() {
         // check if location use is turned off
         if (!SettingsStorage.getUseLocation()) {
-            NearbyStopsStorage.setResponse([], [], null);
+            NearbyStopsStorage.setResponse([], [], [], null);
             WatchUi.requestUpdate();
             return;
         }
@@ -93,7 +93,7 @@ class StopListViewModel {
     hidden function _requestNearbyStops() {
         if (!NearbyStopsStorage.hasStops()) {
             // set searching (override errors, but not stops)
-            NearbyStopsStorage.setResponse([], [], null);
+            NearbyStopsStorage.setResponse([], [], [], null);
         }
 
         NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());

@@ -32,14 +32,14 @@ class DeparturesService {
 
     // request
 
-    function requestDepartures() {
+    function requestDepartures(mode) {
         if (_stop != null) {
-            Log.i("Requesting departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
-            _requestDepartures();
+            Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
+            _requestDepartures(mode);
         }
     }
 
-    hidden function _requestDepartures() {
+    hidden function _requestDepartures(mode) {
         DeparturesService.isRequesting = true;
         WatchUi.requestUpdate();
 
@@ -47,7 +47,8 @@ class DeparturesService {
 
         var params = {
             // NOTE: the API seems to ignore this whenever it feels like it
-            "forecast" => _stop.getTimeWindow()
+            "forecast" => _stop.getTimeWindow(),
+            "transport" => mode
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,

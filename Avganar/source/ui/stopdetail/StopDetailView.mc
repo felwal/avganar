@@ -51,20 +51,29 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _draw(dc) {
         var stop = _viewModel.stop;
-        var response = _viewModel.getPageResponse();
+        var isInModesPane = _viewModel.isAddModesPaneSelected();
 
         // text
         _drawHeader(dc, stop);
-        _drawFooter(dc, stop);
+        _drawFooter(dc, stop, isInModesPane);
+
+        if (isInModesPane) {
+            _drawModeList(dc, stop);
+
+            if (_viewModel.pageCursor == 0) {
+                _drawModeIndicator(dc);
+            }
+            // TODO: else another icon, such as a +?
+
+            return;
+        }
 
         // departures
+        var response = _viewModel.getPageResponse();
         if (response instanceof Lang.Array) {
             _drawDepartures(dc, response);
 
-            // page indicator
-            if (!_viewModel.isDepartureState) {
-                WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
-            }
+            // indicator: page
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor,
                 AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
@@ -97,6 +106,22 @@ class StopDetailView extends WatchUi.View {
                 }
             }
         }
+
+        // indicator: mode
+        _drawModeIndicator(dc);
+    }
+
+    hidden function _drawModeIndicator(dc) {
+        if (!_viewModel.isDepartureState) {
+            WidgetUtil.drawHorizontalPageIndicator(dc, _viewModel.getModePageCount(), _viewModel.modeCursor);
+        }
+    }
+
+    hidden function _drawModeList(dc, stop) {
+        var items = ArrUtil.merge([ "Continue" ], stop.getAddableModes());
+        var cursor = _viewModel.pageCursor;
+
+        WidgetUtil.drawSideList(dc, items, cursor, true);
     }
 
     hidden function _drawHeader(dc, stop) {
@@ -110,12 +135,16 @@ class StopDetailView extends WatchUi.View {
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    hidden function _drawFooter(dc, stop) {
+    hidden function _drawFooter(dc, stop, noDetails) {
         var hFooter = px(42);
         var h = dc.getHeight();
 
         // background
         WidgetUtil.drawFooter(dc, hFooter, AppColors.PRIMARY, null, null, null);
+
+        if (noDetails) {
+            return;
+        }
 
         // clock time
 

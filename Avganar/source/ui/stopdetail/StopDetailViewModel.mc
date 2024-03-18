@@ -66,7 +66,7 @@ class StopDetailViewModel {
     }
 
     function onDelayedDeparturesRequest() {
-        _requestDepartures();
+        _requestDepartures(getCurrentModeString());
         _startRepeatTimer();
     }
 
@@ -83,11 +83,11 @@ class StopDetailViewModel {
             return;
         }
 
-        _requestDepartures();
+        _requestDepartures(getCurrentModeString());
     }
 
-    hidden function _requestDepartures() {
-        new DeparturesService(stop).requestDepartures();
+    hidden function _requestDepartures(mode) {
+        new DeparturesService(stop).requestDepartures(mode);
     }
 
     // read
@@ -95,6 +95,11 @@ class StopDetailViewModel {
     //! Get only the departures that should be
     //! displayed on the current page
     function getPageResponse() {
+        if (isAddModesPaneSelected()) {
+            // should not happen, but check just in case
+            return null;
+        }
+
         var responseAndMode = stop.getModeResponse(modeCursor);
         var modeResponse = responseAndMode[0];
         modeCursor = responseAndMode[1]; // the cursor might have been coerced
@@ -125,8 +130,27 @@ class StopDetailViewModel {
 
     function canNavigateToDeviation() {
         return !isDepartureState
+            && !isAddModesPaneSelected()
             && pageCursor == 0
             && stop.getDeviationMessages().size() != 0;
+    }
+
+    function getCurrentModeString() {
+        // TODO: only temporarily
+        var mode = isAddModesPaneSelected() ? modeCursor - 1 : modeCursor;
+        return stop.getModeString(mode);
+    }
+
+    function isAddModesPaneSelected() {
+        return includeAddModesPane() ? modeCursor == getModePageCount() - 1 : false;
+    }
+
+    function getModePageCount() {
+        return stop.getAddedModesCount() + (includeAddModesPane() ? 1 : 0);
+    }
+
+    function includeAddModesPane() {
+        return stop.getAddableModes().size() > 0;
     }
 
     // write
@@ -174,7 +198,15 @@ class StopDetailViewModel {
     }
 
     hidden function _incPageCursor() {
-        if (pageCursor < pageCount - 1) {
+        if (isAddModesPaneSelected()) {
+            if (pageCursor < stop.getAddableModes().size()) {
+                pageCursor++;
+                return true;
+            }
+
+            return false;
+        }
+        else if (pageCursor < pageCount - 1) {
             pageCursor++;
             return true;
         }
@@ -199,7 +231,7 @@ class StopDetailViewModel {
             // refresh
             if (stop.getResponse().isUserRefreshable()) {
                 stop.resetResponse();
-                _requestDepartures();
+                _requestDepartures(getCurrentModeString());
                 WatchUi.requestUpdate();
             }
         }
@@ -215,13 +247,24 @@ class StopDetailViewModel {
 
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
         }
+        else if (isAddModesPaneSelected()) {
+            if (pageCursor == 0) {
+                onNextMode();
+            }
+            else {
+                // -1 because of "Confirm" item
+                var mode = stop.getAddableModes()[pageCursor - 1];
+                _requestDepartures(mode);
+                _incModeCursor();
+            }
+        }
         else {
             onNextMode();
         }
     }
 
     function onNextMode() {
-        if (stop.getModeCount() > 1) {
+        if (getModePageCount() > 1) {
             // rotate mode
             _incModeCursor();
             WatchUi.requestUpdate();
@@ -229,7 +272,7 @@ class StopDetailViewModel {
     }
 
     hidden function _incModeCursor() {
-        modeCursor = MathUtil.mod(modeCursor + 1, stop.getModeCount());
+        modeCursor = MathUtil.mod(modeCursor + 1, getModePageCount());
         pageCursor = 0;
         WatchUi.requestUpdate();
     }

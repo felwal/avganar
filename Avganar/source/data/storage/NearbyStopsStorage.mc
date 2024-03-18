@@ -23,6 +23,7 @@ module NearbyStopsStorage {
     const _STORAGE_NEARBY_STOP_IDS = "nearby_stop_ids";
     (:glance)
     const _STORAGE_NEARBY_STOP_NAMES = "nearby_stop_names";
+    const _STORAGE_NEARBY_STOP_PRODUCTS = "nearby_stop_products";
 
     const _MEMORY_MIN_MAX_STOPS = 1;
 
@@ -32,6 +33,7 @@ module NearbyStopsStorage {
 
     var _nearbyStopIds;
     var _nearbyStopNames;
+    var _nearbyStopProducts;
 
     // static
 
@@ -46,6 +48,7 @@ module NearbyStopsStorage {
     function _save() {
         Storage.setValue(_STORAGE_NEARBY_STOP_IDS, _nearbyStopIds);
         Storage.setValue(_STORAGE_NEARBY_STOP_NAMES, _nearbyStopNames);
+        Storage.setValue(_STORAGE_NEARBY_STOP_PRODUCTS, _nearbyStopProducts);
     }
 
     //! The response is represented by:
@@ -53,7 +56,7 @@ module NearbyStopsStorage {
     //! - `ResponseError` - error
     //! - `String` - response message (e.g. "No Stops")
     //! - `null` - status message (e.g. "Loading ...", determined in `StopListViewModel#getMessage`)
-    function setResponse(stopIds, stopNames, response_) {
+    function setResponse(stopIds, stopNames, stopProducts, response_) {
         // for each too large response, halve the time window
         if (response_ instanceof ResponseError && response_.isTooLarge()) {
             maxStops = Math.ceil(maxStops == null
@@ -78,6 +81,7 @@ module NearbyStopsStorage {
 
         _nearbyStopIds = stopIds;
         _nearbyStopNames = stopNames;
+        _nearbyStopProducts = stopProducts;
         response = response_;
 
         _save();
@@ -88,13 +92,17 @@ module NearbyStopsStorage {
     function load() {
         _nearbyStopIds = StorageUtil.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
+        _nearbyStopProducts = StorageUtil.getValue(_STORAGE_NEARBY_STOP_PRODUCTS,
+            ArrUtil.filled(_nearbyStopIds.size(), null));
 
-        response = _nearbyStopIds.size() == 0 ? null : _buildStops(_nearbyStopIds, _nearbyStopNames);
+        response = _nearbyStopIds.size() == 0
+            ? null
+            : _buildStops(_nearbyStopIds, _nearbyStopNames, _nearbyStopProducts);
     }
 
     //! Create a new stop, a `StopDouble`, refer to another, or return `null`
     //! depending on if it already exists with `id` or `id` and `name`
-    function createStop(id, name, addedStops, addedStopIds, addedStopNames) {
+    function createStop(id, name, products, addedStops, addedStopIds, addedStopNames) {
         // we need to consider all already added stops, since
         // "id1 name1" should return existing "id1 name1" over "id1 name2"
         var addedStopsWithSameIdIndices = ArrUtil.indicesOf(addedStopIds, id);
@@ -163,17 +171,21 @@ module NearbyStopsStorage {
         }
 
         // if no existing stops of same id, create new stop
-        return new Stop(id, name);
+        return new Stop(id, name, products);
     }
 
-    function _buildStops(ids, names) {
+    function _buildStops(ids, names, products) {
         var addedStops = [];
         var addedIds = [];
         var addedNames = [];
+        var addedProducts = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
+            // shouldn't happen, but just in case
+            var products_ = i < products.size() ? products[i] : null;
+
             // null if duplicate
-            var stop = createStop(ids[i], names[i], addedStops, addedIds, addedNames);
+            var stop = createStop(ids[i], names[i], products_, addedStops, addedIds, addedNames);
             if (stop == null) {
                 continue;
             }
@@ -181,12 +193,14 @@ module NearbyStopsStorage {
             addedStops.add(stop);
             addedIds.add(ids[i]);
             addedNames.add(names[i]);
+            addedProducts.add(products_);
         }
 
         // also update these: if some of the stops were null (duplicates),
         // we don't want to keep the ids or names associated with those either.
         _nearbyStopIds = addedIds;
         _nearbyStopNames = addedNames;
+        _nearbyStopProducts = addedProducts;
 
         return addedStops;
     }
