@@ -71,11 +71,10 @@ module WidgetUtil {
 
     function drawExclamationBanner(dc) {
         drawHeader(dc, px(30), AppColors.ERROR, AppColors.BACKGROUND, "!", AppColors.TEXT_PRIMARY);
-        Graphite.resetPenWidth(dc);
     }
 
     function drawActionFooter(dc, message) {
-        drawFooter(dc, px(45), AppColors.BACKGROUND_INVERTED, AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
+        drawFooter(dc, px(42), AppColors.BACKGROUND_INVERTED, AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
 
         Graphite.setColor(dc, AppColors.TEXT_INVERTED);
         drawBottomPageArrow(dc);
@@ -87,9 +86,12 @@ module WidgetUtil {
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
         if (strokeColor != null) {
-            dc.setPenWidth(px(1));
+            var strokeWidth = px(1);
+            var y = height - strokeWidth;
+
+            dc.setPenWidth(strokeWidth);
             Graphite.setColor(dc, strokeColor);
-            dc.drawLine(0, height, dc.getWidth(), height);
+            dc.drawLine(0, y, dc.getWidth(), y);
             Graphite.resetPenWidth(dc);
         }
 
@@ -105,9 +107,12 @@ module WidgetUtil {
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
         if (strokeColor != null) {
-            dc.setPenWidth(px(1));
+            var strokeWidth = px(1);
+            var y = dc.getHeight() - height - strokeWidth;
+
+            dc.setPenWidth(strokeWidth);
             Graphite.setColor(dc, strokeColor);
-            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+            dc.drawLine(0, y, dc.getWidth(), y);
             Graphite.resetPenWidth(dc);
         }
 
