@@ -73,7 +73,7 @@ fenix7xpro.resourcePath = $(fenix7xpro.resourcePath); resources-280x280
 fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath); resources-280x280
 
 # 320x360
-# just use 360x360 for now
+# just use 360x360 for now. TODO: how should we handle it?
 venusq2.resourcePath = $(venusq2.resourcePath); resources-360x360
 venusq2m.resourcePath = $(venusq2m.resourcePath); resources-360x360
 

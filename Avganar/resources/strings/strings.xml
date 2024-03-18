@@ -34,8 +34,8 @@
     <string id="msg_e_null_data">No Data</string>
     <string id="msg_e_server">Server Error</string>
     <string id="msg_e_proxy">Server Error</string>
-    <string id="msg_e_limit_minute">Quota exceeded (minute)</string>
-    <string id="msg_e_limit_month">Quota exceeded (month)</string>
+    <string id="msg_e_limit_minute">Quota Exceeded (minute)</string>
+    <string id="msg_e_limit_month">Quota Exceeded (month)</string>
 
     <!-- view -->
 
