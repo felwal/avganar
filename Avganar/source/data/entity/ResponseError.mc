@@ -16,16 +16,16 @@ using Toybox.Lang;
 class ResponseError {
 
     // API
-    static var API_RESPONSE_SERVER_ERRORS = [ 5321, 5322, 5323, 5324 ];
-    static var API_REQUEST_LIMIT_MINUTE = 1006;
-    static var API_REQUEST_LIMIT_MONTH = 1007;
-    static var API_RESPONSE_PROXY = 1008;
+    static hidden var _API_RESPONSE_SERVER = [ 5321, 5322, 5323, 5324 ];
+    static hidden var _API_REQUEST_LIMIT_MINUTE = [ 429, 1006 ];
+    static hidden var _API_REQUEST_LIMIT_MONTH = 1007;
+    static hidden var _API_RESPONSE_PROXY = 1008;
 
     // HTTP
     static var HTTP_OK = 200;
-    static var HTTP_BAD_REQUEST = 400;
-    static var HTTP_NOT_FOUND = 404;
-    static var HTTP_NO_CODE = 1002;
+    static hidden var _HTTP_BAD_REQUEST = 400;
+    static hidden var _HTTP_NOT_FOUND = 404;
+    static hidden var _HTTP_NO_CODE = 1002;
 
     // custom
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
@@ -63,13 +63,13 @@ class ResponseError {
         if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
-        else if (_code == HTTP_BAD_REQUEST) {
+        else if (_code == _HTTP_BAD_REQUEST) {
             _title = rez(Rez.Strings.msg_e_bad_request);
         }
-        else if (_code == HTTP_NOT_FOUND) {
+        else if (_code == _HTTP_NOT_FOUND) {
             _title = rez(Rez.Strings.msg_e_not_found);
         }
-        else if (_code == Communications.UNKNOWN_ERROR || _code == HTTP_NO_CODE) {
+        else if (_code == Communications.UNKNOWN_ERROR || _code == _HTTP_NO_CODE) {
             _title = rez(Rez.Strings.msg_e_unknown);
         }
         else if (!hasConnection()) {
@@ -90,13 +90,13 @@ class ResponseError {
         else if (isServerError() || isTooLarge()) {
             _title = rez(Rez.Strings.msg_i_departures_requesting);
         }
-        else if (_code == API_REQUEST_LIMIT_MINUTE) {
+        else if (ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)) {
             _title = rez(Rez.Strings.msg_e_limit_minute);
         }
-        else if (_code == API_REQUEST_LIMIT_MONTH) {
+        else if (_code == _API_REQUEST_LIMIT_MONTH) {
             _title = rez(Rez.Strings.msg_e_limit_month);
         }
-        else if (_code == API_RESPONSE_PROXY) {
+        else if (_code == _API_RESPONSE_PROXY) {
             _title = rez(Rez.Strings.msg_e_proxy);
         }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
@@ -122,7 +122,7 @@ class ResponseError {
         // NOTE: API limitation
         // usually these "server errors" are resolvable by simply requesting again.
         // we want to automate that.
-        return ArrUtil.contains(API_RESPONSE_SERVER_ERRORS, _code);
+        return ArrUtil.contains(_API_RESPONSE_SERVER, _code);
     }
 
     function hasConnection() {
@@ -131,12 +131,12 @@ class ResponseError {
     }
 
     function isRequestLimitShortReached() {
-        return _code == API_REQUEST_LIMIT_MINUTE
+        return ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)
             || _code == CODE_AUTO_REQUEST_LIMIT_SERVER;
     }
 
     function isRequestLimitLongReached() {
-        return _code == API_REQUEST_LIMIT_MONTH
+        return _code == _API_REQUEST_LIMIT_MONTH
             || _code == CODE_AUTO_REQUEST_LIMIT_MEMORY;
     }
 
@@ -149,7 +149,7 @@ class ResponseError {
         return hasConnection()
             && !isAutoRefreshable()
             && !isRequestLimitLongReached()
-            && _code != HTTP_BAD_REQUEST // shouldn't be repeated
+            && _code != _HTTP_BAD_REQUEST // shouldn't be repeated
             && _code != null;
     }
 
