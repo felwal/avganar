@@ -166,10 +166,8 @@ class Stop {
     function getAddableModes() {
         if (_products == null) {
             // NOTE: migration to 1.8.0
-            // if products are unknown, just return all possibilites
-            // TODO: any better way?
-            return [ Departure.MODE_BUS, Departure.MODE_METRO, Departure.MODE_TRAIN,
-                Departure.MODE_TRAM, Departure.MODE_SHIP ];
+            // if products are unknown, skip the mode menu entirely
+            return [];
         }
 
         var addableProducts = _products - _addedProducts;

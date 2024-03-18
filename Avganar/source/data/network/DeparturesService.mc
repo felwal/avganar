@@ -47,9 +47,16 @@ class DeparturesService {
 
         var params = {
             // NOTE: the API seems to ignore this whenever it feels like it
-            "forecast" => _stop.getTimeWindow(),
-            "transport" => mode
+            "forecast" => _stop.getTimeWindow()
         };
+
+        // NOTE: migration to 1.8.0
+        // no products saved => ´mode´ = null => request all modes
+        // (same behaviour as before)
+        if (mode != null) {
+            params["transport"] = mode;
+        }
+
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }

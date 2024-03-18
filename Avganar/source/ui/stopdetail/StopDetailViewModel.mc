@@ -143,7 +143,12 @@ class StopDetailViewModel {
     }
 
     function getCurrentModeString() {
-        // TODO: only temporarily
+        // TODO: only temporarily (?)
+
+        if (stop.getProducts() == null) {
+            return null;
+        }
+
         var mode = isAddModesPaneSelected() ? modeCursor - 1 : modeCursor;
         return stop.getModeString(mode);
     }
