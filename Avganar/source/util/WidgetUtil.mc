@@ -425,7 +425,7 @@ module WidgetUtil {
 
     // list
 
-    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, paneColors, mainColors) {
+    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, topHint, paneColors, mainColors) {
         var paneHint = paneHints[0];
         var mainHint = mainHints[0];
 
@@ -454,7 +454,7 @@ module WidgetUtil {
 
             // top header
             if (cursor == 0) {
-                drawHeader(dc, px(84), mainColors[0], paneStrokeColor, rez(Rez.Strings.app_name), mainColors[1]);
+                drawHeader(dc, px(84), AppColors.BACKGROUND, paneStrokeColor, topHint, AppColors.TEXT_PRIMARY);
             }
             else if (cursor == 1) {
                 drawHeader(dc, px(42), mainColors[0], paneStrokeColor, null, null);
@@ -485,6 +485,8 @@ module WidgetUtil {
 
         // outside pane
         else {
+            Graphite.fillBackground(dc, mainColors[0]);
+
             // top header
             if (cursor == paneSize) {
                 drawHeader(dc, px(84), paneColors[0], paneStrokeColor, paneHint, paneColors[3]);
@@ -517,7 +519,7 @@ module WidgetUtil {
         var h = dc.getHeight() - 2 * px(36);
         var lineHeightPx = h / 4;
 
-        var bgColor = cursor >= paneSize ? AppColors.BACKGROUND : paneColors[0];
+        var bgColor = cursor >= paneSize ? mainColors[0] : paneColors[0];
         var selectedColor;
         var unselectedColor;
 

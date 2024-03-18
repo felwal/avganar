@@ -76,7 +76,8 @@ class StopListView extends WatchUi.View {
         var nearbyColors = [ AppColors.BACKGROUND, AppColors.TEXT_PRIMARY,
             AppColors.TEXT_SECONDARY, AppColors.TEXT_TERTIARY ];
 
-        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, favColors, nearbyColors);
+        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints,
+            rez(Rez.Strings.app_name), favColors, nearbyColors);
     }
 
     hidden function _drawLoadingStatus(dc) {
