@@ -55,7 +55,12 @@ class StopDetailView extends WatchUi.View {
 
         // text
         _drawHeader(dc, stop);
-        _drawFooter(dc, stop, isInModesPane);
+        _drawFooter(dc, stop, _viewModel.isInitialRequest || isInModesPane);
+
+        if (_viewModel.isInitialRequest) {
+            _drawInitialModeList(dc, stop);
+            return;
+        }
 
         if (isInModesPane) {
             _drawModeList(dc, stop);
@@ -117,11 +122,14 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
+    hidden function _drawInitialModeList(dc, stop) {
+        var items = stop.getAddableModes();
+        WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
+    }
+
     hidden function _drawModeList(dc, stop) {
         var items = ArrUtil.merge([ "Continue" ], stop.getAddableModes());
-        var cursor = _viewModel.pageCursor;
-
-        WidgetUtil.drawSideList(dc, items, cursor, true);
+        WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
     hidden function _drawHeader(dc, stop) {

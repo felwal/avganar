@@ -29,6 +29,7 @@ class StopDetailViewModel {
     var modeCursor = 0;
     var departureCursor = 0;
     var isDepartureState = false;
+    var isInitialRequest = true;
 
     hidden var _lastPageDepartureCount = 0;
     hidden var _delayTimer = new Timer.Timer();
@@ -38,12 +39,17 @@ class StopDetailViewModel {
 
     function initialize(stop) {
         me.stop = stop;
+
+        // TODO: more efficient addable modes count
+        isInitialRequest = stop.getResponse() == null && stop.getAddableModes().size() > 1;
     }
 
     // request
 
     function enableRequests() {
-        _requestDeparturesDelayed();
+        if (!isInitialRequest) {
+            _requestDeparturesDelayed();
+        }
     }
 
     function disableRequests() {
@@ -95,7 +101,7 @@ class StopDetailViewModel {
     //! Get only the departures that should be
     //! displayed on the current page
     function getPageResponse() {
-        if (isAddModesPaneSelected()) {
+        if (isInitialRequest || isAddModesPaneSelected()) {
             // should not happen, but check just in case
             return null;
         }
@@ -130,6 +136,7 @@ class StopDetailViewModel {
 
     function canNavigateToDeviation() {
         return !isDepartureState
+            && !isInitialRequest
             && !isAddModesPaneSelected()
             && pageCursor == 0
             && stop.getDeviationMessages().size() != 0;
@@ -198,7 +205,15 @@ class StopDetailViewModel {
     }
 
     hidden function _incPageCursor() {
-        if (isAddModesPaneSelected()) {
+        if (isInitialRequest) {
+            if (pageCursor < stop.getAddableModes().size() - 1) {
+                pageCursor++;
+                return true;
+            }
+
+            return false;
+        }
+        else if (isAddModesPaneSelected()) {
             if (pageCursor < stop.getAddableModes().size()) {
                 pageCursor++;
                 return true;
@@ -246,6 +261,13 @@ class StopDetailViewModel {
             }
 
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
+        }
+        else if (isInitialRequest) {
+            var mode = stop.getAddableModes()[pageCursor];
+            _requestDepartures(mode);
+
+            isInitialRequest = false;
+            pageCursor = 0;
         }
         else if (isAddModesPaneSelected()) {
             if (pageCursor == 0) {

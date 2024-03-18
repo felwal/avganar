@@ -36,7 +36,7 @@ class StopListViewModel {
 
     function enableRequests() {
         if (DEBUG) {
-            _requestNearbyStops();
+            //_requestNearbyStops();
             return;
         }
 
