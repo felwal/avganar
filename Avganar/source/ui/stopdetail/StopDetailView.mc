@@ -105,9 +105,9 @@ class StopDetailView extends WatchUi.View {
                     WidgetUtil.drawExclamationBanner(dc);
                 }
 
-                // start indicator
+                // retry
                 if (response.isUserRefreshable()) {
-                    WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
+                    WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
                 }
             }
         }

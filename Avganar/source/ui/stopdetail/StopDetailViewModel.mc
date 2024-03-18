@@ -175,7 +175,16 @@ class StopDetailViewModel {
 
     //! Scrolling down
     function incCursor() {
-        if (isDepartureState) {
+        if (stop.getResponse() instanceof ResponseError
+            && stop.getResponse().isUserRefreshable()
+            && !isAddModesPaneSelected()) {
+
+            // refresh
+            stop.resetResponse();
+            _requestDepartures(getCurrentModeString());
+            WatchUi.requestUpdate();
+        }
+        else if (isDepartureState) {
             if (departureCursor < DEPARTURES_PER_PAGE - 1
                 && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
 
@@ -247,15 +256,7 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
-        if (stop.getResponse() instanceof ResponseError) {
-            // refresh
-            if (stop.getResponse().isUserRefreshable()) {
-                stop.resetResponse();
-                _requestDepartures(getCurrentModeString());
-                WatchUi.requestUpdate();
-            }
-        }
-        else if (isDepartureState) {
+        if (isDepartureState) {
             var responseAndMode = stop.getModeResponse(modeCursor);
             var modeResponse = responseAndMode[0];
             var selectedDeparture = modeResponse[pageCursor * 4 + departureCursor];
