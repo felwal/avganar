@@ -1,6 +1,5 @@
 <drawables>
 
-    <bitmap id="ic_refresh" filename="ic_refresh.png" />
     <bitmap id="ic_warning" filename="ic_warning.png" />
 
 </drawables>
