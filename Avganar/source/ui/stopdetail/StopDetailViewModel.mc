@@ -41,7 +41,7 @@ class StopDetailViewModel {
         me.stop = stop;
 
         // TODO: more efficient addable modes count
-        isInitialRequest = stop.getResponse() == null && stop.getAddableModesKeys().size() > 1;
+        isInitialRequest = stop.getResponse() == null && stop.getAddableModesCount() > 1;
     }
 
     // request
@@ -143,6 +143,7 @@ class StopDetailViewModel {
     }
 
     function getCurrentModeKey() {
+        // for auto-refreshing
         // TODO: only temporarily (?)
 
         // NOTE: migration to 1.8.0
@@ -152,7 +153,7 @@ class StopDetailViewModel {
         }
 
         var mode = isAddModesPaneSelected() ? modeCursor - 1 : modeCursor;
-        return stop.getModeKey(mode);
+        return stop.getAddedModeKey(mode);
     }
 
     function isAddModesPaneSelected() {
@@ -164,7 +165,7 @@ class StopDetailViewModel {
     }
 
     function includeAddModesPane() {
-        return stop.getAddableModesKeys().size() > 0;
+        return stop.getAddableModesCount() > 0;
     }
 
     // write
@@ -222,7 +223,7 @@ class StopDetailViewModel {
 
     hidden function _incPageCursor() {
         if (isInitialRequest) {
-            if (pageCursor < stop.getAddableModesKeys().size() - 1) {
+            if (pageCursor < stop.getAddableModesCount() - 1) {
                 pageCursor++;
                 return true;
             }
@@ -230,7 +231,7 @@ class StopDetailViewModel {
             return false;
         }
         else if (isAddModesPaneSelected()) {
-            if (pageCursor < stop.getAddableModesKeys().size()) {
+            if (pageCursor < stop.getAddableModesCount()) {
                 pageCursor++;
                 return true;
             }
@@ -271,7 +272,7 @@ class StopDetailViewModel {
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
         }
         else if (isInitialRequest) {
-            var mode = stop.getAddableModesKeys()[pageCursor];
+            var mode = stop.getAddableModeKey(pageCursor);
             _requestDepartures(mode);
 
             isInitialRequest = false;
@@ -283,7 +284,7 @@ class StopDetailViewModel {
             }
             else {
                 // -1 because of "Confirm" item
-                var mode = stop.getAddableModesKeys()[pageCursor - 1];
+                var mode = stop.getAddableModeKey(pageCursor - 1);
                 _requestDepartures(mode);
                 _incModeCursor();
             }

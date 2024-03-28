@@ -96,16 +96,24 @@ class StopDouble {
         return _stop.getDataAgeMillis();
     }
 
-    function getAddableModesKeys() {
-        return _stop.getAddableModesKeys();
+    function getAddableModeKey(index) {
+        return _stop.getAddableModeKey(index);
+    }
+
+    function getAddableModesStrings() {
+        return _stop.getAddableModesStrings();
+    }
+
+    function getAddableModesCount() {
+        return _stop.getAddableModesCount();
+    }
+
+    function getAddedModeKey(index) {
+        return _stop.getAddedModeKey(index);
     }
 
     function getAddedModesCount() {
         return _stop.getAddedModesCount();
-    }
-
-    function getModeKey(mode) {
-        return _stop.getModeKey(mode);
     }
 
     function getModeResponse(mode) {
