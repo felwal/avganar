@@ -161,23 +161,23 @@ class Departure {
 
     function getModeSymbol() {
         if (mode.equals(MODE_BUS)) {
-            return rez(Rez.Strings.lbl_detail_mode_bus);
+            return rez(Rez.Strings.lbl_detail_mode_symbol_bus);
         }
         else if (mode.equals(MODE_METRO)) {
-            return rez(Rez.Strings.lbl_detail_mode_metro);
+            return rez(Rez.Strings.lbl_detail_mode_symbol_metro);
         }
         else if (mode.equals(MODE_TRAIN)) {
-            return rez(Rez.Strings.lbl_detail_mode_train);
+            return rez(Rez.Strings.lbl_detail_mode_symbol_train);
         }
         else if (mode.equals(MODE_TRAM)) {
-            return rez(Rez.Strings.lbl_detail_mode_tram);
+            return rez(Rez.Strings.lbl_detail_mode_symbol_tram);
         }
         else if (mode.equals(MODE_SHIP)) {
-            return rez(Rez.Strings.lbl_detail_mode_ship);
+            return rez(Rez.Strings.lbl_detail_mode_symbol_ship);
         }
         else {
             Log.w("unknown mode: " + mode);
-            return rez(Rez.Strings.lbl_detail_mode_unknown);
+            return rez(Rez.Strings.lbl_detail_mode_symbol_unknown);
         }
     }
 
