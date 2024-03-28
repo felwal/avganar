@@ -150,6 +150,7 @@ class ResponseError {
             && !isAutoRefreshable()
             && !isRequestLimitLongReached()
             && _code != _HTTP_BAD_REQUEST // shouldn't be repeated
+            && _code != HTTP_OK // probably due to breaking API changes
             && _code != null;
     }
 
