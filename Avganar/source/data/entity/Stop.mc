@@ -163,7 +163,7 @@ class Stop {
             : null;
     }
 
-    function getAddableModes() {
+    function getAddableModesKeys() {
         if (_products == null) {
             // NOTE: migration to 1.8.0
             // if products are unknown, skip the mode menu entirely
@@ -171,7 +171,18 @@ class Stop {
         }
 
         var addableProducts = _products - _addedProducts;
-        return Departure.getModesByBits(addableProducts);
+        return Departure.getModesKeysByBits(addableProducts);
+    }
+
+    function getAddableModesStrings() {
+        if (_products == null) {
+            // NOTE: migration to 1.8.0
+            // if products are unknown, skip the mode menu entirely
+            return [];
+        }
+
+        var addableProducts = _products - _addedProducts;
+        return Departure.getModesStringsByBits(addableProducts);
     }
 
     function getAddedModesCount() {
@@ -182,12 +193,12 @@ class Stop {
         return 1;
     }
 
-    function getModeString(mode) {
+    function getModeKey(mode) {
         if (!(_response instanceof Lang.Array) || _response.size() == 0) {
             // TODO: just return ""?
             return _products == null
                 ? Departure.MODE_BUS // NOTE: migration to 1.8.0
-                : Departure.getModesByBits(_products)[0]; // TODO: more efficient
+                : Departure.getModesKeysByBits(_products)[0]; // TODO: more efficient
         }
 
         return _response[mode][0].mode;

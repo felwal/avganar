@@ -66,6 +66,13 @@
     <string id="lbl_detail_mode_letter_unknown">?</string>
     <string id="lbl_detail_deviation_none">No Deviations</string>
 
+    <!-- modes menu -->
+    <string id="itm_modes_bus">Bus</string>
+    <string id="itm_modes_metro">Metro</string>
+    <string id="itm_modes_train">Train</string>
+    <string id="itm_modes_tram">Tram</string>
+    <string id="itm_modes_ship">Ferry</string>
+
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
     <string id="lbl_dialog_no_favorites_msg">Set stops as favorites via the menu</string>

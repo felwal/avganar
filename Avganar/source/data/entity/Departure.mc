@@ -80,7 +80,7 @@ class Departure {
         me.isRealTime = isRealTime;
     }
 
-    static function getModesByBits(bits) {
+    static function getModesKeysByBits(bits) {
         var modes = [];
 
         if (bits&BIT_BUS != 0) {
@@ -97,6 +97,28 @@ class Departure {
         }
         if (bits&BIT_SHIP != 0) {
             modes.add(MODE_SHIP);
+        }
+
+        return modes;
+    }
+
+    static function getModesStringsByBits(bits) {
+        var modes = [];
+
+        if (bits&BIT_BUS != 0) {
+            modes.add(rez(Rez.Strings.itm_modes_bus));
+        }
+        if (bits&BIT_METRO != 0) {
+            modes.add(rez(Rez.Strings.itm_modes_metro));
+        }
+        if (bits&BIT_TRAIN != 0) {
+            modes.add(rez(Rez.Strings.itm_modes_train));
+        }
+        if (bits&BIT_TRAM != 0) {
+            modes.add(rez(Rez.Strings.itm_modes_tram));
+        }
+        if (bits&BIT_SHIP != 0) {
+            modes.add(rez(Rez.Strings.itm_modes_ship));
         }
 
         return modes;

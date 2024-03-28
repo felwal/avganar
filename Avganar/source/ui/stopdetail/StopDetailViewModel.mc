@@ -41,7 +41,7 @@ class StopDetailViewModel {
         me.stop = stop;
 
         // TODO: more efficient addable modes count
-        isInitialRequest = stop.getResponse() == null && stop.getAddableModes().size() > 1;
+        isInitialRequest = stop.getResponse() == null && stop.getAddableModesKeys().size() > 1;
     }
 
     // request
@@ -72,7 +72,7 @@ class StopDetailViewModel {
     }
 
     function onDelayedDeparturesRequest() {
-        _requestDepartures(getCurrentModeString());
+        _requestDepartures(getCurrentModeKey());
         _startRepeatTimer();
     }
 
@@ -89,7 +89,7 @@ class StopDetailViewModel {
             return;
         }
 
-        _requestDepartures(getCurrentModeString());
+        _requestDepartures(getCurrentModeKey());
     }
 
     hidden function _requestDepartures(mode) {
@@ -142,15 +142,17 @@ class StopDetailViewModel {
             && stop.getDeviationMessages().size() != 0;
     }
 
-    function getCurrentModeString() {
+    function getCurrentModeKey() {
         // TODO: only temporarily (?)
 
+        // NOTE: migration to 1.8.0
+        // iif products are unknown, return null => request all modes
         if (stop.getProducts() == null) {
             return null;
         }
 
         var mode = isAddModesPaneSelected() ? modeCursor - 1 : modeCursor;
-        return stop.getModeString(mode);
+        return stop.getModeKey(mode);
     }
 
     function isAddModesPaneSelected() {
@@ -162,7 +164,7 @@ class StopDetailViewModel {
     }
 
     function includeAddModesPane() {
-        return stop.getAddableModes().size() > 0;
+        return stop.getAddableModesKeys().size() > 0;
     }
 
     // write
@@ -181,7 +183,7 @@ class StopDetailViewModel {
 
             // refresh
             stop.resetResponse();
-            _requestDepartures(getCurrentModeString());
+            _requestDepartures(getCurrentModeKey());
             WatchUi.requestUpdate();
         }
         else if (isDepartureState) {
@@ -220,7 +222,7 @@ class StopDetailViewModel {
 
     hidden function _incPageCursor() {
         if (isInitialRequest) {
-            if (pageCursor < stop.getAddableModes().size() - 1) {
+            if (pageCursor < stop.getAddableModesKeys().size() - 1) {
                 pageCursor++;
                 return true;
             }
@@ -228,7 +230,7 @@ class StopDetailViewModel {
             return false;
         }
         else if (isAddModesPaneSelected()) {
-            if (pageCursor < stop.getAddableModes().size()) {
+            if (pageCursor < stop.getAddableModesKeys().size()) {
                 pageCursor++;
                 return true;
             }
@@ -269,7 +271,7 @@ class StopDetailViewModel {
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
         }
         else if (isInitialRequest) {
-            var mode = stop.getAddableModes()[pageCursor];
+            var mode = stop.getAddableModesKeys()[pageCursor];
             _requestDepartures(mode);
 
             isInitialRequest = false;
@@ -281,7 +283,7 @@ class StopDetailViewModel {
             }
             else {
                 // -1 because of "Confirm" item
-                var mode = stop.getAddableModes()[pageCursor - 1];
+                var mode = stop.getAddableModesKeys()[pageCursor - 1];
                 _requestDepartures(mode);
                 _incModeCursor();
             }
