@@ -210,12 +210,12 @@ class Stop {
         return [ _response, 0 ];
     }
 
-    function getModeSymbol(mode) {
+    function getModeLetter(mode) {
         if (!(_response instanceof Lang.Array) || mode >= _response.size() || _response[mode].size() == 0) {
             return "";
         }
 
-        return _response[mode][0].getModeSymbol();
+        return _response[mode][0].getModeLetter();
     }
 
     //

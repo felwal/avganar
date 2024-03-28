@@ -112,8 +112,8 @@ class StopDouble {
         return _stop.getModeResponse(mode);
     }
 
-    function getModeSymbol(mode) {
-        return _stop.getModeSymbol(mode);
+    function getModeLetter(mode) {
+        return _stop.getModeLetter(mode);
     }
 
 }

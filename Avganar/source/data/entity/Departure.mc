@@ -159,25 +159,25 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
-    function getModeSymbol() {
+    function getModeLetter() {
         if (mode.equals(MODE_BUS)) {
-            return rez(Rez.Strings.lbl_detail_mode_symbol_bus);
+            return rez(Rez.Strings.lbl_detail_mode_letter_bus);
         }
         else if (mode.equals(MODE_METRO)) {
-            return rez(Rez.Strings.lbl_detail_mode_symbol_metro);
+            return rez(Rez.Strings.lbl_detail_mode_letter_metro);
         }
         else if (mode.equals(MODE_TRAIN)) {
-            return rez(Rez.Strings.lbl_detail_mode_symbol_train);
+            return rez(Rez.Strings.lbl_detail_mode_letter_train);
         }
         else if (mode.equals(MODE_TRAM)) {
-            return rez(Rez.Strings.lbl_detail_mode_symbol_tram);
+            return rez(Rez.Strings.lbl_detail_mode_letter_tram);
         }
         else if (mode.equals(MODE_SHIP)) {
-            return rez(Rez.Strings.lbl_detail_mode_symbol_ship);
+            return rez(Rez.Strings.lbl_detail_mode_letter_ship);
         }
         else {
             Log.w("unknown mode: " + mode);
-            return rez(Rez.Strings.lbl_detail_mode_symbol_unknown);
+            return rez(Rez.Strings.lbl_detail_mode_letter_unknown);
         }
     }
 

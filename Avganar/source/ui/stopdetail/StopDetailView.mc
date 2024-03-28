@@ -185,11 +185,11 @@ class StopDetailView extends WatchUi.View {
                 AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
         }
 
-        // mode symbol
+        // mode letter
 
-        var modeSymbol = stop.getModeSymbol(_viewModel.modeCursor);
+        var modeLetter = stop.getModeLetter(_viewModel.modeCursor);
 
-        if (modeSymbol.equals("")) {
+        if (modeLetter.equals("")) {
             return;
         }
 
@@ -203,7 +203,7 @@ class StopDetailView extends WatchUi.View {
         dc.fillCircle(xMode, yMode + r, r + 2);
 
         dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);
-        dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(xMode, yMode, fontMode, modeLetter, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {
