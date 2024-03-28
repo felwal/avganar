@@ -36,7 +36,7 @@ module NearbyStopsService {
     function requestNearbyStops(lat, lon) {
         // final check if location use is turned off
         if (!SettingsStorage.getUseLocation()) {
-            NearbyStopsStorage.setResponse([], [], [], null);
+            NearbyStopsStorage.setResponseError(null);
             WatchUi.requestUpdate();
         }
         // check if outside bounds, to not make unnecessary calls outside the operator zone
@@ -44,7 +44,7 @@ module NearbyStopsService {
             Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
 
             if (lat != 0.0 || lon != 0.0) {
-                NearbyStopsStorage.setResponse([], [], [], rez(Rez.Strings.msg_i_stops_outside_bounds));
+                NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds));
             }
 
             WatchUi.requestUpdate();
@@ -89,7 +89,7 @@ module NearbyStopsService {
         else {
             Log.e("Stops response error (code " + responseCode + "): " + data);
 
-            NearbyStopsStorage.setResponse([], [], [], new ResponseError(DictUtil.get(data, "Message", responseCode)));
+            NearbyStopsStorage.setResponseError(new ResponseError(DictUtil.get(data, "Message", responseCode)));
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
@@ -104,7 +104,7 @@ module NearbyStopsService {
         // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
-            NearbyStopsStorage.setResponse([], [], [], new ResponseError(statusCode));
+            NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
 
             Log.e("Stops operator response error (code " + statusCode + ")");
 
@@ -114,10 +114,10 @@ module NearbyStopsService {
         // no stops were found
         if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
             if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponse([], [], [], new ResponseError(data["Message"]));
+                NearbyStopsStorage.setResponseError(new ResponseError(data["Message"]));
             }
             else {
-                NearbyStopsStorage.setResponse([], [], [], rez(Rez.Strings.msg_i_stops_none));
+                NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_none));
             }
 
             return;

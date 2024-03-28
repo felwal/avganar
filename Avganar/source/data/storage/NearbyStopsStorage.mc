@@ -51,6 +51,10 @@ module NearbyStopsStorage {
         Storage.setValue(_STORAGE_NEARBY_STOP_PRODUCTS, _nearbyStopProducts);
     }
 
+    function setResponseError(responseError) {
+        setResponse([], [], [], responseError);
+    }
+
     //! The response is represented by:
     //! - `Array<Stop>` - success
     //! - `ResponseError` - error
@@ -73,7 +77,8 @@ module NearbyStopsStorage {
 
             // only vibrate if we are not auto-refreshing and data is changed
             if (!ArrUtil.equals(_nearbyStopIds, stopIds)
-                || ((response_ instanceof ResponseError || response_ instanceof Lang.String) && !response_.equals(response))) {
+                || ((response_ instanceof ResponseError || response_ instanceof Lang.String)
+                && !response_.equals(response))) {
 
                 vibrate();
             }
