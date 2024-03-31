@@ -53,11 +53,11 @@
 
     <!-- modes menu -->
     <string id="itm_modes_continue">Fortsätt</string>
-    <string id="itm_modes_bus">Buss</string>
-    <string id="itm_modes_metro">Metro</string>
-    <string id="itm_modes_train">Tåg</string>
-    <string id="itm_modes_tram">Spårvagn</string>
-    <string id="itm_modes_ship">Färja</string>
+    <string id="itm_modes_bus">Bussar</string>
+    <string id="itm_modes_metro">Tunnelbana</string>
+    <string id="itm_modes_train">Pendeltåg</string>
+    <string id="itm_modes_tram">Lokalbana</string>
+    <string id="itm_modes_ship">Båtar</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
