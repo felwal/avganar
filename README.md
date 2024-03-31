@@ -1,6 +1,6 @@
 # Avgånär: Stockholm departures
 
-A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL). Uses Trafiklab's APIs.
+A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden. Uses Trafiklab's APIs.
 
 Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3edd-4298-8348-5bd818376a2a).
 
@@ -22,7 +22,7 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 Avgånär uses SL's APIs, provided by [Trafiklab](trafiklab.se):
 
 - [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/)
-- [SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)
+- ~~[SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)~~ [SL Transport](https://www.trafiklab.se/api/trafiklab-apis/sl/transport/)
 
 ## Develop
 
