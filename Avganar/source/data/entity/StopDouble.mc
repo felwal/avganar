@@ -42,6 +42,10 @@ class StopDouble {
 
     // set
 
+    function setProducts(products) {
+        _stop.setProducts(products);
+    }
+
     function setResponse(response) {
         _stop.setResponse(response);
     }
@@ -62,6 +66,10 @@ class StopDouble {
 
     function getId() {
         return _stop.getId();
+    }
+
+    function getProducts() {
+        return _stop.getProducts();
     }
 
     function getResponse() {
@@ -88,16 +96,32 @@ class StopDouble {
         return _stop.getDataAgeMillis();
     }
 
-    function getModeCount() {
-        return _stop.getModeCount();
+    function getAddableModeKey(index) {
+        return _stop.getAddableModeKey(index);
+    }
+
+    function getAddableModesStrings() {
+        return _stop.getAddableModesStrings();
+    }
+
+    function getAddableModesCount() {
+        return _stop.getAddableModesCount();
+    }
+
+    function getAddedModeKey(index) {
+        return _stop.getAddedModeKey(index);
+    }
+
+    function getAddedModesCount() {
+        return _stop.getAddedModesCount();
     }
 
     function getModeResponse(mode) {
         return _stop.getModeResponse(mode);
     }
 
-    function getModeSymbol(mode) {
-        return _stop.getModeSymbol(mode);
+    function getModeLetter(mode) {
+        return _stop.getModeLetter(mode);
     }
 
 }

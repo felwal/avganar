@@ -14,6 +14,16 @@
 (:glance)
 module ArrUtil {
 
+    function filled(size, value) {
+        var arr = [];
+
+        for (var i = 0; i < size; i++) {
+            arr.add(value);
+        }
+
+        return arr;
+    }
+
     function equals(arr1, arr2) {
         if (arr1.size() != arr2.size()) { return false; }
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.0
+
+- Migrate to the new Transport API
+  - Please update by 2024-03-31
+- UI for requesting departures one transport mode at a time
+  - Necessary because responses from new API otherwise are too large
+
 ## 1.7.0
 
 - Ignore stop duplicates introduced by recent API update

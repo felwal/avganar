@@ -27,6 +27,8 @@ class Stop {
     var name;
 
     hidden var _id;
+    hidden var _products = null;
+    hidden var _addedProducts = 0;
     hidden var _response;
     hidden var _failedRequestCount = 0;
     hidden var _deviationMessages = [];
@@ -35,8 +37,9 @@ class Stop {
 
     // init
 
-    function initialize(id, name) {
+    function initialize(id, name, products) {
         _id = id;
+        _products = products;
         me.name = name;
     }
 
@@ -46,6 +49,10 @@ class Stop {
     }
 
     // set
+
+    function setProducts(products) {
+        _products = products;
+    }
 
     function setResponse(response) {
         _response = response;
@@ -67,14 +74,23 @@ class Stop {
             }
 
             _failedRequestCount++;
+            return;
         }
         else if (_response instanceof ResponseError && _response.isServerError()) {
             _failedRequestCount++;
+            return;
+        }
+
+        // only vibrate if we are not auto-refreshing
+        vibrate();
+        _failedRequestCount = 0;
+
+        if (_response instanceof Lang.Array && _response.size() > 0 && _response[0].size() > 0) {
+            // TODO: a better way that works also if no departures
+            _addedProducts = Departure.MODE_TO_BIT[_response[0][0].mode];
         }
         else {
-            // only vibrate if we are not auto-refreshing
-            vibrate();
-            _failedRequestCount = 0;
+            _addedProducts = 0;
         }
     }
 
@@ -97,6 +113,10 @@ class Stop {
 
     function getId() {
         return _id;
+    }
+
+    function getProducts() {
+        return _products;
     }
 
     function getResponse() {
@@ -143,12 +163,56 @@ class Stop {
             : null;
     }
 
-    function getModeCount() {
-        if (_response instanceof Lang.Array) {
-            return _response.size();
+    function getAddableModeKey(index) {
+        // TODO: more efficient
+        return _getAddableModesKeys()[index];
+    }
+
+    hidden function _getAddableModesKeys() {
+        if (_products == null) {
+            // NOTE: migration to 1.8.0
+            // if products are unknown, skip the mode menu entirely
+            return [];
         }
 
-        return 1;
+        // TODO: more efficient?
+        var addableProducts = _products - _addedProducts;
+        return Departure.getModesKeysByBits(addableProducts);
+    }
+
+    function getAddableModesStrings() {
+        if (_products == null) {
+            // NOTE: migration to 1.8.0
+            // if products are unknown, skip the mode menu entirely
+            return [];
+        }
+
+        // TODO: more efficient?
+        var addableProducts = _products - _addedProducts;
+        return Departure.getModesStringsByBits(addableProducts);
+    }
+
+    function getAddableModesCount() {
+        // TODO: more efficient
+        return _getAddableModesKeys().size();
+    }
+
+    function getAddedModeKey(index) {
+        if (!(_response instanceof Lang.Array) || _response.size() == 0) {
+            return _products == null
+                ? Departure.MODE_BUS // NOTE: migration to 1.8.0
+                : Departure.getModesKeysByBits(_products)[0]; // TODO: more efficient
+        }
+
+        return _response[index][0].mode;
+    }
+
+    function getAddedModesCount() {
+        if (!(_response instanceof Lang.Array)) {
+            return 1;
+        }
+
+        return _response.size();
     }
 
     function getModeResponse(mode) {
@@ -168,12 +232,12 @@ class Stop {
         return [ _response, 0 ];
     }
 
-    function getModeSymbol(mode) {
-        if (!(_response instanceof Lang.Array) || _response.size() == 0) {
+    function getModeLetter(mode) {
+        if (!(_response instanceof Lang.Array) || mode >= _response.size() || _response[mode].size() == 0) {
             return "";
         }
 
-        return _response[mode][0].getModeSymbol();
+        return _response[mode][0].getModeLetter();
     }
 
     //

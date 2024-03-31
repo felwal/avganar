@@ -71,11 +71,10 @@ module WidgetUtil {
 
     function drawExclamationBanner(dc) {
         drawHeader(dc, px(30), AppColors.ERROR, AppColors.BACKGROUND, "!", AppColors.TEXT_PRIMARY);
-        Graphite.resetPenWidth(dc);
     }
 
     function drawActionFooter(dc, message) {
-        drawFooter(dc, px(45), AppColors.BACKGROUND_INVERTED, AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
+        drawFooter(dc, px(42), AppColors.BACKGROUND_INVERTED, AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
 
         Graphite.setColor(dc, AppColors.TEXT_INVERTED);
         drawBottomPageArrow(dc);
@@ -87,9 +86,12 @@ module WidgetUtil {
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
         if (strokeColor != null) {
-            dc.setPenWidth(px(1));
+            var strokeWidth = px(1);
+            var y = height - strokeWidth;
+
+            dc.setPenWidth(strokeWidth);
             Graphite.setColor(dc, strokeColor);
-            dc.drawLine(0, height, dc.getWidth(), height);
+            dc.drawLine(0, y, dc.getWidth(), y);
             Graphite.resetPenWidth(dc);
         }
 
@@ -105,9 +107,12 @@ module WidgetUtil {
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
         if (strokeColor != null) {
-            dc.setPenWidth(px(1));
+            var strokeWidth = px(1);
+            var y = dc.getHeight() - height - strokeWidth;
+
+            dc.setPenWidth(strokeWidth);
             Graphite.setColor(dc, strokeColor);
-            dc.drawLine(0, dc.getHeight() - height, dc.getWidth(), dc.getHeight() - height);
+            dc.drawLine(0, y, dc.getWidth(), y);
             Graphite.resetPenWidth(dc);
         }
 
@@ -425,7 +430,7 @@ module WidgetUtil {
 
     // list
 
-    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, paneColors, mainColors) {
+    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, topHint, paneColors, mainColors) {
         var paneHint = paneHints[0];
         var mainHint = mainHints[0];
 
@@ -454,7 +459,7 @@ module WidgetUtil {
 
             // top header
             if (cursor == 0) {
-                drawHeader(dc, px(84), mainColors[0], paneStrokeColor, rez(Rez.Strings.app_name), mainColors[1]);
+                drawHeader(dc, px(84), AppColors.BACKGROUND, paneStrokeColor, topHint, AppColors.TEXT_PRIMARY);
             }
             else if (cursor == 1) {
                 drawHeader(dc, px(42), mainColors[0], paneStrokeColor, null, null);
@@ -485,6 +490,8 @@ module WidgetUtil {
 
         // outside pane
         else {
+            Graphite.fillBackground(dc, mainColors[0]);
+
             // top header
             if (cursor == paneSize) {
                 drawHeader(dc, px(84), paneColors[0], paneStrokeColor, paneHint, paneColors[3]);
@@ -517,7 +524,7 @@ module WidgetUtil {
         var h = dc.getHeight() - 2 * px(36);
         var lineHeightPx = h / 4;
 
-        var bgColor = cursor >= paneSize ? AppColors.BACKGROUND : paneColors[0];
+        var bgColor = cursor >= paneSize ? mainColors[0] : paneColors[0];
         var selectedColor;
         var unselectedColor;
 
@@ -557,6 +564,60 @@ module WidgetUtil {
 
                 dc.setColor(unselectedColor, bgColor);
                 dc.drawText(Graphite.getCenterX(dc), yText, font, item, justification);
+            }
+        }
+    }
+
+    function drawSideList(dc, items, cursor, blackBg) {
+        var colorBg = blackBg ? AppColors.BACKGROUND : AppColors.BACKGROUND_INVERTED;
+        var colorSelected = blackBg ? AppColors.TEXT_PRIMARY : AppColors.TEXT_INVERTED;
+        var colorUnselected = blackBg ? AppColors.TEXT_SECONDARY: AppColors.TEXT_TERTIARY;
+
+        var h = dc.getHeight();
+        var w = dc.getWidth();
+        var xBg = px(62);
+        var wBorder = px(2);
+        var wIndicator = px(4);
+        var hIndicator = px(42);
+
+        // bg
+        Graphite.setColor(dc, colorBg);
+        dc.fillRectangle(xBg, 0, w - xBg, h);
+
+        // border
+        Graphite.setColor(dc, colorSelected);
+        dc.fillRectangle(xBg - wBorder, 0, wBorder, dc.getHeight());
+
+        // indicator
+        dc.fillRectangle(xBg + px(3), h / 2 - hIndicator / 2, wIndicator, hIndicator);
+
+        // draw items
+
+        var fontSelected =  Graphics.FONT_MEDIUM;
+        var font = Graphics.FONT_SMALL;
+        var lineHeight = (h - 2 * px(20)) / 5;
+        var xText = xBg + px(10);
+
+        // only draw 2 items above and 2 below cursor
+        var itemOffset = 2;
+        var firstItemIndex = MathUtil.max(0, cursor - itemOffset);
+        var lastItemIndex = MathUtil.min(items.size(), cursor + itemOffset + 1);
+
+        // draw the items
+        for (var i = firstItemIndex; i < lastItemIndex; i++) {
+            var item = items[i];
+
+            var justification = Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER;
+            var yText = Graphite.getCenterY(dc) + (i - cursor) * lineHeight;
+            var margin = px(4);
+
+            if (i == cursor) {
+                dc.setColor(colorSelected, colorBg);
+                dc.drawText(xText, yText, fontSelected, item, justification);
+            }
+            else {
+                dc.setColor(colorUnselected, colorBg);
+                dc.drawText(xText, yText, font, item, justification);
             }
         }
     }

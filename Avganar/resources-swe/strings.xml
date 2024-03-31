@@ -51,6 +51,14 @@
     <string id="itm_detail_departure_now">Nu</string>
     <string id="lbl_detail_deviation_none">Inga avvikelser</string>
 
+    <!-- modes menu -->
+    <string id="itm_modes_continue">Fortsätt</string>
+    <string id="itm_modes_bus">Bussar</string>
+    <string id="itm_modes_metro">Tunnelbana</string>
+    <string id="itm_modes_train">Pendeltåg</string>
+    <string id="itm_modes_tram">Lokalbana</string>
+    <string id="itm_modes_ship">Båtar</string>
+
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
     <string id="lbl_dialog_no_favorites_msg">Ställ in hållplatser som favoriter via menyn</string>

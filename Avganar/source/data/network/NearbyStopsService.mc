@@ -36,13 +36,13 @@ module NearbyStopsService {
     function requestNearbyStops(lat, lon) {
         // final check if location use is turned off
         if (!SettingsStorage.getUseLocation()) {
-            NearbyStopsStorage.setResponse([], [], null);
+            NearbyStopsStorage.setResponseError(null);
             WatchUi.requestUpdate();
         }
         // check if outside bounds, to not make unnecessary calls outside the operator zone
         else if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
             if (lat != 0.0 || lon != 0.0) {
-                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_outside_bounds));
+                NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds));
             }
 
             WatchUi.requestUpdate();
@@ -84,7 +84,7 @@ module NearbyStopsService {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            NearbyStopsStorage.setResponse([], [], new ResponseError(DictUtil.get(data, "Message", responseCode)));
+            NearbyStopsStorage.setResponseError(new ResponseError(DictUtil.get(data, "Message", responseCode)));
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
@@ -99,7 +99,7 @@ module NearbyStopsService {
         // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
             var statusCode = data["StatusCode"];
-            NearbyStopsStorage.setResponse([], [], new ResponseError(statusCode));
+            NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
 
             return;
         }
@@ -107,10 +107,10 @@ module NearbyStopsService {
         // no stops were found
         if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
             if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponse([], [], new ResponseError(data["Message"]));
+                NearbyStopsStorage.setResponseError(new ResponseError(data["Message"]));
             }
             else {
-                NearbyStopsStorage.setResponse([], [], rez(Rez.Strings.msg_i_stops_none));
+                NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_none));
             }
 
             return;
@@ -120,6 +120,7 @@ module NearbyStopsService {
 
         var stopIds = [];
         var stopNames = [];
+        var stopProducts = [];
         var stops = [];
 
         var stopsData = data["stopLocationOrCoordLocation"];
@@ -129,19 +130,21 @@ module NearbyStopsService {
             var extId = stopData["mainMastExtId"];
             var id = extId.substring(5, extId.length()).toNumber();
             var name = stopData["name"];
+            var products = stopData["products"].toNumber();
 
             // null if duplicate
-            var stop = NearbyStopsStorage.createStop(id, name, stops, stopIds, stopNames);
+            var stop = NearbyStopsStorage.createStop(id, name, products, stops, stopIds, stopNames);
             if (stop == null) {
                 continue;
             }
 
             stopIds.add(id);
             stopNames.add(name);
+            stopProducts.add(products);
             stops.add(stop);
         }
 
-        NearbyStopsStorage.setResponse(stopIds, stopNames, stops);
+        NearbyStopsStorage.setResponse(stopIds, stopNames, stopProducts, stops);
     }
 
 }

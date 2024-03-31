@@ -3,7 +3,7 @@
     <!-- app -->
 
     <string id="app_name" scope="glance">Avgånär</string>
-    <string id="app_version" scope="glance">v1.7.0</string>
+    <string id="app_version" scope="glance">v1.8.0</string>
 
     <!-- message -->
 
@@ -34,8 +34,8 @@
     <string id="msg_e_null_data">No Data</string>
     <string id="msg_e_server">Server Error</string>
     <string id="msg_e_proxy">Server Error</string>
-    <string id="msg_e_limit_minute">Quota exceeded (minute)</string>
-    <string id="msg_e_limit_month">Quota exceeded (month)</string>
+    <string id="msg_e_limit_minute">Quota Exceeded (minute)</string>
+    <string id="msg_e_limit_month">Quota Exceeded (month)</string>
 
     <!-- view -->
 
@@ -58,13 +58,21 @@
     <string id="itm_detail_departure_minutes_long"> min</string>
     <string id="itm_detail_departure_minutes_short">m</string>
     <string id="itm_detail_departure_minutes_tiny">'</string>
-    <string id="lbl_detail_mode_bus">B</string>
-    <string id="lbl_detail_mode_metro">T</string>
-    <string id="lbl_detail_mode_train">J</string>
-    <string id="lbl_detail_mode_tram">L</string>
-    <string id="lbl_detail_mode_ship">F</string>
-    <string id="lbl_detail_mode_unknown">?</string>
+    <string id="lbl_detail_mode_letter_bus">B</string>
+    <string id="lbl_detail_mode_letter_metro">T</string>
+    <string id="lbl_detail_mode_letter_train">J</string>
+    <string id="lbl_detail_mode_letter_tram">L</string>
+    <string id="lbl_detail_mode_letter_ship">F</string>
+    <string id="lbl_detail_mode_letter_unknown">?</string>
     <string id="lbl_detail_deviation_none">No Deviations</string>
+
+    <!-- modes menu -->
+    <string id="itm_modes_continue">Continue</string>
+    <string id="itm_modes_bus">Buses</string>
+    <string id="itm_modes_metro">Metro</string>
+    <string id="itm_modes_train">Trains</string>
+    <string id="itm_modes_tram">Light rail</string>
+    <string id="itm_modes_ship">Boats</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
@@ -86,7 +94,7 @@
     <string id="itm_settings_max_departures">Max Departures</string>
     <string id="itm_settings_max_departures_unlimited">No Limit</string>
     <string id="itm_settings_time_window">Default Time Window</string>
-    <string id="itm_settings_minute_symbol">Minute symbol</string>
+    <string id="itm_settings_minute_symbol">Minute Symbol</string>
 
     <!-- info -->
     <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>

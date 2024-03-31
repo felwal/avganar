@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.0
+
+- Migrera till det nya Transport API:et
+  - Vänligen uppdatera senast 2024-03-31
+- UI för att filtrera avgångar per transporttyp
+  - Nödvändigt då svaren från nya API:et annars är för stora
+
 ## 1.7.0
 
 - Ignorera hållplats-dubletter introducerade av tidigare API-uppdatering
@@ -9,7 +16,7 @@
 
 ## 1.6.2
 
-- Migrera till den nya Nearby Stops API:et
+- Migrera till det nya Nearby Stops API:et
   - Vänligen uppdatera senast 2024-03-14
 
 ## 1.6.1

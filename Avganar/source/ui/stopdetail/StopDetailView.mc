@@ -51,20 +51,34 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _draw(dc) {
         var stop = _viewModel.stop;
-        var response = _viewModel.getPageResponse();
+        var isInModesPane = _viewModel.isAddModesPaneSelected();
 
         // text
         _drawHeader(dc, stop);
-        _drawFooter(dc, stop);
+        _drawFooter(dc, stop, _viewModel.isInitialRequest || isInModesPane);
+
+        if (_viewModel.isInitialRequest) {
+            _drawInitialModeList(dc, stop);
+            return;
+        }
+
+        if (isInModesPane) {
+            _drawModeList(dc, stop);
+
+            if (_viewModel.pageCursor == 0) {
+                _drawModeIndicator(dc);
+            }
+            // TODO: else another icon, such as a +?
+
+            return;
+        }
 
         // departures
+        var response = _viewModel.getPageResponse();
         if (response instanceof Lang.Array) {
             _drawDepartures(dc, response);
 
-            // page indicator
-            if (!_viewModel.isDepartureState) {
-                WidgetUtil.drawHorizontalPageIndicator(dc, stop.getModeCount(), _viewModel.modeCursor);
-            }
+            // indicator: page
             dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
             WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor,
                 AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
@@ -91,12 +105,33 @@ class StopDetailView extends WatchUi.View {
                     WidgetUtil.drawExclamationBanner(dc);
                 }
 
-                // start indicator
+                // retry
                 if (response.isUserRefreshable()) {
-                    WidgetUtil.drawStartIndicatorWithBitmap(dc, Rez.Drawables.ic_refresh);
+                    WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
                 }
             }
         }
+
+        // indicator: mode
+        _drawModeIndicator(dc);
+    }
+
+    hidden function _drawModeIndicator(dc) {
+        if (_viewModel.isDepartureState) {
+            return;
+        }
+
+        WidgetUtil.drawHorizontalPageIndicator(dc, _viewModel.getModePageCount(), _viewModel.modeCursor);
+    }
+
+    hidden function _drawInitialModeList(dc, stop) {
+        var items = stop.getAddableModesStrings();
+        WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
+    }
+
+    hidden function _drawModeList(dc, stop) {
+        var items = ArrUtil.merge([ rez(Rez.Strings.itm_modes_continue) ], stop.getAddableModesStrings());
+        WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
     hidden function _drawHeader(dc, stop) {
@@ -110,12 +145,16 @@ class StopDetailView extends WatchUi.View {
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    hidden function _drawFooter(dc, stop) {
+    hidden function _drawFooter(dc, stop, noDetails) {
         var hFooter = px(42);
         var h = dc.getHeight();
 
         // background
         WidgetUtil.drawFooter(dc, hFooter, AppColors.PRIMARY, null, null, null);
+
+        if (noDetails) {
+            return;
+        }
 
         // clock time
 
@@ -148,11 +187,11 @@ class StopDetailView extends WatchUi.View {
                 AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
         }
 
-        // mode symbol
+        // mode letter
 
-        var modeSymbol = stop.getModeSymbol(_viewModel.modeCursor);
+        var modeLetter = stop.getModeLetter(_viewModel.modeCursor);
 
-        if (modeSymbol.equals("")) {
+        if (modeLetter.equals("")) {
             return;
         }
 
@@ -166,7 +205,7 @@ class StopDetailView extends WatchUi.View {
         dc.fillCircle(xMode, yMode + r, r + 2);
 
         dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);
-        dc.drawText(xMode, yMode, fontMode, modeSymbol, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(xMode, yMode, fontMode, modeLetter, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     hidden function _drawDepartures(dc, pageDepartures) {

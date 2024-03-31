@@ -18,17 +18,20 @@ module FavoriteStopsStorage {
 
     const _STORAGE_FAVORITE_STOP_IDS = "favorite_stop_ids";
     const _STORAGE_FAVORITE_STOP_NAMES = "favorite_stop_names";
+    const _STORAGE_FAVORITE_STOP_PRODUCTS = "favorite_stop_products";
 
     var favorites;
 
     var _favStopIds;
     var _favStopNames;
+    var _favStopProducts;
 
     // set
 
     function _save() {
         Storage.setValue(_STORAGE_FAVORITE_STOP_IDS, _favStopIds);
         Storage.setValue(_STORAGE_FAVORITE_STOP_NAMES, _favStopNames);
+        Storage.setValue(_STORAGE_FAVORITE_STOP_PRODUCTS, _favStopProducts);
     }
 
     function addFavorite(stop) {
@@ -38,6 +41,7 @@ module FavoriteStopsStorage {
 
         _favStopIds.add(stop.getId());
         _favStopNames.add(stop.name);
+        _favStopProducts.add(stop.getProducts());
         favorites.add(stop);
 
         _save();
@@ -48,6 +52,7 @@ module FavoriteStopsStorage {
 
         var success = ArrUtil.removeAt(_favStopIds, index);
         success &= ArrUtil.removeAt(_favStopNames, index);
+        success &= ArrUtil.removeAt(_favStopProducts, index);
         success &= ArrUtil.removeAt(favorites, index);
 
         if (success) {
@@ -62,8 +67,21 @@ module FavoriteStopsStorage {
 
         ArrUtil.swap(_favStopIds, index, index + diff);
         ArrUtil.swap(_favStopNames, index, index + diff);
+        ArrUtil.swap(_favStopProducts, index, index + diff);
         ArrUtil.swap(favorites, index, index + diff);
 
+        _save();
+    }
+
+    function updateFavoriteProducts(stopId, products) {
+        var index = _favStopIds.indexOf(stopId);
+        if (index == -1) {
+            Log.w("couldn't find fav with id " + stopId);
+            return;
+        }
+
+        favorites[index].setProducts(products);
+        _favStopProducts[index] = products;
         _save();
     }
 
@@ -72,15 +90,20 @@ module FavoriteStopsStorage {
     function load() {
         _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
         _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
+        _favStopProducts = StorageUtil.getValue(_STORAGE_FAVORITE_STOP_PRODUCTS,
+            ArrUtil.filled(_favStopIds.size(), null));
 
-        favorites = _buildStops(_favStopIds, _favStopNames);
+        favorites = _buildStops(_favStopIds, _favStopNames, _favStopProducts);
     }
 
-    function _buildStops(ids, names) {
+    function _buildStops(ids, names, products) {
         var stops = [];
         var addedIds = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
+            // shouldn't happen, but just in case. TODO: remove?
+            var products_ = i < products.size() ? products[i] : null;
+
             var existingId = addedIds.indexOf(ids[i]);
             var stop;
 
@@ -90,7 +113,7 @@ module FavoriteStopsStorage {
                 stop = new StopDouble(existingStop, names[i]);
             }
             else {
-                stop = new Stop(ids[i], names[i]);
+                stop = new Stop(ids[i], names[i], products_);
                 addedIds.add(ids[i]);
             }
 
