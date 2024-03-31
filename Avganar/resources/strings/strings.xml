@@ -93,7 +93,7 @@
     <string id="itm_settings_max_departures">Max Departures</string>
     <string id="itm_settings_max_departures_unlimited">No Limit</string>
     <string id="itm_settings_time_window">Default Time Window</string>
-    <string id="itm_settings_minute_symbol">Minute symbol</string>
+    <string id="itm_settings_minute_symbol">Minute Symbol</string>
 
     <!-- info -->
     <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>
