@@ -25,7 +25,7 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 **Permissions** – The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.1.0.
 
-**APIs** – Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Departures 4". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
+**APIs** – Data is retrieved using Trafiklab's APIs "SL Nearby stops 2" and "SL Transport". Avgånär is in no way affiliated with Trafiklab or SL. Avgånär can not guarantee that presented data (e.g. departure times) are always correct.
 
 **Privacy** – By downloading and using this app, you agree to the Privacy Policy (https://github.com/felwal/avganar/blob/main/PRIVACY.md). In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
