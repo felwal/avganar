@@ -1,5 +1,7 @@
 # Description
 
+NOTE – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
+
 Avgånär is a public transport widget for viewing nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
 
 For coverage of the whole of Sweden, see Avgånär: Sweden departures.
@@ -33,12 +35,12 @@ For coverage of the whole of Sweden, see Avgånär: Sweden departures.
 
 ## FAQ
 
-**Nearby stops aren't updating** – Fetching nearby stops requires a GPS signal which might take some time. Try waiting a while, or going outside. The progress bar indicates if the app is waiting for location (⅓) or for API response (⅔).
-
 **I keep getting "No Data"** – This is likely due to breaking API changes. Please try updating to the latest version of the app.
 
 **I keep getting "Server Error"** – This is SL's problem and happens from time to time. All we can do is have patience.
 
 **I keep getting "Client Error"** – This likely means that I have made some mistake. If you wouldn't mind, please get in touch with details.
+
+**Nearby stops aren't updating** – Fetching nearby stops requires a GPS signal which might take some time. Try waiting a while, or going outside. The progress bar indicates if the app is waiting for location (⅓) or for API response (⅔).
 
 **Long loading times** – If the loading bar consistently goes very far, this means that the responses are too large and must be requested again, asking for less data. Consider lowering “Default Time Window” in settings.
