@@ -3,7 +3,7 @@
     <!-- app -->
 
     <string id="app_name" scope="glance">Avgånär</string>
-    <string id="app_version" scope="glance">v1.7.0</string>
+    <string id="app_version" scope="glance">v1.8.0</string>
 
     <!-- message -->
 
