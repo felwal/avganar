@@ -40,7 +40,9 @@ class StopDetailViewModel {
     function initialize(stop) {
         me.stop = stop;
 
-        // TODO: more efficient addable modes count
+        // when initial mode menu is open,
+        // (ie dont request automatically; wait for user input),
+        // or we are waiting for that first response
         isInitialRequest = stop.getResponse() == null && stop.getAddableModesCount() > 1;
     }
 
@@ -165,7 +167,11 @@ class StopDetailViewModel {
     }
 
     function includeAddModesPane() {
-        return stop.getAddableModesCount() > 0;
+        // if loading (response = null), there is 1 mode that isnt yet added
+        // but also shouldnt count as addable. TODO: this is only a temp fix
+        // to avoid showing hori page indicator when initially requesting
+        // for a stop with only one mode.
+        return stop.getAddableModesCount() > (stop.getResponse() == null ? 1 : 0);
     }
 
     // write
@@ -231,6 +237,7 @@ class StopDetailViewModel {
             return false;
         }
         else if (isAddModesPaneSelected()) {
+            // +1 because of "Continue" item
             if (pageCursor < stop.getAddableModesCount()) {
                 pageCursor++;
                 return true;
