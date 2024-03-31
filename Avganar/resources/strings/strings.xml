@@ -67,6 +67,7 @@
     <string id="lbl_detail_deviation_none">No Deviations</string>
 
     <!-- modes menu -->
+    <string id="itm_modes_continue">Continue</string>
     <string id="itm_modes_bus">Bus</string>
     <string id="itm_modes_metro">Metro</string>
     <string id="itm_modes_train">Train</string>

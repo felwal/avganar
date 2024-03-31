@@ -128,7 +128,7 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawModeList(dc, stop) {
-        var items = ArrUtil.merge([ "Continue" ], stop.getAddableModesStrings());
+        var items = ArrUtil.merge([ rez(Rez.Strings.itm_modes_continue) ], stop.getAddableModesStrings());
         WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
