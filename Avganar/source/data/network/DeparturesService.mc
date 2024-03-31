@@ -21,6 +21,7 @@ class DeparturesService {
     // no key, no limit
 
     hidden var _stop;
+    hidden var _mode;
 
     static var isRequesting = false;
 
@@ -35,6 +36,7 @@ class DeparturesService {
     function requestDepartures(mode) {
         if (_stop != null) {
             Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
+            _mode = mode;
             _requestDepartures(mode);
         }
     }
@@ -77,7 +79,7 @@ class DeparturesService {
 
             // auto-refresh if too large
             if (_stop.shouldAutoRefresh()) {
-                requestDepartures();
+                requestDepartures(_mode);
             }
         }
         else if (!DictUtil.hasValue(data, "departures")) {
@@ -92,7 +94,7 @@ class DeparturesService {
             // – but look for messages which might correspond
             // with the previous server errors
             /*if (_stop.shouldAutoRefresh()) {
-                requestDepartures();
+                requestDepartures(_mode);
             }*/
         }
         else {
