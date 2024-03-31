@@ -76,7 +76,6 @@ module FavoriteStopsStorage {
     function updateFavoriteProducts(stopId, products) {
         var index = _favStopIds.indexOf(stopId);
         if (index == -1) {
-            Log.w("couldn't find fav with id " + stopId);
             return;
         }
 
