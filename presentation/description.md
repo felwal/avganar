@@ -1,7 +1,5 @@
 # Description
 
-NOTE – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
-
 Avgånär is a public transport widget for viewing nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
 
 For coverage of the whole of Sweden, see Avgånär: Sweden departures.

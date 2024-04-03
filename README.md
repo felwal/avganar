@@ -1,4 +1,5 @@
-# Avgånär: Stockholm departures
+<p align="center"><img width="128" height="128" src="presentation/logo.png"></p>
+<h1 align="center">Avgånär: Stockholm departures</h1>
 
 A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
 
@@ -44,4 +45,4 @@ You are more than welcome to make a fork and adapt the project to your own count
 
 ## Credits
 
-Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign).
+Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign). (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)
