@@ -1,4 +1,5 @@
-# Avgånär: Stockholm departures
+<p align="center"><img width="128" height="128" src="presentation/logo.png"></p>
+<h1 align="center">Avgånär: Stockholm departures</h1>
 
 A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
 
