@@ -1,7 +1,5 @@
 # Beskrivning
 
-OBS – Om du fortsätter få "Ingen data", vänligen pröva uppdatera till den senaste versionen av appen. API:erna har nyligen uppdaterats, med migrationsdeadlines 2024-03-14 och 2023-03-31.
-
 Avgånär är en widget för kollektivtrafik som visar närliggande hållplatser och avgångar inom Stockholms Lokaltrafik (SL) i Sverige.
 
 För täckning av hela Sverige, se Avgånär: Sverige avgångar.

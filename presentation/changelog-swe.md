@@ -1,8 +1,10 @@
 # Changelog
 
+**OBS** – Om du fortsätter få "Ingen data", vänligen pröva uppdatera till den senaste versionen av appen. API:erna har nyligen uppdaterats, med migrationsdeadlines 2024-03-14 och 2023-03-31.
+
 ## 1.8.0
 
-- Migrera till det nya Transport API:et
+- Migrera till det nya SL Transport API:et
   - Vänligen uppdatera senast 2024-03-31
 - UI för att filtrera avgångar per transporttyp
   - Nödvändigt då svaren från nya API:et annars är för stora
@@ -16,7 +18,7 @@
 
 ## 1.6.2
 
-- Migrera till det nya Nearby Stops API:et
+- Migrera till det uppdaterade SL Nearby Stops API:et
   - Vänligen uppdatera senast 2024-03-14
 
 ## 1.6.1
@@ -31,7 +33,7 @@
 - Lägg till vy för avgång-avvikelser (nå via avgång-val)
 - Avvikelse-meddelanden:
   - Respektera språkinställningar när möjligt
-  - Ta bort onödiga "se sl-se" och liknande
+  - Ta bort onödiga "se sl.se" och liknande
 - Buggfixar och förbättringar
 - Stöd venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 

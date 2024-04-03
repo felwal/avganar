@@ -1,8 +1,10 @@
 # Changelog
 
+**NOTE** – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
+
 ## 1.8.0
 
-- Migrate to the new Transport API
+- Migrate to the new SL Transport API
   - Please update by 2024-03-31
 - UI for requesting departures one transport mode at a time
   - Necessary because responses from new API otherwise are too large
@@ -16,7 +18,7 @@
 
 ## 1.6.2
 
-- Migrate to the new Nearby Stops API
+- Migrate to the updated SL Nearby Stops API
   - Please update by 2024-03-14
 
 ## 1.6.1
@@ -31,7 +33,7 @@
 - Add departure deviations view (access via departure selection)
 - Deviation messages:
   - Respect language settings when possible
-  - Remove unnecessary "visit sl-se" messages
+  - Remove redundant "visit sl.se" messages
 - Bug fixes and improvements
 - Add support for venu3, venu3s, vivocative5, descentmk351mm, fenix7pronowifi, fenix7xpronowifi, venusq2, venusq2m
 
