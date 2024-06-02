@@ -14,6 +14,9 @@
 using Toybox.Application;
 
 (:glance)
+const DEBUG = true;
+
+(:glance)
 class App extends Application.AppBase {
 
     // init
@@ -25,7 +28,7 @@ class App extends Application.AppBase {
     // override AppBase
 
     function getInitialView() {
-        if (!hasGlance()) {
+        if (!hasGlance() || DEBUG) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
 
@@ -42,6 +45,11 @@ class App extends Application.AppBase {
     function getMainView() {
         FavoriteStopsStorage.load();
         NearbyStopsStorage.load();
+
+        // this function is gitignored.
+        // define it to keep favorites between
+        // development and testing release builds.
+        //addDevFavStops();
 
         var viewModel = new StopListViewModel();
         var view = new StopListView(viewModel);
