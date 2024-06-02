@@ -28,7 +28,7 @@ class App extends Application.AppBase {
     // override AppBase
 
     function getInitialView() {
-        if (!hasGlance() || DEBUG) {
+        if (!SystemUtil.hasGlance() || DEBUG) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
 

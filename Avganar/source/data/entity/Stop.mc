@@ -82,7 +82,7 @@ class Stop {
         }
 
         // only vibrate if we are not auto-refreshing
-        vibrate();
+        SystemUtil.vibrate();
         _failedRequestCount = 0;
 
         if (_response instanceof Lang.Array && _response.size() > 0 && _response[0].size() > 0) {

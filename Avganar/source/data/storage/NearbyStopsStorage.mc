@@ -80,7 +80,7 @@ module NearbyStopsStorage {
                 || ((response_ instanceof ResponseError || response_ instanceof Lang.String)
                 && !response_.equals(response))) {
 
-                vibrate();
+                SystemUtil.vibrate();
             }
         }
 

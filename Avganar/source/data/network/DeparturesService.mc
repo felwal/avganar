@@ -247,7 +247,7 @@ class DeparturesService {
 
         if (langSplitIndex != null) {
             //Log.d("stop deviation msg: " + msg);
-            var isSwe = isLangSwe();
+            var isSwe = SystemUtil.isLangSwe();
 
             msg = msg.substring(
                 isSwe ? 0 : langSplitIndex + langSeparator.length(),
