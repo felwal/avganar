@@ -117,11 +117,11 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawModeIndicator(dc) {
-        if (_viewModel.isDepartureState) {
+        if (_viewModel.isDepartureState || _viewModel.getModePageCount() <= 1) {
             return;
         }
 
-        WidgetUtil.drawHorizontalPageIndicator(dc, _viewModel.getModePageCount(), _viewModel.modeCursor);
+        WidgetUtil.drawStartIndicator(dc);
     }
 
     hidden function _drawInitialModeList(dc, stop) {
