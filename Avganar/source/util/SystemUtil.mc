@@ -42,12 +42,19 @@ module SystemUtil {
         return !shouldNotDisturb() && isVibrateOn() && SettingsStorage.getVibrateOnResponse();
     }
 
-    function vibrate() {
+    function vibrate(cycle, length) {
         if (shouldVibrate()) {
-            var vibeData = [ new Attention.VibeProfile(75, 300) ];
+            var vibeData = [ new Attention.VibeProfile(cycle, length) ];
             Attention.vibrate(vibeData);
         }
     }
 
-}
+    function vibrateLong() {
+        vibrate(75, 300);
+    }
 
+    function vibrateShort() {
+        vibrate(50, 50);
+    }
+
+}

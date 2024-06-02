@@ -52,6 +52,9 @@ class StopDetailViewModel {
         if (!isInitialRequest) {
             _requestDeparturesDelayed();
         }
+        else {
+            SystemUtil.vibrateShort();
+        }
     }
 
     function disableRequests() {
