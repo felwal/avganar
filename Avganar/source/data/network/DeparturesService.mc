@@ -35,7 +35,6 @@ class DeparturesService {
 
     function requestDepartures(mode) {
         if (_stop != null) {
-            Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
             _mode = mode;
             _requestDepartures(mode);
         }
@@ -73,8 +72,6 @@ class DeparturesService {
         DeparturesService.isRequesting = false;
 
         if (responseCode != ResponseError.HTTP_OK) {
-            Log.i("Departures response error (code " + responseCode + "): " + data);
-
             _stop.setResponse(new ResponseError(responseCode));
 
             // auto-refresh if too large
@@ -84,9 +81,6 @@ class DeparturesService {
         }
         else if (!DictUtil.hasValue(data, "departures")) {
             var errorMsg = DictUtil.get(data, "message", "no error msg");
-
-            Log.i("Departures operator request error (" + errorMsg + ")");
-
             _stop.setResponse(new ResponseError(errorMsg));
 
             // auto-refresh if server error
@@ -105,12 +99,9 @@ class DeparturesService {
     }
 
     hidden function _handleDeparturesResponseOk(data) {
-        //Log.d("Departures response success: " + data);
-
         var departuresData = data["departures"];
 
         if (departuresData.size() == 0) {
-            Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
@@ -206,7 +197,6 @@ class DeparturesService {
             _stop.setResponse(departures);
         }
         else {
-            Log.i("Departures response empty of departures");
             _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
         }
 
@@ -246,7 +236,6 @@ class DeparturesService {
         var langSplitIndex = msg.find(langSeparator);
 
         if (langSplitIndex != null) {
-            //Log.d("stop deviation msg: " + msg);
             var isSwe = isLangSwe();
 
             msg = msg.substring(

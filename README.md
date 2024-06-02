@@ -37,7 +37,7 @@ const API_KEY_DEPARTURES = "<KEY>";
 
 ## Build
 
-I develop on `main` and build on `release` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
+I develop on `develop` and build on `main` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
 
 ## Fork
 

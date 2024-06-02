@@ -198,7 +198,6 @@ class Departure {
             return rez(Rez.Strings.lbl_detail_mode_letter_ship);
         }
         else {
-            Log.w("unknown mode: " + mode);
             return rez(Rez.Strings.lbl_detail_mode_letter_unknown);
         }
     }
@@ -215,7 +214,6 @@ class Departure {
                 return AppColors.DEPARTURE_BUS_REPLACEMENT;
             }
             else {
-                Log.w("unknown bus group: " + _group);
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
@@ -230,7 +228,6 @@ class Departure {
                 return AppColors.DEPARTURE_METRO_GREEN;
             }
             else {
-                Log.w("unknown metro group: " + _group);
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
@@ -257,7 +254,6 @@ class Departure {
                 return AppColors.DEPARTURE_TRAM_ROSLAGSBANAN;
             }
             else {
-                Log.w("unknown tram group: " + _group);
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
@@ -268,7 +264,6 @@ class Departure {
             return AppColors.DEPARTURE_NONE;
         }
         else {
-            Log.w("unknown mode: " + mode);
             return AppColors.DEPARTURE_UNKNOWN;
         }
     }
