@@ -75,10 +75,10 @@ class DeparturesService {
         if (responseCode != ResponseError.HTTP_OK) {
             Log.i("Departures response error (code " + responseCode + "): " + data);
 
-            _stop.setResponse(new ResponseError(responseCode));
+            _stop.setResponse(_mode, new ResponseError(responseCode));
 
             // auto-refresh if too large
-            if (_stop.shouldAutoRefresh()) {
+            if (_stop.shouldAutoRefresh(_mode)) {
                 requestDepartures(_mode);
             }
         }
@@ -87,13 +87,13 @@ class DeparturesService {
 
             Log.i("Departures operator request error (" + errorMsg + ")");
 
-            _stop.setResponse(new ResponseError(errorMsg));
+            _stop.setResponse(_mode, new ResponseError(errorMsg));
 
             // auto-refresh if server error
             // TODO: probably can't happen with new API
             // – but look for messages which might correspond
             // with the previous server errors
-            /*if (_stop.shouldAutoRefresh()) {
+            /*if (_stop.shouldAutoRefresh(_mode)) {
                 requestDepartures(_mode);
             }*/
         }
@@ -111,7 +111,7 @@ class DeparturesService {
 
         if (departuresData.size() == 0) {
             Log.i("Departures response empty of departures");
-            _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
+            _stop.setResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
         }
 
         var modes = [
@@ -121,13 +121,7 @@ class DeparturesService {
             Departure.MODE_TRAM,
             Departure.MODE_SHIP
         ]; // determines ordering of modes
-        var modeDepartures = {
-            modes[0] => [],
-            modes[1] => [],
-            modes[2] => [],
-            modes[3] => [],
-            modes[4] => []
-        };
+        var modeDepartures = {};
 
         var maxDepartures = SettingsStorage.getMaxDepartures();
         var departureCount = maxDepartures == -1
@@ -143,7 +137,7 @@ class DeparturesService {
 
             // TODO: check if there are other modes we should include.
             // for now, skip them
-            if (!modeDepartures.hasKey(mode)) {
+            if (!ArrUtil.contains(modes, mode)) {
                 continue;
             }
 
@@ -190,24 +184,28 @@ class DeparturesService {
             var departure = new Departure(mode, group, line, destination, moment,
                 deviationLevel, deviationMessages, cancelled, isRealTime);
 
+            if (!modeDepartures.hasKey(mode)) {
+                modeDepartures[mode] = [];
+            }
+
             // add to array
             modeDepartures[mode].add(departure);
         }
 
-        var departures = [];
-
         for (var m = 0; m < modes.size(); m++) {
-            if (modeDepartures[modes[m]].size() != 0) {
-                departures.add(modeDepartures[modes[m]]);
-            }
-        }
+            var mode = modes[m];
 
-        if (departures.size() != 0) {
-            _stop.setResponse(departures);
-        }
-        else {
-            Log.i("Departures response empty of departures");
-            _stop.setResponse(rez(Rez.Strings.msg_i_departures_none));
+            if (!modeDepartures.hasKey(mode)) {
+                continue;
+            }
+
+            if (modeDepartures[mode].size() != 0) {
+                _stop.setResponse(mode, modeDepartures[modes[m]]);
+            }
+            else {
+                Log.i("Departures mode response empty of departures");
+                _stop.setResponse(mode, rez(Rez.Strings.msg_i_departures_none));
+            }
         }
 
         // stop point deviations

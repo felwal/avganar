@@ -28,12 +28,12 @@ class Stop {
 
     hidden var _id;
     hidden var _products = null;
-    hidden var _addedProducts = 0;
-    hidden var _response;
+    hidden var _modes = [];
+    hidden var _responses = {};
     hidden var _failedRequestCount = 0;
     hidden var _deviationMessages = [];
     hidden var _departuresTimeWindow;
-    hidden var _timeStamp;
+    hidden var _timeStamp; // TODO: we need one per mode
 
     // init
 
@@ -41,6 +41,8 @@ class Stop {
         _id = id;
         _products = products;
         me.name = name;
+
+        _setModesKeys();
     }
 
     function equals(other) {
@@ -54,12 +56,18 @@ class Stop {
         _products = products;
     }
 
-    function setResponse(response) {
-        _response = response;
+    function setResponse(mode, response) {
+        _responses[mode] = response;
         _timeStamp = TimeUtil.now();
 
+        // NOTE: migration to 1.8.0
+        // if the mode wasn't added via products, add it now
+        if (!ArrUtil.contains(_modes, mode)) {
+            _modes.add(mode);
+        }
+
         // for each too large response, halve the time window
-        if (_response instanceof ResponseError && _response.isTooLarge()) {
+        if (response instanceof ResponseError && response.isTooLarge()) {
             if (_departuresTimeWindow == null) {
                 _departuresTimeWindow = SettingsStorage.getDefaultTimeWindow() / 2;
             }
@@ -76,7 +84,7 @@ class Stop {
             _failedRequestCount++;
             return;
         }
-        else if (_response instanceof ResponseError && _response.isServerError()) {
+        else if (response instanceof ResponseError && response.isServerError()) {
             _failedRequestCount++;
             return;
         }
@@ -84,30 +92,45 @@ class Stop {
         // only vibrate if we are not auto-refreshing
         SystemUtil.vibrateLong();
         _failedRequestCount = 0;
-
-        if (_response instanceof Lang.Array && _response.size() > 0 && _response[0].size() > 0) {
-            // TODO: a better way that works also if no departures
-            _addedProducts = Departure.MODE_TO_BIT[_response[0][0].mode];
-        }
-        else {
-            _addedProducts = 0;
-        }
     }
 
-    function resetResponse() {
-        _response = null;
+    function resetResponse(mode) {
+        _responses[mode] = [];
         _timeStamp = null;
     }
 
-    function resetResponseError() {
-        if (_response instanceof ResponseError) {
-            resetResponse();
+    function resetResponses() {
+        _responses = {};
+        _timeStamp = null;
+    }
+
+    function resetResponseErrors() {
+        var keys = _responses.keys();
+
+        for (var i = 0; i < keys.size(); i++) {
+            var key = keys[i];
+
+            if (_responses[key] instanceof ResponseError) {
+                _responses.remove(key);
+            }
         }
     }
 
     function setDeviation(messages) {
         _deviationMessages = messages;
     }
+
+    hidden function _setModesKeys() {
+        if (_products == null) {
+            // NOTE: migration to 1.8.0
+            // if products are unknown, skip the mode menu entirely
+            _modes = [];
+        }
+        else {
+            _modes = Departure.getModesKeysByBits(_products);
+        }
+    }
+
 
     // get
 
@@ -119,8 +142,12 @@ class Stop {
         return _products;
     }
 
-    function getResponse() {
-        return _response;
+    function hasResponse(mode) {
+        return _responses.hasKey(mode) && _responses[mode] != [];
+    }
+
+    function getResponse(mode) {
+        return _responses[mode];
     }
 
     function getFailedRequestCount() {
@@ -139,131 +166,89 @@ class Stop {
         return _deviationMessages;
     }
 
-    function shouldAutoRefresh() {
-        if (!(_response instanceof ResponseError)) {
+    function shouldAutoRefresh(mode) {
+        if (!(_responses[mode] instanceof ResponseError)) {
             return false;
         }
 
-        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _response.isServerError()) {
-            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
+        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _responses[mode].isServerError()) {
+            setResponse(mode, new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
             return false;
         }
 
         if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
-            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
+            setResponse(mode, new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
             return false;
         }
 
-        return _response.isAutoRefreshable();
+        return _responses[mode].isAutoRefreshable();
     }
 
-    function getDataAgeMillis() {
-        return _response instanceof Lang.Array || _response instanceof Lang.String
+    function getDataAgeMillis(mode) {
+        return _responses[mode] instanceof Lang.Array || _responses[mode] instanceof Lang.String
             ? TimeUtil.now().subtract(_timeStamp).value() * 1000
             : null;
     }
 
-    function getAddableModeKey(index) {
-        // TODO: more efficient
-        return _getAddableModesKeys()[index];
+    function getModeKey(index) {
+        return index < _modes.size() ? _modes[index] : null;
     }
 
-    hidden function _getAddableModesKeys() {
-        if (_products == null) {
-            // NOTE: migration to 1.8.0
-            // if products are unknown, skip the mode menu entirely
-            return [];
+    function getModesKeys() {
+        return _modes;
+    }
+
+    function getModesStrings() {
+        var strings = [];
+
+        for (var i = 0; i < _modes.size(); i++) {
+            var key = _modes[i];
+            strings.add(Departure.MODE_TO_STRING[key]);
         }
 
-        // TODO: more efficient?
-        var addableProducts = _products - _addedProducts;
-        return Departure.getModesKeysByBits(addableProducts);
+        return strings;
     }
 
-    function getAddableModesStrings() {
-        if (_products == null) {
-            // NOTE: migration to 1.8.0
-            // if products are unknown, skip the mode menu entirely
-            return [];
-        }
-
-        // TODO: more efficient?
-        var addableProducts = _products - _addedProducts;
-        return Departure.getModesStringsByBits(addableProducts);
-    }
-
-    function getAddableModesCount() {
-        // TODO: more efficient
-        return _getAddableModesKeys().size();
-    }
-
-    function getAddedModeKey(index) {
-        if (!(_response instanceof Lang.Array) || _response.size() == 0) {
-            return _products == null
-                ? Departure.MODE_BUS // NOTE: migration to 1.8.0
-                : Departure.getModesKeysByBits(_products)[0]; // TODO: more efficient
-        }
-
-        return _response[index][0].mode;
+    function getModesCount() {
+        return _modes.size();
     }
 
     function getAddedModesCount() {
-        if (!(_response instanceof Lang.Array)) {
-            return 1;
-        }
-
-        return _response.size();
+        return _responses.size();
     }
 
     function getModeResponse(mode) {
-        if (_response instanceof Lang.Array) {
-            if (_response.size() > 0) {
-                do {
-                    mode = MathUtil.coerceIn(mode, 0, _response.size() - 1);
-                    _removeDepartedDepartures(mode);
-                }
-                while (_response.removeAll(null) && _response.size() > 0);
-            }
-
-            return [ _response.size() > 0 ? _response[mode] : rez(Rez.Strings.msg_i_departures_none),
-                mode ];
-        }
-
-        return [ _response, 0 ];
-    }
-
-    function getModeLetter(mode) {
-        if (!(_response instanceof Lang.Array) || mode >= _response.size() || _response[mode].size() == 0) {
-            return "";
-        }
-
-        return _response[mode][0].getModeLetter();
+        _removeDepartedDepartures(mode);
+        return _responses[mode];
     }
 
     //
 
     hidden function _removeDepartedDepartures(mode) {
-        if (_response[mode] == null || _response[mode].size() == 0 || !_response[mode][0].hasDeparted()) {
+        if (!_responses.hasKey(mode) || _responses[mode] == null
+            || _responses[mode].size() == 0 || !_responses[mode][0].hasDeparted()) {
+
             return;
         }
 
+        //Log.d(_responses[mode]);
+
         var firstIndex = -1;
 
-        for (var i = 1; i < _response[mode].size(); i++) {
+        for (var i = 1; i < _responses[mode].size(); i++) {
             // once we get the first departure that has not departed,
             // add it and everything after
-            if (!_response[mode][i].hasDeparted()) {
+            if (!_responses[mode][i].hasDeparted()) {
                 firstIndex = i;
                 break;
             }
         }
 
         if (firstIndex != -1) {
-            _response[mode] = _response[mode].slice(firstIndex, null);
+            _responses[mode] = _responses[mode].slice(firstIndex, null);
         }
         else {
-            // add null because an ampty array is not matched with the equals() that removeAll() performes.
-            _response[mode] = null;
+            _responses[mode] = [];
         }
     }
 

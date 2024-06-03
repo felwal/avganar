@@ -46,16 +46,20 @@ class StopDouble {
         _stop.setProducts(products);
     }
 
-    function setResponse(response) {
-        _stop.setResponse(response);
+    function setResponse(mode, response) {
+        _stop.setResponse(mode, response);
     }
 
-    function resetResponse() {
-        _stop.resetResponse();
+    function resetResponse(mode) {
+        _stop.resetResponse(mode);
     }
 
-    function resetResponseError() {
-        _stop.resetResponseError();
+    function resetResponses() {
+        _stop.resetResponses();
+    }
+
+    function resetResponseErrors() {
+        _stop.resetResponseErrors();
     }
 
     function setDeviation(message) {
@@ -72,8 +76,12 @@ class StopDouble {
         return _stop.getProducts();
     }
 
-    function getResponse() {
-        return _stop.getResponse();
+    function hasResponse(mode) {
+        return _stop.hasResponse(mode);
+    }
+
+    function getResponse(mode) {
+        return _stop.getResponse(mode);
     }
 
     function getFailedRequestCount() {
@@ -88,28 +96,28 @@ class StopDouble {
         return _stop.getDeviationMessages();
     }
 
-    function shouldAutoRefresh() {
-        return _stop.shouldAutoRefresh();
+    function shouldAutoRefresh(mode) {
+        return _stop.shouldAutoRefresh(mode);
     }
 
-    function getDataAgeMillis() {
-        return _stop.getDataAgeMillis();
+    function getDataAgeMillis(mode) {
+        return _stop.getDataAgeMillis(mode);
     }
 
-    function getAddableModeKey(index) {
-        return _stop.getAddableModeKey(index);
+    function getModeKey(index) {
+        return _stop.getModeKey(index);
     }
 
-    function getAddableModesStrings() {
-        return _stop.getAddableModesStrings();
+    function getModesKeys() {
+        return _stop.getModesKeys();
     }
 
-    function getAddableModesCount() {
-        return _stop.getAddableModesCount();
+    function getModesStrings() {
+        return _stop.getModesStrings();
     }
 
-    function getAddedModeKey(index) {
-        return _stop.getAddedModeKey(index);
+    function getModesCount() {
+        return _stop.getModesCount();
     }
 
     function getAddedModesCount() {
@@ -118,10 +126,6 @@ class StopDouble {
 
     function getModeResponse(mode) {
         return _stop.getModeResponse(mode);
-    }
-
-    function getModeLetter(mode) {
-        return _stop.getModeLetter(mode);
     }
 
 }

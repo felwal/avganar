@@ -52,7 +52,6 @@
     <string id="lbl_detail_deviation_none">Inga avvikelser</string>
 
     <!-- modes menu -->
-    <string id="itm_modes_continue">Fortsätt</string>
     <string id="itm_modes_bus">Bussar</string>
     <string id="itm_modes_metro">Tunnelbana</string>
     <string id="itm_modes_train">Pendeltåg</string>

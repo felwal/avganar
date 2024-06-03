@@ -44,25 +44,24 @@ class StopDetailView extends WatchUi.View {
 
     function onHide() {
         _viewModel.disableRequests();
-        _viewModel.stop.resetResponseError();
+        _viewModel.stop.resetResponseErrors();
     }
 
     // draw
 
     hidden function _draw(dc) {
         var stop = _viewModel.stop;
-        var isInModesPane = _viewModel.isAddModesPaneSelected();
 
         // text
         _drawHeader(dc, stop);
-        _drawFooter(dc, stop, _viewModel.isInitialRequest || isInModesPane);
+        _drawFooter(dc, stop, _viewModel.isInitialRequest || _viewModel.isModePaneState);
 
         if (_viewModel.isInitialRequest) {
             _drawInitialModeList(dc, stop);
             return;
         }
 
-        if (isInModesPane) {
+        if (_viewModel.isModePaneState) {
             _drawModeList(dc, stop);
 
             if (_viewModel.pageCursor == 0) {
@@ -125,12 +124,12 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawInitialModeList(dc, stop) {
-        var items = stop.getAddableModesStrings();
+        var items = stop.getModesStrings();
         WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
     hidden function _drawModeList(dc, stop) {
-        var items = ArrUtil.merge([ rez(Rez.Strings.itm_modes_continue) ], stop.getAddableModesStrings());
+        var items = stop.getModesStrings();
         WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
@@ -178,7 +177,7 @@ class StopDetailView extends WatchUi.View {
 
         // progress bar
 
-        if (DeparturesService.isRequesting || stop.getResponse() == null) {
+        if (DeparturesService.isRequesting || stop.getResponse(_viewModel.currentMode) == null) {
             var hProgressBar = px(3);
             var yProgressBar = h - hFooter - hProgressBar;
             var progress = MathUtil.recursiveShare(0.33f, 0, stop.getFailedRequestCount());
@@ -189,7 +188,7 @@ class StopDetailView extends WatchUi.View {
 
         // mode letter
 
-        var modeLetter = stop.getModeLetter(_viewModel.modeCursor);
+        var modeLetter = Departure.getModeLetter(_viewModel.currentMode);
 
         if (modeLetter.equals("")) {
             return;

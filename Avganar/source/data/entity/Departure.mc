@@ -36,6 +36,13 @@ class Departure {
         MODE_TRAM => BIT_TRAM,
         MODE_SHIP => BIT_SHIP,
     };
+    static const MODE_TO_STRING = {
+        MODE_BUS => rez(Rez.Strings.itm_modes_bus),
+        MODE_METRO => rez(Rez.Strings.itm_modes_metro),
+        MODE_TRAIN => rez(Rez.Strings.itm_modes_train),
+        MODE_TRAM => rez(Rez.Strings.itm_modes_tram),
+        MODE_SHIP => rez(Rez.Strings.itm_modes_ship),
+    };
 
     static hidden const _GROUP_BUS_RED = "";
     static hidden const _GROUP_BUS_BLUE = "Blåbuss";
@@ -181,7 +188,7 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
-    function getModeLetter() {
+    static function getModeLetter(mode) {
         if (mode.equals(MODE_BUS)) {
             return rez(Rez.Strings.lbl_detail_mode_letter_bus);
         }
