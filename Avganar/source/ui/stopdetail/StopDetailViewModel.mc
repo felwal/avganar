@@ -266,6 +266,8 @@ class StopDetailViewModel {
         }
         else if (stop.getModesCount() > 1) {
             isModePaneState = true;
+            // set cursor to index of current mode
+            pageCursor = MathUtil.max(0, stop.getModesKeys().indexOf(currentMode));
             WatchUi.requestUpdate();
         }
     }
