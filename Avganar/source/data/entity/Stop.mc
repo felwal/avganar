@@ -231,8 +231,6 @@ class Stop {
             return;
         }
 
-        //Log.d(_responses[mode]);
-
         var firstIndex = -1;
 
         for (var i = 1; i < _responses[mode].size(); i++) {

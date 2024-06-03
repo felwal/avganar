@@ -224,8 +224,7 @@ class StopListViewModel {
         return stopCursor - getFavoriteCount();
     }
 
-    //! Scroll down
-    function incStopCursor() {
+    function onScrollDown() {
         if (isShowingMessage() && isUserRefreshable()) {
             _requestNearbyStops();
             WatchUi.requestUpdate();
@@ -235,9 +234,8 @@ class StopListViewModel {
         _rotStopCursor(1);
     }
 
-    //! Scroll up
-    //! @return true if successfully rotating,
-    function decStopCursor() {
+    //! @return true if successfully rotating
+    function onScrollUp() {
         // if the user has no favorites, scrolling off-screen
         // should not result in going back round.
         if (getFavoriteCount() == 0 && stopCursor == 0) {

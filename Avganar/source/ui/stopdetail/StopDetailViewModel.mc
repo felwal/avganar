@@ -159,8 +159,7 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
-    //! Scrolling down
-    function incCursor() {
+    function onScrollDown() {
         if (!isModePaneState
             && stop.getResponse(currentMode) instanceof ResponseError
             && stop.getResponse(currentMode).isUserRefreshable()) {
@@ -171,14 +170,7 @@ class StopDetailViewModel {
             WatchUi.requestUpdate();
         }
         else if (isDepartureState) {
-            if (departureCursor < DEPARTURES_PER_PAGE - 1
-                && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
-
-                departureCursor++;
-            }
-            else if (_incPageCursor()) {
-                departureCursor = 0;
-            }
+            _incDepartureCursor();
         }
         else {
             _incPageCursor();
@@ -187,15 +179,9 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
-    //! Scrolling up
-    function decCursor() {
+    function onScrollUp() {
         if (isDepartureState) {
-            if (departureCursor > 0) {
-                departureCursor--;
-            }
-            else if (_decPageCursor()) {
-                departureCursor = DEPARTURES_PER_PAGE - 1;
-            }
+            _decDepartureCursor();
         }
         else {
             _decPageCursor();
@@ -204,6 +190,7 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
+    //! @return true if successfully rotating
     hidden function _incPageCursor() {
         if (isInitialRequest || isModePaneState) {
             if (pageCursor < stop.getModesKeys().size() - 1) {
@@ -221,6 +208,7 @@ class StopDetailViewModel {
         return false;
     }
 
+    //! @return true if successfully rotating
     hidden function _decPageCursor() {
         if (pageCursor > 0) {
             pageCursor--;
@@ -231,6 +219,26 @@ class StopDetailViewModel {
         }
 
         return false;
+    }
+
+    hidden function _incDepartureCursor() {
+        if (departureCursor < DEPARTURES_PER_PAGE - 1
+            && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
+
+            departureCursor++;
+        }
+        else if (_incPageCursor()) {
+            departureCursor = 0;
+        }
+    }
+
+    hidden function _decDepartureCursor() {
+        if (departureCursor > 0) {
+            departureCursor--;
+        }
+        else if (_decPageCursor()) {
+            departureCursor = DEPARTURES_PER_PAGE - 1;
+        }
     }
 
     function onSelect() {

@@ -28,13 +28,13 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //! "DOWN"
     function onNextPage() {
-        _viewModel.incStopCursor();
+        _viewModel.onScrollDown();
         return true;
     }
 
     //! "UP"
     function onPreviousPage() {
-        if (_viewModel.decStopCursor()) {
+        if (_viewModel.onScrollUp()) {
             return true;
         }
 
