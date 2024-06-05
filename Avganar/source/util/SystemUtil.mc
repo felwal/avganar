@@ -54,7 +54,7 @@ module SystemUtil {
     }
 
     function vibrateShort() {
-        vibrate(50, 50);
+        vibrate(75, 100);
     }
 
 }

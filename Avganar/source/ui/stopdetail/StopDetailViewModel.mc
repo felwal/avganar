@@ -52,6 +52,8 @@ class StopDetailViewModel {
 
     function enableRequests() {
         if (isInitialRequest) {
+            // remind the user of the initial mode menu.
+            // since it didn't exist in previous versions it's easy to forget
             SystemUtil.vibrateShort();
         }
         else {

@@ -188,7 +188,7 @@ module WidgetUtil {
     function drawStartIndicator(dc) {
         var offset = px(5);
         var width = px(4);
-        var strokeWidth = px(1);
+        var strokeWidth = px(2);
 
         Graphite.strokeArcCentered(dc, offset, width, strokeWidth, 20, 40, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
@@ -197,7 +197,7 @@ module WidgetUtil {
     function drawStartIndicator(dc) {
         var offset = px(5);
         var width = px(4);
-        var strokeWidth = px(1);
+        var strokeWidth = px(2);
 
         var x = dc.getWidth() - offset;
         var y = 0.34 * dc.getHeight(); // sin(20) = 0.34
