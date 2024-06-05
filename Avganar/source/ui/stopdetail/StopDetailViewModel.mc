@@ -18,7 +18,7 @@ using Toybox.WatchUi;
 
 class StopDetailViewModel {
 
-    static hidden const _REFRESH_TIME_INTERVAL = 15 * 1000;
+    static hidden const _SCREEN_TIME_INTERVAL = 15 * 1000;
     static hidden const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
 
     static const DEPARTURES_PER_PAGE = 4;
@@ -86,10 +86,10 @@ class StopDetailViewModel {
 
     hidden function _startRepeatTimer() {
         var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
+        var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _SCREEN_TIME_INTERVAL);
 
         _repeatTimer.stop();
-        _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ screenTimer, requestTimer ]);
+        _repeatTimer.start(_SCREEN_TIME_INTERVAL, [ screenTimer, requestTimer ]);
     }
 
     function onTimer() {
@@ -248,6 +248,7 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
+        // select departure
         if (isDepartureState) {
             var modeResponse = stop.getModeResponse(currentMode);
             var selectedDeparture = modeResponse[pageCursor * 4 + departureCursor];
@@ -259,6 +260,8 @@ class StopDetailViewModel {
 
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
         }
+
+        // select mode
         else if (isInitialRequest) {
             isInitialRequest = false;
             currentMode = stop.getModeKey(pageCursor);
@@ -279,10 +282,17 @@ class StopDetailViewModel {
                 WatchUi.requestUpdate();
             }
         }
+
+        // enter mode menu
         else if (stop.getModesCount() > 1) {
             isModePaneState = true;
             // set cursor to index of current mode
             pageCursor = MathUtil.max(0, stop.getModesKeys().indexOf(currentMode));
+            WatchUi.requestUpdate();
+        }
+
+        else {
+            // always update screen on click
             WatchUi.requestUpdate();
         }
     }
