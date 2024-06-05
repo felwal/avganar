@@ -53,11 +53,11 @@ class Departure {
     static hidden const _GROUP_METRO_BLUE = "Tunnelbanans blå linje";
     static hidden const _GROUP_METRO_GREEN = "Tunnelbanans gröna linje";
 
-    static hidden const _GROUP_TRAM_SPÅRVÄGCITY = "Spårväg City";
+    static hidden const _GROUP_TRAM_SPARVAGCITY = "Spårväg City";
     static hidden const _GROUP_TRAM_NOCKEBYBANAN = "Nockebybanan";
-    static hidden const _GROUP_TRAM_LIDINGÖBANAN = "Lidingöbanan";
-    static hidden const _GROUP_TRAM_TVÄRBANAN = "Tvärbanan";
-    static hidden const _GROUP_TRAM_SALTSJÖBANAN = "Saltsjöbanan";
+    static hidden const _GROUP_TRAM_LIDINGOBANAN = "Lidingöbanan";
+    static hidden const _GROUP_TRAM_TVARBANAN = "Tvärbanan";
+    static hidden const _GROUP_TRAM_SALTSJOBANAN = "Saltsjöbanan";
     static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
     var mode;
@@ -250,20 +250,20 @@ class Departure {
             return AppColors.DEPARTURE_TRAIN;
         }
         else if (mode.equals(MODE_TRAM)) {
-            if (_group.equals(_GROUP_TRAM_SPÅRVÄGCITY)) {
-                return AppColors.DEPARTURE_TRAM_SPÅRVÄGCITY;
+            if (_group.equals(_GROUP_TRAM_SPARVAGCITY)) {
+                return AppColors.DEPARTURE_TRAM_SPARVAGCITY;
             }
             else if (_group.equals(_GROUP_TRAM_NOCKEBYBANAN)) {
                 return AppColors.DEPARTURE_TRAM_NOCKEBYBANAN;
             }
-            else if (_group.equals(_GROUP_TRAM_LIDINGÖBANAN)) {
-                return AppColors.DEPARTURE_TRAM_LIDINGÖBANAN;
+            else if (_group.equals(_GROUP_TRAM_LIDINGOBANAN)) {
+                return AppColors.DEPARTURE_TRAM_LIDINGOBANAN;
             }
-            else if (_group.equals(_GROUP_TRAM_TVÄRBANAN)) {
-                return AppColors.DEPARTURE_TRAM_TVÄRBANAN;
+            else if (_group.equals(_GROUP_TRAM_TVARBANAN)) {
+                return AppColors.DEPARTURE_TRAM_TVARBANAN;
             }
-            else if (_group.equals(_GROUP_TRAM_SALTSJÖBANAN)) {
-                return AppColors.DEPARTURE_TRAM_SALTSJÖBANAN;
+            else if (_group.equals(_GROUP_TRAM_SALTSJOBANAN)) {
+                return AppColors.DEPARTURE_TRAM_SALTSJOBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_ROSLAGSBANAN)) {
                 return AppColors.DEPARTURE_TRAM_ROSLAGSBANAN;
