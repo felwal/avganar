@@ -248,6 +248,7 @@ class StopDetailViewModel {
     }
 
     function onSelect() {
+        // select departure
         if (isDepartureState) {
             var modeResponse = stop.getModeResponse(currentMode);
             var selectedDeparture = modeResponse[pageCursor * 4 + departureCursor];
@@ -259,6 +260,8 @@ class StopDetailViewModel {
 
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
         }
+
+        // select mode
         else if (isInitialRequest) {
             isInitialRequest = false;
             currentMode = stop.getModeKey(pageCursor);
@@ -279,10 +282,17 @@ class StopDetailViewModel {
                 WatchUi.requestUpdate();
             }
         }
+
+        // enter mode menu
         else if (stop.getModesCount() > 1) {
             isModePaneState = true;
             // set cursor to index of current mode
             pageCursor = MathUtil.max(0, stop.getModesKeys().indexOf(currentMode));
+            WatchUi.requestUpdate();
+        }
+
+        else {
+            // always update screen on click
             WatchUi.requestUpdate();
         }
     }
