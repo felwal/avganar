@@ -85,16 +85,21 @@ class StopDetailViewModel {
     }
 
     hidden function _startRepeatTimer() {
+        if (_repeatTimer.isInitialized()) {
+            _repeatTimer.restart();
+            return;
+        }
+
         var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
         var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _SCREEN_TIME_INTERVAL);
 
-        _repeatTimer.stop();
         _repeatTimer.start(_SCREEN_TIME_INTERVAL, [ screenTimer, requestTimer ]);
     }
 
     function onTimer() {
         if (stop.getResponse(currentMode) instanceof ResponseError
             && !stop.getResponse(currentMode).isTimerRefreshable()) {
+
             return;
         }
 
@@ -267,7 +272,7 @@ class StopDetailViewModel {
             currentMode = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
-            _requestDepartures();
+            _requestDeparturesDelayed();
         }
         else if (isModePaneState) {
             isModePaneState = false;
@@ -275,7 +280,7 @@ class StopDetailViewModel {
             pageCursor = 0;
 
             if (!stop.hasResponse(currentMode)) {
-                _requestDepartures();
+                onDelayedDeparturesRequest();
             }
             else {
                 _requestDeparturesDelayed();

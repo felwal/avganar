@@ -37,6 +37,15 @@ class TimerWrapper {
         _timer.stop();
     }
 
+    function restart() {
+        stop();
+        _timer.start(method(:onTimer), _baseTime, true);
+    }
+
+    function isInitialized() {
+        return _reprs != null;
+    }
+
     function onTimer() {
         for (var i = 0; i < _reprs.size(); i++) {
             _reprs[i].onBaseTime();

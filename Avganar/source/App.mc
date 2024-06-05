@@ -49,7 +49,7 @@ class App extends Application.AppBase {
         // this function is gitignored.
         // define it to keep favorites between
         // development and testing release builds.
-        //addDevFavStops();
+        addDevFavStops();
 
         var viewModel = new StopListViewModel();
         var view = new StopListView(viewModel);
