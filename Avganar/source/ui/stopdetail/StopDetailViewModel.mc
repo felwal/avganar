@@ -18,7 +18,7 @@ using Toybox.WatchUi;
 
 class StopDetailViewModel {
 
-    static hidden const _REFRESH_TIME_INTERVAL = 15 * 1000;
+    static hidden const _SCREEN_TIME_INTERVAL = 15 * 1000;
     static hidden const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
 
     static const DEPARTURES_PER_PAGE = 4;
@@ -86,10 +86,10 @@ class StopDetailViewModel {
 
     hidden function _startRepeatTimer() {
         var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
+        var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _SCREEN_TIME_INTERVAL);
 
         _repeatTimer.stop();
-        _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ screenTimer, requestTimer ]);
+        _repeatTimer.start(_SCREEN_TIME_INTERVAL, [ screenTimer, requestTimer ]);
     }
 
     function onTimer() {
