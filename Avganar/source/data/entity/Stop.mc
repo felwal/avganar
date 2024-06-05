@@ -17,9 +17,6 @@ using Toybox.Lang;
 //! know whether our stops are of `Stop` or `StopDouble`.
 class Stop {
 
-    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
-    hidden static var _MEMORY_MIN_TIME_WINDOW = 5;
-
     // NOTE: instead of adding public fields, add getters.
     // and when adding functions, remember to add
     // corresponding ones to ´StopDouble´
@@ -30,10 +27,7 @@ class Stop {
     hidden var _products = null;
     hidden var _modes = [];
     hidden var _responses = {};
-    hidden var _failedRequestCount = 0;
     hidden var _deviationMessages = [];
-    hidden var _departuresTimeWindow;
-    hidden var _timeStamp; // TODO: we need one per mode
 
     // init
 
@@ -57,8 +51,18 @@ class Stop {
     }
 
     function setResponse(mode, response) {
-        _responses[mode] = response;
-        _timeStamp = TimeUtil.now();
+        // NOTE: migration to 1.8.0
+        // if we got a successful response, remove the ALL mode
+        if (mode != null && mode != Departure.MODE_ALL && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
+            _modes.remove(Departure.MODE_ALL);
+            _responses.remove(Departure.MODE_ALL);
+        }
+
+        // NOTE: migration to 1.8.0
+        // if we got an error for ALL, reset all modes
+        else if (mode == Departure.MODE_ALL && response instanceof ResponseError) {
+            resetResponses();
+        }
 
         // NOTE: migration to 1.8.0
         // if the mode wasn't added via products, add it now
@@ -66,42 +70,20 @@ class Stop {
             _modes.add(mode);
         }
 
-        // for each too large response, halve the time window
-        if (response instanceof ResponseError && response.isTooLarge()) {
-            if (_departuresTimeWindow == null) {
-                _departuresTimeWindow = SettingsStorage.getDefaultTimeWindow() / 2;
-            }
-            else if (_departuresTimeWindow > _MEMORY_MIN_TIME_WINDOW
-                && _departuresTimeWindow < 2 * _MEMORY_MIN_TIME_WINDOW) {
-                // if halving would result in less than the minimum,
-                // use the minimum
-                _departuresTimeWindow = _MEMORY_MIN_TIME_WINDOW;
-            }
-            else {
-                _departuresTimeWindow /= 2;
-            }
-
-            _failedRequestCount++;
-            return;
+        if (_responses.hasKey(mode)) {
+            _responses[mode].setResponse(response);
         }
-        else if (response instanceof ResponseError && response.isServerError()) {
-            _failedRequestCount++;
-            return;
+        else {
+            _responses[mode] = new DeparturesResponse(response);
         }
-
-        // only vibrate if we are not auto-refreshing
-        SystemUtil.vibrateLong();
-        _failedRequestCount = 0;
     }
 
     function resetResponse(mode) {
         _responses[mode] = [];
-        _timeStamp = null;
     }
 
     function resetResponses() {
         _responses = {};
-        _timeStamp = null;
     }
 
     function resetResponseErrors() {
@@ -143,22 +125,22 @@ class Stop {
     }
 
     function hasResponse(mode) {
-        return _responses.hasKey(mode) && _responses[mode] != [];
+        return mode != null && _responses.hasKey(mode) && _responses[mode] != null;
     }
 
     function getResponse(mode) {
         return _responses[mode];
     }
 
-    function getFailedRequestCount() {
-        return _failedRequestCount;
+    function getFailedRequestCount(mode) {
+        return _hasDeparturesResponse(mode)
+            ? _responses[mode].getFailedRequestCount()
+            : 0;
     }
 
-    function getTimeWindow() {
-        // we don't want to initialize `_departuresTimeWindow` with `SettingsStorage.getDefaultTimeWindow()`,
-        // because then it wont sync when the setting is edited.
-        return _departuresTimeWindow != null
-            ? _departuresTimeWindow
+    function getTimeWindow(mode) {
+        return _hasDeparturesResponse(mode)
+            ? _responses[mode].getTimeWindow()
             : SettingsStorage.getDefaultTimeWindow();
     }
 
@@ -167,31 +149,23 @@ class Stop {
     }
 
     function shouldAutoRefresh(mode) {
-        if (!(_responses[mode] instanceof ResponseError)) {
-            return false;
-        }
-
-        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _responses[mode].isServerError()) {
-            setResponse(mode, new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
-            return false;
-        }
-
-        if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
-            setResponse(mode, new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
-            return false;
-        }
-
-        return _responses[mode].isAutoRefreshable();
+        return _hasDeparturesResponse(mode) && _responses[mode].shouldAutoRefresh();
     }
 
     function getDataAgeMillis(mode) {
-        return _responses[mode] instanceof Lang.Array || _responses[mode] instanceof Lang.String
-            ? TimeUtil.now().subtract(_timeStamp).value() * 1000
+        return _hasDeparturesResponse(mode)
+            ? _responses[mode].getDataAgeMillis()
             : null;
     }
 
+    hidden function _hasDeparturesResponse(mode) {
+        return mode != null
+            && _responses.hasKey(mode)
+            && _responses[mode] instanceof DeparturesResponse;
+    }
+
     function getModeKey(index) {
-        return index < _modes.size() ? _modes[index] : null;
+        return index < _modes.size() ? _modes[index] : Departure.MODE_ALL;
     }
 
     function getModesKeys() {
@@ -218,36 +192,9 @@ class Stop {
     }
 
     function getModeResponse(mode) {
-        _removeDepartedDepartures(mode);
-        return _responses[mode];
-    }
-
-    //
-
-    hidden function _removeDepartedDepartures(mode) {
-        if (!_responses.hasKey(mode) || _responses[mode] == null
-            || _responses[mode].size() == 0 || !_responses[mode][0].hasDeparted()) {
-
-            return;
-        }
-
-        var firstIndex = -1;
-
-        for (var i = 1; i < _responses[mode].size(); i++) {
-            // once we get the first departure that has not departed,
-            // add it and everything after
-            if (!_responses[mode][i].hasDeparted()) {
-                firstIndex = i;
-                break;
-            }
-        }
-
-        if (firstIndex != -1) {
-            _responses[mode] = _responses[mode].slice(firstIndex, null);
-        }
-        else {
-            _responses[mode] = [];
-        }
+        return _hasDeparturesResponse(mode)
+            ? _responses[mode].getResponse()
+            : _responses[mode];
     }
 
 }

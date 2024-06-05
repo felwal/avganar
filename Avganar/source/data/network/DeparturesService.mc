@@ -35,7 +35,7 @@ class DeparturesService {
 
     function requestDepartures(mode) {
         if (_stop != null) {
-            Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow() + " min ...");
+            Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow(mode) + " min ...");
             _mode = mode;
             _requestDepartures(mode);
         }
@@ -49,13 +49,13 @@ class DeparturesService {
 
         var params = {
             // NOTE: the API seems to ignore this whenever it feels like it
-            "forecast" => _stop.getTimeWindow()
+            "forecast" => _stop.getTimeWindow(mode)
         };
 
         // NOTE: migration to 1.8.0
         // no products saved => ´mode´ = null => request all modes
         // (same behaviour as before)
-        if (mode != null) {
+        if (mode != null && !mode.equals(Departure.MODE_ALL)) {
             params["transport"] = mode;
         }
 
@@ -138,6 +138,7 @@ class DeparturesService {
             // TODO: check if there are other modes we should include.
             // for now, skip them
             if (!ArrUtil.contains(modes, mode)) {
+                Log.w("Ignoring mode " + mode);
                 continue;
             }
 

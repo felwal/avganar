@@ -60,7 +60,7 @@ module FavoriteStopsStorage {
             _save();
         }
         else {
-            Log.w("did not find stop id " + stop.getId() + " in favorites");
+            Log.w("Did not find stop id " + stop.getId() + " in favorites");
         }
     }
 

@@ -180,10 +180,10 @@ class StopDetailView extends WatchUi.View {
 
         // progress bar
 
-        if (DeparturesService.isRequesting || stop.getResponse(_viewModel.currentMode) == null) {
+        if (DeparturesService.isRequesting) {
             var hProgressBar = px(3);
             var yProgressBar = h - hFooter - hProgressBar;
-            var progress = MathUtil.recursiveShare(0.33f, 0, stop.getFailedRequestCount());
+            var progress = MathUtil.recursiveShare(0.33f, 0, stop.getFailedRequestCount(_viewModel.currentMode));
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
                 AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);

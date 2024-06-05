@@ -26,7 +26,7 @@ class StopDetailViewModel {
     var stop;
     var pageCount = 1;
     var pageCursor = 0;
-    var currentMode = null;
+    var currentMode = Departure.MODE_ALL;
     var departureCursor = 0;
     var isDepartureState = false;
     var isModePaneState = false;
@@ -110,12 +110,16 @@ class StopDetailViewModel {
     function getPageResponse() {
         if (isInitialRequest || isModePaneState) {
             // should not happen, but check just in case
-            Log.w("getPageResponse() when in mode menu");
+            Log.w("Called getPageResponse() when in mode menu");
             return null;
         }
 
-        if (currentMode == null) {
+        if (currentMode == null || currentMode.equals(Departure.MODE_ALL)) {
             currentMode = stop.getModeKey(0);
+
+            if (currentMode == null) {
+                return null;
+            }
         }
 
         var modeResponse = stop.getModeResponse(currentMode);
