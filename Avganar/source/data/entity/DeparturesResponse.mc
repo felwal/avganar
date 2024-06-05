@@ -49,7 +49,7 @@ class DeparturesResponse {
             return false;
         }
 
-        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _responses[mode].isServerError()) {
+        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _response.isServerError()) {
             setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
             return false;
         }
