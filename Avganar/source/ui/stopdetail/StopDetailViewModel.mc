@@ -74,6 +74,7 @@ class StopDetailViewModel {
             onDelayedDeparturesRequest();
         }
         else {
+            _delayTimer.stop();
             _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
         }
     }
@@ -87,6 +88,7 @@ class StopDetailViewModel {
         var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
         var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _REFRESH_TIME_INTERVAL);
 
+        _repeatTimer.stop();
         _repeatTimer.start(_REFRESH_TIME_INTERVAL, [ screenTimer, requestTimer ]);
     }
 
@@ -273,6 +275,7 @@ class StopDetailViewModel {
                 _requestDepartures();
             }
             else {
+                _requestDeparturesDelayed();
                 WatchUi.requestUpdate();
             }
         }
