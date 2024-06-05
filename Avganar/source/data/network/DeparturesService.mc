@@ -175,7 +175,7 @@ class DeparturesService {
                     continue;
                 }
 
-                var level = deviations[i]["importance"];
+                var level = deviations[i]["importance_level"];
                 if (level != null) {
                     deviationLevel = MathUtil.max(deviationLevel, level);
                 }
