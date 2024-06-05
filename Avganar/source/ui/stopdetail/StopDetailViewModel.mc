@@ -119,6 +119,7 @@ class StopDetailViewModel {
     function getPageResponse() {
         if (isInitialRequest || isModePaneState) {
             // should not happen, but check just in case
+            Log.w("Called getPageResponse() when in mode menu");
             return null;
         }
 
