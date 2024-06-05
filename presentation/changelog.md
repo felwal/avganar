@@ -2,6 +2,11 @@
 
 **NOTE** – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
 
+## 1.8.1 [2024-06-05]
+
+- Improve the mode menu
+- Bug fixes and improvements
+
 ## 1.8.0 [2024-03-31]
 
 - Migrate to the new SL Transport API
