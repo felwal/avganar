@@ -68,6 +68,12 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
             WatchUi.requestUpdate();
             return true;
         }
+        else if (_viewModel.isModePaneState && !_viewModel.isInitialRequest) {
+            // exit mode menu
+            _viewModel.isModePaneState = false;
+            WatchUi.requestUpdate();
+            return true;
+        }
 
         return false;
     }
