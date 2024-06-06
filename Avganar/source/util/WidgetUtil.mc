@@ -450,7 +450,7 @@ module WidgetUtil {
 
     function drawPanedList(dc as Dc, items as Array<String>, paneSize as Number, cursor as Number,
         paneHints as [String, String], mainHints as [String, String], topHint as String,
-        paneColors as Array<ColorType>, mainColors as Array<ColorType>) as Void {
+        paneColors as ColorTheme, mainColors as ColorTheme) as Void {
 
         var paneHint = paneHints[0];
         var mainHint = mainHints[0];

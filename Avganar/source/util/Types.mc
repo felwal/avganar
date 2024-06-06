@@ -1,3 +1,4 @@
+import Toybox.Graphics;
 import Toybox.Lang;
 
 typedef StopType as Stop or StopDouble or StopDummy; // TODO: should probably not include dummy
@@ -9,3 +10,4 @@ typedef JsonDict as Dictionary<String, JsonValue>;
 typedef JsonArray as Array<JsonDict>;
 
 typedef LatLon as [Double, Double];
+typedef ColorTheme as [ColorType, ColorType, ColorType, ColorType];
