@@ -48,12 +48,12 @@ module MathUtil {
         return Math.sqrt(Math.pow(r, 2) - Math.pow(y - r, 2)) + r;
     }
 
-    function deg(rad as Float) as Float {
+    function deg(rad as Decimal) as Decimal {
         return 360 * rad / TAU;
     }
 
 
-    function rad(deg as Numeric) as Float {
+    function rad(deg as Decimal) as Decimal {
         return TAU * deg / 360;
     }
 

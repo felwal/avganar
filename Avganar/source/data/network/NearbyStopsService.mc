@@ -34,29 +34,29 @@ module NearbyStopsService {
 
     // request
 
-    function requestNearbyStops(lat as Float, lon as Float) as Void {
+    function requestNearbyStops(latLon as LatLon) as Void {
         // final check if location use is turned off
         if (!SettingsStorage.getUseLocation()) {
             NearbyStopsStorage.setResponseError(null);
             WatchUi.requestUpdate();
         }
         // check if outside bounds, to not make unnecessary calls outside the operator zone
-        else if (lat < _BOUNDS_SOUTH || lat > _BOUNDS_NORTH || lon < _BOUNDS_WEST || lon > _BOUNDS_EAST) {
-            Log.i("Location (" + lat +", " + lon + ") outside bounds; skipping request");
+        else if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
+            Log.i("Location (" + latLon[0] +", " + latLon[1] + ") outside bounds; skipping request");
 
-            if (lat != 0.0 || lon != 0.0) {
+            if (latLon[0] != 0.0 || latLon[1] != 0.0) {
                 NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds));
             }
 
             WatchUi.requestUpdate();
         }
         else {
-            Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + lat + ", " + lon + ") ...");
-            _requestNearbyStops(lat, lon);
+            Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + latLon[0] + ", " + latLon[1] + ") ...");
+            _requestNearbyStops(latLon);
         }
     }
 
-    function _requestNearbyStops(lat as Float, lon as Float) as Void {
+    function _requestNearbyStops(latLon as LatLon) as Void {
         isRequesting = true;
 
         // transition to new url 2023-12-04--2024-03-15
@@ -64,8 +64,8 @@ module NearbyStopsService {
 
         var params = {
             "key" => API_KEY_STOPS,
-            "originCoordLat" => lat,
-            "originCoordLong" => lon,
+            "originCoordLat" => latLon[0],
+            "originCoordLong" => latLon[1],
             "r" => _MAX_RADIUS,
             "maxNo" => def(NearbyStopsStorage.maxStops, SettingsStorage.getMaxStops()),
             "type" => "S" // stations only
@@ -95,7 +95,7 @@ module NearbyStopsService {
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
-                requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+                requestNearbyStops(Footprint.getLatLonDeg());
             }
         }
 

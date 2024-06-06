@@ -26,70 +26,57 @@ module Footprint {
     var isPositionRegistered = false;
 
     // position, in radians
-    var _lat = 0.0;
-    var _lon = 0.0;
+    var _latLon as LatLon = [ 0.0d, 0.0d ];
 
     // set
 
     function setPosLoc(positionLocation as Position.Location?) as Void {
         if (positionLocation != null) {
-            _lat = positionLocation.toRadians()[0].toDouble();
-            _lon = positionLocation.toRadians()[1].toDouble();
+            _latLon = positionLocation.toRadians();
         }
     }
 
     // get
 
     function isPositioned() as Boolean {
-        return _lat != 0.0 || _lon != 0.0;
+        return _latLon != [ 0.0d, 0.0d ];
     }
 
-    //! Get latitude in radians
-    function getLatRad() as Float {
-        return _lat;
+    function getLatLonRad() as LatLon {
+        return _latLon;
     }
 
-    //! Get longitude in radians
-    function getLonRad() as Float {
-        return _lon;
+    function getLatLonDeg() as LatLon {
+        return DEBUG ? [ debugLat, debugLon ]
+            : [ MathUtil.deg(_latLon[0]), MathUtil.deg(_latLon[1]) ];
     }
 
-    //! Get latitude in degrees
-    function getLatDeg() as Float {
-        return DEBUG ? debugLat : MathUtil.deg(_lat);
-    }
-
-    //! Get longitude in degrees
-    function getLonDeg() as Float {
-        return DEBUG ? debugLon : MathUtil.deg(_lon);
-    }
-
-    function distanceTo(lat as Float, lon as Float) as Float {
-        return distanceBetween(lat, lon, _lat, _lon);
+    function distanceTo(latLon as LatLon) as Float {
+        return distanceBetween(latLon, _latLon);
     }
 
     // static
 
     //! Radians to meters
-    function distanceBetween(lat1 as Float, lon1 as Float, lat2 as Float, lon2 as Float) as Float {
+    function distanceBetween(pos1 as LatLon, pos2 as LatLon) as Float {
         var R = 6371000;
 
-        var phi1 = lat1 - Math.PI / 2;
-        var phi2 = lat2 - Math.PI / 2;
+        var phi1 = pos1[0] - Math.PI / 2;
+        var phi2 = pos2[0] - Math.PI / 2;
 
-        var x1 = R * Math.sin(phi1) * Math.cos(lon1);
-        var y1 = R * Math.sin(phi1) * Math.sin(lon1);
+        var x1 = R * Math.sin(phi1) * Math.cos(pos1[1]);
+        var y1 = R * Math.sin(phi1) * Math.sin(pos1[1]);
         var z1 = R * Math.cos(phi1);
 
-        var x2 = R * Math.sin(phi2) * Math.cos(lon2);
-        var y2 = R * Math.sin(phi2) * Math.sin(lon2);
+        var x2 = R * Math.sin(phi2) * Math.cos(pos2[1]);
+        var y2 = R * Math.sin(phi2) * Math.sin(pos2[1]);
         var z2 = R * Math.cos(phi2);
 
         var dx = x2 - x1;
         var dy = y2 - y1;
         var dz = z2 - z1;
 
-        var distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        var distance = Math.sqrt(dx * dx + dy * dy + dz * dz).toFloat();
 
         return distance;
     }

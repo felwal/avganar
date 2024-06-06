@@ -24,13 +24,13 @@ class StopListViewModel {
 
     var stopCursor = 0;
 
-    hidden var _lastPos as Array<Numeric>;
+    hidden var _lastPos as LatLon?;
 
     // init
 
     function initialize() {
         stopCursor = getFavoriteCount();
-        _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
+        _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS) as LatLon;
     }
 
     // timer
@@ -68,14 +68,14 @@ class StopListViewModel {
         // request directly if there is no last position saved,
         // there has been no request,
         // or if last request resulted in an error.
-        if (_lastPos.size() != 2
+        if (_lastPos == null
             || NearbyStopsStorage.response == null
             || NearbyStopsStorage.response instanceof ResponseError) {
 
             _requestNearbyStops();
         }
-        else if (_lastPos.size() == 2) {
-            var movedDistance = Footprint.distanceTo(_lastPos[0], _lastPos[1]);
+        else {
+            var movedDistance = Footprint.distanceTo(_lastPos);
 
             // only request stops if the user has moved 100 m since last request
             if (movedDistance > 100) {
@@ -97,10 +97,10 @@ class StopListViewModel {
             NearbyStopsStorage.setResponseError(null);
         }
 
-        NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+        NearbyStopsService.requestNearbyStops(Footprint.getLatLonDeg());
 
         // update last position
-        _lastPos = [ Footprint.getLatRad(), Footprint.getLonRad() ];
+        _lastPos = Footprint.getLatLonRad();
         // save to storage to avoid requesting every time the user enters the app
         Storage.setValue(_STORAGE_LAST_POS, _lastPos);
     }

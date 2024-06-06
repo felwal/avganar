@@ -181,7 +181,7 @@ module WidgetUtil {
     (:round)
     function drawStartIndicatorWithBitmap(dc as Dc, rezId as ResourceId) as Void {
         var r = Graphite.getRadius(dc) - px(23);
-        var pos = MathUtil.polarPos(r, MathUtil.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
+        var pos = MathUtil.polarPos(r, MathUtil.rad(30f), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
 
         RezUtil.drawBitmap(dc, pos[0], pos[1], rezId);
         drawStartIndicator(dc);
