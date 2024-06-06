@@ -178,10 +178,12 @@ class StopDetailView extends WatchUi.View {
 
         // progress bar
 
+        var mode = _viewModel.getCurrentMode();
+
         if (DeparturesService.isRequesting) {
             var hProgressBar = px(3);
             var yProgressBar = h - hFooter - hProgressBar;
-            var progress = MathUtil.recursiveShare(0.33f, 0f, stop.getFailedRequestCount(_viewModel.currentMode));
+            var progress = MathUtil.recursiveShare(0.33f, 0f, stop.getFailedRequestCount(mode));
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
                 AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
@@ -189,7 +191,7 @@ class StopDetailView extends WatchUi.View {
 
         // mode letter
 
-        var modeLetter = Departure.getModeLetter(_viewModel.currentMode);
+        var modeLetter = Departure.getModeLetter(mode);
 
         if (modeLetter.equals("")) {
             return;

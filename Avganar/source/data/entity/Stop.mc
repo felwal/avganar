@@ -51,16 +51,20 @@ class Stop {
     }
 
     function setResponse(mode as String?, response as ResponseWithDepartures) as Void {
+        if (mode == null) {
+            return;
+        }
+
         // NOTE: migration to 1.8.0
         // if we got a successful response, remove the ALL mode
-        if (mode != null && mode != Departure.MODE_ALL && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
+        if (!mode.equals(Departure.MODE_ALL) && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
             _modes.remove(Departure.MODE_ALL);
             _responses.remove(Departure.MODE_ALL);
         }
 
         // NOTE: migration to 1.8.0
         // if we got an error for ALL, reset all modes
-        else if (mode == Departure.MODE_ALL && response instanceof ResponseError) {
+        else if (mode.equals(Departure.MODE_ALL) && response instanceof ResponseError) {
             resetResponses();
         }
 
