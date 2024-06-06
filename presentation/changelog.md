@@ -2,6 +2,11 @@
 
 **NOTE** – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
 
+## 1.8.2 [2024-06-05]
+
+- Bug fixes
+- Remove support for d2delta, d2deltapx, d2deltas, fenix5x, vivoactive3mlte
+
 ## 1.8.1 [2024-06-05]
 
 - Improve the mode menu
