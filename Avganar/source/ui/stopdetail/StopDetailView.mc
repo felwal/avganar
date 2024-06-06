@@ -117,11 +117,11 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawModeIndicator(dc as Dc) as Void {
-        if (_viewModel.isModePaneState || _viewModel.stop.getModesKeys().size() <= 1) {
-            return;
-        }
+        if (!_viewModel.isModePaneState
+            && (_viewModel.stop.getModesKeys().size() > 1 || _viewModel.isDepartureState)) {
 
-        WidgetUtil.drawStartIndicator(dc);
+            WidgetUtil.drawStartIndicator(dc);
+        }
     }
 
     hidden function _drawInitialModeList(dc as Dc, stop as StopType) as Void {
