@@ -68,7 +68,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //! "BACK"
     function onBack() as Boolean {
-        if (!SystemUtil.hasGlance() || DEBUG) {
+        if (!SystemUtil.hasGlance()) {
             WatchUi.popView(WatchUi.SLIDE_BLINK);
             return true;
         }

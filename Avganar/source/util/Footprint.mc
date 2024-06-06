@@ -47,8 +47,7 @@ module Footprint {
     }
 
     function getLatLonDeg() as LatLon {
-        return DEBUG ? [ debugLat, debugLon ]
-            : [ MathUtil.deg(_latLon[0]), MathUtil.deg(_latLon[1]) ];
+        return [ MathUtil.deg(_latLon[0]), MathUtil.deg(_latLon[1]) ];
     }
 
     function distanceTo(latLon as LatLon) as Float {

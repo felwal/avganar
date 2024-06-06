@@ -36,7 +36,6 @@ class DeparturesService {
     // request
 
     function requestDepartures(mode as String?) as Void {
-        Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow(mode) + " min ...");
         _mode = mode;
         _requestDepartures(mode);
     }
@@ -73,8 +72,6 @@ class DeparturesService {
         DeparturesService.isRequesting = false;
 
         if (responseCode != ResponseError.HTTP_OK || data == null) {
-            Log.i("Departures response error (code " + responseCode + "): " + data);
-
             _stop.setResponse(_mode, new ResponseError(responseCode));
 
             // auto-refresh if too large
@@ -84,9 +81,6 @@ class DeparturesService {
         }
         else if (!DictUtil.hasValue(data, "departures")) {
             var errorMsg = DictUtil.get(data, "message", "no error msg");
-
-            Log.i("Departures operator request error (" + errorMsg + ")");
-
             _stop.setResponse(_mode, new ResponseError(errorMsg));
 
             // auto-refresh if server error
@@ -105,12 +99,9 @@ class DeparturesService {
     }
 
     hidden function _handleDeparturesResponseOk(data as JsonDict) as Void {
-        //Log.d("Departures response success: " + data);
-
         var departuresData = data["departures"] as JsonArray;
 
         if (departuresData.size() == 0) {
-            Log.i("Departures response empty of departures");
             _stop.setResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
         }
 
@@ -139,7 +130,6 @@ class DeparturesService {
             // TODO: check if there are other modes we should include.
             // for now, skip them
             if (!ArrUtil.contains(modes, mode)) {
-                Log.w("Ignoring mode " + mode);
                 continue;
             }
 
@@ -205,7 +195,6 @@ class DeparturesService {
                 _stop.setResponse(mode, modeDepartures[modes[m]]);
             }
             else {
-                Log.i("Departures mode response empty of departures");
                 _stop.setResponse(mode, rez(Rez.Strings.msg_i_departures_none));
             }
         }
@@ -247,7 +236,6 @@ class DeparturesService {
         var langSplitIndex = msg.find(langSeparator);
 
         if (langSplitIndex != null) {
-            //Log.d("stop deviation msg: " + msg);
             var isSwe = SystemUtil.isLangSwe();
 
             msg = msg.substring(

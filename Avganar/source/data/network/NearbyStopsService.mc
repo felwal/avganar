@@ -42,8 +42,6 @@ module NearbyStopsService {
         }
         // check if outside bounds, to not make unnecessary calls outside the operator zone
         else if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
-            Log.i("Location (" + latLon[0] +", " + latLon[1] + ") outside bounds; skipping request");
-
             if (latLon[0] != 0.0 || latLon[1] != 0.0) {
                 NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds));
             }
@@ -51,7 +49,6 @@ module NearbyStopsService {
             WatchUi.requestUpdate();
         }
         else {
-            Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + latLon[0] + ", " + latLon[1] + ") ...");
             _requestNearbyStops(latLon);
         }
     }
@@ -89,8 +86,6 @@ module NearbyStopsService {
             _handleNearbyStopsResponseOk(data);
         }
         else {
-            Log.e("Stops response error (code " + responseCode + "): " + data);
-
             NearbyStopsStorage.setResponseError(new ResponseError(DictUtil.get(data, "Message", responseCode)));
 
             // auto-refresh if too large
@@ -108,8 +103,6 @@ module NearbyStopsService {
             var statusCode = data["StatusCode"] as Number;
             NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
 
-            Log.e("Stops operator response error (code " + statusCode + ")");
-
             return;
         }
 
@@ -126,8 +119,6 @@ module NearbyStopsService {
         }
 
         // stops were found
-
-        //Log.d("Stops response success: " + data);
 
         var stopIds = [];
         var stopNames = [];

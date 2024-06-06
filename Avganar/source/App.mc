@@ -17,9 +17,6 @@ import Toybox.WatchUi;
 using Toybox.Application;
 
 (:glance)
-const DEBUG = false;
-
-(:glance)
 class App extends Application.AppBase {
 
     // init
@@ -31,7 +28,7 @@ class App extends Application.AppBase {
     // override AppBase
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        if (!SystemUtil.hasGlance() || DEBUG) {
+        if (!SystemUtil.hasGlance()) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
 
@@ -48,11 +45,6 @@ class App extends Application.AppBase {
     function getMainView() as [StopListView, StopListDelegate] {
         FavoriteStopsStorage.load();
         NearbyStopsStorage.load();
-
-        // this function is gitignored.
-        // define it to keep favorites between
-        // development and testing release builds.
-        //addDevFavStops();
 
         var viewModel = new StopListViewModel();
         var view = new StopListView(viewModel);

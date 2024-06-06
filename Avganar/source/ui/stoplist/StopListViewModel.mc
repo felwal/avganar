@@ -36,11 +36,6 @@ class StopListViewModel {
     // timer
 
     function enableRequests() as Void {
-        if (DEBUG) {
-            _requestNearbyStops();
-            return;
-        }
-
         _requestPosition();
     }
 
@@ -85,8 +80,7 @@ class StopListViewModel {
     }
 
     hidden function _isPositioned() as Boolean {
-        return (Footprint.isPositioned() || DEBUG)
-            && SettingsStorage.getUseLocation();
+        return Footprint.isPositioned() && SettingsStorage.getUseLocation();
     }
 
     // service

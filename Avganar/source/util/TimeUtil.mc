@@ -25,7 +25,6 @@ module TimeUtil {
     //! Convert String on the format "YYYY-MM-DDThh:mm:ss" to Moment
     function iso8601StrToMoment(str as String?) as Moment? {
         if (str == null || str.length() != 19) {
-            Log.w(str + " not in ISO8601 (YYYY-MM-DDThh:mm:ss)");
             return null;
         }
 
