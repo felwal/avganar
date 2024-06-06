@@ -11,8 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Communications;
-using Toybox.Lang;
 using Toybox.WatchUi;
 
 // Requests and handles stop data.
@@ -33,7 +34,7 @@ module NearbyStopsService {
 
     // request
 
-    function requestNearbyStops(lat, lon) {
+    function requestNearbyStops(lat as Float, lon as Float) as Void {
         // final check if location use is turned off
         if (!SettingsStorage.getUseLocation()) {
             NearbyStopsStorage.setResponseError(null);
@@ -55,7 +56,7 @@ module NearbyStopsService {
         }
     }
 
-    function _requestNearbyStops(lat, lon) {
+    function _requestNearbyStops(lat as Float, lon as Float) as Void {
         isRequesting = true;
 
         // transition to new url 2023-12-04--2024-03-15
@@ -80,7 +81,8 @@ module NearbyStopsService {
 
     // receive
 
-    function onReceiveNearbyStops(responseCode, data) {
+    function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
+
         isRequesting = false;
 
         if (responseCode == ResponseError.HTTP_OK && data != null) {
@@ -100,10 +102,10 @@ module NearbyStopsService {
         WatchUi.requestUpdate();
     }
 
-    function _handleNearbyStopsResponseOk(data) {
+    function _handleNearbyStopsResponseOk(data as JsonDict) as Void {
         // operator error
         if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
-            var statusCode = data["StatusCode"];
+            var statusCode = data["StatusCode"] as Number;
             NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
 
             Log.e("Stops operator response error (code " + statusCode + ")");
@@ -132,9 +134,9 @@ module NearbyStopsService {
         var stopProducts = [];
         var stops = [];
 
-        var stopsData = data["stopLocationOrCoordLocation"];
+        var stopsData = data["stopLocationOrCoordLocation"] as JsonArray;
         for (var i = 0; i < stopsData.size(); i++) {
-            var stopData = stopsData[i]["StopLocation"];
+            var stopData = stopsData[i]["StopLocation"] as JsonDict;
 
             var extId = stopData["mainMastExtId"];
             var id = extId.substring(5, extId.length()).toNumber();

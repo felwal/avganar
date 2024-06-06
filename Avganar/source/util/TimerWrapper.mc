@@ -11,14 +11,15 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Timer;
+import Toybox.Lang;
+import Toybox.Timer;
 
 //! Synthesise multiple timers by only using one `Timer`.
 class TimerWrapper {
 
-    hidden var _timer;
-    hidden var _baseTime;
-    hidden var _reprs;
+    hidden var _timer as Timer.Timer;
+    hidden var _baseTime as Number?;
+    hidden var _reprs as Array<TimerRepr>?;
 
     function initialize() {
         _timer = new Timer.Timer();
@@ -26,27 +27,27 @@ class TimerWrapper {
 
     //! @baseTime the smallest "timer" duration, of wich all other "timers"
     //! should be multiples
-    function start(baseTime, reprs) {
+    function start(baseTime as Number, reprs as Array<TimerRepr>) as Void {
         _baseTime = baseTime;
         _reprs = reprs;
 
         _timer.start(method(:onTimer), _baseTime, true);
     }
 
-    function stop() {
+    function stop() as Void {
         _timer.stop();
     }
 
-    function restart() {
+    function restart() as Void {
         stop();
         _timer.start(method(:onTimer), _baseTime, true);
     }
 
-    function isInitialized() {
+    function isInitialized() as Boolean {
         return _reprs != null;
     }
 
-    function onTimer() {
+    function onTimer() as Void {
         for (var i = 0; i < _reprs.size(); i++) {
             _reprs[i].onBaseTime();
         }
@@ -57,16 +58,16 @@ class TimerWrapper {
 //! Representation of a Timer.
 class TimerRepr {
 
-    hidden var _callback;
-    hidden var _multiple;
+    hidden var _callback as Method;
+    hidden var _multiple as Number;
     hidden var _currentMultiple = 0;
 
-    function initialize(callback, multipleOfBaseTime) {
+    function initialize(callback as Method, multipleOfBaseTime as Number) {
         _callback = callback;
         _multiple = multipleOfBaseTime;
     }
 
-    function onBaseTime() {
+    function onBaseTime() as Void {
         _currentMultiple++;
 
         if (_currentMultiple >= _multiple) {

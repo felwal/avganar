@@ -11,8 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Application.Storage;
-using Toybox.Lang;
 using Toybox.Math;
 
 //! Handles storage for nearby stops.
@@ -27,31 +28,31 @@ module NearbyStopsStorage {
 
     const _MEMORY_MIN_MAX_STOPS = 1;
 
-    var response;
-    var maxStops;
+    var response as ResponseWithStops;
+    var maxStops as Number?;
     var failedRequestCount = 0;
 
-    var _nearbyStopIds;
-    var _nearbyStopNames;
-    var _nearbyStopProducts;
+    var _nearbyStopIds as Array<Number> = [];
+    var _nearbyStopNames as Array<String> = [];
+    var _nearbyStopProducts as Array<Number?> = [];
 
     // static
 
     (:glance)
-    function getNearestStopName() {
+    function getNearestStopName() as String? {
         var arr = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
         return ArrUtil.get(arr, 0, null);
     }
 
     // set
 
-    function _save() {
+    function _save() as Void {
         Storage.setValue(_STORAGE_NEARBY_STOP_IDS, _nearbyStopIds);
         Storage.setValue(_STORAGE_NEARBY_STOP_NAMES, _nearbyStopNames);
         Storage.setValue(_STORAGE_NEARBY_STOP_PRODUCTS, _nearbyStopProducts);
     }
 
-    function setResponseError(responseError) {
+    function setResponseError(responseError as ResponseError or String or Null) as Void {
         setResponse([], [], [], responseError);
     }
 
@@ -60,7 +61,9 @@ module NearbyStopsStorage {
     //! - `ResponseError` - error
     //! - `String` - response message (e.g. "No Stops")
     //! - `null` - status message (e.g. "Loading ...", determined in `StopListViewModel#getMessage`)
-    function setResponse(stopIds, stopNames, stopProducts, response_) {
+    function setResponse(stopIds as Array<Number>, stopNames as Array<String>,
+        stopProducts as Array<Number?>, response_ as ResponseWithStops) as Void {
+
         // for each too large response, halve the time window
         if (response_ instanceof ResponseError && response_.isTooLarge()) {
             maxStops = Math.ceil(maxStops == null
@@ -94,7 +97,7 @@ module NearbyStopsStorage {
 
     // get
 
-    function load() {
+    function load() as Void {
         _nearbyStopIds = StorageUtil.getArray(_STORAGE_NEARBY_STOP_IDS);
         _nearbyStopNames = StorageUtil.getArray(_STORAGE_NEARBY_STOP_NAMES);
         _nearbyStopProducts = StorageUtil.getValue(_STORAGE_NEARBY_STOP_PRODUCTS,
@@ -107,7 +110,10 @@ module NearbyStopsStorage {
 
     //! Create a new stop, a `StopDouble`, refer to another, or return `null`
     //! depending on if it already exists with `id` or `id` and `name`
-    function createStop(id, name, products, addedStops, addedStopIds, addedStopNames) {
+    function createStop(id as Number, name as String, products as Number?,
+        addedStops as Array<StopType>, addedStopIds as Array<Number>,
+        addedStopNames as Array<String>) as StopType? {
+
         // we need to consider all already added stops, since
         // "id1 name1" should return existing "id1 name1" over "id1 name2"
         var addedStopsWithSameIdIndices = ArrUtil.indicesOf(addedStopIds, id);
@@ -187,7 +193,9 @@ module NearbyStopsStorage {
         return new Stop(id, name, products);
     }
 
-    function _buildStops(ids, names, products) {
+    function _buildStops(ids as Array<Number>, names as Array<String>,
+        products as Array<Number?>) as Array<Stop> {
+
         var addedStops = [];
         var addedIds = [];
         var addedNames = [];
@@ -218,19 +226,19 @@ module NearbyStopsStorage {
         return addedStops;
     }
 
-    function hasStops() {
+    function hasStops() as Boolean {
         return getStopCount() > 0;
     }
 
-    function getStopCount() {
+    function getStopCount() as Number {
         return response instanceof Lang.Array ? response.size() : 0 ;
     }
 
-    function getStop(index) {
+    function getStop(index as Number) as StopType? {
         return response instanceof Lang.Array ? ArrUtil.coerceGet(response, index) : null;
     }
 
-    function getStopById(id) {
+    function getStopById(id as Number) as StopType? {
         if (!(response instanceof Lang.Array)) {
             return null;
         }
@@ -239,7 +247,7 @@ module NearbyStopsStorage {
         return ArrUtil.get(response, index, null);
     }
 
-    function getStopByIdAndName(id, name) {
+    function getStopByIdAndName(id as Number, name as String) as StopType? {
         if (!(response instanceof Lang.Array)) {
             return null;
         }
@@ -248,11 +256,11 @@ module NearbyStopsStorage {
         return ArrUtil.get(response, index, null);
     }
 
-    function getStops() {
+    function getStops() as Array<StopType>? {
         return response instanceof Lang.Array ? response : null;
     }
 
-    function shouldAutoRefresh() {
+    function shouldAutoRefresh() as Boolean {
         if (!(response instanceof ResponseError)) {
             return false;
         }

@@ -11,15 +11,17 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
-    hidden var _viewModel;
+    hidden var _viewModel as StopDetailViewModel;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopDetailViewModel) {
         BehaviorDelegate.initialize();
         _viewModel = viewModel;
     }
@@ -27,30 +29,30 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
     // override BehaviorDelegate
 
     //! "DOWN"
-    function onNextPage() {
+    function onNextPage() as Boolean {
         _viewModel.onScrollDown();
         return true;
     }
 
     //! "UP"
-    function onPreviousPage() {
+    function onPreviousPage() as Boolean {
         _viewModel.onScrollUp();
         return true;
     }
 
     //! "long UP"
-    function onMenu() {
+    function onMenu() as Boolean  {
         _viewModel.toggleDepartureState();
         return true;
     }
 
     //! "START-STOP"
-    function onSelect() {
+    function onSelect() as Boolean  {
         _viewModel.onSelect();
         return true;
     }
 
-    function onBack() {
+    function onBack() as Boolean  {
         if (_viewModel.isDepartureState) {
             // exit departure selection
             _viewModel.isDepartureState = false;

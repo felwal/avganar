@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Lang;
+import Toybox.Lang;
 
 class ResponseError {
 
@@ -31,13 +31,13 @@ class ResponseError {
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
     static var CODE_AUTO_REQUEST_LIMIT_MEMORY = -2001;
 
-    hidden var _code;
+    hidden var _code as Number?;
     hidden var _title = "";
 
     // init
 
-    function initialize(codeOrTitle) {
-        if (codeOrTitle instanceof Lang.Number) {
+    function initialize(codeOrTitle as Number or String) {
+        if (codeOrTitle instanceof Number) {
             _code = codeOrTitle;
             _setTitle();
         }
@@ -47,19 +47,19 @@ class ResponseError {
         }
     }
 
-    function equals(other) {
+    function equals(other) as Boolean {
         return other instanceof ResponseError && other.getCode() == _code;
     }
 
-    function getCode() {
+    function getCode() as Number? {
         return _code;
     }
 
-    function getTitle() {
+    function getTitle() as String {
         return _title;
     }
 
-    hidden function _setTitle() {
+    hidden function _setTitle() as Void {
         if (_code == HTTP_OK) {
             _title = rez(Rez.Strings.msg_e_null_data);
         }
@@ -113,39 +113,39 @@ class ResponseError {
 
     //
 
-    function isTooLarge() {
+    function isTooLarge() as Boolean {
         return _code == Communications.NETWORK_RESPONSE_TOO_LARGE
             || _code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY;
     }
 
-    function isServerError() {
+    function isServerError() as Boolean {
         // NOTE: API limitation
         // usually these "server errors" are resolvable by simply requesting again.
         // we want to automate that.
         return ArrUtil.contains(_API_RESPONSE_SERVER, _code);
     }
 
-    function hasConnection() {
+    function hasConnection() as Boolean {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
     }
 
-    function isRequestLimitShortReached() {
+    function isRequestLimitShortReached() as Boolean {
         return ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)
             || _code == CODE_AUTO_REQUEST_LIMIT_SERVER;
     }
 
-    function isRequestLimitLongReached() {
+    function isRequestLimitLongReached() as Boolean {
         return _code == _API_REQUEST_LIMIT_MONTH
             || _code == CODE_AUTO_REQUEST_LIMIT_MEMORY;
     }
 
-    function isAutoRefreshable() {
+    function isAutoRefreshable() as Boolean {
         return isTooLarge()
             || isServerError();
     }
 
-    function isTimerRefreshable() {
+    function isTimerRefreshable() as Boolean {
         return hasConnection()
             && !isAutoRefreshable()
             && !isRequestLimitLongReached()
@@ -154,7 +154,7 @@ class ResponseError {
             && _code != null;
     }
 
-    function isUserRefreshable() {
+    function isUserRefreshable() as Boolean {
         return isTimerRefreshable()
             && !isRequestLimitShortReached();
     }

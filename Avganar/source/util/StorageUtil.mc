@@ -11,17 +11,19 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Application.Storage;
 
 (:glance)
 module StorageUtil {
 
-    function getValue(key, def) {
+    function getValue(key as String, def) {
         var val = Storage.getValue(key);
         return def(val, def);
     }
 
-    function getArray(key) {
+    function getArray(key as String) as Array {
         return getValue(key, []);
     }
 

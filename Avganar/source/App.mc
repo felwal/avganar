@@ -11,6 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+import Toybox.WatchUi;
+
 using Toybox.Application;
 
 (:glance)
@@ -27,7 +30,7 @@ class App extends Application.AppBase {
 
     // override AppBase
 
-    function getInitialView() {
+    function getInitialView() as [Views] or [Views, InputDelegates] {
         if (!SystemUtil.hasGlance() || DEBUG) {
             return [ new StopPreviewView(), new StopPreviewDelegate() ];
         }
@@ -36,13 +39,13 @@ class App extends Application.AppBase {
     }
 
     (:glance :glanceExclusive)
-    function getGlanceView() {
+    function getGlanceView() as [GlanceView] or [GlanceView, GlanceViewDelegate] or Null {
         return [ new StopGlanceView() ];
     }
 
     //
 
-    function getMainView() {
+    function getMainView() as [StopListView, StopListDelegate] {
         FavoriteStopsStorage.load();
         NearbyStopsStorage.load();
 

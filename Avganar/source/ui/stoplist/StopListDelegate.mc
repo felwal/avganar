@@ -11,15 +11,17 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 class StopListDelegate extends WatchUi.BehaviorDelegate {
 
-    hidden var _viewModel;
+    hidden var _viewModel as StopListViewModel;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopListViewModel) {
         BehaviorDelegate.initialize();
         _viewModel = viewModel;
     }
@@ -27,13 +29,13 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
     // override BehaviorDelegate
 
     //! "DOWN"
-    function onNextPage() {
+    function onNextPage() as Boolean {
         _viewModel.onScrollDown();
         return true;
     }
 
     //! "UP"
-    function onPreviousPage() {
+    function onPreviousPage() as Boolean {
         if (_viewModel.onScrollUp()) {
             return true;
         }
@@ -47,13 +49,13 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
     }
 
     //! "long UP"
-    function onMenu() {
+    function onMenu() as Boolean {
         new OptionsMenuDelegate(_viewModel).push(WatchUi.SLIDE_BLINK);
         return true;
     }
 
     //! "START-STOP"
-    function onSelect() {
+    function onSelect() as Boolean {
         if (_viewModel.hasStops() && !_viewModel.isShowingMessage()) {
             _pushStopDetail();
         }
@@ -65,7 +67,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
     }
 
     //! "BACK"
-    function onBack() {
+    function onBack() as Boolean {
         if (!SystemUtil.hasGlance() || DEBUG) {
             WatchUi.popView(WatchUi.SLIDE_BLINK);
             return true;
@@ -76,7 +78,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //
 
-    hidden function _pushStopDetail() {
+    hidden function _pushStopDetail() as Void {
         var viewModel = new StopDetailViewModel(_viewModel.getSelectedStop());
         var view = new StopDetailView(viewModel);
         var delegate = new StopDetailDelegate(viewModel);

@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Application.Storage;
 
 //! Handles storage for user preferences.
@@ -25,27 +27,27 @@ module SettingsStorage {
 
     // read
 
-    function getUseLocation() {
+    function getUseLocation() as Boolean {
         return StorageUtil.getValue(_STORAGE_LOCATION, true);
     }
 
-    function getVibrateOnResponse() {
+    function getVibrateOnResponse() as Boolean {
         return StorageUtil.getValue(_STORAGE_VIBRATE, true);
     }
 
-    function getMaxStops() {
+    function getMaxStops() as Number {
         return StorageUtil.getValue(_STORAGE_MAX_STOPS, 15);
     }
 
-    function getMaxDepartures() {
+    function getMaxDepartures() as Number {
         return StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, -1);
     }
 
-    function getDefaultTimeWindow() {
+    function getDefaultTimeWindow() as Number {
         return StorageUtil.getValue(_STORAGE_TIME_WINDOW, 30);
     }
 
-    function getMinuteSymbol() {
+    function getMinuteSymbol() as String {
         var value = StorageUtil.getValue(_STORAGE_MINUTE_SYMBOL, "m");
 
         return value.equals("prime") ? rez(Rez.Strings.itm_detail_departure_minutes_tiny)
@@ -55,27 +57,27 @@ module SettingsStorage {
 
     // write
 
-    function setUseLocation(enabled) {
+    function setUseLocation(enabled as Boolean) as Void {
         Storage.setValue(_STORAGE_LOCATION, enabled);
     }
 
-    function setVibrateOnResponse(enabled) {
+    function setVibrateOnResponse(enabled as Boolean) as Void {
         Storage.setValue(_STORAGE_VIBRATE, enabled);
     }
 
-    function setMaxStops(maxNo) {
+    function setMaxStops(maxNo as Number) as Void {
         Storage.setValue(_STORAGE_MAX_STOPS, maxNo);
     }
 
-    function setMaxDepartures(maxNo) {
+    function setMaxDepartures(maxNo as Number) as Void {
         Storage.setValue(_STORAGE_MAX_DEPARTURES, maxNo);
     }
 
-    function setDefaultTimeWindow(timeWindow) {
+    function setDefaultTimeWindow(timeWindow as Number) as Void {
         Storage.setValue(_STORAGE_TIME_WINDOW, timeWindow);
     }
 
-    function setMinuteSymbol(symbol) {
+    function setMinuteSymbol(symbol as String) as Void {
         Storage.setValue(_STORAGE_MINUTE_SYMBOL, symbol);
     }
 

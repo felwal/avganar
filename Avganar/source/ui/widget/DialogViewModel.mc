@@ -11,26 +11,29 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Graphics;
+import Toybox.Lang;
+
 class DialogViewModel {
 
-    var title;
-    var messages;
-    var iconRezId = null;
+    var title as String;
+    var messages as Array<String>;
+    var iconRezId as ResourceId? = null;
     var pageCursor = 0;
 
     //
 
-    function initialize(title, messages, iconRezId) {
+    function initialize(title as String, messages as Array<String>, iconRezId as ResourceId?) {
         me.title = title;
         me.messages = messages;
         me.iconRezId = iconRezId;
     }
 
-    function getMessage() {
+    function getMessage() as String {
         return ArrUtil.get(messages, pageCursor, "");
     }
 
-    function onNextMessage() {
+    function onNextMessage() as Void {
         if (messages.size() <= 1) {
             return;
         }

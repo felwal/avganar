@@ -11,7 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.WatchUi;
 
 //! The StopList options menu, handling favorites and about info.
 class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
@@ -24,20 +25,20 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_ABOUT = :aboutInfo;
     static const ITEM_RESET = :resetStorage;
 
-    hidden var _viewModel;
-    hidden var _menu;
+    hidden var _viewModel as StopListViewModel;
+    hidden var _menu as Menu2;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopListViewModel) {
         Menu2InputDelegate.initialize();
+
         _viewModel = viewModel;
+        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_options_title) });
         _addItems();
     }
 
-    hidden function _addItems() {
-        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_options_title) });
-
+    hidden function _addItems() as Void {
         // favorite settings
         if (_viewModel.isSelectedStopFavorite()) {
             var isInFavorites = _viewModel.stopCursor < _viewModel.getFavoriteCount();
@@ -91,13 +92,13 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
         ));
     }
 
-    function push(transition) {
+    function push(transition as SlideType) as Void {
         WatchUi.pushView(_menu, me, transition);
     }
 
     // override Menu2InputDelegate
 
-    function onSelect(item) {
+    function onSelect(item as MenuItem) as Void {
         var view = null;
         var id = item.getId();
 
@@ -136,9 +137,8 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
     }
 
-    function onBack() {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_BLINK);
-        return true;
     }
 
 }

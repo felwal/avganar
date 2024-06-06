@@ -11,16 +11,17 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.WatchUi;
 
 class DialogDelegate extends WatchUi.BehaviorDelegate {
 
-    hidden var _viewModel;
-    hidden var _transition;
+    hidden var _viewModel as DialogViewModel;
+    hidden var _transition as SlideType;
 
     // init
 
-    function initialize(viewModel, transition) {
+    function initialize(viewModel as DialogViewModel, transition as SlideType) {
         BehaviorDelegate.initialize();
 
         _viewModel = viewModel;
@@ -29,7 +30,7 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
 
     // override BehaviorDelegate
 
-    function onPreviousPage() {
+    function onPreviousPage() as Boolean {
         if (_transition == WatchUi.SLIDE_DOWN) {
             return _pop();
         }
@@ -37,7 +38,7 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
-    function onNextPage() {
+    function onNextPage() as Boolean {
         if (_transition == WatchUi.SLIDE_UP) {
             return _pop();
         }
@@ -45,7 +46,7 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
-    function onSwipe(swipeEvent) {
+    function onSwipe(swipeEvent as SwipeEvent) as Boolean {
         if (swipeEvent.getDirection() == WatchUi.SWIPE_LEFT) {
             _viewModel.onNextMessage();
             return true;
@@ -54,18 +55,18 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
         return false;
     }
 
-    function onSelect() {
+    function onSelect() as Boolean {
         _viewModel.onNextMessage();
         return true;
     }
 
-    function onBack() {
+    function onBack() as Boolean {
         return _pop();
     }
 
     //
 
-    private function _pop() {
+    private function _pop() as Boolean {
         WatchUi.popView(_transition);
         return true;
     }

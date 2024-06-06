@@ -11,7 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Graphics;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.Math;
 using Toybox.WatchUi;
 
@@ -19,18 +21,18 @@ using Toybox.WatchUi;
 //! the stock Menu/Settings/System/About page.
 class InfoView extends WatchUi.View {
 
-    hidden var _text;
+    hidden var _text as String;
 
     // init
 
-    function initialize(text) {
+    function initialize(text as String) {
         View.initialize();
         _text = text;
     }
 
     // override View
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
 
         // draw
@@ -40,7 +42,7 @@ class InfoView extends WatchUi.View {
 
     // draw
 
-    function _draw(dc) {
+    function _draw(dc as Dc) as Void {
         Graphite.fillBackground(dc, AppColors.BACKGROUND_INVERTED);
         Graphite.fillTextArea(dc, _text, AppColors.TEXT_INVERTED);
     }

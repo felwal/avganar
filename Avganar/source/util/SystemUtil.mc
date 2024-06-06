@@ -11,49 +11,51 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Attention;
 using Toybox.System;
 
 module SystemUtil {
 
-    function hasGlance() {
+    function hasGlance() as Boolean {
         var ds = System.getDeviceSettings();
         return ds has :isGlanceModeEnabled && ds.isGlanceModeEnabled;
     }
 
-    function isLangSwe() {
+    function isLangSwe() as Boolean {
         var ds = System.getDeviceSettings();
         return ds.systemLanguage == System.LANGUAGE_SWE;
     }
 
     // vibration
 
-    function shouldNotDisturb() {
+    function shouldNotDisturb() as Boolean {
         var ds = System.getDeviceSettings();
         return ds has :doNotDisturb && ds.doNotDisturb;
     }
 
-    function isVibrateOn() {
+    function isVibrateOn() as Boolean {
         var ds = System.getDeviceSettings();
         return Attention has :vibrate && ds has :vibrateOn && ds.vibrateOn;
     }
 
-    function shouldVibrate() {
+    function shouldVibrate() as Boolean {
         return !shouldNotDisturb() && isVibrateOn() && SettingsStorage.getVibrateOnResponse();
     }
 
-    function vibrate(cycle, length) {
+    function vibrate(cycle as Number, length as Number) as Void {
         if (shouldVibrate()) {
             var vibeData = [ new Attention.VibeProfile(cycle, length) ];
             Attention.vibrate(vibeData);
         }
     }
 
-    function vibrateLong() {
+    function vibrateLong() as Void {
         vibrate(75, 300);
     }
 
-    function vibrateShort() {
+    function vibrateShort() as Void {
         vibrate(75, 100);
     }
 

@@ -11,8 +11,11 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Graphics;
+import Toybox.Lang;
+import Toybox.Time;
+
 using Toybox.Math;
-using Toybox.Time;
 
 class Departure {
 
@@ -60,35 +63,36 @@ class Departure {
     static hidden const _GROUP_TRAM_SALTSJOBANAN = "Saltsjöbanan";
     static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
-    var mode;
-    hidden var _group;
-    hidden var _line;
-    hidden var _destination;
-    hidden var _moment;
-    hidden var _deviationLevel;
-    hidden var _deviationMessages = [];
+    var mode as String;
+    var cancelled as Boolean;
+    var isRealTime as Boolean;
 
-    var cancelled;
-    var isRealTime;
+    hidden var _group as String;
+    hidden var _line as String;
+    hidden var _destination as String;
+    hidden var _moment as Moment?;
+    hidden var _deviationLevel as Number;
+    hidden var _deviationMessages as Array<String> = [];
 
     // init
 
-    function initialize(mode, group, line, destination, moment, deviationLevel, deviationMessages,
-        cancelled, isRealTime) {
+    function initialize(mode as String, group as String, line as String, destination as String,
+        moment as Moment?, deviationLevel as Number, deviationMessages as Array<String>,
+        cancelled as Boolean, isRealTime as Boolean) {
 
         me.mode = mode;
+        me.cancelled = cancelled;
+        me.isRealTime = isRealTime;
+
         _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
         _deviationLevel = deviationLevel;
         _deviationMessages = deviationMessages;
-
-        me.cancelled = cancelled;
-        me.isRealTime = isRealTime;
     }
 
-    static function getModesKeysByBits(bits) {
+    static function getModesKeysByBits(bits as Number) as Array<String> {
         var modes = [];
 
         if (bits&BIT_BUS != 0) {
@@ -110,7 +114,7 @@ class Departure {
         return modes;
     }
 
-    static function getModesStringsByBits(bits) {
+    static function getModesStringsByBits(bits as Number) as Array<String> {
         var modes = [];
 
         if (bits&BIT_BUS != 0) {
@@ -134,11 +138,11 @@ class Departure {
 
     // get
 
-    function toString() {
+    function toString() as String {
         return displayTime() + " " + _line + " " + _destination;
     }
 
-    function displayTime() {
+    function displayTime() as String {
         if (_moment == null) {
             return rez(Rez.Strings.itm_detail_departure_null);
         }
@@ -156,7 +160,7 @@ class Departure {
             : (minutes + SettingsStorage.getMinuteSymbol());
     }
 
-    function hasDeparted() {
+    function hasDeparted() as Boolean {
         if (_moment == null) {
             return false;
         }
@@ -166,7 +170,7 @@ class Departure {
         return TimeUtil.now().greaterThan(_moment.add(margin));
     }
 
-    function getTextColor() {
+    function getTextColor() as ColorType {
         if (_deviationLevel >= 8) {
             return Graphene.COLOR_RED;
         }
@@ -189,7 +193,7 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
-    static function getModeLetter(mode) {
+    static function getModeLetter(mode as String?) as String {
         if (mode == null || mode.equals(MODE_ALL)) {
             return "";
         }
@@ -215,7 +219,7 @@ class Departure {
         }
     }
 
-    function getModeColor() {
+    function getModeColor() as ColorType {
         if (mode.equals(MODE_BUS)) {
             if (_group.equals(_GROUP_BUS_RED)) {
                 return AppColors.DEPARTURE_BUS_RED;
@@ -285,7 +289,7 @@ class Departure {
         }
     }
 
-    function getDeviationMessages() {
+    function getDeviationMessages() as Array<String> {
         return _deviationMessages;
     }
 

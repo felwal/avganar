@@ -11,29 +11,31 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 //! Use the StopDummy to compare / search for stops
 //! by only name and id.
 class StopDummy {
 
-    var name;
+    var name as String;
 
-    hidden var _id;
+    hidden var _id as Number;
 
     // init
 
-    function initialize(id, name) {
+    function initialize(id as Number, name as String) {
         _id = id;
         me.name = name;
     }
 
-    function equals(other) {
+    function equals(other) as Boolean {
         return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
             && other.getId() == _id && other.name.equals(name);
     }
 
     //
 
-    function getId() {
+    function getId() as Number {
         return _id;
     }
 

@@ -11,23 +11,27 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.WatchUi;
+import Toybox.Graphics;
+import Toybox.Lang;
+import Toybox.WatchUi;
 
 class DialogView extends WatchUi.View {
 
-    hidden var _viewModel;
-    hidden var _transition;
+    hidden var _viewModel as DialogViewModel;
+    hidden var _transition as SlideType;
 
     // init
 
-    function initialize(viewModel, transition) {
+    function initialize(viewModel as DialogViewModel, transition as SlideType) {
         View.initialize();
 
         _viewModel = viewModel;
         _transition = transition;
     }
 
-    static function push(title, messages, iconRezId, transition) {
+    static function push(title as String?, messages as Array<String>,
+        iconRezId as ResourceId?, transition as SlideType) as Void {
+
         var viewModel = new DialogViewModel(title, messages, iconRezId);
         var view = new DialogView(viewModel, transition);
         var delegate = new DialogDelegate(viewModel, invertTransition(transition));
@@ -37,7 +41,7 @@ class DialogView extends WatchUi.View {
 
     // override View
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
 
         // draw
@@ -47,7 +51,7 @@ class DialogView extends WatchUi.View {
 
     // draw
 
-    function _draw(dc) {
+    function _draw(dc as Dc) as Void {
         Graphite.resetColor(dc);
 
         // text

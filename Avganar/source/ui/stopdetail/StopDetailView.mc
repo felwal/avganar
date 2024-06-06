@@ -11,30 +11,31 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Graphics;
-using Toybox.Lang;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.Math;
 using Toybox.Time;
 using Toybox.WatchUi;
 
 class StopDetailView extends WatchUi.View {
 
-    hidden var _viewModel;
+    hidden var _viewModel as StopDetailViewModel;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopDetailViewModel) {
         View.initialize();
         _viewModel = viewModel;
     }
 
     // override View
 
-    function onShow() {
+    function onShow() as Void {
         _viewModel.enableRequests();
     }
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
 
         // draw
@@ -42,14 +43,14 @@ class StopDetailView extends WatchUi.View {
         _draw(dc);
     }
 
-    function onHide() {
+    function onHide() as Void {
         _viewModel.disableRequests();
         _viewModel.stop.resetResponseErrors();
     }
 
     // draw
 
-    hidden function _draw(dc) {
+    hidden function _draw(dc as Dc) as Void {
         var stop = _viewModel.stop;
 
         // text
@@ -115,7 +116,7 @@ class StopDetailView extends WatchUi.View {
         _drawModeIndicator(dc);
     }
 
-    hidden function _drawModeIndicator(dc) {
+    hidden function _drawModeIndicator(dc as Dc) as Void {
         if (_viewModel.isModePaneState || _viewModel.stop.getModesKeys().size() <= 1) {
             return;
         }
@@ -123,17 +124,17 @@ class StopDetailView extends WatchUi.View {
         WidgetUtil.drawStartIndicator(dc);
     }
 
-    hidden function _drawInitialModeList(dc, stop) {
+    hidden function _drawInitialModeList(dc as Dc, stop as StopType) as Void {
         var items = stop.getModesStrings();
         WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
-    hidden function _drawModeList(dc, stop) {
+    hidden function _drawModeList(dc as Dc, stop as StopType) as Void {
         var items = stop.getModesStrings();
         WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
-    hidden function _drawHeader(dc, stop) {
+    hidden function _drawHeader(dc as Dc, stop as StopType) as Void {
         // 19 is font height for XTINY on fr745.
         // set y to half and justify to vcenter for the title to
         // look alright even on devices with different font size for XTINY.
@@ -144,7 +145,7 @@ class StopDetailView extends WatchUi.View {
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    hidden function _drawFooter(dc, stop, noDetails) {
+    hidden function _drawFooter(dc as Dc, stop as StopType, noDetails as Boolean) as Void {
         var hFooter = px(42);
         var h = dc.getHeight();
 
@@ -180,7 +181,7 @@ class StopDetailView extends WatchUi.View {
         if (DeparturesService.isRequesting) {
             var hProgressBar = px(3);
             var yProgressBar = h - hFooter - hProgressBar;
-            var progress = MathUtil.recursiveShare(0.33f, 0, stop.getFailedRequestCount(_viewModel.currentMode));
+            var progress = MathUtil.recursiveShare(0.33f, 0f, stop.getFailedRequestCount(_viewModel.currentMode));
 
             WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
                 AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
@@ -207,7 +208,7 @@ class StopDetailView extends WatchUi.View {
         dc.drawText(xMode, yMode, fontMode, modeLetter, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    hidden function _drawDepartures(dc, pageDepartures) {
+    hidden function _drawDepartures(dc as Dc, pageDepartures as Array<Departure>) as Void {
         var font = Graphics.FONT_TINY;
         var xOffset = px(10);
         var yOffset = px(68);

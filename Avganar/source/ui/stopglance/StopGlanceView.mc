@@ -11,7 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Graphics;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 //! The glance displays app name and last saved nearest stop.
@@ -26,7 +28,7 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     // override GlanceView
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         GlanceView.onUpdate(dc);
 
         // draw
@@ -36,7 +38,7 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     // draw
 
-    hidden function _draw(dc) {
+    hidden function _draw(dc as Dc) as Void {
         var nearestStopName = NearbyStopsStorage.getNearestStopName();
         var title = rez(Rez.Strings.app_name);
         var caption = def(nearestStopName, rez(Rez.Strings.lbl_glance_caption_no_stops));

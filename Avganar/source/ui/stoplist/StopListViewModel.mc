@@ -11,8 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Application.Storage;
-using Toybox.Lang;
 using Toybox.Position;
 using Toybox.Timer;
 using Toybox.WatchUi;
@@ -23,7 +24,7 @@ class StopListViewModel {
 
     var stopCursor = 0;
 
-    hidden var _lastPos;
+    hidden var _lastPos as Array<Numeric>;
 
     // init
 
@@ -34,7 +35,7 @@ class StopListViewModel {
 
     // timer
 
-    function enableRequests() {
+    function enableRequests() as Void {
         if (DEBUG) {
             _requestNearbyStops();
             return;
@@ -43,13 +44,13 @@ class StopListViewModel {
         _requestPosition();
     }
 
-    function disableRequests() {
+    function disableRequests() as Void {
         Footprint.disableLocationEvents();
     }
 
     // position
 
-    hidden function _requestPosition() {
+    hidden function _requestPosition() as Void {
         // check if location use is turned off
         if (!SettingsStorage.getUseLocation()) {
             NearbyStopsStorage.setResponseError(null);
@@ -63,7 +64,7 @@ class StopListViewModel {
         Footprint.registerLastKnownPosition();
     }
 
-    function onPosition() {
+    function onPosition() as Void {
         // request directly if there is no last position saved,
         // there has been no request,
         // or if last request resulted in an error.
@@ -83,14 +84,14 @@ class StopListViewModel {
         }
     }
 
-    hidden function _isPositioned() {
+    hidden function _isPositioned() as Boolean {
         return (Footprint.isPositioned() || DEBUG)
             && SettingsStorage.getUseLocation();
     }
 
     // service
 
-    hidden function _requestNearbyStops() {
+    hidden function _requestNearbyStops() as Void {
         if (!NearbyStopsStorage.hasStops()) {
             // set searching (override errors, but not stops)
             NearbyStopsStorage.setResponseError(null);
@@ -106,7 +107,7 @@ class StopListViewModel {
 
     // storage - read
 
-    function getMessage() {
+    function getMessage() as String {
         var response = NearbyStopsStorage.response;
 
         // status message
@@ -123,11 +124,12 @@ class StopListViewModel {
         }
     }
 
-    function hasStops() {
+    function hasStops() as Boolean {
         return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
     }
 
-    hidden function _getStops() {
+    // TODO: does this need to be nullable?
+    hidden function _getStops() as Array<StopType>? {
         var response = NearbyStopsStorage.response;
         var favs = FavoriteStopsStorage.favorites;
         var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
@@ -138,7 +140,7 @@ class StopListViewModel {
         return stops;
     }
 
-    function getStopNames() {
+    function getStopNames() as Array<String>? {
         var stops = _getStops();
         if (stops == null) { return null; }
 
@@ -150,33 +152,33 @@ class StopListViewModel {
         return names;
     }
 
-    function getItemCount() {
+    function getItemCount() as Number {
         var response = NearbyStopsStorage.response;
 
         return getFavoriteCount() + (response instanceof Lang.Array ? response.size() : 1);
     }
 
-    function getFavoriteCount() {
+    function getFavoriteCount() as Number {
         return FavoriteStopsStorage.favorites.size();
     }
 
-    function getSelectedStop() {
+    function getSelectedStop() as StopType? {
         var stops = _getStops();
         return stopCursor < stops.size() ? stops[stopCursor] : null;
     }
 
-    function isSelectedStopFavorite() {
+    function isSelectedStopFavorite() as Boolean {
         var stop = getSelectedStop();
         return stop != null && FavoriteStopsStorage.isFavorite(stop);
     }
 
-    function isShowingMessage() {
+    function isShowingMessage() as Boolean {
         return !(NearbyStopsStorage.response instanceof Lang.Array) && stopCursor == getItemCount() - 1;
     }
 
     // storage - write
 
-    function addFavorite() {
+    function addFavorite() as Void {
         var stop = getSelectedStop();
 
         // double check that we have a stop response
@@ -187,7 +189,7 @@ class StopListViewModel {
         }
     }
 
-    function removeFavorite() {
+    function removeFavorite() as Void {
         var isInFavoritesPane = stopCursor < getFavoriteCount();
 
         FavoriteStopsStorage.removeFavorite(getSelectedStop());
@@ -199,19 +201,19 @@ class StopListViewModel {
             : stopCursor - 1;
     }
 
-    function moveFavorite(diff) {
+    function moveFavorite(diff as Number) as Void {
         FavoriteStopsStorage.moveFavorite(getSelectedStop(), diff);
         stopCursor += diff;
     }
 
     //
 
-    function isUserRefreshable() {
+    function isUserRefreshable() as Boolean {
         return NearbyStopsStorage.response instanceof ResponseError
             && NearbyStopsStorage.response.isUserRefreshable();
     }
 
-    function onSelectMessage() {
+    function onSelectMessage() as Void {
         // for now we let the user trigger a refresh also
         // by clicking on the error msg. TODO: remove?
         if (isUserRefreshable()) {
@@ -220,11 +222,11 @@ class StopListViewModel {
         }
     }
 
-    function getNearbyCursor() {
+    function getNearbyCursor() as Number {
         return stopCursor - getFavoriteCount();
     }
 
-    function onScrollDown() {
+    function onScrollDown() as Void {
         if (isShowingMessage() && isUserRefreshable()) {
             _requestNearbyStops();
             WatchUi.requestUpdate();
@@ -235,7 +237,7 @@ class StopListViewModel {
     }
 
     //! @return true if successfully rotating
-    function onScrollUp() {
+    function onScrollUp() as Boolean {
         // if the user has no favorites, scrolling off-screen
         // should not result in going back round.
         if (getFavoriteCount() == 0 && stopCursor == 0) {
@@ -246,7 +248,7 @@ class StopListViewModel {
         return true;
     }
 
-    hidden function _rotStopCursor(step) {
+    hidden function _rotStopCursor(step as Number) as Void {
         if (hasStops()) {
             stopCursor = MathUtil.mod(stopCursor + step, getItemCount());
             WatchUi.requestUpdate();

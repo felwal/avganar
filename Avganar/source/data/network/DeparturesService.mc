@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Communications;
 using Toybox.WatchUi;
 
@@ -20,28 +22,26 @@ class DeparturesService {
     // API: SL Transport 1
     // no key, no limit
 
-    hidden var _stop;
-    hidden var _mode;
+    hidden var _stop as StopType;
+    hidden var _mode as String?;
 
     static var isRequesting = false;
 
     // init
 
-    function initialize(stop) {
+    function initialize(stop as StopType) {
         _stop = stop;
     }
 
     // request
 
-    function requestDepartures(mode) {
-        if (_stop != null) {
-            Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow(mode) + " min ...");
-            _mode = mode;
-            _requestDepartures(mode);
-        }
+    function requestDepartures(mode as String?) as Void {
+        Log.i("Requesting " + mode + " departures for siteId " + _stop.getId() + " for " + _stop.getTimeWindow(mode) + " min ...");
+        _mode = mode;
+        _requestDepartures(mode);
     }
 
-    hidden function _requestDepartures(mode) {
+    hidden function _requestDepartures(mode as String?) as Void {
         DeparturesService.isRequesting = true;
         WatchUi.requestUpdate();
 
@@ -69,10 +69,10 @@ class DeparturesService {
 
     // receive
 
-    function onReceiveDepartures(responseCode, data) {
+    function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
         DeparturesService.isRequesting = false;
 
-        if (responseCode != ResponseError.HTTP_OK) {
+        if (responseCode != ResponseError.HTTP_OK || data == null) {
             Log.i("Departures response error (code " + responseCode + "): " + data);
 
             _stop.setResponse(_mode, new ResponseError(responseCode));
@@ -104,10 +104,10 @@ class DeparturesService {
         WatchUi.requestUpdate();
     }
 
-    hidden function _handleDeparturesResponseOk(data) {
+    hidden function _handleDeparturesResponseOk(data as JsonDict) as Void {
         //Log.d("Departures response success: " + data);
 
-        var departuresData = data["departures"];
+        var departuresData = data["departures"] as JsonArray;
 
         if (departuresData.size() == 0) {
             Log.i("Departures response empty of departures");
@@ -131,9 +131,10 @@ class DeparturesService {
         // departures
 
         for (var d = 0; d < departureCount; d++) {
-            var departureData = departuresData[d];
+            var departureData = departuresData[d] as JsonDict;
+            var lineData = departureData["line"] as JsonDict;
 
-            var mode = departureData["line"]["transport_mode"];
+            var mode = lineData["transport_mode"];
 
             // TODO: check if there are other modes we should include.
             // for now, skip them
@@ -142,8 +143,8 @@ class DeparturesService {
                 continue;
             }
 
-            var group = DictUtil.get(departureData["line"], "group_of_lines", "");
-            var line = departureData["line"]["designation"]; // TODO: or "id"?
+            var group = DictUtil.get(lineData, "group_of_lines", "");
+            var line = lineData["designation"]; // TODO: or "id"?
             var destination = departureData["destination"];
             var plannedDateTime = departureData["scheduled"];
             var expectedDateTime = departureData["expected"];
@@ -211,11 +212,12 @@ class DeparturesService {
 
         // stop point deviations
 
-        var stopDeviations = data["stop_deviations"];
+        var stopDeviations = data["stop_deviations"] as JsonArray;
         var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
-            var msg = DictUtil.get(stopDeviations[i], "message", null);
+            var stopDeviation = stopDeviations[i] as JsonDict;
+            var msg = DictUtil.get(stopDeviation, "message", null);
 
             if (msg == null) {
                 continue;
@@ -235,7 +237,7 @@ class DeparturesService {
         _stop.setDeviation(stopDeviationMessages);
     }
 
-    hidden function _splitDeviationMessageByLang(msg) {
+    hidden function _splitDeviationMessageByLang(msg as String) as String {
         // NOTE: API limitation
         // TODO: check if still necessary for new API
         // some messages are in both Swedish and English,
@@ -256,7 +258,7 @@ class DeparturesService {
         return msg;
     }
 
-    hidden function _cleanDeviationMessage(msg) {
+    hidden function _cleanDeviationMessage(msg as String) as String {
         // NOTE: API limitation
         // remove references at the end of messages
 

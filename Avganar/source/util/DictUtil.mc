@@ -11,13 +11,15 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 module DictUtil {
 
-    function hasValue(dict, key) {
+    function hasValue(dict as Dictionary?, key) as Boolean {
         return dict != null && dict.hasKey(key) && dict[key] != null;
     }
 
-    function get(dict, key, def) {
+    function get(dict as Dictionary?, key, def) {
         return hasValue(dict, key) ? dict[key] : def;
     }
 

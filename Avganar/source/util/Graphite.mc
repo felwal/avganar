@@ -11,13 +11,15 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Graphics;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.Math;
 using Toybox.WatchUi;
 
 (:glance)
-function px(dp) {
-    return Math.round(dp * rez(Rez.JsonData.pxPerDp));
+function px(dp as Numeric) as Numeric {
+    return Math.round(dp * rez(Rez.JsonData.pxPerDp) as Float);
 }
 
 //! The Graphite module provides extended drawing functionality
@@ -26,74 +28,81 @@ module Graphite {
 
     // tool
 
-    function enableAntiAlias(dc) {
+    function enableAntiAlias(dc as Dc) as Void {
         if (dc has :setAntiAlias) {
             dc.setAntiAlias(true);
         }
     }
 
-    function getCenterX(dc) {
+    function getCenterX(dc as Dc) as Number {
         return dc.getWidth() / 2;
     }
 
-    function getCenterY(dc) {
+    function getCenterY(dc as Dc) as Number {
         return dc.getHeight() / 2;
     }
 
-    function getRadius(dc) {
+    function getRadius(dc as Dc) as Number {
         return (dc.getWidth() + dc.getHeight()) / 4;
     }
 
-    function pxToRad(px, r) {
+    function pxToRad(px as Numeric, r as Numeric) as Float {
         return px.toFloat() / r;
     }
 
-    function pxToDeg(px, r) {
+    function pxToDeg(px as Numeric, r as Numeric) as Float {
         return MathUtil.deg(pxToRad(px, r));
     }
 
-    function degToY(dc, deg) {
+    function degToY(dc as Dc, deg as Numeric) as Float {
         return (-Math.sin(MathUtil.rad(deg)) / 2 + 0.5) * dc.getHeight();
     }
 
     // color
 
     //! Set the current foreground color
-    function setColor(dc, foreground) {
+    function setColor(dc as Dc, foreground as ColorType) as Void {
         dc.setColor(foreground, AppColors.BACKGROUND);
     }
 
     //! Set the current fg and bg colors to white and black
-    function resetColor(dc) {
+    function resetColor(dc as Dc) as Void {
         dc.setColor(Graphene.COLOR_WHITE, AppColors.BACKGROUND);
     }
 
-    function resetPenWidth(dc) {
+    function resetPenWidth(dc as Dc) as Void {
         dc.setPenWidth(1);
     }
 
     // draw shape
 
-    function drawArcCentered(dc, edgeOffset, degreeStart, degreeEnd) {
+    function drawArcCentered(dc as Dc, edgeOffset as Numeric,
+        degreeStart as Numeric, degreeEnd as Numeric) as Void {
+
         dc.drawArc(getCenterX(dc), getCenterY(dc), getRadius(dc) - edgeOffset, Graphics.ARC_COUNTER_CLOCKWISE, degreeStart, degreeEnd);
     }
 
     // fill shape
 
-    function fillBackground(dc, color) {
+    function fillBackground(dc as Dc, color as ColorType) as Void {
         setColor(dc, color);
         fillRectangleCentered(dc, getCenterX(dc), getCenterY(dc), dc.getWidth(), dc.getHeight());
     }
 
     //! Fill a rectangle around a point
-    function fillRectangleCentered(dc, xCenter, yCenter, width, height) {
+    function fillRectangleCentered(dc as Dc, xCenter as Numeric, yCenter as Numeric,
+        width as Numeric, height as Numeric) as Void {
+
         dc.fillRectangle(xCenter - Math.round(width / 2f), yCenter - Math.round(height / 2f), width, height);
     }
 
     // stroke shape
 
     //! Fill a rectangle with an outside stroke
-    function strokeRectangle(dc, x, y, width, height, strokeWidth, fillColor, strokeColor) {
+    function strokeRectangle(dc as Dc, x as Numeric, y as Numeric,
+        width as Numeric, height as Numeric, strokeWidth as Numeric,
+        fillColor as ColorType, strokeColor as ColorType) as Void {
+
         // stroke
         setColor(dc, strokeColor);
         dc.fillRectangle(x - strokeWidth, y - strokeWidth, width + 2 * strokeWidth, height + 2 * strokeWidth);
@@ -104,7 +113,10 @@ module Graphite {
     }
 
     //! Fill a rectangle with an outside stroke around a point
-    function strokeRectangleCentered(dc, xCenter, yCenter, width, height, strokeWidth, fillColor, strokeColor) {
+    function strokeRectangleCentered(dc as Dc, xCenter as Numeric, yCenter as Numeric,
+        width as Numeric, height as Numeric, strokeWidth as Numeric,
+        fillColor as ColorType, strokeColor as ColorType) as Void {
+
         // stroke
         setColor(dc, strokeColor);
         fillRectangleCentered(dc, xCenter, yCenter, width + 2 * strokeWidth, height);
@@ -114,7 +126,10 @@ module Graphite {
         fillRectangleCentered(dc, xCenter, yCenter, width, height);
     }
 
-    function strokeArcCentered(dc, edgeOffset, width, strokeWidth, degreeStart, degreeEnd, color, strokeColor) {
+    function strokeArcCentered(dc as Dc, edgeOffset as Numeric, width as Numeric,
+        strokeWidth as Numeric, degreeStart as Numeric, degreeEnd as Numeric,
+        color as ColorType, strokeColor as ColorType) as Void {
+
         var x = getCenterX(dc);
         var y = getCenterY(dc);
         var r = getRadius(dc) - edgeOffset;
@@ -142,7 +157,10 @@ module Graphite {
 
     // text
 
-    function drawTextArea(dc, x, y, w, h, fonts, text, justification, color) {
+    function drawTextArea(dc as Dc, x as Numeric, y as Numeric, w as Numeric, h as Numeric,
+        fonts as Array<FontType>, text as String, justification as Number,
+        color as ColorType) as Void {
+
         // compute location depending on justification, to match how `Dc#drawText` behaves
         var locX = justification&Graphics.TEXT_JUSTIFY_CENTER
             ? x - Math.round(w / 2f)
@@ -163,7 +181,7 @@ module Graphite {
         textArea.draw(dc);
     }
 
-    function fillTextArea(dc, text, color) {
+    function fillTextArea(dc as Dc, text as String, color as ColorType) as Void {
         // inscribe a square on the circular screen
         var margin = px(4);
         var size = Math.sqrt(2) * (Graphite.getRadius(dc) - margin);

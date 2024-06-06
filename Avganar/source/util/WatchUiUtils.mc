@@ -11,9 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.WatchUi;
+import Toybox.WatchUi;
 
-function invertTransition(transition) {
+function invertTransition(transition as SlideType) as SlideType {
     return transition == WatchUi.SLIDE_UP ? WatchUi.SLIDE_DOWN
         : transition == WatchUi.SLIDE_DOWN ? WatchUi.SLIDE_UP
         : transition == WatchUi.SLIDE_RIGHT ? WatchUi.SLIDE_LEFT

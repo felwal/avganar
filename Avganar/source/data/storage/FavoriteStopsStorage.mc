@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Application.Storage;
 
 //! Handles storage for favorite stops.
@@ -20,21 +22,21 @@ module FavoriteStopsStorage {
     const _STORAGE_FAVORITE_STOP_NAMES = "favorite_stop_names";
     const _STORAGE_FAVORITE_STOP_PRODUCTS = "favorite_stop_products";
 
-    var favorites;
+    var favorites as Array<StopType> = [];
 
-    var _favStopIds;
-    var _favStopNames;
-    var _favStopProducts;
+    var _favStopIds as Array<Number> = [];
+    var _favStopNames as Array<String> = [];
+    var _favStopProducts as Array<Number?> = [];
 
     // set
 
-    function _save() {
+    function _save() as Void {
         Storage.setValue(_STORAGE_FAVORITE_STOP_IDS, _favStopIds);
         Storage.setValue(_STORAGE_FAVORITE_STOP_NAMES, _favStopNames);
         Storage.setValue(_STORAGE_FAVORITE_STOP_PRODUCTS, _favStopProducts);
     }
 
-    function addFavorite(stop) {
+    function addFavorite(stop as StopType) as Void {
         if (ArrUtil.contains(favorites, stop)) {
             Log.w(stop.name + " already in favorites");
             return;
@@ -48,7 +50,7 @@ module FavoriteStopsStorage {
         _save();
     }
 
-    function removeFavorite(stop) {
+    function removeFavorite(stop as StopType) as Void {
         var index = favorites.indexOf(stop);
 
         var success = ArrUtil.removeAt(_favStopIds, index);
@@ -64,7 +66,7 @@ module FavoriteStopsStorage {
         }
     }
 
-    function moveFavorite(stop, diff) {
+    function moveFavorite(stop as StopType, diff as Number) as Void {
         var index = favorites.indexOf(stop);
 
         ArrUtil.swap(_favStopIds, index, index + diff);
@@ -75,7 +77,7 @@ module FavoriteStopsStorage {
         _save();
     }
 
-    function updateFavoriteProducts(stopId, products) {
+    function updateFavoriteProducts(stopId as Number, products as Number?) as Void {
         var index = _favStopIds.indexOf(stopId);
         if (index == -1) {
             Log.w("couldn't find fav with id " + stopId);
@@ -89,7 +91,7 @@ module FavoriteStopsStorage {
 
     // get
 
-    function load() {
+    function load() as Void {
         _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
         _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
         _favStopProducts = StorageUtil.getValue(_STORAGE_FAVORITE_STOP_PRODUCTS,
@@ -98,7 +100,9 @@ module FavoriteStopsStorage {
         favorites = _buildStops(_favStopIds, _favStopNames, _favStopProducts);
     }
 
-    function _buildStops(ids, names, products) {
+    function _buildStops(ids as Array<Number>, names as Array<String>,
+        products as Array<Number?>) as Array<StopType> {
+
         var stops = [];
         var addedIds = [];
 
@@ -125,16 +129,16 @@ module FavoriteStopsStorage {
         return stops;
     }
 
-    function isFavorite(stop) {
+    function isFavorite(stop as StopType) as Boolean {
         return ArrUtil.contains(favorites, stop);
     }
 
-    function getFavoriteById(stopId) {
+    function getFavoriteById(stopId as Number) as StopType? {
         var index = _favStopIds.indexOf(stopId);
         return ArrUtil.get(favorites, index, null);
     }
 
-    function getFavorite(stopId, stopName) {
+    function getFavorite(stopId as Number, stopName as String) as StopType? {
         var index = favorites.indexOf(new StopDummy(stopId, stopName));
         return ArrUtil.get(favorites, index, null);
     }

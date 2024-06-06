@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.System;
 
 //! Logging made (a bit) simpler.
@@ -18,25 +20,25 @@ using Toybox.System;
 (:glance)
 module Log {
 
-    function i(str) {
+    function i(str as String) as Void {
         if (DEBUG) {
             System.println("I: " + str);
         }
     }
 
-    function d(str) {
+    function d(str as String) as Void {
         if (DEBUG) {
             System.println("D: " + str);
         }
     }
 
-    function w(str) {
+    function w(str as String) as Void {
         if (DEBUG) {
             System.println("W: " + str);
         }
     }
 
-    function e(str) {
+    function e(str as String) as Void {
         if (DEBUG) {
             System.println("E: " + str);
         }

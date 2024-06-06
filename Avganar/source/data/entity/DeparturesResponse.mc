@@ -1,42 +1,43 @@
-using Toybox.Lang;
+import Toybox.Lang;
+import Toybox.Time;
 
 class DeparturesResponse {
 
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
     hidden static var _MEMORY_MIN_TIME_WINDOW = 5;
 
-    hidden var _response;
+    hidden var _response as ResponseWithDepartures;
     hidden var _failedRequestCount = 0;
-    hidden var _departuresTimeWindow;
-    hidden var _timeStamp;
+    hidden var _departuresTimeWindow as Number?;
+    hidden var _timeStamp as Moment?;
 
-    function initialize(response) {
+    function initialize(response as ResponseWithDepartures) {
         setResponse(response);
     }
 
-    function setResponse(response) {
+    function setResponse(response as ResponseWithDepartures) as Void {
         _response = response;
         _timeStamp = TimeUtil.now();
 
         handlePotentialErrors();
     }
 
-    function reset() {
+    function reset() as Void {
         _timeStamp = null;
         _response = [];
     }
 
-    function getDataAgeMillis() {
+    function getDataAgeMillis() as Number? {
         return _response instanceof Lang.Array || _response instanceof Lang.String
             ? TimeUtil.now().subtract(_timeStamp).value() * 1000
             : null;
     }
 
-    function getFailedRequestCount() {
+    function getFailedRequestCount() as Number {
         return _failedRequestCount;
     }
 
-    function getTimeWindow() {
+    function getTimeWindow() as Number {
         // we don't want to initialize `_departuresTimeWindow` with `SettingsStorage.getDefaultTimeWindow()`,
         // because then it wont sync when the setting is edited.
         return _departuresTimeWindow != null
@@ -44,7 +45,7 @@ class DeparturesResponse {
             : SettingsStorage.getDefaultTimeWindow();
     }
 
-    function shouldAutoRefresh() {
+    function shouldAutoRefresh() as Boolean {
         if (!(_response instanceof ResponseError)) {
             return false;
         }
@@ -62,7 +63,7 @@ class DeparturesResponse {
         return _response.isAutoRefreshable();
     }
 
-    function handlePotentialErrors() {
+    function handlePotentialErrors() as Void {
         // for each too large response, halve the time window
         if (_response instanceof ResponseError && _response.isTooLarge()) {
             if (_departuresTimeWindow == null) {
@@ -91,14 +92,14 @@ class DeparturesResponse {
         _failedRequestCount = 0;
     }
 
-    function getResponse() {
+    function getResponse() as ResponseWithDepartures {
         _removeDepartedDepartures();
         return _response;
     }
 
     //
 
-    hidden function _removeDepartedDepartures() {
+    hidden function _removeDepartedDepartures() as Void {
         if (!(_response instanceof Lang.Array) || _response.size() == 0
             || !_response[0].hasDeparted()) {
 

@@ -11,7 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Lang;
+import Toybox.Lang;
+
 using Toybox.Math;
 using Toybox.Timer;
 using Toybox.WatchUi;
@@ -23,10 +24,10 @@ class StopDetailViewModel {
 
     static const DEPARTURES_PER_PAGE = 4;
 
-    var stop;
+    var stop as StopType;
     var pageCount = 1;
     var pageCursor = 0;
-    var currentMode = Departure.MODE_ALL;
+    var currentMode as String? = Departure.MODE_ALL;
     var departureCursor = 0;
     var isDepartureState = false;
     var isModePaneState = false;
@@ -38,7 +39,7 @@ class StopDetailViewModel {
 
     // init
 
-    function initialize(stop) {
+    function initialize(stop as StopType) {
         me.stop = stop;
 
         // when initial mode menu is open,
@@ -50,7 +51,7 @@ class StopDetailViewModel {
 
     // request
 
-    function enableRequests() {
+    function enableRequests() as Void {
         if (isInitialRequest) {
             // remind the user of the initial mode menu.
             // since it didn't exist in previous versions it's easy to forget
@@ -61,12 +62,12 @@ class StopDetailViewModel {
         }
     }
 
-    function disableRequests() {
+    function disableRequests() as Void {
         _delayTimer.stop();
         _repeatTimer.stop();
     }
 
-    hidden function _requestDeparturesDelayed() {
+    hidden function _requestDeparturesDelayed() as Void {
         var age = stop.getDataAgeMillis(currentMode);
         // never request more frequently than _REQUEST_TIME_INTERVAL.
         var delay = age == null ? 0 : _REQUEST_TIME_INTERVAL - age;
@@ -81,12 +82,12 @@ class StopDetailViewModel {
         }
     }
 
-    function onDelayedDeparturesRequest() {
+    function onDelayedDeparturesRequest() as Void {
         _requestDepartures();
         _startRepeatTimer();
     }
 
-    hidden function _startRepeatTimer() {
+    hidden function _startRepeatTimer() as Void {
         if (_repeatTimer.isInitialized()) {
             _repeatTimer.restart();
             return;
@@ -98,9 +99,9 @@ class StopDetailViewModel {
         _repeatTimer.start(_SCREEN_TIME_INTERVAL, [ screenTimer, requestTimer ]);
     }
 
-    function onTimer() {
-        if (stop.getResponse(currentMode) instanceof ResponseError
-            && !stop.getResponse(currentMode).isTimerRefreshable()) {
+    function onTimer() as Void {
+        if (stop.getModeResponse(currentMode) instanceof ResponseError
+            && !stop.getModeResponse(currentMode).isTimerRefreshable()) {
 
             return;
         }
@@ -108,7 +109,7 @@ class StopDetailViewModel {
         _requestDepartures();
     }
 
-    hidden function _requestDepartures() {
+    hidden function _requestDepartures() as Void {
         new DeparturesService(stop).requestDepartures(currentMode);
     }
 
@@ -116,7 +117,7 @@ class StopDetailViewModel {
 
     //! Get only the departures that should be
     //! displayed on the current page
-    function getPageResponse() {
+    function getPageResponse() as ResponseWithDepartures {
         if (isInitialRequest || isModePaneState) {
             // should not happen, but check just in case
             Log.w("Called getPageResponse() when in mode menu");
@@ -156,7 +157,7 @@ class StopDetailViewModel {
         return modeResponse.slice(startIndex, endIndex);
     }
 
-    function canNavigateToDeviation() {
+    function canNavigateToDeviation() as Boolean {
         return !isDepartureState
             && !isInitialRequest
             && !isModePaneState
@@ -166,16 +167,16 @@ class StopDetailViewModel {
 
     // write
 
-    function toggleDepartureState() {
+    function toggleDepartureState() as Void {
         isDepartureState = !isDepartureState;
         departureCursor = 0;
         WatchUi.requestUpdate();
     }
 
-    function onScrollDown() {
+    function onScrollDown() as Void {
         if (!isModePaneState
-            && stop.getResponse(currentMode) instanceof ResponseError
-            && stop.getResponse(currentMode).isUserRefreshable()) {
+            && stop.getModeResponse(currentMode) instanceof ResponseError
+            && stop.getModeResponse(currentMode).isUserRefreshable()) {
 
             // refresh
             stop.resetResponse(currentMode);
@@ -192,7 +193,7 @@ class StopDetailViewModel {
         WatchUi.requestUpdate();
     }
 
-    function onScrollUp() {
+    function onScrollUp() as Void {
         if (isDepartureState) {
             _decDepartureCursor();
         }
@@ -204,7 +205,7 @@ class StopDetailViewModel {
     }
 
     //! @return true if successfully rotating
-    hidden function _incPageCursor() {
+    hidden function _incPageCursor() as Boolean {
         if (isInitialRequest || isModePaneState) {
             if (pageCursor < stop.getModesKeys().size() - 1) {
                 pageCursor++;
@@ -222,7 +223,7 @@ class StopDetailViewModel {
     }
 
     //! @return true if successfully rotating
-    hidden function _decPageCursor() {
+    hidden function _decPageCursor() as Boolean {
         if (pageCursor > 0) {
             pageCursor--;
             return true;
@@ -234,7 +235,7 @@ class StopDetailViewModel {
         return false;
     }
 
-    hidden function _incDepartureCursor() {
+    hidden function _incDepartureCursor() as Void {
         if (departureCursor < DEPARTURES_PER_PAGE - 1
             && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
 
@@ -245,7 +246,7 @@ class StopDetailViewModel {
         }
     }
 
-    hidden function _decDepartureCursor() {
+    hidden function _decDepartureCursor() as Void {
         if (departureCursor > 0) {
             departureCursor--;
         }
@@ -254,7 +255,7 @@ class StopDetailViewModel {
         }
     }
 
-    function onSelect() {
+    function onSelect() as Void {
         // select departure
         if (isDepartureState) {
             var modeResponse = stop.getModeResponse(currentMode);

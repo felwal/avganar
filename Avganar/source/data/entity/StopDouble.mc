@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 //! NOTE: API limitation
 //! The StopDouble represents a stop which has the same
 //! id as another stop, but different name.
@@ -20,111 +22,111 @@
 //! know whether our stops are of `Stop` or `StopDouble`.
 class StopDouble {
 
-    var name;
+    var name as String;
 
-    hidden var _stop;
+    hidden var _stop as StopType;
 
     // init
 
-    function initialize(stop, name) {
+    function initialize(stop as StopType, name as String) {
         _stop = stop instanceof Stop ? stop : stop.getRootStop();
         me.name = name;
     }
 
-    function equals(other) {
+    function equals(other) as Boolean {
         return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
             && other.getId() == getId() && other.name.equals(name);
     }
 
-    function getRootStop() {
+    function getRootStop() as Stop {
         return _stop instanceof Stop ? _stop : _stop.getRootStop();
     }
 
     // set
 
-    function setProducts(products) {
+    function setProducts(products as Number?) as Void {
         _stop.setProducts(products);
     }
 
-    function setResponse(mode, response) {
+    function setResponse(mode as String?, response as ResponseWithDepartures) as Void {
         _stop.setResponse(mode, response);
     }
 
-    function resetResponse(mode) {
+    function resetResponse(mode as String) as Void {
         _stop.resetResponse(mode);
     }
 
-    function resetResponses() {
+    function resetResponses() as Void {
         _stop.resetResponses();
     }
 
-    function resetResponseErrors() {
+    function resetResponseErrors() as Void {
         _stop.resetResponseErrors();
     }
 
-    function setDeviation(message) {
+    function setDeviation(message as Array<String>) as Void {
         _stop.setDeviation(message);
     }
 
     // get
 
-    function getId() {
+    function getId() as Number {
         return _stop.getId();
     }
 
-    function getProducts() {
+    function getProducts() as Number? {
         return _stop.getProducts();
     }
 
-    function hasResponse(mode) {
+    function hasResponse(mode as String?) as Boolean {
         return _stop.hasResponse(mode);
     }
 
-    function getResponse(mode) {
+    function getResponse(mode as String) as DeparturesResponse {
         return _stop.getResponse(mode);
     }
 
-    function getFailedRequestCount(mode) {
+    function getFailedRequestCount(mode as String?) as Number {
         return _stop.getFailedRequestCount(mode);
     }
 
-    function getTimeWindow(mode) {
+    function getTimeWindow(mode as String?) as Number {
         return _stop.getTimeWindow(mode);
     }
 
-    function getDeviationMessages() {
+    function getDeviationMessages() as Array<String> {
         return _stop.getDeviationMessages();
     }
 
-    function shouldAutoRefresh(mode) {
+    function shouldAutoRefresh(mode as String?) as Boolean {
         return _stop.shouldAutoRefresh(mode);
     }
 
-    function getDataAgeMillis(mode) {
+    function getDataAgeMillis(mode as String?) as Number? {
         return _stop.getDataAgeMillis(mode);
     }
 
-    function getModeKey(index) {
+    function getModeKey(index as Number) as String {
         return _stop.getModeKey(index);
     }
 
-    function getModesKeys() {
+    function getModesKeys() as Array<String> {
         return _stop.getModesKeys();
     }
 
-    function getModesStrings() {
+    function getModesStrings() as Array<String> {
         return _stop.getModesStrings();
     }
 
-    function getModesCount() {
+    function getModesCount() as Number {
         return _stop.getModesCount();
     }
 
-    function getAddedModesCount() {
+    function getAddedModesCount() as Number {
         return _stop.getAddedModesCount();
     }
 
-    function getModeResponse(mode) {
+    function getModeResponse(mode as String?) as ResponseWithDepartures {
         return _stop.getModeResponse(mode);
     }
 

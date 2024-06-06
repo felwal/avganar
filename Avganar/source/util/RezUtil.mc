@@ -11,12 +11,15 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Application;
+import Toybox.Application;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 module RezUtil {
 
-    function drawBitmap(dc, x, y, rezId) {
+    function drawBitmap(dc as Dc, x as Numeric, y as Numeric, rezId as ResourceId) as Void {
         var bitmap = new WatchUi.Bitmap({ :rezId => rezId });
 
         bitmap.setLocation(x - bitmap.width / 2, y - bitmap.height / 2);
@@ -26,6 +29,6 @@ module RezUtil {
 }
 
 (:glance)
-function rez(rezId) {
+function rez(rezId as ResourceId) as ResourceType or ResourceReferenceType or Float {
     return Application.loadResource(rezId);
 }

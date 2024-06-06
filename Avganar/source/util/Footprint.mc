@@ -11,8 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Activity;
-using Toybox.Lang;
 using Toybox.Math;
 using Toybox.Position;
 using Toybox.WatchUi;
@@ -21,7 +22,7 @@ using Toybox.WatchUi;
 (:glance)
 module Footprint {
 
-    var onRegisterPosition = null;
+    var onRegisterPosition as Method? = null;
     var isPositionRegistered = false;
 
     // position, in radians
@@ -30,7 +31,7 @@ module Footprint {
 
     // set
 
-    function setPosLoc(positionLocation) {
+    function setPosLoc(positionLocation as Position.Location?) as Void {
         if (positionLocation != null) {
             _lat = positionLocation.toRadians()[0].toDouble();
             _lon = positionLocation.toRadians()[1].toDouble();
@@ -39,38 +40,38 @@ module Footprint {
 
     // get
 
-    function isPositioned() {
+    function isPositioned() as Boolean {
         return _lat != 0.0 || _lon != 0.0;
     }
 
     //! Get latitude in radians
-    function getLatRad() {
+    function getLatRad() as Float {
         return _lat;
     }
 
     //! Get longitude in radians
-    function getLonRad() {
+    function getLonRad() as Float {
         return _lon;
     }
 
     //! Get latitude in degrees
-    function getLatDeg() {
+    function getLatDeg() as Float {
         return DEBUG ? debugLat : MathUtil.deg(_lat);
     }
 
     //! Get longitude in degrees
-    function getLonDeg() {
+    function getLonDeg() as Float {
         return DEBUG ? debugLon : MathUtil.deg(_lon);
     }
 
-    function distanceTo(lat, lon) {
+    function distanceTo(lat as Float, lon as Float) as Float {
         return distanceBetween(lat, lon, _lat, _lon);
     }
 
     // static
 
     //! Radians to meters
-    function distanceBetween(lat1, lon1, lat2, lon2) {
+    function distanceBetween(lat1 as Float, lon1 as Float, lat2 as Float, lon2 as Float) as Float {
         var R = 6371000;
 
         var phi1 = lat1 - Math.PI / 2;
@@ -95,19 +96,19 @@ module Footprint {
 
     // registration
 
-    function enableLocationEvents(continuous) {
+    function enableLocationEvents(continuous as Boolean) as Void {
         Position.enableLocationEvents(continuous ? Position.LOCATION_CONTINUOUS : Position.LOCATION_ONE_SHOT,
             new Lang.Method(Footprint, :registerPosition));
     }
 
-    function disableLocationEvents() {
+    function disableLocationEvents() as Void {
         onRegisterPosition = null;
         Position.enableLocationEvents(Position.LOCATION_DISABLE, null);
     }
 
     //! Get last location while waiting for location event
     //! @param info Activity info
-    function registerLastKnownPosition() {
+    function registerLastKnownPosition() as Void {
         var activityInfo = Activity.getActivityInfo();
         setPosLoc(activityInfo.currentLocation);
 
@@ -117,7 +118,7 @@ module Footprint {
     }
 
     //! Location event listener delegation
-    function registerPosition(positionInfo) {
+    function registerPosition(positionInfo as Position.Info) as Void {
         setPosLoc(positionInfo.position);
 
         if (onRegisterPosition != null) {

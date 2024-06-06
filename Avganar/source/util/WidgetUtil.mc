@@ -11,7 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Graphics;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.Math;
 
 //! Draw more complex but common widgets.
@@ -32,7 +34,7 @@ module WidgetUtil {
 
     // text
 
-    function drawDialog(dc, text) {
+    function drawDialog(dc as Dc, text as String) as Void {
         var fonts = [ Graphics.FONT_SMALL, Graphics.FONT_TINY ];
         var fh = Graphics.getFontHeight(fonts[0]);
         var w = dc.getWidth() - px(12);
@@ -43,7 +45,9 @@ module WidgetUtil {
             w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
     }
 
-    function drawPreviewTitle(dc, text, rezId, smallIcon) {
+    function drawPreviewTitle(dc as Dc, text as String?,
+        rezId as ResourceId?, smallIcon as Boolean) as Void {
+
         var yText = px(45);
 
         if (rezId != null) {
@@ -69,11 +73,11 @@ module WidgetUtil {
 
     // header/footer
 
-    function drawExclamationBanner(dc) {
+    function drawExclamationBanner(dc as Dc) as Void {
         drawHeader(dc, px(30), AppColors.ERROR, AppColors.BACKGROUND, "!", AppColors.TEXT_PRIMARY);
     }
 
-    function drawActionFooter(dc, message) {
+    function drawActionFooter(dc as Dc, message as String) as Void {
         drawFooter(dc, px(42), AppColors.BACKGROUND_INVERTED, AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
 
         Graphite.setColor(dc, AppColors.TEXT_INVERTED);
@@ -81,7 +85,9 @@ module WidgetUtil {
         Graphite.resetColor(dc);
     }
 
-    function drawHeader(dc, height, color, strokeColor, text, textColor) {
+    function drawHeader(dc as Dc, height as Numeric, color as ColorType, strokeColor as ColorType?,
+        text as String?, textColor as ColorType?) as Void {
+
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
@@ -102,7 +108,9 @@ module WidgetUtil {
         }
     }
 
-    function drawFooter(dc, height, color, strokeColor, text, textColor) {
+    function drawFooter(dc as Dc, height as Numeric, color as ColorType, strokeColor as ColorType?,
+        text as String?, textColor as ColorType?) as Void {
+
         Graphite.setColor(dc, color);
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
@@ -128,7 +136,9 @@ module WidgetUtil {
     }
 
     (:round)
-    function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
+    function drawProgressBar(dc as Dc, y as Numeric, h as Numeric, progress as Float,
+        activeColor as ColorType, inactiveColor as ColorType?) as Void {
+
         var r = Graphite.getRadius(dc);
         var start = MathUtil.minX(y, r) - h;
         var end = MathUtil.maxX(y, r) + h;
@@ -147,7 +157,9 @@ module WidgetUtil {
     }
 
     (:rectangle)
-    function drawProgressBar(dc, y, h, progress, activeColor, inactiveColor) {
+    function drawProgressBar(dc as Dc, y as Numeric, h as Numeric, progress as Float,
+        activeColor as ColorType, inactiveColor as ColorType?) as Void {
+
         var start = 0;
         var end = dc.getWidth();
         var w = end - start;
@@ -167,7 +179,7 @@ module WidgetUtil {
     // start indicator
 
     (:round)
-    function drawStartIndicatorWithBitmap(dc, rezId) {
+    function drawStartIndicatorWithBitmap(dc as Dc, rezId as ResourceId) as Void {
         var r = Graphite.getRadius(dc) - px(23);
         var pos = MathUtil.polarPos(r, MathUtil.rad(30), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
 
@@ -176,7 +188,7 @@ module WidgetUtil {
     }
 
     (:rectangle)
-    function drawStartIndicatorWithBitmap(dc, rezId) {
+    function drawStartIndicatorWithBitmap(dc as Dc, rezId as ResourceId) as Void {
         var x = dc.getWidth() - px(23);
         var y = 0.5 * dc.getHeight(); // sin(30) = 0.5
 
@@ -185,7 +197,7 @@ module WidgetUtil {
     }
 
     (:round)
-    function drawStartIndicator(dc) {
+    function drawStartIndicator(dc as Dc) as Void {
         var offset = px(5);
         var width = px(4);
         var strokeWidth = px(2);
@@ -194,7 +206,7 @@ module WidgetUtil {
     }
 
     (:rectangle)
-    function drawStartIndicator(dc) {
+    function drawStartIndicator(dc as Dc) as Void {
         var offset = px(5);
         var width = px(4);
         var strokeWidth = px(2);
@@ -209,12 +221,14 @@ module WidgetUtil {
 
     // scrollbar
 
-    function drawVerticalScrollbarSmall(dc, pageCount, index) {
+    function drawVerticalScrollbarSmall(dc as Dc, pageCount as Number, index as Number) as Void {
         _drawVerticalScrollbar(dc, 50, pageCount, index, index + 1);
     }
 
     (:round)
-    function _drawVerticalScrollbar(dc, sizeDeg, itemCount, startIndex, endIndex) {
+    function _drawVerticalScrollbar(dc as Dc, sizeDeg as Numeric,
+        itemCount as Number, startIndex as Number, endIndex as Number) as Void {
+
         if (itemCount <= 1) {
             return;
         }
@@ -243,7 +257,9 @@ module WidgetUtil {
     }
 
     (:rectangle)
-    function _drawVerticalScrollbar(dc, sizeDeg, itemCount, startIndex, endIndex) {
+    function _drawVerticalScrollbar(dc as Dc, sizeDeg as Numeric,
+        itemCount as Number, startIndex as Number, endIndex as Number) as Void {
+
         if (itemCount <= 1) {
             return;
         }
@@ -276,7 +292,7 @@ module WidgetUtil {
     // page indicator
 
     (:round)
-    function drawHorizontalPageIndicator(dc, pageCount, index) {
+    function drawHorizontalPageIndicator(dc as Dc, pageCount as Number, index as Number) as Void {
         if (pageCount <= 1) {
             return;
         }
@@ -322,7 +338,7 @@ module WidgetUtil {
     }
 
     (:rectangle)
-    function drawHorizontalPageIndicator(dc, pageCount, index) {
+    function drawHorizontalPageIndicator(dc as Dc, pageCount as Number, index as Number) {
         if (pageCount <= 1) {
             return;
         }
@@ -364,7 +380,9 @@ module WidgetUtil {
 
     // page arrow
 
-    function drawVerticalPageArrows(dc, pageCount, index, topColor, bottomColor) {
+    function drawVerticalPageArrows(dc as Dc, pageCount as Number, index as Number,
+        topColor as ColorType, bottomColor as ColorType) as Void {
+
         if (pageCount <= 1) {
             return;
         }
@@ -381,23 +399,23 @@ module WidgetUtil {
         Graphite.resetColor(dc);
     }
 
-    function drawTopPageArrow(dc) {
+    function drawTopPageArrow(dc as Dc) as Void {
         _drawPageArrow(dc, [ Graphite.getCenterX(dc), px(4) ], _DIR_UP);
     }
 
-    function drawBottomPageArrow(dc) {
+    function drawBottomPageArrow(dc as Dc) as Void {
         _drawPageArrow(dc, [ Graphite.getCenterX(dc), dc.getHeight() - px(4) ], _DIR_DOWN);
     }
 
-    function drawUpArrow(dc, bottomTo) {
+    function drawUpArrow(dc as Dc, bottomTo as Numeric) as Void {
         _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - px(4 + 8) ], _DIR_UP);
     }
 
-    function drawDownArrow(dc, bottomTo) {
+    function drawDownArrow(dc as Dc, bottomTo as Numeric) as Void {
         _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - px(4) ], _DIR_DOWN);
     }
 
-    function _drawPageArrow(dc, point1, direction) {
+    function _drawPageArrow(dc as Dc, point1 as Point2D, direction as Number) as Void {
         var width = px(8);
         var height = px(8);
 
@@ -430,7 +448,10 @@ module WidgetUtil {
 
     // list
 
-    function drawPanedList(dc, items, paneSize, cursor, paneHints, mainHints, topHint, paneColors, mainColors) {
+    function drawPanedList(dc as Dc, items as Array<String>, paneSize as Number, cursor as Number,
+        paneHints as [String, String], mainHints as [String, String], topHint as String,
+        paneColors as Array<ColorType>, mainColors as Array<ColorType>) as Void {
+
         var paneHint = paneHints[0];
         var mainHint = mainHints[0];
 
@@ -568,7 +589,9 @@ module WidgetUtil {
         }
     }
 
-    function drawSideList(dc, items, cursor, blackBg) {
+    function drawSideList(dc as Dc, items as Array<String>, cursor as Number,
+        blackBg as Boolean) as Void {
+
         var colorBg = blackBg ? AppColors.BACKGROUND : AppColors.BACKGROUND_INVERTED;
         var colorSelected = blackBg ? AppColors.TEXT_PRIMARY : AppColors.TEXT_INVERTED;
         var colorUnselected = blackBg ? AppColors.TEXT_SECONDARY: AppColors.TEXT_TERTIARY;

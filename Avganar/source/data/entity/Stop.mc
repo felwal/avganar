@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Lang;
+import Toybox.Lang;
 
 //! Must have the same interface as `StopDouble` since we often don't
 //! know whether our stops are of `Stop` or `StopDouble`.
@@ -21,17 +21,17 @@ class Stop {
     // and when adding functions, remember to add
     // corresponding ones to ´StopDouble´
 
-    var name;
+    var name as String;
 
-    hidden var _id;
-    hidden var _products = null;
-    hidden var _modes = [];
-    hidden var _responses = {};
-    hidden var _deviationMessages = [];
+    hidden var _id as Number;
+    hidden var _products as Number? = null;
+    hidden var _modes as Array<String> = [];
+    hidden var _responses as Dictionary<String, DeparturesResponse or Null> = {};
+    hidden var _deviationMessages as Array<String> = [];
 
     // init
 
-    function initialize(id, name, products) {
+    function initialize(id as Number, name as String, products as Number?) {
         _id = id;
         _products = products;
         me.name = name;
@@ -39,18 +39,18 @@ class Stop {
         _setModesKeys();
     }
 
-    function equals(other) {
+    function equals(other) as Boolean {
         return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
             && other.getId() == _id && other.name.equals(name);
     }
 
     // set
 
-    function setProducts(products) {
+    function setProducts(products as Number?) as Void {
         _products = products;
     }
 
-    function setResponse(mode, response) {
+    function setResponse(mode as String?, response as ResponseWithDepartures) as Void {
         // NOTE: migration to 1.8.0
         // if we got a successful response, remove the ALL mode
         if (mode != null && mode != Departure.MODE_ALL && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
@@ -78,15 +78,15 @@ class Stop {
         }
     }
 
-    function resetResponse(mode) {
-        _responses[mode] = [];
+    function resetResponse(mode as String) as Void {
+        _responses[mode] = null; // TODO: remove key instead?
     }
 
-    function resetResponses() {
+    function resetResponses() as Void {
         _responses = {};
     }
 
-    function resetResponseErrors() {
+    function resetResponseErrors() as Void {
         var keys = _responses.keys();
 
         for (var i = 0; i < keys.size(); i++) {
@@ -98,11 +98,11 @@ class Stop {
         }
     }
 
-    function setDeviation(messages) {
+    function setDeviation(messages as Array<String>) as Void {
         _deviationMessages = messages;
     }
 
-    hidden function _setModesKeys() {
+    hidden function _setModesKeys() as Void {
         if (_products == null) {
             // NOTE: migration to 1.8.0
             // if products are unknown, skip the mode menu entirely
@@ -116,63 +116,63 @@ class Stop {
 
     // get
 
-    function getId() {
+    function getId() as Number {
         return _id;
     }
 
-    function getProducts() {
+    function getProducts() as Number? {
         return _products;
     }
 
-    function hasResponse(mode) {
+    function hasResponse(mode as String?) as Boolean {
         return mode != null && _responses.hasKey(mode) && _responses[mode] != null;
     }
 
-    function getResponse(mode) {
+    function getResponse(mode as String) as DeparturesResponse {
         return _responses[mode];
     }
 
-    function getFailedRequestCount(mode) {
+    function getFailedRequestCount(mode as String?) as Number {
         return _hasDeparturesResponse(mode)
             ? _responses[mode].getFailedRequestCount()
             : 0;
     }
 
-    function getTimeWindow(mode) {
+    function getTimeWindow(mode as String?) as Number {
         return _hasDeparturesResponse(mode)
             ? _responses[mode].getTimeWindow()
             : SettingsStorage.getDefaultTimeWindow();
     }
 
-    function getDeviationMessages() {
+    function getDeviationMessages() as Array<String> {
         return _deviationMessages;
     }
 
-    function shouldAutoRefresh(mode) {
+    function shouldAutoRefresh(mode as String?) as Boolean {
         return _hasDeparturesResponse(mode) && _responses[mode].shouldAutoRefresh();
     }
 
-    function getDataAgeMillis(mode) {
+    function getDataAgeMillis(mode as String?) as Number? {
         return _hasDeparturesResponse(mode)
             ? _responses[mode].getDataAgeMillis()
             : null;
     }
 
-    hidden function _hasDeparturesResponse(mode) {
+    hidden function _hasDeparturesResponse(mode as String?) as Boolean {
         return mode != null
             && _responses.hasKey(mode)
             && _responses[mode] instanceof DeparturesResponse;
     }
 
-    function getModeKey(index) {
+    function getModeKey(index as Number) as String {
         return index < _modes.size() ? _modes[index] : Departure.MODE_ALL;
     }
 
-    function getModesKeys() {
+    function getModesKeys() as Array<String> {
         return _modes;
     }
 
-    function getModesStrings() {
+    function getModesStrings() as Array<String> {
         var strings = [];
 
         for (var i = 0; i < _modes.size(); i++) {
@@ -183,15 +183,15 @@ class Stop {
         return strings;
     }
 
-    function getModesCount() {
+    function getModesCount() as Number {
         return _modes.size();
     }
 
-    function getAddedModesCount() {
+    function getAddedModesCount() as Number {
         return _responses.size();
     }
 
-    function getModeResponse(mode) {
+    function getModeResponse(mode as String?) as ResponseWithDepartures {
         return _hasDeparturesResponse(mode)
             ? _responses[mode].getResponse()
             : _responses[mode];

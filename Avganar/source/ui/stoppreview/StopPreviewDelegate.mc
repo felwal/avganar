@@ -11,6 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+
 using Toybox.Application;
 using Toybox.WatchUi;
 
@@ -25,14 +27,14 @@ class StopPreviewDelegate extends WatchUi.BehaviorDelegate {
     // override BehaviorDelegate
 
     //! "START-STOP"
-    function onSelect() {
+    function onSelect() as Boolean {
         _pushStopList();
         return true;
     }
 
     //
 
-    hidden function _pushStopList() {
+    hidden function _pushStopList() as Void {
         var viewAndDelegate = Application.getApp().getMainView();
 
         WatchUi.pushView(viewAndDelegate[0], viewAndDelegate[1], WatchUi.SLIDE_BLINK);

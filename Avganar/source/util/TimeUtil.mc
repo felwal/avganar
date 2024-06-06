@@ -11,17 +11,19 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+import Toybox.Time;
+
 using Toybox.System;
-using Toybox.Time;
 
 module TimeUtil {
 
-    function now() {
+    function now() as Moment {
         return new Time.Moment(Time.now().value());
     }
 
     //! Convert String on the format "YYYY-MM-DDThh:mm:ss" to Moment
-    function iso8601StrToMoment(str) {
+    function iso8601StrToMoment(str as String?) as Moment? {
         if (str == null || str.length() != 19) {
             Log.w(str + " not in ISO8601 (YYYY-MM-DDThh:mm:ss)");
             return null;
@@ -46,7 +48,7 @@ module TimeUtil {
         return Time.Gregorian.moment(options);
     }
 
-    function localIso8601StrToMoment(str) {
+    function localIso8601StrToMoment(str as String?) as Moment? {
         var moment = iso8601StrToMoment(str);
 
         if (moment != null) {

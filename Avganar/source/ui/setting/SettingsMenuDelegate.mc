@@ -11,7 +11,8 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.WatchUi;
 
 //! The StopList settings menu, handling user preferences.
 class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
@@ -23,18 +24,18 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_MINUTE_SYMBOL = :minuteSymbol;
 
-    hidden var _menu;
+    hidden var _menu as Menu2;
 
     // init
 
     function initialize() {
         Menu2InputDelegate.initialize();
+
+        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
         _addItems();
     }
 
-    hidden function _addItems() {
-        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
-
+    hidden function _addItems() as Void {
         // use location
         _menu.addItem(new WatchUi.ToggleMenuItem(
             rez(Rez.Strings.itm_settings_location), { :enabled => "On", :disabled => "Off" },
@@ -75,21 +76,25 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         ));
     }
 
-    function push(transition) {
+    function push(transition as SlideType) as Void {
         WatchUi.pushView(_menu, me, transition);
     }
 
     // override Menu2InputDelegate
 
-    function onSelect(item) {
+    function onSelect(item as MenuItem) as Void {
         var id = item.getId();
 
         if (id == ITEM_LOCATION) {
-            SettingsStorage.setUseLocation(item.isEnabled());
+            if (item instanceof ToggleMenuItem) {
+                SettingsStorage.setUseLocation(item.isEnabled());
+            }
             return;
         }
         else if (id == ITEM_VIBRATE) {
-            SettingsStorage.setVibrateOnResponse(item.isEnabled());
+            if (item instanceof ToggleMenuItem) {
+                SettingsStorage.setVibrateOnResponse(item.isEnabled());
+            }
             return;
         }
         else if (id == ITEM_MAX_STOPS) {
@@ -128,21 +133,20 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
     }
 
-    function onBack() {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
-        return true;
     }
 
     //
 
-    function onMaxStopsSelect(value) {
+    function onMaxStopsSelect(value as Number) as Void {
         SettingsStorage.setMaxStops(value);
 
         var item = _menu.getItem(_menu.findItemById(ITEM_MAX_STOPS));
         item.setSubLabel(value.toString());
     }
 
-    function onMaxDeparturesSelect(value) {
+    function onMaxDeparturesSelect(value as Number) as Void {
         SettingsStorage.setMaxDepartures(value);
 
         var item = _menu.getItem(_menu.findItemById(ITEM_MAX_DEPARTURES));
@@ -151,14 +155,14 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             : value.toString());
     }
 
-    function onTimeWindowSelect(value) {
+    function onTimeWindowSelect(value as Number) as Void {
         SettingsStorage.setDefaultTimeWindow(value);
 
         var item = _menu.getItem(_menu.findItemById(ITEM_TIME_WINDOW));
         item.setSubLabel(value + " min");
     }
 
-    function onMinuteSymbolSelect(value) {
+    function onMinuteSymbolSelect(value as String) as Void {
         SettingsStorage.setMinuteSymbol(value);
 
         var item = _menu.getItem(_menu.findItemById(ITEM_MINUTE_SYMBOL));

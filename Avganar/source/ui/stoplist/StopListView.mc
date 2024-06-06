@@ -11,26 +11,29 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 class StopListView extends WatchUi.View {
 
-    var _viewModel;
+    var _viewModel as StopListViewModel;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopListViewModel) {
         View.initialize();
         _viewModel = viewModel;
     }
 
     // override View
 
-    function onShow() {
+    function onShow() as Void {
         _viewModel.enableRequests();
     }
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
 
         // draw
@@ -38,13 +41,13 @@ class StopListView extends WatchUi.View {
         _draw(dc);
     }
 
-    function onHide() {
+    function onHide() as Void {
         _viewModel.disableRequests();
     }
 
     // draw
 
-    hidden function _draw(dc) {
+    hidden function _draw(dc as Dc) as Void {
         // stops
         _drawStops(dc);
         _drawLoadingStatus(dc);
@@ -61,7 +64,7 @@ class StopListView extends WatchUi.View {
         }
     }
 
-    hidden function _drawStops(dc) {
+    hidden function _drawStops(dc as Dc) as Void {
         var stopNames = _viewModel.getStopNames();
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
@@ -80,7 +83,7 @@ class StopListView extends WatchUi.View {
             rez(Rez.Strings.app_name), favColors, nearbyColors);
     }
 
-    hidden function _drawLoadingStatus(dc) {
+    hidden function _drawLoadingStatus(dc as Dc) as Void {
         var w = dc.getWidth();
         var progress;
 

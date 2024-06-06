@@ -11,7 +11,9 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-using Toybox.Graphics;
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 //! The preview is functionally equivalent to and replaces `StopGlanceView`
@@ -27,7 +29,7 @@ class StopPreviewView extends WatchUi.View {
 
     // override View
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
 
         // draw
@@ -37,7 +39,7 @@ class StopPreviewView extends WatchUi.View {
 
     // draw
 
-    hidden function _draw(dc) {
+    hidden function _draw(dc as Dc) as Void {
         var stopName = NearbyStopsStorage.getNearestStopName();
 
         if (stopName == null) {
@@ -51,7 +53,7 @@ class StopPreviewView extends WatchUi.View {
         WidgetUtil.drawPreviewTitle(dc, rez(Rez.Strings.app_name), Rez.Drawables.ic_launcher, false);
     }
 
-    hidden function _drawStop(dc, stopName) {
+    hidden function _drawStop(dc as Dc, stopName as String) as Void {
         var fonts = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM ];
         var fh = dc.getFontHeight(fonts[0]);
         var height = 2 * fh;
