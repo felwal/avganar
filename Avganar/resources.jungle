@@ -25,13 +25,9 @@ legacysagarey.resourcePath = $(legacysagarey.resourcePath); resources-218x218
 vivoactive4s.resourcePath = $(vivoactive4s.resourcePath); resources-218x218
 
 # 240x240 (default)
-d2delta.resourcePath = $(d2delta.resourcePath); resources-240x240
-d2deltapx.resourcePath = $(d2deltapx.resourcePath); resources-240x240
-d2deltas.resourcePath = $(d2deltas.resourcePath); resources-240x240
 descentmk2s.resourcePath = $(descentmk2s.resourcePath); resources-240x240
 fenix5plus.resourcePath = $(fenix5plus.resourcePath); resources-240x240
 fenix5splus.resourcePath = $(fenix5splus.resourcePath); resources-240x240
-fenix5x.resourcePath = $(fenix5x.resourcePath); resources-240x240
 fenix5xplus.resourcePath = $(fenix5xplus.resourcePath); resources-240x240
 fenix6spro.resourcePath = $(fenix6spro.resourcePath); resources-240x240
 fenix7s.resourcePath = $(fenix7s.resourcePath); resources-240x240
@@ -51,7 +47,6 @@ marqexpedition.resourcePath = $(marqexpedition.resourcePath); resources-240x240
 marqgolfer.resourcePath = $(marqgolfer.resourcePath); resources-240x240
 venusqm.resourcePath = $(venusqm.resourcePath); resources-240x240
 vivoactive3m.resourcePath = $(vivoactive3m.resourcePath); resources-240x240
-vivoactive3mlte.resourcePath = $(vivoactive3mlte.resourcePath); resources-240x240
 
 # 260x260
 fenix6pro.resourcePath = $(fenix6pro.resourcePath); resources-260x260
@@ -128,17 +123,12 @@ venusqm.resourcePath = $(venusqm.resourcePath); resources-launcher_36x36
 
 # 40x33
 vivoactive3m.resourcePath = $(vivoactive3m.resourcePath); resources-launcher_40x33
-vivoactive3mlte.resourcePath = $(vivoactive3mlte.resourcePath); resources-launcher_40x33
 
 # 40x40 (default)
-d2delta.resourcePath = $(d2delta.resourcePath); resources-launcher_40x40
-d2deltapx.resourcePath = $(d2deltapx.resourcePath); resources-launcher_40x40
-d2deltas.resourcePath = $(d2deltas.resourcePath); resources-launcher_40x40
 descentmk2.resourcePath = $(descentmk2.resourcePath); resources-launcher_40x40
 descentmk2s.resourcePath = $(descentmk2s.resourcePath); resources-launcher_40x40
 fenix5plus.resourcePath = $(fenix5plus.resourcePath); resources-launcher_40x40
 fenix5splus.resourcePath = $(fenix5splus.resourcePath); resources-launcher_40x40
-fenix5x.resourcePath = $(fenix5x.resourcePath); resources-launcher_40x40
 fenix5xplus.resourcePath = $(fenix5xplus.resourcePath); resources-launcher_40x40
 fenix6pro.resourcePath = $(fenix6pro.resourcePath); resources-launcher_40x40
 fenix6spro.resourcePath = $(fenix6spro.resourcePath); resources-launcher_40x40
