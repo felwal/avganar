@@ -27,7 +27,7 @@ class DialogView extends WatchUi.View {
         _transition = transition;
     }
 
-    function push(title, messages, iconRezId, transition) {
+    static function push(title, messages, iconRezId, transition) {
         var viewModel = new DialogViewModel(title, messages, iconRezId);
         var view = new DialogView(viewModel, transition);
         var delegate = new DialogDelegate(viewModel, invertTransition(transition));
