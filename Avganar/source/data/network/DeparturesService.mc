@@ -72,7 +72,7 @@ class DeparturesService {
         DeparturesService.isRequesting = false;
 
         if (responseCode != ResponseError.HTTP_OK || data == null) {
-            _stop.setResponse(_mode, new ResponseError(responseCode));
+            _stop.setDeparturesResponse(_mode, new ResponseError(responseCode));
 
             // auto-refresh if too large
             if (_stop.shouldAutoRefresh(_mode)) {
@@ -81,7 +81,7 @@ class DeparturesService {
         }
         else if (!DictUtil.hasValue(data, "departures")) {
             var errorMsg = DictUtil.get(data, "message", "No error msg");
-            _stop.setResponse(_mode, new ResponseError(errorMsg));
+            _stop.setDeparturesResponse(_mode, new ResponseError(errorMsg));
 
             // auto-refresh if server error
             // TODO: probably can't happen with new API
@@ -102,7 +102,7 @@ class DeparturesService {
         var departuresData = data["departures"] as JsonArray;
 
         if (departuresData.size() == 0) {
-            _stop.setResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
+            _stop.setDeparturesResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
         }
 
         var modes = [
@@ -187,7 +187,7 @@ class DeparturesService {
 
         // set stop response
         if (modeDepartures.size() == 0) {
-            _stop.setResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
+            _stop.setDeparturesResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
         }
         else {
             for (var m = 0; m < modes.size(); m++) {
@@ -198,10 +198,10 @@ class DeparturesService {
                 }
 
                 if (modeDepartures[mode].size() != 0) {
-                    _stop.setResponse(mode, modeDepartures[mode]);
+                    _stop.setDeparturesResponse(mode, modeDepartures[mode]);
                 }
                 else {
-                    _stop.setResponse(mode, rez(Rez.Strings.msg_i_departures_none));
+                    _stop.setDeparturesResponse(mode, rez(Rez.Strings.msg_i_departures_none));
                 }
             }
         }

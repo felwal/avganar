@@ -28,7 +28,7 @@ module NearbyStopsStorage {
 
     const _MEMORY_MIN_MAX_STOPS = 1;
 
-    var response as ResponseWithStops;
+    var response as StopsResponse;
     var maxStops as Number?;
     var failedRequestCount = 0;
 
@@ -62,7 +62,7 @@ module NearbyStopsStorage {
     //! - `String` - response message (e.g. "No Stops")
     //! - `null` - status message (e.g. "Loading ...", determined in `StopListViewModel#getMessage`)
     function setResponse(stopIds as Array<Number>, stopNames as Array<String>,
-        stopProducts as Array<Number?>, response_ as ResponseWithStops) as Void {
+        stopProducts as Array<Number?>, response_ as StopsResponse) as Void {
 
         // for each too large response, halve the time window
         if (response_ instanceof ResponseError && response_.isTooLarge()) {

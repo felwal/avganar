@@ -14,21 +14,21 @@
 import Toybox.Lang;
 import Toybox.Time;
 
-class DeparturesResponse {
+class ModeResponse {
 
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
     hidden static var _MEMORY_MIN_TIME_WINDOW = 5;
 
-    hidden var _response as ResponseWithDepartures;
+    hidden var _response as DeparturesResponse;
     hidden var _failedRequestCount = 0;
     hidden var _departuresTimeWindow as Number?;
     hidden var _timeStamp as Moment?;
 
-    function initialize(response as ResponseWithDepartures) {
+    function initialize(response as DeparturesResponse) {
         setResponse(response);
     }
 
-    function setResponse(response as ResponseWithDepartures) as Void {
+    function setResponse(response as DeparturesResponse) as Void {
         _response = response;
         _timeStamp = TimeUtil.now();
 
@@ -109,7 +109,7 @@ class DeparturesResponse {
         _failedRequestCount = 0;
     }
 
-    function getResponse() as ResponseWithDepartures {
+    function getResponse() as DeparturesResponse {
         _removeDepartedDepartures();
         return _response;
     }

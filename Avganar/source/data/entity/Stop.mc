@@ -26,7 +26,7 @@ class Stop {
     hidden var _id as Number;
     hidden var _products as Number? = null;
     hidden var _modes as Array<String> = [];
-    hidden var _responses as Dictionary<String, DeparturesResponse> = {};
+    hidden var _modesResponses as Dictionary<String, ModeResponse> = {};
     hidden var _deviationMessages as Array<String> = [];
 
     // init
@@ -55,7 +55,7 @@ class Stop {
         _products = products;
     }
 
-    function setResponse(mode as String?, response as ResponseWithDepartures) as Void {
+    function setDeparturesResponse(mode as String?, response as DeparturesResponse) as Void {
         if (mode == null) {
             return;
         }
@@ -64,13 +64,13 @@ class Stop {
         // if we got a successful response, remove the ALL mode
         if (!mode.equals(Departure.MODE_ALL) && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
             _modes.remove(Departure.MODE_ALL);
-            _responses.remove(Departure.MODE_ALL);
+            _modesResponses.remove(Departure.MODE_ALL);
         }
 
         // NOTE: migration to 1.8.0
         // if we got an error for ALL, reset all modes
         else if (mode.equals(Departure.MODE_ALL) && response instanceof ResponseError) {
-            resetResponses();
+            resetModeResponses();
         }
 
         // NOTE: migration to 1.8.0
@@ -79,30 +79,30 @@ class Stop {
             _modes.add(mode);
         }
 
-        if (_responses.hasKey(mode)) {
-            _responses[mode].setResponse(response);
+        if (_modesResponses.hasKey(mode)) {
+            _modesResponses[mode].setResponse(response);
         }
         else {
-            _responses[mode] = new DeparturesResponse(response);
+            _modesResponses[mode] = new ModeResponse(response);
         }
     }
 
-    function resetResponse(mode as String) as Void {
-        _responses.remove(mode);
+    function resetModeResponse(mode as String) as Void {
+        _modesResponses.remove(mode);
     }
 
-    function resetResponses() as Void {
-        _responses = {};
+    function resetModeResponses() as Void {
+        _modesResponses = {};
     }
 
-    function resetResponseErrors() as Void {
-        var keys = _responses.keys();
+    function resetModeResponseErrors() as Void {
+        var keys = _modesResponses.keys();
 
         for (var i = 0; i < keys.size(); i++) {
             var key = keys[i];
 
-            if (_responses[key].hasResponseError()) {
-                _responses.remove(key);
+            if (_modesResponses[key].hasResponseError()) {
+                _modesResponses.remove(key);
             }
         }
     }
@@ -133,23 +133,29 @@ class Stop {
         return _products;
     }
 
-    function hasResponse(mode as String?) as Boolean {
-        return mode != null && _responses.hasKey(mode) && _responses[mode] != null;
+    function hasModeResponse(mode as String?) as Boolean {
+        return mode != null && _modesResponses.hasKey(mode);
     }
 
-    function getResponse(mode as String) as DeparturesResponse {
-        return _responses[mode];
+    function getModeResponse(mode as String) as ModeResponse {
+        return _modesResponses[mode];
+    }
+
+    function getDeparturesResponse(mode as String?) as DeparturesResponse? {
+        return hasModeResponse(mode)
+            ? _modesResponses[mode].getResponse()
+            : null;
     }
 
     function getFailedRequestCount(mode as String?) as Number {
-        return _hasDeparturesResponse(mode)
-            ? _responses[mode].getFailedRequestCount()
+        return hasModeResponse(mode)
+            ? _modesResponses[mode].getFailedRequestCount()
             : 0;
     }
 
     function getTimeWindow(mode as String?) as Number {
-        return _hasDeparturesResponse(mode)
-            ? _responses[mode].getTimeWindow()
+        return hasModeResponse(mode)
+            ? _modesResponses[mode].getTimeWindow()
             : SettingsStorage.getDefaultTimeWindow();
     }
 
@@ -158,19 +164,13 @@ class Stop {
     }
 
     function shouldAutoRefresh(mode as String?) as Boolean {
-        return _hasDeparturesResponse(mode) && _responses[mode].shouldAutoRefresh();
+        return hasModeResponse(mode) && _modesResponses[mode].shouldAutoRefresh();
     }
 
     function getDataAgeMillis(mode as String?) as Number? {
-        return _hasDeparturesResponse(mode)
-            ? _responses[mode].getDataAgeMillis()
+        return hasModeResponse(mode)
+            ? _modesResponses[mode].getDataAgeMillis()
             : null;
-    }
-
-    hidden function _hasDeparturesResponse(mode as String?) as Boolean {
-        return mode != null
-            && _responses.hasKey(mode)
-            && _responses[mode] instanceof DeparturesResponse;
     }
 
     function getModeKey(index as Number) as String {
@@ -197,13 +197,7 @@ class Stop {
     }
 
     function getAddedModesCount() as Number {
-        return _responses.size();
-    }
-
-    function getModeResponse(mode as String?) as ResponseWithDepartures {
-        return _hasDeparturesResponse(mode)
-            ? _responses[mode].getResponse()
-            : _responses[mode];
+        return _modesResponses.size();
     }
 
 }

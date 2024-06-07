@@ -48,20 +48,20 @@ class StopDouble {
         _stop.setProducts(products);
     }
 
-    function setResponse(mode as String?, response as ResponseWithDepartures) as Void {
-        _stop.setResponse(mode, response);
+    function setDeparturesResponse(mode as String?, response as DeparturesResponse) as Void {
+        _stop.setDeparturesResponse(mode, response);
     }
 
-    function resetResponse(mode as String) as Void {
-        _stop.resetResponse(mode);
+    function resetModeResponse(mode as String) as Void {
+        _stop.resetModeResponse(mode);
     }
 
-    function resetResponses() as Void {
-        _stop.resetResponses();
+    function resetModeResponses() as Void {
+        _stop.resetModeResponses();
     }
 
-    function resetResponseErrors() as Void {
-        _stop.resetResponseErrors();
+    function resetModeResponseErrors() as Void {
+        _stop.resetModeResponseErrors();
     }
 
     function setDeviation(message as Array<String>) as Void {
@@ -78,12 +78,12 @@ class StopDouble {
         return _stop.getProducts();
     }
 
-    function hasResponse(mode as String?) as Boolean {
-        return _stop.hasResponse(mode);
+    function hasModeResponse(mode as String?) as Boolean {
+        return _stop.hasModeResponse(mode);
     }
 
-    function getResponse(mode as String) as DeparturesResponse {
-        return _stop.getResponse(mode);
+    function getModeResponse(mode as String) as ModeResponse {
+        return _stop.getModeResponse(mode);
     }
 
     function getFailedRequestCount(mode as String?) as Number {
@@ -126,8 +126,8 @@ class StopDouble {
         return _stop.getAddedModesCount();
     }
 
-    function getModeResponse(mode as String?) as ResponseWithDepartures {
-        return _stop.getModeResponse(mode);
+    function getDeparturesResponse(mode as String?) as DeparturesResponse {
+        return _stop.getDeparturesResponse(mode);
     }
 
 }

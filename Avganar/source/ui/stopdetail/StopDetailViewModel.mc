@@ -100,8 +100,8 @@ class StopDetailViewModel {
     }
 
     function onTimer() as Void {
-        if (stop.getModeResponse(_currentMode) instanceof ResponseError
-            && !stop.getModeResponse(_currentMode).isTimerRefreshable()) {
+        if (stop.getDeparturesResponse(_currentMode) instanceof ResponseError
+            && !stop.getDeparturesResponse(_currentMode).isTimerRefreshable()) {
 
             return;
         }
@@ -124,7 +124,7 @@ class StopDetailViewModel {
 
     //! Get only the departures that should be
     //! displayed on the current page
-    function getPageResponse() as ResponseWithDepartures {
+    function getPageResponse() as DeparturesResponse {
         if (isInitialRequest || isModePaneState) {
             // should not happen, but check just in case
             return null;
@@ -132,7 +132,7 @@ class StopDetailViewModel {
 
         _currentMode = getCurrentMode();
 
-        var modeResponse = stop.getModeResponse(_currentMode);
+        var modeResponse = stop.getDeparturesResponse(_currentMode);
 
         if (!(modeResponse instanceof Lang.Array)) {
             pageCount = 1;
@@ -175,11 +175,11 @@ class StopDetailViewModel {
 
     function onScrollDown() as Void {
         if (!isModePaneState
-            && stop.getModeResponse(_currentMode) instanceof ResponseError
-            && stop.getModeResponse(_currentMode).isUserRefreshable()) {
+            && stop.getDeparturesResponse(_currentMode) instanceof ResponseError
+            && stop.getDeparturesResponse(_currentMode).isUserRefreshable()) {
 
             // refresh
-            stop.resetResponse(_currentMode);
+            stop.resetModeResponse(_currentMode);
             _requestDepartures();
             WatchUi.requestUpdate();
         }
@@ -258,7 +258,7 @@ class StopDetailViewModel {
     function onSelect() as Void {
         // select departure
         if (isDepartureState) {
-            var modeResponse = stop.getModeResponse(_currentMode);
+            var modeResponse = stop.getDeparturesResponse(_currentMode);
             var selectedDeparture = modeResponse[pageCursor * 4 + departureCursor];
             var messages = selectedDeparture.getDeviationMessages();
 
@@ -282,7 +282,7 @@ class StopDetailViewModel {
             _currentMode = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
-            if (!stop.hasResponse(_currentMode)) {
+            if (!stop.hasModeResponse(_currentMode)) {
                 onDelayedDeparturesRequest();
             }
             else {
