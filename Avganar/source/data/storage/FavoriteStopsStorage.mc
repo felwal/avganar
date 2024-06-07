@@ -134,7 +134,8 @@ module FavoriteStopsStorage {
     }
 
     function getFavorite(stopId as Number, stopName as String) as StopType? {
-        var index = favorites.indexOf(new StopDummy(stopId, stopName));
+        // TODO: some better way of finding it than creating a whole new stop?
+        var index = favorites.indexOf(Stop.dummy(stopId, stopName));
         return ArrUtil.get(favorites, index, null);
     }
 

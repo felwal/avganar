@@ -14,7 +14,7 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-typedef StopType as Stop or StopDouble or StopDummy; // TODO: should probably not include dummy
+typedef StopType as Stop or StopDouble;
 typedef ResponseWithDepartures as Array<Departure> or ResponseError or Null;
 typedef ResponseWithStops as Array<StopType> or ResponseError or String or Null;
 

@@ -252,7 +252,8 @@ module NearbyStopsStorage {
             return null;
         }
 
-        var index = response.indexOf(new StopDummy(id, name));
+        // TODO: some better way of finding it than creating a whole new stop?
+        var index = response.indexOf(Stop.dummy(id, name));
         return ArrUtil.get(response, index, null);
     }
 

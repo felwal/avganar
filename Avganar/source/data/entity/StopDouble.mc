@@ -24,22 +24,22 @@ class StopDouble {
 
     var name as String;
 
-    hidden var _stop as StopType;
+    hidden var _stop as Stop;
 
     // init
 
     function initialize(stop as StopType, name as String) {
-        _stop = stop instanceof Stop ? stop : stop.getRootStop();
+        _stop = stop instanceof StopDouble ? (stop as StopDouble).getRootStop() : stop;
         me.name = name;
     }
 
     function equals(other) as Boolean {
-        return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
+        return (other instanceof Stop || other instanceof StopDouble)
             && other.getId() == getId() && other.name.equals(name);
     }
 
     function getRootStop() as Stop {
-        return _stop instanceof Stop ? _stop : _stop.getRootStop();
+        return _stop;
     }
 
     // set

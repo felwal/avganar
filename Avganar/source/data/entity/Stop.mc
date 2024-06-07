@@ -39,8 +39,13 @@ class Stop {
         _setModesKeys();
     }
 
+    //! Only use this for quick comparison
+    static function dummy(id as Number, name as String) as Stop {
+        return new Stop(id, name, null);
+    }
+
     function equals(other) as Boolean {
-        return (other instanceof Stop || other instanceof StopDouble || other instanceof StopDummy)
+        return (other instanceof Stop || other instanceof StopDouble)
             && other.getId() == _id && other.name.equals(name);
     }
 
