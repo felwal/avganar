@@ -55,11 +55,7 @@ class Stop {
         _products = products;
     }
 
-    function setDeparturesResponse(mode as String?, response as DeparturesResponse) as Void {
-        if (mode == null) {
-            return;
-        }
-
+    function setDeparturesResponse(mode as String, response as DeparturesResponse) as Void {
         // NOTE: migration to 1.8.0
         // if we got a successful response, remove the ALL mode
         if (!mode.equals(Departure.MODE_ALL) && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
@@ -133,27 +129,27 @@ class Stop {
         return _products;
     }
 
-    function hasModeResponse(mode as String?) as Boolean {
-        return mode != null && _modesResponses.hasKey(mode);
+    function hasModeResponse(mode as String) as Boolean {
+        return _modesResponses.hasKey(mode);
     }
 
     function getModeResponse(mode as String) as ModeResponse {
         return _modesResponses[mode];
     }
 
-    function getDeparturesResponse(mode as String?) as DeparturesResponse? {
+    function getDeparturesResponse(mode as String) as DeparturesResponse? {
         return hasModeResponse(mode)
             ? _modesResponses[mode].getResponse()
             : null;
     }
 
-    function getFailedRequestCount(mode as String?) as Number {
+    function getFailedRequestCount(mode as String) as Number {
         return hasModeResponse(mode)
             ? _modesResponses[mode].getFailedRequestCount()
             : 0;
     }
 
-    function getTimeWindow(mode as String?) as Number {
+    function getTimeWindow(mode as String) as Number {
         return hasModeResponse(mode)
             ? _modesResponses[mode].getTimeWindow()
             : SettingsStorage.getDefaultTimeWindow();
@@ -163,11 +159,11 @@ class Stop {
         return _deviationMessages;
     }
 
-    function shouldAutoRefresh(mode as String?) as Boolean {
+    function shouldAutoRefresh(mode as String) as Boolean {
         return hasModeResponse(mode) && _modesResponses[mode].shouldAutoRefresh();
     }
 
-    function getDataAgeMillis(mode as String?) as Number? {
+    function getDataAgeMillis(mode as String) as Number? {
         return hasModeResponse(mode)
             ? _modesResponses[mode].getDataAgeMillis()
             : null;

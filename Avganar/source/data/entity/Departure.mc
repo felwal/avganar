@@ -193,8 +193,8 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
-    static function getModeLetter(mode as String?) as String {
-        if (mode == null || mode.equals(MODE_ALL)) {
+    static function getModeLetter(mode as String) as String {
+        if (mode.equals(MODE_ALL)) {
             return "";
         }
 

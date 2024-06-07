@@ -23,7 +23,7 @@ class DeparturesService {
     // no key, no limit
 
     hidden var _stop as StopType;
-    hidden var _mode as String?;
+    hidden var _mode as String = Departure.MODE_ALL;
 
     static var isRequesting = false;
 
@@ -35,12 +35,12 @@ class DeparturesService {
 
     // request
 
-    function requestDepartures(mode as String?) as Void {
+    function requestDepartures(mode as String) as Void {
         _mode = mode;
         _requestDepartures(mode);
     }
 
-    hidden function _requestDepartures(mode as String?) as Void {
+    hidden function _requestDepartures(mode as String) as Void {
         DeparturesService.isRequesting = true;
         WatchUi.requestUpdate();
 
@@ -54,7 +54,7 @@ class DeparturesService {
         // NOTE: migration to 1.8.0
         // no products saved => ´mode´ = null => request all modes
         // (same behaviour as before)
-        if (mode != null && !mode.equals(Departure.MODE_ALL)) {
+        if (!mode.equals(Departure.MODE_ALL)) {
             params["transport"] = mode;
         }
 

@@ -32,7 +32,7 @@ class StopDetailViewModel {
     var isModePaneState = false;
     var isInitialRequest = true; // TODO: replace with check against _currentMode?
 
-    hidden var _currentMode as String? = Departure.MODE_ALL;
+    hidden var _currentMode as String;
     hidden var _lastPageDepartureCount = 0;
     hidden var _delayTimer = new Timer.Timer();
     hidden var _repeatTimer = new TimerWrapper();
@@ -117,7 +117,7 @@ class StopDetailViewModel {
 
     function getCurrentMode() as String {
         // NOTE: API limitation
-        return _currentMode != null && !_currentMode.equals(Departure.MODE_ALL)
+        return !_currentMode.equals(Departure.MODE_ALL)
             ? _currentMode
             : stop.getModeKey(0);
     }

@@ -48,7 +48,7 @@ class StopDouble {
         _stop.setProducts(products);
     }
 
-    function setDeparturesResponse(mode as String?, response as DeparturesResponse) as Void {
+    function setDeparturesResponse(mode as String, response as DeparturesResponse) as Void {
         _stop.setDeparturesResponse(mode, response);
     }
 
@@ -78,7 +78,7 @@ class StopDouble {
         return _stop.getProducts();
     }
 
-    function hasModeResponse(mode as String?) as Boolean {
+    function hasModeResponse(mode as String) as Boolean {
         return _stop.hasModeResponse(mode);
     }
 
@@ -86,11 +86,11 @@ class StopDouble {
         return _stop.getModeResponse(mode);
     }
 
-    function getFailedRequestCount(mode as String?) as Number {
+    function getFailedRequestCount(mode as String) as Number {
         return _stop.getFailedRequestCount(mode);
     }
 
-    function getTimeWindow(mode as String?) as Number {
+    function getTimeWindow(mode as String) as Number {
         return _stop.getTimeWindow(mode);
     }
 
@@ -98,11 +98,11 @@ class StopDouble {
         return _stop.getDeviationMessages();
     }
 
-    function shouldAutoRefresh(mode as String?) as Boolean {
+    function shouldAutoRefresh(mode as String) as Boolean {
         return _stop.shouldAutoRefresh(mode);
     }
 
-    function getDataAgeMillis(mode as String?) as Number? {
+    function getDataAgeMillis(mode as String) as Number? {
         return _stop.getDataAgeMillis(mode);
     }
 
@@ -126,7 +126,7 @@ class StopDouble {
         return _stop.getAddedModesCount();
     }
 
-    function getDeparturesResponse(mode as String?) as DeparturesResponse {
+    function getDeparturesResponse(mode as String) as DeparturesResponse {
         return _stop.getDeparturesResponse(mode);
     }
 
