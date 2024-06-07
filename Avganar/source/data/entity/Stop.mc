@@ -26,7 +26,7 @@ class Stop {
     hidden var _id as Number;
     hidden var _products as Number? = null;
     hidden var _modes as Array<String> = [];
-    hidden var _responses as Dictionary<String, DeparturesResponse or Null> = {};
+    hidden var _responses as Dictionary<String, DeparturesResponse> = {};
     hidden var _deviationMessages as Array<String> = [];
 
     // init
@@ -83,7 +83,7 @@ class Stop {
     }
 
     function resetResponse(mode as String) as Void {
-        _responses[mode] = null; // TODO: remove key instead?
+        _responses.remove(mode);
     }
 
     function resetResponses() as Void {
@@ -96,7 +96,7 @@ class Stop {
         for (var i = 0; i < keys.size(); i++) {
             var key = keys[i];
 
-            if (_responses[key] instanceof ResponseError) {
+            if (_responses[key].hasResponseError()) {
                 _responses.remove(key);
             }
         }

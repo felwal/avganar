@@ -80,7 +80,7 @@ class DeparturesService {
             }
         }
         else if (!DictUtil.hasValue(data, "departures")) {
-            var errorMsg = DictUtil.get(data, "message", "no error msg");
+            var errorMsg = DictUtil.get(data, "message", "No error msg");
             _stop.setResponse(_mode, new ResponseError(errorMsg));
 
             // auto-refresh if server error
@@ -136,11 +136,12 @@ class DeparturesService {
             var group = DictUtil.get(lineData, "group_of_lines", "");
             var line = lineData["designation"]; // TODO: or "id"?
             var destination = departureData["destination"];
-            var plannedDateTime = departureData["scheduled"];
-            var expectedDateTime = departureData["expected"];
+            var plannedDateTime = DictUtil.get(departureData, "scheduled", null);
+            var expectedDateTime = DictUtil.get(departureData, "expected", null);
             var deviations = DictUtil.get(departureData, "deviations", []);
 
-            var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
+            var isRealTime = expectedDateTime != null
+                && (plannedDateTime == null || !expectedDateTime.equals(plannedDateTime));
             var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
             var deviationLevel = 0;
             var deviationMessages = [];
@@ -184,22 +185,32 @@ class DeparturesService {
             modeDepartures[mode].add(departure);
         }
 
-        for (var m = 0; m < modes.size(); m++) {
-            var mode = modes[m];
+        // set stop response
+        if (modeDepartures.size() == 0) {
+            _stop.setResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
+        }
+        else {
+            for (var m = 0; m < modes.size(); m++) {
+                var mode = modes[m];
 
-            if (!modeDepartures.hasKey(mode)) {
-                continue;
-            }
+                if (!modeDepartures.hasKey(mode)) {
+                    continue;
+                }
 
-            if (modeDepartures[mode].size() != 0) {
-                _stop.setResponse(mode, modeDepartures[modes[m]]);
-            }
-            else {
-                _stop.setResponse(mode, rez(Rez.Strings.msg_i_departures_none));
+                if (modeDepartures[mode].size() != 0) {
+                    _stop.setResponse(mode, modeDepartures[mode]);
+                }
+                else {
+                    _stop.setResponse(mode, rez(Rez.Strings.msg_i_departures_none));
+                }
             }
         }
 
         // stop point deviations
+
+        if (!data.hasKey("stop_deviations")) {
+            return;
+        }
 
         var stopDeviations = data["stop_deviations"] as JsonArray;
         var stopDeviationMessages = [];

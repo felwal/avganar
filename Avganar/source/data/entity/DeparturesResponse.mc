@@ -63,6 +63,10 @@ class DeparturesResponse {
         return _response.isAutoRefreshable();
     }
 
+    function hasResponseError() as Boolean {
+        return _response instanceof ResponseError;
+    }
+
     function handlePotentialErrors() as Void {
         // for each too large response, halve the time window
         if (_response instanceof ResponseError && _response.isTooLarge()) {
