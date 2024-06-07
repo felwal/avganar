@@ -86,24 +86,8 @@ class StopDouble {
         return _stop.getModeResponse(mode);
     }
 
-    function getFailedRequestCount(mode as String) as Number {
-        return _stop.getFailedRequestCount(mode);
-    }
-
-    function getTimeWindow(mode as String) as Number {
-        return _stop.getTimeWindow(mode);
-    }
-
     function getDeviationMessages() as Array<String> {
         return _stop.getDeviationMessages();
-    }
-
-    function shouldAutoRefresh(mode as String) as Boolean {
-        return _stop.shouldAutoRefresh(mode);
-    }
-
-    function getDataAgeMillis(mode as String) as Number? {
-        return _stop.getDataAgeMillis(mode);
     }
 
     function getModeKey(index as Number) as String {
@@ -124,10 +108,6 @@ class StopDouble {
 
     function getAddedModesCount() as Number {
         return _stop.getAddedModesCount();
-    }
-
-    function getDeparturesResponse(mode as String) as DeparturesResponse {
-        return _stop.getDeparturesResponse(mode);
     }
 
 }

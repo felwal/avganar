@@ -68,7 +68,7 @@ class StopDetailViewModel {
     }
 
     hidden function _requestDeparturesDelayed() as Void {
-        var age = stop.getDataAgeMillis(_currentMode);
+        var age = stop.getModeResponse(_currentMode).getDataAgeMillis();
         // never request more frequently than _REQUEST_TIME_INTERVAL.
         var delay = age == null ? 0 : _REQUEST_TIME_INTERVAL - age;
 
@@ -100,9 +100,9 @@ class StopDetailViewModel {
     }
 
     function onTimer() as Void {
-        if (stop.getDeparturesResponse(_currentMode) instanceof ResponseError
-            && !stop.getDeparturesResponse(_currentMode).isTimerRefreshable()) {
+        var depsResp = stop.getModeResponse(_currentMode).getResponse();
 
+        if (depsResp instanceof ResponseError && !depsResp.isTimerRefreshable()) {
             return;
         }
 
@@ -132,19 +132,19 @@ class StopDetailViewModel {
 
         _currentMode = getCurrentMode();
 
-        var modeResponse = stop.getDeparturesResponse(_currentMode);
+        var depsResponse = stop.getModeResponse(_currentMode).getResponse();
 
-        if (!(modeResponse instanceof Lang.Array)) {
+        if (!(depsResponse instanceof Lang.Array)) {
             pageCount = 1;
             isDepartureState = false;
-            return modeResponse;
+            return depsResponse;
         }
 
-        _lastPageDepartureCount = modeResponse.size() % DEPARTURES_PER_PAGE;
+        _lastPageDepartureCount = depsResponse.size() % DEPARTURES_PER_PAGE;
         if (_lastPageDepartureCount == 0) {
             _lastPageDepartureCount = DEPARTURES_PER_PAGE;
         }
-        pageCount = Math.ceil(modeResponse.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
+        pageCount = Math.ceil(depsResponse.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
 
         // coerce cursor
         pageCursor = MathUtil.min(pageCursor, pageCount - 1);
@@ -154,7 +154,7 @@ class StopDetailViewModel {
         var endIndex = startIndex + DEPARTURES_PER_PAGE;
 
         // slice to page range
-        return modeResponse.slice(startIndex, endIndex);
+        return depsResponse.slice(startIndex, endIndex);
     }
 
     function canNavigateToDeviation() as Boolean {
@@ -174,9 +174,10 @@ class StopDetailViewModel {
     }
 
     function onScrollDown() as Void {
+        var depsResp = stop.getModeResponse(_currentMode).getResponse();
+
         if (!isModePaneState
-            && stop.getDeparturesResponse(_currentMode) instanceof ResponseError
-            && stop.getDeparturesResponse(_currentMode).isUserRefreshable()) {
+            && depsResp instanceof ResponseError && depsResp.isUserRefreshable()) {
 
             // refresh
             stop.resetModeResponse(_currentMode);
@@ -258,8 +259,8 @@ class StopDetailViewModel {
     function onSelect() as Void {
         // select departure
         if (isDepartureState) {
-            var modeResponse = stop.getDeparturesResponse(_currentMode);
-            var selectedDeparture = modeResponse[pageCursor * 4 + departureCursor];
+            var depsResponse = stop.getModeResponse(_currentMode).getResponse();
+            var selectedDeparture = depsResponse[pageCursor * 4 + departureCursor];
             var messages = selectedDeparture.getDeviationMessages();
 
             if (messages.size() == 0) {

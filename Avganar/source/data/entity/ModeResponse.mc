@@ -30,9 +30,11 @@ class ModeResponse {
 
     function setResponse(response as DeparturesResponse) as Void {
         _response = response;
-        _timeStamp = TimeUtil.now();
 
-        handlePotentialErrors();
+        if (response != null) {
+            _timeStamp = TimeUtil.now();
+            handlePotentialErrors();
+        }
     }
 
     function reset() as Void {
@@ -41,7 +43,7 @@ class ModeResponse {
     }
 
     function getDataAgeMillis() as Number? {
-        return _response instanceof Lang.Array || _response instanceof Lang.String
+        return (_response instanceof Lang.Array || _response instanceof Lang.String) && _timeStamp != null
             ? TimeUtil.now().subtract(_timeStamp).value() * 1000
             : null;
     }
@@ -110,7 +112,7 @@ class ModeResponse {
     }
 
     function getResponse() as DeparturesResponse {
-        _removeDepartedDepartures();
+        _removeDepartedDepartures(); // TODO: probably dont want to call this all the time
         return _response;
     }
 

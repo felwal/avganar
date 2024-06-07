@@ -48,7 +48,7 @@ class DeparturesService {
 
         var params = {
             // NOTE: the API seems to ignore this whenever it feels like it
-            "forecast" => _stop.getTimeWindow(mode)
+            "forecast" => _stop.getModeResponse(mode).getTimeWindow()
         };
 
         // NOTE: migration to 1.8.0
@@ -75,7 +75,7 @@ class DeparturesService {
             _stop.setDeparturesResponse(_mode, new ResponseError(responseCode));
 
             // auto-refresh if too large
-            if (_stop.shouldAutoRefresh(_mode)) {
+            if (_stop.getModeResponse(_mode).shouldAutoRefresh()) {
                 requestDepartures(_mode);
             }
         }
@@ -87,7 +87,7 @@ class DeparturesService {
             // TODO: probably can't happen with new API
             // – but look for messages which might correspond
             // with the previous server errors
-            /*if (_stop.shouldAutoRefresh(_mode)) {
+            /*if (_stop.getModeResponse(_mode).shouldAutoRefresh()) {
                 requestDepartures(_mode);
             }*/
         }

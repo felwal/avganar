@@ -134,39 +134,13 @@ class Stop {
     }
 
     function getModeResponse(mode as String) as ModeResponse {
-        return _modesResponses[mode];
-    }
-
-    function getDeparturesResponse(mode as String) as DeparturesResponse? {
-        return hasModeResponse(mode)
-            ? _modesResponses[mode].getResponse()
-            : null;
-    }
-
-    function getFailedRequestCount(mode as String) as Number {
-        return hasModeResponse(mode)
-            ? _modesResponses[mode].getFailedRequestCount()
-            : 0;
-    }
-
-    function getTimeWindow(mode as String) as Number {
-        return hasModeResponse(mode)
-            ? _modesResponses[mode].getTimeWindow()
-            : SettingsStorage.getDefaultTimeWindow();
+        return _modesResponses.hasKey(mode)
+            ? _modesResponses[mode]
+            : new ModeResponse(null); // to avoid having to null-check all the time
     }
 
     function getDeviationMessages() as Array<String> {
         return _deviationMessages;
-    }
-
-    function shouldAutoRefresh(mode as String) as Boolean {
-        return hasModeResponse(mode) && _modesResponses[mode].shouldAutoRefresh();
-    }
-
-    function getDataAgeMillis(mode as String) as Number? {
-        return hasModeResponse(mode)
-            ? _modesResponses[mode].getDataAgeMillis()
-            : null;
     }
 
     function getModeKey(index as Number) as String {
