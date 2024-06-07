@@ -53,28 +53,24 @@ class StopDetailView extends WatchUi.View {
     hidden function _draw(dc as Dc) as Void {
         var stop = _viewModel.stop;
 
-        // text
-        _drawHeader(dc, stop);
-        _drawFooter(dc, stop, _viewModel.isInitialRequest || _viewModel.isModePaneState);
+        var response = _viewModel.getPageResponse();
+        var showActionFooter = response instanceof ResponseError && response.isUserRefreshable();
 
-        if (_viewModel.isInitialRequest) {
-            _drawInitialModeList(dc, stop);
-            return;
+        _drawHeader(dc, stop);
+
+        if (showActionFooter) {
+            WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
+        }
+        else {
+            _drawFooter(dc, stop, _viewModel.isInitialRequest || _viewModel.isModePaneState);
         }
 
-        if (_viewModel.isModePaneState) {
+        if (_viewModel.isInitialRequest || _viewModel.isModePaneState) {
             _drawModeList(dc, stop);
-
-            if (_viewModel.pageCursor == 0) {
-                _drawModeIndicator(dc);
-            }
-            // TODO: else another icon, such as a +?
-
             return;
         }
 
         // departures
-        var response = _viewModel.getPageResponse();
         if (response instanceof Lang.Array) {
             _drawDepartures(dc, response);
 
@@ -99,20 +95,11 @@ class StopDetailView extends WatchUi.View {
                 ? rez(Rez.Strings.msg_i_departures_requesting)
                 : (response instanceof ResponseError ? response.getTitle() : response));
 
-            if (response instanceof ResponseError) {
-                // banner
-                if (!response.hasConnection()) {
-                    WidgetUtil.drawExclamationBanner(dc);
-                }
-
-                // retry
-                if (response.isUserRefreshable()) {
-                    WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
-                }
+            if (response instanceof ResponseError && !response.hasConnection()) {
+                WidgetUtil.drawExclamationBanner(dc);
             }
         }
 
-        // indicator: mode
         _drawModeIndicator(dc);
     }
 
@@ -122,11 +109,6 @@ class StopDetailView extends WatchUi.View {
 
             WidgetUtil.drawStartIndicator(dc);
         }
-    }
-
-    hidden function _drawInitialModeList(dc as Dc, stop as StopType) as Void {
-        var items = stop.getModesStrings();
-        WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
     }
 
     hidden function _drawModeList(dc as Dc, stop as StopType) as Void {
