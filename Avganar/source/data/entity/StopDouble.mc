@@ -48,20 +48,20 @@ class StopDouble {
         _stop.setProducts(products);
     }
 
-    function setDeparturesResponse(mode as String, response as DeparturesResponse) as Void {
-        _stop.setDeparturesResponse(mode, response);
+    function setDeparturesResponse(modeKey as String, response as DeparturesResponse) as Void {
+        _stop.setDeparturesResponse(modeKey, response);
     }
 
-    function resetModeResponse(mode as String) as Void {
-        _stop.resetModeResponse(mode);
+    function resetMode(modeKey as String) as Void {
+        _stop.resetMode(modeKey);
     }
 
-    function resetModeResponses() as Void {
-        _stop.resetModeResponses();
+    function resetModes() as Void {
+        _stop.resetModes();
     }
 
-    function resetModeResponseErrors() as Void {
-        _stop.resetModeResponseErrors();
+    function resetModesWithResponseErrors() as Void {
+        _stop.resetModesWithResponseErrors();
     }
 
     function setDeviation(message as Array<String>) as Void {
@@ -78,12 +78,12 @@ class StopDouble {
         return _stop.getProducts();
     }
 
-    function hasModeResponse(mode as String) as Boolean {
-        return _stop.hasModeResponse(mode);
+    function hasMode(modeKey as String) as Boolean {
+        return _stop.hasMode(modeKey);
     }
 
-    function getModeResponse(mode as String) as ModeResponse {
-        return _stop.getModeResponse(mode);
+    function getMode(modeKey as String) as Mode {
+        return _stop.getMode(modeKey);
     }
 
     function getDeviationMessages() as Array<String> {

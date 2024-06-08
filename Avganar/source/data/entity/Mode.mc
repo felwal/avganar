@@ -14,7 +14,7 @@
 import Toybox.Lang;
 import Toybox.Time;
 
-class ModeResponse {
+class Mode {
 
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
     hidden static var _MEMORY_MIN_TIME_WINDOW = 5;

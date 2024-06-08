@@ -25,27 +25,27 @@ class Departure {
     static const BIT_TRAM = 4;
     static const BIT_SHIP = 64;
 
-    static const MODE_BUS = "BUS";
-    static const MODE_METRO = "METRO";
-    static const MODE_TRAIN = "TRAIN";
-    static const MODE_TRAM = "TRAM";
-    static const MODE_SHIP = "SHIP";
-    static const MODE_NONE = "NONE";
-    static const MODE_ALL = "ALL";
+    static const KEY_BUS = "BUS";
+    static const KEY_METRO = "METRO";
+    static const KEY_TRAIN = "TRAIN";
+    static const KEY_TRAM = "TRAM";
+    static const KEY_SHIP = "SHIP";
+    static const KEY_NONE = "NONE";
+    static const KEY_ALL = "ALL";
 
-    static const MODE_TO_BIT = {
-        MODE_BUS => BIT_BUS,
-        MODE_METRO => BIT_METRO,
-        MODE_TRAIN => BIT_TRAIN,
-        MODE_TRAM => BIT_TRAM,
-        MODE_SHIP => BIT_SHIP,
+    static const MODE_KEY_TO_BIT = {
+        KEY_BUS => BIT_BUS,
+        KEY_METRO => BIT_METRO,
+        KEY_TRAIN => BIT_TRAIN,
+        KEY_TRAM => BIT_TRAM,
+        KEY_SHIP => BIT_SHIP,
     };
-    static const MODE_TO_STRING = {
-        MODE_BUS => rez(Rez.Strings.itm_modes_bus),
-        MODE_METRO => rez(Rez.Strings.itm_modes_metro),
-        MODE_TRAIN => rez(Rez.Strings.itm_modes_train),
-        MODE_TRAM => rez(Rez.Strings.itm_modes_tram),
-        MODE_SHIP => rez(Rez.Strings.itm_modes_ship),
+    static const MODE_KEY_TO_STRING = {
+        KEY_BUS => rez(Rez.Strings.itm_modes_bus),
+        KEY_METRO => rez(Rez.Strings.itm_modes_metro),
+        KEY_TRAIN => rez(Rez.Strings.itm_modes_train),
+        KEY_TRAM => rez(Rez.Strings.itm_modes_tram),
+        KEY_SHIP => rez(Rez.Strings.itm_modes_ship),
     };
 
     static hidden const _GROUP_BUS_RED = "";
@@ -63,10 +63,10 @@ class Departure {
     static hidden const _GROUP_TRAM_SALTSJOBANAN = "Saltsjöbanan";
     static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
-    var mode as String;
     var cancelled as Boolean;
     var isRealTime as Boolean;
 
+    hidden var _modeKey as String;
     hidden var _group as String;
     hidden var _line as String;
     hidden var _destination as String;
@@ -76,14 +76,14 @@ class Departure {
 
     // init
 
-    function initialize(mode as String, group as String, line as String, destination as String,
+    function initialize(modeKey as String, group as String, line as String, destination as String,
         moment as Moment?, deviationLevel as Number, deviationMessages as Array<String>,
         cancelled as Boolean, isRealTime as Boolean) {
 
-        me.mode = mode;
         me.cancelled = cancelled;
         me.isRealTime = isRealTime;
 
+        _modeKey = modeKey;
         _group = group;
         _line = line;
         _destination = destination;
@@ -96,19 +96,19 @@ class Departure {
         var modes = [];
 
         if (bits&BIT_BUS != 0) {
-            modes.add(MODE_BUS);
+            modes.add(KEY_BUS);
         }
         if (bits&BIT_METRO != 0) {
-            modes.add(MODE_METRO);
+            modes.add(KEY_METRO);
         }
         if (bits&BIT_TRAIN != 0) {
-            modes.add(MODE_TRAIN);
+            modes.add(KEY_TRAIN);
         }
         if (bits&BIT_TRAM != 0) {
-            modes.add(MODE_TRAM);
+            modes.add(KEY_TRAM);
         }
         if (bits&BIT_SHIP != 0) {
-            modes.add(MODE_SHIP);
+            modes.add(KEY_SHIP);
         }
 
         return modes;
@@ -193,24 +193,24 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
-    static function getModeLetter(mode as String) as String {
-        if (mode.equals(MODE_ALL)) {
+    static function getModeLetter(modeKey as String) as String {
+        if (modeKey.equals(KEY_ALL)) {
             return "";
         }
 
-        else if (mode.equals(MODE_BUS)) {
+        else if (modeKey.equals(KEY_BUS)) {
             return rez(Rez.Strings.lbl_detail_mode_letter_bus);
         }
-        else if (mode.equals(MODE_METRO)) {
+        else if (modeKey.equals(KEY_METRO)) {
             return rez(Rez.Strings.lbl_detail_mode_letter_metro);
         }
-        else if (mode.equals(MODE_TRAIN)) {
+        else if (modeKey.equals(KEY_TRAIN)) {
             return rez(Rez.Strings.lbl_detail_mode_letter_train);
         }
-        else if (mode.equals(MODE_TRAM)) {
+        else if (modeKey.equals(KEY_TRAM)) {
             return rez(Rez.Strings.lbl_detail_mode_letter_tram);
         }
-        else if (mode.equals(MODE_SHIP)) {
+        else if (modeKey.equals(KEY_SHIP)) {
             return rez(Rez.Strings.lbl_detail_mode_letter_ship);
         }
         else {
@@ -219,7 +219,7 @@ class Departure {
     }
 
     function getModeColor() as ColorType {
-        if (mode.equals(MODE_BUS)) {
+        if (_modeKey.equals(KEY_BUS)) {
             if (_group.equals(_GROUP_BUS_RED)) {
                 return AppColors.DEPARTURE_BUS_RED;
             }
@@ -233,7 +233,7 @@ class Departure {
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (mode.equals(MODE_METRO)) {
+        else if (_modeKey.equals(KEY_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {
                 return AppColors.DEPARTURE_METRO_RED;
             }
@@ -247,10 +247,10 @@ class Departure {
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (mode.equals(MODE_TRAIN)) {
+        else if (_modeKey.equals(KEY_TRAIN)) {
             return AppColors.DEPARTURE_TRAIN;
         }
-        else if (mode.equals(MODE_TRAM)) {
+        else if (_modeKey.equals(KEY_TRAM)) {
             if (_group.equals(_GROUP_TRAM_SPARVAGCITY)) {
                 return AppColors.DEPARTURE_TRAM_SPARVAGCITY;
             }
@@ -273,10 +273,10 @@ class Departure {
                 return AppColors.DEPARTURE_UNKNOWN;
             }
         }
-        else if (mode.equals(MODE_SHIP)) {
+        else if (_modeKey.equals(KEY_SHIP)) {
             return AppColors.DEPARTURE_SHIP;
         }
-        else if (mode.equals(MODE_NONE)) {
+        else if (_modeKey.equals(KEY_NONE)) {
             return AppColors.DEPARTURE_NONE;
         }
         else {

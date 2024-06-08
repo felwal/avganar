@@ -25,8 +25,8 @@ class Stop {
 
     hidden var _id as Number;
     hidden var _products as Number? = null;
-    hidden var _modes as Array<String> = [];
-    hidden var _modesResponses as Dictionary<String, ModeResponse> = {};
+    hidden var _modesKeys as Array<String> = [];
+    hidden var _modes as Dictionary<String, Mode> = {};
     hidden var _deviationMessages as Array<String> = [];
 
     // init
@@ -55,50 +55,50 @@ class Stop {
         _products = products;
     }
 
-    function setDeparturesResponse(mode as String, response as DeparturesResponse) as Void {
+    function setDeparturesResponse(modeKey as String, response as DeparturesResponse) as Void {
         // NOTE: migration to 1.8.0
         // if we got a successful response, remove the ALL mode
-        if (!mode.equals(Departure.MODE_ALL) && ArrUtil.contains(_modes, Departure.MODE_ALL)) {
-            _modes.remove(Departure.MODE_ALL);
-            _modesResponses.remove(Departure.MODE_ALL);
+        if (!modeKey.equals(Departure.KEY_ALL) && ArrUtil.contains(_modesKeys, Departure.KEY_ALL)) {
+            _modesKeys.remove(Departure.KEY_ALL);
+            _modes.remove(Departure.KEY_ALL);
         }
 
         // NOTE: migration to 1.8.0
         // if we got an error for ALL, reset all modes
-        else if (mode.equals(Departure.MODE_ALL) && response instanceof ResponseError) {
-            resetModeResponses();
+        else if (modeKey.equals(Departure.KEY_ALL) && response instanceof ResponseError) {
+            resetModes();
         }
 
         // NOTE: migration to 1.8.0
         // if the mode wasn't added via products, add it now
-        if (!ArrUtil.contains(_modes, mode)) {
-            _modes.add(mode);
+        if (!ArrUtil.contains(_modesKeys, modeKey)) {
+            _modesKeys.add(modeKey);
         }
 
-        if (_modesResponses.hasKey(mode)) {
-            _modesResponses[mode].setResponse(response);
+        if (_modes.hasKey(modeKey)) {
+            _modes[modeKey].setResponse(response);
         }
         else {
-            _modesResponses[mode] = new ModeResponse(response);
+            _modes[modeKey] = new Mode(response);
         }
     }
 
-    function resetModeResponse(mode as String) as Void {
-        _modesResponses.remove(mode);
+    function resetMode(modeKey as String) as Void {
+        _modes.remove(modeKey);
     }
 
-    function resetModeResponses() as Void {
-        _modesResponses = {};
+    function resetModes() as Void {
+        _modes = {};
     }
 
-    function resetModeResponseErrors() as Void {
-        var keys = _modesResponses.keys();
+    function resetModesWithResponseErrors() as Void {
+        var keys = _modes.keys();
 
         for (var i = 0; i < keys.size(); i++) {
             var key = keys[i];
 
-            if (_modesResponses[key].hasResponseError()) {
-                _modesResponses.remove(key);
+            if (_modes[key].hasResponseError()) {
+                _modes.remove(key);
             }
         }
     }
@@ -111,10 +111,10 @@ class Stop {
         if (_products == null) {
             // NOTE: migration to 1.8.0
             // if products are unknown, skip the mode menu entirely
-            _modes = [];
+            _modesKeys = [];
         }
         else {
-            _modes = Departure.getModesKeysByBits(_products);
+            _modesKeys = Departure.getModesKeysByBits(_products);
         }
     }
 
@@ -129,14 +129,14 @@ class Stop {
         return _products;
     }
 
-    function hasModeResponse(mode as String) as Boolean {
-        return _modesResponses.hasKey(mode);
+    function hasMode(modeKey as String) as Boolean {
+        return _modes.hasKey(modeKey);
     }
 
-    function getModeResponse(mode as String) as ModeResponse {
-        return _modesResponses.hasKey(mode)
-            ? _modesResponses[mode]
-            : new ModeResponse(null); // to avoid having to null-check all the time
+    function getMode(modeKey as String) as Mode {
+        return _modes.hasKey(modeKey)
+            ? _modes[modeKey]
+            : new Mode(null); // to avoid having to null-check all the time
     }
 
     function getDeviationMessages() as Array<String> {
@@ -144,30 +144,30 @@ class Stop {
     }
 
     function getModeKey(index as Number) as String {
-        return index < _modes.size() ? _modes[index] : Departure.MODE_ALL;
+        return index < _modesKeys.size() ? _modesKeys[index] : Departure.KEY_ALL;
     }
 
     function getModesKeys() as Array<String> {
-        return _modes;
+        return _modesKeys;
     }
 
     function getModesStrings() as Array<String> {
         var strings = [];
 
-        for (var i = 0; i < _modes.size(); i++) {
-            var key = _modes[i];
-            strings.add(Departure.MODE_TO_STRING[key]);
+        for (var i = 0; i < _modesKeys.size(); i++) {
+            var key = _modesKeys[i];
+            strings.add(Departure.MODE_KEY_TO_STRING[key]);
         }
 
         return strings;
     }
 
     function getModesCount() as Number {
-        return _modes.size();
+        return _modesKeys.size();
     }
 
     function getAddedModesCount() as Number {
-        return _modesResponses.size();
+        return _modes.size();
     }
 
 }

@@ -30,9 +30,9 @@ class StopDetailViewModel {
     var departureCursor = 0;
     var isDepartureState = false;
     var isModePaneState = false;
-    var isInitialRequest = true; // TODO: replace with check against _currentMode?
+    var isInitialRequest = true; // TODO: replace with check against _currentModeKey?
 
-    hidden var _currentMode as String;
+    hidden var _currentModeKey as String;
     hidden var _lastPageDepartureCount = 0;
     hidden var _delayTimer = new Timer.Timer();
     hidden var _repeatTimer = new TimerWrapper();
@@ -46,7 +46,7 @@ class StopDetailViewModel {
         // (ie dont request automatically; wait for user input),
         // or we are waiting for that first response
         isInitialRequest = stop.getAddedModesCount() == 0 && stop.getModesKeys().size() > 1;
-        _currentMode = stop.getModeKey(0);
+        _currentModeKey = stop.getModeKey(0);
     }
 
     // request
@@ -68,7 +68,7 @@ class StopDetailViewModel {
     }
 
     hidden function _requestDeparturesDelayed() as Void {
-        var age = stop.getModeResponse(_currentMode).getDataAgeMillis();
+        var age = stop.getMode(_currentModeKey).getDataAgeMillis();
         // never request more frequently than _REQUEST_TIME_INTERVAL.
         var delay = age == null ? 0 : _REQUEST_TIME_INTERVAL - age;
 
@@ -100,9 +100,9 @@ class StopDetailViewModel {
     }
 
     function onTimer() as Void {
-        var depsResp = stop.getModeResponse(_currentMode).getResponse();
+        var response = stop.getMode(_currentModeKey).getResponse();
 
-        if (depsResp instanceof ResponseError && !depsResp.isTimerRefreshable()) {
+        if (response instanceof ResponseError && !response.isTimerRefreshable()) {
             return;
         }
 
@@ -110,15 +110,15 @@ class StopDetailViewModel {
     }
 
     hidden function _requestDepartures() as Void {
-        new DeparturesService(stop).requestDepartures(_currentMode);
+        new DeparturesService(stop).requestDepartures(_currentModeKey);
     }
 
     // read
 
-    function getCurrentMode() as String {
+    function getCurrentModeKey() as String {
         // NOTE: API limitation
-        return !_currentMode.equals(Departure.MODE_ALL)
-            ? _currentMode
+        return !_currentModeKey.equals(Departure.KEY_ALL)
+            ? _currentModeKey
             : stop.getModeKey(0);
     }
 
@@ -130,31 +130,30 @@ class StopDetailViewModel {
             return null;
         }
 
-        _currentMode = getCurrentMode();
+        _currentModeKey = getCurrentModeKey();
+        var response = stop.getMode(_currentModeKey).getResponse();
 
-        var depsResponse = stop.getModeResponse(_currentMode).getResponse();
-
-        if (!(depsResponse instanceof Lang.Array)) {
+        if (!(response instanceof Lang.Array)) {
             pageCount = 1;
             isDepartureState = false;
-            return depsResponse;
+            return response;
         }
 
-        _lastPageDepartureCount = depsResponse.size() % DEPARTURES_PER_PAGE;
+        _lastPageDepartureCount = response.size() % DEPARTURES_PER_PAGE;
+
         if (_lastPageDepartureCount == 0) {
             _lastPageDepartureCount = DEPARTURES_PER_PAGE;
         }
-        pageCount = Math.ceil(depsResponse.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
 
-        // coerce cursor
-        pageCursor = MathUtil.min(pageCursor, pageCount - 1);
+        pageCount = Math.ceil(response.size().toFloat() / DEPARTURES_PER_PAGE).toNumber();
+        pageCursor = MathUtil.min(pageCursor, pageCount - 1); // coerce cursor
 
         // get page range
         var startIndex = pageCursor * DEPARTURES_PER_PAGE;
         var endIndex = startIndex + DEPARTURES_PER_PAGE;
 
         // slice to page range
-        return depsResponse.slice(startIndex, endIndex);
+        return response.slice(startIndex, endIndex);
     }
 
     function canNavigateToDeviation() as Boolean {
@@ -174,13 +173,13 @@ class StopDetailViewModel {
     }
 
     function onScrollDown() as Void {
-        var depsResp = stop.getModeResponse(_currentMode).getResponse();
+        var response = stop.getMode(_currentModeKey).getResponse();
 
         if (!isModePaneState
-            && depsResp instanceof ResponseError && depsResp.isUserRefreshable()) {
+            && response instanceof ResponseError && response.isUserRefreshable()) {
 
             // refresh
-            stop.resetModeResponse(_currentMode);
+            stop.resetMode(_currentModeKey);
             _requestDepartures();
             WatchUi.requestUpdate();
         }
@@ -259,8 +258,8 @@ class StopDetailViewModel {
     function onSelect() as Void {
         // select departure
         if (isDepartureState) {
-            var depsResponse = stop.getModeResponse(_currentMode).getResponse();
-            var selectedDeparture = depsResponse[pageCursor * 4 + departureCursor];
+            var response = stop.getMode(_currentModeKey).getResponse();
+            var selectedDeparture = response[pageCursor * 4 + departureCursor];
             var messages = selectedDeparture.getDeviationMessages();
 
             if (messages.size() == 0) {
@@ -273,17 +272,17 @@ class StopDetailViewModel {
         // select mode
         else if (isInitialRequest) {
             isInitialRequest = false;
-            _currentMode = stop.getModeKey(pageCursor);
+            _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
             _requestDeparturesDelayed();
         }
         else if (isModePaneState) {
             isModePaneState = false;
-            _currentMode = stop.getModeKey(pageCursor);
+            _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
-            if (!stop.hasModeResponse(_currentMode)) {
+            if (!stop.hasMode(_currentModeKey)) {
                 onDelayedDeparturesRequest();
             }
             else {
@@ -296,7 +295,7 @@ class StopDetailViewModel {
         else if (stop.getModesCount() > 1) {
             isModePaneState = true;
             // set cursor to index of current mode
-            pageCursor = MathUtil.max(0, stop.getModesKeys().indexOf(_currentMode));
+            pageCursor = MathUtil.max(0, stop.getModesKeys().indexOf(_currentModeKey));
             WatchUi.requestUpdate();
         }
 

@@ -23,7 +23,7 @@ class DeparturesService {
     // no key, no limit
 
     hidden var _stop as StopType;
-    hidden var _mode as String = Departure.MODE_ALL;
+    hidden var _modeKey as String = Departure.KEY_ALL;
 
     static var isRequesting = false;
 
@@ -35,12 +35,12 @@ class DeparturesService {
 
     // request
 
-    function requestDepartures(mode as String) as Void {
-        _mode = mode;
-        _requestDepartures(mode);
+    function requestDepartures(modeKey as String) as Void {
+        _modeKey = modeKey;
+        _requestDepartures(modeKey);
     }
 
-    hidden function _requestDepartures(mode as String) as Void {
+    hidden function _requestDepartures(modeKey as String) as Void {
         DeparturesService.isRequesting = true;
         WatchUi.requestUpdate();
 
@@ -48,14 +48,14 @@ class DeparturesService {
 
         var params = {
             // NOTE: the API seems to ignore this whenever it feels like it
-            "forecast" => _stop.getModeResponse(mode).getTimeWindow()
+            "forecast" => _stop.getMode(modeKey).getTimeWindow()
         };
 
         // NOTE: migration to 1.8.0
         // no products saved => ´mode´ = null => request all modes
         // (same behaviour as before)
-        if (!mode.equals(Departure.MODE_ALL)) {
-            params["transport"] = mode;
+        if (!modeKey.equals(Departure.KEY_ALL)) {
+            params["transport"] = modeKey;
         }
 
         var options = {
@@ -72,23 +72,23 @@ class DeparturesService {
         DeparturesService.isRequesting = false;
 
         if (responseCode != ResponseError.HTTP_OK || data == null) {
-            _stop.setDeparturesResponse(_mode, new ResponseError(responseCode));
+            _stop.setDeparturesResponse(_modeKey, new ResponseError(responseCode));
 
             // auto-refresh if too large
-            if (_stop.getModeResponse(_mode).shouldAutoRefresh()) {
-                requestDepartures(_mode);
+            if (_stop.getMode(_modeKey).shouldAutoRefresh()) {
+                requestDepartures(_modeKey);
             }
         }
         else if (!DictUtil.hasValue(data, "departures")) {
             var errorMsg = DictUtil.get(data, "message", "No error msg");
-            _stop.setDeparturesResponse(_mode, new ResponseError(errorMsg));
+            _stop.setDeparturesResponse(_modeKey, new ResponseError(errorMsg));
 
             // auto-refresh if server error
             // TODO: probably can't happen with new API
             // – but look for messages which might correspond
             // with the previous server errors
-            /*if (_stop.getModeResponse(_mode).shouldAutoRefresh()) {
-                requestDepartures(_mode);
+            /*if (_stop.getMode(_modeKey).shouldAutoRefresh()) {
+                requestDepartures(_modeKey);
             }*/
         }
         else {
@@ -102,15 +102,15 @@ class DeparturesService {
         var departuresData = data["departures"] as JsonArray;
 
         if (departuresData.size() == 0) {
-            _stop.setDeparturesResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
+            _stop.setDeparturesResponse(_modeKey, rez(Rez.Strings.msg_i_departures_none));
         }
 
-        var modes = [
-            Departure.MODE_BUS,
-            Departure.MODE_METRO,
-            Departure.MODE_TRAIN,
-            Departure.MODE_TRAM,
-            Departure.MODE_SHIP
+        var modesKeys = [
+            Departure.KEY_BUS,
+            Departure.KEY_METRO,
+            Departure.KEY_TRAIN,
+            Departure.KEY_TRAM,
+            Departure.KEY_SHIP
         ]; // determines ordering of modes
         var modeDepartures = {};
 
@@ -125,11 +125,11 @@ class DeparturesService {
             var departureData = departuresData[d] as JsonDict;
             var lineData = departureData["line"] as JsonDict;
 
-            var mode = lineData["transport_mode"];
+            var modeKey = lineData["transport_mode"];
 
             // TODO: check if there are other modes we should include.
             // for now, skip them
-            if (!ArrUtil.contains(modes, mode)) {
+            if (!ArrUtil.contains(modesKeys, modeKey)) {
                 continue;
             }
 
@@ -174,34 +174,34 @@ class DeparturesService {
                 }
             }
 
-            var departure = new Departure(mode, group, line, destination, moment,
+            var departure = new Departure(modeKey, group, line, destination, moment,
                 deviationLevel, deviationMessages, cancelled, isRealTime);
 
-            if (!modeDepartures.hasKey(mode)) {
-                modeDepartures[mode] = [];
+            if (!modeDepartures.hasKey(modeKey)) {
+                modeDepartures[modeKey] = [];
             }
 
             // add to array
-            modeDepartures[mode].add(departure);
+            modeDepartures[modeKey].add(departure);
         }
 
         // set stop response
         if (modeDepartures.size() == 0) {
-            _stop.setDeparturesResponse(_mode, rez(Rez.Strings.msg_i_departures_none));
+            _stop.setDeparturesResponse(_modeKey, rez(Rez.Strings.msg_i_departures_none));
         }
         else {
-            for (var m = 0; m < modes.size(); m++) {
-                var mode = modes[m];
+            for (var m = 0; m < modesKeys.size(); m++) {
+                var modeKey = modesKeys[m];
 
-                if (!modeDepartures.hasKey(mode)) {
+                if (!modeDepartures.hasKey(modeKey)) {
                     continue;
                 }
 
-                if (modeDepartures[mode].size() != 0) {
-                    _stop.setDeparturesResponse(mode, modeDepartures[mode]);
+                if (modeDepartures[modeKey].size() != 0) {
+                    _stop.setDeparturesResponse(modeKey, modeDepartures[modeKey]);
                 }
                 else {
-                    _stop.setDeparturesResponse(mode, rez(Rez.Strings.msg_i_departures_none));
+                    _stop.setDeparturesResponse(modeKey, rez(Rez.Strings.msg_i_departures_none));
                 }
             }
         }
