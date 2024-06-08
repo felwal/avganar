@@ -133,7 +133,7 @@ class StopDetailViewModel {
         _currentModeKey = getCurrentModeKey();
         var response = stop.getMode(_currentModeKey).getResponse();
 
-        if (!(response instanceof Lang.Array)) {
+        if (!(response instanceof Lang.Array) || response.size() == 0) {
             pageCount = 1;
             isDepartureState = false;
             return response;

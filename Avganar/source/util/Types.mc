@@ -15,7 +15,7 @@ import Toybox.Graphics;
 import Toybox.Lang;
 
 typedef StopType as Stop or StopDouble;
-typedef StopsResponse as Array<StopType> or ResponseError or String or Null;
+typedef StopsResponse as Array<StopType> or ResponseError or Null;
 typedef DeparturesResponse as Array<Departure> or ResponseError or Null;
 
 typedef JsonValue as String or Number or Float or Boolean or JsonArray or JsonDict or Null;

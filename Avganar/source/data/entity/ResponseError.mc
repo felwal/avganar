@@ -30,6 +30,7 @@ class ResponseError {
     // custom
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
     static var CODE_AUTO_REQUEST_LIMIT_MEMORY = -2001;
+    static var CODE_LOCATION_OFF = -2002;
 
     hidden var _code as Number?;
     hidden var _title = "";
@@ -87,6 +88,7 @@ class ResponseError {
         else if (_code == Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE) {
             _title = rez(Rez.Strings.msg_e_invalid);
         }
+
         else if (isServerError() || isTooLarge()) {
             _title = rez(Rez.Strings.msg_i_departures_requesting);
         }
@@ -99,11 +101,15 @@ class ResponseError {
         else if (_code == _API_RESPONSE_PROXY) {
             _title = rez(Rez.Strings.msg_e_proxy);
         }
+
         else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
             _title = rez(Rez.Strings.msg_e_server);
         }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_MEMORY) {
             _title = rez(Rez.Strings.msg_e_memory);
+        }
+        else if (_code == CODE_LOCATION_OFF) {
+            _title = rez(Rez.Strings.msg_i_stops_location_off);
         }
 
         else {
@@ -151,6 +157,7 @@ class ResponseError {
             && !isRequestLimitLongReached()
             && _code != _HTTP_BAD_REQUEST // shouldn't be repeated
             && _code != HTTP_OK // probably due to breaking API changes
+            && _code != CODE_LOCATION_OFF
             && _code != null;
     }
 

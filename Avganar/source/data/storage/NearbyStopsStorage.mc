@@ -52,19 +52,14 @@ module NearbyStopsStorage {
         Storage.setValue(_STORAGE_NEARBY_STOP_PRODUCTS, _nearbyStopProducts);
     }
 
-    function setResponseError(responseError as ResponseError or String or Null) as Void {
-        setResponse([], [], [], responseError);
-    }
-
     //! The response is represented by:
-    //! - `Array<Stop>` - success
+    //! - `Array<StopType>` - success
     //! - `ResponseError` - error
-    //! - `String` - response message (e.g. "No Stops")
     //! - `null` - status message (e.g. "Loading ...", determined in `StopListViewModel#getMessage`)
     function setResponse(stopIds as Array<Number>, stopNames as Array<String>,
         stopProducts as Array<Number?>, response_ as StopsResponse) as Void {
 
-        // for each too large response, halve the time window
+        // for each too large response, halve max stops
         if (response_ instanceof ResponseError && response_.isTooLarge()) {
             maxStops = Math.ceil(maxStops == null
                 ? SettingsStorage.getMaxStops() / 2f
@@ -74,13 +69,13 @@ module NearbyStopsStorage {
         }
         else {
             // reset maxStops for next request, which will be
-            // at a different place
+            // at a different location
             maxStops = SettingsStorage.getMaxStops();
             failedRequestCount = 0;
 
             // only vibrate if we are not auto-refreshing and data is changed
             if (!ArrUtil.equals(_nearbyStopIds, stopIds)
-                || ((response_ instanceof ResponseError || response_ instanceof Lang.String)
+                || ((response_ instanceof ResponseError)
                 && !response_.equals(response))) {
 
                 SystemUtil.vibrateLong();
@@ -93,6 +88,14 @@ module NearbyStopsStorage {
         response = response_;
 
         _save();
+    }
+
+    function setResponseError(responseError as ResponseError or Null) as Void {
+        setResponse([], [], [], responseError);
+    }
+
+    function resetResponse() as Void {
+        setResponseError(null);
     }
 
     // get

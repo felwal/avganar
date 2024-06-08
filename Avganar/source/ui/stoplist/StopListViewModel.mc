@@ -46,12 +46,8 @@ class StopListViewModel {
     // position
 
     hidden function _requestPosition() as Void {
-        // check if location use is turned off
-        if (!SettingsStorage.getUseLocation()) {
-            NearbyStopsStorage.setResponseError(null);
-            WatchUi.requestUpdate();
-            return;
-        }
+        // don't look for position if location setting is off
+        if (NearbyStopsService.handleLocationOff()) { return; }
 
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
@@ -86,9 +82,12 @@ class StopListViewModel {
     // service
 
     hidden function _requestNearbyStops() as Void {
+        // don't request using position if location setting is off
+        if (NearbyStopsService.handleLocationOff()) { return; }
+
+        // set searching (override errors, but not stops)
         if (!NearbyStopsStorage.hasStops()) {
-            // set searching (override errors, but not stops)
-            NearbyStopsStorage.setResponseError(null);
+            NearbyStopsStorage.resetResponse();
         }
 
         NearbyStopsService.requestNearbyStops(Footprint.getLatLonDeg());
@@ -108,13 +107,13 @@ class StopListViewModel {
         if (response == null) {
             return rez(_isPositioned()
                 ? Rez.Strings.msg_i_stops_requesting
-                : (SettingsStorage.getUseLocation()
-                    ? Rez.Strings.msg_i_stops_no_gps
-                    : Rez.Strings.msg_i_stops_location_off));
+                : Rez.Strings.msg_i_stops_no_gps);
         }
-        // error or response message
+        // error or empty
         else {
-            return response instanceof ResponseError ? response.getTitle() : response;
+            return response instanceof ResponseError
+                ? response.getTitle()
+                : rez(Rez.Strings.msg_i_stops_none);
         }
     }
 
@@ -149,7 +148,7 @@ class StopListViewModel {
     function getItemCount() as Number {
         var response = NearbyStopsStorage.response;
 
-        return getFavoriteCount() + (response instanceof Lang.Array ? response.size() : 1);
+        return getFavoriteCount() + (_hasMessage() ? 1 : response.size());
     }
 
     function getFavoriteCount() as Number {
@@ -166,8 +165,13 @@ class StopListViewModel {
         return stop != null && FavoriteStopsStorage.isFavorite(stop);
     }
 
+    hidden function _hasMessage() as Boolean {
+        return !(NearbyStopsStorage.response instanceof Lang.Array)
+            || NearbyStopsStorage.response.size() == 0;
+    }
+
     function isShowingMessage() as Boolean {
-        return !(NearbyStopsStorage.response instanceof Lang.Array) && stopCursor == getItemCount() - 1;
+        return _hasMessage() && stopCursor == getItemCount() - 1;
     }
 
     // storage - write

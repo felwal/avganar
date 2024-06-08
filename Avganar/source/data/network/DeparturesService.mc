@@ -102,7 +102,7 @@ class DeparturesService {
         var departuresData = data["departures"] as JsonArray;
 
         if (departuresData.size() == 0) {
-            _stop.setDeparturesResponse(_modeKey, rez(Rez.Strings.msg_i_departures_none));
+            _stop.setDeparturesResponse(_modeKey, []);
         }
 
         var modesKeys = [
@@ -187,7 +187,7 @@ class DeparturesService {
 
         // set stop response
         if (modeDepartures.size() == 0) {
-            _stop.setDeparturesResponse(_modeKey, rez(Rez.Strings.msg_i_departures_none));
+            _stop.setDeparturesResponse(_modeKey, []);
         }
         else {
             for (var m = 0; m < modesKeys.size(); m++) {
@@ -197,12 +197,7 @@ class DeparturesService {
                     continue;
                 }
 
-                if (modeDepartures[modeKey].size() != 0) {
-                    _stop.setDeparturesResponse(modeKey, modeDepartures[modeKey]);
-                }
-                else {
-                    _stop.setDeparturesResponse(modeKey, rez(Rez.Strings.msg_i_departures_none));
-                }
+                _stop.setDeparturesResponse(modeKey, modeDepartures[modeKey]);
             }
         }
 

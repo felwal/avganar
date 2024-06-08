@@ -35,15 +35,15 @@ module NearbyStopsService {
     // request
 
     function requestNearbyStops(latLon as LatLon) as Void {
-        // final check if location use is turned off
-        if (!SettingsStorage.getUseLocation()) {
-            NearbyStopsStorage.setResponseError(null);
-            WatchUi.requestUpdate();
-        }
+        // final check
+        if (handleLocationOff()) { return; }
+
         // check if outside bounds, to not make unnecessary calls outside the operator zone
-        else if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
+        if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
+            || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
+
             if (latLon[0] != 0.0 || latLon[1] != 0.0) {
-                NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds));
+                NearbyStopsStorage.setResponseError(new ResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds)));
             }
 
             WatchUi.requestUpdate();
@@ -79,7 +79,6 @@ module NearbyStopsService {
     // receive
 
     function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
-
         isRequesting = false;
 
         if (responseCode == ResponseError.HTTP_OK && data != null) {
@@ -112,7 +111,7 @@ module NearbyStopsService {
                 NearbyStopsStorage.setResponseError(new ResponseError(data["Message"]));
             }
             else {
-                NearbyStopsStorage.setResponseError(rez(Rez.Strings.msg_i_stops_none));
+                NearbyStopsStorage.setResponse([], [], [], []);
             }
 
             return;
@@ -147,6 +146,19 @@ module NearbyStopsService {
         }
 
         NearbyStopsStorage.setResponse(stopIds, stopNames, stopProducts, stops);
+    }
+
+    // tools
+
+    function handleLocationOff() as Boolean {
+        // don't request using position if location setting is off
+        if (!SettingsStorage.getUseLocation()) {
+            NearbyStopsStorage.setResponseError(new ResponseError(ResponseError.CODE_LOCATION_OFF));
+            WatchUi.requestUpdate();
+            return true;
+        }
+
+        return false;
     }
 
 }

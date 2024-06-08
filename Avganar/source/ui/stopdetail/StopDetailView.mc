@@ -71,7 +71,7 @@ class StopDetailView extends WatchUi.View {
         }
 
         // departures
-        if (response instanceof Lang.Array) {
+        if (response instanceof Lang.Array && response.size() > 0) {
             _drawDepartures(dc, response);
 
             // indicator: page
@@ -91,9 +91,10 @@ class StopDetailView extends WatchUi.View {
         // error/message
         else {
             // info
-            WidgetUtil.drawDialog(dc, response == null
-                ? rez(Rez.Strings.msg_i_departures_requesting)
-                : (response instanceof ResponseError ? response.getTitle() : response));
+            WidgetUtil.drawDialog(dc,
+                response == null ? rez(Rez.Strings.msg_i_departures_requesting)
+                : response instanceof ResponseError ? response.getTitle()
+                : rez(Rez.Strings.msg_i_departures_none));
 
             if (response instanceof ResponseError && !response.hasConnection()) {
                 WidgetUtil.drawExclamationBanner(dc);
