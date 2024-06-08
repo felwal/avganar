@@ -43,14 +43,14 @@ class StopPreviewView extends WatchUi.View {
         var stopName = NearbyStopsStorage.getNearestStopName();
 
         if (stopName == null) {
-            WidgetUtil.drawDialog(dc, rez(Rez.Strings.lbl_preview_msg_no_stops));
+            WidgetUtil.drawDialog(dc, getString(Rez.Strings.lbl_preview_msg_no_stops));
         }
         else {
             _drawStop(dc, stopName);
         }
 
         // icon
-        WidgetUtil.drawPreviewTitle(dc, rez(Rez.Strings.app_name), Rez.Drawables.ic_launcher, false);
+        WidgetUtil.drawPreviewTitle(dc, getString(Rez.Strings.app_name), Rez.Drawables.ic_launcher, false);
     }
 
     hidden function _drawStop(dc as Dc, stopName as String) as Void {

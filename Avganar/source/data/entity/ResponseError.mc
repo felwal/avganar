@@ -62,58 +62,58 @@ class ResponseError {
 
     hidden function _setTitle() as Void {
         if (_code == HTTP_OK) {
-            _title = rez(Rez.Strings.msg_e_null_data);
+            _title = getString(Rez.Strings.msg_e_null_data);
         }
         else if (_code == _HTTP_BAD_REQUEST) {
-            _title = rez(Rez.Strings.msg_e_bad_request);
+            _title = getString(Rez.Strings.msg_e_bad_request);
         }
         else if (_code == _HTTP_NOT_FOUND) {
-            _title = rez(Rez.Strings.msg_e_not_found);
+            _title = getString(Rez.Strings.msg_e_not_found);
         }
         else if (_code == Communications.UNKNOWN_ERROR || _code == _HTTP_NO_CODE) {
-            _title = rez(Rez.Strings.msg_e_unknown);
+            _title = getString(Rez.Strings.msg_e_unknown);
         }
         else if (!hasConnection()) {
-            _title = rez(Rez.Strings.msg_e_connection);
+            _title = getString(Rez.Strings.msg_e_connection);
         }
         else if (_code == Communications.BLE_QUEUE_FULL) {
-            _title = rez(Rez.Strings.msg_e_queue_full);
+            _title = getString(Rez.Strings.msg_e_queue_full);
         }
         else if (_code == Communications.BLE_REQUEST_CANCELLED || _code == Communications.REQUEST_CANCELLED) {
-            _title = rez(Rez.Strings.msg_e_cancelled);
+            _title = getString(Rez.Strings.msg_e_cancelled);
         }
         else if (_code == Communications.BLE_HOST_TIMEOUT) {
-            _title = rez(Rez.Strings.msg_e_timeout);
+            _title = getString(Rez.Strings.msg_e_timeout);
         }
         else if (_code == Communications.INVALID_HTTP_BODY_IN_NETWORK_RESPONSE) {
-            _title = rez(Rez.Strings.msg_e_invalid);
+            _title = getString(Rez.Strings.msg_e_invalid);
         }
 
         else if (isServerError() || isTooLarge()) {
-            _title = rez(Rez.Strings.msg_i_departures_requesting);
+            _title = getString(Rez.Strings.msg_i_departures_requesting);
         }
         else if (ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)) {
-            _title = rez(Rez.Strings.msg_e_limit_minute);
+            _title = getString(Rez.Strings.msg_e_limit_minute);
         }
         else if (_code == _API_REQUEST_LIMIT_MONTH) {
-            _title = rez(Rez.Strings.msg_e_limit_month);
+            _title = getString(Rez.Strings.msg_e_limit_month);
         }
         else if (_code == _API_RESPONSE_PROXY) {
-            _title = rez(Rez.Strings.msg_e_proxy);
+            _title = getString(Rez.Strings.msg_e_proxy);
         }
 
         else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
-            _title = rez(Rez.Strings.msg_e_server);
+            _title = getString(Rez.Strings.msg_e_server);
         }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_MEMORY) {
-            _title = rez(Rez.Strings.msg_e_memory);
+            _title = getString(Rez.Strings.msg_e_memory);
         }
         else if (_code == CODE_LOCATION_OFF) {
-            _title = rez(Rez.Strings.msg_i_stops_location_off);
+            _title = getString(Rez.Strings.msg_i_stops_location_off);
         }
 
         else {
-            _title = rez(Rez.Strings.msg_e_general) + " " + _code;
+            _title = getString(Rez.Strings.msg_e_general) + " " + _code;
         }
     }
 

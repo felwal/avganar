@@ -20,7 +20,7 @@ typedef DeparturesResponse as Array<Departure> or ResponseError or Null;
 
 typedef JsonValue as String or Number or Float or Boolean or JsonArray or JsonDict or Null;
 typedef JsonDict as Dictionary<String, JsonValue>;
-typedef JsonArray as Array<JsonDict>;
+typedef JsonArray as Array<JsonValue>;
 
 typedef LatLon as [Double, Double];
 typedef ColorTheme as [ColorType, ColorType, ColorType, ColorType];

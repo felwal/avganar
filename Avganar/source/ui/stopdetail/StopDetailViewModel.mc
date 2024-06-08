@@ -263,7 +263,7 @@ class StopDetailViewModel {
             var messages = selectedDeparture.getDeviationMessages();
 
             if (messages.size() == 0) {
-                messages.add(rez(Rez.Strings.lbl_detail_deviation_none));
+                messages.add(getString(Rez.Strings.lbl_detail_deviation_none));
             }
 
             DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);

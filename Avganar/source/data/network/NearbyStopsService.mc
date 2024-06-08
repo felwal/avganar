@@ -43,7 +43,7 @@ module NearbyStopsService {
             || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
 
             if (latLon[0] != 0.0 || latLon[1] != 0.0) {
-                NearbyStopsStorage.setResponseError(new ResponseError(rez(Rez.Strings.msg_i_stops_outside_bounds)));
+                NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds)));
             }
 
             WatchUi.requestUpdate();

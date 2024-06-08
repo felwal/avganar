@@ -19,7 +19,7 @@ using Toybox.WatchUi;
 
 (:glance)
 function px(dp as Numeric) as Numeric {
-    return Math.round(dp * rez(Rez.JsonData.pxPerDp) as Float);
+    return Math.round(dp * getJsonData(Rez.JsonData.pxPerDp) as Float);
 }
 
 //! The Graphite module provides extended drawing functionality

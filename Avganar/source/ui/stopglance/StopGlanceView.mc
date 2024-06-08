@@ -40,8 +40,8 @@ class StopGlanceView extends WatchUi.GlanceView {
 
     hidden function _draw(dc as Dc) as Void {
         var nearestStopName = NearbyStopsStorage.getNearestStopName();
-        var title = rez(Rez.Strings.app_name);
-        var caption = def(nearestStopName, rez(Rez.Strings.lbl_glance_caption_no_stops));
+        var title = getString(Rez.Strings.app_name);
+        var caption = def(nearestStopName, getString(Rez.Strings.lbl_glance_caption_no_stops));
         var cy = dc.getHeight() / 2;
 
         // title

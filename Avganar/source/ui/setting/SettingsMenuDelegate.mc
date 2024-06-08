@@ -31,47 +31,47 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
         Menu2InputDelegate.initialize();
 
-        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_settings_title) });
+        _menu = new WatchUi.Menu2({ :title => getString(Rez.Strings.lbl_settings_title) });
         _addItems();
     }
 
     hidden function _addItems() as Void {
         // use location
         _menu.addItem(new WatchUi.ToggleMenuItem(
-            rez(Rez.Strings.itm_settings_location), { :enabled => "On", :disabled => "Off" },
+            getString(Rez.Strings.itm_settings_location), { :enabled => "On", :disabled => "Off" },
             ITEM_LOCATION, SettingsStorage.getUseLocation(), {}
         ));
 
         // vibrate on response
         _menu.addItem(new WatchUi.ToggleMenuItem(
-            rez(Rez.Strings.itm_settings_vibrate), { :enabled => "On", :disabled => "Off" },
+            getString(Rez.Strings.itm_settings_vibrate), { :enabled => "On", :disabled => "Off" },
             ITEM_VIBRATE, SettingsStorage.getVibrateOnResponse(), {}
         ));
 
         // max stops
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.itm_settings_max_stops), SettingsStorage.getMaxStops().toString(),
+            getString(Rez.Strings.itm_settings_max_stops), SettingsStorage.getMaxStops().toString(),
             ITEM_MAX_STOPS, {}
         ));
 
         // max departures
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.itm_settings_max_departures),
+            getString(Rez.Strings.itm_settings_max_departures),
             SettingsStorage.getMaxDepartures() == -1
-                ? rez(Rez.Strings.itm_settings_max_departures_unlimited)
+                ? getString(Rez.Strings.itm_settings_max_departures_unlimited)
                 : SettingsStorage.getMaxDepartures().toString(),
             ITEM_MAX_DEPARTURES, {}
         ));
 
         // default time window
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.itm_settings_time_window), SettingsStorage.getDefaultTimeWindow() + " min",
+            getString(Rez.Strings.itm_settings_time_window), SettingsStorage.getDefaultTimeWindow() + " min",
             ITEM_TIME_WINDOW, {}
         ));
 
         // minute symbol
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.itm_settings_minute_symbol), SettingsStorage.getMinuteSymbol(),
+            getString(Rez.Strings.itm_settings_minute_symbol), SettingsStorage.getMinuteSymbol(),
             ITEM_MINUTE_SYMBOL, {}
         ));
     }
@@ -98,22 +98,22 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             return;
         }
         else if (id == ITEM_MAX_STOPS) {
-            var title = rez(Rez.Strings.itm_settings_max_stops);
+            var title = getString(Rez.Strings.itm_settings_max_stops);
             var values = [ 5, 10, 15, 20 ];
             var focus = values.indexOf(SettingsStorage.getMaxStops());
             new RadioMenuDelegate(title, null, values, focus, method(:onMaxStopsSelect)).push();
             return;
         }
         else if (id == ITEM_MAX_DEPARTURES) {
-            var title = rez(Rez.Strings.itm_settings_max_departures);
-            var labels = [ "10", "20", "40", "60", rez(Rez.Strings.itm_settings_max_departures_unlimited) ];
+            var title = getString(Rez.Strings.itm_settings_max_departures);
+            var labels = [ "10", "20", "40", "60", getString(Rez.Strings.itm_settings_max_departures_unlimited) ];
             var values = [ 10, 20, 40, 60, -1 ];
             var focus = values.indexOf(SettingsStorage.getMaxDepartures());
             new RadioMenuDelegate(title, labels, values, focus, method(:onMaxDeparturesSelect)).push();
             return;
         }
         else if (id == ITEM_TIME_WINDOW) {
-            var title = rez(Rez.Strings.itm_settings_time_window);
+            var title = getString(Rez.Strings.itm_settings_time_window);
             var labels = [ "5 min", "15 min", "30 min", "45 min", "60 min" ];
             var values = [ 5, 15, 30, 45, 60 ];
             var focus = values.indexOf(SettingsStorage.getDefaultTimeWindow());
@@ -121,11 +121,11 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             return;
         }
         else if (id == ITEM_MINUTE_SYMBOL) {
-            var title = rez(Rez.Strings.itm_settings_minute_symbol);
+            var title = getString(Rez.Strings.itm_settings_minute_symbol);
             var labels = [
-                rez(Rez.Strings.itm_detail_departure_minutes_long),
-                rez(Rez.Strings.itm_detail_departure_minutes_short),
-                rez(Rez.Strings.itm_detail_departure_minutes_tiny) ];
+                getString(Rez.Strings.itm_detail_departure_minutes_long),
+                getString(Rez.Strings.itm_detail_departure_minutes_short),
+                getString(Rez.Strings.itm_detail_departure_minutes_tiny) ];
             var values = [ "min", "m", "prime" ];
             var focus = labels.indexOf(SettingsStorage.getMinuteSymbol());
             new RadioMenuDelegate(title, labels, values, focus, method(:onMinuteSymbolSelect)).push();
@@ -151,7 +151,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         var item = _menu.getItem(_menu.findItemById(ITEM_MAX_DEPARTURES));
         item.setSubLabel(value == -1
-            ? rez(Rez.Strings.itm_settings_max_departures_unlimited)
+            ? getString(Rez.Strings.itm_settings_max_departures_unlimited)
             : value.toString());
     }
 

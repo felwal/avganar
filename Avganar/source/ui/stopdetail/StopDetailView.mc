@@ -59,7 +59,7 @@ class StopDetailView extends WatchUi.View {
         _drawHeader(dc, stop);
 
         if (showActionFooter) {
-            WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
+            WidgetUtil.drawActionFooter(dc, getString(Rez.Strings.lbl_list_retry));
         }
         else {
             _drawFooter(dc, stop, _viewModel.isInitialRequest || _viewModel.isModePaneState);
@@ -92,9 +92,9 @@ class StopDetailView extends WatchUi.View {
         else {
             // info
             WidgetUtil.drawDialog(dc,
-                response == null ? rez(Rez.Strings.msg_i_departures_requesting)
+                response == null ? getString(Rez.Strings.msg_i_departures_requesting)
                 : response instanceof ResponseError ? response.getTitle()
-                : rez(Rez.Strings.msg_i_departures_none));
+                : getString(Rez.Strings.msg_i_departures_none));
 
             if (response instanceof ResponseError && !response.hasConnection()) {
                 WidgetUtil.drawExclamationBanner(dc);

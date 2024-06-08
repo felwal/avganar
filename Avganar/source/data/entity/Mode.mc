@@ -38,11 +38,11 @@ class Mode {
         KEY_SHIP => BIT_SHIP,
     };
     static const KEY_TO_STRING = {
-        KEY_BUS => rez(Rez.Strings.itm_modes_bus),
-        KEY_METRO => rez(Rez.Strings.itm_modes_metro),
-        KEY_TRAIN => rez(Rez.Strings.itm_modes_train),
-        KEY_TRAM => rez(Rez.Strings.itm_modes_tram),
-        KEY_SHIP => rez(Rez.Strings.itm_modes_ship),
+        KEY_BUS => getString(Rez.Strings.itm_modes_bus),
+        KEY_METRO => getString(Rez.Strings.itm_modes_metro),
+        KEY_TRAIN => getString(Rez.Strings.itm_modes_train),
+        KEY_TRAM => getString(Rez.Strings.itm_modes_tram),
+        KEY_SHIP => getString(Rez.Strings.itm_modes_ship),
     };
 
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
@@ -201,19 +201,19 @@ class Mode {
         var strings = [];
 
         if (bits&BIT_BUS != 0) {
-            strings.add(rez(Rez.Strings.itm_modes_bus));
+            strings.add(getString(Rez.Strings.itm_modes_bus));
         }
         if (bits&BIT_METRO != 0) {
-            strings.add(rez(Rez.Strings.itm_modes_metro));
+            strings.add(getString(Rez.Strings.itm_modes_metro));
         }
         if (bits&BIT_TRAIN != 0) {
-            strings.add(rez(Rez.Strings.itm_modes_train));
+            strings.add(getString(Rez.Strings.itm_modes_train));
         }
         if (bits&BIT_TRAM != 0) {
-            strings.add(rez(Rez.Strings.itm_modes_tram));
+            strings.add(getString(Rez.Strings.itm_modes_tram));
         }
         if (bits&BIT_SHIP != 0) {
-            strings.add(rez(Rez.Strings.itm_modes_ship));
+            strings.add(getString(Rez.Strings.itm_modes_ship));
         }
 
         return strings;
@@ -225,22 +225,22 @@ class Mode {
         }
 
         else if (key.equals(KEY_BUS)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_bus);
+            return getString(Rez.Strings.lbl_detail_mode_letter_bus);
         }
         else if (key.equals(KEY_METRO)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_metro);
+            return getString(Rez.Strings.lbl_detail_mode_letter_metro);
         }
         else if (key.equals(KEY_TRAIN)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_train);
+            return getString(Rez.Strings.lbl_detail_mode_letter_train);
         }
         else if (key.equals(KEY_TRAM)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_tram);
+            return getString(Rez.Strings.lbl_detail_mode_letter_tram);
         }
         else if (key.equals(KEY_SHIP)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_ship);
+            return getString(Rez.Strings.lbl_detail_mode_letter_ship);
         }
         else {
-            return rez(Rez.Strings.lbl_detail_mode_letter_unknown);
+            return getString(Rez.Strings.lbl_detail_mode_letter_unknown);
         }
     }
 

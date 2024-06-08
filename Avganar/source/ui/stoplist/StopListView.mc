@@ -59,7 +59,7 @@ class StopListView extends WatchUi.View {
 
             // retry
             if (_viewModel.isUserRefreshable()) {
-                WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
+                WidgetUtil.drawActionFooter(dc, getString(Rez.Strings.lbl_list_retry));
             }
         }
     }
@@ -70,9 +70,9 @@ class StopListView extends WatchUi.View {
         var cursor = _viewModel.stopCursor;
 
         var favHints = [ favCount == 1
-            ? rez(Rez.Strings.lbl_list_favorites_one) : rez(Rez.Strings.lbl_list_favorites),
-            rez(Rez.Strings.lbl_list_favorites_none) ];
-        var nearbyHints = [ rez(Rez.Strings.lbl_list_nearby), rez(Rez.Strings.lbl_list_nearby) ];
+            ? getString(Rez.Strings.lbl_list_favorites_one) : getString(Rez.Strings.lbl_list_favorites),
+            getString(Rez.Strings.lbl_list_favorites_none) ];
+        var nearbyHints = [ getString(Rez.Strings.lbl_list_nearby), getString(Rez.Strings.lbl_list_nearby) ];
 
         var favColors = [ AppColors.PRIMARY, AppColors.ON_PRIMARY,
             AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
@@ -80,7 +80,7 @@ class StopListView extends WatchUi.View {
             AppColors.TEXT_SECONDARY, AppColors.TEXT_TERTIARY ];
 
         WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints,
-            rez(Rez.Strings.app_name), favColors, nearbyColors);
+            getString(Rez.Strings.app_name), favColors, nearbyColors);
     }
 
     hidden function _drawLoadingStatus(dc as Dc) as Void {

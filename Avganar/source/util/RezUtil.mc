@@ -29,6 +29,11 @@ module RezUtil {
 }
 
 (:glance)
-function rez(rezId as ResourceId) as ResourceType or ResourceReferenceType or Float {
-    return Application.loadResource(rezId);
+function getString(rezId as ResourceId) as String {
+    return Application.loadResource(rezId) as String;
+}
+
+(:glance)
+function getJsonData(rezId as ResourceId) as JsonValue {
+    return Application.loadResource(rezId) as JsonValue;
 }

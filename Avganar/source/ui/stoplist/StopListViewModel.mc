@@ -105,7 +105,7 @@ class StopListViewModel {
 
         // status message
         if (response == null) {
-            return rez(_isPositioned()
+            return getString(_isPositioned()
                 ? Rez.Strings.msg_i_stops_requesting
                 : Rez.Strings.msg_i_stops_no_gps);
         }
@@ -113,7 +113,7 @@ class StopListViewModel {
         else {
             return response instanceof ResponseError
                 ? response.getTitle()
-                : rez(Rez.Strings.msg_i_stops_none);
+                : getString(Rez.Strings.msg_i_stops_none);
         }
     }
 

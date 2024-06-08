@@ -33,7 +33,7 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
         Menu2InputDelegate.initialize();
 
         _viewModel = viewModel;
-        _menu = new WatchUi.Menu2({ :title => rez(Rez.Strings.lbl_options_title) });
+        _menu = new WatchUi.Menu2({ :title => getString(Rez.Strings.lbl_options_title) });
         _addItems();
     }
 
@@ -46,41 +46,41 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
             if (isInFavorites && _viewModel.stopCursor != 0) {
                 // move up
                 _menu.addItem(new WatchUi.MenuItem(
-                    rez(Rez.Strings.itm_options_favorite_move_up), "",
+                    getString(Rez.Strings.itm_options_favorite_move_up), "",
                     ITEM_FAVORITE_MOVE_UP, {}
                 ));
             }
             if (isInFavorites && _viewModel.stopCursor != _viewModel.getFavoriteCount() - 1) {
                 // move down
                 _menu.addItem(new WatchUi.MenuItem(
-                    rez(Rez.Strings.itm_options_favorite_move_down), "",
+                    getString(Rez.Strings.itm_options_favorite_move_down), "",
                     ITEM_FAVORITE_MOVE_DOWN, {}
                 ));
             }
 
             // remove favorite
             _menu.addItem(new WatchUi.MenuItem(
-                rez(Rez.Strings.itm_options_favorite_remove), "",
+                getString(Rez.Strings.itm_options_favorite_remove), "",
                 ITEM_FAVORITE_REMOVE, {}
             ));
         }
         else if (!_viewModel.isShowingMessage()) {
             // add favorite
             _menu.addItem(new WatchUi.MenuItem(
-                rez(Rez.Strings.itm_options_favorite_add), "",
+                getString(Rez.Strings.itm_options_favorite_add), "",
                 ITEM_FAVORITE_ADD, {}
             ));
         }
 
         // settings
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.lbl_settings_title), "",
+            getString(Rez.Strings.lbl_settings_title), "",
             ITEM_SETTINGS, {}
         ));
 
         // about
         _menu.addItem(new WatchUi.MenuItem(
-            rez(Rez.Strings.itm_options_about), "",
+            getString(Rez.Strings.itm_options_about), "",
             ITEM_ABOUT, {}
         ));
     }
@@ -112,7 +112,7 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
             return;
         }
         else if (id == ITEM_ABOUT) {
-            var text = rez(Rez.Strings.app_version) + ". " + rez(Rez.Strings.lbl_info_about);
+            var text = getString(Rez.Strings.app_version) + ". " + getString(Rez.Strings.lbl_info_about);
             view = new InfoView(text);
         }
 
