@@ -2,6 +2,10 @@
 
 **NOTE** – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
 
+## 1.8.3 [2024-06-08]
+
+- Bug fixes and improvements
+
 ## 1.8.2 [2024-06-05]
 
 - Bug fixes
@@ -16,7 +20,7 @@
 
 - Migrate to the new SL Transport API
   - Please update by 2024-03-31
-- UI for requesting departures one transport mode at a time
+- Add a menu for requesting departures one transport mode at a time
   - Necessary because responses from new API otherwise are too large
 
 ## 1.7.0 [2024-03-14]

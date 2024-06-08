@@ -2,6 +2,10 @@
 
 **OBS** – Om du fortsätter få "Ingen data", vänligen pröva uppdatera till den senaste versionen av appen. API:erna har nyligen uppdaterats, med migrationsdeadlines 2024-03-14 och 2023-03-31.
 
+## 1.8.3 [2024-06-08]
+
+- Buggfixar och förbättringar
+
 ## 1.8.2 [2024-06-05]
 
 - Buggfixar
@@ -16,7 +20,7 @@
 
 - Migrera till det nya SL Transport API:et
   - Vänligen uppdatera senast 2024-03-31
-- UI för att filtrera avgångar per transporttyp
+- Lägg till meny för att filtrera avgångar per transporttyp
   - Nödvändigt då svaren från nya API:et annars är för stora
 
 ## 1.7.0 [2024-03-14]
