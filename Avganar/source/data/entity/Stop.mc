@@ -58,14 +58,14 @@ class Stop {
     function setDeparturesResponse(modeKey as String, response as DeparturesResponse) as Void {
         // NOTE: migration to 1.8.0
         // if we got a successful response, remove the ALL mode
-        if (!modeKey.equals(Departure.KEY_ALL) && ArrUtil.contains(_modesKeys, Departure.KEY_ALL)) {
-            _modesKeys.remove(Departure.KEY_ALL);
-            _modes.remove(Departure.KEY_ALL);
+        if (!modeKey.equals(Mode.KEY_ALL) && ArrUtil.contains(_modesKeys, Mode.KEY_ALL)) {
+            _modesKeys.remove(Mode.KEY_ALL);
+            _modes.remove(Mode.KEY_ALL);
         }
 
         // NOTE: migration to 1.8.0
         // if we got an error for ALL, reset all modes
-        else if (modeKey.equals(Departure.KEY_ALL) && response instanceof ResponseError) {
+        else if (modeKey.equals(Mode.KEY_ALL) && response instanceof ResponseError) {
             resetModes();
         }
 
@@ -114,7 +114,7 @@ class Stop {
             _modesKeys = [];
         }
         else {
-            _modesKeys = Departure.getModesKeysByBits(_products);
+            _modesKeys = Mode.getKeysByBits(_products);
         }
     }
 
@@ -144,7 +144,7 @@ class Stop {
     }
 
     function getModeKey(index as Number) as String {
-        return index < _modesKeys.size() ? _modesKeys[index] : Departure.KEY_ALL;
+        return index < _modesKeys.size() ? _modesKeys[index] : Mode.KEY_ALL;
     }
 
     function getModesKeys() as Array<String> {
@@ -156,7 +156,7 @@ class Stop {
 
         for (var i = 0; i < _modesKeys.size(); i++) {
             var key = _modesKeys[i];
-            strings.add(Departure.MODE_KEY_TO_STRING[key]);
+            strings.add(Mode.KEY_TO_STRING[key]);
         }
 
         return strings;

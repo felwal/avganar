@@ -23,7 +23,7 @@ class DeparturesService {
     // no key, no limit
 
     hidden var _stop as StopType;
-    hidden var _modeKey as String = Departure.KEY_ALL;
+    hidden var _modeKey as String = Mode.KEY_ALL;
 
     static var isRequesting = false;
 
@@ -54,7 +54,7 @@ class DeparturesService {
         // NOTE: migration to 1.8.0
         // no products saved => ´mode´ = null => request all modes
         // (same behaviour as before)
-        if (!modeKey.equals(Departure.KEY_ALL)) {
+        if (!modeKey.equals(Mode.KEY_ALL)) {
             params["transport"] = modeKey;
         }
 
@@ -106,11 +106,11 @@ class DeparturesService {
         }
 
         var modesKeys = [
-            Departure.KEY_BUS,
-            Departure.KEY_METRO,
-            Departure.KEY_TRAIN,
-            Departure.KEY_TRAM,
-            Departure.KEY_SHIP
+            Mode.KEY_BUS,
+            Mode.KEY_METRO,
+            Mode.KEY_TRAIN,
+            Mode.KEY_TRAM,
+            Mode.KEY_SHIP
         ]; // determines ordering of modes
         var modeDepartures = {};
 

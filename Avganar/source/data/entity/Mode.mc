@@ -16,6 +16,35 @@ import Toybox.Time;
 
 class Mode {
 
+    static const KEY_BUS = "BUS";
+    static const KEY_METRO = "METRO";
+    static const KEY_TRAIN = "TRAIN";
+    static const KEY_TRAM = "TRAM";
+    static const KEY_SHIP = "SHIP";
+    static const KEY_ALL = "ALL";
+    static const KEY_NONE = "NONE";
+
+    static const BIT_BUS = 8;
+    static const BIT_METRO = 2;
+    static const BIT_TRAIN = 1;
+    static const BIT_TRAM = 4;
+    static const BIT_SHIP = 64;
+
+    static const KEY_TO_BIT = {
+        KEY_BUS => BIT_BUS,
+        KEY_METRO => BIT_METRO,
+        KEY_TRAIN => BIT_TRAIN,
+        KEY_TRAM => BIT_TRAM,
+        KEY_SHIP => BIT_SHIP,
+    };
+    static const KEY_TO_STRING = {
+        KEY_BUS => rez(Rez.Strings.itm_modes_bus),
+        KEY_METRO => rez(Rez.Strings.itm_modes_metro),
+        KEY_TRAIN => rez(Rez.Strings.itm_modes_train),
+        KEY_TRAM => rez(Rez.Strings.itm_modes_tram),
+        KEY_SHIP => rez(Rez.Strings.itm_modes_ship),
+    };
+
     hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
     hidden static var _MEMORY_MIN_TIME_WINDOW = 5;
 
@@ -141,6 +170,77 @@ class Mode {
         }
         else {
             _response = [];
+        }
+    }
+
+    //
+
+    static function getKeysByBits(bits as Number) as Array<String> {
+        var keys = [];
+
+        if (bits&BIT_BUS != 0) {
+            keys.add(KEY_BUS);
+        }
+        if (bits&BIT_METRO != 0) {
+            keys.add(KEY_METRO);
+        }
+        if (bits&BIT_TRAIN != 0) {
+            keys.add(KEY_TRAIN);
+        }
+        if (bits&BIT_TRAM != 0) {
+            keys.add(KEY_TRAM);
+        }
+        if (bits&BIT_SHIP != 0) {
+            keys.add(KEY_SHIP);
+        }
+
+        return keys;
+    }
+
+    static function getStringsByBits(bits as Number) as Array<String> {
+        var strings = [];
+
+        if (bits&BIT_BUS != 0) {
+            strings.add(rez(Rez.Strings.itm_modes_bus));
+        }
+        if (bits&BIT_METRO != 0) {
+            strings.add(rez(Rez.Strings.itm_modes_metro));
+        }
+        if (bits&BIT_TRAIN != 0) {
+            strings.add(rez(Rez.Strings.itm_modes_train));
+        }
+        if (bits&BIT_TRAM != 0) {
+            strings.add(rez(Rez.Strings.itm_modes_tram));
+        }
+        if (bits&BIT_SHIP != 0) {
+            strings.add(rez(Rez.Strings.itm_modes_ship));
+        }
+
+        return strings;
+    }
+
+    static function getLetter(key as String) as String {
+        if (key.equals(KEY_ALL)) {
+            return "";
+        }
+
+        else if (key.equals(KEY_BUS)) {
+            return rez(Rez.Strings.lbl_detail_mode_letter_bus);
+        }
+        else if (key.equals(KEY_METRO)) {
+            return rez(Rez.Strings.lbl_detail_mode_letter_metro);
+        }
+        else if (key.equals(KEY_TRAIN)) {
+            return rez(Rez.Strings.lbl_detail_mode_letter_train);
+        }
+        else if (key.equals(KEY_TRAM)) {
+            return rez(Rez.Strings.lbl_detail_mode_letter_tram);
+        }
+        else if (key.equals(KEY_SHIP)) {
+            return rez(Rez.Strings.lbl_detail_mode_letter_ship);
+        }
+        else {
+            return rez(Rez.Strings.lbl_detail_mode_letter_unknown);
         }
     }
 

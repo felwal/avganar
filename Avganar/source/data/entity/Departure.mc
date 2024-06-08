@@ -19,35 +19,6 @@ using Toybox.Math;
 
 class Departure {
 
-    static const BIT_BUS = 8;
-    static const BIT_METRO = 2;
-    static const BIT_TRAIN = 1;
-    static const BIT_TRAM = 4;
-    static const BIT_SHIP = 64;
-
-    static const KEY_BUS = "BUS";
-    static const KEY_METRO = "METRO";
-    static const KEY_TRAIN = "TRAIN";
-    static const KEY_TRAM = "TRAM";
-    static const KEY_SHIP = "SHIP";
-    static const KEY_NONE = "NONE";
-    static const KEY_ALL = "ALL";
-
-    static const MODE_KEY_TO_BIT = {
-        KEY_BUS => BIT_BUS,
-        KEY_METRO => BIT_METRO,
-        KEY_TRAIN => BIT_TRAIN,
-        KEY_TRAM => BIT_TRAM,
-        KEY_SHIP => BIT_SHIP,
-    };
-    static const MODE_KEY_TO_STRING = {
-        KEY_BUS => rez(Rez.Strings.itm_modes_bus),
-        KEY_METRO => rez(Rez.Strings.itm_modes_metro),
-        KEY_TRAIN => rez(Rez.Strings.itm_modes_train),
-        KEY_TRAM => rez(Rez.Strings.itm_modes_tram),
-        KEY_SHIP => rez(Rez.Strings.itm_modes_ship),
-    };
-
     static hidden const _GROUP_BUS_RED = "";
     static hidden const _GROUP_BUS_BLUE = "Blåbuss";
     static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
@@ -90,50 +61,6 @@ class Departure {
         _moment = moment;
         _deviationLevel = deviationLevel;
         _deviationMessages = deviationMessages;
-    }
-
-    static function getModesKeysByBits(bits as Number) as Array<String> {
-        var modes = [];
-
-        if (bits&BIT_BUS != 0) {
-            modes.add(KEY_BUS);
-        }
-        if (bits&BIT_METRO != 0) {
-            modes.add(KEY_METRO);
-        }
-        if (bits&BIT_TRAIN != 0) {
-            modes.add(KEY_TRAIN);
-        }
-        if (bits&BIT_TRAM != 0) {
-            modes.add(KEY_TRAM);
-        }
-        if (bits&BIT_SHIP != 0) {
-            modes.add(KEY_SHIP);
-        }
-
-        return modes;
-    }
-
-    static function getModesStringsByBits(bits as Number) as Array<String> {
-        var modes = [];
-
-        if (bits&BIT_BUS != 0) {
-            modes.add(rez(Rez.Strings.itm_modes_bus));
-        }
-        if (bits&BIT_METRO != 0) {
-            modes.add(rez(Rez.Strings.itm_modes_metro));
-        }
-        if (bits&BIT_TRAIN != 0) {
-            modes.add(rez(Rez.Strings.itm_modes_train));
-        }
-        if (bits&BIT_TRAM != 0) {
-            modes.add(rez(Rez.Strings.itm_modes_tram));
-        }
-        if (bits&BIT_SHIP != 0) {
-            modes.add(rez(Rez.Strings.itm_modes_ship));
-        }
-
-        return modes;
     }
 
     // get
@@ -193,94 +120,69 @@ class Departure {
         return AppColors.TEXT_PRIMARY;
     }
 
-    static function getModeLetter(modeKey as String) as String {
-        if (modeKey.equals(KEY_ALL)) {
-            return "";
-        }
-
-        else if (modeKey.equals(KEY_BUS)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_bus);
-        }
-        else if (modeKey.equals(KEY_METRO)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_metro);
-        }
-        else if (modeKey.equals(KEY_TRAIN)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_train);
-        }
-        else if (modeKey.equals(KEY_TRAM)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_tram);
-        }
-        else if (modeKey.equals(KEY_SHIP)) {
-            return rez(Rez.Strings.lbl_detail_mode_letter_ship);
-        }
-        else {
-            return rez(Rez.Strings.lbl_detail_mode_letter_unknown);
-        }
-    }
-
     function getModeColor() as ColorType {
-        if (_modeKey.equals(KEY_BUS)) {
+        if (_modeKey.equals(Mode.KEY_BUS)) {
             if (_group.equals(_GROUP_BUS_RED)) {
-                return AppColors.DEPARTURE_BUS_RED;
+                return AppColors.MODE_BUS_RED;
             }
             else if (_group.equals(_GROUP_BUS_BLUE)) {
-                return AppColors.DEPARTURE_BUS_BLUE;
+                return AppColors.MODE_BUS_BLUE;
             }
             else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
-                return AppColors.DEPARTURE_BUS_REPLACEMENT;
+                return AppColors.MODE_BUS_REPLACEMENT;
             }
             else {
-                return AppColors.DEPARTURE_UNKNOWN;
+                return AppColors.MODE_UNKNOWN;
             }
         }
-        else if (_modeKey.equals(KEY_METRO)) {
+        else if (_modeKey.equals(Mode.KEY_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {
-                return AppColors.DEPARTURE_METRO_RED;
+                return AppColors.MODE_METRO_RED;
             }
             else if (_group.equals(_GROUP_METRO_BLUE)) {
-                return AppColors.DEPARTURE_METRO_BLUE;
+                return AppColors.MODE_METRO_BLUE;
             }
             else if (_group.equals(_GROUP_METRO_GREEN)) {
-                return AppColors.DEPARTURE_METRO_GREEN;
+                return AppColors.MODE_METRO_GREEN;
             }
             else {
-                return AppColors.DEPARTURE_UNKNOWN;
+                return AppColors.MODE_UNKNOWN;
             }
         }
-        else if (_modeKey.equals(KEY_TRAIN)) {
-            return AppColors.DEPARTURE_TRAIN;
+        else if (_modeKey.equals(Mode.KEY_TRAIN)) {
+            return AppColors.MODE_TRAIN;
         }
-        else if (_modeKey.equals(KEY_TRAM)) {
+        else if (_modeKey.equals(Mode.KEY_TRAM)) {
             if (_group.equals(_GROUP_TRAM_SPARVAGCITY)) {
-                return AppColors.DEPARTURE_TRAM_SPARVAGCITY;
+                return AppColors.MODE_TRAM_SPARVAGCITY;
             }
             else if (_group.equals(_GROUP_TRAM_NOCKEBYBANAN)) {
-                return AppColors.DEPARTURE_TRAM_NOCKEBYBANAN;
+                return AppColors.MODE_TRAM_NOCKEBYBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_LIDINGOBANAN)) {
-                return AppColors.DEPARTURE_TRAM_LIDINGOBANAN;
+                return AppColors.MODE_TRAM_LIDINGOBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_TVARBANAN)) {
-                return AppColors.DEPARTURE_TRAM_TVARBANAN;
+                return AppColors.MODE_TRAM_TVARBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_SALTSJOBANAN)) {
-                return AppColors.DEPARTURE_TRAM_SALTSJOBANAN;
+                return AppColors.MODE_TRAM_SALTSJOBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_ROSLAGSBANAN)) {
-                return AppColors.DEPARTURE_TRAM_ROSLAGSBANAN;
+                return AppColors.MODE_TRAM_ROSLAGSBANAN;
             }
             else {
-                return AppColors.DEPARTURE_UNKNOWN;
+                return AppColors.MODE_UNKNOWN;
             }
         }
-        else if (_modeKey.equals(KEY_SHIP)) {
-            return AppColors.DEPARTURE_SHIP;
+        else if (_modeKey.equals(Mode.KEY_SHIP)) {
+            return AppColors.MODE_SHIP;
         }
-        else if (_modeKey.equals(KEY_NONE)) {
-            return AppColors.DEPARTURE_NONE;
+        else if (_modeKey.equals(Mode.KEY_NONE)) {
+            return AppColors.MODE_NONE;
         }
         else {
-            return AppColors.DEPARTURE_UNKNOWN;
+            return AppColors.MODE_UNKNOWN;
         }
     }
 

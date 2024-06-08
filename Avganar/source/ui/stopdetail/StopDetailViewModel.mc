@@ -117,7 +117,7 @@ class StopDetailViewModel {
 
     function getCurrentModeKey() as String {
         // NOTE: API limitation
-        return !_currentModeKey.equals(Departure.KEY_ALL)
+        return !_currentModeKey.equals(Mode.KEY_ALL)
             ? _currentModeKey
             : stop.getModeKey(0);
     }

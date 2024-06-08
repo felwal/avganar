@@ -35,27 +35,29 @@ module AppColors {
 
     // departure
 
-    const DEPARTURE_BUS_RED = Graphene.COLOR_RED;
-    const DEPARTURE_BUS_BLUE = Graphene.COLOR_BLUE;
-    const DEPARTURE_BUS_REPLACEMENT = WARNING;
-
-    const DEPARTURE_METRO_RED = Graphene.COLOR_DR_RED;
-    const DEPARTURE_METRO_BLUE = Graphene.COLOR_DR_BLUE;
-    const DEPARTURE_METRO_GREEN = Graphene.COLOR_DR_GREEN;
-
-    const DEPARTURE_TRAM_SPARVAGCITY = Graphene.COLOR_DK_GRAY;
-    const DEPARTURE_TRAM_NOCKEBYBANAN = Graphene.COLOR_LT_GRAY;
-    const DEPARTURE_TRAM_LIDINGOBANAN = Graphene.COLOR_AMBER;
-    const DEPARTURE_TRAM_TVARBANAN = Graphene.COLOR_DK_ORANGE;
-    const DEPARTURE_TRAM_SALTSJOBANAN = Graphene.COLOR_DK_CYAN;
-    const DEPARTURE_TRAM_ROSLAGSBANAN = Graphene.COLOR_DK_VIOLET;
-
-    const DEPARTURE_TRAIN = Graphene.COLOR_CERISE;
-    const DEPARTURE_SHIP = Graphene.COLOR_CAPRI;
-    const DEPARTURE_NONE = Graphene.COLOR_BLACK;
-    const DEPARTURE_UNKNOWN = Graphene.COLOR_BLACK;
-
     const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
     const DEPARTURE_SELECTED = Graphene.COLOR_GREEN;
+
+    // mode
+
+    const MODE_BUS_RED = Graphene.COLOR_RED;
+    const MODE_BUS_BLUE = Graphene.COLOR_BLUE;
+    const MODE_BUS_REPLACEMENT = WARNING;
+
+    const MODE_METRO_RED = Graphene.COLOR_DR_RED;
+    const MODE_METRO_BLUE = Graphene.COLOR_DR_BLUE;
+    const MODE_METRO_GREEN = Graphene.COLOR_DR_GREEN;
+
+    const MODE_TRAM_SPARVAGCITY = Graphene.COLOR_DK_GRAY;
+    const MODE_TRAM_NOCKEBYBANAN = Graphene.COLOR_LT_GRAY;
+    const MODE_TRAM_LIDINGOBANAN = Graphene.COLOR_AMBER;
+    const MODE_TRAM_TVARBANAN = Graphene.COLOR_DK_ORANGE;
+    const MODE_TRAM_SALTSJOBANAN = Graphene.COLOR_DK_CYAN;
+    const MODE_TRAM_ROSLAGSBANAN = Graphene.COLOR_DK_VIOLET;
+
+    const MODE_TRAIN = Graphene.COLOR_CERISE;
+    const MODE_SHIP = Graphene.COLOR_CAPRI;
+    const MODE_NONE = Graphene.COLOR_BLACK;
+    const MODE_UNKNOWN = Graphene.COLOR_BLACK;
 
 }

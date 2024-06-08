@@ -174,7 +174,7 @@ class StopDetailView extends WatchUi.View {
 
         // mode letter
 
-        var modeLetter = Departure.getModeLetter(modeKey);
+        var modeLetter = Mode.getLetter(modeKey);
 
         if (modeLetter.equals("")) {
             return;
