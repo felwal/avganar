@@ -72,6 +72,9 @@ class StopListViewModel {
             if (movedDistance > 100) {
                 _requestNearbyStops();
             }
+            else {
+                WatchUi.requestUpdate();
+            }
         }
     }
 

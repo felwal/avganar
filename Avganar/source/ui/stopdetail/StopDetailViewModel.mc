@@ -182,26 +182,28 @@ class StopDetailViewModel {
             // refresh
             stop.resetMode(_currentModeKey);
             _requestDepartures();
-        }
-        else if (isDepartureState) {
-            _incDepartureCursor();
-        }
-        else {
-            _incPageCursor();
+            return;
         }
 
-        WatchUi.requestUpdate();
+        var wasCursorModified = isDepartureState
+            ? _incDepartureCursor()
+            : _incPageCursor();
+
+        // only refresh if changed
+        if (wasCursorModified) {
+            WatchUi.requestUpdate();
+        }
     }
 
     function onScrollUp() as Void {
-        if (isDepartureState) {
-            _decDepartureCursor();
-        }
-        else {
-            _decPageCursor();
-        }
+        var wasCursorModified = isDepartureState
+            ? _decDepartureCursor()
+            : _decPageCursor();
 
-        WatchUi.requestUpdate();
+        // only refresh if changed
+        if (wasCursorModified) {
+            WatchUi.requestUpdate();
+        }
     }
 
     //! @return true if successfully rotating
@@ -235,24 +237,32 @@ class StopDetailViewModel {
         return false;
     }
 
-    hidden function _incDepartureCursor() as Void {
+    hidden function _incDepartureCursor() as Boolean {
         if (departureCursor < DEPARTURES_PER_PAGE - 1
             && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
 
             departureCursor++;
+            return true;
         }
         else if (_incPageCursor()) {
             departureCursor = 0;
+            return true;
         }
+
+        return false;
     }
 
-    hidden function _decDepartureCursor() as Void {
+    hidden function _decDepartureCursor() as Boolean {
         if (departureCursor > 0) {
             departureCursor--;
+            return true;
         }
         else if (_decPageCursor()) {
             departureCursor = DEPARTURES_PER_PAGE - 1;
+            return true;
         }
+
+        return false;
     }
 
     function onSelect() as Void {

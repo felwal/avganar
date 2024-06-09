@@ -106,13 +106,11 @@ module Footprint {
     //! Location event listener delegation
     function registerPosition(positionInfo as Position.Info) as Void {
         setPosLoc(positionInfo.position);
+        isPositionRegistered = true;
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
         }
-        isPositionRegistered = true;
-
-        WatchUi.requestUpdate();
     }
 
 }
