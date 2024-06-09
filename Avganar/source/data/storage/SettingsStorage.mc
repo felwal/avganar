@@ -25,59 +25,81 @@ module SettingsStorage {
     const _STORAGE_TIME_WINDOW = "default_time_window";
     const _STORAGE_MINUTE_SYMBOL = "minute_symbol";
 
-    // read
+    var _useLocation = true;
+    var _vibrateOnResponse = true;
+    var _maxStops = 15;
+    var _maxDepartures = -1;
+    var _defaultTimeWindow = 30;
+    var _minuteSymbol = "m";
+
+    //
+
+    function load() as Void {
+        _useLocation = StorageUtil.getValue(_STORAGE_LOCATION, _useLocation);
+        _vibrateOnResponse = StorageUtil.getValue(_STORAGE_VIBRATE, _vibrateOnResponse);
+        _maxStops = StorageUtil.getValue(_STORAGE_MAX_STOPS, _maxStops);
+        _maxDepartures = StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, _maxDepartures);
+        _defaultTimeWindow = StorageUtil.getValue(_STORAGE_TIME_WINDOW, _defaultTimeWindow);
+        _minuteSymbol = StorageUtil.getValue(_STORAGE_MINUTE_SYMBOL, _minuteSymbol);
+    }
+
+    // get
 
     function getUseLocation() as Boolean {
-        return StorageUtil.getValue(_STORAGE_LOCATION, true);
+        return _useLocation;
     }
 
     function getVibrateOnResponse() as Boolean {
-        return StorageUtil.getValue(_STORAGE_VIBRATE, true);
+        return _vibrateOnResponse;
     }
 
     function getMaxStops() as Number {
-        return StorageUtil.getValue(_STORAGE_MAX_STOPS, 15);
+        return _maxStops;
     }
 
     function getMaxDepartures() as Number {
-        return StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, -1);
+        return _maxDepartures;
     }
 
     function getDefaultTimeWindow() as Number {
-        return StorageUtil.getValue(_STORAGE_TIME_WINDOW, 30);
+        return _defaultTimeWindow;
     }
 
     function getMinuteSymbol() as String {
-        var value = StorageUtil.getValue(_STORAGE_MINUTE_SYMBOL, "m");
-
-        return value.equals("prime") ? getString(Rez.Strings.itm_detail_departure_minutes_tiny)
-            : value.equals("m") ? getString(Rez.Strings.itm_detail_departure_minutes_short)
+        return _minuteSymbol.equals("prime") ? getString(Rez.Strings.itm_detail_departure_minutes_tiny)
+            : _minuteSymbol.equals("m") ? getString(Rez.Strings.itm_detail_departure_minutes_short)
             : getString(Rez.Strings.itm_detail_departure_minutes_long);
     }
 
-    // write
+    // set
 
     function setUseLocation(enabled as Boolean) as Void {
+        _useLocation = enabled;
         Storage.setValue(_STORAGE_LOCATION, enabled);
     }
 
     function setVibrateOnResponse(enabled as Boolean) as Void {
+        _vibrateOnResponse = enabled;
         Storage.setValue(_STORAGE_VIBRATE, enabled);
     }
 
     function setMaxStops(maxNo as Number) as Void {
+        _maxStops = maxNo;
         Storage.setValue(_STORAGE_MAX_STOPS, maxNo);
     }
 
     function setMaxDepartures(maxNo as Number) as Void {
+        _maxDepartures = maxNo;
         Storage.setValue(_STORAGE_MAX_DEPARTURES, maxNo);
     }
 
     function setDefaultTimeWindow(timeWindow as Number) as Void {
+        _defaultTimeWindow = timeWindow;
         Storage.setValue(_STORAGE_TIME_WINDOW, timeWindow);
     }
 
     function setMinuteSymbol(symbol as String) as Void {
+        _minuteSymbol = symbol;
         Storage.setValue(_STORAGE_MINUTE_SYMBOL, symbol);
     }
 
