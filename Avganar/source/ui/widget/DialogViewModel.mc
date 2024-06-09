@@ -18,8 +18,8 @@ class DialogViewModel {
 
     var title as String;
     var messages as Array<String>;
-    var iconRezId as ResourceId? = null;
-    var pageCursor = 0;
+    var iconRezId as ResourceId?;
+    var pageCursor as Number = 0;
 
     //
 

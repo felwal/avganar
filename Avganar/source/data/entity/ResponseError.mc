@@ -33,7 +33,7 @@ class ResponseError {
     static var CODE_LOCATION_OFF = -2002;
 
     private var _code as Number?;
-    private var _title = "";
+    private var _title as String = "";
 
     // init
 

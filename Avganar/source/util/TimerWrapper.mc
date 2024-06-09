@@ -60,7 +60,7 @@ class TimerRepr {
 
     private var _callback as Method;
     private var _multiple as Number;
-    private var _currentMultiple = 0;
+    private var _currentMultiple as Number = 0;
 
     function initialize(callback as Method, multipleOfBaseTime as Number) {
         _callback = callback;

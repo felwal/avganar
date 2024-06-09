@@ -25,12 +25,12 @@ module SettingsStorage {
     const _STORAGE_TIME_WINDOW = "default_time_window";
     const _STORAGE_MINUTE_SYMBOL = "minute_symbol";
 
-    var _useLocation = true;
-    var _vibrateOnResponse = true;
-    var _maxStops = 15;
-    var _maxDepartures = -1;
-    var _defaultTimeWindow = 30;
-    var _minuteSymbol = "m";
+    var _useLocation as Boolean = true;
+    var _vibrateOnResponse as Boolean = true;
+    var _maxStops as Number = 15;
+    var _maxDepartures as Number = -1;
+    var _defaultTimeWindow as Number = 30;
+    var _minuteSymbol as String = "m";
 
     //
 

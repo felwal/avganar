@@ -23,7 +23,7 @@ class StopListViewModel {
     static private const _STORAGE_LAST_POS = "last_pos";
     static private const _MOVED_DISTANCE_MIN = 100;
 
-    var stopCursor = 0;
+    var stopCursor as Number = 0;
 
     private var _lastPos as LatLon?;
 

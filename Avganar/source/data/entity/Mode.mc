@@ -49,7 +49,7 @@ class Mode {
     static private var _MEMORY_MIN_TIME_WINDOW = 5;
 
     private var _response as DeparturesResponse;
-    private var _failedRequestCount = 0;
+    private var _failedRequestCount as Number = 0;
     private var _departuresTimeWindow as Number?;
     private var _timeStamp as Moment?;
 

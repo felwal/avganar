@@ -22,8 +22,8 @@ using Toybox.WatchUi;
 (:glance)
 module Footprint {
 
-    var onRegisterPosition as Method? = null;
-    var isPositionRegistered = false;
+    var onRegisterPosition as Method?;
+    var isPositionRegistered as Boolean = false;
 
     // position, in radians
     var _latLon as LatLon = [ 0.0d, 0.0d ];

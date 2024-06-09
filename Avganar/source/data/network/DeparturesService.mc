@@ -22,10 +22,10 @@ class DeparturesService {
     // API: SL Transport 1
     // no key, no limit
 
+    static var isRequesting as Boolean = false;
+
     private var _stop as StopType;
     private var _modeKey as String = Mode.KEY_ALL;
-
-    static var isRequesting = false;
 
     // init
 

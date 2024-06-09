@@ -30,7 +30,7 @@ module NearbyStopsStorage {
 
     var response as StopsResponse;
     var maxStops as Number?;
-    var failedRequestCount = 0;
+    var failedRequestCount as Number = 0;
 
     var _nearbyStopIds as Array<Number> = [];
     var _nearbyStopNames as Array<String> = [];

@@ -30,7 +30,7 @@ module NearbyStopsService {
 
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
-    var isRequesting = false;
+    var isRequesting as Boolean = false;
 
     // request
 

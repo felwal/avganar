@@ -24,7 +24,7 @@ class Stop {
     var name as String;
 
     private var _id as Number;
-    private var _products as Number? = null;
+    private var _products as Number?;
     private var _modesKeys as Array<String> = [];
     private var _modes as Dictionary<String, Mode> = {};
     private var _deviationMessages as Array<String> = [];

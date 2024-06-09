@@ -12,9 +12,9 @@
 // If not, see <https://www.gnu.org/licenses/>.
 
 import Toybox.Lang;
+import Toybox.Timer;
 
 using Toybox.Math;
-using Toybox.Timer;
 using Toybox.WatchUi;
 
 class StopDetailViewModel {
@@ -25,17 +25,17 @@ class StopDetailViewModel {
     static private const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
 
     var stop as StopType;
-    var pageCount = 1;
-    var pageCursor = 0;
-    var departureCursor = 0;
-    var isDepartureState = false;
-    var isModeMenuState = false;
-    var isInitialRequest = true; // TODO: replace with check against _currentModeKey?
+    var pageCount as Number = 1;
+    var pageCursor as Number = 0;
+    var departureCursor as Number = 0;
+    var isDepartureState as Boolean = false;
+    var isModeMenuState as Boolean = false;
+    var isInitialRequest as Boolean = true; // TODO: replace with check against _currentModeKey?
 
     private var _currentModeKey as String;
-    private var _lastPageDepartureCount = 0;
-    private var _delayTimer = new Timer.Timer();
-    private var _repeatTimer = new TimerWrapper();
+    private var _lastPageDepartureCount as Number = 0;
+    private var _delayTimer as Timer.Timer = new Timer.Timer();
+    private var _repeatTimer as TimerWrapper = new TimerWrapper();
 
     // init
 
