@@ -219,28 +219,28 @@ class Mode {
         return strings;
     }
 
-    static function getLetter(key as String) as String {
+    static function getSymbol(key as String) as String {
         if (key.equals(KEY_ALL)) {
             return "";
         }
 
         else if (key.equals(KEY_BUS)) {
-            return getString(Rez.Strings.lbl_detail_mode_letter_bus);
+            return getString(Rez.Strings.lbl_detail_mode_symbol_bus);
         }
         else if (key.equals(KEY_METRO)) {
-            return getString(Rez.Strings.lbl_detail_mode_letter_metro);
+            return getString(Rez.Strings.lbl_detail_mode_symbol_metro);
         }
         else if (key.equals(KEY_TRAIN)) {
-            return getString(Rez.Strings.lbl_detail_mode_letter_train);
+            return getString(Rez.Strings.lbl_detail_mode_symbol_train);
         }
         else if (key.equals(KEY_TRAM)) {
-            return getString(Rez.Strings.lbl_detail_mode_letter_tram);
+            return getString(Rez.Strings.lbl_detail_mode_symbol_tram);
         }
         else if (key.equals(KEY_SHIP)) {
-            return getString(Rez.Strings.lbl_detail_mode_letter_ship);
+            return getString(Rez.Strings.lbl_detail_mode_symbol_ship);
         }
         else {
-            return getString(Rez.Strings.lbl_detail_mode_letter_unknown);
+            return getString(Rez.Strings.lbl_detail_mode_symbol_unknown);
         }
     }
 

@@ -48,7 +48,6 @@ class StopListView extends WatchUi.View {
     // draw
 
     hidden function _draw(dc as Dc) as Void {
-        // stops
         _drawStops(dc);
         _drawLoadingStatus(dc);
 

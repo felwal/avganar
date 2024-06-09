@@ -39,7 +39,7 @@ class DialogViewModel {
         }
 
         // rotate page
-        pageCursor = MathUtil.mod(pageCursor + 1, messages.size());
+        pageCursor = MathUtil.modulo(pageCursor + 1, messages.size());
         WatchUi.requestUpdate();
     }
 

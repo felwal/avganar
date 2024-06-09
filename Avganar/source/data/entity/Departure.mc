@@ -48,10 +48,9 @@ class Departure {
     // init
 
     function initialize(modeKey as String, group as String, line as String, destination as String,
-        moment as Moment?, deviationLevel as Number, deviationMessages as Array<String>,
-        cancelled as Boolean, isRealTime as Boolean) {
+        moment as Moment?, deviation as DepartureDeviation, isRealTime as Boolean) {
 
-        me.cancelled = cancelled;
+        me.cancelled = deviation[2];
         me.isRealTime = isRealTime;
 
         _modeKey = modeKey;
@@ -59,8 +58,8 @@ class Departure {
         _line = line;
         _destination = destination;
         _moment = moment;
-        _deviationLevel = deviationLevel;
-        _deviationMessages = deviationMessages;
+        _deviationLevel = deviation[0];
+        _deviationMessages = deviation[1];
     }
 
     // get
@@ -97,7 +96,7 @@ class Departure {
         return TimeUtil.now().greaterThan(_moment.add(margin));
     }
 
-    function getTextColor() as ColorType {
+    function getDeviationColor() as ColorType {
         if (_deviationLevel >= 8) {
             return Graphene.COLOR_RED;
         }

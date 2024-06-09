@@ -28,13 +28,53 @@ module FavoriteStopsStorage {
     var _favStopNames as Array<String> = [];
     var _favStopProducts as Array<Number?> = [];
 
-    // set
+    // data
 
     function _save() as Void {
         Storage.setValue(_STORAGE_FAVORITE_STOP_IDS, _favStopIds);
         Storage.setValue(_STORAGE_FAVORITE_STOP_NAMES, _favStopNames);
         Storage.setValue(_STORAGE_FAVORITE_STOP_PRODUCTS, _favStopProducts);
     }
+
+    function load() as Void {
+        _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
+        _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
+        _favStopProducts = StorageUtil.getValue(_STORAGE_FAVORITE_STOP_PRODUCTS,
+            ArrUtil.filled(_favStopIds.size(), null));
+
+        favorites = _buildStops(_favStopIds, _favStopNames, _favStopProducts);
+    }
+
+    function _buildStops(ids as Array<Number>, names as Array<String>,
+        products as Array<Number?>) as Array<StopType> {
+
+        var stops = [];
+        var addedIds = [];
+
+        for (var i = 0; i < ids.size() && i < names.size(); i++) {
+            // shouldn't happen, but just in case. TODO: remove?
+            var products_ = i < products.size() ? products[i] : null;
+
+            var existingIdIndex = addedIds.indexOf(ids[i]);
+            var stop;
+
+            if (existingIdIndex != -1) {
+                // we got multiple favorites with the same id
+                var existingStop = stops[existingIdIndex];
+                stop = new StopDouble(existingStop, names[i]);
+            }
+            else {
+                stop = new Stop(ids[i], names[i], products_);
+                addedIds.add(ids[i]);
+            }
+
+            stops.add(stop);
+        }
+
+        return stops;
+    }
+
+    // set
 
     function addFavorite(stop as StopType) as Void {
         if (ArrUtil.contains(favorites, stop)) {
@@ -86,44 +126,6 @@ module FavoriteStopsStorage {
 
     // get
 
-    function load() as Void {
-        _favStopIds = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_IDS);
-        _favStopNames = StorageUtil.getArray(_STORAGE_FAVORITE_STOP_NAMES);
-        _favStopProducts = StorageUtil.getValue(_STORAGE_FAVORITE_STOP_PRODUCTS,
-            ArrUtil.filled(_favStopIds.size(), null));
-
-        favorites = _buildStops(_favStopIds, _favStopNames, _favStopProducts);
-    }
-
-    function _buildStops(ids as Array<Number>, names as Array<String>,
-        products as Array<Number?>) as Array<StopType> {
-
-        var stops = [];
-        var addedIds = [];
-
-        for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            // shouldn't happen, but just in case. TODO: remove?
-            var products_ = i < products.size() ? products[i] : null;
-
-            var existingId = addedIds.indexOf(ids[i]);
-            var stop;
-
-            if (existingId != -1) {
-                // we got multiple favorites with the same id
-                var existingStop = stops[existingId];
-                stop = new StopDouble(existingStop, names[i]);
-            }
-            else {
-                stop = new Stop(ids[i], names[i], products_);
-                addedIds.add(ids[i]);
-            }
-
-            stops.add(stop);
-        }
-
-        return stops;
-    }
-
     function isFavorite(stop as StopType) as Boolean {
         return ArrUtil.contains(favorites, stop);
     }
@@ -133,7 +135,7 @@ module FavoriteStopsStorage {
         return ArrUtil.get(favorites, index, null);
     }
 
-    function getFavorite(stopId as Number, stopName as String) as StopType? {
+    function getFavoriteByIdAndName(stopId as Number, stopName as String) as StopType? {
         // TODO: some better way of finding it than creating a whole new stop?
         var index = favorites.indexOf(Stop.dummy(stopId, stopName));
         return ArrUtil.get(favorites, index, null);

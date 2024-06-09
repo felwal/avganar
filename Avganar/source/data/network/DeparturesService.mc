@@ -42,7 +42,6 @@ class DeparturesService {
 
     hidden function _requestDepartures(modeKey as String) as Void {
         DeparturesService.isRequesting = true;
-        WatchUi.requestUpdate();
 
         var url = "https://transport.integration.sl.se/v1/sites/" + _stop.getId() + "/departures";
 
@@ -71,6 +70,7 @@ class DeparturesService {
     function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
         DeparturesService.isRequesting = false;
 
+        // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {
             _stop.setDeparturesResponse(_modeKey, new ResponseError(responseCode));
 
@@ -79,50 +79,42 @@ class DeparturesService {
                 requestDepartures(_modeKey);
             }
         }
-        else if (!DictUtil.hasValue(data, "departures")) {
-            var errorMsg = DictUtil.get(data, "message", "No error msg");
-            _stop.setDeparturesResponse(_modeKey, new ResponseError(errorMsg));
 
-            // auto-refresh if server error
-            // TODO: probably can't happen with new API
-            // – but look for messages which might correspond
-            // with the previous server errors
-            /*if (_stop.getMode(_modeKey).shouldAutoRefresh()) {
-                requestDepartures(_modeKey);
-            }*/
+        // operator error / no departures found
+        else if (!DictUtil.hasValue(data, "departures") || data["departures"].size() == 0) {
+            if (DictUtil.hasValue(data, "message")) {
+                _stop.setDeparturesResponse(_modeKey, new ResponseError(data["message"]));
+            }
+            else {
+                _stop.setDeparturesResponse(_modeKey, []);
+            }
         }
+
+        // success
         else {
-            _handleDeparturesResponseOk(data);
+            _handleDeparturesResponseOk(data["departures"]);
+        }
+
+        // stop deviations
+        if (DictUtil.hasValue(data, "stop_deviations")) {
+            _handleStopDeviations(data["stop_deviations"]);
         }
 
         WatchUi.requestUpdate();
     }
 
-    hidden function _handleDeparturesResponseOk(data as JsonDict) as Void {
-        var departuresData = data["departures"] as JsonArray;
+    hidden function _handleDeparturesResponseOk(departuresData as JsonArray) as Void {
+        var modesKeys = [ Mode.KEY_BUS, Mode.KEY_METRO, Mode.KEY_TRAIN,
+            Mode.KEY_TRAM, Mode.KEY_SHIP ]; // determines ordering of modes
 
-        if (departuresData.size() == 0) {
-            _stop.setDeparturesResponse(_modeKey, []);
-        }
-
-        var modesKeys = [
-            Mode.KEY_BUS,
-            Mode.KEY_METRO,
-            Mode.KEY_TRAIN,
-            Mode.KEY_TRAM,
-            Mode.KEY_SHIP
-        ]; // determines ordering of modes
-        var modeDepartures = {};
-
+        var departures = {};
         var maxDepartures = SettingsStorage.getMaxDepartures();
         var departureCount = maxDepartures == -1
             ? departuresData.size()
             : MathUtil.min(departuresData.size(), maxDepartures);
 
-        // departures
-
-        for (var d = 0; d < departureCount; d++) {
-            var departureData = departuresData[d] as JsonDict;
+        for (var i = 0; i < departureCount; i++) {
+            var departureData = departuresData[i] as JsonDict;
             var lineData = departureData["line"] as JsonDict;
 
             var modeKey = lineData["transport_mode"];
@@ -138,14 +130,10 @@ class DeparturesService {
             var destination = departureData["destination"];
             var plannedDateTime = DictUtil.get(departureData, "scheduled", null);
             var expectedDateTime = DictUtil.get(departureData, "expected", null);
-            var deviations = DictUtil.get(departureData, "deviations", []);
+            var deviation = _getDepartureDeviation(DictUtil.get(departureData, "deviations", []));
 
-            var isRealTime = expectedDateTime != null
-                && (plannedDateTime == null || !expectedDateTime.equals(plannedDateTime));
+            var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
             var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
-            var deviationLevel = 0;
-            var deviationMessages = [];
-            var cancelled = false;
 
             // NOTE: API limitation
             // TODO: check if still necessary for new API
@@ -154,69 +142,68 @@ class DeparturesService {
                 destination = destination.substring(2, destination.length());
             }
 
-            // departure deviations
-            for (var i = 0; i < deviations.size(); i++) {
-                var msg = DictUtil.get(deviations[i], "message", null);
-                if (msg != null) {
-                    msg = _splitDeviationMessageByLang(msg); // (not often the case)
-                    deviationMessages.add(msg);
-                }
-
-                if ("CANCELLED".equals(deviations[i]["consequence"])) {
-                    cancelled = true;
-                    // don't let cancelled inform deviationLevel
-                    continue;
-                }
-
-                var level = deviations[i]["importance_level"];
-                if (level != null) {
-                    deviationLevel = MathUtil.max(deviationLevel, level);
-                }
-            }
-
             var departure = new Departure(modeKey, group, line, destination, moment,
-                deviationLevel, deviationMessages, cancelled, isRealTime);
+                deviation, isRealTime);
 
-            if (!modeDepartures.hasKey(modeKey)) {
-                modeDepartures[modeKey] = [];
+            if (!departures.hasKey(modeKey)) {
+                departures[modeKey] = [];
             }
 
             // add to array
-            modeDepartures[modeKey].add(departure);
+            departures[modeKey].add(departure);
         }
 
         // set stop response
-        if (modeDepartures.size() == 0) {
+
+        if (departures.size() == 0) {
             _stop.setDeparturesResponse(_modeKey, []);
-        }
-        else {
-            for (var m = 0; m < modesKeys.size(); m++) {
-                var modeKey = modesKeys[m];
-
-                if (!modeDepartures.hasKey(modeKey)) {
-                    continue;
-                }
-
-                _stop.setDeparturesResponse(modeKey, modeDepartures[modeKey]);
-            }
-        }
-
-        // stop point deviations
-
-        if (!data.hasKey("stop_deviations")) {
             return;
         }
 
-        var stopDeviations = data["stop_deviations"] as JsonArray;
+        for (var i = 0; i < modesKeys.size(); i++) {
+            var modeKey = modesKeys[i];
+
+            if (departures.hasKey(modeKey)) {
+                _stop.setDeparturesResponse(modeKey, departures[modeKey]);
+            }
+        }
+    }
+
+    hidden function _getDepartureDeviation(deviations as JsonArray) as DepartureDeviation {
+        var maxLevel = 0;
+        var messages = [];
+        var cancelled = false;
+
+        for (var i = 0; i < deviations.size(); i++) {
+            var msg = DictUtil.get(deviations[i], "message", null);
+            if (msg != null) {
+                msg = _splitDeviationMessageByLang(msg); // (not often the case)
+                messages.add(msg);
+            }
+
+            if ("CANCELLED".equals(deviations[i]["consequence"])) {
+                cancelled = true;
+                // don't let cancelled inform level
+                continue;
+            }
+
+            var level = deviations[i]["importance_level"];
+            if (level != null && level > maxLevel) {
+                maxLevel = level;
+            }
+        }
+
+        return [ maxLevel, messages, cancelled ];
+    }
+
+    hidden function _handleStopDeviations(stopDeviations as JsonArray) as Void {
         var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
             var stopDeviation = stopDeviations[i] as JsonDict;
             var msg = DictUtil.get(stopDeviation, "message", null);
 
-            if (msg == null) {
-                continue;
-            }
+            if (msg == null) { continue; }
 
             msg = _splitDeviationMessageByLang(msg);
             msg = _cleanDeviationMessage(msg);
@@ -231,6 +218,8 @@ class DeparturesService {
 
         _stop.setDeviation(stopDeviationMessages);
     }
+
+    // tools
 
     hidden function _splitDeviationMessageByLang(msg as String) as String {
         // NOTE: API limitation

@@ -19,17 +19,17 @@ using Toybox.WatchUi;
 
 class StopDetailViewModel {
 
+    static const DEPARTURES_PER_PAGE = 4;
+
     static hidden const _SCREEN_TIME_INTERVAL = 15 * 1000;
     static hidden const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
-
-    static const DEPARTURES_PER_PAGE = 4;
 
     var stop as StopType;
     var pageCount = 1;
     var pageCursor = 0;
     var departureCursor = 0;
     var isDepartureState = false;
-    var isModePaneState = false;
+    var isModeMenuState = false;
     var isInitialRequest = true; // TODO: replace with check against _currentModeKey?
 
     hidden var _currentModeKey as String;
@@ -111,6 +111,7 @@ class StopDetailViewModel {
 
     hidden function _requestDepartures() as Void {
         new DeparturesService(stop).requestDepartures(_currentModeKey);
+        WatchUi.requestUpdate();
     }
 
     // read
@@ -125,7 +126,7 @@ class StopDetailViewModel {
     //! Get only the departures that should be
     //! displayed on the current page
     function getPageResponse() as DeparturesResponse {
-        if (isInitialRequest || isModePaneState) {
+        if (isInitialRequest || isModeMenuState) {
             // should not happen, but check just in case
             return null;
         }
@@ -159,7 +160,7 @@ class StopDetailViewModel {
     function canNavigateToDeviation() as Boolean {
         return !isDepartureState
             && !isInitialRequest
-            && !isModePaneState
+            && !isModeMenuState
             && pageCursor == 0
             && stop.getDeviationMessages().size() != 0;
     }
@@ -175,13 +176,12 @@ class StopDetailViewModel {
     function onScrollDown() as Void {
         var response = stop.getMode(_currentModeKey).getResponse();
 
-        if (!isModePaneState
+        if (!isModeMenuState
             && response instanceof ResponseError && response.isUserRefreshable()) {
 
             // refresh
             stop.resetMode(_currentModeKey);
             _requestDepartures();
-            WatchUi.requestUpdate();
         }
         else if (isDepartureState) {
             _incDepartureCursor();
@@ -206,7 +206,7 @@ class StopDetailViewModel {
 
     //! @return true if successfully rotating
     hidden function _incPageCursor() as Boolean {
-        if (isInitialRequest || isModePaneState) {
+        if (isInitialRequest || isModeMenuState) {
             if (pageCursor < stop.getModesKeys().size() - 1) {
                 pageCursor++;
                 return true;
@@ -277,8 +277,8 @@ class StopDetailViewModel {
 
             _requestDeparturesDelayed();
         }
-        else if (isModePaneState) {
-            isModePaneState = false;
+        else if (isModeMenuState) {
+            isModeMenuState = false;
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
@@ -293,7 +293,7 @@ class StopDetailViewModel {
 
         // enter mode menu
         else if (stop.getModesCount() > 1) {
-            isModePaneState = true;
+            isModeMenuState = true;
             // set cursor to index of current mode
             pageCursor = MathUtil.max(0, stop.getModesKeys().indexOf(_currentModeKey));
             WatchUi.requestUpdate();

@@ -17,6 +17,7 @@ import Toybox.Lang;
 typedef StopType as Stop or StopDouble;
 typedef StopsResponse as Array<StopType> or ResponseError or Null;
 typedef DeparturesResponse as Array<Departure> or ResponseError or Null;
+typedef DepartureDeviation as [Number, Array<String>, Boolean];
 
 typedef JsonValue as String or Number or Float or Boolean or JsonArray or JsonDict or Null;
 typedef JsonDict as Dictionary<String, JsonValue>;

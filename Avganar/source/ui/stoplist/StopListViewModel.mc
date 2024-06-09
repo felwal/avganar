@@ -91,6 +91,7 @@ class StopListViewModel {
         }
 
         NearbyStopsService.requestNearbyStops(Footprint.getLatLonDeg());
+        WatchUi.requestUpdate();
 
         // update last position
         _lastPos = Footprint.getLatLonRad();
@@ -98,7 +99,48 @@ class StopListViewModel {
         Storage.setValue(_STORAGE_LAST_POS, _lastPos);
     }
 
-    // storage - read
+    // nearby
+
+    function hasStops() as Boolean {
+        return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
+    }
+
+    hidden function _getStops() as Array<StopType> {
+        var response = NearbyStopsStorage.response;
+        var favs = FavoriteStopsStorage.favorites;
+        var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
+
+        // coerce cursor
+        stopCursor = MathUtil.min(stopCursor, getItemCount() - 1);
+
+        return stops;
+    }
+
+    function getStopNames() as Array<String> {
+        var stops = _getStops();
+
+        var names = new [stops.size()];
+        for (var i = 0; i < names.size(); i++) {
+            names[i] = stops[i].name;
+        }
+
+        return names;
+    }
+
+    function getItemCount() as Number {
+        return getFavoriteCount() + (_hasMessage() ? 1 : NearbyStopsStorage.response.size());
+    }
+
+    function getSelectedStop() as StopType? {
+        var stops = _getStops();
+        return stopCursor < stops.size() ? stops[stopCursor] : null;
+    }
+
+    function getNearbyCursor() as Number {
+        return stopCursor - getFavoriteCount();
+    }
+
+    // message
 
     function getMessage() as String {
         var response = NearbyStopsStorage.response;
@@ -117,54 +159,6 @@ class StopListViewModel {
         }
     }
 
-    function hasStops() as Boolean {
-        return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
-    }
-
-    // TODO: does this need to be nullable?
-    hidden function _getStops() as Array<StopType>? {
-        var response = NearbyStopsStorage.response;
-        var favs = FavoriteStopsStorage.favorites;
-        var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
-
-        // coerce cursor
-        stopCursor = MathUtil.min(stopCursor, getItemCount() - 1);
-
-        return stops;
-    }
-
-    function getStopNames() as Array<String>? {
-        var stops = _getStops();
-        if (stops == null) { return null; }
-
-        var names = new [stops.size()];
-        for (var i = 0; i < names.size(); i++) {
-            names[i] = stops[i].name;
-        }
-
-        return names;
-    }
-
-    function getItemCount() as Number {
-        var response = NearbyStopsStorage.response;
-
-        return getFavoriteCount() + (_hasMessage() ? 1 : response.size());
-    }
-
-    function getFavoriteCount() as Number {
-        return FavoriteStopsStorage.favorites.size();
-    }
-
-    function getSelectedStop() as StopType? {
-        var stops = _getStops();
-        return stopCursor < stops.size() ? stops[stopCursor] : null;
-    }
-
-    function isSelectedStopFavorite() as Boolean {
-        var stop = getSelectedStop();
-        return stop != null && FavoriteStopsStorage.isFavorite(stop);
-    }
-
     hidden function _hasMessage() as Boolean {
         return !(NearbyStopsStorage.response instanceof Lang.Array)
             || NearbyStopsStorage.response.size() == 0;
@@ -174,7 +168,16 @@ class StopListViewModel {
         return _hasMessage() && stopCursor == getItemCount() - 1;
     }
 
-    // storage - write
+    // favorites
+
+    function getFavoriteCount() as Number {
+        return FavoriteStopsStorage.favorites.size();
+    }
+
+    function isSelectedStopFavorite() as Boolean {
+        var stop = getSelectedStop();
+        return stop != null && FavoriteStopsStorage.isFavorite(stop);
+    }
 
     function addFavorite() as Void {
         var stop = getSelectedStop();
@@ -204,7 +207,7 @@ class StopListViewModel {
         stopCursor += diff;
     }
 
-    //
+    // input
 
     function isUserRefreshable() as Boolean {
         return NearbyStopsStorage.response instanceof ResponseError
@@ -216,18 +219,12 @@ class StopListViewModel {
         // by clicking on the error msg. TODO: remove?
         if (isUserRefreshable()) {
             _requestNearbyStops();
-            WatchUi.requestUpdate();
         }
-    }
-
-    function getNearbyCursor() as Number {
-        return stopCursor - getFavoriteCount();
     }
 
     function onScrollDown() as Void {
         if (isShowingMessage() && isUserRefreshable()) {
             _requestNearbyStops();
-            WatchUi.requestUpdate();
             return;
         }
 
@@ -248,7 +245,7 @@ class StopListViewModel {
 
     hidden function _rotStopCursor(step as Number) as Void {
         if (hasStops()) {
-            stopCursor = MathUtil.mod(stopCursor + step, getItemCount());
+            stopCursor = MathUtil.modulo(stopCursor + step, getItemCount());
             WatchUi.requestUpdate();
         }
     }

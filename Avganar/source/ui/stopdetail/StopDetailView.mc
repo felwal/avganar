@@ -52,149 +52,67 @@ class StopDetailView extends WatchUi.View {
 
     hidden function _draw(dc as Dc) as Void {
         var stop = _viewModel.stop;
-
         var response = _viewModel.getPageResponse();
+
         var showActionFooter = response instanceof ResponseError && response.isUserRefreshable();
+        var showModeMenu = _viewModel.isInitialRequest || _viewModel.isModeMenuState;
 
-        _drawHeader(dc, stop);
+        _drawHeader(dc, stop.name);
 
+        // footer
         if (showActionFooter) {
             WidgetUtil.drawActionFooter(dc, getString(Rez.Strings.lbl_list_retry));
         }
         else {
-            _drawFooter(dc, stop, _viewModel.isInitialRequest || _viewModel.isModePaneState);
+            _drawFooter(dc, !showModeMenu);
         }
 
-        if (_viewModel.isInitialRequest || _viewModel.isModePaneState) {
-            _drawModeList(dc, stop);
+        // mode menu
+        if (showModeMenu) {
+            WidgetUtil.drawSideMenu(dc, stop.getModesStrings(), _viewModel.pageCursor, true);
             return;
         }
 
-        // departures
-        if (response instanceof Lang.Array && response.size() > 0) {
-            _drawDepartures(dc, response);
-
-            // indicator: page
-            dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor,
-                AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
-            WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
-
-            // stop deviation
-            if (_viewModel.canNavigateToDeviation()) {
-                Graphite.setColor(dc, AppColors.WARNING);
-                WidgetUtil.drawTopPageArrow(dc);
-                Graphite.resetColor(dc);
-            }
+        // response
+        if (response instanceof Lang.Array) {
+            _drawResponseOk(dc, response);
         }
-
-        // error/message
+        else if (response instanceof ResponseError) {
+            _drawResponseError(dc, response);
+        }
         else {
-            // info
-            WidgetUtil.drawDialog(dc,
-                response == null ? getString(Rez.Strings.msg_i_departures_requesting)
-                : response instanceof ResponseError ? response.getTitle()
-                : getString(Rez.Strings.msg_i_departures_none));
-
-            if (response instanceof ResponseError && !response.hasConnection()) {
-                WidgetUtil.drawExclamationBanner(dc);
-            }
+            WidgetUtil.drawDialog(dc, getString(Rez.Strings.msg_i_departures_requesting));
         }
 
-        _drawModeIndicator(dc);
-    }
-
-    hidden function _drawModeIndicator(dc as Dc) as Void {
-        if (!_viewModel.isModePaneState
-            && (_viewModel.stop.getModesKeys().size() > 1 || _viewModel.isDepartureState)) {
-
+        // indicator
+        if (stop.getModesKeys().size() > 1 || _viewModel.isDepartureState) {
             WidgetUtil.drawStartIndicator(dc);
         }
     }
 
-    hidden function _drawModeList(dc as Dc, stop as StopType) as Void {
-        var items = stop.getModesStrings();
-        WidgetUtil.drawSideList(dc, items, _viewModel.pageCursor, true);
-    }
+    hidden function _drawResponseOk(dc as Dc, departures as Array<Departure>) as Void {
+        if (departures.size() == 0) {
+            WidgetUtil.drawDialog(dc, getString(Rez.Strings.msg_i_departures_none));
+        }
+        else {
+            _drawDepartures(dc, departures);
 
-    hidden function _drawHeader(dc as Dc, stop as StopType) as Void {
-        // 19 is font height for XTINY on fr745.
-        // set y to half and justify to vcenter for the title to
-        // look alright even on devices with different font size for XTINY.
-        var y = px(23) + px(19) / 2;
-
-        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-        dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, stop.name.toUpper(),
-            Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
-    }
-
-    hidden function _drawFooter(dc as Dc, stop as StopType, noDetails as Boolean) as Void {
-        var hFooter = px(42);
-        var h = dc.getHeight();
-
-        // background
-        WidgetUtil.drawFooter(dc, hFooter, AppColors.PRIMARY, null, null, null);
-
-        if (noDetails) {
-            return;
+            // scrollbar
+            dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
+            WidgetUtil.drawVerticalPageArrows(dc, _viewModel.pageCount, _viewModel.pageCursor,
+                AppColors.TEXT_TERTIARY, AppColors.ON_PRIMARY_TERTIARY);
+            WidgetUtil.drawVerticalScrollbarSmall(dc, _viewModel.pageCount, _viewModel.pageCursor);
         }
 
-        // clock time
-
-        // calc pos to align with page number
-        var arrowEdgeOffset = px(4);
-        var arrowHeight = px(8);
-        var arrowTextOffset = px(8);
-
-        var font = Graphics.FONT_TINY;
-        var y = h - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
-        var cx = Graphite.getCenterX(dc);
-
-        // make sure the text is fully within the footer.
-        y = MathUtil.max(y, h - hFooter);
-
-        var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
-
-        dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dc.drawText(cx, y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
-
-        // progress bar
-
-        var modeKey = _viewModel.getCurrentModeKey();
-
-        if (DeparturesService.isRequesting) {
-            var hProgressBar = px(3);
-            var yProgressBar = h - hFooter - hProgressBar;
-            var failedCount = stop.getMode(modeKey).getFailedRequestCount();
-            var progress = MathUtil.recursiveShare(0.33f, 0f, failedCount);
-
-            WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
-                AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
+        // stop deviation
+        if (_viewModel.canNavigateToDeviation()) {
+            Graphite.setColor(dc, AppColors.WARNING);
+            WidgetUtil.drawTopPageArrow(dc);
+            Graphite.resetColor(dc);
         }
-
-        // mode letter
-
-        var modeLetter = Mode.getLetter(modeKey);
-
-        if (modeLetter.equals("")) {
-            return;
-        }
-
-        var xMode = cx + px(48);
-        var yMode = y - px(7);
-        var fontMode = Graphics.FONT_TINY;
-        var fh = dc.getFontHeight(fontMode);
-        var r = Math.ceil(fh / 2f);
-
-        Graphite.setColor(dc, AppColors.BACKGROUND_INVERTED);
-        dc.fillCircle(xMode, yMode + r, r + 2);
-
-        dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);
-        dc.drawText(xMode, yMode, fontMode, modeLetter, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    hidden function _drawDepartures(dc as Dc, pageDepartures as Array<Departure>) as Void {
+    hidden function _drawDepartures(dc as Dc, departures as Array<Departure>) as Void {
         var font = Graphics.FONT_TINY;
         var xOffset = px(10);
         var yOffset = px(68);
@@ -203,10 +121,10 @@ class StopDetailView extends WatchUi.View {
         var h = dc.getHeight() - yOffset * 2;
         var lineHeightPx = h / (StopDetailViewModel.DEPARTURES_PER_PAGE - 1);
 
-        for (var d = 0; d < StopDetailViewModel.DEPARTURES_PER_PAGE && d < pageDepartures.size(); d++) {
-            var departure = pageDepartures[d];
+        for (var i = 0; i < StopDetailViewModel.DEPARTURES_PER_PAGE && i < departures.size(); i++) {
+            var departure = departures[i];
 
-            var y = yOffset + d * lineHeightPx;
+            var y = yOffset + i * lineHeightPx;
             var xCircle = MathUtil.minX(yOffset, Graphite.getRadius(dc)) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
@@ -215,10 +133,10 @@ class StopDetailView extends WatchUi.View {
             dc.fillCircle(xCircle, y, rCircle);
 
             // highlight selected departure
-            var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == d;
+            var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == i;
 
             // draw text
-            var textColor = isSelected ? AppColors.DEPARTURE_SELECTED : departure.getTextColor();
+            var textColor = isSelected ? AppColors.DEPARTURE_SELECTED : departure.getDeviationColor();
             Graphite.setColor(dc, textColor);
             dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
 
@@ -233,6 +151,100 @@ class StopDetailView extends WatchUi.View {
                 Graphite.strokeRectangle(dc, xText, y, dc.getWidth() - xText, px(1), px(2), textColor, AppColors.BACKGROUND);
             }
         }
+    }
+
+    hidden function _drawResponseError(dc as Dc, error as ResponseError) as Void {
+        WidgetUtil.drawDialog(dc, error.getTitle());
+
+        if (!error.hasConnection()) {
+            WidgetUtil.drawExclamationBanner(dc);
+        }
+    }
+
+    hidden function _drawHeader(dc as Dc, title as String) as Void {
+        // 19 is font height for XTINY on fr745.
+        // set y to half and justify to vcenter for the title to
+        // look alright even on devices with different font size for XTINY.
+        var y = px(23) + px(19) / 2;
+
+        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
+        dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, title.toUpper(),
+            Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    hidden function _drawFooter(dc as Dc, drawDetails as Boolean) as Void {
+        var hFooter = px(42);
+        var h = dc.getHeight();
+
+        // background
+        WidgetUtil.drawFooter(dc, hFooter, AppColors.PRIMARY, null, null, null);
+
+        if (!drawDetails) {
+            return;
+        }
+
+        var modeKey = _viewModel.getCurrentModeKey();
+
+        _drawFooterClockTime(dc, hFooter);
+        _drawFooterProgressBar(dc, hFooter, modeKey);
+        _drawFooterModeSymbol(dc, hFooter, modeKey);
+    }
+
+    hidden function _drawFooterClockTime(dc as Dc, hFooter as Numeric) as Void {
+        var h = dc.getHeight();
+
+        // calc pos to align with page number
+        // TODO: get these from WidgetUtil instead?
+        var arrowEdgeOffset = px(4);
+        var arrowHeight = px(8);
+        var arrowTextOffset = px(8);
+
+        var font = Graphics.FONT_TINY;
+        var yTextTop = h - arrowEdgeOffset - arrowHeight - arrowTextOffset - dc.getFontHeight(font);
+
+        // make sure the text is fully within the footer.
+        yTextTop = MathUtil.max(yTextTop, h - hFooter);
+
+        var info = Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
+
+        dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
+        dc.drawText(Graphite.getCenterX(dc), yTextTop, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
+    hidden function _drawFooterProgressBar(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
+        if (!DeparturesService.isRequesting) {
+            return;
+        }
+
+        var hProgressBar = px(3);
+        var yProgressBar = dc.getHeight() - hFooter - hProgressBar;
+        var failedCount = _viewModel.stop.getMode(modeKey).getFailedRequestCount();
+        var progress = MathUtil.recursiveShare(0.33f, 0f, failedCount);
+
+        WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
+            AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
+    }
+
+    hidden function _drawFooterModeSymbol(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
+        var symbol = Mode.getSymbol(modeKey);
+
+        if (symbol.equals("")) {
+            return;
+        }
+
+        var cx = Graphite.getCenterX(dc) + px(48);
+        var cy = dc.getHeight() - hFooter + px(7); //y - px(7);
+        var font = Graphics.FONT_TINY;
+        var fh = dc.getFontHeight(font);
+        var rCircle = Math.ceil(fh / 2f) + px(2);
+
+        Graphite.setColor(dc, AppColors.BACKGROUND_INVERTED);
+        dc.fillCircle(cx, cy, rCircle);
+
+        dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);
+        dc.drawText(cx, cy, font, symbol,
+            Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
 }

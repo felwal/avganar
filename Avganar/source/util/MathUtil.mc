@@ -77,17 +77,19 @@ module MathUtil {
 
     //! The Monkey C modulo operator uses truncated division, which gives the remainder with same sign as the dividend.
     //! This uses floored division, which gives the remainder with same sign as the divisor.
-    function mod(dividend as Numeric, divisor as Numeric) as Numeric {
+    function modulo(dividend as Numeric, divisor as Numeric) as Numeric {
         var quotient = Math.floor(dividend.toFloat() / divisor.toFloat()).toNumber();
         var remainder = dividend - divisor * quotient;
         return remainder;
     }
 
-    //
+    //! Get a share between 0–1. For each recursion, add that share of what's left.
+    function recursiveShare(shareOfRemainder as Float, prevVal as Float, recursions as Number) as Float {
+        var newVal = prevVal + (1 - prevVal) * shareOfRemainder;
 
-    function recursiveShare(share as Float, prevVal as Float, level as Number) as Float {
-        var newVal = prevVal + (1 - prevVal) * share;
-        return level <= 0 ? newVal : recursiveShare(share, newVal, level - 1);
+        return recursions > 0
+            ? recursiveShare(shareOfRemainder, newVal, recursions - 1)
+            : newVal;
     }
 
 }

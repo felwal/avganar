@@ -39,14 +39,11 @@ module NearbyStopsService {
         if (handleLocationOff()) { return; }
 
         // check if outside bounds, to not make unnecessary calls outside the operator zone
-        if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
+        if (latLon != [ 0.0d, 0.0d ]
+            && latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
             || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
 
-            if (latLon[0] != 0.0 || latLon[1] != 0.0) {
-                NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds)));
-            }
-
-            WatchUi.requestUpdate();
+            NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds)));
         }
         else {
             _requestNearbyStops(latLon);
@@ -81,11 +78,9 @@ module NearbyStopsService {
     function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
         isRequesting = false;
 
-        if (responseCode == ResponseError.HTTP_OK && data != null) {
-            _handleNearbyStopsResponseOk(data);
-        }
-        else {
-            NearbyStopsStorage.setResponseError(new ResponseError(DictUtil.get(data, "Message", responseCode)));
+        // request error
+        if (responseCode != ResponseError.HTTP_OK || data == null) {
+            NearbyStopsStorage.setResponseError(new ResponseError(responseCode));
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
@@ -93,38 +88,32 @@ module NearbyStopsService {
             }
         }
 
+        // operator error
+        else if (DictUtil.hasValue(data, "StatusCode")) {
+            //var msg = data["Message"];
+            var statusCode = data["StatusCode"] as Number;
+            NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
+        }
+
+        // no stops found
+        else if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation")) {
+            NearbyStopsStorage.setResponse([], [], [], []);
+        }
+
+        // success
+        else {
+            _handleNearbyStopsResponseOk(data["stopLocationOrCoordLocation"]);
+        }
+
         WatchUi.requestUpdate();
     }
 
-    function _handleNearbyStopsResponseOk(data as JsonDict) as Void {
-        // operator error
-        if (DictUtil.hasValue(data, "StatusCode") || DictUtil.hasValue(data, "Message")) {
-            var statusCode = data["StatusCode"] as Number;
-            NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
-
-            return;
-        }
-
-        // no stops were found
-        if (!DictUtil.hasValue(data, "stopLocationOrCoordLocation") || data["stopLocationOrCoordLocation"] == null) {
-            if (DictUtil.hasValue(data, "Message")) {
-                NearbyStopsStorage.setResponseError(new ResponseError(data["Message"]));
-            }
-            else {
-                NearbyStopsStorage.setResponse([], [], [], []);
-            }
-
-            return;
-        }
-
-        // stops were found
-
+    function _handleNearbyStopsResponseOk(stopsData as JsonArray) as Void {
         var stopIds = [];
         var stopNames = [];
         var stopProducts = [];
         var stops = [];
 
-        var stopsData = data["stopLocationOrCoordLocation"] as JsonArray;
         for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"] as JsonDict;
 

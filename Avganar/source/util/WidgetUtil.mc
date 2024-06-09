@@ -589,7 +589,7 @@ module WidgetUtil {
         }
     }
 
-    function drawSideList(dc as Dc, items as Array<String>, cursor as Number,
+    function drawSideMenu(dc as Dc, items as Array<String>, cursor as Number,
         blackBg as Boolean) as Void {
 
         var colorBg = blackBg ? AppColors.BACKGROUND : AppColors.BACKGROUND_INVERTED;
