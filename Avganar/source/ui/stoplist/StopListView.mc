@@ -78,7 +78,7 @@ class StopListView extends WatchUi.View {
         var nearbyColors = [ AppColors.BACKGROUND, AppColors.TEXT_PRIMARY,
             AppColors.TEXT_SECONDARY, AppColors.TEXT_TERTIARY ];
 
-        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints,
+        MenuUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints,
             getString(Rez.Strings.app_name), favColors, nearbyColors);
     }
 
@@ -103,16 +103,16 @@ class StopListView extends WatchUi.View {
         var y;
 
         if (cursor == 0) {
-            y = px(84);
+            y = MenuUtil.HEIGHT_FOOTER_LARGE;
         }
         else if (cursor == 1) {
-            y = px(42);
+            y = MenuUtil.HEIGHT_FOOTER_SMALL;
         }
         else if (cursor == -1) {
-            y = dc.getHeight() - px(84);
+            y = dc.getHeight() - MenuUtil.HEIGHT_FOOTER_LARGE;
         }
         else if (cursor == -2) {
-            y = dc.getHeight() - px(42);
+            y = dc.getHeight() - MenuUtil.HEIGHT_FOOTER_SMALL;
         }
         else {
             return;

@@ -69,7 +69,7 @@ class StopDetailView extends WatchUi.View {
 
         // mode menu
         if (showModeMenu) {
-            WidgetUtil.drawSideMenu(dc, stop.getModesStrings(), _viewModel.pageCursor, true);
+            MenuUtil.drawSideMenu(dc, stop.getModesStrings(), _viewModel.pageCursor, true);
             return;
         }
 
@@ -173,7 +173,7 @@ class StopDetailView extends WatchUi.View {
     }
 
     hidden function _drawFooter(dc as Dc, drawDetails as Boolean) as Void {
-        var hFooter = px(42);
+        var hFooter = MenuUtil.HEIGHT_FOOTER_SMALL;
         var h = dc.getHeight();
 
         // background
