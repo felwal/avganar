@@ -18,7 +18,7 @@ using Toybox.WatchUi;
 
 class StopListView extends WatchUi.View {
 
-    hidden var _viewModel as StopListViewModel;
+    private var _viewModel as StopListViewModel;
 
     // init
 
@@ -46,7 +46,7 @@ class StopListView extends WatchUi.View {
 
     // draw
 
-    hidden function _draw(dc as Dc) as Void {
+    private function _draw(dc as Dc) as Void {
         _drawStops(dc);
         _drawLoadingStatus(dc);
 
@@ -62,7 +62,7 @@ class StopListView extends WatchUi.View {
         }
     }
 
-    hidden function _drawStops(dc as Dc) as Void {
+    private function _drawStops(dc as Dc) as Void {
         var stopNames = _viewModel.getStopNames();
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
@@ -81,7 +81,7 @@ class StopListView extends WatchUi.View {
             getString(Rez.Strings.app_name), favColors, nearbyColors);
     }
 
-    hidden function _drawLoadingStatus(dc as Dc) as Void {
+    private function _drawLoadingStatus(dc as Dc) as Void {
         var w = dc.getWidth();
         var progress;
 

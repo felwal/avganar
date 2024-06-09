@@ -16,24 +16,24 @@ import Toybox.Lang;
 class ResponseError {
 
     // API
-    static hidden var _API_RESPONSE_SERVER = [ 5321, 5322, 5323, 5324 ];
-    static hidden var _API_REQUEST_LIMIT_MINUTE = [ 429, 1006 ];
-    static hidden var _API_REQUEST_LIMIT_MONTH = 1007;
-    static hidden var _API_RESPONSE_PROXY = 1008;
+    static private var _API_RESPONSE_SERVER = [ 5321, 5322, 5323, 5324 ];
+    static private var _API_REQUEST_LIMIT_MINUTE = [ 429, 1006 ];
+    static private var _API_REQUEST_LIMIT_MONTH = 1007;
+    static private var _API_RESPONSE_PROXY = 1008;
 
     // HTTP
     static var HTTP_OK = 200;
-    static hidden var _HTTP_BAD_REQUEST = 400;
-    static hidden var _HTTP_NOT_FOUND = 404;
-    static hidden var _HTTP_NO_CODE = 1002;
+    static private var _HTTP_BAD_REQUEST = 400;
+    static private var _HTTP_NOT_FOUND = 404;
+    static private var _HTTP_NO_CODE = 1002;
 
     // custom
     static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
     static var CODE_AUTO_REQUEST_LIMIT_MEMORY = -2001;
     static var CODE_LOCATION_OFF = -2002;
 
-    hidden var _code as Number?;
-    hidden var _title = "";
+    private var _code as Number?;
+    private var _title = "";
 
     // init
 
@@ -52,7 +52,7 @@ class ResponseError {
         return other instanceof ResponseError && other.getCode() == _code;
     }
 
-    hidden function _setTitle() as Void {
+    private function _setTitle() as Void {
         if (_code == HTTP_OK) {
             _title = getString(Rez.Strings.msg_e_null_data);
         }

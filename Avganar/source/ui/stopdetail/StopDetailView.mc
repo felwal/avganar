@@ -20,7 +20,7 @@ using Toybox.WatchUi;
 
 class StopDetailView extends WatchUi.View {
 
-    hidden var _viewModel as StopDetailViewModel;
+    private var _viewModel as StopDetailViewModel;
 
     // init
 
@@ -49,7 +49,7 @@ class StopDetailView extends WatchUi.View {
 
     // draw
 
-    hidden function _draw(dc as Dc) as Void {
+    private function _draw(dc as Dc) as Void {
         var stop = _viewModel.stop;
         var response = _viewModel.getPageResponse();
 
@@ -89,7 +89,7 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    hidden function _drawResponseOk(dc as Dc, departures as Array<Departure>) as Void {
+    private function _drawResponseOk(dc as Dc, departures as Array<Departure>) as Void {
         if (departures.size() == 0) {
             WidgetUtil.drawDialog(dc, getString(Rez.Strings.msg_i_departures_none));
         }
@@ -111,7 +111,7 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    hidden function _drawDepartures(dc as Dc, departures as Array<Departure>) as Void {
+    private function _drawDepartures(dc as Dc, departures as Array<Departure>) as Void {
         var font = Graphics.FONT_TINY;
         var xOffset = px(10);
         var yOffset = px(68);
@@ -152,7 +152,7 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    hidden function _drawResponseError(dc as Dc, error as ResponseError) as Void {
+    private function _drawResponseError(dc as Dc, error as ResponseError) as Void {
         WidgetUtil.drawDialog(dc, error.getTitle());
 
         if (!error.hasConnection()) {
@@ -160,7 +160,7 @@ class StopDetailView extends WatchUi.View {
         }
     }
 
-    hidden function _drawHeader(dc as Dc, title as String) as Void {
+    private function _drawHeader(dc as Dc, title as String) as Void {
         // 19 is font height for XTINY on fr745.
         // set y to half and justify to vcenter for the title to
         // look alright even on devices with different font size for XTINY.
@@ -171,7 +171,7 @@ class StopDetailView extends WatchUi.View {
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
-    hidden function _drawFooter(dc as Dc, drawDetails as Boolean) as Void {
+    private function _drawFooter(dc as Dc, drawDetails as Boolean) as Void {
         var hFooter = MenuUtil.HEIGHT_FOOTER_SMALL;
         var h = dc.getHeight();
 
@@ -189,7 +189,7 @@ class StopDetailView extends WatchUi.View {
         _drawFooterModeSymbol(dc, hFooter, modeKey);
     }
 
-    hidden function _drawFooterClockTime(dc as Dc, hFooter as Numeric) as Void {
+    private function _drawFooterClockTime(dc as Dc, hFooter as Numeric) as Void {
         var h = dc.getHeight();
 
         // calc pos to align with page number
@@ -211,7 +211,7 @@ class StopDetailView extends WatchUi.View {
         dc.drawText(Graphite.getCenterX(dc), yTextTop, font, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    hidden function _drawFooterProgressBar(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
+    private function _drawFooterProgressBar(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
         if (!DeparturesService.isRequesting) {
             return;
         }
@@ -225,7 +225,7 @@ class StopDetailView extends WatchUi.View {
             AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
     }
 
-    hidden function _drawFooterModeSymbol(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
+    private function _drawFooterModeSymbol(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
         var symbol = Mode.getSymbol(modeKey);
 
         if (symbol.equals("")) {

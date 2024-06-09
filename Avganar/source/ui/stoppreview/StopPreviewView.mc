@@ -36,7 +36,7 @@ class StopPreviewView extends WatchUi.View {
 
     // draw
 
-    hidden function _draw(dc as Dc) as Void {
+    private function _draw(dc as Dc) as Void {
         var stopName = NearbyStopsStorage.getNearestStopName();
 
         if (stopName == null) {
@@ -50,7 +50,7 @@ class StopPreviewView extends WatchUi.View {
         WidgetUtil.drawPreviewTitle(dc, getString(Rez.Strings.app_name), Rez.Drawables.ic_launcher, false);
     }
 
-    hidden function _drawStop(dc as Dc, stopName as String) as Void {
+    private function _drawStop(dc as Dc, stopName as String) as Void {
         var fonts = [ Graphics.FONT_LARGE, Graphics.FONT_MEDIUM ];
         var fh = dc.getFontHeight(fonts[0]);
         var height = 2 * fh;

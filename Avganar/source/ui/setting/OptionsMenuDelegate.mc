@@ -24,8 +24,8 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_SETTINGS = :settings;
     static const ITEM_ABOUT = :aboutInfo;
 
-    hidden var _viewModel as StopListViewModel;
-    hidden var _menu as Menu2;
+    private var _viewModel as StopListViewModel;
+    private var _menu as Menu2;
 
     // init
 
@@ -37,7 +37,7 @@ class OptionsMenuDelegate extends WatchUi.Menu2InputDelegate {
         _addItems();
     }
 
-    hidden function _addItems() as Void {
+    private function _addItems() as Void {
         // favorite settings
         if (_viewModel.isSelectedStopFavorite()) {
             var isInFavorites = _viewModel.stopCursor < _viewModel.getFavoriteCount();

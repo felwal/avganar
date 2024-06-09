@@ -17,8 +17,8 @@ import Toybox.WatchUi;
 
 class DialogView extends WatchUi.View {
 
-    hidden var _viewModel as DialogViewModel;
-    hidden var _transition as SlideType;
+    private var _viewModel as DialogViewModel;
+    private var _transition as SlideType;
 
     // init
 
@@ -50,7 +50,7 @@ class DialogView extends WatchUi.View {
 
     // draw
 
-    hidden function _draw(dc as Dc) as Void {
+    private function _draw(dc as Dc) as Void {
         Graphite.resetColor(dc);
 
         // text

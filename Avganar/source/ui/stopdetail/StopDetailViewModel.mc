@@ -21,8 +21,8 @@ class StopDetailViewModel {
 
     static const DEPARTURES_PER_PAGE = 4;
 
-    static hidden const _TIME_INTERVAL_SCREEN = 15 * 1000;
-    static hidden const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
+    static private const _TIME_INTERVAL_SCREEN = 15 * 1000;
+    static private const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
 
     var stop as StopType;
     var pageCount = 1;
@@ -32,10 +32,10 @@ class StopDetailViewModel {
     var isModeMenuState = false;
     var isInitialRequest = true; // TODO: replace with check against _currentModeKey?
 
-    hidden var _currentModeKey as String;
-    hidden var _lastPageDepartureCount = 0;
-    hidden var _delayTimer = new Timer.Timer();
-    hidden var _repeatTimer = new TimerWrapper();
+    private var _currentModeKey as String;
+    private var _lastPageDepartureCount = 0;
+    private var _delayTimer = new Timer.Timer();
+    private var _repeatTimer = new TimerWrapper();
 
     // init
 
@@ -67,7 +67,7 @@ class StopDetailViewModel {
         _repeatTimer.stop();
     }
 
-    hidden function _requestDeparturesDelayed() as Void {
+    private function _requestDeparturesDelayed() as Void {
         var age = stop.getMode(_currentModeKey).getDataAgeMillis();
         // never request more frequently than _TIME_INTERVAL_REQUEST.
         var delay = age == null ? 0 : _TIME_INTERVAL_REQUEST - age;
@@ -87,7 +87,7 @@ class StopDetailViewModel {
         _startRepeatTimer();
     }
 
-    hidden function _startRepeatTimer() as Void {
+    private function _startRepeatTimer() as Void {
         if (_repeatTimer.isInitialized()) {
             _repeatTimer.restart();
             return;
@@ -109,7 +109,7 @@ class StopDetailViewModel {
         _requestDepartures();
     }
 
-    hidden function _requestDepartures() as Void {
+    private function _requestDepartures() as Void {
         new DeparturesService(stop).requestDepartures(_currentModeKey);
         WatchUi.requestUpdate();
     }
@@ -207,7 +207,7 @@ class StopDetailViewModel {
     }
 
     //! @return true if successfully rotating
-    hidden function _incPageCursor() as Boolean {
+    private function _incPageCursor() as Boolean {
         if (isInitialRequest || isModeMenuState) {
             if (pageCursor < stop.getModesKeys().size() - 1) {
                 pageCursor++;
@@ -225,7 +225,7 @@ class StopDetailViewModel {
     }
 
     //! @return true if successfully rotating
-    hidden function _decPageCursor() as Boolean {
+    private function _decPageCursor() as Boolean {
         if (pageCursor > 0) {
             pageCursor--;
             return true;
@@ -237,7 +237,7 @@ class StopDetailViewModel {
         return false;
     }
 
-    hidden function _incDepartureCursor() as Boolean {
+    private function _incDepartureCursor() as Boolean {
         if (departureCursor < DEPARTURES_PER_PAGE - 1
             && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
 
@@ -252,7 +252,7 @@ class StopDetailViewModel {
         return false;
     }
 
-    hidden function _decDepartureCursor() as Boolean {
+    private function _decDepartureCursor() as Boolean {
         if (departureCursor > 0) {
             departureCursor--;
             return true;

@@ -19,31 +19,31 @@ using Toybox.Math;
 
 class Departure {
 
-    static hidden const _GROUP_BUS_RED = "";
-    static hidden const _GROUP_BUS_BLUE = "Blåbuss";
-    static hidden const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
+    static private const _GROUP_BUS_RED = "";
+    static private const _GROUP_BUS_BLUE = "Blåbuss";
+    static private const _GROUP_BUS_REPLACEMENT = "Ersättningsbuss";
 
-    static hidden const _GROUP_METRO_RED = "Tunnelbanans röda linje";
-    static hidden const _GROUP_METRO_BLUE = "Tunnelbanans blå linje";
-    static hidden const _GROUP_METRO_GREEN = "Tunnelbanans gröna linje";
+    static private const _GROUP_METRO_RED = "Tunnelbanans röda linje";
+    static private const _GROUP_METRO_BLUE = "Tunnelbanans blå linje";
+    static private const _GROUP_METRO_GREEN = "Tunnelbanans gröna linje";
 
-    static hidden const _GROUP_TRAM_SPARVAGCITY = "Spårväg City";
-    static hidden const _GROUP_TRAM_NOCKEBYBANAN = "Nockebybanan";
-    static hidden const _GROUP_TRAM_LIDINGOBANAN = "Lidingöbanan";
-    static hidden const _GROUP_TRAM_TVARBANAN = "Tvärbanan";
-    static hidden const _GROUP_TRAM_SALTSJOBANAN = "Saltsjöbanan";
-    static hidden const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
+    static private const _GROUP_TRAM_SPARVAGCITY = "Spårväg City";
+    static private const _GROUP_TRAM_NOCKEBYBANAN = "Nockebybanan";
+    static private const _GROUP_TRAM_LIDINGOBANAN = "Lidingöbanan";
+    static private const _GROUP_TRAM_TVARBANAN = "Tvärbanan";
+    static private const _GROUP_TRAM_SALTSJOBANAN = "Saltsjöbanan";
+    static private const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
     var cancelled as Boolean;
     var isRealTime as Boolean;
 
-    hidden var _modeKey as String;
-    hidden var _group as String;
-    hidden var _line as String;
-    hidden var _destination as String;
-    hidden var _moment as Moment?;
-    hidden var _deviationLevel as Number;
-    hidden var _deviationMessages as Array<String> = [];
+    private var _modeKey as String;
+    private var _group as String;
+    private var _line as String;
+    private var _destination as String;
+    private var _moment as Moment?;
+    private var _deviationLevel as Number;
+    private var _deviationMessages as Array<String> = [];
 
     // init
 

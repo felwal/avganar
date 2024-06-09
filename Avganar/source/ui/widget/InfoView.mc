@@ -21,7 +21,7 @@ using Toybox.WatchUi;
 //! the stock Menu/Settings/System/About page.
 class InfoView extends WatchUi.View {
 
-    hidden var _text as String;
+    private var _text as String;
 
     // init
 
@@ -41,7 +41,7 @@ class InfoView extends WatchUi.View {
 
     // draw
 
-    hidden function _draw(dc as Dc) as Void {
+    private function _draw(dc as Dc) as Void {
         Graphite.fillBackground(dc, AppColors.BACKGROUND_INVERTED);
         Graphite.fillTextArea(dc, _text, AppColors.TEXT_INVERTED);
     }

@@ -17,9 +17,9 @@ import Toybox.Timer;
 //! Synthesise multiple timers by only using one `Timer`.
 class TimerWrapper {
 
-    hidden var _timer as Timer.Timer;
-    hidden var _baseTime as Number?;
-    hidden var _reprs as Array<TimerRepr>?;
+    private var _timer as Timer.Timer;
+    private var _baseTime as Number?;
+    private var _reprs as Array<TimerRepr>?;
 
     function initialize() {
         _timer = new Timer.Timer();
@@ -58,9 +58,9 @@ class TimerWrapper {
 //! Representation of a Timer.
 class TimerRepr {
 
-    hidden var _callback as Method;
-    hidden var _multiple as Number;
-    hidden var _currentMultiple = 0;
+    private var _callback as Method;
+    private var _multiple as Number;
+    private var _currentMultiple = 0;
 
     function initialize(callback as Method, multipleOfBaseTime as Number) {
         _callback = callback;

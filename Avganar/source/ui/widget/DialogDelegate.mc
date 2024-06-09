@@ -16,8 +16,8 @@ import Toybox.WatchUi;
 
 class DialogDelegate extends WatchUi.BehaviorDelegate {
 
-    hidden var _viewModel as DialogViewModel;
-    hidden var _transition as SlideType;
+    private var _viewModel as DialogViewModel;
+    private var _transition as SlideType;
 
     // init
 
@@ -66,7 +66,7 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
 
     //
 
-    hidden function _pop() as Boolean {
+    private function _pop() as Boolean {
         WatchUi.popView(_transition);
         return true;
     }

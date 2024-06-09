@@ -23,11 +23,11 @@ class Stop {
 
     var name as String;
 
-    hidden var _id as Number;
-    hidden var _products as Number? = null;
-    hidden var _modesKeys as Array<String> = [];
-    hidden var _modes as Dictionary<String, Mode> = {};
-    hidden var _deviationMessages as Array<String> = [];
+    private var _id as Number;
+    private var _products as Number? = null;
+    private var _modesKeys as Array<String> = [];
+    private var _modes as Dictionary<String, Mode> = {};
+    private var _deviationMessages as Array<String> = [];
 
     // init
 
@@ -107,7 +107,7 @@ class Stop {
         _deviationMessages = messages;
     }
 
-    hidden function _setModesKeys() as Void {
+    private function _setModesKeys() as Void {
         if (_products == null) {
             // NOTE: migration to 1.8.0
             // if products are unknown, skip the mode menu entirely

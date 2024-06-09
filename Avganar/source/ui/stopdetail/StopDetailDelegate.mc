@@ -17,7 +17,7 @@ using Toybox.WatchUi;
 
 class StopDetailDelegate extends WatchUi.BehaviorDelegate {
 
-    hidden var _viewModel as StopDetailViewModel;
+    private var _viewModel as StopDetailViewModel;
 
     // init
 

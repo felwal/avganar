@@ -17,8 +17,8 @@ import Toybox.WatchUi;
 //! An abstraction for creating select-one options menus.
 class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
 
-    hidden var _menu as Menu2;
-    hidden var _callback as Method;
+    private var _menu as Menu2;
+    private var _callback as Method;
 
     // init
 
@@ -32,7 +32,7 @@ class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
         _addItems(labels, values, focus);
     }
 
-    hidden function _addItems(labels as Array<String>?, values as Array, focus as Number) as Void {
+    private function _addItems(labels as Array<String>?, values as Array, focus as Number) as Void {
         var itemCount = labels == null
             ? values.size()
             : MathUtil.min(labels.size(), values.size());

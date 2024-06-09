@@ -22,8 +22,8 @@ class DeparturesService {
     // API: SL Transport 1
     // no key, no limit
 
-    hidden var _stop as StopType;
-    hidden var _modeKey as String = Mode.KEY_ALL;
+    private var _stop as StopType;
+    private var _modeKey as String = Mode.KEY_ALL;
 
     static var isRequesting = false;
 
@@ -40,7 +40,7 @@ class DeparturesService {
         _requestDepartures(modeKey);
     }
 
-    hidden function _requestDepartures(modeKey as String) as Void {
+    private function _requestDepartures(modeKey as String) as Void {
         DeparturesService.isRequesting = true;
 
         var url = "https://transport.integration.sl.se/v1/sites/" + _stop.getId() + "/departures";
@@ -103,7 +103,7 @@ class DeparturesService {
         WatchUi.requestUpdate();
     }
 
-    hidden function _handleDeparturesResponseOk(departuresData as JsonArray) as Void {
+    private function _handleDeparturesResponseOk(departuresData as JsonArray) as Void {
         var modesKeys = [ Mode.KEY_BUS, Mode.KEY_METRO, Mode.KEY_TRAIN,
             Mode.KEY_TRAM, Mode.KEY_SHIP ]; // determines ordering of modes
 
@@ -169,7 +169,7 @@ class DeparturesService {
         }
     }
 
-    hidden function _getDepartureDeviation(deviations as JsonArray) as DepartureDeviation {
+    private function _getDepartureDeviation(deviations as JsonArray) as DepartureDeviation {
         var maxLevel = 0;
         var messages = [];
         var cancelled = false;
@@ -196,7 +196,7 @@ class DeparturesService {
         return [ maxLevel, messages, cancelled ];
     }
 
-    hidden function _handleStopDeviations(stopDeviations as JsonArray) as Void {
+    private function _handleStopDeviations(stopDeviations as JsonArray) as Void {
         var stopDeviationMessages = [];
 
         for (var i = 0; i < stopDeviations.size(); i++) {
@@ -221,7 +221,7 @@ class DeparturesService {
 
     // tools
 
-    hidden function _splitDeviationMessageByLang(msg as String) as String {
+    private function _splitDeviationMessageByLang(msg as String) as String {
         // NOTE: API limitation
         // TODO: check if still necessary for new API
         // some messages are in both Swedish and English,
@@ -241,7 +241,7 @@ class DeparturesService {
         return msg;
     }
 
-    hidden function _cleanDeviationMessage(msg as String) as String {
+    private function _cleanDeviationMessage(msg as String) as String {
         // NOTE: API limitation
         // remove references at the end of messages
 

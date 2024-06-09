@@ -24,7 +24,7 @@ class StopDouble {
 
     var name as String;
 
-    hidden var _stop as Stop;
+    private var _stop as Stop;
 
     // init
 

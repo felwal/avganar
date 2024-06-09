@@ -20,12 +20,12 @@ using Toybox.WatchUi;
 
 class StopListViewModel {
 
-    static hidden const _STORAGE_LAST_POS = "last_pos";
-    static hidden const _MOVED_DISTANCE_MIN = 100;
+    static private const _STORAGE_LAST_POS = "last_pos";
+    static private const _MOVED_DISTANCE_MIN = 100;
 
     var stopCursor = 0;
 
-    hidden var _lastPos as LatLon?;
+    private var _lastPos as LatLon?;
 
     // init
 
@@ -46,7 +46,7 @@ class StopListViewModel {
 
     // position
 
-    hidden function _requestPosition() as Void {
+    private function _requestPosition() as Void {
         // don't look for position if location setting is off
         if (NearbyStopsService.handleLocationOff()) { return; }
 
@@ -79,13 +79,13 @@ class StopListViewModel {
         }
     }
 
-    hidden function _isPositioned() as Boolean {
+    private function _isPositioned() as Boolean {
         return Footprint.isPositioned() && SettingsStorage.getUseLocation();
     }
 
     // service
 
-    hidden function _requestNearbyStops() as Void {
+    private function _requestNearbyStops() as Void {
         // don't request using position if location setting is off
         if (NearbyStopsService.handleLocationOff()) { return; }
 
@@ -109,7 +109,7 @@ class StopListViewModel {
         return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
     }
 
-    hidden function _getStops() as Array<StopType> {
+    private function _getStops() as Array<StopType> {
         var response = NearbyStopsStorage.response;
         var favs = FavoriteStopsStorage.favorites;
         var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
@@ -163,7 +163,7 @@ class StopListViewModel {
         }
     }
 
-    hidden function _hasMessage() as Boolean {
+    private function _hasMessage() as Boolean {
         return !(NearbyStopsStorage.response instanceof Lang.Array)
             || NearbyStopsStorage.response.size() == 0;
     }
@@ -247,7 +247,7 @@ class StopListViewModel {
         return true;
     }
 
-    hidden function _rotStopCursor(step as Number) as Void {
+    private function _rotStopCursor(step as Number) as Void {
         if (hasStops()) {
             stopCursor = MathUtil.modulo(stopCursor + step, getItemCount());
             WatchUi.requestUpdate();

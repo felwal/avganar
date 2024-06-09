@@ -24,7 +24,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_MINUTE_SYMBOL = :minuteSymbol;
 
-    hidden var _menu as Menu2;
+    private var _menu as Menu2;
 
     // init
 
@@ -35,7 +35,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         _addItems();
     }
 
-    hidden function _addItems() as Void {
+    private function _addItems() as Void {
         // use location
         _menu.addItem(new WatchUi.ToggleMenuItem(
             getString(Rez.Strings.itm_settings_location), { :enabled => "On", :disabled => "Off" },
