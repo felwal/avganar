@@ -53,7 +53,7 @@ class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
         WatchUi.pushView(_menu, me, WatchUi.SLIDE_LEFT);
     }
 
-    // override Menu2InputDelegate
+    // input
 
     function onSelect(item as MenuItem) as Void {
         _callback.invoke(item.getId());

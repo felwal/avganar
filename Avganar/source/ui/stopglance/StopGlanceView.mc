@@ -20,19 +20,16 @@ using Toybox.WatchUi;
 (:glance :glanceExclusive)
 class StopGlanceView extends WatchUi.GlanceView {
 
-    // init
-
     function initialize() {
         GlanceView.initialize();
     }
 
-    // override GlanceView
+    // lifecycle
 
     function onUpdate(dc as Dc) as Void {
         GlanceView.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 

@@ -52,14 +52,6 @@ class ResponseError {
         return other instanceof ResponseError && other.getCode() == _code;
     }
 
-    function getCode() as Number? {
-        return _code;
-    }
-
-    function getTitle() as String {
-        return _title;
-    }
-
     hidden function _setTitle() as Void {
         if (_code == HTTP_OK) {
             _title = getString(Rez.Strings.msg_e_null_data);
@@ -117,7 +109,15 @@ class ResponseError {
         }
     }
 
-    //
+    // get
+
+    function getCode() as Number? {
+        return _code;
+    }
+
+    function getTitle() as String {
+        return _title;
+    }
 
     function isTooLarge() as Boolean {
         return _code == Communications.NETWORK_RESPONSE_TOO_LARGE

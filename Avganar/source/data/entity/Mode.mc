@@ -45,8 +45,8 @@ class Mode {
         KEY_SHIP => getString(Rez.Strings.itm_modes_ship),
     };
 
-    hidden static var _SERVER_AUTO_REQUEST_LIMIT = 4;
-    hidden static var _MEMORY_MIN_TIME_WINDOW = 5;
+    static hidden var _SERVER_AUTO_REQUEST_LIMIT = 4;
+    static hidden var _MEMORY_MIN_TIME_WINDOW = 5;
 
     hidden var _response as DeparturesResponse;
     hidden var _failedRequestCount = 0;

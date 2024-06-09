@@ -30,19 +30,18 @@ class InfoView extends WatchUi.View {
         _text = text;
     }
 
-    // override View
+    // lifecycle
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 
     // draw
 
-    function _draw(dc as Dc) as Void {
+    hidden function _draw(dc as Dc) as Void {
         Graphite.fillBackground(dc, AppColors.BACKGROUND_INVERTED);
         Graphite.fillTextArea(dc, _text, AppColors.TEXT_INVERTED);
     }

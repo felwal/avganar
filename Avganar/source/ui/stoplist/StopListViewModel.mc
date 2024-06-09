@@ -21,6 +21,7 @@ using Toybox.WatchUi;
 class StopListViewModel {
 
     static hidden const _STORAGE_LAST_POS = "last_pos";
+    static hidden const _MOVED_DISTANCE_MIN = 100;
 
     var stopCursor = 0;
 
@@ -30,10 +31,10 @@ class StopListViewModel {
 
     function initialize() {
         stopCursor = getFavoriteCount();
-        _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS) as LatLon;
-    }
 
-    // timer
+        var lastPosArr = Storage.getValue(_STORAGE_LAST_POS);
+        _lastPos = lastPosArr.size() == 2 ? lastPosArr : null;
+    }
 
     function enableRequests() as Void {
         _requestPosition();
@@ -68,8 +69,8 @@ class StopListViewModel {
         else {
             var movedDistance = Footprint.distanceTo(_lastPos);
 
-            // only request stops if the user has moved 100 m since last request
-            if (movedDistance > 100) {
+            // only request stops if the user has moved 100m since last request
+            if (movedDistance > _MOVED_DISTANCE_MIN) {
                 _requestNearbyStops();
             }
             else {
@@ -121,10 +122,10 @@ class StopListViewModel {
 
     function getStopNames() as Array<String> {
         var stops = _getStops();
+        var names = [];
 
-        var names = new [stops.size()];
-        for (var i = 0; i < names.size(); i++) {
-            names[i] = stops[i].name;
+        for (var i = 0; i < stops.size(); i++) {
+            names.add(stops[i].name);
         }
 
         return names;

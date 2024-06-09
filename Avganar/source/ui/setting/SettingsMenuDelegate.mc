@@ -80,7 +80,7 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         WatchUi.pushView(_menu, me, transition);
     }
 
-    // override Menu2InputDelegate
+    // input
 
     function onSelect(item as MenuItem) as Void {
         var id = item.getId();

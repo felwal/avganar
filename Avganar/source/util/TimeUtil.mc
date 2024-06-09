@@ -19,6 +19,7 @@ using Toybox.System;
 module TimeUtil {
 
     function now() as Moment {
+        // TODO: is this really needed?
         return new Time.Moment(Time.now().value());
     }
 

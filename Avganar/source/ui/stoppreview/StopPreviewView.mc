@@ -21,19 +21,16 @@ using Toybox.WatchUi;
 //! This is mostly to reduce computation on merely scrolling past the widget.
 class StopPreviewView extends WatchUi.View {
 
-    // init
-
     function initialize() {
         View.initialize();
     }
 
-    // override View
+    // lifecycle
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 

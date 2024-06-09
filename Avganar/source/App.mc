@@ -19,13 +19,11 @@ using Toybox.Application;
 (:glance)
 class App extends Application.AppBase {
 
-    // init
-
     function initialize() {
         AppBase.initialize();
     }
 
-    // override AppBase
+    // lifecycle
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
         if (!SystemUtil.hasGlance()) {

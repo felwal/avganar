@@ -30,7 +30,7 @@ module Footprint {
 
     // set
 
-    function setPosLoc(positionLocation as Position.Location?) as Void {
+    function setLocation(positionLocation as Position.Location?) as Void {
         if (positionLocation != null) {
             _latLon = positionLocation.toRadians();
         }
@@ -96,7 +96,7 @@ module Footprint {
     //! @param info Activity info
     function registerLastKnownPosition() as Void {
         var activityInfo = Activity.getActivityInfo();
-        setPosLoc(activityInfo.currentLocation);
+        setLocation(activityInfo.currentLocation);
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
@@ -105,7 +105,7 @@ module Footprint {
 
     //! Location event listener delegation
     function registerPosition(positionInfo as Position.Info) as Void {
-        setPosLoc(positionInfo.position);
+        setLocation(positionInfo.position);
         isPositionRegistered = true;
 
         if (onRegisterPosition != null) {

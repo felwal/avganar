@@ -39,19 +39,18 @@ class DialogView extends WatchUi.View {
         WatchUi.pushView(view, delegate, transition);
     }
 
-    // override View
+    // lifecycle
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 
     // draw
 
-    function _draw(dc as Dc) as Void {
+    hidden function _draw(dc as Dc) as Void {
         Graphite.resetColor(dc);
 
         // text

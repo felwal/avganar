@@ -26,7 +26,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
         _viewModel = viewModel;
     }
 
-    // override BehaviorDelegate
+    // input
 
     //! "DOWN"
     function onNextPage() as Boolean {

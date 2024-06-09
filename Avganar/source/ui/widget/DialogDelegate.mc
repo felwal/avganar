@@ -28,7 +28,7 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
         _transition = transition;
     }
 
-    // override BehaviorDelegate
+    // input
 
     function onPreviousPage() as Boolean {
         if (_transition == WatchUi.SLIDE_DOWN) {
@@ -66,7 +66,7 @@ class DialogDelegate extends WatchUi.BehaviorDelegate {
 
     //
 
-    private function _pop() as Boolean {
+    hidden function _pop() as Boolean {
         WatchUi.popView(_transition);
         return true;
     }

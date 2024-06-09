@@ -21,8 +21,8 @@ class StopDetailViewModel {
 
     static const DEPARTURES_PER_PAGE = 4;
 
-    static hidden const _SCREEN_TIME_INTERVAL = 15 * 1000;
-    static hidden const _REQUEST_TIME_INTERVAL = 2 * 60 * 1000;
+    static hidden const _TIME_INTERVAL_SCREEN = 15 * 1000;
+    static hidden const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
 
     var stop as StopType;
     var pageCount = 1;
@@ -69,8 +69,8 @@ class StopDetailViewModel {
 
     hidden function _requestDeparturesDelayed() as Void {
         var age = stop.getMode(_currentModeKey).getDataAgeMillis();
-        // never request more frequently than _REQUEST_TIME_INTERVAL.
-        var delay = age == null ? 0 : _REQUEST_TIME_INTERVAL - age;
+        // never request more frequently than _TIME_INTERVAL_REQUEST.
+        var delay = age == null ? 0 : _TIME_INTERVAL_REQUEST - age;
 
         // 50 ms is the minimum time value
         if (delay <= 50) {
@@ -94,9 +94,9 @@ class StopDetailViewModel {
         }
 
         var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimerRepr(method(:onTimer), _REQUEST_TIME_INTERVAL / _SCREEN_TIME_INTERVAL);
+        var requestTimer = new TimerRepr(method(:onTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
 
-        _repeatTimer.start(_SCREEN_TIME_INTERVAL, [ screenTimer, requestTimer ]);
+        _repeatTimer.start(_TIME_INTERVAL_SCREEN, [ screenTimer, requestTimer ]);
     }
 
     function onTimer() as Void {
@@ -165,7 +165,7 @@ class StopDetailViewModel {
             && stop.getDeviationMessages().size() != 0;
     }
 
-    // write
+    // input
 
     function toggleDepartureState() as Void {
         isDepartureState = !isDepartureState;

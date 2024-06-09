@@ -18,7 +18,7 @@ using Toybox.WatchUi;
 
 class StopListView extends WatchUi.View {
 
-    var _viewModel as StopListViewModel;
+    hidden var _viewModel as StopListViewModel;
 
     // init
 
@@ -27,7 +27,7 @@ class StopListView extends WatchUi.View {
         _viewModel = viewModel;
     }
 
-    // override View
+    // lifecycle
 
     function onShow() as Void {
         _viewModel.enableRequests();
@@ -35,9 +35,8 @@ class StopListView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 
@@ -51,7 +50,7 @@ class StopListView extends WatchUi.View {
         _drawStops(dc);
         _drawLoadingStatus(dc);
 
-        // error
+        // error/message
         if (_viewModel.isShowingMessage()) {
             // info
             WidgetUtil.drawDialog(dc, _viewModel.getMessage());
@@ -119,7 +118,7 @@ class StopListView extends WatchUi.View {
         }
 
         var hasFavs = _viewModel.getFavoriteCount() > 0;
-        var h = px(hasFavs ? 3 : 2);
+        var h = px(hasFavs ? 3 : 2); // looks bigger between black/black
         var activeColor = hasFavs ? AppColors.PRIMARY_LT : AppColors.TEXT_SECONDARY;
         var inactiveColor = hasFavs ? AppColors.ON_PRIMARY_TERTIARY : null;
 

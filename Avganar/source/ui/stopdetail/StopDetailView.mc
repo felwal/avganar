@@ -29,7 +29,7 @@ class StopDetailView extends WatchUi.View {
         _viewModel = viewModel;
     }
 
-    // override View
+    // lifecycle
 
     function onShow() as Void {
         _viewModel.enableRequests();
@@ -37,9 +37,8 @@ class StopDetailView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 

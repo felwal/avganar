@@ -45,16 +45,7 @@ module ArrUtil {
     }
 
     function merge(arr1 as Array, arr2 as Array) as Array {
-        var arr = new [arr1.size() + arr2.size()];
-
-        for (var i = 0; i < arr1.size(); i++) {
-            arr[i] = arr1[i];
-        }
-        for (var i = 0; i < arr2.size(); i++) {
-            arr[arr1.size() + i] = arr2[i];
-        }
-
-        return arr;
+        return [].addAll(arr1).addAll(arr2);
     }
 
     function add(arr1 as Array<Numeric>, arr2 as Array<Numeric>) as Array<Numeric> {

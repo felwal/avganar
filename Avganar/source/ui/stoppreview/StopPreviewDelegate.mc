@@ -18,13 +18,11 @@ using Toybox.WatchUi;
 
 class StopPreviewDelegate extends WatchUi.BehaviorDelegate {
 
-    // init
-
     function initialize() {
         BehaviorDelegate.initialize();
     }
 
-    // override BehaviorDelegate
+    // input
 
     //! "START-STOP"
     function onSelect() as Boolean {

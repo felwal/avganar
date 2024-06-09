@@ -116,7 +116,7 @@ module NearbyStopsStorage {
         return new Stop(id, name, products);
     }
 
-    //! Return true if an exact duplicate was already added
+    //! @return true if an exact duplicate was already added
     function _getAddedStopWithSameId(id as Number, name as String,
         addedStops as Array<StopType>, addedStopIds as Array<Number>,
         addedStopNames as Array<String>) as StopType or Null or Boolean {
