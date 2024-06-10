@@ -66,9 +66,9 @@ module SettingsStorage {
     }
 
     function getMinuteSymbol() as String {
-        return _minuteSymbol.equals("prime") ? getString(Rez.Strings.itm_detail_departure_minutes_tiny)
-            : _minuteSymbol.equals("m") ? getString(Rez.Strings.itm_detail_departure_minutes_short)
-            : getString(Rez.Strings.itm_detail_departure_minutes_long);
+        return _minuteSymbol.equals("prime") ? getString(Rez.Strings.itm_detail_departure_time_minutes_tiny)
+            : _minuteSymbol.equals("m") ? getString(Rez.Strings.itm_detail_departure_time_minutes_short)
+            : getString(Rez.Strings.itm_detail_departure_time_minutes_long);
     }
 
     // set

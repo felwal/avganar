@@ -70,7 +70,7 @@ class Departure {
 
     function displayTime() as String {
         if (_moment == null) {
-            return getString(Rez.Strings.itm_detail_departure_null);
+            return getString(Rez.Strings.itm_detail_departure_time_null);
         }
 
         var now = Time.now();
@@ -82,7 +82,7 @@ class Departure {
         // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
 
         return minutes == 0
-            ? getString(Rez.Strings.itm_detail_departure_now)
+            ? getString(Rez.Strings.itm_detail_departure_time_now)
             : (minutes + SettingsStorage.getMinuteSymbol());
     }
 

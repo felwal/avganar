@@ -123,9 +123,9 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         else if (id == ITEM_MINUTE_SYMBOL) {
             var title = getString(Rez.Strings.itm_settings_minute_symbol);
             var labels = [
-                getString(Rez.Strings.itm_detail_departure_minutes_long),
-                getString(Rez.Strings.itm_detail_departure_minutes_short),
-                getString(Rez.Strings.itm_detail_departure_minutes_tiny) ];
+                getString(Rez.Strings.itm_detail_departure_time_minutes_long),
+                getString(Rez.Strings.itm_detail_departure_time_minutes_short),
+                getString(Rez.Strings.itm_detail_departure_time_minutes_tiny) ];
             var values = [ "min", "m", "prime" ];
             var focus = labels.indexOf(SettingsStorage.getMinuteSymbol());
             new RadioMenuDelegate(title, labels, values, focus, method(:onMinuteSymbolSelect)).push();

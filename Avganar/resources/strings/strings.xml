@@ -53,11 +53,11 @@
     <string id="lbl_list_retry">Retry</string>
 
     <!-- detail -->
-    <string id="itm_detail_departure_null">—</string>
-    <string id="itm_detail_departure_now">Now</string>
-    <string id="itm_detail_departure_minutes_long"> min</string>
-    <string id="itm_detail_departure_minutes_short">m</string>
-    <string id="itm_detail_departure_minutes_tiny">'</string>
+    <string id="itm_detail_departure_time_null">—</string>
+    <string id="itm_detail_departure_time_now">Now</string>
+    <string id="itm_detail_departure_time_minutes_long"> min</string>
+    <string id="itm_detail_departure_time_minutes_short">m</string>
+    <string id="itm_detail_departure_time_minutes_tiny">'</string>
     <string id="lbl_detail_mode_symbol_bus">B</string>
     <string id="lbl_detail_mode_symbol_metro">T</string>
     <string id="lbl_detail_mode_symbol_train">J</string>

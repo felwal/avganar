@@ -48,7 +48,7 @@
     <string id="lbl_list_retry">Försök igen</string>
 
     <!-- detail -->
-    <string id="itm_detail_departure_now">Nu</string>
+    <string id="itm_detail_departure_time_now">Nu</string>
     <string id="lbl_detail_deviation_none">Inga avvikelser</string>
 
     <!-- modes menu -->
