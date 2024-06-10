@@ -120,10 +120,9 @@ class DeparturesService {
 
             var modeKey = lineData["transport_mode"];
 
-            // TODO: check if there are other modes we should include.
-            // for now, skip them
+            // add any potential "other" modes to the end of the list
             if (!ArrUtil.contains(modesKeys, modeKey)) {
-                continue;
+                modesKeys.add(modeKey);
             }
 
             var group = DictUtil.get(lineData, "group_of_lines", "");

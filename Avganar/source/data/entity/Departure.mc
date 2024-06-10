@@ -169,7 +169,7 @@ class Departure {
             return AppColors.MODE_SHIP;
         }
 
-        return AppColors.MODE_UNKNOWN;
+        return AppColors.MODE_OTHER;
     }
 
     function getDeviationMessages() as Array<String> {

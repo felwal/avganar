@@ -37,6 +37,8 @@ class Mode {
     private var _departuresTimeWindow as Number?;
     private var _timeStamp as Moment?;
 
+    // init
+
     function initialize(response as DeparturesResponse) {
         setResponse(response);
     }
@@ -49,6 +51,8 @@ class Mode {
             _handlePotentialErrors();
         }
     }
+
+    // get
 
     function getDataAgeMillis() as Number? {
         return (_response instanceof Lang.Array || _response instanceof Lang.String) && _timeStamp != null
@@ -152,7 +156,7 @@ class Mode {
         }
     }
 
-    //
+    // static
 
     static function getKeysByBits(bits as Number) as Array<String> {
         var keys = [];
@@ -192,9 +196,8 @@ class Mode {
         else if (key.equals(KEY_SHIP)) {
             return getString(Rez.Strings.itm_modes_ship);
         }
-        else {
-            return "";
-        }
+
+        return getString(Rez.Strings.itm_modes_other);
     }
 
     static function getSymbol(key as String) as String {
@@ -217,9 +220,8 @@ class Mode {
         else if (key.equals(KEY_SHIP)) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_ship);
         }
-        else {
-            return getString(Rez.Strings.lbl_detail_mode_symbol_unknown);
-        }
+
+        return getString(Rez.Strings.lbl_detail_mode_symbol_other);
     }
 
 }

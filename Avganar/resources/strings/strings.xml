@@ -63,7 +63,7 @@
     <string id="lbl_detail_mode_symbol_train">J</string>
     <string id="lbl_detail_mode_symbol_tram">L</string>
     <string id="lbl_detail_mode_symbol_ship">F</string>
-    <string id="lbl_detail_mode_symbol_unknown">?</string>
+    <string id="lbl_detail_mode_symbol_other">?</string>
     <string id="lbl_detail_deviation_none">No Deviations</string>
 
     <!-- modes menu -->
@@ -72,6 +72,7 @@
     <string id="itm_modes_train">Trains</string>
     <string id="itm_modes_tram">Light rail</string>
     <string id="itm_modes_ship">Boats</string>
+    <string id="itm_modes_other">Other</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>

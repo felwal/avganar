@@ -57,6 +57,7 @@
     <string id="itm_modes_train">Pendeltåg</string>
     <string id="itm_modes_tram">Lokalbana</string>
     <string id="itm_modes_ship">Båtar</string>
+    <string id="itm_modes_other">Övriga</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>
