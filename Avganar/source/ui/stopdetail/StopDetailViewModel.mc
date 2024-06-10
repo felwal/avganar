@@ -35,7 +35,7 @@ class StopDetailViewModel {
     private var _currentModeKey as String;
     private var _lastPageDepartureCount as Number = 0;
     private var _delayTimer as Timer.Timer = new Timer.Timer();
-    private var _repeatTimer as TimerWrapper = new TimerWrapper();
+    private var _repeatTimer as TimeUtil.TimerWrapper = new TimeUtil.TimerWrapper();
 
     // init
 
@@ -93,8 +93,8 @@ class StopDetailViewModel {
             return;
         }
 
-        var screenTimer = new TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimerRepr(method(:onTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
+        var screenTimer = new TimeUtil.TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
+        var requestTimer = new TimeUtil.TimerRepr(method(:onTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
 
         _repeatTimer.start(_TIME_INTERVAL_SCREEN, [ screenTimer, requestTimer ]);
     }

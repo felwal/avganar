@@ -13,6 +13,7 @@
 
 import Toybox.Lang;
 import Toybox.Time;
+import Toybox.Timer;
 
 using Toybox.System;
 
@@ -59,6 +60,72 @@ module TimeUtil {
         }
 
         return moment;
+    }
+
+    // classes
+
+    //! Synthesise multiple timers by only using one `Timer`.
+    class TimerWrapper {
+
+        private var _timer as Timer.Timer;
+        private var _baseTime as Number?;
+        private var _reprs as Array<TimerRepr>?;
+
+        function initialize() {
+            _timer = new Timer.Timer();
+        }
+
+        //! @baseTime the smallest "timer" duration, of wich all other "timers"
+        //! should be multiples
+        function start(baseTime as Number, reprs as Array<TimerRepr>) as Void {
+            _baseTime = baseTime;
+            _reprs = reprs;
+
+            _timer.start(method(:onTimer), _baseTime, true);
+        }
+
+        function stop() as Void {
+            _timer.stop();
+        }
+
+        function restart() as Void {
+            stop();
+            _timer.start(method(:onTimer), _baseTime, true);
+        }
+
+        function isInitialized() as Boolean {
+            return _reprs != null;
+        }
+
+        function onTimer() as Void {
+            for (var i = 0; i < _reprs.size(); i++) {
+                _reprs[i].onBaseTime();
+            }
+        }
+
+    }
+
+    //! Representation of a Timer.
+    class TimerRepr {
+
+        private var _callback as Method;
+        private var _multiple as Number;
+        private var _currentMultiple as Number = 0;
+
+        function initialize(callback as Method, multipleOfBaseTime as Number) {
+            _callback = callback;
+            _multiple = multipleOfBaseTime;
+        }
+
+        function onBaseTime() as Void {
+            _currentMultiple++;
+
+            if (_currentMultiple >= _multiple) {
+                _currentMultiple = 0;
+                _callback.invoke();
+            }
+        }
+
     }
 
 }
