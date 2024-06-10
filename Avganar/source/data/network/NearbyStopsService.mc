@@ -39,9 +39,11 @@ module NearbyStopsService {
         // final check
         if (handleLocationOff()) { return; }
 
+        // check if not positioned
+        if (ArrUtil.equals(latLon, [ 0.0d, 0.0d ])) { return; }
+
         // check if outside bounds, to not make unnecessary calls outside the operator zone
-        if (latLon != [ 0.0d, 0.0d ]
-            && latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
+        if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
             || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
 
             NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds)));

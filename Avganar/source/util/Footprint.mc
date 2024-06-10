@@ -38,7 +38,7 @@ module Footprint {
     // get
 
     function isPositioned() as Boolean {
-        return _latLon != [ 0.0d, 0.0d ];
+        return !ArrUtil.equals(_latLon, [ 0.0d, 0.0d ]);
     }
 
     function getLatLonRad() as LatLon {
