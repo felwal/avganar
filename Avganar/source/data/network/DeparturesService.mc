@@ -136,7 +136,6 @@ class DeparturesService {
             var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
 
             // NOTE: API limitation
-            // TODO: check if still necessary for new API
             // remove duplicate "subline" in e.g. "571X X Arlandastad"
             if (destination.substring(0, 2).equals(StringUtil.charAt(line, line.length() - 1) + " ")) {
                 destination = destination.substring(2, destination.length());
@@ -209,7 +208,6 @@ class DeparturesService {
             msg = _cleanDeviationMessage(msg);
 
             // NOTE: API limitation
-            // TODO: check if still necessary for new API
             // sometimes we get duplicate deviation messages. skip these.
             if (!ArrUtil.contains(stopDeviationMessages, msg)) {
                 stopDeviationMessages.add(msg);
@@ -223,7 +221,6 @@ class DeparturesService {
 
     private function _splitDeviationMessageByLang(msg as String) as String {
         // NOTE: API limitation
-        // TODO: check if still necessary for new API
         // some messages are in both Swedish and English,
         // separated by a " * "
 
