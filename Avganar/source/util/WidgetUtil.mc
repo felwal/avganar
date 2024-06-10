@@ -187,8 +187,11 @@ module WidgetUtil {
         var offset = px(5);
         var width = px(4);
         var strokeWidth = px(2);
+        var degStart = _BTN_START_DEG - 10; // 20
+        var degEnd = _BTN_START_DEG + 10; // 40
 
-        Graphite.strokeArcCentered(dc, offset, width, strokeWidth, 20, 40, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
+        Graphite.strokeArcCentered(dc, offset, width, strokeWidth, degStart, degEnd,
+            AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
 
     (:rectangle)
@@ -198,11 +201,11 @@ module WidgetUtil {
         var strokeWidth = px(2);
 
         var x = dc.getWidth() - offset;
-        var y = 0.34 * dc.getHeight(); // sin(20) = 0.34
-        var yBottom = 0.64 * dc.getHeight(); // sin(40) = 0.64
-        var height = yBottom - y;
+        var yBottom = 0.66 * dc.getHeight() / 2; // sin(20) = 0.34
+        var yTop = 0.36 * dc.getHeight() / 2; // sin(40) = 0.64
+        var height = yBottom - yTop;
 
-        Graphite.strokeRectangle(dc, x, y, width, height, strokeWidth, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
+        Graphite.strokeRectangle(dc, x, yTop, width, height, strokeWidth, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
 
     // scrollbar
