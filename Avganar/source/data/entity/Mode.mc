@@ -47,7 +47,7 @@ class Mode {
         _response = response;
 
         if (response != null) {
-            _timeStamp = TimeUtil.now();
+            _timeStamp = Time.now();
             _handlePotentialErrors();
         }
     }
@@ -56,7 +56,7 @@ class Mode {
 
     function getDataAgeMillis() as Number? {
         return (_response instanceof Lang.Array || _response instanceof Lang.String) && _timeStamp != null
-            ? TimeUtil.now().subtract(_timeStamp).value() * 1000
+            ? Time.now().subtract(_timeStamp).value() * 1000
             : null;
     }
 
@@ -95,7 +95,7 @@ class Mode {
     }
 
     function getResponse() as DeparturesResponse {
-        _removeDepartedDepartures(); // TODO: probably dont want to call this all the time
+        _removeDepartedDepartures();
         return _response;
     }
 

@@ -19,11 +19,6 @@ using Toybox.System;
 
 module TimeUtil {
 
-    function now() as Moment {
-        // TODO: is this really needed?
-        return new Time.Moment(Time.now().value());
-    }
-
     //! Convert String on the format "YYYY-MM-DDThh:mm:ss" to Moment
     function iso8601StrToMoment(str as String?) as Moment? {
         if (str == null || str.length() != 19) {

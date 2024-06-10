@@ -213,8 +213,8 @@ class StopListViewModel {
     }
 
     function onSelectMessage() as Void {
-        // for now we let the user trigger a refresh also
-        // by clicking on the error msg. TODO: remove?
+        // let the user trigger a refresh also by clicking on the error msg
+        // – not only by scrolling down for the action footer.
         if (isUserRefreshable()) {
             _requestNearbyStops();
         }

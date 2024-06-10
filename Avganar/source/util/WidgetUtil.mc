@@ -19,6 +19,9 @@ using Toybox.Math;
 //! Draw more complex but common widgets.
 module WidgetUtil {
 
+    const ARROW_SIZE = px(8);
+    const ARROW_EDGE_OFFSET = px(4);
+
     // directions
     const _DIR_LEFT = 0;
     const _DIR_RIGHT = 1;
@@ -383,24 +386,24 @@ module WidgetUtil {
     }
 
     function drawTopPageArrow(dc as Dc) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), px(4) ], _DIR_UP);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), ARROW_EDGE_OFFSET ], _DIR_UP);
     }
 
     function drawBottomPageArrow(dc as Dc) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), dc.getHeight() - px(4) ], _DIR_DOWN);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), dc.getHeight() - ARROW_EDGE_OFFSET ], _DIR_DOWN);
     }
 
     function drawUpArrow(dc as Dc, bottomTo as Numeric) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - px(4 + 8) ], _DIR_UP);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - ARROW_EDGE_OFFSET - ARROW_SIZE ], _DIR_UP);
     }
 
     function drawDownArrow(dc as Dc, bottomTo as Numeric) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - px(4) ], _DIR_DOWN);
+        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - ARROW_EDGE_OFFSET ], _DIR_DOWN);
     }
 
     function _drawPageArrow(dc as Dc, point1 as Point2D, direction as Number) as Void {
-        var width = px(8);
-        var height = px(8);
+        var width = ARROW_SIZE;
+        var height = ARROW_SIZE;
 
         var point2;
         var point3;

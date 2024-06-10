@@ -30,7 +30,7 @@ class StopDetailViewModel {
     var departureCursor as Number = 0;
     var isDepartureState as Boolean = false;
     var isModeMenuState as Boolean = false;
-    var isInitialRequest as Boolean = true; // TODO: replace with check against _currentModeKey?
+    var isInitialRequest as Boolean = true;
 
     private var _currentModeKey as String;
     private var _lastPageDepartureCount as Number = 0;

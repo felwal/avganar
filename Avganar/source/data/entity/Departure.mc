@@ -73,7 +73,7 @@ class Departure {
             return getString(Rez.Strings.itm_detail_departure_null);
         }
 
-        var now = TimeUtil.now();
+        var now = Time.now();
         var duration = now.subtract(_moment);
         var minutes = Math.round(duration.value() / 60.0).toNumber();
 
@@ -93,7 +93,7 @@ class Departure {
 
         // we will keep displaying "now" until 30 seconds after departure
         var margin = new Time.Duration(30);
-        return TimeUtil.now().greaterThan(_moment.add(margin));
+        return Time.now().greaterThan(_moment.add(margin));
     }
 
     function getDeviationColor() as ColorType {

@@ -52,8 +52,7 @@ module FavoriteStopsStorage {
         var addedIds = [];
 
         for (var i = 0; i < ids.size() && i < names.size(); i++) {
-            // shouldn't happen, but just in case. TODO: remove?
-            var products_ = i < products.size() ? products[i] : null;
+            var products_ = ArrUtil.get(products, i, null);
 
             var existingIdIndex = addedIds.indexOf(ids[i]);
             var stop;

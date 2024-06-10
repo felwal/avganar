@@ -126,7 +126,7 @@ class DeparturesService {
             }
 
             var group = DictUtil.get(lineData, "group_of_lines", "");
-            var line = lineData["designation"]; // TODO: or "id"?
+            var line = lineData["designation"];
             var destination = departureData["destination"];
             var plannedDateTime = DictUtil.get(departureData, "scheduled", null);
             var expectedDateTime = DictUtil.get(departureData, "expected", null);

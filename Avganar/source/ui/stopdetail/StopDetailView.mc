@@ -193,9 +193,8 @@ class StopDetailView extends WatchUi.View {
         var h = dc.getHeight();
 
         // calc pos to align with page number
-        // TODO: get these from WidgetUtil instead?
-        var arrowEdgeOffset = px(4);
-        var arrowHeight = px(8);
+        var arrowEdgeOffset = WidgetUtil.ARROW_EDGE_OFFSET;
+        var arrowHeight = WidgetUtil.ARROW_SIZE;
         var arrowTextOffset = px(8);
 
         var font = Graphics.FONT_TINY;
