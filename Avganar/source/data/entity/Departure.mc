@@ -34,6 +34,8 @@ class Departure {
     static private const _GROUP_TRAM_SALTSJOBANAN = "Saltsjöbanan";
     static private const _GROUP_TRAM_ROSLAGSBANAN = "Roslagsbanan";
 
+    static private const _KEEP_DEPARTURE_AFTER_DEPARTED_SEC = 30;
+
     var cancelled as Boolean;
     var isRealTime as Boolean;
 
@@ -73,15 +75,12 @@ class Departure {
             return getString(Rez.Strings.itm_detail_departure_time_null);
         }
 
-        var now = Time.now();
-        var duration = now.subtract(_moment);
-        var minutes = Math.round(duration.value() / 60.0).toNumber();
+        // since we keep the departure a bit after it has departed,
+        // we need handle a negative time diff
+        var seconds = MathUtil.max(0, _moment.value() - Time.now().value());
+        var minutes = Math.round(seconds / 60.0).toNumber();
 
-        // NOTE: `Moment#subtract` returns a positive value. we don't need to
-        // negate it here, however, because the departure is removed in
-        // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
-
-        return minutes == 0
+        return minutes <= 0
             ? getString(Rez.Strings.itm_detail_departure_time_now)
             : (minutes + SettingsStorage.getMinuteSymbol());
     }
@@ -91,8 +90,8 @@ class Departure {
             return false;
         }
 
-        // we will keep displaying "now" until 30 seconds after departure
-        var margin = new Time.Duration(30);
+        // keep displaying "now" a bit after it has departed
+        var margin = new Time.Duration(_KEEP_DEPARTURE_AFTER_DEPARTED_SEC);
         return Time.now().greaterThan(_moment.add(margin));
     }
 
