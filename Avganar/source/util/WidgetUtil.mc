@@ -180,24 +180,6 @@ module WidgetUtil {
     // start indicator
 
     (:round)
-    function drawStartIndicatorWithBitmap(dc as Dc, rezId as ResourceId) as Void {
-        var r = Graphite.getRadius(dc) - px(23);
-        var pos = MathUtil.polarPos(r, MathUtil.rad(30f), Graphite.getCenterX(dc), Graphite.getCenterY(dc));
-
-        RezUtil.drawBitmap(dc, pos[0], pos[1], rezId);
-        drawStartIndicator(dc);
-    }
-
-    (:rectangle)
-    function drawStartIndicatorWithBitmap(dc as Dc, rezId as ResourceId) as Void {
-        var x = dc.getWidth() - px(23);
-        var y = 0.5 * dc.getHeight(); // sin(30) = 0.5
-
-        RezUtil.drawBitmap(dc, x, y, rezId);
-        drawStartIndicator(dc);
-    }
-
-    (:round)
     function drawStartIndicator(dc as Dc) as Void {
         var offset = px(5);
         var width = px(4);

@@ -16,7 +16,6 @@ import Toybox.Lang;
 using Toybox.Activity;
 using Toybox.Math;
 using Toybox.Position;
-using Toybox.WatchUi;
 
 //! The Footprint module provides extended position functionality
 (:glance)
@@ -30,9 +29,9 @@ module Footprint {
 
     // set
 
-    function setLocation(positionLocation as Position.Location?) as Void {
-        if (positionLocation != null) {
-            _latLon = positionLocation.toRadians();
+    function _setLocation(location as Position.Location?) as Void {
+        if (location != null) {
+            _latLon = location.toRadians();
         }
     }
 
@@ -96,7 +95,7 @@ module Footprint {
     //! @param info Activity info
     function registerLastKnownPosition() as Void {
         var activityInfo = Activity.getActivityInfo();
-        setLocation(activityInfo.currentLocation);
+        _setLocation(activityInfo.currentLocation);
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
@@ -105,7 +104,7 @@ module Footprint {
 
     //! Location event listener delegation
     function registerPosition(positionInfo as Position.Info) as Void {
-        setLocation(positionInfo.position);
+        _setLocation(positionInfo.position);
         isPositionRegistered = true;
 
         if (onRegisterPosition != null) {

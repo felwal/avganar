@@ -168,7 +168,7 @@ module NearbyStopsStorage {
         products as Number?) as StopType? {
 
         // check if stop already exists as favorite
-        var favStopWithSameId = FavoriteStopsStorage.getFavoriteById(id);
+        var favStopWithSameId = FavoriteStopsStorage.getFavorite(id);
         if (favStopWithSameId == null) {
             return null;
         }
@@ -191,7 +191,7 @@ module NearbyStopsStorage {
         products as Number?) as StopType? {
 
         // check if stop exists as nearby in previous response
-        var previousStopWithSameId = getStopById(id);
+        var previousStopWithSameId = _getStop(id);
         if (previousStopWithSameId == null) {
             return null;
         }
@@ -264,34 +264,20 @@ module NearbyStopsStorage {
         return getStopCount() > 0;
     }
 
-    function getStops() as Array<StopType>? {
-        return response instanceof Lang.Array ? response : null;
+    function getStops() as Array<StopType> {
+        return response instanceof Lang.Array ? response : [];
     }
 
     function getStopCount() as Number {
         return response instanceof Lang.Array ? response.size() : 0 ;
     }
 
-    function getStopByIndex(index as Number) as StopType? {
-        return response instanceof Lang.Array ? ArrUtil.coerceGet(response, index) : null;
-    }
-
-    function getStopById(id as Number) as StopType? {
+    function _getStop(id as Number) as StopType? {
         if (!(response instanceof Lang.Array)) {
             return null;
         }
 
         var index = _nearbyStopIds.indexOf(id);
-        return ArrUtil.get(response, index, null);
-    }
-
-    function getStopByIdAndName(id as Number, name as String) as StopType? {
-        if (!(response instanceof Lang.Array)) {
-            return null;
-        }
-
-        // TODO: some better way of finding it than creating a whole new stop?
-        var index = response.indexOf(Stop.dummy(id, name));
         return ArrUtil.get(response, index, null);
     }
 

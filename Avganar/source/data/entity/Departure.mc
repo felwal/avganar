@@ -130,9 +130,6 @@ class Departure {
             else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
                 return AppColors.MODE_BUS_REPLACEMENT;
             }
-            else {
-                return AppColors.MODE_UNKNOWN;
-            }
         }
         else if (_modeKey.equals(Mode.KEY_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {
@@ -143,9 +140,6 @@ class Departure {
             }
             else if (_group.equals(_GROUP_METRO_GREEN)) {
                 return AppColors.MODE_METRO_GREEN;
-            }
-            else {
-                return AppColors.MODE_UNKNOWN;
             }
         }
         else if (_modeKey.equals(Mode.KEY_TRAIN)) {
@@ -170,19 +164,12 @@ class Departure {
             else if (_group.equals(_GROUP_TRAM_ROSLAGSBANAN)) {
                 return AppColors.MODE_TRAM_ROSLAGSBANAN;
             }
-            else {
-                return AppColors.MODE_UNKNOWN;
-            }
         }
         else if (_modeKey.equals(Mode.KEY_SHIP)) {
             return AppColors.MODE_SHIP;
         }
-        else if (_modeKey.equals(Mode.KEY_NONE)) {
-            return AppColors.MODE_NONE;
-        }
-        else {
-            return AppColors.MODE_UNKNOWN;
-        }
+
+        return AppColors.MODE_UNKNOWN;
     }
 
     function getDeviationMessages() as Array<String> {

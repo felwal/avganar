@@ -14,7 +14,6 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-using Toybox.Math;
 using Toybox.WatchUi;
 
 //! An asbtraction for an info/about page, similar to

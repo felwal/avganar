@@ -130,14 +130,8 @@ module FavoriteStopsStorage {
         return ArrUtil.contains(favorites, stop);
     }
 
-    function getFavoriteById(stopId as Number) as StopType? {
+    function getFavorite(stopId as Number) as StopType? {
         var index = _favStopIds.indexOf(stopId);
-        return ArrUtil.get(favorites, index, null);
-    }
-
-    function getFavoriteByIdAndName(stopId as Number, stopName as String) as StopType? {
-        // TODO: some better way of finding it than creating a whole new stop?
-        var index = favorites.indexOf(Stop.dummy(stopId, stopName));
         return ArrUtil.get(favorites, index, null);
     }
 

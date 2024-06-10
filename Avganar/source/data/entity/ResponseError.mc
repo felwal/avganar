@@ -49,7 +49,9 @@ class ResponseError {
     }
 
     function equals(other) as Boolean {
-        return other instanceof ResponseError && other.getCode() == _code;
+        return other instanceof ResponseError && (_code != null
+            ? _code == other.getCode()
+            : _title.equals(other.getTitle()));
     }
 
     private function _setTitle() as Void {
@@ -128,6 +130,7 @@ class ResponseError {
         // NOTE: API limitation
         // usually these "server errors" are resolvable by simply requesting again.
         // we want to automate that.
+        // TODO: check if still necessary for new API
         return ArrUtil.contains(_API_RESPONSE_SERVER, _code);
     }
 
@@ -136,12 +139,12 @@ class ResponseError {
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
     }
 
-    function isRequestLimitShortReached() as Boolean {
+    private function _isRequestLimitShortReached() as Boolean {
         return ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)
             || _code == CODE_AUTO_REQUEST_LIMIT_SERVER;
     }
 
-    function isRequestLimitLongReached() as Boolean {
+    private function _isRequestLimitLongReached() as Boolean {
         return _code == _API_REQUEST_LIMIT_MONTH
             || _code == CODE_AUTO_REQUEST_LIMIT_MEMORY;
     }
@@ -154,7 +157,7 @@ class ResponseError {
     function isTimerRefreshable() as Boolean {
         return hasConnection()
             && !isAutoRefreshable()
-            && !isRequestLimitLongReached()
+            && !_isRequestLimitLongReached()
             && _code != _HTTP_BAD_REQUEST // shouldn't be repeated
             && _code != HTTP_OK // probably due to breaking API changes
             && _code != CODE_LOCATION_OFF
@@ -163,7 +166,7 @@ class ResponseError {
 
     function isUserRefreshable() as Boolean {
         return isTimerRefreshable()
-            && !isRequestLimitShortReached();
+            && !_isRequestLimitShortReached();
     }
 
 }

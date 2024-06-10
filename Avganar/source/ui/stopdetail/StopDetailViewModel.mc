@@ -237,6 +237,7 @@ class StopDetailViewModel {
         return false;
     }
 
+    //! @return true if successfully rotating
     private function _incDepartureCursor() as Boolean {
         if (departureCursor < DEPARTURES_PER_PAGE - 1
             && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
@@ -252,6 +253,7 @@ class StopDetailViewModel {
         return false;
     }
 
+    //! @return true if successfully rotating
     private function _decDepartureCursor() as Boolean {
         if (departureCursor > 0) {
             departureCursor--;

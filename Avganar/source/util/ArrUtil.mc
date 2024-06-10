@@ -90,12 +90,6 @@ module ArrUtil {
         return indices;
     }
 
-    function coerceGet(arr as Array, index as Number) {
-        return arr.size() > 0
-            ? arr[MathUtil.coerceIn(index, 0, arr.size() - 1)]
-            : null;
-    }
-
     function swap(arr as Array, i as Number, j as Number) as Void {
         var temp = arr[i];
         arr[i] = arr[j];

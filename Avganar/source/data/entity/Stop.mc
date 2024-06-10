@@ -103,7 +103,7 @@ class Stop {
         }
     }
 
-    function setDeviation(messages as Array<String>) as Void {
+    function setDeviationMessages(messages as Array<String>) as Void {
         _deviationMessages = messages;
     }
 
@@ -156,7 +156,7 @@ class Stop {
 
         for (var i = 0; i < _modesKeys.size(); i++) {
             var key = _modesKeys[i];
-            strings.add(Mode.KEY_TO_STRING[key]);
+            strings.add(Mode.getItemString(key));
         }
 
         return strings;

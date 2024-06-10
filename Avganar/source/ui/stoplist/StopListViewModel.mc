@@ -14,8 +14,6 @@
 import Toybox.Lang;
 
 using Toybox.Application.Storage;
-using Toybox.Position;
-using Toybox.Timer;
 using Toybox.WatchUi;
 
 class StopListViewModel {
@@ -110,12 +108,12 @@ class StopListViewModel {
     }
 
     private function _getStops() as Array<StopType> {
-        var response = NearbyStopsStorage.response;
+        var nearby = NearbyStopsStorage.getStops();
         var favs = FavoriteStopsStorage.favorites;
-        var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
+        var stops = ArrUtil.merge(favs, nearby); // order is important
 
         // coerce cursor
-        stopCursor = MathUtil.min(stopCursor, getItemCount() - 1);
+        stopCursor = MathUtil.min(stopCursor, _getItemCount() - 1);
 
         return stops;
     }
@@ -131,8 +129,9 @@ class StopListViewModel {
         return names;
     }
 
-    function getItemCount() as Number {
-        return getFavoriteCount() + (_hasMessage() ? 1 : NearbyStopsStorage.response.size());
+    private function _getItemCount() as Number {
+        var nearbyCount = NearbyStopsStorage.getStopCount();
+        return getFavoriteCount() + (nearbyCount > 0 ? nearbyCount : 1);
     }
 
     function getSelectedStop() as StopType? {
@@ -163,13 +162,8 @@ class StopListViewModel {
         }
     }
 
-    private function _hasMessage() as Boolean {
-        return !(NearbyStopsStorage.response instanceof Lang.Array)
-            || NearbyStopsStorage.response.size() == 0;
-    }
-
     function isShowingMessage() as Boolean {
-        return _hasMessage() && stopCursor == getItemCount() - 1;
+        return !NearbyStopsStorage.hasStops() && stopCursor == _getItemCount() - 1;
     }
 
     // favorites
@@ -249,7 +243,7 @@ class StopListViewModel {
 
     private function _rotStopCursor(step as Number) as Void {
         if (hasStops()) {
-            stopCursor = MathUtil.modulo(stopCursor + step, getItemCount());
+            stopCursor = MathUtil.modulo(stopCursor + step, _getItemCount());
             WatchUi.requestUpdate();
         }
     }

@@ -22,28 +22,12 @@ class Mode {
     static const KEY_TRAM = "TRAM";
     static const KEY_SHIP = "SHIP";
     static const KEY_ALL = "ALL";
-    static const KEY_NONE = "NONE";
 
-    static const BIT_BUS = 8;
-    static const BIT_METRO = 2;
-    static const BIT_TRAIN = 1;
-    static const BIT_TRAM = 4;
-    static const BIT_SHIP = 64;
-
-    static const KEY_TO_BIT = {
-        KEY_BUS => BIT_BUS,
-        KEY_METRO => BIT_METRO,
-        KEY_TRAIN => BIT_TRAIN,
-        KEY_TRAM => BIT_TRAM,
-        KEY_SHIP => BIT_SHIP,
-    };
-    static const KEY_TO_STRING = {
-        KEY_BUS => getString(Rez.Strings.itm_modes_bus),
-        KEY_METRO => getString(Rez.Strings.itm_modes_metro),
-        KEY_TRAIN => getString(Rez.Strings.itm_modes_train),
-        KEY_TRAM => getString(Rez.Strings.itm_modes_tram),
-        KEY_SHIP => getString(Rez.Strings.itm_modes_ship),
-    };
+    static private const _BIT_BUS = 8;
+    static private const _BIT_METRO = 2;
+    static private const _BIT_TRAIN = 1;
+    static private const _BIT_TRAM = 4;
+    static private const _BIT_SHIP = 64;
 
     static private var _SERVER_AUTO_REQUEST_LIMIT = 4;
     static private var _MEMORY_MIN_TIME_WINDOW = 5;
@@ -62,13 +46,8 @@ class Mode {
 
         if (response != null) {
             _timeStamp = TimeUtil.now();
-            handlePotentialErrors();
+            _handlePotentialErrors();
         }
-    }
-
-    function reset() as Void {
-        _timeStamp = null;
-        _response = [];
     }
 
     function getDataAgeMillis() as Number? {
@@ -111,7 +90,14 @@ class Mode {
         return _response instanceof ResponseError;
     }
 
-    function handlePotentialErrors() as Void {
+    function getResponse() as DeparturesResponse {
+        _removeDepartedDepartures(); // TODO: probably dont want to call this all the time
+        return _response;
+    }
+
+    //
+
+    private function _handlePotentialErrors() as Void {
         // for each too large response, halve the time window
         if (_response instanceof ResponseError && _response.isTooLarge()) {
             if (_departuresTimeWindow == null) {
@@ -139,13 +125,6 @@ class Mode {
         SystemUtil.vibrateLong();
         _failedRequestCount = 0;
     }
-
-    function getResponse() as DeparturesResponse {
-        _removeDepartedDepartures(); // TODO: probably dont want to call this all the time
-        return _response;
-    }
-
-    //
 
     private function _removeDepartedDepartures() as Void {
         if (!(_response instanceof Lang.Array) || _response.size() == 0
@@ -178,45 +157,44 @@ class Mode {
     static function getKeysByBits(bits as Number) as Array<String> {
         var keys = [];
 
-        if (bits&BIT_BUS != 0) {
+        if (bits&_BIT_BUS != 0) {
             keys.add(KEY_BUS);
         }
-        if (bits&BIT_METRO != 0) {
+        if (bits&_BIT_METRO != 0) {
             keys.add(KEY_METRO);
         }
-        if (bits&BIT_TRAIN != 0) {
+        if (bits&_BIT_TRAIN != 0) {
             keys.add(KEY_TRAIN);
         }
-        if (bits&BIT_TRAM != 0) {
+        if (bits&_BIT_TRAM != 0) {
             keys.add(KEY_TRAM);
         }
-        if (bits&BIT_SHIP != 0) {
+        if (bits&_BIT_SHIP != 0) {
             keys.add(KEY_SHIP);
         }
 
         return keys;
     }
 
-    static function getStringsByBits(bits as Number) as Array<String> {
-        var strings = [];
-
-        if (bits&BIT_BUS != 0) {
-            strings.add(getString(Rez.Strings.itm_modes_bus));
+    static function getItemString(key as String) as String {
+        if (key.equals(KEY_BUS)) {
+            return getString(Rez.Strings.itm_modes_bus);
         }
-        if (bits&BIT_METRO != 0) {
-            strings.add(getString(Rez.Strings.itm_modes_metro));
+        else if (key.equals(KEY_METRO)) {
+            return getString(Rez.Strings.itm_modes_metro);
         }
-        if (bits&BIT_TRAIN != 0) {
-            strings.add(getString(Rez.Strings.itm_modes_train));
+        else if (key.equals(KEY_TRAIN)) {
+            return getString(Rez.Strings.itm_modes_train);
         }
-        if (bits&BIT_TRAM != 0) {
-            strings.add(getString(Rez.Strings.itm_modes_tram));
+        else if (key.equals(KEY_TRAM)) {
+            return getString(Rez.Strings.itm_modes_tram);
         }
-        if (bits&BIT_SHIP != 0) {
-            strings.add(getString(Rez.Strings.itm_modes_ship));
+        else if (key.equals(KEY_SHIP)) {
+            return getString(Rez.Strings.itm_modes_ship);
         }
-
-        return strings;
+        else {
+            return "";
+        }
     }
 
     static function getSymbol(key as String) as String {

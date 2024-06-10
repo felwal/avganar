@@ -30,33 +30,33 @@ module SystemUtil {
 
     // vibration
 
-    function shouldNotDisturb() as Boolean {
+    function _shouldNotDisturb() as Boolean {
         var ds = System.getDeviceSettings();
         return ds has :doNotDisturb && ds.doNotDisturb;
     }
 
-    function isVibrateOn() as Boolean {
+    function _isVibrateOn() as Boolean {
         var ds = System.getDeviceSettings();
         return Attention has :vibrate && ds has :vibrateOn && ds.vibrateOn;
     }
 
-    function shouldVibrate() as Boolean {
-        return !shouldNotDisturb() && isVibrateOn() && SettingsStorage.getVibrateOnResponse();
+    function _shouldVibrate() as Boolean {
+        return !_shouldNotDisturb() && _isVibrateOn() && SettingsStorage.getVibrateOnResponse();
     }
 
-    function vibrate(cycle as Number, length as Number) as Void {
-        if (shouldVibrate()) {
+    function _vibrate(cycle as Number, length as Number) as Void {
+        if (_shouldVibrate()) {
             var vibeData = [ new Attention.VibeProfile(cycle, length) ];
             Attention.vibrate(vibeData);
         }
     }
 
     function vibrateLong() as Void {
-        vibrate(75, 300);
+        _vibrate(75, 300);
     }
 
     function vibrateShort() as Void {
-        vibrate(75, 100);
+        _vibrate(75, 100);
     }
 
 }

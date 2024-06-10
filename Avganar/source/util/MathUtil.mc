@@ -18,8 +18,6 @@ using Toybox.Math;
 
 module MathUtil {
 
-    const TAU = 6.28318530717958647692;
-
     // geometry
 
     //! Get carteesian coordinates from polar coordinates
@@ -49,12 +47,12 @@ module MathUtil {
     }
 
     function deg(rad as Decimal) as Decimal {
-        return 360 * rad / TAU;
+        return 360 * rad / 2 / Math.PI;
     }
 
 
     function rad(deg as Decimal) as Decimal {
-        return TAU * deg / 360;
+        return 2 * Math.PI * deg / 360;
     }
 
     // misc

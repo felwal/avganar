@@ -64,8 +64,8 @@ class StopDouble {
         _stop.resetModesWithResponseErrors();
     }
 
-    function setDeviation(message as Array<String>) as Void {
-        _stop.setDeviation(message);
+    function setDeviationMessages(messages as Array<String>) as Void {
+        _stop.setDeviationMessages(messages);
     }
 
     // get

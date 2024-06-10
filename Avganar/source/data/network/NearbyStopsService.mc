@@ -20,6 +20,7 @@ using Toybox.WatchUi;
 module NearbyStopsService {
 
     // API: SL Nearby Stops 2
+    // https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/
     // Bronze: 10_000/month, 30/min
 
     // edges of the operator zone, with an extra 2 km offset

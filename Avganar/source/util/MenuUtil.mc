@@ -14,8 +14,6 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-using Toybox.Math;
-
 module MenuUtil {
 
     const HEIGHT_FOOTER_SMALL = px(42);

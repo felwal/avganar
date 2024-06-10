@@ -20,6 +20,7 @@ using Toybox.WatchUi;
 class DeparturesService {
 
     // API: SL Transport 1
+    // https://www.trafiklab.se/api/trafiklab-apis/sl/transport/
     // no key, no limit
 
     static var isRequesting as Boolean = false;
@@ -216,7 +217,7 @@ class DeparturesService {
             }
         }
 
-        _stop.setDeviation(stopDeviationMessages);
+        _stop.setDeviationMessages(stopDeviationMessages);
     }
 
     // tools
