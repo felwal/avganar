@@ -28,7 +28,6 @@ class ResponseError {
     static private var _HTTP_NO_CODE = 1002;
 
     // custom
-    static var CODE_AUTO_REQUEST_LIMIT_SERVER = -2000;
     static var CODE_AUTO_REQUEST_LIMIT_MEMORY = -2001;
     static var CODE_LOCATION_OFF = -2002;
 
@@ -83,8 +82,11 @@ class ResponseError {
             _title = getString(Rez.Strings.msg_e_invalid);
         }
 
-        else if (isServerError() || isTooLarge()) {
+        else if (isAutoRefreshable()) {
             _title = getString(Rez.Strings.msg_i_departures_requesting);
+        }
+        else if (ArrUtil.contains(_API_RESPONSE_SERVER, _code)) {
+            _title = getString(Rez.Strings.msg_e_server);
         }
         else if (ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)) {
             _title = getString(Rez.Strings.msg_e_limit_minute);
@@ -96,9 +98,6 @@ class ResponseError {
             _title = getString(Rez.Strings.msg_e_proxy);
         }
 
-        else if (_code == CODE_AUTO_REQUEST_LIMIT_SERVER) {
-            _title = getString(Rez.Strings.msg_e_server);
-        }
         else if (_code == CODE_AUTO_REQUEST_LIMIT_MEMORY) {
             _title = getString(Rez.Strings.msg_e_memory);
         }
@@ -126,22 +125,13 @@ class ResponseError {
             || _code == Communications.NETWORK_RESPONSE_OUT_OF_MEMORY;
     }
 
-    function isServerError() as Boolean {
-        // NOTE: API limitation
-        // usually these "server errors" are resolvable by simply requesting again.
-        // we want to automate that.
-        // TODO: check if still necessary for new API
-        return ArrUtil.contains(_API_RESPONSE_SERVER, _code);
-    }
-
     function hasConnection() as Boolean {
         return _code != Communications.BLE_CONNECTION_UNAVAILABLE
             && _code != Communications.NETWORK_REQUEST_TIMED_OUT;
     }
 
     private function _isRequestLimitShortReached() as Boolean {
-        return ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)
-            || _code == CODE_AUTO_REQUEST_LIMIT_SERVER;
+        return ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code);
     }
 
     private function _isRequestLimitLongReached() as Boolean {
@@ -150,8 +140,7 @@ class ResponseError {
     }
 
     function isAutoRefreshable() as Boolean {
-        return isTooLarge()
-            || isServerError();
+        return isTooLarge();
     }
 
     function isTimerRefreshable() as Boolean {

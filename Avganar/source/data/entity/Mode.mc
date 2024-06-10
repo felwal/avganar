@@ -77,11 +77,6 @@ class Mode {
             return false;
         }
 
-        if (_failedRequestCount >= _SERVER_AUTO_REQUEST_LIMIT && _response.isServerError()) {
-            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_SERVER));
-            return false;
-        }
-
         if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
             setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
             return false;
@@ -117,10 +112,6 @@ class Mode {
                 _departuresTimeWindow /= 2;
             }
 
-            _failedRequestCount++;
-            return;
-        }
-        else if (_response instanceof ResponseError && _response.isServerError()) {
             _failedRequestCount++;
             return;
         }
