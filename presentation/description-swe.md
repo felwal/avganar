@@ -13,6 +13,8 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
   - Se avvikelser och deras viktighetsnivå
 - Begränsa minnesbelastning genom att justera inställningar*
 
+***
+
 \* Meny och inställningar nås på samma sätt som vanligt. På vissa klockor håller man inne UP, på andra BACK.
 
 **Färgkodning**:
@@ -21,24 +23,15 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 - Avvikelsers viktighetsnivå: låg (gul), medium (orange), hög (röd), inställd (genomstruken)
 - Transporttyp: matchar SL:s färgkodning
 
-**Behörigheter** – Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.1.0.
+**Behörigheter** – Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.2.0.
 
-**API:er** – Data hämtas från Trafiklabs API:er "SL Närliggande hållplatser 2" och "SL Transport". Avgånär är inte på något sätt ansluten till Trafiklab eller SL. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta.
+**API:er** – Data hämtas från Trafiklabs API:er "SL Närliggande hållplatser 2" och "SL Transport". Avgånär är inte på något sätt ansluten till Trafiklab eller SL. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta, och antar inget ansvar för missade avgångar.
 
-**Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn (https://github.com/felwal/avganar/blob/main/PRIVACY.md). I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
+**Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn: https://github.com/felwal/avganar/blob/main/PRIVACY.md. I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
+
+**Vanliga frågor** – vänligen se https://github.com/felwal/avganar/blob/main/presentation%2FFAQ.md
 
 **Support** – För support, vänligen kontakta mig via felwal.studios@proton.me. Jag svarar så snart jag kan.
 
 **Nyckelord** – kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
 
-## FAQ
-
-**Jag fortsätter få "Ingen data"** – Detta är troligen pga API-förändringar. Vänligen pröva uppdatera till den senaste versionen av appen.
-
-**Jag fortsätter få "Serverfel"** – Detta är SL:s problem och händer då och då. Allt vi kan göra är att ha tålamod.
-
-**Jag fortsätter få "Klientfel"** – Detta är troligen mitt fel. Jag kulle uppskatta om du ville skicka detaljer till mailadressen ovan.
-
-**Närliggande hållpatser uppdaterar inte** – Att hämta närliggande hållplatser kräver GPS-signal vilket kan ta lite tid. Försök med att vänta ett tag, eller gå utomhus. Progress-baren indikerar om appen väntar på platsdata (⅓) eller på API-svar (⅔).
-
-**Långa laddningstider** – Om progress-baren konsekvent går väldigt långt betyder detta att svaren är för stora och måste bes om igen, med mindre data. Överväg att minska "Största tidsfönster" i inställningarna.
