@@ -30,7 +30,7 @@ class StopListViewModel {
     function initialize() {
         stopCursor = getFavoriteCount();
 
-        var lastPosArr = Storage.getValue(_STORAGE_LAST_POS);
+        var lastPosArr = StorageUtil.getArray(_STORAGE_LAST_POS);
         _lastPos = lastPosArr.size() == 2 ? lastPosArr : null;
     }
 
