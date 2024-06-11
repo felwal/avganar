@@ -29,7 +29,7 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 
 **Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn: https://github.com/felwal/avganar/blob/main/PRIVACY.md. I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
 
-**Vanliga frågor** – vänligen se https://github.com/felwal/avganar/blob/main/presentation%2FFAQ.md
+**Vanliga frågor** – vänligen se https://github.com/felwal/avganar/blob/main/FAQ.md.
 
 **Support** – För support, vänligen kontakta mig via felwal.studios@proton.me. Jag svarar så snart jag kan.
 

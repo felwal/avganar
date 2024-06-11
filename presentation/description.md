@@ -29,7 +29,7 @@ For coverage of the entire Sweden, see Avgånär: Sweden departures.
 
 **Privacy** – By downloading and using this app, you agree to the privacy policy: https://github.com/felwal/avganar/blob/main/PRIVACY.md. In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
-**FAQ** – Please see https://github.com/felwal/avganar/blob/main/presentation%2FFAQ.md
+**FAQ** – Please see https://github.com/felwal/avganar/blob/main/FAQ.md.
 
 **Support** – For support, please contact me at felwal.studios@proton.me. I'll get back to you as soon as I can.
 
