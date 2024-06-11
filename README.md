@@ -3,7 +3,7 @@
 
 Avgånär is a Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
 
-Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3edd-4298-8348-5bd818376a2a).
+Get it on the [Connect IQ Store](https://apps.garmin.com/apps/a96ddb52-3edd-4298-8348-5bd818376a2a).
 
 ## Preview
 

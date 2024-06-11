@@ -2,7 +2,7 @@
 
 Avgånär is a public transport widget for viewing nearby stops and departures within Stockholms Lokaltrafik (SL) in Sweden.
 
-For coverage of the entire Sweden, see Avgånär: Sweden departures.
+For coverage of the entire Sweden, see Avgånär: Sweden departures: https://apps.garmin.com/apps/993cae37-27d3-46b2-9f87-443ece770a61.
 
 **Features**:
 
