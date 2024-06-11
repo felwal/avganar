@@ -20,7 +20,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
     static const ITEM_LOCATION = :useLocation;
     static const ITEM_VIBRATE = :vibrateOnResponse;
     static const ITEM_MAX_STOPS = :maxNoStops;
-    static const ITEM_MAX_DEPARTURES = :maxNoDepartures;
     static const ITEM_TIME_WINDOW = :defaultTimeWindow;
     static const ITEM_MINUTE_SYMBOL = :minuteSymbol;
 
@@ -52,15 +51,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
         _menu.addItem(new WatchUi.MenuItem(
             getString(Rez.Strings.itm_settings_max_stops), SettingsStorage.getMaxStops().toString(),
             ITEM_MAX_STOPS, {}
-        ));
-
-        // max departures
-        _menu.addItem(new WatchUi.MenuItem(
-            getString(Rez.Strings.itm_settings_max_departures),
-            SettingsStorage.getMaxDepartures() == -1
-                ? getString(Rez.Strings.itm_settings_max_departures_unlimited)
-                : SettingsStorage.getMaxDepartures().toString(),
-            ITEM_MAX_DEPARTURES, {}
         ));
 
         // default time window
@@ -104,14 +94,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
             new RadioMenuDelegate(title, null, values, focus, method(:onMaxStopsSelect)).push();
             return;
         }
-        else if (id == ITEM_MAX_DEPARTURES) {
-            var title = getString(Rez.Strings.itm_settings_max_departures);
-            var labels = [ "10", "20", "40", "60", getString(Rez.Strings.itm_settings_max_departures_unlimited) ];
-            var values = [ 10, 20, 40, 60, -1 ];
-            var focus = values.indexOf(SettingsStorage.getMaxDepartures());
-            new RadioMenuDelegate(title, labels, values, focus, method(:onMaxDeparturesSelect)).push();
-            return;
-        }
         else if (id == ITEM_TIME_WINDOW) {
             var title = getString(Rez.Strings.itm_settings_time_window);
             var labels = [ "5 min", "15 min", "30 min", "45 min", "60 min" ];
@@ -144,15 +126,6 @@ class SettingsMenuDelegate extends WatchUi.Menu2InputDelegate {
 
         var item = _menu.getItem(_menu.findItemById(ITEM_MAX_STOPS));
         item.setSubLabel(value.toString());
-    }
-
-    function onMaxDeparturesSelect(value as Number) as Void {
-        SettingsStorage.setMaxDepartures(value);
-
-        var item = _menu.getItem(_menu.findItemById(ITEM_MAX_DEPARTURES));
-        item.setSubLabel(value == -1
-            ? getString(Rez.Strings.itm_settings_max_departures_unlimited)
-            : value.toString());
     }
 
     function onTimeWindowSelect(value as Number) as Void {

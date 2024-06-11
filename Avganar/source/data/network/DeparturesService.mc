@@ -109,12 +109,8 @@ class DeparturesService {
             Mode.KEY_TRAM, Mode.KEY_SHIP ]; // determines ordering of modes
 
         var departures = {};
-        var maxDepartures = SettingsStorage.getMaxDepartures();
-        var departureCount = maxDepartures == -1
-            ? departuresData.size()
-            : MathUtil.min(departuresData.size(), maxDepartures);
 
-        for (var i = 0; i < departureCount; i++) {
+        for (var i = 0; i < departuresData.size(); i++) {
             var departureData = departuresData[i] as JsonDict;
             var lineData = departureData["line"] as JsonDict;
 

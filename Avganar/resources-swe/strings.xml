@@ -76,9 +76,7 @@
     <string id="itm_settings_location">Använd platsdata</string>
     <string id="itm_settings_vibrate">Vibrera vid svar</string>
     <string id="itm_settings_max_stops">Högst antal hållplatser</string>
-    <string id="itm_settings_max_departures">Högst antal avgångar</string>
-    <string id="itm_settings_max_departures_unlimited">Ingen gräns</string>
-    <string id="itm_settings_time_window">Största tidsfönster</string>
+    <string id="itm_settings_time_window">Tidsfönster för avgångar</string>
     <string id="itm_settings_minute_symbol">Minut-symbol</string>
 
     <!-- info -->

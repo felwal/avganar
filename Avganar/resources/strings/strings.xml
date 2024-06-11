@@ -91,9 +91,7 @@
     <string id="itm_settings_location">Use Location</string>
     <string id="itm_settings_vibrate">Vibrate on Response</string>
     <string id="itm_settings_max_stops">Max Stops</string>
-    <string id="itm_settings_max_departures">Max Departures</string>
-    <string id="itm_settings_max_departures_unlimited">No Limit</string>
-    <string id="itm_settings_time_window">Default Time Window</string>
+    <string id="itm_settings_time_window">Departures Time Window</string>
     <string id="itm_settings_minute_symbol">Minute Symbol</string>
 
     <!-- info -->

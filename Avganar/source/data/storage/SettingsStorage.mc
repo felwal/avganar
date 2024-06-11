@@ -21,14 +21,12 @@ module SettingsStorage {
     const _STORAGE_LOCATION = "use_location";
     const _STORAGE_VIBRATE = "vibrate_on_response";
     const _STORAGE_MAX_STOPS = "max_no_stops";
-    const _STORAGE_MAX_DEPARTURES = "max_no_departures";
     const _STORAGE_TIME_WINDOW = "default_time_window";
     const _STORAGE_MINUTE_SYMBOL = "minute_symbol";
 
     var _useLocation as Boolean = true;
     var _vibrateOnResponse as Boolean = true;
     var _maxStops as Number = 15;
-    var _maxDepartures as Number = -1;
     var _defaultTimeWindow as Number = 30;
     var _minuteSymbol as String = "m";
 
@@ -38,7 +36,6 @@ module SettingsStorage {
         _useLocation = StorageUtil.getValue(_STORAGE_LOCATION, _useLocation);
         _vibrateOnResponse = StorageUtil.getValue(_STORAGE_VIBRATE, _vibrateOnResponse);
         _maxStops = StorageUtil.getValue(_STORAGE_MAX_STOPS, _maxStops);
-        _maxDepartures = StorageUtil.getValue(_STORAGE_MAX_DEPARTURES, _maxDepartures);
         _defaultTimeWindow = StorageUtil.getValue(_STORAGE_TIME_WINDOW, _defaultTimeWindow);
         _minuteSymbol = StorageUtil.getValue(_STORAGE_MINUTE_SYMBOL, _minuteSymbol);
     }
@@ -55,10 +52,6 @@ module SettingsStorage {
 
     function getMaxStops() as Number {
         return _maxStops;
-    }
-
-    function getMaxDepartures() as Number {
-        return _maxDepartures;
     }
 
     function getDefaultTimeWindow() as Number {
@@ -86,11 +79,6 @@ module SettingsStorage {
     function setMaxStops(maxNo as Number) as Void {
         _maxStops = maxNo;
         Storage.setValue(_STORAGE_MAX_STOPS, maxNo);
-    }
-
-    function setMaxDepartures(maxNo as Number) as Void {
-        _maxDepartures = maxNo;
-        Storage.setValue(_STORAGE_MAX_DEPARTURES, maxNo);
     }
 
     function setDefaultTimeWindow(timeWindow as Number) as Void {
