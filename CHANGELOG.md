@@ -1,6 +1,8 @@
 # Changelog
 
-**NOTE** – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
+## 1.8.4 [2024-06-11]
+
+- Bug fixes and improvements
 
 ## 1.8.3 [2024-06-08]
 
@@ -18,10 +20,12 @@
 
 ## 1.8.0 [2024-03-31]
 
-- Migrate to the new SL Transport API
-  - Please update by 2024-03-31
-- Add a menu for requesting departures one transport mode at a time
-  - Necessary because responses from new API otherwise are too large
+- Migrate to the new SL Transport API*
+- Add a menu for requesting departures one transport mode at a time**
+
+\* Please update by 2024-03-31
+
+** Necessary because responses from new API otherwise are too large
 
 ## 1.7.0 [2024-03-14]
 
@@ -32,8 +36,9 @@
 
 ## 1.6.2 [2023-12-09]
 
-- Migrate to the updated SL Nearby Stops API
-  - Please update by 2024-03-14
+- Migrate to the updated SL Nearby Stops API*
+
+\* Please update by 2024-03-14
 
 ## 1.6.1 [2023-11-25]
 
@@ -44,7 +49,7 @@
 
 - Display if departure times are planned (white) or expected (green)
 - Add departure selecton (access via menu)
-- Add departure deviations view (access via departure selection)
+- Add a departure deviations view (access via departure selection)
 - Deviation messages:
   - Respect language settings when possible
   - Remove redundant "visit sl.se" messages
@@ -73,7 +78,7 @@
 
 ## 1.4.0 [2023-04-26]
 
-- Add 'no favorites' dialog view
+- Add a 'no favorites' view
 - Add setting for 'minute symbol'
 - Display mode with a letter
 - Improve UI
