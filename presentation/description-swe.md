@@ -2,7 +2,7 @@
 
 Avgånär är en widget för kollektivtrafik som visar närliggande hållplatser och avgångar inom Stockholms Lokaltrafik (SL) i Sverige.
 
-För täckning av hela Sverige, se Avgånär: Sverige avgångar: https://apps.garmin.com/apps/993cae37-27d3-46b2-9f87-443ece770a61.
+För täckning av hela Sverige, se Avgånär: Sverige avgångar: https://apps.garmin.com/apps/993cae37-27d3-46b2-9f87-443ece770a61
 
 **Funktioner**:
 
@@ -29,7 +29,7 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar: https://apps.ga
 
 **Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn: https://github.com/felwal/avganar/blob/main/PRIVACY.md. I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
 
-**Vanliga frågor** – vänligen se https://github.com/felwal/avganar/blob/main/FAQ.md.
+**Vanliga frågor** – vänligen se https://github.com/felwal/avganar/blob/main/FAQ.md
 
 **Support** – För support, vänligen kontakta mig via felwal.studios@proton.me. Jag svarar så snart jag kan, men är jag inte skyldig att och åtar inget ansvar.
 
