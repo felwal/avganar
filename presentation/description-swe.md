@@ -34,4 +34,3 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar.
 **Support** – För support, vänligen kontakta mig via felwal.studios@proton.me. Jag svarar så snart jag kan.
 
 **Nyckelord** – kollektivtrafik, lokaltrafik, kommunaltrafik, pendel, avgångar, resa, tåg, buss, tunnelbana, lokalbana, spårvagn; public transport, commute, departures, travel, train, bus, metro, tram, light rail
-
