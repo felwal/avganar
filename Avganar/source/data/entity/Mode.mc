@@ -16,18 +16,15 @@ import Toybox.Time;
 
 class Mode {
 
-    static const KEY_BUS = "BUS";
-    static const KEY_METRO = "METRO";
-    static const KEY_TRAIN = "TRAIN";
-    static const KEY_TRAM = "TRAM";
-    static const KEY_SHIP = "SHIP";
-    static const KEY_ALL = "ALL";
-
-    static private const _BIT_BUS = 8;
-    static private const _BIT_METRO = 2;
-    static private const _BIT_TRAIN = 1;
-    static private const _BIT_TRAM = 4;
-    static private const _BIT_SHIP = 64;
+    static const KEY_BUS_LOCAL = 128;
+    static const KEY_BUS_EXPRESS = 8;
+    static const KEY_METRO = 32;
+    static const KEY_TRAIN_LOCAL = 16;
+    static const KEY_TRAIN_REGIONAL = 4;
+    static const KEY_TRAIN_EXPRESS = 2;
+    static const KEY_TRAM = 64;
+    static const KEY_SHIP = 256;
+    static const KEY_ALL = 0;
 
     static private var _SERVER_AUTO_REQUEST_LIMIT = 4;
     static private var _MEMORY_MIN_TIME_WINDOW = 5;
@@ -152,19 +149,28 @@ class Mode {
     static function getKeysByBits(bits as Number) as Array<String> {
         var keys = [];
 
-        if (bits&_BIT_BUS != 0) {
-            keys.add(KEY_BUS);
+        if (bits&KEY_BUS_LOCAL != 0) {
+            keys.add(KEY_BUS_LOCAL);
         }
-        if (bits&_BIT_METRO != 0) {
+        if (bits&KEY_BUS_EXPRESS != 0) {
+            keys.add(KEY_BUS_EXPRESS);
+        }
+        if (bits&KEY_METRO != 0) {
             keys.add(KEY_METRO);
         }
-        if (bits&_BIT_TRAIN != 0) {
-            keys.add(KEY_TRAIN);
+        if (bits&KEY_TRAIN_LOCAL != 0) {
+            keys.add(KEY_TRAIN_LOCAL);
         }
-        if (bits&_BIT_TRAM != 0) {
+        if (bits&KEY_TRAIN_REGIONAL != 0) {
+            keys.add(KEY_TRAIN_REGIONAL);
+        }
+        if (bits&KEY_TRAIN_EXPRESS != 0) {
+            keys.add(KEY_TRAIN_EXPRESS);
+        }
+        if (bits&KEY_TRAM != 0) {
             keys.add(KEY_TRAM);
         }
-        if (bits&_BIT_SHIP != 0) {
+        if (bits&KEY_SHIP != 0) {
             keys.add(KEY_SHIP);
         }
 
@@ -172,14 +178,23 @@ class Mode {
     }
 
     static function getItemString(key as String) as String {
-        if (key.equals(KEY_BUS)) {
-            return getString(Rez.Strings.itm_modes_bus);
+        if (key.equals(KEY_BUS_LOCAL)) {
+            return getString(Rez.Strings.itm_modes_bus_local);
+        }
+        else if (key.equals(KEY_BUS_EXPRESS)) {
+            return getString(Rez.Strings.itm_modes_bus_express);
         }
         else if (key.equals(KEY_METRO)) {
             return getString(Rez.Strings.itm_modes_metro);
         }
-        else if (key.equals(KEY_TRAIN)) {
-            return getString(Rez.Strings.itm_modes_train);
+        else if (key.equals(KEY_TRAIN_LOCAL)) {
+            return getString(Rez.Strings.itm_modes_train_local);
+        }
+        else if (key.equals(KEY_TRAIN_REGIONAL)) {
+            return getString(Rez.Strings.itm_modes_train_regional);
+        }
+        else if (key.equals(KEY_TRAIN_EXPRESS)) {
+            return getString(Rez.Strings.itm_modes_train_express);
         }
         else if (key.equals(KEY_TRAM)) {
             return getString(Rez.Strings.itm_modes_tram);
@@ -196,13 +211,13 @@ class Mode {
             return "";
         }
 
-        else if (key.equals(KEY_BUS)) {
+        else if (key.equals(KEY_BUS_LOCAL) || key.equals(KEY_BUS_EXPRESS)) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_bus);
         }
         else if (key.equals(KEY_METRO)) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_metro);
         }
-        else if (key.equals(KEY_TRAIN)) {
+        else if (key.equals(KEY_TRAIN_LOCAL) || key.equals(KEY_TRAIN_REGIONAL) || key.equals(KEY_TRAIN_EXPRESS)) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_train);
         }
         else if (key.equals(KEY_TRAM)) {
