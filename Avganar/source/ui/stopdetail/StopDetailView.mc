@@ -199,7 +199,7 @@ class StopDetailView extends WatchUi.View {
         var progress = MathUtil.recursiveShare(0.33f, 0f, failedCount);
 
         WidgetUtil.drawProgressBar(dc, yProgressBar, hProgressBar, progress,
-            AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
+            AppColors.PRIMARY_LT, AppColors.PRIMARY_DK);
     }
 
     private function _drawFooterModeSymbol(dc as Dc, hFooter as Numeric, modeKey as Number) as Void {
