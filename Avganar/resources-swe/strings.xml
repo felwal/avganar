@@ -53,16 +53,8 @@
 
     <!-- detail -->
     <string id="itm_detail_departure_time_now">Nu</string>
-    <string id="lbl_detail_deviation_none">Inga avvikelser</string>
 
     <!-- modes menu -->
-    <string id="itm_modes_bus">Bussar</string>
-    <string id="itm_modes_metro">Tunnelbana</string>
-    <string id="itm_modes_train">Pendeltåg</string>
-    <string id="itm_modes_tram">Lokalbana</string>
-    <string id="itm_modes_ship">Båtar</string>
-    <string id="itm_modes_other">Övriga</string>
-
     <string id="itm_modes_bus_local">Bussar</string>
     <string id="itm_modes_bus_express">Expressbussar</string>
     <string id="itm_modes_metro">Tunnelbana</string>
@@ -71,6 +63,7 @@
     <string id="itm_modes_train_express">Expresståg</string>
     <string id="itm_modes_tram">Lokalbana</string>
     <string id="itm_modes_ship">Båtar</string>
+    <string id="itm_modes_other">Övriga</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">Inga favoriter</string>

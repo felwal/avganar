@@ -27,8 +27,6 @@ class StopDetailViewModel {
     var stop as StopType;
     var pageCount as Number = 1;
     var pageCursor as Number = 0;
-    var departureCursor as Number = 0;
-    var isDepartureState as Boolean = false;
     var isModeMenuState as Boolean = false;
     var isInitialRequest as Boolean = true;
 
@@ -136,7 +134,6 @@ class StopDetailViewModel {
 
         if (!(response instanceof Lang.Array) || response.size() == 0) {
             pageCount = 1;
-            isDepartureState = false;
             return response;
         }
 
@@ -159,12 +156,6 @@ class StopDetailViewModel {
 
     // input
 
-    function toggleDepartureState() as Void {
-        isDepartureState = !isDepartureState;
-        departureCursor = 0;
-        WatchUi.requestUpdate();
-    }
-
     function onScrollDown() as Void {
         var response = stop.getMode(_currentModeKey).getResponse();
 
@@ -177,9 +168,7 @@ class StopDetailViewModel {
             return;
         }
 
-        var wasCursorModified = isDepartureState
-            ? _incDepartureCursor()
-            : _incPageCursor();
+        var wasCursorModified = _incPageCursor();
 
         // only refresh if changed
         if (wasCursorModified) {
@@ -188,9 +177,7 @@ class StopDetailViewModel {
     }
 
     function onScrollUp() as Void {
-        var wasCursorModified = isDepartureState
-            ? _decDepartureCursor()
-            : _decPageCursor();
+        var wasCursorModified = _decPageCursor();
 
         // only refresh if changed
         if (wasCursorModified) {
@@ -226,52 +213,9 @@ class StopDetailViewModel {
         return false;
     }
 
-    //! @return true if successfully rotating
-    private function _incDepartureCursor() as Boolean {
-        if (departureCursor < DEPARTURES_PER_PAGE - 1
-            && (pageCursor < pageCount - 1 || departureCursor < _lastPageDepartureCount - 1)) {
-
-            departureCursor++;
-            return true;
-        }
-        else if (_incPageCursor()) {
-            departureCursor = 0;
-            return true;
-        }
-
-        return false;
-    }
-
-    //! @return true if successfully rotating
-    private function _decDepartureCursor() as Boolean {
-        if (departureCursor > 0) {
-            departureCursor--;
-            return true;
-        }
-        else if (_decPageCursor()) {
-            departureCursor = DEPARTURES_PER_PAGE - 1;
-            return true;
-        }
-
-        return false;
-    }
-
     function onSelect() as Void {
-        // select departure
-        if (isDepartureState) {
-            var response = stop.getMode(_currentModeKey).getResponse();
-            var selectedDeparture = response[pageCursor * 4 + departureCursor];
-            var messages = selectedDeparture.getDeviationMessages();
-
-            if (messages.size() == 0) {
-                messages.add(getString(Rez.Strings.lbl_detail_deviation_none));
-            }
-
-            DialogView.push(null, messages, Rez.Drawables.ic_warning, WatchUi.SLIDE_LEFT);
-        }
-
         // select mode
-        else if (isInitialRequest) {
+        if (isInitialRequest) {
             isInitialRequest = false;
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;

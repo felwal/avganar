@@ -18,12 +18,12 @@ using Toybox.Application.Storage;
 (:glance)
 module StorageUtil {
 
-    function getValue(key as Number, def) {
+    function getValue(key as String, def) {
         var val = Storage.getValue(key);
         return def(val, def);
     }
 
-    function getArray(key as Number) as Array {
+    function getArray(key as String) as Array {
         return getValue(key, []);
     }
 

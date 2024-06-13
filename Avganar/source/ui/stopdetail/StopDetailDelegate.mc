@@ -40,12 +40,6 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
         return true;
     }
 
-    //! "long UP"
-    function onMenu() as Boolean  {
-        _viewModel.toggleDepartureState();
-        return true;
-    }
-
     //! "START-STOP"
     function onSelect() as Boolean  {
         _viewModel.onSelect();
@@ -53,13 +47,7 @@ class StopDetailDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onBack() as Boolean  {
-        if (_viewModel.isDepartureState) {
-            // exit departure selection
-            _viewModel.isDepartureState = false;
-            WatchUi.requestUpdate();
-            return true;
-        }
-        else if (_viewModel.isModeMenuState && !_viewModel.isInitialRequest) {
+        if (_viewModel.isModeMenuState && !_viewModel.isInitialRequest) {
             // exit mode menu
             _viewModel.isModeMenuState = false;
             WatchUi.requestUpdate();

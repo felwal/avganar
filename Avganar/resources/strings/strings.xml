@@ -66,7 +66,6 @@
     <string id="lbl_detail_mode_symbol_tram">L</string>
     <string id="lbl_detail_mode_symbol_ship">F</string>
     <string id="lbl_detail_mode_symbol_other">?</string>
-    <string id="lbl_detail_deviation_none">No Deviations</string>
 
     <!-- modes menu -->
     <string id="itm_modes_bus_local">Buses</string>

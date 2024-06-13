@@ -49,9 +49,9 @@ class DeparturesService {
         var params = {
             "accessId" => API_KEY,
             "id" => _stop.getId(),
-            "duration" => _stop.getTimeWindow(),
+            "duration" => _stop.getMode(modeKey).getTimeWindow(),
             "lang" => getString(Rez.Strings.lang_code),
-            "format" => "json",
+            "format" => "json"
         };
 
         // NOTE: migration to 1.8.0
@@ -103,7 +103,7 @@ class DeparturesService {
         WatchUi.requestUpdate();
     }
 
-    hidden function _handleDeparturesResponseOk(departuresData as JsonArray) as Void {
+    private function _handleDeparturesResponseOk(departuresData as JsonArray) as Void {
         // taxis and flights are irrelevant
         // determines ordering of modes
         var modesKeys = [ Mode.KEY_BUS_LOCAL, Mode.KEY_BUS_EXPRESS, Mode.KEY_METRO,

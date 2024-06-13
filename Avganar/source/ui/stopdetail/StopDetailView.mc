@@ -84,7 +84,7 @@ class StopDetailView extends WatchUi.View {
         }
 
         // indicator
-        if (stop.getModesKeys().size() > 1 || _viewModel.isDepartureState) {
+        if (stop.getModesKeys().size() > 1) {
             WidgetUtil.drawStartIndicator(dc);
         }
     }
@@ -123,9 +123,6 @@ class StopDetailView extends WatchUi.View {
             // draw circle
             Graphite.setColor(dc, departure.getModeColor());
             dc.fillCircle(xCircle, y, rCircle);
-
-            // highlight selected departure
-            var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == i;
 
             // draw text
             Graphite.setColor(dc, AppColors.TEXT_PRIMARY);
