@@ -146,7 +146,7 @@ class Mode {
 
     // static
 
-    static function getKeysByBits(bits as Number) as Array<String> {
+    static function getKeysByBits(bits as Number) as Array<Number> {
         var keys = [];
 
         if (bits&KEY_BUS_LOCAL != 0) {
@@ -177,53 +177,53 @@ class Mode {
         return keys;
     }
 
-    static function getItemString(key as String) as String {
-        if (key.equals(KEY_BUS_LOCAL)) {
+    static function getItemString(key as Number) as String {
+        if (key == KEY_BUS_LOCAL) {
             return getString(Rez.Strings.itm_modes_bus_local);
         }
-        else if (key.equals(KEY_BUS_EXPRESS)) {
+        else if (key == KEY_BUS_EXPRESS) {
             return getString(Rez.Strings.itm_modes_bus_express);
         }
-        else if (key.equals(KEY_METRO)) {
+        else if (key == KEY_METRO) {
             return getString(Rez.Strings.itm_modes_metro);
         }
-        else if (key.equals(KEY_TRAIN_LOCAL)) {
+        else if (key == KEY_TRAIN_LOCAL) {
             return getString(Rez.Strings.itm_modes_train_local);
         }
-        else if (key.equals(KEY_TRAIN_REGIONAL)) {
+        else if (key == KEY_TRAIN_REGIONAL) {
             return getString(Rez.Strings.itm_modes_train_regional);
         }
-        else if (key.equals(KEY_TRAIN_EXPRESS)) {
+        else if (key == KEY_TRAIN_EXPRESS) {
             return getString(Rez.Strings.itm_modes_train_express);
         }
-        else if (key.equals(KEY_TRAM)) {
+        else if (key == KEY_TRAM) {
             return getString(Rez.Strings.itm_modes_tram);
         }
-        else if (key.equals(KEY_SHIP)) {
+        else if (key == KEY_SHIP) {
             return getString(Rez.Strings.itm_modes_ship);
         }
 
         return getString(Rez.Strings.itm_modes_other);
     }
 
-    static function getSymbol(key as String) as String {
-        if (key.equals(KEY_ALL)) {
+    static function getSymbol(key as Number) as String {
+        if (key == KEY_ALL) {
             return "";
         }
 
-        else if (key.equals(KEY_BUS_LOCAL) || key.equals(KEY_BUS_EXPRESS)) {
+        else if (key == KEY_BUS_LOCAL || key == KEY_BUS_EXPRESS) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_bus);
         }
-        else if (key.equals(KEY_METRO)) {
+        else if (key == KEY_METRO) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_metro);
         }
-        else if (key.equals(KEY_TRAIN_LOCAL) || key.equals(KEY_TRAIN_REGIONAL) || key.equals(KEY_TRAIN_EXPRESS)) {
+        else if (key == KEY_TRAIN_LOCAL || key == KEY_TRAIN_REGIONAL || key == KEY_TRAIN_EXPRESS) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_train);
         }
-        else if (key.equals(KEY_TRAM)) {
+        else if (key == KEY_TRAM) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_tram);
         }
-        else if (key.equals(KEY_SHIP)) {
+        else if (key == KEY_SHIP) {
             return getString(Rez.Strings.lbl_detail_mode_symbol_ship);
         }
 

@@ -32,7 +32,7 @@ class StopDetailViewModel {
     var isModeMenuState as Boolean = false;
     var isInitialRequest as Boolean = true;
 
-    private var _currentModeKey as String;
+    private var _currentModeKey as Number;
     private var _lastPageDepartureCount as Number = 0;
     private var _delayTimer as Timer.Timer = new Timer.Timer();
     private var _repeatTimer as TimeUtil.TimerWrapper = new TimeUtil.TimerWrapper();
@@ -116,9 +116,9 @@ class StopDetailViewModel {
 
     // read
 
-    function getCurrentModeKey() as String {
+    function getCurrentModeKey() as Number {
         // NOTE: API limitation
-        return !_currentModeKey.equals(Mode.KEY_ALL)
+        return _currentModeKey != Mode.KEY_ALL
             ? _currentModeKey
             : stop.getModeKey(0);
     }

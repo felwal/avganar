@@ -26,7 +26,7 @@ class DeparturesService {
     static var isRequesting as Boolean = false;
 
     private var _stop as StopType;
-    private var _modeKey as String = Mode.KEY_ALL;
+    private var _modeKey as Number = Mode.KEY_ALL;
 
     // init
 
@@ -36,12 +36,12 @@ class DeparturesService {
 
     // request
 
-    function requestDepartures(modeKey as String) as Void {
+    function requestDepartures(modeKey as Number) as Void {
         _modeKey = modeKey;
         _requestDepartures(modeKey);
     }
 
-    private function _requestDepartures(modeKey as String) as Void {
+    private function _requestDepartures(modeKey as Number) as Void {
         DeparturesService.isRequesting = true;
 
         var url = "https://api.resrobot.se/v2.1/departureBoard";
@@ -57,7 +57,7 @@ class DeparturesService {
         // NOTE: migration to 1.8.0
         // no products saved => ´mode´ = Mode.KEY_ALL => request all modes
         // (same behaviour as before)
-        if (!modeKey.equals(Mode.KEY_ALL)) {
+        if (modeKey != Mode.KEY_ALL) {
             params["products"] = modeKey;
         }
 
@@ -116,7 +116,7 @@ class DeparturesService {
             var departureData = departuresData[i] as JsonDict;
             var productData = departureData["ProductAtStop"] as JsonDict;
 
-            var modeKey = productData["cls"];
+            var modeKey = productData["cls"].toNumber();
 
             // add any potential "other" modes to the end of the list
             if (!ArrUtil.contains(modesKeys, modeKey)) {

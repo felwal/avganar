@@ -21,14 +21,14 @@ class Departure {
 
     static private const _KEEP_DEPARTURE_AFTER_DEPARTED_SEC = 30;
 
-    private var _modeKey as String;
+    private var _modeKey as Number;
     private var _line as String;
     private var _destination as String;
     private var _moment as Moment?;
 
     // init
 
-    function initialize(modeKey as String, line as String, destination as String, moment as Moment?) {
+    function initialize(modeKey as Number, line as String, destination as String, moment as Moment?) {
         _modeKey = modeKey;
         _line = line;
         _destination = destination;

@@ -25,8 +25,8 @@ class Stop {
 
     private var _id as Number;
     private var _products as Number?;
-    private var _modesKeys as Array<String> = [];
-    private var _modes as Dictionary<String, Mode> = {};
+    private var _modesKeys as Array<Number> = [];
+    private var _modes as Dictionary<Number, Mode> = {};
 
     // init
 
@@ -54,17 +54,17 @@ class Stop {
         _products = products;
     }
 
-    function setDeparturesResponse(modeKey as String, response as DeparturesResponse) as Void {
+    function setDeparturesResponse(modeKey as Number, response as DeparturesResponse) as Void {
         // NOTE: migration to 1.8.0
         // if we got a successful response, remove the ALL mode
-        if (!modeKey.equals(Mode.KEY_ALL) && ArrUtil.contains(_modesKeys, Mode.KEY_ALL)) {
+        if (!modeKey == Mode.KEY_ALL && ArrUtil.contains(_modesKeys, Mode.KEY_ALL)) {
             _modesKeys.remove(Mode.KEY_ALL);
             _modes.remove(Mode.KEY_ALL);
         }
 
         // NOTE: migration to 1.8.0
         // if we got an error for ALL, reset all modes
-        else if (modeKey.equals(Mode.KEY_ALL) && response instanceof ResponseError) {
+        else if (modeKey == Mode.KEY_ALL && response instanceof ResponseError) {
             resetModes();
         }
 
@@ -82,7 +82,7 @@ class Stop {
         }
     }
 
-    function resetMode(modeKey as String) as Void {
+    function resetMode(modeKey as Number) as Void {
         _modes.remove(modeKey);
     }
 
@@ -123,21 +123,21 @@ class Stop {
         return _products;
     }
 
-    function hasMode(modeKey as String) as Boolean {
+    function hasMode(modeKey as Number) as Boolean {
         return _modes.hasKey(modeKey);
     }
 
-    function getMode(modeKey as String) as Mode {
+    function getMode(modeKey as Number) as Mode {
         return _modes.hasKey(modeKey)
             ? _modes[modeKey]
             : new Mode(null); // to avoid having to null-check all the time
     }
 
-    function getModeKey(index as Number) as String {
+    function getModeKey(index as Number) as Number {
         return index < _modesKeys.size() ? _modesKeys[index] : Mode.KEY_ALL;
     }
 
-    function getModesKeys() as Array<String> {
+    function getModesKeys() as Array<Number> {
         return _modesKeys;
     }
 

@@ -48,11 +48,11 @@ class StopDouble {
         _stop.setProducts(products);
     }
 
-    function setDeparturesResponse(modeKey as String, response as DeparturesResponse) as Void {
+    function setDeparturesResponse(modeKey as Number, response as DeparturesResponse) as Void {
         _stop.setDeparturesResponse(modeKey, response);
     }
 
-    function resetMode(modeKey as String) as Void {
+    function resetMode(modeKey as Number) as Void {
         _stop.resetMode(modeKey);
     }
 
@@ -74,19 +74,19 @@ class StopDouble {
         return _stop.getProducts();
     }
 
-    function hasMode(modeKey as String) as Boolean {
+    function hasMode(modeKey as Number) as Boolean {
         return _stop.hasMode(modeKey);
     }
 
-    function getMode(modeKey as String) as Mode {
+    function getMode(modeKey as Number) as Mode {
         return _stop.getMode(modeKey);
     }
 
-    function getModeKey(index as Number) as String {
+    function getModeKey(index as Number) as Number {
         return _stop.getModeKey(index);
     }
 
-    function getModesKeys() as Array<String> {
+    function getModesKeys() as Array<Number> {
         return _stop.getModesKeys();
     }
 

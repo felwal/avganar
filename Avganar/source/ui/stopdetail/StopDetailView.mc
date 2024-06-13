@@ -191,7 +191,7 @@ class StopDetailView extends WatchUi.View {
         dc.drawText(Graphite.getCenterX(dc), yTextTop, font, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    private function _drawFooterProgressBar(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
+    private function _drawFooterProgressBar(dc as Dc, hFooter as Numeric, modeKey as Number) as Void {
         if (!DeparturesService.isRequesting) {
             return;
         }
@@ -205,7 +205,7 @@ class StopDetailView extends WatchUi.View {
             AppColors.PRIMARY_LT, AppColors.ON_PRIMARY_TERTIARY);
     }
 
-    private function _drawFooterModeSymbol(dc as Dc, hFooter as Numeric, modeKey as String) as Void {
+    private function _drawFooterModeSymbol(dc as Dc, hFooter as Numeric, modeKey as Number) as Void {
         var symbol = Mode.getSymbol(modeKey);
 
         if (symbol.equals("")) {
