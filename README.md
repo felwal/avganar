@@ -1,8 +1,9 @@
-# Avgånär: Sweden departures
+<p align="center"><img width="128" height="128" src="presentation/logo.png"></p>
+<h1 align="center">Avgånär: Sweden departures</h1>
 
-A Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Sweden. Uses Trafiklab's API.
+Avgånär is a Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Sweden.
 
-Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3edd-4298-8348-5bd818376a2a).
+Get it on the [Connect IQ Store](https://apps.garmin.com/apps/993cae37-27d3-46b2-9f87-443ece770a61).
 
 ## Preview
 
@@ -18,11 +19,13 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/en-GB/apps/a96ddb52-3ed
 
 ## API
 
+Avgånär uses [Trafiklab](https://www.trafiklab.se)'s APIs:
+
 - [Resrobot 2.1](https://www.trafiklab.se/api/trafiklab-apis/resrobot-v21/)
 
 ## Develop
 
-Place your API key in `ServiceSecrets.mc`:
+Place your API keys somewhere gitignored, such as `ServiceSecrets.mc`:
 
 ```
 const API_KEY = "<KEY>";
@@ -30,7 +33,7 @@ const API_KEY = "<KEY>";
 
 ## Build
 
-I develop on `main` and build on `release` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
+I develop on `develop` and build on `main` using [Prettier Monkey C](https://github.com/markw65/prettier-extension-monkeyc).
 
 ## Fork
 
@@ -38,4 +41,4 @@ You are more than welcome to make a fork and adapt the project to your own count
 
 ## Credits
 
-Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign).
+Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign). (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)

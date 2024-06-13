@@ -1,46 +1,61 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 class StopListDelegate extends WatchUi.BehaviorDelegate {
 
-    hidden var _viewModel;
+    private var _viewModel as StopListViewModel;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopListViewModel) {
         BehaviorDelegate.initialize();
         _viewModel = viewModel;
     }
 
-    // override BehaviorDelegate
+    // input
 
     //! "DOWN"
-    function onNextPage() {
-        _viewModel.incStopCursor();
+    function onNextPage() as Boolean {
+        _viewModel.onScrollDown();
         return true;
     }
 
     //! "UP"
-    function onPreviousPage() {
-        if (_viewModel.decStopCursor()) {
+    function onPreviousPage() as Boolean {
+        if (_viewModel.onScrollUp()) {
             return true;
         }
 
-        DialogView.push(
-            rez(Rez.Strings.lbl_dialog_no_favorites_title),
-            [rez(Rez.Strings.lbl_dialog_no_favorites_msg)],
+        // favorites empty page / instructions
+        DialogView.push(getString(Rez.Strings.lbl_dialog_no_favorites_title),
+            [ getString(Rez.Strings.lbl_dialog_no_favorites_msg) ],
             null, WatchUi.SLIDE_DOWN);
 
         return true;
     }
 
     //! "long UP"
-    function onMenu() {
+    function onMenu() as Boolean {
         new OptionsMenuDelegate(_viewModel).push(WatchUi.SLIDE_BLINK);
         return true;
     }
 
     //! "START-STOP"
-    function onSelect() {
+    function onSelect() as Boolean {
         if (_viewModel.hasStops() && !_viewModel.isShowingMessage()) {
             _pushStopDetail();
         }
@@ -52,8 +67,8 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
     }
 
     //! "BACK"
-    function onBack() {
-        if (!hasGlance()) {
+    function onBack() as Boolean {
+        if (!SystemUtil.hasGlance()) {
             WatchUi.popView(WatchUi.SLIDE_BLINK);
             return true;
         }
@@ -63,7 +78,7 @@ class StopListDelegate extends WatchUi.BehaviorDelegate {
 
     //
 
-    hidden function _pushStopDetail() {
+    private function _pushStopDetail() as Void {
         var viewModel = new StopDetailViewModel(_viewModel.getSelectedStop());
         var view = new StopDetailView(viewModel);
         var delegate = new StopDetailDelegate(viewModel);

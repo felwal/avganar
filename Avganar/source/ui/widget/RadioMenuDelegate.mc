@@ -1,22 +1,38 @@
-using Toybox.WatchUi;
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
 
+import Toybox.Lang;
+import Toybox.WatchUi;
+
+//! An abstraction for creating select-one options menus.
 class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
 
-    hidden var _menu;
-    hidden var _callback;
+    private var _menu as Menu2;
+    private var _callback as Method;
 
     // init
 
-    function initialize(title, labels, values, focus, callback) {
+    function initialize(title as String, labels as Array<String>?,
+        values as Array, focus as Number, callback as Method) {
+
         Menu2InputDelegate.initialize();
 
         _callback = callback;
-        _addItems(title, labels, values, focus);
+        _menu = new WatchUi.Menu2({ :title => title });
+        _addItems(labels, values, focus);
     }
 
-    hidden function _addItems(title, labels, values, focus) {
-        _menu = new WatchUi.Menu2({ :title => title });
-
+    private function _addItems(labels as Array<String>?, values as Array, focus as Number) as Void {
         var itemCount = labels == null
             ? values.size()
             : MathUtil.min(labels.size(), values.size());
@@ -33,20 +49,19 @@ class RadioMenuDelegate extends WatchUi.Menu2InputDelegate {
         _menu.setFocus(focus);
     }
 
-    function push() {
+    function push() as Void {
         WatchUi.pushView(_menu, me, WatchUi.SLIDE_LEFT);
     }
 
-    // override Menu2InputDelegate
+    // input
 
-    function onSelect(item) {
+    function onSelect(item as MenuItem) as Void {
         _callback.invoke(item.getId());
         onBack();
     }
 
-    function onBack() {
+    function onBack() as Void {
         WatchUi.popView(WatchUi.SLIDE_RIGHT);
-        return true;
     }
 
 }

@@ -1,102 +1,101 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
+import Toybox.Lang;
+
 using Toybox.Activity;
-using Toybox.Lang;
 using Toybox.Math;
 using Toybox.Position;
-using Toybox.WatchUi;
 
 //! The Footprint module provides extended position functionality
 (:glance)
 module Footprint {
 
-    var onRegisterPosition = null;
-    var isPositionRegistered = false;
+    var onRegisterPosition as Method?;
+    var isPositionRegistered as Boolean = false;
 
     // position, in radians
-    var _lat = 0.0;
-    var _lon = 0.0;
+    var _latLon as LatLon = [ 0.0d, 0.0d ];
 
     // set
 
-    function setPosLoc(positionLocation) {
-        if (positionLocation != null) {
-            _lat = positionLocation.toRadians()[0].toDouble();
-            _lon = positionLocation.toRadians()[1].toDouble();
+    function _setLocation(location as Position.Location?) as Void {
+        if (location != null) {
+            _latLon = location.toRadians();
         }
     }
 
     // get
 
-    function isPositioned() {
-        return _lat != 0.0 || _lon != 0.0;
+    function isPositioned() as Boolean {
+        return !ArrUtil.equals(_latLon, [ 0.0d, 0.0d ]);
     }
 
-    //! Get latitude in radians
-    function getLatRad() {
-        return _lat;
+    function getLatLonRad() as LatLon {
+        return _latLon;
     }
 
-    //! Get longitude in radians
-    function getLonRad() {
-        return _lon;
+    function getLatLonDeg() as LatLon {
+        return [ MathUtil.deg(_latLon[0]), MathUtil.deg(_latLon[1]) ];
     }
 
-    //! Get latitude in degrees
-    function getLatDeg() {
-        return MathUtil.deg(_lat);
-    }
-
-    //! Get longitude in degrees
-    function getLonDeg() {
-        return MathUtil.deg(_lon);
-    }
-
-    function distanceTo(lat, lon) {
-        return distanceBetween(lat, lon, _lat, _lon);
+    function distanceTo(latLon as LatLon) as Float {
+        return distanceBetween(latLon, _latLon);
     }
 
     // static
 
     //! Radians to meters
-    function distanceBetween(lat1, lon1, lat2, lon2) {
+    function distanceBetween(pos1 as LatLon, pos2 as LatLon) as Float {
         var R = 6371000;
 
-        var phi1 = lat1 - Math.PI / 2;
-        var phi2 = lat2 - Math.PI / 2;
+        var phi1 = pos1[0] - Math.PI / 2;
+        var phi2 = pos2[0] - Math.PI / 2;
 
-        var x1 = R * Math.sin(phi1) * Math.cos(lon1);
-        var y1 = R * Math.sin(phi1) * Math.sin(lon1);
+        var x1 = R * Math.sin(phi1) * Math.cos(pos1[1]);
+        var y1 = R * Math.sin(phi1) * Math.sin(pos1[1]);
         var z1 = R * Math.cos(phi1);
 
-        var x2 = R * Math.sin(phi2) * Math.cos(lon2);
-        var y2 = R * Math.sin(phi2) * Math.sin(lon2);
+        var x2 = R * Math.sin(phi2) * Math.cos(pos2[1]);
+        var y2 = R * Math.sin(phi2) * Math.sin(pos2[1]);
         var z2 = R * Math.cos(phi2);
 
         var dx = x2 - x1;
         var dy = y2 - y1;
         var dz = z2 - z1;
 
-        var distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        var distance = Math.sqrt(dx * dx + dy * dy + dz * dz).toFloat();
 
         return distance;
     }
 
     // registration
 
-    function enableLocationEvents(continuous) {
+    function enableLocationEvents(continuous as Boolean) as Void {
         Position.enableLocationEvents(continuous ? Position.LOCATION_CONTINUOUS : Position.LOCATION_ONE_SHOT,
             new Lang.Method(Footprint, :registerPosition));
     }
 
-    function disableLocationEvents() {
+    function disableLocationEvents() as Void {
         onRegisterPosition = null;
         Position.enableLocationEvents(Position.LOCATION_DISABLE, null);
     }
 
     //! Get last location while waiting for location event
     //! @param info Activity info
-    function registerLastKnownPosition() {
+    function registerLastKnownPosition() as Void {
         var activityInfo = Activity.getActivityInfo();
-        setPosLoc(activityInfo.currentLocation);
+        _setLocation(activityInfo.currentLocation);
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
@@ -104,15 +103,13 @@ module Footprint {
     }
 
     //! Location event listener delegation
-    function registerPosition(positionInfo) {
-        setPosLoc(positionInfo.position);
+    function registerPosition(positionInfo as Position.Info) as Void {
+        _setLocation(positionInfo.position);
+        isPositionRegistered = true;
 
         if (onRegisterPosition != null) {
             onRegisterPosition.invoke();
         }
-        isPositionRegistered = true;
-
-        WatchUi.requestUpdate();
     }
 
 }

@@ -1,29 +1,35 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
+import Toybox.Graphics;
+import Toybox.Lang;
+import Toybox.Time;
+
 using Toybox.Math;
-using Toybox.Time;
 
 class Departure {
 
-    static const MODE_BUS_LOCAL = 7;
-    static const MODE_BUS_EXPRESS = 3;
-    static const MODE_METRO = 5;
-    static const MODE_TRAIN_LOCAL = 4;
-    static const MODE_TRAIN_REGIONAL = 2;
-    static const MODE_TRAIN_EXPRESS = 1;
-    static const MODE_TRAM = 6;
-    static const MODE_SHIP = 8;
+    static private const _KEEP_DEPARTURE_AFTER_DEPARTED_SEC = 30;
 
-    static const MODES_BUS = [ MODE_BUS_LOCAL, MODE_BUS_EXPRESS ];
-    static const MODES_TRAIN = [ MODE_TRAIN_LOCAL, MODE_TRAIN_REGIONAL, MODE_TRAIN_EXPRESS ];
-
-    hidden var _mode;
-    hidden var _line;
-    hidden var _destination;
-    hidden var _moment;
+    private var _modeKey as String;
+    private var _line as String;
+    private var _destination as String;
+    private var _moment as Moment?;
 
     // init
 
-    function initialize(mode, line, destination, moment) {
-        _mode = mode;
+    function initialize(modeKey as String, line as String, destination as String, moment as Moment?) {
+        _modeKey = modeKey;
         _line = line;
         _destination = destination;
         _moment = moment;
@@ -31,90 +37,65 @@ class Departure {
 
     // get
 
-    function toString() {
+    function toString() as String {
         return _displayTime() + " "
             // skip some line numbers which are wrong anyway
-            + (ArrUtil.contains(MODES_TRAIN, _mode) || _line.length() >= 5 || _line.equals(".") ? "" : _line + " ")
+            + (_line.length() >= 5 || _line.equals(".") ? "" : _line + " ")
             + _destination;
     }
 
-    hidden function _displayTime() {
+    private function _displayTime() as String {
         if (_moment == null) {
-            return rez(Rez.Strings.itm_detail_departure_null);
+            return getString(Rez.Strings.itm_detail_departure_time_null);
         }
 
-        var now = TimeUtil.now();
-        var duration = now.subtract(_moment);
-        var minutes = Math.round(duration.value() / 60.0).toNumber();
+        // since we keep the departure a bit after it has departed,
+        // we need handle a negative time diff
+        var seconds = MathUtil.max(0, _moment.value() - Time.now().value());
+        var minutes = Math.round(seconds / 60.0).toNumber();
 
-        // NOTE: `Moment#subtract` returns a positive value. we don't need to
-        // negate it here, however, because the departure is removed in
-        // `Stop#_removeDepartedDepartures` after 30 seconds, i.e. before it should be negative.
-
-        return minutes == 0
-            ? rez(Rez.Strings.itm_detail_departure_now)
+        return minutes <= 0
+            ? getString(Rez.Strings.itm_detail_departure_time_now)
             : (minutes + SettingsStorage.getMinuteSymbol());
     }
 
-    function hasDeparted() {
+    function hasDeparted() as Boolean {
         if (_moment == null) {
             return false;
         }
 
-        // we will keep displaying "now" until 30 seconds after departure
-        var margin = new Time.Duration(30);
-        return TimeUtil.now().greaterThan(_moment.add(margin));
+        // keep displaying "now" a bit after it has departed
+        var margin = new Time.Duration(_KEEP_DEPARTURE_AFTER_DEPARTED_SEC);
+        return Time.now().greaterThan(_moment.add(margin));
     }
 
-    function getModeSymbol() {
-        if (_mode == MODE_BUS_LOCAL || _mode == MODE_BUS_EXPRESS) {
-            return rez(Rez.Strings.lbl_detail_mode_bus);
+    function getModeColor() as ColorType {
+        if (_modeKey == Mode.KEY_BUS_LOCAL) {
+            return AppColors.MODE_BUS_LOCAL;
         }
-        else if (_mode == MODE_METRO) {
-            return rez(Rez.Strings.lbl_detail_mode_metro);
+        else if (_modeKey == Mode.KEY_BUS_EXPRESS) {
+            return AppColors.MODE_BUS_EXPRESS;
         }
-        else if (_mode == MODE_TRAIN_LOCAL || _mode == MODE_TRAIN_REGIONAL || _mode == MODE_TRAIN_EXPRESS) {
-            return rez(Rez.Strings.lbl_detail_mode_train);
+        else if (_modeKey == Mode.KEY_METRO) {
+           return AppColors.MODE_METRO;
         }
-        else if (_mode == MODE_TRAM) {
-            return rez(Rez.Strings.lbl_detail_mode_tram);
+        else if (_modeKey == Mode.KEY_TRAIN_LOCAL) {
+            return AppColors.MODE_TRAIN_LOCAL;
         }
-        else if (_mode == MODE_SHIP) {
-            return rez(Rez.Strings.lbl_detail_mode_ship);
+        else if (_modeKey == Mode.KEY_TRAIN_REGIONAL) {
+            return AppColors.MODE_TRAIN_REGIONAL;
         }
-        else {
-            return rez(Rez.Strings.lbl_detail_mode_unknown);
+        else if (_modeKey == Mode.KEY_TRAIN_EXPRESS) {
+            return AppColors.MODE_TRAIN_EXPRESS;
         }
-    }
+        else if (_modeKey == Mode.KEY_TRAM) {
+            return AppColors.MODE_TRAM;
+        }
+        else if (_modeKey == Mode.KEY_SHIP) {
+            return AppColors.MODE_SHIP;
+        }
 
-    function getModeColor() {
-        if (_mode == MODE_BUS_LOCAL) {
-            return AppColors.DEPARTURE_BUS_LOCAL;
-        }
-        else if (_mode == MODE_BUS_EXPRESS) {
-            return AppColors.DEPARTURE_BUS_EXPRESS;
-        }
-        else if (_mode == MODE_METRO) {
-           return AppColors.DEPARTURE_METRO;
-        }
-        else if (_mode == MODE_TRAIN_LOCAL) {
-            return AppColors.DEPARTURE_TRAIN_LOCAL;
-        }
-        else if (_mode == MODE_TRAIN_REGIONAL) {
-            return AppColors.DEPARTURE_TRAIN_REGIONAL;
-        }
-        else if (_mode == MODE_TRAIN_EXPRESS) {
-            return AppColors.DEPARTURE_TRAIN_EXPRESS;
-        }
-        else if (_mode == MODE_TRAM) {
-            return AppColors.DEPARTURE_TRAM;
-        }
-        else if (_mode == MODE_SHIP) {
-            return AppColors.DEPARTURE_SHIP;
-        }
-        else {
-            return AppColors.DEPARTURE_UNKNOWN;
-        }
+        return AppColors.MODE_OTHER;
     }
 
 }

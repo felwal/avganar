@@ -1,4 +1,19 @@
+# This file is part of Avgånär.
+#
+# Avgånär is free software: you can redistribute it and/or modify it under the terms of
+# the GNU General Public License as published by the Free Software Foundation,
+# either version 3 of the License, or (at your option) any later version.
+#
+# Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with Avgånär.
+# If not, see <https://www.gnu.org/licenses/>.
+
 base.resourcePath = resources
+
+# refer to https://developer.garmin.com/connect-iq/reference-guides/devices-reference/
 
 # screen size
 
@@ -10,13 +25,9 @@ legacysagarey.resourcePath = $(legacysagarey.resourcePath); resources-218x218
 vivoactive4s.resourcePath = $(vivoactive4s.resourcePath); resources-218x218
 
 # 240x240 (default)
-d2delta.resourcePath = $(d2delta.resourcePath); resources-240x240
-d2deltapx.resourcePath = $(d2deltapx.resourcePath); resources-240x240
-d2deltas.resourcePath = $(d2deltas.resourcePath); resources-240x240
 descentmk2s.resourcePath = $(descentmk2s.resourcePath); resources-240x240
 fenix5plus.resourcePath = $(fenix5plus.resourcePath); resources-240x240
 fenix5splus.resourcePath = $(fenix5splus.resourcePath); resources-240x240
-fenix5x.resourcePath = $(fenix5x.resourcePath); resources-240x240
 fenix5xplus.resourcePath = $(fenix5xplus.resourcePath); resources-240x240
 fenix6spro.resourcePath = $(fenix6spro.resourcePath); resources-240x240
 fenix7s.resourcePath = $(fenix7s.resourcePath); resources-240x240
@@ -36,12 +47,12 @@ marqexpedition.resourcePath = $(marqexpedition.resourcePath); resources-240x240
 marqgolfer.resourcePath = $(marqgolfer.resourcePath); resources-240x240
 venusqm.resourcePath = $(venusqm.resourcePath); resources-240x240
 vivoactive3m.resourcePath = $(vivoactive3m.resourcePath); resources-240x240
-vivoactive3mlte.resourcePath = $(vivoactive3mlte.resourcePath); resources-240x240
 
 # 260x260
 fenix6pro.resourcePath = $(fenix6pro.resourcePath); resources-260x260
 fenix7.resourcePath = $(fenix7.resourcePath); resources-260x260
 fenix7pro.resourcePath = $(fenix7pro.resourcePath); resources-260x260
+fenix7pronowifi.resourcePath = $(fenix7pronowifi.resourcePath); resources-260x260
 fr255.resourcePath = $(fr255.resourcePath); resources-260x260
 fr255m.resourcePath = $(fr255m.resourcePath); resources-260x260
 fr955.resourcePath = $(fr955.resourcePath); resources-260x260
@@ -54,6 +65,12 @@ descentmk2.resourcePath = $(descentmk2.resourcePath); resources-280x280
 fenix6xpro.resourcePath = $(fenix6xpro.resourcePath); resources-280x280
 fenix7x.resourcePath = $(fenix7x.resourcePath); resources-280x280
 fenix7xpro.resourcePath = $(fenix7xpro.resourcePath); resources-280x280
+fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath); resources-280x280
+
+# 320x360
+# just use 360x360 for now. TODO: how should we handle it?
+venusq2.resourcePath = $(venusq2.resourcePath); resources-360x360
+venusq2m.resourcePath = $(venusq2m.resourcePath); resources-360x360
 
 # 360x360
 venu2s.resourcePath = $(venu2s.resourcePath); resources-360x360
@@ -62,11 +79,16 @@ fr265s.resourcePath = $(fr265s.resourcePath); resources-360x360
 # 390x390
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-390x390
 d2air.resourcePath = $(d2air.resourcePath); resources-390x390
+descentmk343mm.resourcePath = $(descentmk343mm.resourcePath); resources-390x390
 epix2pro42mm.resourcePath = $(epix2pro42mm.resourcePath); resources-390x390
+fr165.resourcePath = $(fr165.resourcePath); resources-390x390
+fr165m.resourcePath = $(fr165m.resourcePath); resources-390x390
 marq2.resourcePath = $(marq2.resourcePath); resources-390x390
 marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390
 venu.resourcePath = $(venu.resourcePath); resources-390x390
 venud.resourcePath = $(venud.resourcePath); resources-390x390
+venu3s.resourcePath = $(venu3s.resourcePath); resources-390x390
+vivoactive5.resourcePath = $(vivoactive5.resourcePath); resources-390x390
 
 # 416x416
 d2airx10.resourcePath = $(d2airx10.resourcePath); resources-416x416
@@ -79,8 +101,10 @@ fr265.resourcePath = $(fr265.resourcePath); resources-416x416
 
 # 454x454
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-454x454
+descentmk351mm.resourcePath = $(descentmk351mm.resourcePath); resources-454x454
 epix2pro51mm.resourcePath = $(epix2pro51mm.resourcePath); resources-454x454
 fr965.resourcePath = $(fr965.resourcePath); resources-454x454
+venu3.resourcePath = $(venu3.resourcePath); resources-454x454
 
 # launcher icon
 
@@ -99,30 +123,24 @@ venusqm.resourcePath = $(venusqm.resourcePath); resources-launcher_36x36
 
 # 40x33
 vivoactive3m.resourcePath = $(vivoactive3m.resourcePath); resources-launcher_40x33
-vivoactive3mlte.resourcePath = $(vivoactive3mlte.resourcePath); resources-launcher_40x33
 
 # 40x40 (default)
-d2delta.resourcePath = $(d2delta.resourcePath); resources-launcher_40x40
-d2deltapx.resourcePath = $(d2deltapx.resourcePath); resources-launcher_40x40
-d2deltas.resourcePath = $(d2deltas.resourcePath); resources-launcher_40x40
 descentmk2.resourcePath = $(descentmk2.resourcePath); resources-launcher_40x40
 descentmk2s.resourcePath = $(descentmk2s.resourcePath); resources-launcher_40x40
 fenix5plus.resourcePath = $(fenix5plus.resourcePath); resources-launcher_40x40
 fenix5splus.resourcePath = $(fenix5splus.resourcePath); resources-launcher_40x40
-fenix5x.resourcePath = $(fenix5x.resourcePath); resources-launcher_40x40
 fenix5xplus.resourcePath = $(fenix5xplus.resourcePath); resources-launcher_40x40
 fenix6pro.resourcePath = $(fenix6pro.resourcePath); resources-launcher_40x40
 fenix6spro.resourcePath = $(fenix6spro.resourcePath); resources-launcher_40x40
 fenix6xpro.resourcePath = $(fenix6xpro.resourcePath); resources-launcher_40x40
 fenix7.resourcePath = $(fenix7.resourcePath); resources-launcher_40x40
-# guessed
 fenix7pro.resourcePath = $(fenix7pro.resourcePath); resources-launcher_40x40
+fenix7pronowifi.resourcePath = $(fenix7pronowifi.resourcePath); resources-launcher_40x40
 fenix7s.resourcePath = $(fenix7s.resourcePath); resources-launcher_40x40
-# guessed
 fenix7spro.resourcePath = $(fenix7spro.resourcePath); resources-launcher_40x40
 fenix7x.resourcePath = $(fenix7x.resourcePath); resources-launcher_40x40
-# guessed
 fenix7xpro.resourcePath = $(fenix7xpro.resourcePath); resources-launcher_40x40
+fenix7xpronowifi.resourcePath = $(fenix7xpronowifi.resourcePath); resources-launcher_40x40
 fr245m.resourcePath = $(fr245m.resourcePath); resources-launcher_40x40
 fr255.resourcePath = $(fr255.resourcePath); resources-launcher_40x40
 fr255m.resourcePath = $(fr255m.resourcePath); resources-launcher_40x40
@@ -141,18 +159,23 @@ marqcommander.resourcePath = $(marqcommander.resourcePath); resources-launcher_4
 marqdriver.resourcePath = $(marqdriver.resourcePath); resources-launcher_40x40
 marqexpedition.resourcePath = $(marqexpedition.resourcePath); resources-launcher_40x40
 marqgolfer.resourcePath = $(marqgolfer.resourcePath); resources-launcher_40x40
+venusq2.resourcePath = $(venusq2.resourcePath); resources-launcher_40x40
+venusq2m.resourcePath = $(venusq2m.resourcePath); resources-launcher_40x40
+
+# 54x54
+fr165.resourcePath = $(fr165.resourcePath); resources-launcher_54x54
+fr165m.resourcePath = $(fr165m.resourcePath); resources-launcher_54x54
 
 # 60x60
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-launcher_60x60
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-launcher_60x60
 d2air.resourcePath = $(d2air.resourcePath); resources-launcher_60x60
 d2mach1.resourcePath = $(d2mach1.resourcePath); resources-launcher_60x60
+descentmk343mm.resourcePath = $(descentmk343mm.resourcePath); resources-launcher_60x60
+descentmk351mm.resourcePath = $(descentmk351mm.resourcePath); resources-launcher_60x60
 epix2.resourcePath = $(epix2.resourcePath); resources-launcher_60x60
-# guessed
 epix2pro42mm.resourcePath = $(epix2pro42mm.resourcePath); resources-launcher_60x60
-# guessed
 epix2pro47mm.resourcePath = $(epix2pro47mm.resourcePath); resources-launcher_60x60
-# guessed
 epix2pro51mm.resourcePath = $(epix2pro51mm.resourcePath); resources-launcher_60x60
 marq2.resourcePath = $(marq2.resourcePath); resources-launcher_60x60
 marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-launcher_60x60
@@ -171,3 +194,6 @@ fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65
 d2airx10.resourcePath = $(d2airx10.resourcePath); resources-launcher_70x70
 venu2.resourcePath = $(venu2.resourcePath); resources-launcher_70x70
 venu2plus.resourcePath = $(venu2plus.resourcePath); resources-launcher_70x70
+venu3.resourcePath = $(venu3.resourcePath); resources-launcher_70x70
+venu3s.resourcePath = $(venu3s.resourcePath); resources-launcher_70x70
+vivoactive5.resourcePath = $(vivoactive5.resourcePath); resources-launcher_70x70

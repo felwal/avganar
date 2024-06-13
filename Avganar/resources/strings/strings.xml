@@ -3,7 +3,7 @@
     <!-- app -->
 
     <string id="app_name" scope="glance">Avgånär</string>
-    <string id="app_version" scope="glance">v1.5.1</string>
+    <string id="app_version" scope="glance">v1.8.4</string>
 
     <string id="lang_code" scope="glance">en</string>
 
@@ -12,6 +12,7 @@
     <!-- status message -->
     <string id="msg_i_stops_no_gps">Waiting for GPS ...</string>
     <string id="msg_i_stops_requesting">Loading ...</string>
+    <string id="msg_i_stops_location_off">Location is off</string>
     <string id="msg_i_departures_requesting">Loading ...</string>
 
     <!-- response message -->
@@ -26,12 +27,15 @@
     <string id="msg_e_memory">Out of Memory</string>
     <string id="msg_e_cancelled">Request Cancelled</string>
     <string id="msg_e_timeout">Request Timed Out</string>
+    <string id="msg_e_bad_request">Client Error</string>
+    <string id="msg_e_not_found">Invalid Request</string>
     <string id="msg_e_general">Error</string>
 
     <!-- response error -->
     <string id="msg_e_invalid">Invalid Response</string>
     <string id="msg_e_null_data">No Data</string>
     <string id="msg_e_server">Server Error</string>
+    <string id="msg_e_proxy">Server Error</string>
     <string id="msg_e_unavailable">Service Unavailable</string>
     <string id="msg_e_limit">Quota exceeded</string>
 
@@ -51,17 +55,29 @@
     <string id="lbl_list_retry">Retry</string>
 
     <!-- detail -->
-    <string id="itm_detail_departure_null">—</string>
-    <string id="itm_detail_departure_now">Now</string>
-    <string id="itm_detail_departure_minutes_long"> min</string>
-    <string id="itm_detail_departure_minutes_short">m</string>
-    <string id="itm_detail_departure_minutes_tiny">'</string>
-    <string id="lbl_detail_mode_bus">B</string>
-    <string id="lbl_detail_mode_metro">T</string>
-    <string id="lbl_detail_mode_train">J</string>
-    <string id="lbl_detail_mode_tram">L</string>
-    <string id="lbl_detail_mode_ship">F</string>
-    <string id="lbl_detail_mode_unknown">?</string>
+    <string id="itm_detail_departure_time_null">—</string>
+    <string id="itm_detail_departure_time_now">Now</string>
+    <string id="itm_detail_departure_time_minutes_long"> min</string>
+    <string id="itm_detail_departure_time_minutes_short">m</string>
+    <string id="itm_detail_departure_time_minutes_tiny">'</string>
+    <string id="lbl_detail_mode_symbol_bus">B</string>
+    <string id="lbl_detail_mode_symbol_metro">T</string>
+    <string id="lbl_detail_mode_symbol_train">J</string>
+    <string id="lbl_detail_mode_symbol_tram">L</string>
+    <string id="lbl_detail_mode_symbol_ship">F</string>
+    <string id="lbl_detail_mode_symbol_other">?</string>
+    <string id="lbl_detail_deviation_none">No Deviations</string>
+
+    <!-- modes menu -->
+    <string id="itm_modes_bus_local">Buses</string>
+    <string id="itm_modes_bus_express">Express buses</string>
+    <string id="itm_modes_metro">Metro</string>
+    <string id="itm_modes_train_local">Local trains</string>
+    <string id="itm_modes_train_regional">Regional trains</string>
+    <string id="itm_modes_train_express">Express trains</string>
+    <string id="itm_modes_tram">Light rail</string>
+    <string id="itm_modes_ship">Boats</string>
+    <string id="itm_modes_other">Other</string>
 
     <!-- dialog -->
     <string id="lbl_dialog_no_favorites_title">No Favorites</string>
@@ -77,12 +93,11 @@
 
     <!-- settings -->
     <string id="lbl_settings_title">Settings</string>
-    <string id="itm_settings_max_stops">Max Stops</string>
-    <string id="itm_settings_max_departures">Max Departures</string>
-    <string id="itm_settings_max_departures_unlimited">No Limit</string>
-    <string id="itm_settings_time_window">Default Time Window</string>
+    <string id="itm_settings_location">Use Location</string>
     <string id="itm_settings_vibrate">Vibrate on Response</string>
-    <string id="itm_settings_minute_symbol">Minute symbol</string>
+    <string id="itm_settings_max_stops">Max Stops</string>
+    <string id="itm_settings_time_window">Departures Time Window</string>
+    <string id="itm_settings_minute_symbol">Minute Symbol</string>
 
     <!-- info -->
     <string id="lbl_info_about">Made by Felix Wallin.\n\nAPIs are provided by Trafiklab.</string>

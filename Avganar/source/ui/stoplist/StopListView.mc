@@ -1,74 +1,95 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
+import Toybox.Graphics;
+import Toybox.Lang;
+
 using Toybox.WatchUi;
 
 class StopListView extends WatchUi.View {
 
-    var _viewModel;
+    private var _viewModel as StopListViewModel;
 
     // init
 
-    function initialize(viewModel) {
+    function initialize(viewModel as StopListViewModel) {
         View.initialize();
         _viewModel = viewModel;
     }
 
-    // override View
+    // lifecycle
 
-    function onShow() {
+    function onShow() as Void {
         _viewModel.enableRequests();
     }
 
-    function onUpdate(dc) {
+    function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-
-        // draw
         Graphite.enableAntiAlias(dc);
+
         _draw(dc);
     }
 
-    function onHide() {
+    function onHide() as Void {
         _viewModel.disableRequests();
     }
 
     // draw
 
-    hidden function _draw(dc) {
-        // stops
+    private function _draw(dc as Dc) as Void {
         _drawStops(dc);
         _drawLoadingStatus(dc);
 
-        // error
+        // error/message
         if (_viewModel.isShowingMessage()) {
             // info
             WidgetUtil.drawDialog(dc, _viewModel.getMessage());
 
             // retry
-            if (_viewModel.isRerequestable()) {
-                WidgetUtil.drawActionFooter(dc, rez(Rez.Strings.lbl_list_retry));
+            if (_viewModel.isUserRefreshable()) {
+                WidgetUtil.drawActionFooter(dc, getString(Rez.Strings.lbl_list_retry));
             }
         }
     }
 
-    hidden function _drawStops(dc) {
+    private function _drawStops(dc as Dc) as Void {
         var stopNames = _viewModel.getStopNames();
         var favCount = _viewModel.getFavoriteCount();
         var cursor = _viewModel.stopCursor;
 
-        var favHints = [ favCount == 1 ? rez(Rez.Strings.lbl_list_favorites_one) : rez(Rez.Strings.lbl_list_favorites),
-            rez(Rez.Strings.lbl_list_favorites_none) ];
-        var nearbyHints = [ rez(Rez.Strings.lbl_list_nearby), rez(Rez.Strings.lbl_list_nearby) ];
+        var favHints = [ favCount == 1
+            ? getString(Rez.Strings.lbl_list_favorites_one) : getString(Rez.Strings.lbl_list_favorites),
+            getString(Rez.Strings.lbl_list_favorites_none) ];
+        var nearbyHints = [ getString(Rez.Strings.lbl_list_nearby), getString(Rez.Strings.lbl_list_nearby) ];
 
-        var favColors = [ AppColors.PRIMARY, AppColors.ON_PRIMARY, AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
-        var nearbyColors = [ Graphene.COLOR_BLACK, AppColors.TEXT_PRIMARY, AppColors.TEXT_SECONDARY, AppColors.TEXT_TERTIARY ];
+        var favColors = [ AppColors.PRIMARY, AppColors.ON_PRIMARY,
+            AppColors.ON_PRIMARY_SECONDARY, AppColors.ON_PRIMARY_TERTIARY ];
+        var nearbyColors = [ AppColors.BACKGROUND, AppColors.TEXT_PRIMARY,
+            AppColors.TEXT_SECONDARY, AppColors.TEXT_TERTIARY ];
 
-        WidgetUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints, favColors, nearbyColors);
+        MenuUtil.drawPanedList(dc, stopNames, favCount, cursor, favHints, nearbyHints,
+            getString(Rez.Strings.app_name), favColors, nearbyColors);
     }
 
-    hidden function _drawLoadingStatus(dc) {
+    private function _drawLoadingStatus(dc as Dc) as Void {
         var w = dc.getWidth();
         var progress;
 
         if (NearbyStopsService.isRequesting) {
             progress = MathUtil.recursiveShare(0.5f, 0.33f, NearbyStopsStorage.failedRequestCount);
+        }
+        else if (!SettingsStorage.getUseLocation()) {
+            return;
         }
         else if (!Footprint.isPositionRegistered) {
             progress = 0.33f;
@@ -81,23 +102,23 @@ class StopListView extends WatchUi.View {
         var y;
 
         if (cursor == 0) {
-            y = px(84);
+            y = MenuUtil.HEIGHT_FOOTER_LARGE;
         }
         else if (cursor == 1) {
-            y = px(42);
+            y = MenuUtil.HEIGHT_FOOTER_SMALL;
         }
         else if (cursor == -1) {
-            y = dc.getHeight() - px(84);
+            y = dc.getHeight() - MenuUtil.HEIGHT_FOOTER_LARGE;
         }
         else if (cursor == -2) {
-            y = dc.getHeight() - px(42);
+            y = dc.getHeight() - MenuUtil.HEIGHT_FOOTER_SMALL;
         }
         else {
             return;
         }
 
         var hasFavs = _viewModel.getFavoriteCount() > 0;
-        var h = px(hasFavs ? 3 : 2);
+        var h = px(hasFavs ? 3 : 2); // looks bigger between black/black
         var activeColor = hasFavs ? AppColors.PRIMARY_LT : AppColors.TEXT_SECONDARY;
         var inactiveColor = hasFavs ? AppColors.PRIMARY_DK : null;
 

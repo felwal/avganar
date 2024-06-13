@@ -1,4 +1,4 @@
-# Privacy Policy
+# Privacy policy
 
 By downloading and using Avgånär you agree to this Privacy Policy. It may change without notice, and by continuing to use the application you agree to the changes.
 

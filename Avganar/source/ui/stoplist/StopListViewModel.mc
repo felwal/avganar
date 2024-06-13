@@ -1,137 +1,183 @@
+// This file is part of Avgånär.
+//
+// Avgånär is free software: you can redistribute it and/or modify it under the terms of
+// the GNU General Public License as published by the Free Software Foundation,
+// either version 3 of the License, or (at your option) any later version.
+//
+// Avgånär is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+// without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+// See the GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License along with Avgånär.
+// If not, see <https://www.gnu.org/licenses/>.
+
+import Toybox.Lang;
+
 using Toybox.Application.Storage;
-using Toybox.Lang;
-using Toybox.Position;
-using Toybox.Timer;
 using Toybox.WatchUi;
 
 class StopListViewModel {
 
-    static hidden const _STORAGE_LAST_POS = "last_pos";
+    static private const _STORAGE_LAST_POS = "last_pos";
+    static private const _MOVED_DISTANCE_MIN = 100;
 
-    var stopCursor = 0;
+    var stopCursor as Number = 0;
 
-    hidden var _lastPos;
+    private var _lastPos as LatLon?;
 
     // init
 
     function initialize() {
         stopCursor = getFavoriteCount();
-        _lastPos = StorageUtil.getArray(_STORAGE_LAST_POS);
+
+        var lastPosArr = StorageUtil.getArray(_STORAGE_LAST_POS);
+        _lastPos = lastPosArr.size() == 2 ? lastPosArr : null;
     }
 
-    // timer
-
-    function enableRequests() {
+    function enableRequests() as Void {
         _requestPosition();
     }
 
-    function disableRequests() {
+    function disableRequests() as Void {
         Footprint.disableLocationEvents();
     }
 
     // position
 
-    hidden function _requestPosition() {
+    private function _requestPosition() as Void {
+        // don't look for position if location setting is off
+        if (NearbyStopsService.handleLocationOff()) { return; }
+
         // set location event listener and get last location while waiting
         Footprint.onRegisterPosition = method(:onPosition);
         Footprint.enableLocationEvents(false);
         Footprint.registerLastKnownPosition();
     }
 
-    function onPosition() {
-        if (_lastPos.size() != 2 || !NearbyStopsStorage.hasStops()) {
+    function onPosition() as Void {
+        // request directly if there is no last position saved,
+        // there has been no request,
+        // or if last request resulted in an error.
+        if (_lastPos == null
+            || NearbyStopsStorage.response == null
+            || NearbyStopsStorage.response instanceof ResponseError) {
+
             _requestNearbyStops();
         }
-        else if (_lastPos.size() == 2) {
-            var movedDistance = Footprint.distanceTo(_lastPos[0], _lastPos[1]);
+        else {
+            var movedDistance = Footprint.distanceTo(_lastPos);
 
-            // only request stops if the user has moved 100 m since last request
-            if (movedDistance > 100) {
+            // only request stops if the user has moved 100m since last request
+            if (movedDistance > _MOVED_DISTANCE_MIN) {
                 _requestNearbyStops();
+            }
+            else {
+                WatchUi.requestUpdate();
             }
         }
     }
 
+    private function _isPositioned() as Boolean {
+        return Footprint.isPositioned() && SettingsStorage.getUseLocation();
+    }
+
     // service
 
-    hidden function _requestNearbyStops() {
-        if (!NearbyStopsStorage.hasStops() && !(NearbyStopsStorage.response instanceof ResponseError)) {
-            // set searching
-            NearbyStopsStorage.setResponse([], [], null);
+    private function _requestNearbyStops() as Void {
+        // don't request using position if location setting is off
+        if (NearbyStopsService.handleLocationOff()) { return; }
+
+        // set searching (override errors, but not stops)
+        if (!NearbyStopsStorage.hasStops()) {
+            NearbyStopsStorage.resetResponse();
         }
 
-        NearbyStopsService.requestNearbyStops(Footprint.getLatDeg(), Footprint.getLonDeg());
+        NearbyStopsService.requestNearbyStops(Footprint.getLatLonDeg());
+        WatchUi.requestUpdate();
 
         // update last position
-        _lastPos = [ Footprint.getLatRad(), Footprint.getLonRad() ];
+        _lastPos = Footprint.getLatLonRad();
         // save to storage to avoid requesting every time the user enters the app
         Storage.setValue(_STORAGE_LAST_POS, _lastPos);
     }
 
-    // storage - read
+    // nearby
 
-    function getMessage() {
-        var response = NearbyStopsStorage.response;
-
-        return response == null
-            ? rez(Footprint.isPositioned() ? Rez.Strings.msg_i_stops_requesting : Rez.Strings.msg_i_stops_no_gps)
-            : (response instanceof ResponseError ? response.getTitle() : response);
-    }
-
-    function hasStops() {
+    function hasStops() as Boolean {
         return NearbyStopsStorage.hasStops() || FavoriteStopsStorage.favorites.size() > 0;
     }
 
-    hidden function _getStops() {
-        var response = NearbyStopsStorage.response;
+    private function _getStops() as Array<StopType> {
+        var nearby = NearbyStopsStorage.getStops();
         var favs = FavoriteStopsStorage.favorites;
-        var stops = response instanceof Lang.Array ? ArrUtil.merge(favs, response) : favs;
+        var stops = ArrUtil.merge(favs, nearby); // order is important
 
         // coerce cursor
-        stopCursor = MathUtil.min(stopCursor, getItemCount() - 1);
+        stopCursor = MathUtil.min(stopCursor, _getItemCount() - 1);
 
         return stops;
     }
 
-    function getStopNames() {
+    function getStopNames() as Array<String> {
         var stops = _getStops();
-        if (stops == null) { return null; }
+        var names = [];
 
-        var names = new [stops.size()];
-        for (var i = 0; i < names.size(); i++) {
-            names[i] = stops[i].name;
+        for (var i = 0; i < stops.size(); i++) {
+            names.add(stops[i].name);
         }
 
         return names;
     }
 
-    function getItemCount() {
-        var response = NearbyStopsStorage.response;
-
-        return getFavoriteCount() + (response instanceof Lang.Array ? response.size() : 1);
+    private function _getItemCount() as Number {
+        var nearbyCount = NearbyStopsStorage.getStopCount();
+        return getFavoriteCount() + (nearbyCount > 0 ? nearbyCount : 1);
     }
 
-    function getFavoriteCount() {
-        return FavoriteStopsStorage.favorites.size();
-    }
-
-    function getSelectedStop() {
+    function getSelectedStop() as StopType? {
         var stops = _getStops();
         return stopCursor < stops.size() ? stops[stopCursor] : null;
     }
 
-    function isSelectedStopFavorite() {
+    function getNearbyCursor() as Number {
+        return stopCursor - getFavoriteCount();
+    }
+
+    // message
+
+    function getMessage() as String {
+        var response = NearbyStopsStorage.response;
+
+        // status message
+        if (response == null) {
+            return getString(_isPositioned()
+                ? Rez.Strings.msg_i_stops_requesting
+                : Rez.Strings.msg_i_stops_no_gps);
+        }
+        // error or empty
+        else {
+            return response instanceof ResponseError
+                ? response.getTitle()
+                : getString(Rez.Strings.msg_i_stops_none);
+        }
+    }
+
+    function isShowingMessage() as Boolean {
+        return !NearbyStopsStorage.hasStops() && stopCursor == _getItemCount() - 1;
+    }
+
+    // favorites
+
+    function getFavoriteCount() as Number {
+        return FavoriteStopsStorage.favorites.size();
+    }
+
+    function isSelectedStopFavorite() as Boolean {
         var stop = getSelectedStop();
         return stop != null && FavoriteStopsStorage.isFavorite(stop);
     }
 
-    function isShowingMessage() {
-        return !(NearbyStopsStorage.response instanceof Lang.Array) && stopCursor == getItemCount() - 1;
-    }
-
-    // storage - write
-
-    function addFavorite() {
+    function addFavorite() as Void {
         var stop = getSelectedStop();
 
         // double check that we have a stop response
@@ -142,7 +188,7 @@ class StopListViewModel {
         }
     }
 
-    function removeFavorite() {
+    function removeFavorite() as Void {
         var isInFavoritesPane = stopCursor < getFavoriteCount();
 
         FavoriteStopsStorage.removeFavorite(getSelectedStop());
@@ -154,40 +200,39 @@ class StopListViewModel {
             : stopCursor - 1;
     }
 
-    function moveFavorite(diff) {
+    function moveFavorite(diff as Number) as Void {
         FavoriteStopsStorage.moveFavorite(getSelectedStop(), diff);
         stopCursor += diff;
     }
 
-    //
+    // input
 
-    function isRerequestable() {
+    function isUserRefreshable() as Boolean {
         return NearbyStopsStorage.response instanceof ResponseError
-            && NearbyStopsStorage.response.isRerequestable();
+            && NearbyStopsStorage.response.isUserRefreshable();
     }
 
-    function onSelectMessage() {
-        if (isRerequestable()) {
+    function onSelectMessage() as Void {
+        // let the user trigger a refresh also by clicking on the error msg
+        // – not only by scrolling down for the action footer.
+        if (isUserRefreshable()) {
             _requestNearbyStops();
-            WatchUi.requestUpdate();
         }
     }
 
-    function getNearbyCursor() {
-        return stopCursor - getFavoriteCount();
-    }
-
-    function incStopCursor() {
-        if (isShowingMessage() && isRerequestable()) {
+    function onScrollDown() as Void {
+        if (isShowingMessage() && isUserRefreshable()) {
             _requestNearbyStops();
-            WatchUi.requestUpdate();
             return;
         }
 
         _rotStopCursor(1);
     }
 
-    function decStopCursor() {
+    //! @return true if successfully rotating
+    function onScrollUp() as Boolean {
+        // if the user has no favorites, scrolling off-screen
+        // should not result in going back round.
         if (getFavoriteCount() == 0 && stopCursor == 0) {
             return false;
         }
@@ -196,9 +241,9 @@ class StopListViewModel {
         return true;
     }
 
-    hidden function _rotStopCursor(step) {
+    private function _rotStopCursor(step as Number) as Void {
         if (hasStops()) {
-            stopCursor = MathUtil.mod(stopCursor + step, getItemCount());
+            stopCursor = MathUtil.modulo(stopCursor + step, _getItemCount());
             WatchUi.requestUpdate();
         }
     }
