@@ -71,7 +71,7 @@
     <string id="itm_modes_bus_local">Buses</string>
     <string id="itm_modes_bus_express">Express buses</string>
     <string id="itm_modes_metro">Metro</string>
-    <string id="itm_modes_train_local">Local trains</string>
+    <string id="itm_modes_train_local">Trains</string>
     <string id="itm_modes_train_regional">Regional trains</string>
     <string id="itm_modes_train_express">Express trains</string>
     <string id="itm_modes_tram">Light rail</string>

@@ -132,7 +132,7 @@ class DeparturesService {
             var moment = TimeUtil.localIso8601StrToMoment(date + "T" + time);
 
             // NOTE: API limitation
-            destination = _cleanDepartureDestination(destination);
+            destination = _cleanDestinationName(destination);
 
             var departure = new Departure(modeKey, line, destination, moment);
 
@@ -162,20 +162,15 @@ class DeparturesService {
 
     // tools
 
-    function _cleanDepartureDestination(destination as String) as String {
-        // remove e.g. "(Stockholm kn)"
-        var destEndIndex = destination.find("(");
-        if (destEndIndex != null) {
-            destination = destination.substring(0, destEndIndex);
-        }
+    function _cleanDestinationName(name as String) as String {
+        // NOTE: API limitation
 
-        // remove unneccessary "T-bana"
-        destEndIndex = destination.find(" T-bana");
-        if (destEndIndex != null) {
-            destination = destination.substring(0, destEndIndex);
-        }
+        name = StringUtil.removeEnding(name, "("); // remove e.g. "(Stockholm kn)"
+        name = StringUtil.remove(name, " T-bana");
+        name = StringUtil.remove(name, " Spårv");
+        name = StringUtil.remove(name, " station");
 
-        return destination;
+        return name;
     }
 
 }

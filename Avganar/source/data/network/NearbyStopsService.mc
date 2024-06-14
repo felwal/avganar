@@ -144,17 +144,10 @@ module NearbyStopsService {
     // tools
 
     function _cleanStopName(name as String) as String {
-        // remove e.g. "(Stockholm kn)"
-        var nameEndIndex = name.find("(");
-        if (nameEndIndex != null) {
-            name = name.substring(0, nameEndIndex);
-        }
+        // NOTE: API limitation
 
-        // remove unneccessary "T-bana"
-        nameEndIndex = name.find(" T-bana");
-        if (nameEndIndex != null) {
-            name = name.substring(0, nameEndIndex);
-        }
+        name = StringUtil.removeEnding(name, "("); // remove e.g. "(Stockholm kn)"
+        name = StringUtil.remove(name, " station");
 
         return name;
     }
