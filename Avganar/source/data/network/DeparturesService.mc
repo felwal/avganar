@@ -125,16 +125,32 @@ class DeparturesService {
 
             var line = productData["displayNumber"];
             var destination = departureData["direction"];
-            // rtTime and rtDate are realtime data
-            var time = departureData.hasKey("rtTime") ? departureData["rtTime"] : DictUtil.get(departureData, "time", null);
-            var date = departureData.hasKey("rtDate") ? departureData["rtDate"] : DictUtil.get(departureData, "date", null);
+            var plannedDate = DictUtil.get(departureData, "date", null);
+            var plannedTime = DictUtil.get(departureData, "time", null);
+            var expectedDate = DictUtil.get(departureData, "rtDate", null);
+            var expectedTime = DictUtil.get(departureData, "rtTime", null);
+
+            var date, time;
+            var isRealTime = false;
+
+            if (expectedDate != null && expectedTime != null
+                && (!expectedDate.equals(plannedDate) || !expectedTime.equals(plannedTime))) {
+
+                date = expectedDate;
+                time = expectedTime;
+                isRealTime = true;
+            }
+            else {
+                date = plannedDate;
+                time = plannedTime;
+            }
 
             var moment = TimeUtil.localIso8601StrToMoment(date + "T" + time);
 
             // NOTE: API limitation
             destination = _cleanDestinationName(destination);
 
-            var departure = new Departure(modeKey, line, destination, moment);
+            var departure = new Departure(modeKey, line, destination, moment, isRealTime);
 
             if (!departures.hasKey(modeKey)) {
                 departures[modeKey] = [];

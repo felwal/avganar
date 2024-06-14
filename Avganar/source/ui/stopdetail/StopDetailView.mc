@@ -125,8 +125,15 @@ class StopDetailView extends WatchUi.View {
             dc.fillCircle(xCircle, y, rCircle);
 
             // draw text
+            var justification = Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER;
             Graphite.setColor(dc, AppColors.TEXT_PRIMARY);
-            dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(xText, y, font, departure.toString(), justification);
+
+            // mark realtime
+            if (departure.isRealTime) {
+                Graphite.setColor(dc, AppColors.DEPARTURE_REALTIME);
+                dc.drawText(xText, y, font, departure.displayTime(), justification);
+            }
         }
     }
 

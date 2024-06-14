@@ -33,6 +33,8 @@ module AppColors {
     const WARNING = Graphene.COLOR_VERMILION;
     const ERROR = Graphene.COLOR_RED;
 
+    const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
+
     // mode
 
     const MODE_BUS_LOCAL = Graphene.COLOR_RED;

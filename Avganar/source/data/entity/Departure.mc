@@ -21,6 +21,8 @@ class Departure {
 
     static private const _KEEP_DEPARTURE_AFTER_DEPARTED_SEC = 30;
 
+    var isRealTime as Boolean;
+
     private var _modeKey as Number;
     private var _line as String;
     private var _destination as String;
@@ -28,7 +30,11 @@ class Departure {
 
     // init
 
-    function initialize(modeKey as Number, line as String, destination as String, moment as Moment?) {
+    function initialize(modeKey as Number, line as String, destination as String,
+        moment as Moment?, isRealTime as Boolean) {
+
+        me.isRealTime = isRealTime;
+
         _modeKey = modeKey;
         _line = line;
         _destination = destination;
@@ -38,13 +44,13 @@ class Departure {
     // get
 
     function toString() as String {
-        return _displayTime() + " "
+        return displayTime() + " "
             // skip some line numbers which are wrong anyway
             + (_line.length() >= 5 || _line.equals(".") ? "" : _line + " ")
             + _destination;
     }
 
-    private function _displayTime() as String {
+    function displayTime() as String {
         if (_moment == null) {
             return getString(Rez.Strings.itm_detail_departure_time_null);
         }
