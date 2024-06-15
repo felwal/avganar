@@ -21,7 +21,7 @@ class StopDetailViewModel {
 
     static const DEPARTURES_PER_PAGE = 4;
 
-    static private const _TIME_INTERVAL_SCREEN = 15 * 1000;
+    static private const _TIME_INTERVAL_SCREEN = 10 * 1000;
     static private const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
 
     var stop as StopType;
