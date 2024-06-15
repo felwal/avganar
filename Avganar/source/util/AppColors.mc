@@ -35,7 +35,7 @@ module AppColors {
 
     const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
 
-    // mode
+    // mode/group
 
     const MODE_BUS_LOCAL = Graphene.COLOR_RED;
     const MODE_BUS_EXPRESS = Graphene.COLOR_LT_RED;

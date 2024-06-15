@@ -76,7 +76,7 @@ module WidgetUtil {
 
     // header/footer
 
-    function drawExclamationBanner(dc as Dc) as Void {
+    function drawErrorBanner(dc as Dc) as Void {
         drawHeader(dc, px(30), AppColors.ERROR, AppColors.BACKGROUND, "!", AppColors.TEXT_PRIMARY);
     }
 
