@@ -19,6 +19,19 @@ module StringUtil {
         return str.substring(index, index + 1);
     }
 
+    function remove(str as String, toRemove as String) as String {
+        var toRemoveStartInd = str.find(toRemove);
+        if (toRemoveStartInd == null) {
+            return str;
+        }
+
+        var toRemoveEndInd = toRemoveStartInd + toRemove.length();
+        var firstHalf = str.substring(0, toRemoveStartInd);
+        var secondHalf = str.substring(toRemoveEndInd, str.length());
+
+        return firstHalf + secondHalf;
+    }
+
     function isEmpty(str as String?) as Boolean {
         return str == null || str.equals("");
     }

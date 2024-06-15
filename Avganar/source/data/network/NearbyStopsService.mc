@@ -126,6 +126,9 @@ module NearbyStopsService {
             var name = stopData["name"];
             var products = stopData["products"].toNumber();
 
+            // NOTE: API limitation
+            name = _cleanStopName(name);
+
             // null if duplicate
             var stop = NearbyStopsStorage.createStop(id, name, products, stops, stopIds, stopNames);
             if (stop == null) {
@@ -142,6 +145,14 @@ module NearbyStopsService {
     }
 
     // tools
+
+    function _cleanStopName(name as String) as String {
+        // NOTE: API limitation
+
+        name = StringUtil.remove(name, " station");
+
+        return name;
+    }
 
     function handleLocationOff() as Boolean {
         // don't request using position if location setting is off
