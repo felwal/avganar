@@ -22,7 +22,9 @@ class StopDetailViewModel {
     static const DEPARTURES_PER_PAGE = 4;
 
     static private const _TIME_INTERVAL_SCREEN = 10 * 1000;
-    static private const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
+    // widget is auto-exited after 2 min of inactivity.
+    // add a 10 sec offset to avoid auto-refreshing right before that.
+    static private const _TIME_INTERVAL_REQUEST = 130 * 1000;
 
     var stop as StopType;
     var pageCount as Number = 1;
@@ -74,15 +76,15 @@ class StopDetailViewModel {
 
         // 50 ms is the minimum timer value
         if (delay <= 50) {
-            onDelayedDeparturesRequest();
+            onRequestDeparturesDelayed();
         }
         else {
             disableRequests();
-            _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
+            _delayTimer.start(method(:onRequestDeparturesDelayed), delay, false);
         }
     }
 
-    function onDelayedDeparturesRequest() as Void {
+    function onRequestDeparturesDelayed() as Void {
         _requestDepartures();
         _startRepeatTimer();
     }
@@ -94,12 +96,12 @@ class StopDetailViewModel {
         }
 
         var screenTimer = new TimeUtil.TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimeUtil.TimerRepr(method(:onTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
+        var requestTimer = new TimeUtil.TimerRepr(method(:onRequestTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
 
         _repeatTimer.start(_TIME_INTERVAL_SCREEN, [ screenTimer, requestTimer ]);
     }
 
-    function onTimer() as Void {
+    function onRequestTimer() as Void {
         var response = stop.getMode(_currentModeKey).getResponse();
 
         if (response instanceof ResponseError && !response.isTimerRefreshable()) {
@@ -288,7 +290,7 @@ class StopDetailViewModel {
             pageCursor = 0;
 
             // if it's a new mode, don't bother looking for its age (it doesn't have any)
-            onDelayedDeparturesRequest();
+            onRequestDeparturesDelayed();
         }
         else if (isModeMenuState) {
             isModeMenuState = false;
@@ -297,7 +299,7 @@ class StopDetailViewModel {
 
             // new mode
             if (!stop.hasMode(_currentModeKey)) {
-                onDelayedDeparturesRequest();
+                onRequestDeparturesDelayed();
             }
             // mode with previous response
             else {
