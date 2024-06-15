@@ -60,9 +60,9 @@ class Departure {
         var seconds = MathUtil.max(0, _moment.value() - Time.now().value());
         var minutes = Math.round(seconds / 60.0).toNumber();
 
-        return minutes <= 0
-            ? getString(Rez.Strings.itm_detail_departure_time_now)
-            : (minutes + SettingsStorage.getMinuteSymbol());
+        return minutes > 0
+            ? (minutes + SettingsStorage.getMinuteSymbol())
+            : getString(Rez.Strings.itm_detail_departure_time_now);
     }
 
     function hasDeparted() as Boolean {
@@ -101,6 +101,7 @@ class Departure {
             return AppColors.MODE_SHIP;
         }
 
+        Log.w("Unknown mode " + _modeKey + " or group " + _group);
         return AppColors.MODE_OTHER;
     }
 

@@ -86,6 +86,10 @@ class StopDouble {
         return _stop.getModeKey(index);
     }
 
+    function getFirstModeKeyPreferAdded() as Number {
+        return _stop.getFirstModeKeyPreferAdded();
+    }
+
     function getModesKeys() as Array<Number> {
         return _stop.getModesKeys();
     }

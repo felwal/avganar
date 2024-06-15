@@ -21,8 +21,10 @@ class StopDetailViewModel {
 
     static const DEPARTURES_PER_PAGE = 4;
 
-    static private const _TIME_INTERVAL_SCREEN = 15 * 1000;
-    static private const _TIME_INTERVAL_REQUEST = 2 * 60 * 1000;
+    static private const _TIME_INTERVAL_SCREEN = 10 * 1000;
+    // widget is auto-exited after 2 min of inactivity.
+    // add a 10 sec offset to avoid auto-refreshing right before that.
+    static private const _TIME_INTERVAL_REQUEST = 130 * 1000;
 
     var stop as StopType;
     var pageCount as Number = 1;
@@ -44,7 +46,7 @@ class StopDetailViewModel {
         // (ie dont request automatically; wait for user input),
         // or we are waiting for that first response
         isInitialRequest = stop.getAddedModesCount() == 0 && stop.getModesKeys().size() > 1;
-        _currentModeKey = stop.getModeKey(0);
+        _currentModeKey = stop.getFirstModeKeyPreferAdded();
     }
 
     // request
@@ -70,17 +72,17 @@ class StopDetailViewModel {
         // never request more frequently than _TIME_INTERVAL_REQUEST.
         var delay = age == null ? 0 : _TIME_INTERVAL_REQUEST - age;
 
-        // 50 ms is the minimum time value
+        // 50 ms is the minimum timer value
         if (delay <= 50) {
-            onDelayedDeparturesRequest();
+            onRequestDeparturesDelayed();
         }
         else {
-            _delayTimer.stop();
-            _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
+            disableRequests();
+            _delayTimer.start(method(:onRequestDeparturesDelayed), delay, false);
         }
     }
 
-    function onDelayedDeparturesRequest() as Void {
+    function onRequestDeparturesDelayed() as Void {
         _requestDepartures();
         _startRepeatTimer();
     }
@@ -92,12 +94,12 @@ class StopDetailViewModel {
         }
 
         var screenTimer = new TimeUtil.TimerRepr(new Lang.Method(WatchUi, :requestUpdate), 1);
-        var requestTimer = new TimeUtil.TimerRepr(method(:onTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
+        var requestTimer = new TimeUtil.TimerRepr(method(:onRequestTimer), _TIME_INTERVAL_REQUEST / _TIME_INTERVAL_SCREEN);
 
         _repeatTimer.start(_TIME_INTERVAL_SCREEN, [ screenTimer, requestTimer ]);
     }
 
-    function onTimer() as Void {
+    function onRequestTimer() as Void {
         var response = stop.getMode(_currentModeKey).getResponse();
 
         if (response instanceof ResponseError && !response.isTimerRefreshable()) {
@@ -108,6 +110,12 @@ class StopDetailViewModel {
     }
 
     private function _requestDepartures() as Void {
+        // set searching (override errors, but not departures)
+        var mode = stop.getMode(_currentModeKey);
+        if (mode.hasResponseError()) {
+            mode.setResponse(null);
+        }
+
         new DeparturesService(stop).requestDepartures(_currentModeKey);
         WatchUi.requestUpdate();
     }
@@ -126,6 +134,7 @@ class StopDetailViewModel {
     function getPageResponse() as DeparturesResponse {
         if (isInitialRequest || isModeMenuState) {
             // should not happen, but check just in case
+            Log.w("Called getPageResponse() when in mode menu");
             return null;
         }
 
@@ -159,10 +168,10 @@ class StopDetailViewModel {
     function onScrollDown() as Void {
         var response = stop.getMode(_currentModeKey).getResponse();
 
+        // refresh
         if (!isModeMenuState
             && response instanceof ResponseError && response.isUserRefreshable()) {
 
-            // refresh
             stop.resetMode(_currentModeKey);
             _requestDepartures();
             return;
@@ -170,7 +179,7 @@ class StopDetailViewModel {
 
         var wasCursorModified = _incPageCursor();
 
-        // only refresh if changed
+        // only update if changed
         if (wasCursorModified) {
             WatchUi.requestUpdate();
         }
@@ -179,7 +188,7 @@ class StopDetailViewModel {
     function onScrollUp() as Void {
         var wasCursorModified = _decPageCursor();
 
-        // only refresh if changed
+        // only update if changed
         if (wasCursorModified) {
             WatchUi.requestUpdate();
         }
@@ -220,16 +229,20 @@ class StopDetailViewModel {
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
-            _requestDeparturesDelayed();
+            // if it's a new mode, don't bother makign a delayed request
+            // (it doesn't have an age)
+            onRequestDeparturesDelayed();
         }
         else if (isModeMenuState) {
             isModeMenuState = false;
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
+            // new mode
             if (!stop.hasMode(_currentModeKey)) {
-                onDelayedDeparturesRequest();
+                onRequestDeparturesDelayed();
             }
+            // mode with previous response
             else {
                 _requestDeparturesDelayed();
                 WatchUi.requestUpdate();

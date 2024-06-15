@@ -52,9 +52,9 @@ class Mode {
     // get
 
     function getDataAgeMillis() as Number? {
-        return (_response instanceof Lang.Array || _response instanceof Lang.String) && _timeStamp != null
-            ? Time.now().subtract(_timeStamp).value() * 1000
-            : null;
+        return _timeStamp == null
+            ? null
+            : Time.now().subtract(_timeStamp).value() * 1000;
     }
 
     function getFailedRequestCount() as Number {

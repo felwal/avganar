@@ -11,17 +11,29 @@
 // You should have received a copy of the GNU General Public License along with Avgånär.
 // If not, see <https://www.gnu.org/licenses/>.
 
-import Toybox.WatchUi;
+import Toybox.Lang;
 
-(:glance)
-function def(val, def) {
-    return val == null ? def : val;
-}
+using Toybox.System;
 
-function invertTransition(transition as SlideType) as SlideType {
-    return transition == WatchUi.SLIDE_UP ? WatchUi.SLIDE_DOWN
-        : transition == WatchUi.SLIDE_DOWN ? WatchUi.SLIDE_UP
-        : transition == WatchUi.SLIDE_RIGHT ? WatchUi.SLIDE_LEFT
-        : transition == WatchUi.SLIDE_LEFT ? WatchUi.SLIDE_RIGHT
-        : transition;
+//! Logging made (a bit) simpler.
+//! Should not be included in release builds.
+(:glance :debug)
+module Log {
+
+    function i(str as String) as Void {
+        System.println("I: " + str);
+    }
+
+    function d(str as String) as Void {
+        System.println("D: " + str);
+    }
+
+    function w(str as String) as Void {
+        System.println("W: " + str);
+    }
+
+    function e(str as String) as Void {
+        System.println("E: " + str);
+    }
+
 }

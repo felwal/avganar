@@ -42,7 +42,7 @@ class DeparturesService {
     }
 
     private function _requestDepartures(modeKey as Number) as Void {
-        DeparturesService.isRequesting = true;
+        isRequesting = true;
 
         var url = "https://api.resrobot.se/v2.1/departureBoard";
 
@@ -67,13 +67,15 @@ class DeparturesService {
         };
 
         Communications.makeWebRequest(url, params, options, method(:onReceiveDepartures));
+        //Log.i("Requesting " + modeKey + " departures for siteId " + _stop.getId() + " for " + _stop.getMode(modeKey).getTimeWindow() + " min ...");
     }
 
     // receive
 
     function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
-        DeparturesService.isRequesting = false;
+        isRequesting = false;
         var errorCode = DictUtil.get(data, "errorCode", null);
+        //Log.d("Departures response (" + responseCode + "): " + data);
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {

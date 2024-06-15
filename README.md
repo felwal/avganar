@@ -14,7 +14,7 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/apps/993cae37-27d3-46b2
 - View nearby stops
 - Save favorite stops and view anywhere
 - View departures
-  - Color coded and sectioned by mode
+  - Sectioned and color coded by transport mode and group
 - Limit memory consumption by tuning settings
 
 ## API

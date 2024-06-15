@@ -41,4 +41,8 @@ module StringUtil {
         return str.substring(0, toRemoveStartInd);
     }
 
+    function isEmpty(str as String?) as Boolean {
+        return str == null || str.equals("");
+    }
+
 }
