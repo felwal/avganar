@@ -27,7 +27,7 @@ module SettingsStorage {
     var _useLocation as Boolean = true;
     var _vibrateOnResponse as Boolean = true;
     var _maxStops as Number = 15;
-    var _defaultTimeWindow as Number = 30;
+    var _defaultTimeWindow as Number = 45;
     var _minuteSymbol as String = "m";
 
     //
