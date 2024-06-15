@@ -37,14 +37,24 @@ module AppColors {
 
     // mode/group
 
-    const MODE_BUS_LOCAL = Graphene.COLOR_RED;
-    const MODE_BUS_EXPRESS = Graphene.COLOR_LT_RED;
-    const MODE_METRO = Graphene.COLOR_BLUE;
-    const MODE_TRAIN_LOCAL = Graphene.COLOR_CERISE;
-    const MODE_TRAIN_REGIONAL = Graphene.COLOR_GREEN;
-    const MODE_TRAIN_EXPRESS = Graphene.COLOR_YELLOW;
+    const GROUP_BUS_LOCAL = Graphene.COLOR_RED;
+    const GROUP_BUS_EXPRESS = Graphene.COLOR_LT_RED;
+    const GROUP_BUS_AIRPORT = Graphene.COLOR_AMBER;
+
+    const GROUP_TRAIN_LOCAL = Graphene.COLOR_CERISE;
+    const GROUP_TRAIN_REGIONAL = Graphene.COLOR_GREEN;
+    const GROUP_TRAIN_EXPRESS = Graphene.COLOR_LIME;
+    const GROUP_TRAIN_AIRPORT = Graphene.COLOR_YELLOW;
+    const GROUP_TRAIN_SNABBTAG = Graphene.COLOR_CRIMSON;
+    const GROUP_TRAIN_NATTAG = Graphene.COLOR_DK_ROSE;
+    const GROUP_TRAIN_INTERCITY = Graphene.COLOR_AQUAMARINE;
+    const GROUP_TRAIN_PAGA = Graphene.COLOR_PURPLE;
+
+    const GROUP_SHIP_LOCAL = Graphene.COLOR_CAPRI;
+    const GROUP_SHIP_INTERNATIONAL = Graphene.COLOR_DK_AZURE;
+
+    const MODE_METRO = Graphene.COLOR_DK_BLUE;
     const MODE_TRAM = Graphene.COLOR_DK_ORANGE;
-    const MODE_SHIP = Graphene.COLOR_CAPRI;
     const MODE_OTHER = Graphene.COLOR_LT_GRAY;
 
 }

@@ -19,23 +19,41 @@ using Toybox.Math;
 
 class Departure {
 
+    static private const _GROUP_BUS_LOCAL = "BLT";
+    static private const _GROUP_BUS_EXPRESS = "BXB";
+    static private const _GROUP_BUS_AIRPORT = "BAX";
+
+    static private const _GROUP_TRAIN_LOCAL = "JLT";
+    static private const _GROUP_TRAIN_REGIONAL = "JRE";
+    static private const _GROUP_TRAIN_EXPRESS = "JEX";
+    static private const _GROUP_TRAIN_AIRPORT = "JAX";
+    static private const _GROUP_TRAIN_SNABBTAG = "JST";
+    static private const _GROUP_TRAIN_NATTAG = "JNT";
+    static private const _GROUP_TRAIN_INTERCITY = "JIC";
+    static private const _GROUP_TRAIN_PAGA = "JPT";
+
+    static private const _GROUP_SHIP_LOCAL = "FLT";
+    static private const _GROUP_SHIP_INTERNATIONAL = "FUT";
+
     static private const _KEEP_DEPARTURE_AFTER_DEPARTED_SEC = 30;
 
     var isRealTime as Boolean;
 
     private var _modeKey as Number;
+    private var _group as String;
     private var _line as String;
     private var _destination as String;
     private var _moment as Moment?;
 
     // init
 
-    function initialize(modeKey as Number, line as String, destination as String,
+    function initialize(modeKey as Number, group as String, line as String, destination as String,
         moment as Moment?, isRealTime as Boolean) {
 
         me.isRealTime = isRealTime;
 
         _modeKey = modeKey;
+        _group = group;
         _line = line;
         _destination = destination;
         _moment = moment;
@@ -76,32 +94,80 @@ class Departure {
     }
 
     function getModeColor() as ColorType {
-        if (_modeKey == Mode.KEY_BUS_LOCAL) {
-            return AppColors.MODE_BUS_LOCAL;
-        }
-        else if (_modeKey == Mode.KEY_BUS_EXPRESS) {
-            return AppColors.MODE_BUS_EXPRESS;
-        }
-        else if (_modeKey == Mode.KEY_METRO) {
+        if (_modeKey == Mode.KEY_METRO) {
            return AppColors.MODE_METRO;
-        }
-        else if (_modeKey == Mode.KEY_TRAIN_LOCAL) {
-            return AppColors.MODE_TRAIN_LOCAL;
-        }
-        else if (_modeKey == Mode.KEY_TRAIN_REGIONAL) {
-            return AppColors.MODE_TRAIN_REGIONAL;
-        }
-        else if (_modeKey == Mode.KEY_TRAIN_EXPRESS) {
-            return AppColors.MODE_TRAIN_EXPRESS;
         }
         else if (_modeKey == Mode.KEY_TRAM) {
             return AppColors.MODE_TRAM;
         }
-        else if (_modeKey == Mode.KEY_SHIP) {
-            return AppColors.MODE_SHIP;
+
+        else if (_group.equals(_GROUP_BUS_LOCAL)) {
+            return AppColors.GROUP_BUS_LOCAL;
+        }
+        else if (_group.equals(_GROUP_BUS_EXPRESS)) {
+            return AppColors.GROUP_BUS_EXPRESS;
+        }
+        else if (_group.equals(_GROUP_BUS_AIRPORT)) {
+            return AppColors.GROUP_BUS_AIRPORT;
+        }
+        else if (_modeKey == Mode.KEY_BUS_LOCAL) {
+            Log.w("Unknown local bus group " + _group);
+            return AppColors.GROUP_BUS_LOCAL;
+        }
+        else if (_modeKey == Mode.KEY_BUS_EXPRESS) {
+            Log.w("Unknown express bus group " + _group);
+            return AppColors.GROUP_BUS_EXPRESS;
         }
 
-        Log.w("Unknown mode " + _modeKey);
+        else if (_group.equals(_GROUP_TRAIN_LOCAL)) {
+            return AppColors.GROUP_TRAIN_LOCAL;
+        }
+        else if (_group.equals(_GROUP_TRAIN_REGIONAL)) {
+            return AppColors.GROUP_TRAIN_REGIONAL;
+        }
+        else if (_group.equals(_GROUP_TRAIN_EXPRESS)) {
+            return AppColors.GROUP_TRAIN_EXPRESS;
+        }
+        else if (_group.equals(_GROUP_TRAIN_AIRPORT)) {
+            return AppColors.GROUP_TRAIN_AIRPORT;
+        }
+        else if (_group.equals(_GROUP_TRAIN_SNABBTAG)) {
+            return AppColors.GROUP_TRAIN_SNABBTAG;
+        }
+        else if (_group.equals(_GROUP_TRAIN_NATTAG)) {
+            return AppColors.GROUP_TRAIN_NATTAG;
+        }
+        else if (_group.equals(_GROUP_TRAIN_INTERCITY)) {
+            return AppColors.GROUP_TRAIN_INTERCITY;
+        }
+        else if (_group.equals(_GROUP_TRAIN_PAGA)) {
+            return AppColors.GROUP_TRAIN_PAGA;
+        }
+        else if (_modeKey == Mode.KEY_TRAIN_LOCAL) {
+            Log.w("Unknown local train group " + _group);
+            return AppColors.GROUP_TRAIN_LOCAL;
+        }
+        else if (_modeKey == Mode.KEY_TRAIN_REGIONAL) {
+            Log.w("Unknown regional train group " + _group);
+            return AppColors.GROUP_TRAIN_REGIONAL;
+        }
+        else if (_modeKey == Mode.KEY_TRAIN_EXPRESS) {
+            Log.w("Unknown express train group " + _group);
+            return AppColors.GROUP_TRAIN_EXPRESS;
+        }
+
+        else if (_group.equals(_GROUP_SHIP_LOCAL)) {
+            return AppColors.GROUP_SHIP_LOCAL;
+        }
+        else if (_group.equals(_GROUP_SHIP_INTERNATIONAL)) {
+            return AppColors.GROUP_SHIP_INTERNATIONAL;
+        }
+        else if (_modeKey == Mode.KEY_SHIP) {
+            Log.w("Unknown ship group " + _group);
+            return AppColors.GROUP_SHIP_LOCAL;
+        }
+
+        Log.w("Unknown mode " + _modeKey + " or group " + _group);
         return AppColors.MODE_OTHER;
     }
 

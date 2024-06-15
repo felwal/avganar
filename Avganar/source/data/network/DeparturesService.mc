@@ -67,7 +67,7 @@ class DeparturesService {
         };
 
         Communications.makeWebRequest(url, params, options, method(:onReceiveDepartures));
-        //Log.i("Requesting " + modeKey + " departures for siteId " + _stop.getId() + " for " + _stop.getMode(modeKey).getTimeWindow() + " min ...");
+        Log.i("Requesting " + modeKey + " departures for siteId " + _stop.getId() + " for " + _stop.getMode(modeKey).getTimeWindow() + " min ...");
     }
 
     // receive
@@ -126,6 +126,7 @@ class DeparturesService {
             }
 
             var line = productData["displayNumber"];
+            var group = productData["catOutS"];
             var destination = departureData["direction"];
             var plannedDate = DictUtil.get(departureData, "date", null);
             var plannedTime = DictUtil.get(departureData, "time", null);
@@ -152,7 +153,7 @@ class DeparturesService {
             // NOTE: API limitation
             destination = _cleanDestinationName(destination);
 
-            var departure = new Departure(modeKey, line, destination, moment, isRealTime);
+            var departure = new Departure(modeKey, group, line, destination, moment, isRealTime);
 
             if (!departures.hasKey(modeKey)) {
                 departures[modeKey] = [];
