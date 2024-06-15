@@ -38,22 +38,22 @@ module AppColors {
     const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
     const DEPARTURE_SELECTED = Graphene.COLOR_GREEN;
 
-    // mode
+    // mode/group
 
-    const MODE_BUS_RED = Graphene.COLOR_RED;
-    const MODE_BUS_BLUE = Graphene.COLOR_BLUE;
-    const MODE_BUS_REPLACEMENT = WARNING;
+    const GROUP_BUS_RED = Graphene.COLOR_RED;
+    const GROUP_BUS_BLUE = Graphene.COLOR_BLUE;
+    const GROUP_BUS_REPLACEMENT = WARNING;
 
-    const MODE_METRO_RED = Graphene.COLOR_DR_RED;
-    const MODE_METRO_BLUE = Graphene.COLOR_DR_BLUE;
-    const MODE_METRO_GREEN = Graphene.COLOR_DR_GREEN;
+    const GROUP_METRO_RED = Graphene.COLOR_DR_RED;
+    const GROUP_METRO_BLUE = Graphene.COLOR_DR_BLUE;
+    const GROUP_METRO_GREEN = Graphene.COLOR_DR_GREEN;
 
-    const MODE_TRAM_SPARVAGCITY = Graphene.COLOR_DK_GRAY;
-    const MODE_TRAM_NOCKEBYBANAN = Graphene.COLOR_LT_GRAY;
-    const MODE_TRAM_LIDINGOBANAN = Graphene.COLOR_AMBER;
-    const MODE_TRAM_TVARBANAN = Graphene.COLOR_DK_ORANGE;
-    const MODE_TRAM_SALTSJOBANAN = Graphene.COLOR_DK_CYAN;
-    const MODE_TRAM_ROSLAGSBANAN = Graphene.COLOR_DK_VIOLET;
+    const GROUP_TRAM_SPARVAGCITY = Graphene.COLOR_DK_GRAY;
+    const GROUP_TRAM_NOCKEBYBANAN = Graphene.COLOR_LT_GRAY;
+    const GROUP_TRAM_LIDINGOBANAN = Graphene.COLOR_AMBER;
+    const GROUP_TRAM_TVARBANAN = Graphene.COLOR_DK_ORANGE;
+    const GROUP_TRAM_SALTSJOBANAN = Graphene.COLOR_DK_CYAN;
+    const GROUP_TRAM_ROSLAGSBANAN = Graphene.COLOR_DK_VIOLET;
 
     const MODE_TRAIN = Graphene.COLOR_CERISE;
     const MODE_SHIP = Graphene.COLOR_CAPRI;

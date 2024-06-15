@@ -157,7 +157,7 @@ class StopDetailView extends WatchUi.View {
         WidgetUtil.drawDialog(dc, error.getTitle());
 
         if (!error.hasConnection()) {
-            WidgetUtil.drawExclamationBanner(dc);
+            WidgetUtil.drawErrorBanner(dc);
         }
     }
 

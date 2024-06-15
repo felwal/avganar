@@ -121,24 +121,24 @@ class Departure {
     function getModeColor() as ColorType {
         if (_modeKey.equals(Mode.KEY_BUS)) {
             if (_group.equals(_GROUP_BUS_RED)) {
-                return AppColors.MODE_BUS_RED;
+                return AppColors.GROUP_BUS_RED;
             }
             else if (_group.equals(_GROUP_BUS_BLUE)) {
-                return AppColors.MODE_BUS_BLUE;
+                return AppColors.GROUP_BUS_BLUE;
             }
             else if (_group.equals(_GROUP_BUS_REPLACEMENT)) {
-                return AppColors.MODE_BUS_REPLACEMENT;
+                return AppColors.GROUP_BUS_REPLACEMENT;
             }
         }
         else if (_modeKey.equals(Mode.KEY_METRO)) {
             if (_group.equals(_GROUP_METRO_RED)) {
-                return AppColors.MODE_METRO_RED;
+                return AppColors.GROUP_METRO_RED;
             }
             else if (_group.equals(_GROUP_METRO_BLUE)) {
-                return AppColors.MODE_METRO_BLUE;
+                return AppColors.GROUP_METRO_BLUE;
             }
             else if (_group.equals(_GROUP_METRO_GREEN)) {
-                return AppColors.MODE_METRO_GREEN;
+                return AppColors.GROUP_METRO_GREEN;
             }
         }
         else if (_modeKey.equals(Mode.KEY_TRAIN)) {
@@ -146,22 +146,22 @@ class Departure {
         }
         else if (_modeKey.equals(Mode.KEY_TRAM)) {
             if (_group.equals(_GROUP_TRAM_SPARVAGCITY)) {
-                return AppColors.MODE_TRAM_SPARVAGCITY;
+                return AppColors.GROUP_TRAM_SPARVAGCITY;
             }
             else if (_group.equals(_GROUP_TRAM_NOCKEBYBANAN)) {
-                return AppColors.MODE_TRAM_NOCKEBYBANAN;
+                return AppColors.GROUP_TRAM_NOCKEBYBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_LIDINGOBANAN)) {
-                return AppColors.MODE_TRAM_LIDINGOBANAN;
+                return AppColors.GROUP_TRAM_LIDINGOBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_TVARBANAN)) {
-                return AppColors.MODE_TRAM_TVARBANAN;
+                return AppColors.GROUP_TRAM_TVARBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_SALTSJOBANAN)) {
-                return AppColors.MODE_TRAM_SALTSJOBANAN;
+                return AppColors.GROUP_TRAM_SALTSJOBANAN;
             }
             else if (_group.equals(_GROUP_TRAM_ROSLAGSBANAN)) {
-                return AppColors.MODE_TRAM_ROSLAGSBANAN;
+                return AppColors.GROUP_TRAM_ROSLAGSBANAN;
             }
         }
         else if (_modeKey.equals(Mode.KEY_SHIP)) {
