@@ -72,12 +72,12 @@ class StopDetailViewModel {
         // never request more frequently than _TIME_INTERVAL_REQUEST.
         var delay = age == null ? 0 : _TIME_INTERVAL_REQUEST - age;
 
-        // 50 ms is the minimum time value
+        // 50 ms is the minimum timer value
         if (delay <= 50) {
             onDelayedDeparturesRequest();
         }
         else {
-            _delayTimer.stop();
+            disableRequests();
             _delayTimer.start(method(:onDelayedDeparturesRequest), delay, false);
         }
     }
@@ -176,10 +176,10 @@ class StopDetailViewModel {
     function onScrollDown() as Void {
         var response = stop.getMode(_currentModeKey).getResponse();
 
+        // refresh
         if (!isModeMenuState
             && response instanceof ResponseError && response.isUserRefreshable()) {
 
-            // refresh
             stop.resetMode(_currentModeKey);
             _requestDepartures();
             return;
@@ -189,7 +189,7 @@ class StopDetailViewModel {
             ? _incDepartureCursor()
             : _incPageCursor();
 
-        // only refresh if changed
+        // only update if changed
         if (wasCursorModified) {
             WatchUi.requestUpdate();
         }
@@ -200,7 +200,7 @@ class StopDetailViewModel {
             ? _decDepartureCursor()
             : _decPageCursor();
 
-        // only refresh if changed
+        // only update if changed
         if (wasCursorModified) {
             WatchUi.requestUpdate();
         }
@@ -287,16 +287,19 @@ class StopDetailViewModel {
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
-            _requestDeparturesDelayed();
+            // if it's a new mode, don't bother looking for its age (it doesn't have any)
+            onDelayedDeparturesRequest();
         }
         else if (isModeMenuState) {
             isModeMenuState = false;
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
+            // new mode
             if (!stop.hasMode(_currentModeKey)) {
                 onDelayedDeparturesRequest();
             }
+            // mode with previous response
             else {
                 _requestDeparturesDelayed();
                 WatchUi.requestUpdate();
