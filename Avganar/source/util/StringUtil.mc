@@ -19,26 +19,42 @@ module StringUtil {
         return str.substring(index, index + 1);
     }
 
-    function remove(str as String, toRemove as String) as String {
-        var toRemoveStartInd = str.find(toRemove);
+    function replace(str as String, pattern as String, replacement as String) as String {
+        var toRemoveStartInd = str.find(pattern);
         if (toRemoveStartInd == null) {
             return str;
         }
 
-        var toRemoveEndInd = toRemoveStartInd + toRemove.length();
+        var toRemoveEndInd = toRemoveStartInd + pattern.length();
         var firstHalf = str.substring(0, toRemoveStartInd);
         var secondHalf = str.substring(toRemoveEndInd, str.length());
 
-        return firstHalf + secondHalf;
+        return firstHalf + replacement + secondHalf;
     }
 
-    function removeEnding(str as String, toRemove as String) as String {
-        var toRemoveStartInd = str.find(toRemove);
+    function remove(str as String, pattern as String) as String {
+        return replace(str, pattern, "");
+    }
+
+    function removeEnding(str as String, pattern as String) as String {
+        var toRemoveStartInd = str.find(pattern);
         if (toRemoveStartInd == null) {
             return str;
         }
 
         return str.substring(0, toRemoveStartInd);
+    }
+
+    function trim(str as String) as String {
+        while (charAt(str, 0).equals(" ")) {
+            str = str.substring(1, str.length());
+        }
+
+        while (charAt(str, str.length() - 1).equals(" ")) {
+            str = str.substring(0, str.length() - 1);
+        }
+
+        return str;
     }
 
     function isEmpty(str as String?) as Boolean {

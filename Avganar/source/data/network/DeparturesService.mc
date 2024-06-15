@@ -184,10 +184,12 @@ class DeparturesService {
     function _cleanDestinationName(name as String) as String {
         // NOTE: API limitation
 
-        name = StringUtil.removeEnding(name, "("); // remove e.g. "(Stockholm kn)"
+        name = StringUtil.removeEnding(name, " ("); // remove e.g. "(Stockholm kn)"
         name = StringUtil.remove(name, " T-bana");
         name = StringUtil.remove(name, " Spårv");
         name = StringUtil.remove(name, " station");
+        name = StringUtil.replace(name, "Centralstation", "C");
+        name = StringUtil.trim(name);
 
         return name;
     }
