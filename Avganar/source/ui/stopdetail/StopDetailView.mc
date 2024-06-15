@@ -135,14 +135,15 @@ class StopDetailView extends WatchUi.View {
             var isSelected = _viewModel.isDepartureState && _viewModel.departureCursor == i;
 
             // draw text
+            var justification = Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER;
             var textColor = isSelected ? AppColors.DEPARTURE_SELECTED : departure.getDeviationColor();
             Graphite.setColor(dc, textColor);
-            dc.drawText(xText, y, font, departure.toString(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+            dc.drawText(xText, y, font, departure.toString(), justification);
 
             // mark realtime
             if (departure.isRealTime) {
                 Graphite.setColor(dc, AppColors.DEPARTURE_REALTIME);
-                dc.drawText(xText, y, font, departure.displayTime(), Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER);
+                dc.drawText(xText, y, font, departure.displayTime(), justification);
             }
 
             // strikethrough

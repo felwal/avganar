@@ -130,6 +130,7 @@ class DeparturesService {
 
             var isRealTime = expectedDateTime != null && !expectedDateTime.equals(plannedDateTime);
             var moment = TimeUtil.localIso8601StrToMoment(expectedDateTime);
+            // expectedDateTime == null => "–"
 
             // NOTE: API limitation
             // remove duplicate "subline" in e.g. "571X X Arlandastad"

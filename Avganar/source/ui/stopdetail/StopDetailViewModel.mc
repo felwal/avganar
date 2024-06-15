@@ -46,7 +46,7 @@ class StopDetailViewModel {
         // (ie dont request automatically; wait for user input),
         // or we are waiting for that first response
         isInitialRequest = stop.getAddedModesCount() == 0 && stop.getModesKeys().size() > 1;
-        _currentModeKey = stop.getModeKey(0);
+        _currentModeKey = stop.getFirstModeKeyPreferAdded();
     }
 
     // request

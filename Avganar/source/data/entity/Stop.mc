@@ -147,6 +147,23 @@ class Stop {
         return index < _modesKeys.size() ? _modesKeys[index] : Mode.KEY_ALL;
     }
 
+    function getFirstModeKeyPreferAdded() as String {
+        if (getAddedModesCount() == 0) {
+            return getModeKey(0);
+        }
+
+        // loop over the keys to get in the right order
+        for (var i = 0; i < _modesKeys.size(); i++) {
+            var modeKey = _modesKeys[i];
+
+            if (_modes.hasKey(modeKey)) {
+                return modeKey;
+            }
+        }
+
+        return getModeKey(0);
+    }
+
     function getModesKeys() as Array<String> {
         return _modesKeys;
     }
