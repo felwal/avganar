@@ -101,7 +101,7 @@ class Departure {
             return AppColors.MODE_SHIP;
         }
 
-        Log.w("Unknown mode " + _modeKey + " or group " + _group);
+        Log.w("Unknown mode " + _modeKey);
         return AppColors.MODE_OTHER;
     }
 
