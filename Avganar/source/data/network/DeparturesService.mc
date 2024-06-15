@@ -265,9 +265,7 @@ class DeparturesService {
         }
 
         // remove space and (less common) newline endings
-        if (ArrUtil.contains([" ", "\n"], StringUtil.charAt(msg, msg.length() - 1))) {
-            msg = msg.substring(0, msg.length() - 1);
-        }
+        msg = StringUtil.trim(msg);
 
         return msg;
     }

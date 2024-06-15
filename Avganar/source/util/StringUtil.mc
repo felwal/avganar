@@ -19,17 +19,33 @@ module StringUtil {
         return str.substring(index, index + 1);
     }
 
-    function remove(str as String, toRemove as String) as String {
-        var toRemoveStartInd = str.find(toRemove);
-        if (toRemoveStartInd == null) {
+    function remove(str as String, pattern as String) as String {
+        var patternStartInd = str.find(pattern);
+        if (patternStartInd == null) {
             return str;
         }
 
-        var toRemoveEndInd = toRemoveStartInd + toRemove.length();
-        var firstHalf = str.substring(0, toRemoveStartInd);
-        var secondHalf = str.substring(toRemoveEndInd, str.length());
+        var patternEndInd = patternStartInd + pattern.length();
+        var firstHalf = str.substring(0, patternStartInd);
+        var secondHalf = str.substring(patternEndInd, str.length());
 
         return firstHalf + secondHalf;
+    }
+
+    function trim(str as String) as String {
+        while (charAt(str, 0).equals(" ")
+            || charAt(str, 0).equals("\n")) {
+
+            str = str.substring(1, str.length());
+        }
+
+        while (charAt(str, str.length() - 1).equals(" ")
+            || charAt(str, str.length() - 1).equals("\n")) {
+
+            str = str.substring(0, str.length() - 1);
+        }
+
+        return str;
     }
 
     function isEmpty(str as String?) as Boolean {
