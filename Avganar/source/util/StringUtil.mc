@@ -20,14 +20,14 @@ module StringUtil {
     }
 
     function replace(str as String, pattern as String, replacement as String) as String {
-        var toRemoveStartInd = str.find(pattern);
-        if (toRemoveStartInd == null) {
+        var patternStartInd = str.find(pattern);
+        if (patternStartInd == null) {
             return str;
         }
 
-        var toRemoveEndInd = toRemoveStartInd + pattern.length();
-        var firstHalf = str.substring(0, toRemoveStartInd);
-        var secondHalf = str.substring(toRemoveEndInd, str.length());
+        var patternEndInd = patternStartInd + pattern.length();
+        var firstHalf = str.substring(0, patternStartInd);
+        var secondHalf = str.substring(patternEndInd, str.length());
 
         return firstHalf + replacement + secondHalf;
     }
@@ -37,12 +37,12 @@ module StringUtil {
     }
 
     function removeEnding(str as String, pattern as String) as String {
-        var toRemoveStartInd = str.find(pattern);
-        if (toRemoveStartInd == null) {
+        var patternStartInd = str.find(pattern);
+        if (patternStartInd == null) {
             return str;
         }
 
-        return str.substring(0, toRemoveStartInd);
+        return str.substring(0, patternStartInd);
     }
 
     function trim(str as String) as String {
