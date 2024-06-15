@@ -98,7 +98,7 @@ class Stop {
             var key = keys[i];
 
             if (_modes[key].hasResponseError()) {
-                _modes.remove(key);
+                resetMode(key);
             }
         }
     }

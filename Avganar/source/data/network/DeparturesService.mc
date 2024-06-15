@@ -42,7 +42,7 @@ class DeparturesService {
     }
 
     private function _requestDepartures(modeKey as String) as Void {
-        DeparturesService.isRequesting = true;
+        isRequesting = true;
 
         var url = "https://transport.integration.sl.se/v1/sites/" + _stop.getId() + "/departures";
 
@@ -69,7 +69,7 @@ class DeparturesService {
     // receive
 
     function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
-        DeparturesService.isRequesting = false;
+        isRequesting = false;
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {

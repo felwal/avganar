@@ -112,6 +112,12 @@ class StopDetailViewModel {
     }
 
     private function _requestDepartures() as Void {
+        // set searching (override errors, but not departures)
+        var mode = stop.getMode(_currentModeKey);
+        if (mode.hasResponseError()) {
+            mode.setResponse(null);
+        }
+
         new DeparturesService(stop).requestDepartures(_currentModeKey);
         WatchUi.requestUpdate();
     }
@@ -289,7 +295,8 @@ class StopDetailViewModel {
             _currentModeKey = stop.getModeKey(pageCursor);
             pageCursor = 0;
 
-            // if it's a new mode, don't bother looking for its age (it doesn't have any)
+            // if it's a new mode, don't bother makign a delayed request
+            // (it doesn't have an age)
             onRequestDeparturesDelayed();
         }
         else if (isModeMenuState) {
