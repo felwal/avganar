@@ -34,8 +34,15 @@ class StopListViewModel {
         _lastPos = lastPosArr.size() == 2 ? lastPosArr : null;
     }
 
+    (:release)
     function enableRequests() as Void {
         _requestPosition();
+    }
+
+    (:debug)
+    function enableRequests() as Void {
+        NearbyStopsService.requestNearbyStops(debugLatLon);
+        WatchUi.requestUpdate();
     }
 
     function disableRequests() as Void {

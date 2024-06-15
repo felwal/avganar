@@ -77,6 +77,7 @@ module FavoriteStopsStorage {
 
     function addFavorite(stop as StopType) as Void {
         if (ArrUtil.contains(favorites, stop)) {
+            Log.w(stop.name + " already in favorites");
             return;
         }
 
@@ -99,6 +100,9 @@ module FavoriteStopsStorage {
         if (success) {
             _save();
         }
+        else {
+            Log.w("Did not find fav with id " + stop.getId());
+        }
     }
 
     function moveFavorite(stop as StopType, diff as Number) as Void {
@@ -115,6 +119,7 @@ module FavoriteStopsStorage {
     function updateFavoriteProducts(stopId as Number, products as Number?) as Void {
         var index = _favStopIds.indexOf(stopId);
         if (index == -1) {
+            Log.w("Did not find fav with id " + stopId);
             return;
         }
 

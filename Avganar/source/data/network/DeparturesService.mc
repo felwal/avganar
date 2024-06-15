@@ -64,12 +64,14 @@ class DeparturesService {
         };
 
         Communications.makeWebRequest(url, params, options, method(:onReceiveDepartures));
+        //Log.i("Requesting " + modeKey + " departures for siteId " + _stop.getId() + " for " + _stop.getMode(modeKey).getTimeWindow() + " min ...");
     }
 
     // receive
 
     function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
         isRequesting = false;
+        //Log.d("Departures response (" + responseCode + "): " + data);
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {

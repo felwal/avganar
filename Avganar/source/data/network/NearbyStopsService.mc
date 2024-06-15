@@ -56,7 +56,6 @@ module NearbyStopsService {
     function _requestNearbyStops(latLon as LatLon) as Void {
         isRequesting = true;
 
-        // transition to new url 2023-12-04--2024-03-15
         var url = "https://journeyplanner.integration.sl.se/v1/nearbystopsv2.json";
 
         var params = {
@@ -74,12 +73,14 @@ module NearbyStopsService {
         };
 
         Communications.makeWebRequest(url, params, options, new Lang.Method(NearbyStopsService, :onReceiveNearbyStops));
+        //Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + latLon[0] + ", " + latLon[1] + ") ...");
     }
 
     // receive
 
     function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
         isRequesting = false;
+        //Log.d("Stops response (" + responseCode + "): " + data);
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {
