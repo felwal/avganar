@@ -55,6 +55,6 @@ module AppColors {
 
     const MODE_METRO = Graphene.COLOR_DK_BLUE;
     const MODE_TRAM = Graphene.COLOR_DK_ORANGE;
-    const MODE_OTHER = Graphene.COLOR_LT_GRAY;
+    const MODE_OTHER = BACKGROUND;
 
 }
