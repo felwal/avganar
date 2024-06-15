@@ -57,6 +57,6 @@ module AppColors {
 
     const MODE_TRAIN = Graphene.COLOR_CERISE;
     const MODE_SHIP = Graphene.COLOR_CAPRI;
-    const MODE_OTHER = Graphene.COLOR_LT_GRAY;
+    const MODE_OTHER = BACKGROUND;
 
 }
