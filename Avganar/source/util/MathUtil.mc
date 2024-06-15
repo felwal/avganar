@@ -66,7 +66,10 @@ module MathUtil {
     }
 
     function coerceIn(value as Numeric, min as Numeric, max as Numeric) as Numeric? {
-        return min > max ? null : (value < min ? min : (value > max ? max : value));
+        return min > max ? null
+            : value < min ? min
+            : value > max ? max
+            : value;
     }
 
     function abs(x as Numeric) as Numeric {

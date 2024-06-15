@@ -162,10 +162,11 @@ module Graphite {
         color as ColorType) as Void {
 
         // compute location depending on justification, to match how `Dc#drawText` behaves
-        var locX = justification&Graphics.TEXT_JUSTIFY_CENTER
-            ? x - Math.round(w / 2f)
-            : (justification&Graphics.TEXT_JUSTIFY_RIGHT ? x - w : x);
-        var locY = justification&Graphics.TEXT_JUSTIFY_VCENTER ? y - Math.round(h / 2f) : y;
+        var locX = justification&Graphics.TEXT_JUSTIFY_CENTER ? x - Math.round(w / 2f)
+            : justification&Graphics.TEXT_JUSTIFY_RIGHT ? x - w
+            : x;
+        var locY = justification&Graphics.TEXT_JUSTIFY_VCENTER ? y - Math.round(h / 2f)
+            : y;
 
         var textArea = new WatchUi.TextArea({
             :text => text,

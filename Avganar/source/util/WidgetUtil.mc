@@ -68,7 +68,7 @@ module WidgetUtil {
             RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), yIcon, rezId);
         }
 
-        if (text != null && !text.equals("")) {
+        if (!StringUtil.isEmpty(text)) {
             dc.drawText(Graphite.getCenterX(dc), yText, Graphics.FONT_SMALL, text,
                 Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
@@ -105,7 +105,7 @@ module WidgetUtil {
             Graphite.resetPenWidth(dc);
         }
 
-        if (text != null && !text.equals("")) {
+        if (!StringUtil.isEmpty(text)) {
             dc.setColor(textColor, color);
             dc.drawText(dc.getWidth() / 2, height / 2, Graphics.FONT_TINY, text,
                 Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
@@ -128,7 +128,7 @@ module WidgetUtil {
             Graphite.resetPenWidth(dc);
         }
 
-        if (text != null && !text.equals("")) {
+        if (!StringUtil.isEmpty(text)) {
             var font = Graphics.FONT_TINY;
             // balance optically with 1/4 of font height
             var y = dc.getHeight() - height / 2 - dc.getFontHeight(font) / 4;

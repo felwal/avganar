@@ -50,9 +50,9 @@ module NearbyStopsStorage {
         _nearbyStopProducts = StorageUtil.getValue(_STORAGE_NEARBY_STOP_PRODUCTS,
             ArrUtil.filled(_nearbyStopIds.size(), null));
 
-        response = _nearbyStopIds.size() == 0
-            ? null
-            : _buildStops(_nearbyStopIds, _nearbyStopNames, _nearbyStopProducts);
+        response = _nearbyStopIds.size() >= 1
+            ? _buildStops(_nearbyStopIds, _nearbyStopNames, _nearbyStopProducts)
+            : null;
     }
 
     function _buildStops(ids as Array<Number>, names as Array<String>,

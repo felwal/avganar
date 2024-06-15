@@ -15,7 +15,7 @@ import Toybox.WatchUi;
 
 (:glance)
 function def(val, def) {
-    return val != null ? val : def;
+    return val == null ? def : val;
 }
 
 function invertTransition(transition as SlideType) as SlideType {

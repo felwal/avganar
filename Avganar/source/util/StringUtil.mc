@@ -19,4 +19,8 @@ module StringUtil {
         return str.substring(index, index + 1);
     }
 
+    function isEmpty(str as String?) as Boolean {
+        return str == null || str.equals("");
+    }
+
 }
