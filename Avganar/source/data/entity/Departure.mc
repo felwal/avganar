@@ -19,18 +19,21 @@ using Toybox.Math;
 
 class Departure {
 
-    static private const _GROUP_BUS_LOCAL = "BLT";
-    static private const _GROUP_BUS_EXPRESS = "BXB";
-    static private const _GROUP_BUS_AIRPORT = "BAX";
+    static private const _GROUP_BUS_LOCAL_LOCAL = "BLT";
 
-    static private const _GROUP_TRAIN_LOCAL = "JLT";
-    static private const _GROUP_TRAIN_REGIONAL = "JRE";
-    static private const _GROUP_TRAIN_EXPRESS = "JEX";
-    static private const _GROUP_TRAIN_AIRPORT = "JAX";
-    static private const _GROUP_TRAIN_SNABBTAG = "JST";
-    static private const _GROUP_TRAIN_NATTAG = "JNT";
-    static private const _GROUP_TRAIN_INTERCITY = "JIC";
-    static private const _GROUP_TRAIN_PAGA = "JPT";
+    static private const _GROUP_BUS_EXPRESS_EXPRESS = "BXB";
+    static private const _GROUP_BUS_EXPRESS_AIRPORT = "BAX";
+
+    static private const _GROUP_TRAIN_LOCAL_LOCAL = "JLT";
+    static private const _GROUP_TRAIN_LOCAL_PAGA = "JPT";
+
+    static private const _GROUP_TRAIN_REGIONAL_REGIONAL = "JRE";
+    static private const _GROUP_TRAIN_REGIONAL_INTERCITY = "JIC";
+    static private const _GROUP_TRAIN_REGIONAL_NATTAG = "JNT";
+
+    static private const _GROUP_TRAIN_EXPRESS_EXPRESS = "JEX";
+    static private const _GROUP_TRAIN_EXPRESS_SNABBTAG = "JST";
+    static private const _GROUP_TRAIN_EXPRESS_AIRPORT = "JAX";
 
     static private const _GROUP_SHIP_LOCAL = "FLT";
     static private const _GROUP_SHIP_INTERNATIONAL = "FUT";
@@ -101,59 +104,59 @@ class Departure {
             return AppColors.MODE_TRAM;
         }
 
-        else if (_group.equals(_GROUP_BUS_LOCAL)) {
-            return AppColors.GROUP_BUS_LOCAL;
+        else if (_group.equals(_GROUP_BUS_LOCAL_LOCAL)) {
+            return AppColors.MODE_BUS_LOCAL;
         }
-        else if (_group.equals(_GROUP_BUS_EXPRESS)) {
-            return AppColors.GROUP_BUS_EXPRESS;
+        else if (_group.equals(_GROUP_BUS_EXPRESS_EXPRESS)) {
+            return AppColors.GROUP_BUS_EXPRESS_EXPRESS;
         }
-        else if (_group.equals(_GROUP_BUS_AIRPORT)) {
-            return AppColors.GROUP_BUS_AIRPORT;
+        else if (_group.equals(_GROUP_BUS_EXPRESS_AIRPORT)) {
+            return AppColors.GROUP_BUS_EXPRESS_AIRPORT;
         }
         else if (_modeKey == Mode.KEY_BUS_LOCAL) {
             Log.w("Unknown local bus group " + _group);
-            return AppColors.GROUP_BUS_LOCAL;
+            return AppColors.MODE_BUS_LOCAL;
         }
         else if (_modeKey == Mode.KEY_BUS_EXPRESS) {
             Log.w("Unknown express bus group " + _group);
-            return AppColors.GROUP_BUS_EXPRESS;
+            return AppColors.GROUP_BUS_EXPRESS_EXPRESS;
         }
 
-        else if (_group.equals(_GROUP_TRAIN_LOCAL)) {
-            return AppColors.GROUP_TRAIN_LOCAL;
+        else if (_group.equals(_GROUP_TRAIN_LOCAL_LOCAL)) {
+            return AppColors.GROUP_TRAIN_LOCAL_LOCAL;
         }
-        else if (_group.equals(_GROUP_TRAIN_REGIONAL)) {
-            return AppColors.GROUP_TRAIN_REGIONAL;
+        else if (_group.equals(_GROUP_TRAIN_REGIONAL_REGIONAL)) {
+            return AppColors.GROUP_TRAIN_REGIONAL_REGIONAL;
         }
-        else if (_group.equals(_GROUP_TRAIN_EXPRESS)) {
-            return AppColors.GROUP_TRAIN_EXPRESS;
+        else if (_group.equals(_GROUP_TRAIN_EXPRESS_EXPRESS)) {
+            return AppColors.GROUP_TRAIN_EXPRESS_EXPRESS;
         }
-        else if (_group.equals(_GROUP_TRAIN_AIRPORT)) {
-            return AppColors.GROUP_TRAIN_AIRPORT;
+        else if (_group.equals(_GROUP_TRAIN_EXPRESS_AIRPORT)) {
+            return AppColors.GROUP_TRAIN_EXPRESS_AIRPORT;
         }
-        else if (_group.equals(_GROUP_TRAIN_SNABBTAG)) {
-            return AppColors.GROUP_TRAIN_SNABBTAG;
+        else if (_group.equals(_GROUP_TRAIN_EXPRESS_SNABBTAG)) {
+            return AppColors.GROUP_TRAIN_EXPRESS_SNABBTAG;
         }
-        else if (_group.equals(_GROUP_TRAIN_NATTAG)) {
-            return AppColors.GROUP_TRAIN_NATTAG;
+        else if (_group.equals(_GROUP_TRAIN_REGIONAL_NATTAG)) {
+            return AppColors.GROUP_TRAIN_REGIONAL_NATTAG;
         }
-        else if (_group.equals(_GROUP_TRAIN_INTERCITY)) {
-            return AppColors.GROUP_TRAIN_INTERCITY;
+        else if (_group.equals(_GROUP_TRAIN_REGIONAL_INTERCITY)) {
+            return AppColors.GROUP_TRAIN_REGIONAL_INTERCITY;
         }
-        else if (_group.equals(_GROUP_TRAIN_PAGA)) {
-            return AppColors.GROUP_TRAIN_PAGA;
+        else if (_group.equals(_GROUP_TRAIN_LOCAL_PAGA)) {
+            return AppColors.GROUP_TRAIN_LOCAL_PAGA;
         }
         else if (_modeKey == Mode.KEY_TRAIN_LOCAL) {
             Log.w("Unknown local train group " + _group);
-            return AppColors.GROUP_TRAIN_LOCAL;
+            return AppColors.GROUP_TRAIN_LOCAL_LOCAL;
         }
         else if (_modeKey == Mode.KEY_TRAIN_REGIONAL) {
             Log.w("Unknown regional train group " + _group);
-            return AppColors.GROUP_TRAIN_REGIONAL;
+            return AppColors.GROUP_TRAIN_REGIONAL_REGIONAL;
         }
         else if (_modeKey == Mode.KEY_TRAIN_EXPRESS) {
             Log.w("Unknown express train group " + _group);
-            return AppColors.GROUP_TRAIN_EXPRESS;
+            return AppColors.GROUP_TRAIN_EXPRESS_EXPRESS;
         }
 
         else if (_group.equals(_GROUP_SHIP_LOCAL)) {
