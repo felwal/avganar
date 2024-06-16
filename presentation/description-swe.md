@@ -9,7 +9,7 @@ För täckning av hela Sverige, se Avgånär: Sverige avgångar: https://apps.ga
 - Visa närliggande hållplatser
 - Spara favoriter (via menyn*) och visa var som helst
 - Visa avgångar
-  - Färgkodade och uppdelade efter transporttyp
+  - Uppdelade och färgkodade efter transporttyp och grupp
   - Se avvikelser och deras viktighetsnivå
 - Begränsa minnesbelastning genom att justera inställningar*
 

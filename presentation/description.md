@@ -9,7 +9,7 @@ For coverage of the entire Sweden, see Avgånär: Sweden departures: https://app
 - View nearby stops
 - Save favorite stops (via the menu*) and view anywhere
 - View departures
-  - Color coded and sectioned by mode
+  - Sectioned and color coded by transport mode and group
   - See deviations and their importance level
 - Limit memory consumption by tuning settings*
 
