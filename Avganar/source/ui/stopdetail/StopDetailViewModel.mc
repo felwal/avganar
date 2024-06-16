@@ -137,6 +137,10 @@ class StopDetailViewModel {
         _currentModeKey = getCurrentModeKey();
         var response = stop.getMode(_currentModeKey).getResponse();
 
+        if (isInitialRequest || isModeMenuState) {
+            return response;
+        }
+
         if (!(response instanceof Lang.Array) || response.size() == 0) {
             pageCount = 1;
             isDepartureState = false;
