@@ -19,17 +19,25 @@ module StringUtil {
         return str.substring(index, index + 1);
     }
 
-    function remove(str as String, pattern as String) as String {
+    function replaceWord(str as String, pattern as String, replacement as String) as String {
         var patternStartInd = str.find(pattern);
         if (patternStartInd == null) {
             return str;
         }
 
         var patternEndInd = patternStartInd + pattern.length();
+
+        // not a distinct word
+        if ((patternEndInd != str.length() && !charAt(str, patternEndInd).equals(" "))
+            || (patternStartInd != 0 && !charAt(str, patternStartInd - 1).equals(" "))) {
+
+            return str;
+        }
+
         var firstHalf = str.substring(0, patternStartInd);
         var secondHalf = str.substring(patternEndInd, str.length());
 
-        return firstHalf + secondHalf;
+        return firstHalf + replacement + secondHalf;
     }
 
     function trim(str as String) as String {

@@ -149,7 +149,7 @@ module NearbyStopsService {
     function _cleanStopName(name as String) as String {
         // NOTE: API limitation
 
-        name = StringUtil.remove(name, " station");
+        name = StringUtil.replaceWord(name, "station", "stn");
 
         return name;
     }
