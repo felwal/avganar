@@ -185,9 +185,9 @@ class DeparturesService {
         // NOTE: API limitation
 
         name = StringUtil.removeEnding(name, " ("); // remove e.g. "(Stockholm kn)"
-        name = StringUtil.remove(name, " T-bana");
-        name = StringUtil.remove(name, " Spårv");
-        name = StringUtil.remove(name, " station");
+        name = StringUtil.replaceWord(name, "T-bana", "");
+        name = StringUtil.replaceWord(name, "Spårv", "");
+        name = StringUtil.replaceWord(name, "station", "");
         name = StringUtil.replace(name, "Centralstation", "C");
         name = StringUtil.trim(name);
 
