@@ -134,14 +134,12 @@ class StopDetailViewModel {
     //! Get only the departures that should be
     //! displayed on the current page
     function getPageResponse() as DeparturesResponse {
-        if (isInitialRequest || isModeMenuState) {
-            // should not happen, but check just in case
-            Log.w("Called getPageResponse() when in mode menu");
-            return null;
-        }
-
         _currentModeKey = getCurrentModeKey();
         var response = stop.getMode(_currentModeKey).getResponse();
+
+        if (isInitialRequest || isModeMenuState) {
+            return response;
+        }
 
         if (!(response instanceof Lang.Array) || response.size() == 0) {
             pageCount = 1;

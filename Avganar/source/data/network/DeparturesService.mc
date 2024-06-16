@@ -245,6 +245,7 @@ class DeparturesService {
             "Sök din resa på sl.se eller i appen.",
             "För mer information, se sl.se",
             "Se sl.se eller i appen.",
+            "Se mer på sl.se",
             "Läs mer på sl.se.",
             "Läs mer på sl.se",
             "Se mer på sl.se",
@@ -267,9 +268,7 @@ class DeparturesService {
         }
 
         // remove space and (less common) newline endings
-        if (ArrUtil.contains([" ", "\n"], StringUtil.charAt(msg, msg.length() - 1))) {
-            msg = msg.substring(0, msg.length() - 1);
-        }
+        msg = StringUtil.trim(msg);
 
         return msg;
     }
