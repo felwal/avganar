@@ -149,7 +149,7 @@ module NearbyStopsService {
         // NOTE: API limitation
 
         name = StringUtil.removeEnding(name, "("); // remove e.g. "(Stockholm kn)"
-        name = StringUtil.remove(name, " station");
+        name = StringUtil.replaceWord(name, "station", "");
         name = StringUtil.replace(name, "Centralstation", "Central");
         name = StringUtil.trim(name);
 
