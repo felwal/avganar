@@ -1,4 +1,4 @@
-# FAQ
+# Frequently asked questions
 
 **I keep getting "No Data"** – This is likely due to breaking API changes. Please try updating to the latest version of the app.
 
