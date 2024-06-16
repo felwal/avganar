@@ -79,4 +79,4 @@
 
 - Initial release
 
-For the full changelog, see https://github.com/felwal/avganar/blob/main/presentation/whatsnew.md
+For the full changelog, see https://github.com/felwal/avganar/blob/main/CHANGELOG.md
