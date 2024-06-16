@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.5 [2024-06-16]
+
+- Bug fixes and improvements
+
 ## 1.8.4 [2024-06-11]
 
 - Bug fixes and improvements
