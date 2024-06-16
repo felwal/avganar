@@ -15,4 +15,4 @@
 
 - Initial release
 
-För full historik, se https://github.com/felwal/avganar/blob/main/presentation/whatsnew-swe.md
+För full historik, se https://github.com/felwal/avganar/blob/main/CHANGELOG.md
