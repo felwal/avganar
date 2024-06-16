@@ -9,7 +9,7 @@ For better data and more features within Stockholm, see Avgånär: Stockholm dep
 - View nearby stops
 - Save favorite stops (via the menu*) and view anywhere
 - View departures
-  - Color coded and sectioned by mode
+  - Sectioned and color coded by transport mode and group
 - Limit memory consumption by tuning settings*
 
 ***
@@ -18,7 +18,7 @@ For better data and more features within Stockholm, see Avgånär: Stockholm dep
 
 **Color coding**:
 
-- Transport mode: TODO
+- Departure times: planned (white), expected (green)
 
 **Requirements** – The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.2.0.
 

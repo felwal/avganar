@@ -9,7 +9,7 @@ För bättre data och fler funktioner inom Stockholm, se Avgånär: Stockholm av
 - Visa närliggande hållplatser
 - Spara favoriter (via menyn*) och visa var som helst
 - Visa avgångar
-  - Färgkodade och uppdelade efter transporttyp
+  - Uppdelade och färgkodade efter transporttyp och grupp
 - Begränsa minnesbelastning genom att justera inställningar*
 
 ***
@@ -18,7 +18,7 @@ För bättre data och fler funktioner inom Stockholm, se Avgånär: Stockholm av
 
 **Färgkodning**:
 
-- Transporttyp: TODO
+- Avgångstider: planerade (vit), förväntade (grön)
 
 **Behörigheter** – Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.2.0.
 
