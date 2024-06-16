@@ -15,4 +15,4 @@
 
 - Initial release
 
-For the full changelog, see https://github.com/felwal/avganar/blob/main/CHANGELOG.md
+For the full changelog, see https://github.com/felwal/avganar/blob/sweden-main/CHANGELOG.md
