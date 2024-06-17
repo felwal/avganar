@@ -22,7 +22,7 @@ For better data and more features within Stockholm, see Avgånär: Stockholm dep
 
 **Requirements** – The app uses Internet for making requests and GPS for fetching nearby stops. Minimum API level is 3.2.0.
 
-**APIs** – Data is retrieved using Trafiklab's API "Resrobot 2.1". Avgånär is in no way affiliated with Trafiklab. Avgånär can not guarantee that presented data (e.g. departure times) are always correct, and assume no liability for e.g. missed departures.
+**API** – Data is retrieved using Trafiklab's API "Resrobot 2.1". Avgånär is in no way affiliated with Trafiklab. Avgånär can not guarantee that presented data (e.g. departure times) are always correct, and assume no liability for e.g. missed departures.
 
 **Privacy** – By downloading and using this app, you agree to the privacy policy: https://github.com/felwal/avganar/blob/main/PRIVACY.md. In short: Avgånär does not store any data, but location is sent to Trafiklab.
 
