@@ -22,7 +22,7 @@ För bättre data och fler funktioner inom Stockholm, se Avgånär: Stockholm av
 
 **Behörigheter** – Appen använder internet för att hämta data och GPS för att hitta närliggande hållplatser. Minsta API-nivå är 3.2.0.
 
-**API:er** – Data hämtas från Trafiklabs API "Resrobot 2.1". Avgånär är inte på något sätt ansluten till Trafiklab. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta, och åtar inget ansvar för ex. missade avgångar.
+**API** – Data hämtas från Trafiklabs API "Resrobot 2.1". Avgånär är inte på något sätt ansluten till Trafiklab. Avgånär kan inte garantera att presenterad data (ex. avgångstider) alltid är korrekta, och åtar inget ansvar för ex. missade avgångar.
 
 **Integritet** – Genom att ladda ned och använda appen godkänner du integritetspolicyn: https://github.com/felwal/avganar/blob/main/PRIVACY.md. I korthet: Avgånär sparar ingen data, men platsdata skickas till Trafiklab.
 
