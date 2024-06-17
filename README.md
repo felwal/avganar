@@ -41,4 +41,4 @@ You are more than welcome to make a fork and adapt the project to your own count
 
 ## Credits
 
-Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign). (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)
+~~Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign)~~. (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)
