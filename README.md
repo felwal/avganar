@@ -23,7 +23,7 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/apps/a96ddb52-3edd-4298
 Avgånär uses [SL](https://sl.se/)'s APIs, provided by [Trafiklab](https://www.trafiklab.se):
 
 - [SL Nearby stops 2](https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2)
-- [SL Transport](https://www.trafiklab.se/api/trafiklab-apis/sl/transport)
+- [SL Transport 1](https://www.trafiklab.se/api/trafiklab-apis/sl/transport)
 - ~~[SL Departures 4](https://www.trafiklab.se/api/trafiklab-apis/sl/departures-4/)~~
 
 ## Develop
@@ -45,4 +45,4 @@ You are more than welcome to make a fork and adapt the project to your own count
 
 ## Credits
 
-Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign). (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)
+~~Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign)~~. (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)
