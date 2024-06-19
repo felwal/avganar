@@ -5,6 +5,14 @@ Avgånär is a Garmin Connect IQ widget displaying (public transport) nearby sto
 
 Get it on the [Connect IQ Store](https://apps.garmin.com/apps/993cae37-27d3-46b2-9f87-443ece770a61).
 
+## Features
+
+- View nearby stops
+- Save favorite stops and view anywhere
+- View departures
+  - Sectioned and color coded by transport mode and group
+- Limit memory consumption by tuning settings
+
 ## Preview
 
 <p>
@@ -16,14 +24,6 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/apps/993cae37-27d3-46b2
   <img src="presentation/view-departures-train.png" width="32%" />
   <img src="presentation/view-error.png" width="32%" />
 </p>
-
-## Features
-
-- View nearby stops
-- Save favorite stops and view anywhere
-- View departures
-  - Sectioned and color coded by transport mode and group
-- Limit memory consumption by tuning settings
 
 ## API
 
