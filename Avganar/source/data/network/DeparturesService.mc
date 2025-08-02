@@ -242,18 +242,27 @@ class DeparturesService {
         // remove references at the end of messages (to save space)
 
         var references = [
+            ", sök din resa i SL-appen eller på sl.se.",
+            ", plan your trip at sl.se",
+            "Sök din resa och läs mer på sl.se eller i SL-appen.",
             "Sök din resa på sl.se eller i appen.",
+            "Sök din resa i SL-appen.",
+            "Plan your trip at sl.se.",
             "För mer information, se sl.se",
+            "More information at sl.se or in the SL-app.",
+            "Mer info på sl.se eller i SL-appen.",
+            "More info in the SL-app.",
+            "Mer info i SL-appen.",
             "Se sl.se eller i appen.",
-            "Se mer på sl.se",
+            "Läs mer på Trafikläget.",
+            "Read more at sl.se.",
+            ", läs mer på sl.se",
             "Läs mer på sl.se.",
             "Läs mer på sl.se",
             "Se mer på sl.se",
-            "Se sl.se.",
-            "Se sl.se",
             ", se sl.se",
-            ", läs mer på sl.se",
-            "Läs mer på Trafikläget."
+            "Se sl.se.",
+            "Se sl.se"
         ];
 
         for (var i = 0; i < references.size(); i++) {
