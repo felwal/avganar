@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.0 [2025-08-05]
+
+- Fix nearby stops "This api is phased out ..." by migrating to custom static API
+
 ## 1.8.5 [2024-06-16]
 
 - Bug fixes and improvements

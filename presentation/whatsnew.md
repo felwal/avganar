@@ -1,6 +1,8 @@
 # What's new
 
-**NOTE** – If you keep getting "No Data", please try updating to the latest version of the app. The APIs have recently been updated, with migration deadlines 2024-03-14 and 2023-03-31.
+## 1.9
+
+- Fix nearby stops "This api is phased out ..."
 
 ## 1.8
 

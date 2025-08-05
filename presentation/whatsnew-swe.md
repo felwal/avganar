@@ -1,6 +1,8 @@
 # Nyheter
 
-**OBS** – Om du fortsätter få "Ingen data", vänligen pröva uppdatera till den senaste versionen av appen. API:erna har nyligen uppdaterats, med migrationsdeadlines 2024-03-14 och 2023-03-31.
+## 1.9
+
+- Fixa närliggande hållplatser "This api is phased out ..."
 
 ## 1.8
 
