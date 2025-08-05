@@ -23,8 +23,10 @@ class ResponseError {
 
     // HTTP
     static var HTTP_OK = 200;
+    static var HTTP_NOT_FOUND = 404;
+    static var HTTP_TOO_MANY_REQUESTS = 429;
+
     static private var _HTTP_BAD_REQUEST = 400;
-    static private var _HTTP_NOT_FOUND = 404;
     static private var _HTTP_NO_CODE = 1002;
 
     // custom
@@ -36,15 +38,20 @@ class ResponseError {
 
     // init
 
-    function initialize(codeOrTitle as Number or String) {
-        if (codeOrTitle instanceof Number) {
-            _code = codeOrTitle;
-            _setTitle();
+    function initialize(httpCodeOrTitle as Number or String, apiCode as String?) {
+        if (httpCodeOrTitle instanceof String) {
+            _title = httpCodeOrTitle;
+            return;
+        }
+
+        if (("API_QUOTA").equals(apiCode)) {
+            _code = HTTP_TOO_MANY_REQUESTS;
         }
         else {
-            _code = null;
-            _title = codeOrTitle;
+            _code = httpCodeOrTitle;
         }
+
+        _setTitle();
     }
 
     function equals(other) as Boolean {
@@ -60,7 +67,7 @@ class ResponseError {
         else if (_code == _HTTP_BAD_REQUEST) {
             _title = getString(Rez.Strings.msg_e_bad_request);
         }
-        else if (_code == _HTTP_NOT_FOUND) {
+        else if (_code == HTTP_NOT_FOUND) {
             _title = getString(Rez.Strings.msg_e_not_found);
         }
         else if (_code == Communications.UNKNOWN_ERROR || _code == _HTTP_NO_CODE) {
@@ -91,7 +98,7 @@ class ResponseError {
         else if (ArrUtil.contains(_API_REQUEST_LIMIT_MINUTE, _code)) {
             _title = getString(Rez.Strings.msg_e_limit_minute);
         }
-        else if (_code == _API_REQUEST_LIMIT_MONTH) {
+        else if (_code == _API_REQUEST_LIMIT_MONTH || _code == HTTP_TOO_MANY_REQUESTS) {
             _title = getString(Rez.Strings.msg_e_limit_month);
         }
         else if (_code == _API_RESPONSE_PROXY) {

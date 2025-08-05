@@ -75,7 +75,7 @@ class DeparturesService {
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {
-            _stop.setDeparturesResponse(_modeKey, new ResponseError(responseCode));
+            _stop.setDeparturesResponse(_modeKey, new ResponseError(responseCode, null));
 
             // auto-refresh if too large
             if (_stop.getMode(_modeKey).shouldAutoRefresh()) {
@@ -86,7 +86,7 @@ class DeparturesService {
         // operator error / no departures found
         else if (!DictUtil.hasValue(data, "departures") || data["departures"].size() == 0) {
             if (DictUtil.hasValue(data, "message")) {
-                _stop.setDeparturesResponse(_modeKey, new ResponseError(data["message"]));
+                _stop.setDeparturesResponse(_modeKey, new ResponseError(data["message"], null));
             }
             else {
                 _stop.setDeparturesResponse(_modeKey, []);

@@ -78,7 +78,7 @@ class Mode {
         }
 
         if (getTimeWindow() < _MEMORY_MIN_TIME_WINDOW) {
-            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY));
+            setResponse(new ResponseError(ResponseError.CODE_AUTO_REQUEST_LIMIT_MEMORY, null));
             return false;
         }
 

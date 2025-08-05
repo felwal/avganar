@@ -19,9 +19,9 @@ using Toybox.WatchUi;
 // Requests and handles stop data.
 module NearbyStopsService {
 
-    // API: SL Nearby Stops 2
-    // https://www.trafiklab.se/api/trafiklab-apis/sl/nearby-stops-2/
-    // Bronze: 10_000/month, 30/min
+    // Resrobot v2.1 Nearby stops
+    // https://www.trafiklab.se/api/trafiklab-apis/resrobot-v21/nearby-stops/
+    // Bronze: 25_000/month, 45/min
 
     // edges of the operator zone, with an extra 2 km offset
     const _BOUNDS_SOUTH = 58.783223; // Ankarudden (Nynäshamn)
@@ -32,6 +32,8 @@ module NearbyStopsService {
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     var isRequesting as Boolean = false;
+
+    var _localStopsService as LocalStopsService? = null;
 
     // request
 
@@ -46,7 +48,7 @@ module NearbyStopsService {
         if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
             || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
 
-            NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds)));
+            NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds), null));
         }
         else {
             _requestNearbyStops(latLon);
@@ -56,19 +58,18 @@ module NearbyStopsService {
     function _requestNearbyStops(latLon as LatLon) as Void {
         isRequesting = true;
 
-        var url = "https://journeyplanner.integration.sl.se/v1/nearbystopsv2.json";
+        var url = "https://api.resrobot.se/v2.1/location.nearbystops";
 
         var params = {
-            "key" => API_KEY_STOPS,
+            "accessId" => API_KEY,
             "originCoordLat" => latLon[0],
             "originCoordLong" => latLon[1],
             "r" => _MAX_RADIUS,
             "maxNo" => def(NearbyStopsStorage.maxStops, SettingsStorage.getMaxStops()),
-            "type" => "S" // stations only
+            "format" => "json"
         };
         var options = {
             :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON,
             :headers => { "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON }
         };
 
@@ -84,7 +85,7 @@ module NearbyStopsService {
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {
-            NearbyStopsStorage.setResponseError(new ResponseError(responseCode));
+            NearbyStopsStorage.setResponseError(new ResponseError(responseCode, null));
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
@@ -93,10 +94,10 @@ module NearbyStopsService {
         }
 
         // operator error
-        else if (DictUtil.hasValue(data, "StatusCode")) {
+        else if (DictUtil.hasValue(data, "errorCode")) {
             //var msg = data["Message"];
-            var statusCode = data["StatusCode"] as Number;
-            NearbyStopsStorage.setResponseError(new ResponseError(statusCode));
+            var errorCode = data["errorCode"];
+            NearbyStopsStorage.setResponseError(new ResponseError(responseCode, errorCode));
         }
 
         // no stops found
@@ -113,40 +114,28 @@ module NearbyStopsService {
     }
 
     function _handleNearbyStopsResponseOk(stopsData as JsonArray) as Void {
-        var stopIds = [];
-        var stopNames = [];
+        var stopNationalIds = [];
         var stopProducts = [];
-        var stops = [];
 
         for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"] as JsonDict;
 
-            var extId = stopData["mainMastExtId"];
-            var id = extId.substring(5, extId.length()).toNumber();
-            var name = stopData["name"];
-            var products = stopData["products"].toNumber();
+            var nationalId = stopData["extId"].toNumber();
+            // products can't be correctly mapped between the apis; skip for now
+            var products = null;//stopData["products"].toNumber();
 
-            // NOTE: API limitation
-            name = _cleanStopName(name);
-
-            // null if duplicate
-            var stop = NearbyStopsStorage.createStop(id, name, products, stops, stopIds, stopNames);
-            if (stop == null) {
-                continue;
-            }
-
-            stopIds.add(id);
-            stopNames.add(name);
+            stopNationalIds.add(nationalId);
             stopProducts.add(products);
-            stops.add(stop);
         }
 
-        NearbyStopsStorage.setResponse(stopIds, stopNames, stopProducts, stops);
+        _localStopsService = new LocalStopsService(stopNationalIds, stopProducts);
+        _localStopsService.requestStopsIds();
+        WatchUi.requestUpdate();
     }
 
     // tools
 
-    function _cleanStopName(name as String) as String {
+    function cleanStopName(name as String) as String {
         // NOTE: API limitation
 
         name = StringUtil.replaceWord(name, "station", "stn");
@@ -157,12 +146,25 @@ module NearbyStopsService {
     function handleLocationOff() as Boolean {
         // don't request using position if location setting is off
         if (!SettingsStorage.getUseLocation()) {
-            NearbyStopsStorage.setResponseError(new ResponseError(ResponseError.CODE_LOCATION_OFF));
+            NearbyStopsStorage.setResponseError(new ResponseError(ResponseError.CODE_LOCATION_OFF, null));
             WatchUi.requestUpdate();
             return true;
         }
 
         return false;
+    }
+
+    function getRequestLevel() as Number {
+        if (_localStopsService == null) {
+            return isRequesting ? 0 : -1;
+        }
+        else if (_localStopsService.isRequesting) {
+            return 1;
+        }
+        else {
+            _localStopsService = null;
+            return -1;
+        }
     }
 
 }
