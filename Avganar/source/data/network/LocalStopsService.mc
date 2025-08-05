@@ -71,7 +71,7 @@ class LocalStopsService {
         else if (responseCode == ResponseError.HTTP_NOT_FOUND) {
             _siteIds.add(null);
             _stopNames.add(null);
-            Log.w("No mapping from national id " + _nationalIds[_i] + " to site id");
+            //Log.w("No mapping from national id " + _nationalIds[_i] + " to site id");
         }
         else {
             isRequesting = false;
