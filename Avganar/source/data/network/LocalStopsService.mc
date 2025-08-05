@@ -56,7 +56,7 @@ class LocalStopsService {
 
     // receive
 
-    function onReceiveStopIds(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveStopIds(responseCode as Number, data as CommResponseData) as Void {
         //Log.d("Id response (" + responseCode + "): " + data);
 
         if (responseCode == ResponseError.HTTP_OK) {

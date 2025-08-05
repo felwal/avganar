@@ -79,7 +79,7 @@ module NearbyStopsService {
 
     // receive
 
-    function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveNearbyStops(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
         //Log.d("Stops response (" + responseCode + "): " + data);
 

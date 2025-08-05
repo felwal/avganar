@@ -13,6 +13,7 @@
 
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.PersistedContent;
 
 typedef StopType as Stop or StopDouble;
 typedef StopsResponse as Array<StopType> or ResponseError or Null;
@@ -25,3 +26,5 @@ typedef JsonArray as Array<JsonValue>;
 
 typedef LatLon as [Double, Double];
 typedef ColorTheme as [ColorType, ColorType, ColorType, ColorType];
+
+typedef CommResponseData as Dictionary or String or Iterator;

@@ -69,7 +69,7 @@ class DeparturesService {
 
     // receive
 
-    function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveDepartures(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
         //Log.d("Departures response (" + responseCode + "): " + data);
 
