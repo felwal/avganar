@@ -67,7 +67,7 @@ module Graphite {
 
     //! Set the current fg and bg colors to white and black
     function resetColor(dc as Dc) as Void {
-        dc.setColor(Graphene.COLOR_WHITE, AppColors.BACKGROUND);
+        dc.setColor(Color64.WHITE, AppColors.BACKGROUND);
     }
 
     function resetPenWidth(dc as Dc) as Void {
