@@ -33,8 +33,6 @@ module NearbyStopsService {
 
     var isRequesting as Boolean = false;
 
-    var _localStopsService as LocalStopsService? = null;
-
     // request
 
     function requestNearbyStops(latLon as LatLon) as Void {
@@ -114,8 +112,10 @@ module NearbyStopsService {
     }
 
     function _handleNearbyStopsResponseOk(stopsData as JsonArray) as Void {
-        var stopNationalIds = [];
+        var stopIds = [];
+        var stopNames = [];
         var stopProducts = [];
+        var stops = [];
 
         for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"] as JsonDict;
@@ -124,18 +124,28 @@ module NearbyStopsService {
             var name = stopData["name"];
             var products = stopData["products"].toNumber();
 
-            stopNationalIds.add(nationalId);
+            // NOTE: API limitation
+            name = _cleanStopName(name);
+
+            // null if duplicate
+            var stop = NearbyStopsStorage.createStop(id, name, products, stops, stopIds, stopNames);
+            if (stop == null) {
+                continue;
+            }
+
+            stopIds.add(id);
+            stopNames.add(name);
             stopProducts.add(products);
+            stops.add(stop);
         }
 
-        _localStopsService = new LocalStopsService(stopNationalIds, stopProducts);
-        _localStopsService.requestStopsIds();
+        NearbyStopsStorage.setResponse(stopIds, stopNames, stopProducts, stops);
         WatchUi.requestUpdate();
     }
 
     // tools
 
-    function cleanStopName(name as String) as String {
+    function _cleanStopName(name as String) as String {
         // NOTE: API limitation
         // use official abbreviations
 
@@ -161,16 +171,7 @@ module NearbyStopsService {
     }
 
     function getRequestLevel() as Number {
-        if (_localStopsService == null) {
-            return isRequesting ? 0 : -1;
-        }
-        else if (_localStopsService.isRequesting) {
-            return 1;
-        }
-        else {
-            _localStopsService = null;
-            return -1;
-        }
+        return isRequesting ? 0 : -1;
     }
 
 }
