@@ -29,7 +29,7 @@ class StopPreviewView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -55,14 +55,14 @@ class StopPreviewView extends WatchUi.View {
         var fh = dc.getFontHeight(fonts[0]);
         var height = 2 * fh;
 
-        var minXAtTextBottom = MathUtil.minX(Graphite.getCenterY(dc) - fh / 2 + height, Graphite.getRadius(dc));
+        var minXAtTextBottom = MathUtil.minX(DrawUtil.getCenterY(dc) - fh / 2 + height, DrawUtil.getRadius(dc));
         var margin = minXAtTextBottom + px(2);
         var width = dc.getWidth() - 2 * margin;
 
-        Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc) - fh / 2, width, height,
+        DrawUtil.drawTextArea(dc, DrawUtil.getCenterX(dc), DrawUtil.getCenterY(dc) - fh / 2, width, height,
             fonts, stopName, Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
 
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
     }
 
 }

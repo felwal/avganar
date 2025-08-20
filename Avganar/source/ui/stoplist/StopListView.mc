@@ -35,7 +35,7 @@ class StopListView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }

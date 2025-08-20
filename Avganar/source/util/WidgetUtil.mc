@@ -43,8 +43,8 @@ module WidgetUtil {
         var w = dc.getWidth() - px(12);
         var h = dc.getHeight() / 2;
 
-        Graphite.resetColor(dc);
-        Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc) - fh / 2,
+        DrawUtil.resetColor(dc);
+        DrawUtil.drawTextArea(dc, DrawUtil.getCenterX(dc), DrawUtil.getCenterY(dc) - fh / 2,
             w, h, fonts, text, Graphics.TEXT_JUSTIFY_CENTER, AppColors.TEXT_PRIMARY);
     }
 
@@ -65,11 +65,11 @@ module WidgetUtil {
                 yText = px(68);
             }
 
-            RezUtil.drawBitmap(dc, Graphite.getCenterX(dc), yIcon, rezId);
+            RezUtil.drawBitmap(dc, DrawUtil.getCenterX(dc), yIcon, rezId);
         }
 
         if (!StringUtil.isEmpty(text)) {
-            dc.drawText(Graphite.getCenterX(dc), yText, Graphics.FONT_SMALL, text,
+            dc.drawText(DrawUtil.getCenterX(dc), yText, Graphics.FONT_SMALL, text,
                 Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
         }
     }
@@ -84,15 +84,15 @@ module WidgetUtil {
         drawFooter(dc, MenuUtil.HEIGHT_FOOTER_SMALL, AppColors.BACKGROUND_INVERTED,
             AppColors.BACKGROUND, message, AppColors.TEXT_INVERTED);
 
-        Graphite.setColor(dc, AppColors.TEXT_INVERTED);
+        DrawUtil.setColor(dc, AppColors.TEXT_INVERTED);
         drawBottomPageArrow(dc);
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
     }
 
     function drawHeader(dc as Dc, height as Numeric, color as ColorType, strokeColor as ColorType?,
         text as String?, textColor as ColorType?) as Void {
 
-        Graphite.setColor(dc, color);
+        DrawUtil.setColor(dc, color);
         dc.fillRectangle(0, 0, dc.getWidth(), height);
 
         if (strokeColor != null) {
@@ -100,9 +100,9 @@ module WidgetUtil {
             var y = height - strokeWidth;
 
             dc.setPenWidth(strokeWidth);
-            Graphite.setColor(dc, strokeColor);
+            DrawUtil.setColor(dc, strokeColor);
             dc.drawLine(0, y, dc.getWidth(), y);
-            Graphite.resetPenWidth(dc);
+            DrawUtil.resetPenWidth(dc);
         }
 
         if (!StringUtil.isEmpty(text)) {
@@ -115,7 +115,7 @@ module WidgetUtil {
     function drawFooter(dc as Dc, height as Numeric, color as ColorType, strokeColor as ColorType?,
         text as String?, textColor as ColorType?) as Void {
 
-        Graphite.setColor(dc, color);
+        DrawUtil.setColor(dc, color);
         dc.fillRectangle(0, dc.getHeight() - height, dc.getWidth(), height);
 
         if (strokeColor != null) {
@@ -123,9 +123,9 @@ module WidgetUtil {
             var y = dc.getHeight() - height - strokeWidth;
 
             dc.setPenWidth(strokeWidth);
-            Graphite.setColor(dc, strokeColor);
+            DrawUtil.setColor(dc, strokeColor);
             dc.drawLine(0, y, dc.getWidth(), y);
-            Graphite.resetPenWidth(dc);
+            DrawUtil.resetPenWidth(dc);
         }
 
         if (!StringUtil.isEmpty(text)) {
@@ -143,21 +143,21 @@ module WidgetUtil {
     function drawProgressBar(dc as Dc, y as Numeric, h as Numeric, progress as Float,
         activeColor as ColorType, inactiveColor as ColorType?) as Void {
 
-        var r = Graphite.getRadius(dc);
+        var r = DrawUtil.getRadius(dc);
         var start = MathUtil.minX(y, r) - h;
         var end = MathUtil.maxX(y, r) + h;
         var w = end - start;
         var middle = Math.round(w * progress);
 
-        Graphite.setColor(dc, activeColor);
+        DrawUtil.setColor(dc, activeColor);
         dc.fillRectangle(start, y, middle, h);
 
         if (inactiveColor != null) {
-            Graphite.setColor(dc, inactiveColor);
+            DrawUtil.setColor(dc, inactiveColor);
             dc.fillRectangle(start + middle, y, w - middle, h);
         }
 
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
     }
 
     (:rectangle)
@@ -169,15 +169,15 @@ module WidgetUtil {
         var w = end - start;
         var middle = w * progress;
 
-        Graphite.setColor(dc, activeColor);
+        DrawUtil.setColor(dc, activeColor);
         dc.fillRectangle(start, y, start + middle, h);
 
         if (inactiveColor != null) {
-            Graphite.setColor(dc, inactiveColor);
+            DrawUtil.setColor(dc, inactiveColor);
             dc.fillRectangle(start + middle, y, end, h);
         }
 
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
     }
 
     // start indicator
@@ -190,7 +190,7 @@ module WidgetUtil {
         var degStart = _BTN_START_DEG - 10; // 20
         var degEnd = _BTN_START_DEG + 10; // 40
 
-        Graphite.strokeArcCentered(dc, offset, width, strokeWidth, degStart, degEnd,
+        DrawUtil.strokeArcCentered(dc, offset, width, strokeWidth, degStart, degEnd,
             AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
 
@@ -205,7 +205,7 @@ module WidgetUtil {
         var yTop = 0.36 * dc.getHeight() / 2; // sin(40) = 0.64
         var height = yBottom - yTop;
 
-        Graphite.strokeRectangle(dc, x, yTop, width, height, strokeWidth, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
+        DrawUtil.strokeRectangle(dc, x, yTop, width, height, strokeWidth, AppColors.TEXT_PRIMARY, AppColors.BACKGROUND);
     }
 
     // scrollbar
@@ -230,7 +230,7 @@ module WidgetUtil {
         var outlineWidth = px(3);
 
         // rail
-        Graphite.strokeArcCentered(dc, edgeOffset, railWidth, outlineWidth, startDeg, endDeg,
+        DrawUtil.strokeArcCentered(dc, edgeOffset, railWidth, outlineWidth, startDeg, endDeg,
             AppColors.TEXT_TERTIARY, AppColors.BACKGROUND);
 
         var barDeltaDeg = (endDeg - startDeg) * (endIndex - startIndex) / itemCount.toFloat();
@@ -238,11 +238,11 @@ module WidgetUtil {
         var barEndDeg = barStartDeg + barDeltaDeg;
 
         // bar
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
         dc.setPenWidth(px(3));
-        Graphite.drawArcCentered(dc, edgeOffset, barStartDeg, barEndDeg);
+        DrawUtil.drawArcCentered(dc, edgeOffset, barStartDeg, barEndDeg);
 
-        Graphite.resetPenWidth(dc);
+        DrawUtil.resetPenWidth(dc);
     }
 
     (:rectangle)
@@ -256,26 +256,26 @@ module WidgetUtil {
         var x = px(3);
         var startDeg = 180 - sizeDeg / 2;
         var endDeg = 180 + sizeDeg / 2;
-        var yStart = Graphite.degToY(dc, startDeg);
-        var yEnd = Graphite.degToY(dc, endDeg);
+        var yStart = DrawUtil.degToY(dc, startDeg);
+        var yEnd = DrawUtil.degToY(dc, endDeg);
         var height = MathUtil.abs(yEnd - yStart);
 
         var railWidth = px(1);
         var outlineWidth = px(3);
 
         // rail
-        Graphite.strokeRectangleCentered(dc, x, Graphite.getCenterY(dc), railWidth, height, outlineWidth,
+        DrawUtil.strokeRectangleCentered(dc, x, DrawUtil.getCenterY(dc), railWidth, height, outlineWidth,
             AppColors.TEXT_TERTIARY, AppColors.BACKGROUND);
 
         var barHeight = height * (endIndex - startIndex) / itemCount.toFloat();
         var barStartY = yStart + height * startIndex / itemCount.toFloat();
 
         // bar
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
         dc.setPenWidth(px(3));
-        Graphite.fillRectangleCentered(dc, x, barStartY + barHeight / 2, px(3), barHeight);
+        DrawUtil.fillRectangleCentered(dc, x, barStartY + barHeight / 2, px(3), barHeight);
 
-        Graphite.resetPenWidth(dc);
+        DrawUtil.resetPenWidth(dc);
     }
 
     // page indicator
@@ -295,15 +295,15 @@ module WidgetUtil {
         var stroke = px(4);
 
         var outlineWidth = px(3);
-        var outlineWidthDeg = Math.ceil(Graphite.pxToDeg(outlineWidth, Graphite.getRadius(dc) - edgeOffset));
+        var outlineWidthDeg = Math.ceil(DrawUtil.pxToDeg(outlineWidth, DrawUtil.getRadius(dc) - edgeOffset));
         var bgStroke = stroke + 2 * outlineWidth;
         var bgMinDeg = minDeg + deltaDeg - outlineWidthDeg;
         var bgMaxDeg = maxDeg + lengthDeg + outlineWidthDeg;
 
         // bg outline
-        Graphite.setColor(dc, AppColors.BACKGROUND);
+        DrawUtil.setColor(dc, AppColors.BACKGROUND);
         dc.setPenWidth(bgStroke);
-        Graphite.drawArcCentered(dc, edgeOffset, bgMinDeg, bgMaxDeg);
+        DrawUtil.drawArcCentered(dc, edgeOffset, bgMinDeg, bgMaxDeg);
 
         // indicator
 
@@ -314,16 +314,16 @@ module WidgetUtil {
             var endDeg = startDeg + lengthDeg;
 
             if (i == index) {
-                Graphite.resetColor(dc);
+                DrawUtil.resetColor(dc);
             }
             else {
-                Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
+                DrawUtil.setColor(dc, AppColors.TEXT_TERTIARY);
             }
 
-            Graphite.drawArcCentered(dc, edgeOffset, startDeg, endDeg);
+            DrawUtil.drawArcCentered(dc, edgeOffset, startDeg, endDeg);
         }
 
-        Graphite.resetPenWidth(dc);
+        DrawUtil.resetPenWidth(dc);
     }
 
     (:rectangle)
@@ -334,7 +334,7 @@ module WidgetUtil {
 
         var length = px(6); // length of one indicator
         var delta = length + px(3);
-        var center = Graphite.degToY(dc, _BTN_START_DEG);
+        var center = DrawUtil.degToY(dc, _BTN_START_DEG);
         var max = center + delta * (pageCount - 1) / 2f;
         var min = max - pageCount * delta;
         var edgeOffset = px(5);
@@ -344,9 +344,9 @@ module WidgetUtil {
         var bgStroke = stroke + px(2) * outlineWidth;
 
         // bg outline
-        Graphite.setColor(dc, AppColors.BACKGROUND);
+        DrawUtil.setColor(dc, AppColors.BACKGROUND);
         dc.setPenWidth(bgStroke);
-        Graphite.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, center - 2 * outlineWidth, stroke + 2 * outlineWidth, max - min + 2 * outlineWidth);
+        DrawUtil.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, center - 2 * outlineWidth, stroke + 2 * outlineWidth, max - min + 2 * outlineWidth);
 
         // indicator
         for (var i = 0; i < pageCount; i++) {
@@ -357,13 +357,13 @@ module WidgetUtil {
             var height = MathUtil.abs(end - start);
 
             if (i == index) {
-                Graphite.resetColor(dc);
+                DrawUtil.resetColor(dc);
             }
             else {
-                Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
+                DrawUtil.setColor(dc, AppColors.TEXT_TERTIARY);
             }
 
-            Graphite.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, y, stroke, height);
+            DrawUtil.fillRectangleCentered(dc, dc.getWidth() - edgeOffset, y, stroke, height);
         }
     }
 
@@ -377,31 +377,31 @@ module WidgetUtil {
         }
 
         if (index != 0) {
-            Graphite.setColor(dc, topColor);
+            DrawUtil.setColor(dc, topColor);
             drawTopPageArrow(dc);
         }
         if (index != pageCount - 1) {
-            Graphite.setColor(dc, bottomColor);
+            DrawUtil.setColor(dc, bottomColor);
             drawBottomPageArrow(dc);
         }
 
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
     }
 
     function drawTopPageArrow(dc as Dc) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), ARROW_EDGE_OFFSET ], _DIR_UP);
+        _drawPageArrow(dc, [ DrawUtil.getCenterX(dc), ARROW_EDGE_OFFSET ], _DIR_UP);
     }
 
     function drawBottomPageArrow(dc as Dc) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), dc.getHeight() - ARROW_EDGE_OFFSET ], _DIR_DOWN);
+        _drawPageArrow(dc, [ DrawUtil.getCenterX(dc), dc.getHeight() - ARROW_EDGE_OFFSET ], _DIR_DOWN);
     }
 
     function drawUpArrow(dc as Dc, bottomTo as Numeric) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - ARROW_EDGE_OFFSET - ARROW_SIZE ], _DIR_UP);
+        _drawPageArrow(dc, [ DrawUtil.getCenterX(dc), bottomTo - ARROW_EDGE_OFFSET - ARROW_SIZE ], _DIR_UP);
     }
 
     function drawDownArrow(dc as Dc, bottomTo as Numeric) as Void {
-        _drawPageArrow(dc, [ Graphite.getCenterX(dc), bottomTo - ARROW_EDGE_OFFSET ], _DIR_DOWN);
+        _drawPageArrow(dc, [ DrawUtil.getCenterX(dc), bottomTo - ARROW_EDGE_OFFSET ], _DIR_DOWN);
     }
 
     function _drawPageArrow(dc as Dc, point1 as Point2D, direction as Number) as Void {

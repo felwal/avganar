@@ -27,7 +27,7 @@ class StopGlanceView extends WatchUi.GlanceView {
     // lifecycle
 
     function onUpdate(dc as Dc) as Void {
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
