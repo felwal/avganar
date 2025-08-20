@@ -89,7 +89,7 @@ module NearbyStopsService {
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
-                requestNearbyStops(Footprint.getLatLonDeg());
+                requestNearbyStops(PosUtil.getLatLonDeg());
             }
         }
 

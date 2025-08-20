@@ -92,7 +92,7 @@ class StopListView extends WatchUi.View {
         else if (!SettingsStorage.getUseLocation()) {
             return;
         }
-        else if (!Footprint.isPositionRegistered) {
+        else if (!PosUtil.isPositionRegistered) {
             progress = 0.33f;
         }
         else {
