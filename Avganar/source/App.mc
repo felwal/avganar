@@ -40,7 +40,7 @@ class App extends Application.AppBase {
 
     (:glance :glanceExclusive)
     function getGlanceTheme() as Application.AppBase.GlanceTheme {
-        return GLANCE_THEME_BLUE;
+        return GLANCE_THEME_GREEN;
     }
 
     //
