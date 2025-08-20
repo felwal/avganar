@@ -21,7 +21,7 @@ module NearbyStopsService {
 
     // Resrobot v2.1 Nearby stops
     // https://www.trafiklab.se/api/trafiklab-apis/resrobot-v21/nearby-stops/
-    // Bronze: 30_000/month, 45/min
+    // Bronze: 25_000/month, 45/min
 
     // edges of the operator zone
     const _BOUNDS_SOUTH = 55.33; // Smygehuk (Trelleborg)
@@ -32,6 +32,8 @@ module NearbyStopsService {
     const _MAX_RADIUS = 2000; // default 1000, max 2000 (meters)
 
     var isRequesting as Boolean = false;
+
+    var _localStopsService as LocalStopsService? = null;
 
     // request
 
@@ -46,8 +48,7 @@ module NearbyStopsService {
         if (latLon[0] < _BOUNDS_SOUTH || latLon[0] > _BOUNDS_NORTH
             || latLon[1] < _BOUNDS_WEST || latLon[1] > _BOUNDS_EAST) {
 
-            NearbyStopsStorage.setResponseError(
-                new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds), null));
+            NearbyStopsStorage.setResponseError(new ResponseError(getString(Rez.Strings.msg_i_stops_outside_bounds), null));
         }
         else {
             _requestNearbyStops(latLon);
@@ -79,7 +80,7 @@ module NearbyStopsService {
 
     // receive
 
-    function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveNearbyStops(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
         //Log.d("Stops response (" + responseCode + "): " + data);
 
@@ -89,7 +90,7 @@ module NearbyStopsService {
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
-                requestNearbyStops(Footprint.getLatLonDeg());
+                requestNearbyStops(PosUtil.getLatLonDeg());
             }
         }
 
@@ -113,10 +114,8 @@ module NearbyStopsService {
     }
 
     function _handleNearbyStopsResponseOk(stopsData as JsonArray) as Void {
-        var stopIds = [];
-        var stopNames = [];
+        var stopNationalIds = [];
         var stopProducts = [];
-        var stops = [];
 
         for (var i = 0; i < stopsData.size(); i++) {
             var stopData = stopsData[i]["StopLocation"] as JsonDict;
@@ -125,31 +124,25 @@ module NearbyStopsService {
             var name = stopData["name"];
             var products = stopData["products"].toNumber();
 
-            // NOTE: API limitation
-            name = _cleanStopName(name);
-
-            // null if duplicate
-            var stop = NearbyStopsStorage.createStop(id, name, products, stops, stopIds, stopNames);
-            if (stop == null) {
-                continue;
-            }
-
-            stopIds.add(id);
-            stopNames.add(name);
+            stopNationalIds.add(nationalId);
             stopProducts.add(products);
-            stops.add(stop);
         }
 
-        NearbyStopsStorage.setResponse(stopIds, stopNames, stopProducts, stops);
+        _localStopsService = new LocalStopsService(stopNationalIds, stopProducts);
+        _localStopsService.requestStopsIds();
+        WatchUi.requestUpdate();
     }
 
     // tools
 
-    function _cleanStopName(name as String) as String {
+    function cleanStopName(name as String) as String {
         // NOTE: API limitation
+        // use official abbreviations
 
         name = StringUtil.removeEnding(name, "("); // remove e.g. "(Stockholm kn)"
-        name = StringUtil.replaceWord(name, "station", "");
+        name = StringUtil.replaceWord(name, "station", "stn");
+        name = StringUtil.replaceWord(name, "väg", "v");
+        name = StringUtil.replaceWord(name, "industriområde", "ind.omr.");
         name = StringUtil.replace(name, "Centralstation", "Central");
         name = StringUtil.trim(name);
 
@@ -165,6 +158,19 @@ module NearbyStopsService {
         }
 
         return false;
+    }
+
+    function getRequestLevel() as Number {
+        if (_localStopsService == null) {
+            return isRequesting ? 0 : -1;
+        }
+        else if (_localStopsService.isRequesting) {
+            return 1;
+        }
+        else {
+            _localStopsService = null;
+            return -1;
+        }
     }
 
 }

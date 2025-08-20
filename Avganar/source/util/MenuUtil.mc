@@ -57,7 +57,7 @@ module MenuUtil {
 
         // inside pane
         if (cursor < paneSize) {
-            Graphite.fillBackground(dc, paneColors[0]);
+            DrawUtil.fillBackground(dc, paneColors[0]);
 
             // top header
             if (cursor == 0) {
@@ -65,56 +65,56 @@ module MenuUtil {
             }
             else if (cursor == 1) {
                 WidgetUtil.drawHeader(dc, HEIGHT_FOOTER_SMALL, mainColors[0], paneStrokeColor, null, null);
-                Graphite.setColor(dc, mainColors[3]);
+                DrawUtil.setColor(dc, mainColors[3]);
                 WidgetUtil.drawUpArrow(dc, HEIGHT_FOOTER_SMALL);
             }
             else {
-                Graphite.setColor(dc, paneColors[3]);
+                DrawUtil.setColor(dc, paneColors[3]);
                 WidgetUtil.drawTopPageArrow(dc);
             }
 
             // bottom header
             if (cursor == paneSize - 2) {
                 WidgetUtil.drawFooter(dc, HEIGHT_FOOTER_SMALL, mainColors[0], paneStrokeColor, null, null);
-                Graphite.setColor(dc, paneColors[3]);
+                DrawUtil.setColor(dc, paneColors[3]);
                 WidgetUtil.drawDownArrow(dc, dc.getHeight() - HEIGHT_FOOTER_SMALL);
             }
             else if (cursor == paneSize - 1) {
                 WidgetUtil.drawFooter(dc, HEIGHT_FOOTER_LARGE, mainColors[0], paneStrokeColor, mainHint, mainColors[3]);
-                Graphite.setColor(dc, paneColors[3]);
+                DrawUtil.setColor(dc, paneColors[3]);
                 WidgetUtil.drawDownArrow(dc, dc.getHeight() - HEIGHT_FOOTER_LARGE);
             }
             else {
-                Graphite.setColor(dc, paneColors[3]);
+                DrawUtil.setColor(dc, paneColors[3]);
                 WidgetUtil.drawBottomPageArrow(dc);
             }
         }
 
         // outside pane
         else {
-            Graphite.fillBackground(dc, mainColors[0]);
+            DrawUtil.fillBackground(dc, mainColors[0]);
 
             // top header
             if (cursor == paneSize) {
                 WidgetUtil.drawHeader(dc, HEIGHT_FOOTER_LARGE, paneColors[0], paneStrokeColor, paneHint, paneColors[3]);
-                Graphite.setColor(dc, paneColors[3]);
+                DrawUtil.setColor(dc, paneColors[3]);
                 // (app specific) show up arrow even if pane is empty,
                 // to indicate navigation to empty page dialog
                 WidgetUtil.drawUpArrow(dc, HEIGHT_FOOTER_LARGE);
             }
             else if (cursor == paneSize + 1) {
                 WidgetUtil.drawHeader(dc, HEIGHT_FOOTER_SMALL, paneColors[0], paneStrokeColor, null, null);
-                Graphite.setColor(dc, paneColors[3]);
+                DrawUtil.setColor(dc, paneColors[3]);
                 WidgetUtil.drawUpArrow(dc, HEIGHT_FOOTER_SMALL);
             }
             else {
-                Graphite.setColor(dc, mainColors[3]);
+                DrawUtil.setColor(dc, mainColors[3]);
                 WidgetUtil.drawTopPageArrow(dc);
             }
 
             // bottom header
             if (hasMain && cursor != fullSize - 1) {
-                Graphite.setColor(dc, mainColors[3]);
+                DrawUtil.setColor(dc, mainColors[3]);
                 WidgetUtil.drawBottomPageArrow(dc);
             }
         }
@@ -162,14 +162,14 @@ module MenuUtil {
                 var width = dc.getWidth() - 2 * margin;
                 var height = dc.getFontHeight(fontsSelected[0]);
 
-                Graphite.drawTextArea(dc, Graphite.getCenterX(dc), Graphite.getCenterY(dc), width, height,
+                DrawUtil.drawTextArea(dc, DrawUtil.getCenterX(dc), DrawUtil.getCenterY(dc), width, height,
                     fontsSelected, item, justification, selectedColor);
             }
             else {
-                var yText = Graphite.getCenterY(dc) + (i - cursor) * lineHeightPx;
+                var yText = DrawUtil.getCenterY(dc) + (i - cursor) * lineHeightPx;
 
                 dc.setColor(unselectedColor, bgColor);
-                dc.drawText(Graphite.getCenterX(dc), yText, font, item, justification);
+                dc.drawText(DrawUtil.getCenterX(dc), yText, font, item, justification);
             }
         }
     }
@@ -189,11 +189,11 @@ module MenuUtil {
         var hIndicator = HEIGHT_FOOTER_SMALL;
 
         // bg
-        Graphite.setColor(dc, colorBg);
+        DrawUtil.setColor(dc, colorBg);
         dc.fillRectangle(xBg, 0, w - xBg, h);
 
         // border
-        Graphite.setColor(dc, colorSelected);
+        DrawUtil.setColor(dc, colorSelected);
         dc.fillRectangle(xBg - wBorder, 0, wBorder, dc.getHeight());
 
         // indicator
@@ -216,7 +216,7 @@ module MenuUtil {
             var item = items[i];
 
             var justification = Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER;
-            var yText = Graphite.getCenterY(dc) + (i - cursor) * lineHeight;
+            var yText = DrawUtil.getCenterY(dc) + (i - cursor) * lineHeight;
             var margin = px(4);
 
             if (i == cursor) {

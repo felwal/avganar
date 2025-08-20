@@ -14,49 +14,49 @@
 //! The colors used in the app.
 module AppColors {
 
-    const BACKGROUND = Graphene.COLOR_BLACK;
-    const BACKGROUND_INVERTED = Graphene.COLOR_WHITE;
+    const BACKGROUND = Color64.BLACK;
+    const BACKGROUND_INVERTED = Color64.WHITE;
 
-    const TEXT_PRIMARY = Graphene.COLOR_WHITE;
-    const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
-    const TEXT_TERTIARY = Graphene.COLOR_DK_GRAY;
-    const TEXT_INVERTED = Graphene.COLOR_BLACK;
+    const TEXT_PRIMARY = Color64.WHITE;
+    const TEXT_SECONDARY = Color64.LT_GRAY;
+    const TEXT_TERTIARY = Color64.DK_GRAY;
+    const TEXT_INVERTED = Color64.BLACK;
 
-    const PRIMARY = Graphene.COLOR_DK_GREEN;
-    const PRIMARY_DK = Graphene.COLOR_DR_GREEN;
-    const PRIMARY_LT = Graphene.COLOR_LT_GREEN;
+    const PRIMARY = Color64.DK_GREEN;
+    const PRIMARY_DK = Color64.DR_GREEN;
+    const PRIMARY_LT = Color64.LT_GREEN;
 
-    const ON_PRIMARY = Graphene.COLOR_WHITE;
-    const ON_PRIMARY_SECONDARY = Graphene.COLOR_LR_GREEN;
-    const ON_PRIMARY_TERTIARY = Graphene.COLOR_LT_GREEN;
+    const ON_PRIMARY = Color64.WHITE;
+    const ON_PRIMARY_SECONDARY = Color64.LR_GREEN;
+    const ON_PRIMARY_TERTIARY = Color64.LT_GREEN;
 
-    const WARNING = Graphene.COLOR_VERMILION;
-    const ERROR = Graphene.COLOR_RED;
+    const WARNING = Color64.VERMILION;
+    const ERROR = Color64.RED;
 
-    const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
+    const DEPARTURE_REALTIME = Color64.GREEN;
 
     // mode/group
 
-    const GROUP_BUS_EXPRESS_EXPRESS = Graphene.COLOR_CRIMSON;
-    const GROUP_BUS_EXPRESS_AIRPORT = Graphene.COLOR_LT_YELLOW;
+    const GROUP_BUS_EXPRESS_EXPRESS = Color64.CRIMSON;
+    const GROUP_BUS_EXPRESS_AIRPORT = Color64.LT_YELLOW;
 
-    const GROUP_TRAIN_LOCAL_LOCAL = Graphene.COLOR_CERISE;
-    const GROUP_TRAIN_LOCAL_PAGA = Graphene.COLOR_PURPLE;
+    const GROUP_TRAIN_LOCAL_LOCAL = Color64.CERISE;
+    const GROUP_TRAIN_LOCAL_PAGA = Color64.PURPLE;
 
-    const GROUP_TRAIN_REGIONAL_REGIONAL = Graphene.COLOR_GREEN;
-    const GROUP_TRAIN_REGIONAL_INTERCITY = Graphene.COLOR_AQUAMARINE;
-    const GROUP_TRAIN_REGIONAL_NATTAG = Graphene.COLOR_DK_SPRING;
+    const GROUP_TRAIN_REGIONAL_REGIONAL = Color64.GREEN;
+    const GROUP_TRAIN_REGIONAL_INTERCITY = Color64.AQUAMARINE;
+    const GROUP_TRAIN_REGIONAL_NATTAG = Color64.DK_SPRING;
 
-    const GROUP_TRAIN_EXPRESS_EXPRESS = Graphene.COLOR_AMBER;
-    const GROUP_TRAIN_EXPRESS_SNABBTAG = Graphene.COLOR_VERMILION;
-    const GROUP_TRAIN_EXPRESS_AIRPORT = Graphene.COLOR_YELLOW;
+    const GROUP_TRAIN_EXPRESS_EXPRESS = Color64.AMBER;
+    const GROUP_TRAIN_EXPRESS_SNABBTAG = Color64.VERMILION;
+    const GROUP_TRAIN_EXPRESS_AIRPORT = Color64.YELLOW;
 
-    const GROUP_SHIP_LOCAL = Graphene.COLOR_CAPRI;
-    const GROUP_SHIP_INTERNATIONAL = Graphene.COLOR_DK_AZURE;
+    const GROUP_SHIP_LOCAL = Color64.CAPRI;
+    const GROUP_SHIP_INTERNATIONAL = Color64.DK_AZURE;
 
-    const MODE_BUS_LOCAL = Graphene.COLOR_RED;
-    const MODE_METRO = Graphene.COLOR_DK_BLUE;
-    const MODE_TRAM = Graphene.COLOR_DK_ORANGE;
+    const MODE_BUS_LOCAL = Color64.RED;
+    const MODE_METRO = Color64.DK_BLUE;
+    const MODE_TRAM = Color64.DK_ORANGE;
     const MODE_OTHER = BACKGROUND;
 
 }

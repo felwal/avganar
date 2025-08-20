@@ -1,7 +1,7 @@
 <p align="center"><img width="128" height="128" src="presentation/logo.png"></p>
 <h1 align="center">Avgånär: Sweden departures</h1>
 
-Avgånär is a Garmin Connect IQ widget displaying (public transport) nearby stops and departures within Sweden.
+Avgånär is a Garmin watch widget displaying (public transport) nearby stops and departures within Sweden.
 
 Get it on the [Connect IQ Store](https://apps.garmin.com/apps/993cae37-27d3-46b2-9f87-443ece770a61).
 
@@ -27,7 +27,7 @@ Get it on the [Connect IQ Store](https://apps.garmin.com/apps/993cae37-27d3-46b2
 
 ## API
 
-Avgånär uses [Trafiklab](https://www.trafiklab.se)'s APIs:
+Avgånär uses APIs provided by [Trafiklab](https://www.trafiklab.se):
 
 - [Resrobot 2.1](https://www.trafiklab.se/api/trafiklab-apis/resrobot-v21/)
 
@@ -46,7 +46,3 @@ I develop on `develop` and build on `main` using [Prettier Monkey C](https://git
 ## Fork
 
 You are more than welcome to make a fork and adapt the project to your own country's public transport.
-
-## Credits
-
-~~Some icons have been adapted from [Google Fonts](https://fonts.google.com/icons?icon.query=sign)~~. (Removed in [#4e4e772](https://github.com/felwal/avganar/commit/4e4e7724eca011174257edb4b2e3462818f5bd86).)

@@ -35,7 +35,7 @@ class StopListView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -84,14 +84,15 @@ class StopListView extends WatchUi.View {
     private function _drawLoadingStatus(dc as Dc) as Void {
         var w = dc.getWidth();
         var progress;
+        var nearbyStopsRequestLevel = NearbyStopsService.getRequestLevel();
 
-        if (NearbyStopsService.isRequesting) {
-            progress = MathUtil.recursiveShare(0.5f, 0.33f, NearbyStopsStorage.failedRequestCount);
+        if (nearbyStopsRequestLevel >= 0) {
+            progress = MathUtil.recursiveShare(0.5f, 0.33f, nearbyStopsRequestLevel + NearbyStopsStorage.failedRequestCount);
         }
         else if (!SettingsStorage.getUseLocation()) {
             return;
         }
-        else if (!Footprint.isPositionRegistered) {
+        else if (!PosUtil.isPositionRegistered) {
             progress = 0.33f;
         }
         else {

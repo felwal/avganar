@@ -46,7 +46,7 @@ class StopListViewModel {
     }
 
     function disableRequests() as Void {
-        Footprint.disableLocationEvents();
+        PosUtil.disableLocationEvents();
     }
 
     // position
@@ -56,9 +56,9 @@ class StopListViewModel {
         if (NearbyStopsService.handleLocationOff()) { return; }
 
         // set location event listener and get last location while waiting
-        Footprint.onRegisterPosition = method(:onPosition);
-        Footprint.enableLocationEvents(false);
-        Footprint.registerLastKnownPosition();
+        PosUtil.onRegisterPosition = method(:onPosition);
+        PosUtil.enableLocationEvents(false);
+        PosUtil.registerLastKnownPosition();
     }
 
     function onPosition() as Void {
@@ -72,7 +72,7 @@ class StopListViewModel {
             _requestNearbyStops();
         }
         else {
-            var movedDistance = Footprint.distanceTo(_lastPos);
+            var movedDistance = PosUtil.distanceTo(_lastPos);
 
             // only request stops if the user has moved 100m since last request
             if (movedDistance > _MOVED_DISTANCE_MIN) {
@@ -85,7 +85,7 @@ class StopListViewModel {
     }
 
     private function _isPositioned() as Boolean {
-        return Footprint.isPositioned() && SettingsStorage.getUseLocation();
+        return PosUtil.isPositioned() && SettingsStorage.getUseLocation();
     }
 
     // service
@@ -99,11 +99,11 @@ class StopListViewModel {
             NearbyStopsStorage.resetResponse();
         }
 
-        NearbyStopsService.requestNearbyStops(Footprint.getLatLonDeg());
+        NearbyStopsService.requestNearbyStops(PosUtil.getLatLonDeg());
         WatchUi.requestUpdate();
 
         // update last position
-        _lastPos = Footprint.getLatLonRad();
+        _lastPos = PosUtil.getLatLonRad();
         // save to storage to avoid requesting every time the user enters the app
         Storage.setValue(_STORAGE_LAST_POS, _lastPos);
     }

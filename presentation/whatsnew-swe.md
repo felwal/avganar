@@ -1,5 +1,12 @@
 # Nyheter
 
+## 1.9
+
+- Fixa närliggande hållplatser "This api is phased out ..."
+- Fixa svart rektangel som gömde glance-gradienten
+- Lägg till glance-tema
+- Stöd approachs50, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenixe, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, vivoactive6
+
 ## 1.8
 
 - Lägg till en meny för att filtrera avgångar per transporttyp

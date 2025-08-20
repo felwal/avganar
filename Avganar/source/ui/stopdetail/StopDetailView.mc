@@ -37,7 +37,7 @@ class StopDetailView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -117,21 +117,21 @@ class StopDetailView extends WatchUi.View {
             var departure = departures[i];
 
             var y = yOffset + i * lineHeightPx;
-            var xCircle = MathUtil.minX(yOffset, Graphite.getRadius(dc)) + xOffset + rCircle;
+            var xCircle = MathUtil.minX(yOffset, DrawUtil.getRadius(dc)) + xOffset + rCircle;
             var xText = xCircle + rCircle + xOffset;
 
             // draw circle
-            Graphite.setColor(dc, departure.getModeColor());
+            DrawUtil.setColor(dc, departure.getModeColor());
             dc.fillCircle(xCircle, y, rCircle);
 
             // draw text
             var justification = Graphics.TEXT_JUSTIFY_LEFT|Graphics.TEXT_JUSTIFY_VCENTER;
-            Graphite.setColor(dc, AppColors.TEXT_PRIMARY);
+            DrawUtil.setColor(dc, AppColors.TEXT_PRIMARY);
             dc.drawText(xText, y, font, departure.toString(), justification);
 
             // mark realtime
             if (departure.isRealTime) {
-                Graphite.setColor(dc, AppColors.DEPARTURE_REALTIME);
+                DrawUtil.setColor(dc, AppColors.DEPARTURE_REALTIME);
                 dc.drawText(xText, y, font, departure.displayTime(), justification);
             }
         }
@@ -151,8 +151,8 @@ class StopDetailView extends WatchUi.View {
         // look alright even on devices with different font size for XTINY.
         var y = px(23) + px(19) / 2;
 
-        Graphite.setColor(dc, AppColors.TEXT_SECONDARY);
-        dc.drawText(Graphite.getCenterX(dc), y, Graphics.FONT_XTINY, title.toUpper(),
+        DrawUtil.setColor(dc, AppColors.TEXT_SECONDARY);
+        dc.drawText(DrawUtil.getCenterX(dc), y, Graphics.FONT_XTINY, title.toUpper(),
             Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
@@ -192,7 +192,7 @@ class StopDetailView extends WatchUi.View {
         var text = info.hour.format("%02d") + ":" + info.min.format("%02d");
 
         dc.setColor(AppColors.ON_PRIMARY, AppColors.PRIMARY);
-        dc.drawText(Graphite.getCenterX(dc), yTextTop, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(DrawUtil.getCenterX(dc), yTextTop, font, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function _drawFooterProgressBar(dc as Dc, hFooter as Numeric, modeKey as Number) as Void {
@@ -216,13 +216,13 @@ class StopDetailView extends WatchUi.View {
             return;
         }
 
-        var cx = Graphite.getCenterX(dc) + px(48);
+        var cx = DrawUtil.getCenterX(dc) + px(48);
         var cy = dc.getHeight() - hFooter + px(7); //y - px(7);
         var font = Graphics.FONT_TINY;
         var fh = dc.getFontHeight(font);
         var rCircle = Math.ceil(fh / 2f) + px(2);
 
-        Graphite.setColor(dc, AppColors.BACKGROUND_INVERTED);
+        DrawUtil.setColor(dc, AppColors.BACKGROUND_INVERTED);
         dc.fillCircle(cx, cy, rCircle);
 
         dc.setColor(AppColors.PRIMARY_DK, AppColors.BACKGROUND_INVERTED);

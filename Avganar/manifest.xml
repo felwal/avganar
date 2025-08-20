@@ -24,12 +24,13 @@ If not, see <https://www.gnu.org/licenses/>.
         minSdkVersion="3.2.0"
         name="@Strings.app_name"
         type="widget"
-        version="1.8.5">
+        version="1.9.1">
 
         <!-- requirements: widget memory ≥ 262_144, API ≥ 3.2.0 -->
         <iq:products>
             <iq:product id="approachs7042mm" />
             <iq:product id="approachs7047mm" />
+            <iq:product id="approachs50" />
 
             <iq:product id="d2air" />
             <iq:product id="d2airx10" />
@@ -39,6 +40,9 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="descentmk2s" />
             <iq:product id="descentmk351mm" />
             <iq:product id="descentmk343mm" />
+            <iq:product id="descentg2" />
+
+            <iq:product id="enduro3" />
 
             <iq:product id="epix2" />
             <iq:product id="epix2pro42mm" />
@@ -59,6 +63,11 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="fenix7x" />
             <iq:product id="fenix7xpro" />
             <iq:product id="fenix7xpronowifi" />
+            <iq:product id="fenix843mm" />
+            <iq:product id="fenix847mm" />
+            <iq:product id="fenix8solar47mm" />
+            <iq:product id="fenix8solar51mm" />
+            <iq:product id="fenixe" />
 
             <iq:product id="fr165" />
             <iq:product id="fr165m" />
@@ -69,12 +78,18 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="fr255sm" />
             <iq:product id="fr265" />
             <iq:product id="fr265s" />
+            <iq:product id="fr57042mm" />
+            <iq:product id="fr57047mm" />
             <iq:product id="fr645m" />
             <iq:product id="fr745" />
             <iq:product id="fr945" />
             <iq:product id="fr945lte" />
             <iq:product id="fr955" />
             <iq:product id="fr965" />
+            <iq:product id="fr970" />
+
+            <iq:product id="instinct3amoled45mm" />
+            <iq:product id="instinct3amoled50mm" />
 
             <iq:product id="legacyherocaptainmarvel" />
             <iq:product id="legacyherofirstavenger" />
@@ -102,11 +117,13 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="venusqm" />
             <iq:product id="venusq2" />
             <iq:product id="venusq2m" />
+            <iq:product id="venux1" />
 
             <iq:product id="vivoactive3m" />
             <iq:product id="vivoactive4" />
             <iq:product id="vivoactive4s" />
             <iq:product id="vivoactive5" />
+            <iq:product id="vivoactive6" />
         </iq:products>
 
         <iq:permissions>

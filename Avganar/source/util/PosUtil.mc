@@ -17,9 +17,9 @@ using Toybox.Activity;
 using Toybox.Math;
 using Toybox.Position;
 
-//! The Footprint module provides extended position functionality
+//! The PosUtil module provides extended position functionality
 (:glance)
-module Footprint {
+module PosUtil {
 
     var onRegisterPosition as Method?;
     var isPositionRegistered as Boolean = false;
@@ -83,7 +83,7 @@ module Footprint {
 
     function enableLocationEvents(continuous as Boolean) as Void {
         Position.enableLocationEvents(continuous ? Position.LOCATION_CONTINUOUS : Position.LOCATION_ONE_SHOT,
-            new Lang.Method(Footprint, :registerPosition));
+            new Lang.Method(PosUtil, :registerPosition));
     }
 
     function disableLocationEvents() as Void {

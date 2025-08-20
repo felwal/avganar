@@ -1,5 +1,12 @@
 # What's new
 
+## 1.9
+
+- Fix nearby stops "This api is phased out ..."
+- Fix black rectangle overwriting glance gradient
+- Add glance theme
+- Add support for approachs50, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenixe, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, vivoactive6
+
 ## 1.8
 
 - Add a menu for requesting departures one transport mode at a time

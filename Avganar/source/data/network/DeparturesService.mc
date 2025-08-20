@@ -72,7 +72,7 @@ class DeparturesService {
 
     // receive
 
-    function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveDepartures(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
         var errorCode = DictUtil.get(data, "errorCode", null);
         //Log.d("Departures response (" + responseCode + "): " + data);
@@ -187,7 +187,9 @@ class DeparturesService {
         name = StringUtil.removeEnding(name, " ("); // remove e.g. "(Stockholm kn)"
         name = StringUtil.replaceWord(name, "T-bana", "");
         name = StringUtil.replaceWord(name, "Spårv", "");
-        name = StringUtil.replaceWord(name, "station", "");
+        name = StringUtil.replaceWord(name, "station", "stn");
+        name = StringUtil.replaceWord(name, "väg", "v");
+        name = StringUtil.replaceWord(name, "industriområde", "ind.omr.");
         name = StringUtil.replace(name, "Centralstation", "C");
         name = StringUtil.trim(name);
 

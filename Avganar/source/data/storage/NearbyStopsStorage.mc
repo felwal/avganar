@@ -50,6 +50,14 @@ module NearbyStopsStorage {
         _nearbyStopProducts = StorageUtil.getValue(_STORAGE_NEARBY_STOP_PRODUCTS,
             ArrUtil.filled(_nearbyStopIds.size(), null));
 
+        // NOTE: migration to 1.9.0
+        // for some reason SL put this in a normal stop rather than as an error.
+        // remove it, so we can request new stops, even if we haven't moved since last request.
+        if (_nearbyStopNames.size() == 1 && _nearbyStopNames[0].find("This api is phased out") != null) {
+            response = null;
+            return;
+        }
+
         response = _nearbyStopIds.size() >= 1
             ? _buildStops(_nearbyStopIds, _nearbyStopNames, _nearbyStopProducts)
             : null;
@@ -174,7 +182,9 @@ module NearbyStopsStorage {
 
         // NOTE: migration to 1.8.0
         // always update favs' products when they are nearby
-        FavoriteStopsStorage.updateFavoriteProducts(id, products);
+        if (products != null) {
+            FavoriteStopsStorage.updateFavoriteProducts(id, products);
+        }
 
         if (favStopWithSameId.name.equals(name)) {
             // use existing stop if same id and name
@@ -197,7 +207,9 @@ module NearbyStopsStorage {
 
         // NOTE: migration to 1.8.0
         // make sure we don't pass along old null products
-        previousStopWithSameId.setProducts(products);
+        if (products != null) {
+            previousStopWithSameId.setProducts(products);
+        }
 
         // use existing stop if same id
         if (!previousStopWithSameId.name.equals(name)) {

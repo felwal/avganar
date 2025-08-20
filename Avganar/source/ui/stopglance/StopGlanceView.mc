@@ -27,8 +27,7 @@ class StopGlanceView extends WatchUi.GlanceView {
     // lifecycle
 
     function onUpdate(dc as Dc) as Void {
-        GlanceView.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -44,7 +43,7 @@ class StopGlanceView extends WatchUi.GlanceView {
         // title
         var font = Graphics.FONT_GLANCE;
         var fh = dc.getFontHeight(font);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(0, cy - fh - px(1), font, title.toUpper(), Graphics.TEXT_JUSTIFY_LEFT);
 
         // caption
