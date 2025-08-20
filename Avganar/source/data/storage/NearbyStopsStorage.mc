@@ -50,14 +50,6 @@ module NearbyStopsStorage {
         _nearbyStopProducts = StorageUtil.getValue(_STORAGE_NEARBY_STOP_PRODUCTS,
             ArrUtil.filled(_nearbyStopIds.size(), null));
 
-        // NOTE: migration to 1.9.0
-        // for some reason SL put this in a normal stop rather than as an error.
-        // remove it, so we can request new stops, even if we haven't moved since last request.
-        if (_nearbyStopNames.size() == 1 && _nearbyStopNames[0].find("This api is phased out") != null) {
-            response = null;
-            return;
-        }
-
         response = _nearbyStopIds.size() >= 1
             ? _buildStops(_nearbyStopIds, _nearbyStopNames, _nearbyStopProducts)
             : null;
