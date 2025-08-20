@@ -140,6 +140,9 @@ class DeparturesService {
                 destination = destination.substring(2, destination.length());
             }
 
+            // NOTE: API limitation
+            destination = NearbyStopsService.cleanStopName(destination);
+
             var departure = new Departure(modeKey, group, line, destination, moment,
                 deviation, isRealTime);
 

@@ -137,8 +137,11 @@ module NearbyStopsService {
 
     function cleanStopName(name as String) as String {
         // NOTE: API limitation
+        // use official abbreviations
 
         name = StringUtil.replaceWord(name, "station", "stn");
+        name = StringUtil.replaceWord(name, "väg", "v");
+        name = StringUtil.replaceWord(name, "industriområde", "ind.omr.");
 
         return name;
     }
