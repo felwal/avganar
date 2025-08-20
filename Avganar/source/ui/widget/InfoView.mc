@@ -33,7 +33,7 @@ class InfoView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -41,8 +41,8 @@ class InfoView extends WatchUi.View {
     // draw
 
     private function _draw(dc as Dc) as Void {
-        Graphite.fillBackground(dc, AppColors.BACKGROUND_INVERTED);
-        Graphite.fillTextArea(dc, _text, AppColors.TEXT_INVERTED);
+        DrawUtil.fillBackground(dc, AppColors.BACKGROUND_INVERTED);
+        DrawUtil.fillTextArea(dc, _text, AppColors.TEXT_INVERTED);
     }
 
 }

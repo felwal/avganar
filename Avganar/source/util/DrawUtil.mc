@@ -22,9 +22,9 @@ function px(dp as Numeric) as Numeric {
     return Math.round(dp * getJsonData(Rez.JsonData.pxPerDp) as Float);
 }
 
-//! The Graphite module provides extended drawing functionality
+//! The DrawUtil module provides extended drawing functionality
 (:glance)
-module Graphite {
+module DrawUtil {
 
     // tool
 
@@ -67,7 +67,7 @@ module Graphite {
 
     //! Set the current fg and bg colors to white and black
     function resetColor(dc as Dc) as Void {
-        dc.setColor(Graphene.COLOR_WHITE, AppColors.BACKGROUND);
+        dc.setColor(Color64.WHITE, AppColors.BACKGROUND);
     }
 
     function resetPenWidth(dc as Dc) as Void {
@@ -185,7 +185,7 @@ module Graphite {
     function fillTextArea(dc as Dc, text as String, color as ColorType) as Void {
         // inscribe a square on the circular screen
         var margin = px(4);
-        var size = Math.sqrt(2) * (Graphite.getRadius(dc) - margin);
+        var size = Math.sqrt(2) * (DrawUtil.getRadius(dc) - margin);
         var fonts = [ Graphics.FONT_TINY, Graphics.FONT_XTINY ];
         var justification = Graphics.TEXT_JUSTIFY_CENTER|Graphics.TEXT_JUSTIFY_VCENTER;
 

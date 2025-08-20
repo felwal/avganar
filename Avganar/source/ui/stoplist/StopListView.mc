@@ -35,7 +35,7 @@ class StopListView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -92,7 +92,7 @@ class StopListView extends WatchUi.View {
         else if (!SettingsStorage.getUseLocation()) {
             return;
         }
-        else if (!Footprint.isPositionRegistered) {
+        else if (!PosUtil.isPositionRegistered) {
             progress = 0.33f;
         }
         else {

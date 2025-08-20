@@ -14,49 +14,49 @@
 //! The colors used in the app.
 module AppColors {
 
-    const BACKGROUND = Graphene.COLOR_BLACK;
-    const BACKGROUND_INVERTED = Graphene.COLOR_WHITE;
+    const BACKGROUND = Color64.BLACK;
+    const BACKGROUND_INVERTED = Color64.WHITE;
 
-    const TEXT_PRIMARY = Graphene.COLOR_WHITE;
-    const TEXT_SECONDARY = Graphene.COLOR_LT_GRAY;
-    const TEXT_TERTIARY = Graphene.COLOR_DK_GRAY;
-    const TEXT_INVERTED = Graphene.COLOR_BLACK;
+    const TEXT_PRIMARY = Color64.WHITE;
+    const TEXT_SECONDARY = Color64.LT_GRAY;
+    const TEXT_TERTIARY = Color64.DK_GRAY;
+    const TEXT_INVERTED = Color64.BLACK;
 
-    const PRIMARY = Graphene.COLOR_CERULIAN;
-    const PRIMARY_DK = Graphene.COLOR_DR_BLUE;
-    const PRIMARY_LT = Graphene.COLOR_LT_AZURE;
+    const PRIMARY = Color64.CERULIAN;
+    const PRIMARY_DK = Color64.DR_BLUE;
+    const PRIMARY_LT = Color64.LT_AZURE;
 
-    const ON_PRIMARY = Graphene.COLOR_BLACK;
-    const ON_PRIMARY_SECONDARY = Graphene.COLOR_DR_BLUE;
-    const ON_PRIMARY_TERTIARY = Graphene.COLOR_DK_BLUE;
+    const ON_PRIMARY = Color64.BLACK;
+    const ON_PRIMARY_SECONDARY = Color64.DR_BLUE;
+    const ON_PRIMARY_TERTIARY = Color64.DK_BLUE;
 
-    const WARNING = Graphene.COLOR_VERMILION;
-    const ERROR = Graphene.COLOR_RED;
+    const WARNING = Color64.VERMILION;
+    const ERROR = Color64.RED;
 
     // departure
 
-    const DEPARTURE_REALTIME = Graphene.COLOR_GREEN;
-    const DEPARTURE_SELECTED = Graphene.COLOR_GREEN;
+    const DEPARTURE_REALTIME = Color64.GREEN;
+    const DEPARTURE_SELECTED = Color64.GREEN;
 
     // mode/group
 
-    const GROUP_BUS_RED = Graphene.COLOR_RED;
-    const GROUP_BUS_BLUE = Graphene.COLOR_BLUE;
+    const GROUP_BUS_RED = Color64.RED;
+    const GROUP_BUS_BLUE = Color64.BLUE;
     const GROUP_BUS_REPLACEMENT = WARNING;
 
-    const GROUP_METRO_RED = Graphene.COLOR_DR_RED;
-    const GROUP_METRO_BLUE = Graphene.COLOR_DR_BLUE;
-    const GROUP_METRO_GREEN = Graphene.COLOR_DR_GREEN;
+    const GROUP_METRO_RED = Color64.DR_RED;
+    const GROUP_METRO_BLUE = Color64.DR_BLUE;
+    const GROUP_METRO_GREEN = Color64.DR_GREEN;
 
-    const GROUP_TRAM_SPARVAGCITY = Graphene.COLOR_DK_GRAY;
-    const GROUP_TRAM_NOCKEBYBANAN = Graphene.COLOR_LT_GRAY;
-    const GROUP_TRAM_LIDINGOBANAN = Graphene.COLOR_AMBER;
-    const GROUP_TRAM_TVARBANAN = Graphene.COLOR_DK_ORANGE;
-    const GROUP_TRAM_SALTSJOBANAN = Graphene.COLOR_DK_CYAN;
-    const GROUP_TRAM_ROSLAGSBANAN = Graphene.COLOR_DK_VIOLET;
+    const GROUP_TRAM_SPARVAGCITY = Color64.DK_GRAY;
+    const GROUP_TRAM_NOCKEBYBANAN = Color64.LT_GRAY;
+    const GROUP_TRAM_LIDINGOBANAN = Color64.AMBER;
+    const GROUP_TRAM_TVARBANAN = Color64.DK_ORANGE;
+    const GROUP_TRAM_SALTSJOBANAN = Color64.DK_CYAN;
+    const GROUP_TRAM_ROSLAGSBANAN = Color64.DK_VIOLET;
 
-    const MODE_TRAIN = Graphene.COLOR_CERISE;
-    const MODE_SHIP = Graphene.COLOR_CAPRI;
+    const MODE_TRAIN = Color64.CERISE;
+    const MODE_SHIP = Color64.CAPRI;
     const MODE_OTHER = BACKGROUND;
 
 }

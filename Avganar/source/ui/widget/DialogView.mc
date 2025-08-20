@@ -43,7 +43,7 @@ class DialogView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         View.onUpdate(dc);
-        Graphite.enableAntiAlias(dc);
+        DrawUtil.enableAntiAlias(dc);
 
         _draw(dc);
     }
@@ -51,12 +51,12 @@ class DialogView extends WatchUi.View {
     // draw
 
     private function _draw(dc as Dc) as Void {
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
 
         // text
         WidgetUtil.drawPreviewTitle(dc, _viewModel.title, _viewModel.iconRezId, true);
-        Graphite.fillTextArea(dc, _viewModel.getMessage(), AppColors.TEXT_PRIMARY);
-        Graphite.setColor(dc, AppColors.TEXT_TERTIARY);
+        DrawUtil.fillTextArea(dc, _viewModel.getMessage(), AppColors.TEXT_PRIMARY);
+        DrawUtil.setColor(dc, AppColors.TEXT_TERTIARY);
 
         // arrow
         if (_transition == WatchUi.SLIDE_DOWN) {
@@ -66,7 +66,7 @@ class DialogView extends WatchUi.View {
             WidgetUtil.drawTopPageArrow(dc);
         }
 
-        Graphite.resetColor(dc);
+        DrawUtil.resetColor(dc);
 
         // page indicator
         WidgetUtil.drawHorizontalPageIndicator(dc, _viewModel.messages.size(), _viewModel.pageCursor);

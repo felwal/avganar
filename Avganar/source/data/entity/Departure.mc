@@ -97,22 +97,22 @@ class Departure {
 
     function getDeviationColor() as ColorType {
         if (_deviationLevel >= 8) {
-            return Graphene.COLOR_RED;
+            return Color64.RED;
         }
         else if (_deviationLevel >= 6) {
-            return Graphene.COLOR_VERMILION;
+            return Color64.VERMILION;
         }
         else if (_deviationLevel >= 4) {
-            return Graphene.COLOR_AMBER;
+            return Color64.AMBER;
         }
         else if (_deviationLevel >= 3) {
-            return Graphene.COLOR_YELLOW;
+            return Color64.YELLOW;
         }
         else if (_deviationLevel >= 2) {
-            return Graphene.COLOR_LT_YELLOW;
+            return Color64.LT_YELLOW;
         }
         else if (_deviationLevel >= 1) {
-            return Graphene.COLOR_LR_YELLOW;
+            return Color64.LR_YELLOW;
         }
 
         return AppColors.TEXT_PRIMARY;

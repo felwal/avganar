@@ -79,7 +79,7 @@ module NearbyStopsService {
 
     // receive
 
-    function onReceiveNearbyStops(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveNearbyStops(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
         //Log.d("Stops response (" + responseCode + "): " + data);
 
@@ -89,7 +89,7 @@ module NearbyStopsService {
 
             // auto-refresh if too large
             if (NearbyStopsStorage.shouldAutoRefresh()) {
-                requestNearbyStops(Footprint.getLatLonDeg());
+                requestNearbyStops(PosUtil.getLatLonDeg());
             }
         }
 
@@ -137,8 +137,11 @@ module NearbyStopsService {
 
     function cleanStopName(name as String) as String {
         // NOTE: API limitation
+        // use official abbreviations
 
         name = StringUtil.replaceWord(name, "station", "stn");
+        name = StringUtil.replaceWord(name, "väg", "v");
+        name = StringUtil.replaceWord(name, "industriområde", "ind.omr.");
 
         return name;
     }

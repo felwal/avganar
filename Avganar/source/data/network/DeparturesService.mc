@@ -69,7 +69,7 @@ class DeparturesService {
 
     // receive
 
-    function onReceiveDepartures(responseCode as Number, data as JsonDict?) as Void {
+    function onReceiveDepartures(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
         //Log.d("Departures response (" + responseCode + "): " + data);
 
@@ -139,6 +139,9 @@ class DeparturesService {
             if (destination.substring(0, 2).equals(StringUtil.charAt(line, line.length() - 1) + " ")) {
                 destination = destination.substring(2, destination.length());
             }
+
+            // NOTE: API limitation
+            destination = NearbyStopsService.cleanStopName(destination);
 
             var departure = new Departure(modeKey, group, line, destination, moment,
                 deviation, isRealTime);

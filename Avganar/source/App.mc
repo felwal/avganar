@@ -38,6 +38,11 @@ class App extends Application.AppBase {
         return [ new StopGlanceView() ];
     }
 
+    (:glance :glanceExclusive)
+    function getGlanceTheme() as Application.AppBase.GlanceTheme {
+        return GLANCE_THEME_BLUE;
+    }
+
     //
 
     function getMainView() as [StopListView, StopListDelegate] {
