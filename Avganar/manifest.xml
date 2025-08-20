@@ -24,7 +24,7 @@ If not, see <https://www.gnu.org/licenses/>.
         minSdkVersion="3.2.0"
         name="@Strings.app_name"
         type="widget"
-        version="1.9.0">
+        version="1.9.1">
 
         <!-- requirements: widget memory ≥ 262_144, API ≥ 3.2.0 -->
         <iq:products>
