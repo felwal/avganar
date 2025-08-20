@@ -114,11 +114,11 @@ class Departure {
             return AppColors.GROUP_BUS_EXPRESS_AIRPORT;
         }
         else if (_modeKey == Mode.KEY_BUS_LOCAL) {
-            Log.w("Unknown local bus group " + _group);
+            //Log.w("Unknown local bus group " + _group);
             return AppColors.MODE_BUS_LOCAL;
         }
         else if (_modeKey == Mode.KEY_BUS_EXPRESS) {
-            Log.w("Unknown express bus group " + _group);
+            //Log.w("Unknown express bus group " + _group);
             return AppColors.GROUP_BUS_EXPRESS_EXPRESS;
         }
 
@@ -147,15 +147,15 @@ class Departure {
             return AppColors.GROUP_TRAIN_LOCAL_PAGA;
         }
         else if (_modeKey == Mode.KEY_TRAIN_LOCAL) {
-            Log.w("Unknown local train group " + _group);
+            //Log.w("Unknown local train group " + _group);
             return AppColors.GROUP_TRAIN_LOCAL_LOCAL;
         }
         else if (_modeKey == Mode.KEY_TRAIN_REGIONAL) {
-            Log.w("Unknown regional train group " + _group);
+            //Log.w("Unknown regional train group " + _group);
             return AppColors.GROUP_TRAIN_REGIONAL_REGIONAL;
         }
         else if (_modeKey == Mode.KEY_TRAIN_EXPRESS) {
-            Log.w("Unknown express train group " + _group);
+            //Log.w("Unknown express train group " + _group);
             return AppColors.GROUP_TRAIN_EXPRESS_EXPRESS;
         }
 
@@ -166,11 +166,11 @@ class Departure {
             return AppColors.GROUP_SHIP_INTERNATIONAL;
         }
         else if (_modeKey == Mode.KEY_SHIP) {
-            Log.w("Unknown ship group " + _group);
+            //Log.w("Unknown ship group " + _group);
             return AppColors.GROUP_SHIP_LOCAL;
         }
 
-        Log.w("Unknown mode " + _modeKey + " or group " + _group);
+        //Log.w("Unknown mode " + _modeKey + " or group " + _group);
         return AppColors.MODE_OTHER;
     }
 

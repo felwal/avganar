@@ -73,14 +73,14 @@ module NearbyStopsService {
         };
 
         Communications.makeWebRequest(url, params, options, new Lang.Method(NearbyStopsService, :onReceiveNearbyStops));
-        //Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + latLon[0] + ", " + latLon[1] + ") ...");
+        ////Log.i("Requesting " + NearbyStopsStorage.maxStops + " stops for coords (" + latLon[0] + ", " + latLon[1] + ") ...");
     }
 
     // receive
 
     function onReceiveNearbyStops(responseCode as Number, data as CommResponseData) as Void {
         isRequesting = false;
-        //Log.d("Stops response (" + responseCode + "): " + data);
+        ////Log.d("Stops response (" + responseCode + "): " + data);
 
         // request error
         if (responseCode != ResponseError.HTTP_OK || data == null) {
