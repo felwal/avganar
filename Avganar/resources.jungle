@@ -75,8 +75,8 @@ venusq2.resourcePath = $(venusq2.resourcePath); resources-360x360
 venusq2m.resourcePath = $(venusq2m.resourcePath); resources-360x360
 
 # 360x360
-venu2s.resourcePath = $(venu2s.resourcePath); resources-360x360
 fr265s.resourcePath = $(fr265s.resourcePath); resources-360x360
+venu2s.resourcePath = $(venu2s.resourcePath); resources-360x360
 
 # 390x390
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath); resources-390x390
@@ -104,10 +104,10 @@ epix2.resourcePath = $(epix2.resourcePath); resources-416x416
 epix2pro47mm.resourcePath = $(epix2pro47mm.resourcePath); resources-416x416
 fenix843mm.resourcePath = $(fenix843mm.resourcePath); resources-416x416
 fenixe.resourcePath = $(fenixe.resourcePath); resources-416x416
+fr265.resourcePath = $(fr265.resourcePath); resources-416x416
 instinct3amoled50mm.resourcePath = $(instinct3amoled50mm.resourcePath); resources-416x416
 venu2.resourcePath = $(venu2.resourcePath); resources-416x416
 venu2plus.resourcePath = $(venu2plus.resourcePath); resources-416x416
-fr265.resourcePath = $(fr265.resourcePath); resources-416x416
 
 # 448x486
 venux1.resourcePath = $(venux1.resourcePath); resources-486x486
@@ -117,9 +117,9 @@ approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-454x45
 descentmk351mm.resourcePath = $(descentmk351mm.resourcePath); resources-454x454
 epix2pro51mm.resourcePath = $(epix2pro51mm.resourcePath); resources-454x454
 fenix847mm.resourcePath = $(fenix847mm.resourcePath); resources-454x454
+fr57047mm.resourcePath = $(fr57047mm.resourcePath); resources-454x454
 fr965.resourcePath = $(fr965.resourcePath); resources-454x454
 fr970.resourcePath = $(fr970.resourcePath); resources-454x454
-fr57047mm.resourcePath = $(fr57047mm.resourcePath); resources-454x454
 venu3.resourcePath = $(venu3.resourcePath); resources-454x454
 
 # launcher icon
@@ -204,22 +204,22 @@ epix2pro47mm.resourcePath = $(epix2pro47mm.resourcePath); resources-launcher_60x
 epix2pro51mm.resourcePath = $(epix2pro51mm.resourcePath); resources-launcher_60x60
 fenix843mm.resourcePath = $(fenix843mm.resourcePath); resources-launcher_60x60
 fenixe.resourcePath = $(fenixe.resourcePath); resources-launcher_60x60
+fr265.resourcePath = $(fr265.resourcePath); resources-launcher_60x60
+fr265s.resourcePath = $(fr265s.resourcePath); resources-launcher_60x60
 instinct3amoled45mm.resourcePath = $(instinct3amoled45mm.resourcePath); resources-launcher_60x60
 instinct3amoled50mm.resourcePath = $(instinct3amoled50mm.resourcePath); resources-launcher_60x60
 marq2.resourcePath = $(marq2.resourcePath); resources-launcher_60x60
 marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-launcher_60x60
 venu.resourcePath = $(venu.resourcePath); resources-launcher_60x60
 venud.resourcePath = $(venu.resourcePath); resources-launcher_60x60
-fr265.resourcePath = $(fr265.resourcePath); resources-launcher_60x60
-fr265s.resourcePath = $(fr265s.resourcePath); resources-launcher_60x60
 
 # 61x61
 venu2s.resourcePath = $(venu2s.resourcePath); resources-launcher_61x61
 
 # 65x65
-fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65
 fenix847mm.resourcePath = $(fenix847mm.resourcePath); resources-launcher_65x65
 fr57047mm.resourcePath = $(fr57047mm.resourcePath); resources-launcher_65x65
+fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65
 fr970.resourcePath = $(fr970.resourcePath); resources-launcher_65x65
 venux1.resourcePath = $(venux1.resourcePath); resources-launcher_65x65
 
