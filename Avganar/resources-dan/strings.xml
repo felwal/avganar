@@ -1,0 +1,85 @@
+<strings>
+
+    <!-- message -->
+
+    <!-- status message -->
+    <string id="msg_i_stops_no_gps">Venter på GPS ...</string>
+    <string id="msg_i_stops_requesting">Indlæser ...</string>
+    <string id="msg_i_stops_location_off">Steddata er slået fra</string>
+    <string id="msg_i_departures_requesting">Indlæser ...</string>
+
+    <!-- response message -->
+    <string id="msg_i_stops_none">Ingen i nærheden</string>
+    <string id="msg_i_stops_outside_bounds">Kun tilgængelig i Stockholm</string>
+    <string id="msg_i_departures_none">Ingen afgange</string>
+
+    <!-- request error -->
+    <string id="msg_e_unknown">Ukendt fejl</string>
+    <string id="msg_e_queue_full">Køen er fuld</string>
+    <string id="msg_e_connection">Ingen forbindelse</string>
+    <string id="msg_e_memory">Ude af hukommelsen</string>
+    <string id="msg_e_cancelled">Anmodning afbrudt</string>
+    <string id="msg_e_timeout">Anmodning udløbet</string>
+    <string id="msg_e_bad_request">Klientfejl</string>
+    <string id="msg_e_not_found">Ugyldig anmodning</string>
+    <string id="msg_e_general">Fejl</string>
+
+    <!-- response error -->
+    <string id="msg_e_invalid">Ugyldigt svar</string>
+    <string id="msg_e_null_data">Ingen data</string>
+    <string id="msg_e_server">Serverfejl</string>
+    <string id="msg_e_proxy">Serverfejl</string>
+    <string id="msg_e_limit_minute">Kvota overskredet (minut)</string>
+    <string id="msg_e_limit_month">Kvota overskredet (måned)</string>
+
+    <!-- view -->
+
+    <!-- preview -->
+    <string id="lbl_preview_msg_no_stops">Åbn for at vise stoppesteder</string>
+
+    <!-- glance -->
+    <string id="lbl_glance_caption_no_stops" scope="glance">Ingen stoppesteder</string>
+
+    <!-- list -->
+    <string id="lbl_list_nearby">I nærheden</string>
+    <string id="lbl_list_favorites">Favoritter</string>
+    <string id="lbl_list_favorites_one">Favorit</string>
+    <string id="lbl_list_favorites_none">Ingen favoritter</string>
+    <string id="lbl_list_retry">Prøv igen</string>
+
+    <!-- detail -->
+    <string id="itm_detail_departure_time_now">Nu</string>
+    <string id="lbl_detail_deviation_none">Ingen afvigelser</string>
+
+    <!-- modes menu -->
+    <string id="itm_modes_bus">Busser</string>
+    <string id="itm_modes_metro">Metro</string>
+    <string id="itm_modes_train">Pendlertog</string>
+    <string id="itm_modes_tram">Nærbane</string>
+    <string id="itm_modes_ship">Både</string>
+    <string id="itm_modes_other">Andre</string>
+
+    <!-- dialog -->
+    <string id="lbl_dialog_no_favorites_title">Ingen favoritter</string>
+    <string id="lbl_dialog_no_favorites_msg">Indstil stoppesteder som favoritter via menuen</string>
+
+    <!-- options -->
+    <string id="lbl_options_title">Muligheder</string>
+    <string id="itm_options_favorite_add">Indstil som favorit</string>
+    <string id="itm_options_favorite_remove">Fjern fra favoritter</string>
+    <string id="itm_options_favorite_move_up">Ryk op</string>
+    <string id="itm_options_favorite_move_down">Ryk ned</string>
+    <string id="itm_options_about">Om</string>
+
+    <!-- settings -->
+    <string id="lbl_settings_title">Indstillinger</string>
+    <string id="itm_settings_location">Brug steddata</string>
+    <string id="itm_settings_vibrate">Vibrer ved svar</string>
+    <string id="itm_settings_max_stops">Højst antal stoppesteder</string>
+    <string id="itm_settings_time_window">Tidsvindue for afgange</string>
+    <string id="itm_settings_minute_symbol">Minut-symbol</string>
+
+    <!-- info -->
+    <string id="lbl_info_about">Af Felix Wallin.\n\nAPI'er leveret af Trafiklab.</string>
+
+</strings>
