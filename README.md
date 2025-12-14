@@ -35,6 +35,7 @@ Avgånär uses APIs provided by [Trafiklab](https://www.trafiklab.se):
 
 - [ResRobot 2.1 Nearby Stops](https://www.trafiklab.se/api/our-apis/resrobot-v21/nearby-stops/)
 - [SL Transport 1](https://www.trafiklab.se/api/trafiklab-apis/sl/transport)
+- [GTFS Sverige 2](https://www.trafiklab.se/api/gtfs-datasets/gtfs-sverige-2)
 - ~~[SL Nearby Stops 2](https://github.com/trafiklab/trafiklab.se/blob/development/content/api/our-apis/sl/nearby-stops-2.md)~~
 - ~~SL Departures 4~~
 
