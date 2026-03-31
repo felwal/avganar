@@ -1,7 +1,7 @@
 <p align="center"><img width="128" height="128" src="presentation/logo.png"></p>
 <h1 align="center">Avgånär: Stockholm departures</h1>
 
-Avgånär is a Garmin watch widget displaying (public transport) nearby stops and departures within Stockholm (SL) in 
+Avgånär is a Garmin watch widget displaying (public transport) nearby stops and departures within Stockholm (SL) in
 Sweden.
 
 Get it on the [Connect IQ Store](https://apps.garmin.com/apps/a96ddb52-3edd-4298-8348-5bd818376a2a).
@@ -43,7 +43,7 @@ Avgånär uses APIs provided by [Trafiklab](https://www.trafiklab.se):
 
 Place your API keys somewhere gitignored, such as `ServiceSecrets.mc`:
 
-```
+```monkey c
 const API_KEY_STOPS = "<KEY>";
 const API_KEY_DEPARTURES = "<KEY>";
 ```
