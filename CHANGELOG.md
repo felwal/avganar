@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.2 [2026-07-04]
+
+- Add gradient launcher icon for supported devices
+- Add Danish localisation
+- Add support for d2mach2, d2mach2pro, fenix8pro47mm, fr70, fr170, fr170m, venu441mm, venu445mm
+
 ## 1.9.1 [2025-08-20]
 
 - Fix black rectangle overwriting glance gradient
