@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- 240x240 is used as reference, defining 1dp = 1px -->
+    <jsonData id="pxPerDp" scope="glance">1.0</jsonData>
+
+</resources>

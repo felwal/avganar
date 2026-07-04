@@ -5,7 +5,9 @@
 - Fix nearby stops "This api is phased out ..."
 - Fix black rectangle overwriting glance gradient
 - Add glance theme
-- Add support for approachs50, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenixe, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, vivoactive6
+- Add gradient icons for supported devices
+- Add Danish localisation
+- Add support for approachs50, d2mach2, d2mach2pro, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenix8pro47mm, fenixe, fr70, fr170, fr170m, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, venu441mm, venu445mm, vivoactive6
 
 ## 1.8
 

@@ -35,7 +35,7 @@ Avgånär uses APIs provided by [Trafiklab](https://www.trafiklab.se):
 
 Place your API keys somewhere gitignored, such as `ServiceSecrets.mc`:
 
-```
+```monkey c
 const API_KEY = "<KEY>";
 ```
 

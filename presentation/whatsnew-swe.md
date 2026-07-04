@@ -5,7 +5,9 @@
 - Fixa närliggande hållplatser "This api is phased out ..."
 - Fixa svart rektangel som gömde glance-gradienten
 - Lägg till glance-tema
-- Stöd approachs50, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenixe, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, vivoactive6
+- Lägg till ikoner med gradienter för kompatibla enheter
+- Översätt till danska
+- Stöd approachs50, d2mach2, d2mach2pro, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenix8pro47mm, fenixe, fr70, fr170, fr170m, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, venu441mm, venu445mm, vivoactive6
 
 ## 1.8
 
