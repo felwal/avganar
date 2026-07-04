@@ -86,8 +86,8 @@ with open("data/sl-transport-sites.json", "r", encoding="utf-8") as file:
 
 
 for national_id, stop in stops_by_national_id.items():
-    with open(f"docs/sl-national-stops/{national_id}.json", "w", encoding="utf-8") as file:
+    with open(f"public/sl-national-stops/{national_id}.json", "w", encoding="utf-8") as file:
         file.write(json.dumps(stop, indent=2, ensure_ascii=False))
 
-with open("docs/sl-national-stops.json", "w", encoding="utf-8") as file:
+with open("public/sl-national-stops.json", "w", encoding="utf-8") as file:
     file.write(json.dumps(stops_by_national_id, indent=2, ensure_ascii=False))
