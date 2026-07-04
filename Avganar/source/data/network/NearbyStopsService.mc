@@ -118,7 +118,7 @@ module NearbyStopsService {
         var stopProducts = [];
 
         for (var i = 0; i < stopsData.size(); i++) {
-            var stopData = stopsData[i]["StopLocation"] as JsonDict;
+            var stopData = (stopsData[i] as JsonDict)["StopLocation"] as JsonDict;
 
             var nationalId = stopData["extId"].toNumber();
             // products can't be correctly mapped between the apis; skip for now

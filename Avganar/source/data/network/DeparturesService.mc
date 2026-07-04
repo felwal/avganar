@@ -176,19 +176,21 @@ class DeparturesService {
         var cancelled = false;
 
         for (var i = 0; i < deviations.size(); i++) {
-            var msg = DictUtil.get(deviations[i], "message", null);
+            var deviation = deviations[i] as JsonDict;
+
+            var msg = DictUtil.get(deviation, "message", null);
             if (msg != null) {
                 msg = _splitDeviationMessageByLang(msg); // (not often the case)
                 messages.add(msg);
             }
 
-            if ("CANCELLED".equals(deviations[i]["consequence"])) {
+            if ("CANCELLED".equals(DictUtil.get(deviation, "consequence", null))) {
                 cancelled = true;
                 // don't let cancelled inform level
                 continue;
             }
 
-            var level = deviations[i]["importance_level"];
+            var level = DictUtil.get(deviation, "importance_level", null);
             if (level != null && level > maxLevel) {
                 maxLevel = level;
             }
