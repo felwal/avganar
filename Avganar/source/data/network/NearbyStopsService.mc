@@ -118,7 +118,7 @@ module NearbyStopsService {
         var stops = [];
 
         for (var i = 0; i < stopsData.size(); i++) {
-            var stopData = stopsData[i]["StopLocation"] as JsonDict;
+            var stopData = (stopsData[i] as JsonDict)["StopLocation"] as JsonDict;
 
             var id = stopData["extId"].toNumber();
             var name = stopData["name"];

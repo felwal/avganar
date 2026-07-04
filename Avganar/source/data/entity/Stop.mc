@@ -63,8 +63,8 @@ class Stop {
         }
 
         // NOTE: migration to 1.8.0
-        // if we got an error for ALL, reset all modes
-        else if (modeKey == Mode.KEY_ALL && response instanceof ResponseError) {
+        // if we got an error for ALL, reset all other modes
+        else if (modeKey.equals(Mode.KEY_ALL) && response instanceof ResponseError) {
             resetModes();
         }
 
@@ -87,7 +87,12 @@ class Stop {
     }
 
     function resetModes() as Void {
-        _modes = {};
+        if (_modes.hasKey(Mode.KEY_ALL)) {
+            _modes = { Mode.KEY_ALL => _modes[Mode.KEY_ALL] };
+        }
+        else {
+            _modes = {};
+        }
     }
 
     function resetModesWithResponseErrors() as Void {

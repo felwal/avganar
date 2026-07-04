@@ -1,3 +1,5 @@
+<?xml version="1.0"?>
+
 <!--
 This file is part of Avgånär.
 
@@ -24,7 +26,7 @@ If not, see <https://www.gnu.org/licenses/>.
         minSdkVersion="3.2.0"
         name="@Strings.app_name"
         type="widget"
-        version="1.9.1">
+        version="1.9.2">
 
         <!-- requirements: widget memory ≥ 262_144, API ≥ 3.2.0 -->
         <iq:products>
@@ -35,6 +37,8 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="d2air" />
             <iq:product id="d2airx10" />
             <iq:product id="d2mach1" />
+            <iq:product id="d2mach2" />
+            <iq:product id="d2mach2pro" />
 
             <iq:product id="descentmk2" />
             <iq:product id="descentmk2s" />
@@ -65,12 +69,16 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="fenix7xpronowifi" />
             <iq:product id="fenix843mm" />
             <iq:product id="fenix847mm" />
+            <iq:product id="fenix8pro47mm" />
             <iq:product id="fenix8solar47mm" />
             <iq:product id="fenix8solar51mm" />
             <iq:product id="fenixe" />
 
+            <iq:product id="fr70" />
             <iq:product id="fr165" />
             <iq:product id="fr165m" />
+            <iq:product id="fr170" />
+            <iq:product id="fr170m" />
             <iq:product id="fr245m" />
             <iq:product id="fr255" />
             <iq:product id="fr255m" />
@@ -113,6 +121,8 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="venu2s" />
             <iq:product id="venu3" />
             <iq:product id="venu3s" />
+            <iq:product id="venu441mm" />
+            <iq:product id="venu445mm" />
             <iq:product id="venud" />
             <iq:product id="venusqm" />
             <iq:product id="venusq2" />
@@ -132,6 +142,7 @@ If not, see <https://www.gnu.org/licenses/>.
         </iq:permissions>
 
         <iq:languages>
+            <iq:language>dan</iq:language>
             <iq:language>eng</iq:language>
             <iq:language>swe</iq:language>
         </iq:languages>
