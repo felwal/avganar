@@ -15,7 +15,7 @@
 base.excludeAnnotations = rectangle
 rectangle.excludeAnnotations = round
 
-# glance
+# lacks glance
 d2air.excludeAnnotations = $(d2air.excludeAnnotations); glanceExclusive
 fenix5plus.excludeAnnotations = $(fenix5plus.excludeAnnotations); glanceExclusive
 fenix5splus.excludeAnnotations = $(fenix5splus.excludeAnnotations); glanceExclusive

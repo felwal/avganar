@@ -37,6 +37,8 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="d2air" />
             <iq:product id="d2airx10" />
             <iq:product id="d2mach1" />
+            <iq:product id="d2mach2" />
+            <iq:product id="d2mach2pro" />
 
             <iq:product id="descentmk2" />
             <iq:product id="descentmk2s" />
@@ -67,12 +69,16 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="fenix7xpronowifi" />
             <iq:product id="fenix843mm" />
             <iq:product id="fenix847mm" />
+            <iq:product id="fenix8pro47mm" />
             <iq:product id="fenix8solar47mm" />
             <iq:product id="fenix8solar51mm" />
             <iq:product id="fenixe" />
 
+            <iq:product id="fr70" />
             <iq:product id="fr165" />
             <iq:product id="fr165m" />
+            <iq:product id="fr170" />
+            <iq:product id="fr170m" />
             <iq:product id="fr245m" />
             <iq:product id="fr255" />
             <iq:product id="fr255m" />
@@ -115,6 +121,8 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="venu2s" />
             <iq:product id="venu3" />
             <iq:product id="venu3s" />
+            <iq:product id="venu441mm" />
+            <iq:product id="venu445mm" />
             <iq:product id="venud" />
             <iq:product id="venusqm" />
             <iq:product id="venusq2" />

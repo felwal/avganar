@@ -14,6 +14,7 @@
 base.resourcePath = resources
 
 # refer to https://developer.garmin.com/connect-iq/device-reference/
+# for unequal width/height, use the larger one
 
 # screen size
 
@@ -87,8 +88,11 @@ d2air.resourcePath = $(d2air.resourcePath); resources-390x390-rgb565
 descentmk343mm.resourcePath = $(descentmk343mm.resourcePath); resources-390x390-rgb565
 descentg2.resourcePath = $(descentg2.resourcePath); resources-390x390-rgb565
 epix2pro42mm.resourcePath = $(epix2pro42mm.resourcePath); resources-390x390-rgb565
+fr70.resourcePath = $(fr70.resourcePath); resources-390x390-rgb565
 fr165.resourcePath = $(fr165.resourcePath); resources-390x390-rgb565
 fr165m.resourcePath = $(fr165m.resourcePath); resources-390x390-rgb565
+fr170.resourcePath = $(fr170.resourcePath); resources-390x390-rgb565
+fr170m.resourcePath = $(fr170m.resourcePath); resources-390x390-rgb565
 fr57042mm.resourcePath = $(fr57042mm.resourcePath); resources-390x390-rgb565
 instinct3amoled45mm.resourcePath = $(instinct3amoled45mm.resourcePath); resources-390x390-rgb565
 marq2.resourcePath = $(marq2.resourcePath); resources-390x390-rgb565
@@ -96,6 +100,7 @@ marq2aviator.resourcePath = $(marq2aviator.resourcePath); resources-390x390-rgb5
 venu.resourcePath = $(venu.resourcePath); resources-390x390-rgb565
 venud.resourcePath = $(venud.resourcePath); resources-390x390-rgb565
 venu3s.resourcePath = $(venu3s.resourcePath); resources-390x390-rgb565
+venu441mm.resourcePath = $(venu441mm.resourcePath); resources-390x390-rgb565
 vivoactive5.resourcePath = $(vivoactive5.resourcePath); resources-390x390-rgb565
 vivoactive6.resourcePath = $(vivoactive6.resourcePath); resources-390x390-rgb565
 
@@ -116,13 +121,17 @@ venux1.resourcePath = $(venux1.resourcePath); resources-486x486-rgb565
 
 # 454x454 rgb565
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath); resources-454x454-rgb565
+d2mach2.resourcePath = $(d2mach2.resourcePath); resources-454x454-rgb565
+d2mach2pro.resourcePath = $(d2mach2pro.resourcePath); resources-454x454-rgb565
 descentmk351mm.resourcePath = $(descentmk351mm.resourcePath); resources-454x454-rgb565
 epix2pro51mm.resourcePath = $(epix2pro51mm.resourcePath); resources-454x454-rgb565
 fenix847mm.resourcePath = $(fenix847mm.resourcePath); resources-454x454-rgb565
+fenix8pro47mm.resourcePath = $(fenix8pro47mm.resourcePath); resources-454x454-rgb565
 fr57047mm.resourcePath = $(fr57047mm.resourcePath); resources-454x454-rgb565
 fr965.resourcePath = $(fr965.resourcePath); resources-454x454-rgb565
 fr970.resourcePath = $(fr970.resourcePath); resources-454x454-rgb565
 venu3.resourcePath = $(venu3.resourcePath); resources-454x454-rgb565
+venu445mm.resourcePath = $(venu445mm.resourcePath); resources-454x454-rgb565
 
 # launcher icon
 
@@ -186,9 +195,13 @@ venusq2.resourcePath = $(venusq2.resourcePath); resources-launcher_40x40-rgb565
 venusq2m.resourcePath = $(venusq2m.resourcePath); resources-launcher_40x40-rgb565
 
 # 54x54 rgb565
+fr70.resourcePath = $(fr70.resourcePath); resources-launcher_54x54-rgb565
 fr165.resourcePath = $(fr165.resourcePath); resources-launcher_54x54-rgb565
 fr165m.resourcePath = $(fr165m.resourcePath); resources-launcher_54x54-rgb565
+fr170.resourcePath = $(fr170.resourcePath); resources-launcher_54x54-rgb565
+fr170m.resourcePath = $(fr170m.resourcePath); resources-launcher_54x54-rgb565
 fr57042mm.resourcePath = $(fr57042mm.resourcePath); resources-launcher_54x54-rgb565
+venu441mm.resourcePath = $(venu441mm.resourcePath); resources-launcher_54x54-rgb565
 vivoactive6.resourcePath = $(vivoactive6.resourcePath); resources-launcher_54x54-rgb565
 
 # 56x56 rgb565
@@ -221,11 +234,15 @@ venud.resourcePath = $(venu.resourcePath); resources-launcher_60x60-rgb565
 venu2s.resourcePath = $(venu2s.resourcePath); resources-launcher_61x61-rgb565
 
 # 65x65 rgb565
+d2mach2.resourcePath = $(d2mach2.resourcePath); resources-launcher_65x65-rgb565
+d2mach2pro.resourcePath = $(d2mach2pro.resourcePath); resources-launcher_65x65-rgb565
 fenix847mm.resourcePath = $(fenix847mm.resourcePath); resources-launcher_65x65-rgb565
+fenix8pro47mm.resourcePath = $(fenix8pro47mm.resourcePath); resources-launcher_65x65-rgb565
 fr57047mm.resourcePath = $(fr57047mm.resourcePath); resources-launcher_65x65-rgb565
 fr965.resourcePath = $(fr965.resourcePath); resources-launcher_65x65-rgb565
 fr970.resourcePath = $(fr970.resourcePath); resources-launcher_65x65-rgb565
 venux1.resourcePath = $(venux1.resourcePath); resources-launcher_65x65-rgb565
+venu445mm.resourcePath = $(venu445mm.resourcePath); resources-launcher_65x65-rgb565
 
 # 70x70 rgb565
 d2airx10.resourcePath = $(d2airx10.resourcePath); resources-launcher_70x70-rgb565
