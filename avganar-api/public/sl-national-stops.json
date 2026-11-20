@@ -1,23 +1,451 @@
 {
+  "740025723": {
+    "site_id": 102,
+    "name": "Styrsvik"
+  },
+  "740012544": {
+    "site_id": 103,
+    "name": "Nämdöböte"
+  },
+  "740020856": {
+    "site_id": 104,
+    "name": "Aspö"
+  },
+  "740021529": {
+    "site_id": 105,
+    "name": "Idöborg"
+  },
+  "740021549": {
+    "site_id": 106,
+    "name": "Östanvik"
+  },
+  "740021555": {
+    "site_id": 107,
+    "name": "Kalkberget"
+  },
+  "740021566": {
+    "site_id": 108,
+    "name": "Västanvik"
+  },
+  "740021640": {
+    "site_id": 109,
+    "name": "Solvik"
+  },
+  "740021759": {
+    "site_id": 110,
+    "name": "Orrön"
+  },
+  "740021760": {
+    "site_id": 111,
+    "name": "Sand"
+  },
+  "740022457": {
+    "site_id": 112,
+    "name": "Bunkvik"
+  },
+  "740022758": {
+    "site_id": 113,
+    "name": "Ängsholmen"
+  },
+  "740022832": {
+    "site_id": 114,
+    "name": "Uvö"
+  },
+  "740022927": {
+    "site_id": 115,
+    "name": "Sunnansund"
+  },
+  "740023061": {
+    "site_id": 116,
+    "name": "Mörtö"
+  },
+  "740023096": {
+    "site_id": 117,
+    "name": "Mörtö södra"
+  },
+  "740023121": {
+    "site_id": 118,
+    "name": "Gatan"
+  },
+  "740023240": {
+    "site_id": 119,
+    "name": "Långvik"
+  },
+  "740023264": {
+    "site_id": 120,
+    "name": "Västra Skarprunmarn"
+  },
+  "740023593": {
+    "site_id": 121,
+    "name": "Hasselkobben"
+  },
+  "740024028": {
+    "site_id": 122,
+    "name": "Hasselö"
+  },
+  "740024039": {
+    "site_id": 123,
+    "name": "Mjölkkilen"
+  },
+  "740024057": {
+    "site_id": 124,
+    "name": "Idholmen"
+  },
+  "740020694": {
+    "site_id": 125,
+    "name": "Sandhamn"
+  },
+  "740024117": {
+    "site_id": 126,
+    "name": "Harö"
+  },
+  "740024180": {
+    "site_id": 127,
+    "name": "Hagede"
+  },
   "740024222": {
     "site_id": 128,
     "name": "Koviksudde"
   },
   "740077244": {
     "site_id": 129,
-    "name": "Ålstäket (båt)"
+    "name": "Ålstäket"
+  },
+  "740024384": {
+    "site_id": 130,
+    "name": "Bjurön"
+  },
+  "740024637": {
+    "site_id": 131,
+    "name": "Losten"
+  },
+  "740024640": {
+    "site_id": 132,
+    "name": "Storkrån"
+  },
+  "740024641": {
+    "site_id": 133,
+    "name": "Lilla Saxaren"
+  },
+  "740026202": {
+    "site_id": 134,
+    "name": "Stora Saxaren"
+  },
+  "740026203": {
+    "site_id": 135,
+    "name": "Bernhardsro"
+  },
+  "740029220": {
+    "site_id": 136,
+    "name": "Björknäs"
+  },
+  "740029469": {
+    "site_id": 137,
+    "name": "Skäggaudd"
+  },
+  "740030389": {
+    "site_id": 138,
+    "name": "Lilla Betsö"
+  },
+  "740030450": {
+    "site_id": 139,
+    "name": "Stora Isskär"
+  },
+  "740030451": {
+    "site_id": 141,
+    "name": "Halleberg"
+  },
+  "740030452": {
+    "site_id": 142,
+    "name": "Skärmaräng"
+  },
+  "740030453": {
+    "site_id": 143,
+    "name": "Vårholma"
+  },
+  "740030454": {
+    "site_id": 144,
+    "name": "Vårlunda"
+  },
+  "740030455": {
+    "site_id": 145,
+    "name": "Sippsö"
+  },
+  "740024301": {
+    "site_id": 147,
+    "name": "Södra Grinda"
+  },
+  "740024315": {
+    "site_id": 148,
+    "name": "Norra Grinda"
+  },
+  "740031101": {
+    "site_id": 149,
+    "name": "Viggsö"
+  },
+  "740024872": {
+    "site_id": 150,
+    "name": "Norra Svartsö"
+  },
+  "740032422": {
+    "site_id": 151,
+    "name": "Karklö"
+  },
+  "740033547": {
+    "site_id": 152,
+    "name": "Trångholmen"
+  },
+  "740024884": {
+    "site_id": 153,
+    "name": "Alsvik"
+  },
+  "740033803": {
+    "site_id": 154,
+    "name": "Hjälmö"
+  },
+  "740033826": {
+    "site_id": 155,
+    "name": "Trädgårdarna"
+  },
+  "740033934": {
+    "site_id": 156,
+    "name": "Skälvik"
+  },
+  "740033967": {
+    "site_id": 157,
+    "name": "Karlshem"
+  },
+  "740033971": {
+    "site_id": 158,
+    "name": "Lådna"
+  },
+  "740033978": {
+    "site_id": 159,
+    "name": "Träskökvarn"
+  },
+  "740033984": {
+    "site_id": 160,
+    "name": "Gistholmen"
+  },
+  "740033989": {
+    "site_id": 161,
+    "name": "Söderboudd"
+  },
+  "740033996": {
+    "site_id": 162,
+    "name": "Hägerö"
+  },
+  "740024302": {
+    "site_id": 163,
+    "name": "Gällnö"
+  },
+  "740034016": {
+    "site_id": 164,
+    "name": "Galtholmen"
+  },
+  "740034023": {
+    "site_id": 165,
+    "name": "Gällnönäs"
+  },
+  "740034024": {
+    "site_id": 166,
+    "name": "Puttisholmen"
+  },
+  "740034025": {
+    "site_id": 167,
+    "name": "Ängsholmen"
+  },
+  "740034051": {
+    "site_id": 169,
+    "name": "Sollenkrokaö"
+  },
+  "740034052": {
+    "site_id": 170,
+    "name": "Arbodaö"
+  },
+  "740034054": {
+    "site_id": 171,
+    "name": "Ytterö"
+  },
+  "740034057": {
+    "site_id": 172,
+    "name": "Träskö-Gåln"
+  },
+  "740024913": {
+    "site_id": 173,
+    "name": "Norra Stavsudda"
+  },
+  "740034161": {
+    "site_id": 174,
+    "name": "Södra Träskö"
+  },
+  "740024874": {
+    "site_id": 175,
+    "name": "Södra Stavsudda"
+  },
+  "740034238": {
+    "site_id": 176,
+    "name": "Korsö"
+  },
+  "740034245": {
+    "site_id": 177,
+    "name": "Granholmen"
+  },
+  "740034248": {
+    "site_id": 178,
+    "name": "Södermöja"
   },
   "740015541": {
     "site_id": 179,
     "name": "Grenadjärbryggan"
   },
+  "740034750": {
+    "site_id": 183,
+    "name": "Huvudskär"
+  },
+  "740034441": {
+    "site_id": 184,
+    "name": "Dragedet"
+  },
+  "740008759": {
+    "site_id": 185,
+    "name": "Stora Kalholmen"
+  },
+  "740034444": {
+    "site_id": 193,
+    "name": "Söderholm"
+  },
+  "740034445": {
+    "site_id": 195,
+    "name": "Korsö"
+  },
+  "740020695": {
+    "site_id": 202,
+    "name": "Gruvbryggan"
+  },
+  "740034448": {
+    "site_id": 203,
+    "name": "Näsudden"
+  },
+  "740034449": {
+    "site_id": 204,
+    "name": "Spränga"
+  },
   "740076472": {
     "site_id": 205,
     "name": "Sippvägen"
   },
+  "740034450": {
+    "site_id": 206,
+    "name": "Ängsö"
+  },
+  "740034451": {
+    "site_id": 207,
+    "name": "Gränö"
+  },
+  "740034452": {
+    "site_id": 208,
+    "name": "Kalvholmen"
+  },
+  "740034455": {
+    "site_id": 210,
+    "name": "Jutholmen"
+  },
+  "740034456": {
+    "site_id": 211,
+    "name": "Aspö"
+  },
+  "740034457": {
+    "site_id": 212,
+    "name": "Stora Segholmen"
+  },
+  "740034458": {
+    "site_id": 213,
+    "name": "Dalarö skans"
+  },
+  "740034459": {
+    "site_id": 214,
+    "name": "Fåglarö"
+  },
+  "740034464": {
+    "site_id": 219,
+    "name": "Björkösund"
+  },
+  "740024875": {
+    "site_id": 220,
+    "name": "Nåttarö"
+  },
+  "740034466": {
+    "site_id": 221,
+    "name": "Aspö vid Nynäshamn"
+  },
+  "740034467": {
+    "site_id": 222,
+    "name": "Norrö"
+  },
+  "740024876": {
+    "site_id": 223,
+    "name": "Rånö"
+  },
+  "740024877": {
+    "site_id": 224,
+    "name": "Ålö"
+  },
+  "740018277": {
+    "site_id": 225,
+    "name": "Kymmendö"
+  },
+  "740034471": {
+    "site_id": 226,
+    "name": "Ornöboda"
+  },
+  "740034472": {
+    "site_id": 227,
+    "name": "Söderviken"
+  },
+  "740034473": {
+    "site_id": 228,
+    "name": "Fiversätraö"
+  },
+  "740034474": {
+    "site_id": 229,
+    "name": "Mefjärd"
+  },
+  "740034475": {
+    "site_id": 230,
+    "name": "Ornö Kyrka"
+  },
+  "740020696": {
+    "site_id": 231,
+    "name": "Fjärdlång"
+  },
+  "740034477": {
+    "site_id": 232,
+    "name": "Rosenön"
+  },
+  "740034478": {
+    "site_id": 237,
+    "name": "Rögrund"
+  },
+  "740034479": {
+    "site_id": 257,
+    "name": "Edesön"
+  },
+  "740035446": {
+    "site_id": 269,
+    "name": "Ekholmen"
+  },
+  "740034480": {
+    "site_id": 277,
+    "name": "Telegrafholmen"
+  },
+  "740034482": {
+    "site_id": 279,
+    "name": "Eknö"
+  },
   "740021659": {
     "site_id": 9340,
-    "name": "Kungsträdgården (tunnelbana)"
+    "name": "Kungsträdgården"
   },
   "740045461": {
     "site_id": 1023,
@@ -27,25 +455,61 @@
     "site_id": 301,
     "name": "Strömkajen"
   },
+  "740034485": {
+    "site_id": 305,
+    "name": "Skeppsbron"
+  },
+  "740023999": {
+    "site_id": 307,
+    "name": "Strandvägen"
+  },
+  "740050776": {
+    "site_id": 308,
+    "name": "Barnängsbryggan"
+  },
+  "740050819": {
+    "site_id": 309,
+    "name": "Lumabryggan"
+  },
   "740014648": {
     "site_id": 312,
     "name": "Allmänna gränd"
+  },
+  "740050745": {
+    "site_id": 313,
+    "name": "Henriksdals brygga"
   },
   "740015538": {
     "site_id": 314,
     "name": "Skeppsholmen"
   },
+  "740072314": {
+    "site_id": 315,
+    "name": "Masthamnen"
+  },
+  "740072319": {
+    "site_id": 319,
+    "name": "Kungsholmstorg"
+  },
   "740064376": {
     "site_id": 320,
     "name": "Klara Mälarstrand"
   },
+  "740072318": {
+    "site_id": 321,
+    "name": "Söder Mälarstrand"
+  },
   "740073452": {
     "site_id": 322,
-    "name": "Lilla Essingen (båt)"
+    "name": "Lilla Essingen"
   },
   "740073454": {
     "site_id": 323,
-    "name": "Kungshättan (båt)"
+    "name": "Kungshättan"
+  },
+  "740071976": {
+    "site_id": 324,
+    "name": "Jungfrusund"
   },
   "740034489": {
     "site_id": 402,
@@ -54,6 +518,18 @@
   "740034490": {
     "site_id": 403,
     "name": "Edlunda"
+  },
+  "740034491": {
+    "site_id": 404,
+    "name": "Furuholmen"
+  },
+  "740034492": {
+    "site_id": 405,
+    "name": "Kalvholmen"
+  },
+  "740034493": {
+    "site_id": 406,
+    "name": "Risberga"
   },
   "740034494": {
     "site_id": 407,
@@ -71,17 +547,77 @@
     "site_id": 410,
     "name": "Fredriksberg"
   },
+  "740034499": {
+    "site_id": 411,
+    "name": "Kastellet"
+  },
+  "740045833": {
+    "site_id": 413,
+    "name": "Rindöbaden"
+  },
   "740068755": {
     "site_id": 414,
     "name": "Norra Tynningö"
+  },
+  "740034503": {
+    "site_id": 416,
+    "name": "Ljungbergsgården"
   },
   "740068731": {
     "site_id": 417,
     "name": "Östra Tynningö"
   },
+  "740034505": {
+    "site_id": 418,
+    "name": "Norehill"
+  },
   "740034506": {
     "site_id": 419,
     "name": "Ramsö"
+  },
+  "740034507": {
+    "site_id": 420,
+    "name": "Vegabryggan"
+  },
+  "740034508": {
+    "site_id": 421,
+    "name": "Ramsöberg"
+  },
+  "740034509": {
+    "site_id": 422,
+    "name": "Knutsholmen"
+  },
+  "740034511": {
+    "site_id": 423,
+    "name": "Hästholmen"
+  },
+  "740034512": {
+    "site_id": 424,
+    "name": "Skogsö södra"
+  },
+  "740034513": {
+    "site_id": 425,
+    "name": "Skogsö udde"
+  },
+  "740034514": {
+    "site_id": 426,
+    "name": "Stegesund"
+  },
+  "740034515": {
+    "site_id": 427,
+    "name": "Skarpöborg"
+  },
+  "740034516": {
+    "site_id": 428,
+    "name": "Edholma"
+  },
+  "740034517": {
+    "site_id": 430,
+    "name": "Ytterby brygga"
+  },
+  "740034518": {
+    "site_id": 431,
+    "name": "Vikingsborg"
   },
   "740034519": {
     "site_id": 432,
@@ -107,6 +643,10 @@
     "site_id": 437,
     "name": "Storholmen norra"
   },
+  "740034529": {
+    "site_id": 440,
+    "name": "Orrlunda"
+  },
   "740075759": {
     "site_id": 441,
     "name": "Telegrafberget"
@@ -114,6 +654,170 @@
   "740076293": {
     "site_id": 441,
     "name": "Telegrafberget"
+  },
+  "740034530": {
+    "site_id": 501,
+    "name": "Själbottna"
+  },
+  "740034532": {
+    "site_id": 503,
+    "name": "Brokholmen"
+  },
+  "740025022": {
+    "site_id": 504,
+    "name": "Glyxnäs"
+  },
+  "740034535": {
+    "site_id": 506,
+    "name": "Bruket"
+  },
+  "740034537": {
+    "site_id": 508,
+    "name": "Almvik"
+  },
+  "740034538": {
+    "site_id": 509,
+    "name": "Duvnäs"
+  },
+  "740034541": {
+    "site_id": 512,
+    "name": "Bergshyddan"
+  },
+  "740034543": {
+    "site_id": 514,
+    "name": "Yxlö"
+  },
+  "740073749": {
+    "site_id": 516,
+    "name": "Lilla Gräskö"
+  },
+  "740034546": {
+    "site_id": 521,
+    "name": "Hemmarö"
+  },
+  "740034547": {
+    "site_id": 522,
+    "name": "Söderäng"
+  },
+  "740034548": {
+    "site_id": 523,
+    "name": "Högmarsö"
+  },
+  "740034549": {
+    "site_id": 524,
+    "name": "Fårgångsö"
+  },
+  "740025063": {
+    "site_id": 525,
+    "name": "Furusund"
+  },
+  "740034551": {
+    "site_id": 526,
+    "name": "Norröra"
+  },
+  "740024881": {
+    "site_id": 527,
+    "name": "Söderöra"
+  },
+  "740024880": {
+    "site_id": 528,
+    "name": "Svartlöga"
+  },
+  "740024879": {
+    "site_id": 529,
+    "name": "Rödlöga"
+  },
+  "740034555": {
+    "site_id": 530,
+    "name": "Gräskö"
+  },
+  "740034556": {
+    "site_id": 531,
+    "name": "Marö"
+  },
+  "740012429": {
+    "site_id": 532,
+    "name": "Kapellskär"
+  },
+  "740024886": {
+    "site_id": 533,
+    "name": "Tjockö ångbåtsbrygga"
+  },
+  "740034559": {
+    "site_id": 534,
+    "name": "Lidö"
+  },
+  "740034560": {
+    "site_id": 535,
+    "name": "Tyvö"
+  },
+  "740034561": {
+    "site_id": 536,
+    "name": "Idö"
+  },
+  "740078695": {
+    "site_id": 537,
+    "name": "Tyvö östra"
+  },
+  "740034563": {
+    "site_id": 538,
+    "name": "Granö"
+  },
+  "740024314": {
+    "site_id": 539,
+    "name": "Arholma"
+  },
+  "740034567": {
+    "site_id": 542,
+    "name": "Rovholmen"
+  },
+  "740034568": {
+    "site_id": 543,
+    "name": "Gisslingö"
+  },
+  "740018278": {
+    "site_id": 545,
+    "name": "Fejan"
+  },
+  "740034570": {
+    "site_id": 546,
+    "name": "Tjockö norra"
+  },
+  "740034571": {
+    "site_id": 550,
+    "name": "Nationalparken Ängsö"
+  },
+  "740034572": {
+    "site_id": 551,
+    "name": "Lågarö"
+  },
+  "740034573": {
+    "site_id": 552,
+    "name": "Gräddö"
+  },
+  "740034575": {
+    "site_id": 554,
+    "name": "Norrtälje hamn"
+  },
+  "740034576": {
+    "site_id": 555,
+    "name": "Östernäs"
+  },
+  "740037696": {
+    "site_id": 567,
+    "name": "Enskär"
+  },
+  "740044691": {
+    "site_id": 569,
+    "name": "Krokholmen"
+  },
+  "740034580": {
+    "site_id": 603,
+    "name": "Krokskär"
+  },
+  "740024878": {
+    "site_id": 604,
+    "name": "Landsort"
   },
   "740007170": {
     "site_id": 700,
@@ -209,7 +913,7 @@
   },
   "740024253": {
     "site_id": 723,
-    "name": "Ringvägen (i Östhammar)"
+    "name": "Ringvägen"
   },
   "740007343": {
     "site_id": 724,
@@ -275,9 +979,161 @@
     "site_id": 739,
     "name": "Sanda gård"
   },
+  "740034583": {
+    "site_id": 801,
+    "name": "Lervik"
+  },
+  "740034584": {
+    "site_id": 802,
+    "name": "Elgö"
+  },
+  "740024871": {
+    "site_id": 803,
+    "name": "Mjölkö"
+  },
+  "740034586": {
+    "site_id": 804,
+    "name": "Ekholmen"
+  },
+  "740034587": {
+    "site_id": 805,
+    "name": "Norra Betsö"
+  },
+  "740034589": {
+    "site_id": 806,
+    "name": "Seglarö"
+  },
+  "740034590": {
+    "site_id": 807,
+    "name": "Fåglarö"
+  },
+  "740034591": {
+    "site_id": 808,
+    "name": "Stora Timrarö"
+  },
+  "740034592": {
+    "site_id": 809,
+    "name": "Grundvik"
+  },
+  "740034594": {
+    "site_id": 811,
+    "name": "Öran"
+  },
+  "740034596": {
+    "site_id": 813,
+    "name": "Skuggan"
+  },
+  "740024870": {
+    "site_id": 814,
+    "name": "Väsbystrand"
+  },
+  "740034598": {
+    "site_id": 815,
+    "name": "Staveström"
+  },
+  "740034599": {
+    "site_id": 816,
+    "name": "Örsö"
+  },
+  "740034600": {
+    "site_id": 817,
+    "name": "Storängen"
+  },
+  "740034601": {
+    "site_id": 818,
+    "name": "Strömsholm"
+  },
+  "740024883": {
+    "site_id": 821,
+    "name": "Edö"
+  },
+  "740034605": {
+    "site_id": 822,
+    "name": "Edö ö"
+  },
+  "740034607": {
+    "site_id": 823,
+    "name": "Norra Ingmarsö"
+  },
+  "740020693": {
+    "site_id": 824,
+    "name": "Finnhamn"
+  },
+  "740020692": {
+    "site_id": 825,
+    "name": "Husarö"
+  },
+  "740034610": {
+    "site_id": 826,
+    "name": "Brottö"
+  },
+  "740024873": {
+    "site_id": 827,
+    "name": "Södra Ingmarsö"
+  },
+  "740034612": {
+    "site_id": 828,
+    "name": "Nässlingen"
+  },
+  "740034614": {
+    "site_id": 830,
+    "name": "Äpplarö"
+  },
+  "740034615": {
+    "site_id": 831,
+    "name": "Ålön"
+  },
+  "740008760": {
+    "site_id": 832,
+    "name": "Siaröfortet"
+  },
+  "740034617": {
+    "site_id": 833,
+    "name": "Vettersö"
+  },
+  "740034741": {
+    "site_id": 835,
+    "name": "Koholmen"
+  },
+  "740034618": {
+    "site_id": 836,
+    "name": "Björnhuvud"
+  },
+  "740034619": {
+    "site_id": 838,
+    "name": "Gärdsvik"
+  },
+  "740052934": {
+    "site_id": 839,
+    "name": "Norra Ekskäret"
+  },
+  "740077956": {
+    "site_id": 840,
+    "name": "Lilla Rävsön"
+  },
+  "740073269": {
+    "site_id": 844,
+    "name": "Stora Timrarö östra"
+  },
+  "740034622": {
+    "site_id": 851,
+    "name": "Särsö"
+  },
   "740034626": {
     "site_id": 904,
     "name": "Riset"
+  },
+  "740034628": {
+    "site_id": 905,
+    "name": "Tegelön"
+  },
+  "740034629": {
+    "site_id": 909,
+    "name": "Boo"
+  },
+  "740075200": {
+    "site_id": 913,
+    "name": "Tollare"
   },
   "740076054": {
     "site_id": 914,
@@ -290,6 +1146,10 @@
   "740034631": {
     "site_id": 951,
     "name": "Klippudden"
+  },
+  "740034632": {
+    "site_id": 952,
+    "name": "Fjäderholmarna"
   },
   "740034633": {
     "site_id": 953,
@@ -307,6 +1167,10 @@
     "site_id": 956,
     "name": "Mor Annas brygga"
   },
+  "740034635": {
+    "site_id": 958,
+    "name": "Fjäderholmarna Västra"
+  },
   "740034636": {
     "site_id": 961,
     "name": "Tranholmen"
@@ -314,6 +1178,14 @@
   "740034637": {
     "site_id": 962,
     "name": "Ekudden"
+  },
+  "740071792": {
+    "site_id": 970,
+    "name": "Riddarholmen"
+  },
+  "740071793": {
+    "site_id": 971,
+    "name": "Stadshusbron"
   },
   "740020749": {
     "site_id": 9002,
@@ -335,6 +1207,10 @@
     "site_id": 9002,
     "name": "Cityterminalen"
   },
+  "740000622": {
+    "site_id": 9001,
+    "name": "Tcentralen"
+  },
   "740023844": {
     "site_id": 9002,
     "name": "Cityterminalen"
@@ -347,10 +1223,6 @@
     "site_id": 1003,
     "name": "Vattugatan"
   },
-  "740000622": {
-    "site_id": 9001,
-    "name": "Tcentralen"
-  },
   "740001617": {
     "site_id": 1002,
     "name": "Centralen"
@@ -359,13 +1231,17 @@
     "site_id": 1004,
     "name": "Tegelbacken"
   },
+  "740046064": {
+    "site_id": 1005,
+    "name": "Vasagatan/Kungsgatan"
+  },
   "740046118": {
     "site_id": 1006,
     "name": "Blekholmsterrassen"
   },
   "740001541": {
     "site_id": 1007,
-    "name": "Cityterminalen (på Kungsbron)"
+    "name": "Cityterminalen"
   },
   "740074721": {
     "site_id": 1008,
@@ -379,6 +1255,18 @@
     "site_id": 1011,
     "name": "Regeringsgatan"
   },
+  "740045959": {
+    "site_id": 1012,
+    "name": "Norrlandsgatan"
+  },
+  "740046017": {
+    "site_id": 1013,
+    "name": "Oxtorgsgatan"
+  },
+  "740046018": {
+    "site_id": 1014,
+    "name": "Hamngatan"
+  },
   "740045943": {
     "site_id": 1015,
     "name": "Norrmalmstorg"
@@ -389,13 +1277,17 @@
   },
   "740037355": {
     "site_id": 1016,
-    "name": "Kungsträdgården (Hamng/Kungsträdgårdsg)"
+    "name": "Kungsträdgården"
   },
   "740073532": {
     "site_id": 9340,
-    "name": "Kungsträdgården (tunnelbana)"
+    "name": "Kungsträdgården"
   },
   "740021667": {
+    "site_id": 9119,
+    "name": "Hötorget"
+  },
+  "740045958": {
     "site_id": 1019,
     "name": "Kungsgatan / Sveavägen"
   },
@@ -425,7 +1317,7 @@
   },
   "740046129": {
     "site_id": 1029,
-    "name": "Tegnérgatan (på Sveavägen)"
+    "name": "Tegnérgatan"
   },
   "740046026": {
     "site_id": 1030,
@@ -433,7 +1325,7 @@
   },
   "740021666": {
     "site_id": 1032,
-    "name": "Rådmansgatan (Sveavägen)"
+    "name": "Rådmansgatan"
   },
   "740046130": {
     "site_id": 1031,
@@ -443,13 +1335,33 @@
     "site_id": 1033,
     "name": "Adolf Fredriks kyrka"
   },
+  "740046013": {
+    "site_id": 1034,
+    "name": "Döbelnsgatan"
+  },
+  "740046014": {
+    "site_id": 1035,
+    "name": "Tegnérgatan"
+  },
+  "740046016": {
+    "site_id": 1036,
+    "name": "David Bagares gata"
+  },
+  "740046015": {
+    "site_id": 1037,
+    "name": "Snickarbacken"
+  },
   "740046063": {
     "site_id": 1040,
     "name": "N Bantorget"
   },
+  "740046059": {
+    "site_id": 1042,
+    "name": "Wallingatan"
+  },
   "740046062": {
     "site_id": 1043,
-    "name": "Tegnérgatan (på Dalagatan)"
+    "name": "Tegnérgatan"
   },
   "740046061": {
     "site_id": 1044,
@@ -459,6 +1371,10 @@
     "site_id": 1045,
     "name": "Observatoriegatan"
   },
+  "740046140": {
+    "site_id": 1046,
+    "name": "Tegnérgatan"
+  },
   "740076458": {
     "site_id": 1047,
     "name": "Hedenströms väg"
@@ -466,6 +1382,10 @@
   "740074498": {
     "site_id": 1048,
     "name": "Hustegaholm parkering"
+  },
+  "740062709": {
+    "site_id": 1051,
+    "name": "Gävlegatan"
   },
   "740046024": {
     "site_id": 1052,
@@ -479,25 +1399,45 @@
     "site_id": 1053,
     "name": "Dalagatan"
   },
+  "740046153": {
+    "site_id": 1057,
+    "name": "Sigtunagatan"
+  },
   "740046022": {
     "site_id": 1058,
     "name": "Karlbergsvägen"
   },
   "740046023": {
     "site_id": 1059,
-    "name": "Sankt Eriksgatan (Karlbergsv)"
+    "name": "S:t Eriksgatan"
   },
   "740046188": {
     "site_id": 1060,
     "name": "Vanadisplan"
   },
+  "740046076": {
+    "site_id": 1061,
+    "name": "Rödabergsgatan"
+  },
+  "740046071": {
+    "site_id": 1062,
+    "name": "Norra station"
+  },
+  "740046194": {
+    "site_id": 1062,
+    "name": "Norra station"
+  },
   "740046058": {
     "site_id": 1064,
-    "name": "Norra Stationsg(på Karlbergsv)"
+    "name": "Norra Stationsgatan"
   },
   "740046074": {
     "site_id": 1065,
     "name": "Torsplan"
+  },
+  "740046020": {
+    "site_id": 1066,
+    "name": "Norrbackagatan"
   },
   "740046021": {
     "site_id": 1067,
@@ -513,7 +1453,11 @@
   },
   "740046131": {
     "site_id": 1071,
-    "name": "Frejgatan (på Sveavägen)"
+    "name": "Frejgatan"
+  },
+  "740046134": {
+    "site_id": 1072,
+    "name": "Wenner-Gren center"
   },
   "740046039": {
     "site_id": 1073,
@@ -533,11 +1477,11 @@
   },
   "740046040": {
     "site_id": 1077,
-    "name": "Frejgatan (på Upplandsgatan)"
+    "name": "Frejgatan"
   },
   "740046187": {
     "site_id": 1078,
-    "name": "Norra Stationsg(på S:t Eriksg)"
+    "name": "Norra Stationsgatan"
   },
   "740021013": {
     "site_id": 9117,
@@ -565,11 +1509,15 @@
   },
   "740068690": {
     "site_id": 1084,
-    "name": "Roslagstull (på Valhallavägen)"
+    "name": "Roslagstull"
   },
   "740045997": {
     "site_id": 1085,
     "name": "Jarlaplan"
+  },
+  "740046152": {
+    "site_id": 1086,
+    "name": "Engelbrektskyrkan"
   },
   "740046117": {
     "site_id": 1087,
@@ -577,7 +1525,7 @@
   },
   "740045999": {
     "site_id": 1088,
-    "name": "Tegnérgatan (på B Jarlsgatan)"
+    "name": "Tegnérgatan"
   },
   "740046000": {
     "site_id": 1089,
@@ -585,7 +1533,7 @@
   },
   "740046136": {
     "site_id": 1090,
-    "name": "Roslagstull (på Ingemarsgatan)"
+    "name": "Roslagstull"
   },
   "740045957": {
     "site_id": 1091,
@@ -603,9 +1551,13 @@
     "site_id": 1094,
     "name": "Körsbärsvägen"
   },
-  "740046045": {
+  "740045993": {
     "site_id": 1095,
-    "name": "Roslagstull (på Roslagsvägen)"
+    "name": "Roslagstull"
+  },
+  "740046045": {
+    "site_id": 2037,
+    "name": "Johannes skola"
   },
   "740068909": {
     "site_id": 1096,
@@ -613,7 +1565,7 @@
   },
   "740045995": {
     "site_id": 1097,
-    "name": "Frejgatan (på Roslagsgatan)"
+    "name": "Frejgatan"
   },
   "740046043": {
     "site_id": 1098,
@@ -627,9 +1579,17 @@
     "site_id": 1100,
     "name": "Strandvägen"
   },
+  "740045990": {
+    "site_id": 1102,
+    "name": "Fredrikshovsgatan"
+  },
   "740045989": {
     "site_id": 1103,
     "name": "Historiska museet"
+  },
+  "740045988": {
+    "site_id": 1104,
+    "name": "Grevgatan"
   },
   "740019408": {
     "site_id": 1105,
@@ -639,9 +1599,13 @@
     "site_id": 1105,
     "name": "Nybroplan"
   },
-  "740045464": {
+  "740045987": {
     "site_id": 1106,
     "name": "Sibyllegatan"
+  },
+  "740045464": {
+    "site_id": 9206,
+    "name": "Östermalmstorg"
   },
   "740046065": {
     "site_id": 1107,
@@ -709,7 +1673,7 @@
   },
   "740020741": {
     "site_id": 1126,
-    "name": "Stadion (på Sturegatan)"
+    "name": "Stadion"
   },
   "740045960": {
     "site_id": 1127,
@@ -717,7 +1681,11 @@
   },
   "740045961": {
     "site_id": 1128,
-    "name": "Humlegården (på Sturegatan)"
+    "name": "Humlegården"
+  },
+  "740045986": {
+    "site_id": 1129,
+    "name": "Grev Turegatan"
   },
   "740046219": {
     "site_id": 1130,
@@ -745,15 +1713,23 @@
   },
   "740046204": {
     "site_id": 1135,
-    "name": "Erik Dahlbergsg (Lidingövägen)"
+    "name": "Erik Dahlbergsgatan"
   },
   "740046215": {
     "site_id": 1136,
     "name": "Starrbäcksängen"
   },
+  "740046174": {
+    "site_id": 1137,
+    "name": "Tennisstadion"
+  },
   "740046172": {
     "site_id": 1138,
     "name": "Östermalms idrottsplats"
+  },
+  "740045979": {
+    "site_id": 1139,
+    "name": "Jägmästargatan"
   },
   "740045975": {
     "site_id": 1140,
@@ -771,6 +1747,10 @@
     "site_id": 1143,
     "name": "Storskärsgatan"
   },
+  "740045977": {
+    "site_id": 1144,
+    "name": "Rigagatan"
+  },
   "740011060": {
     "site_id": 1145,
     "name": "Drevergatan"
@@ -781,7 +1761,7 @@
   },
   "740046252": {
     "site_id": 1147,
-    "name": "Humlegården (på Humlegårdsg)"
+    "name": "Humlegården"
   },
   "740046208": {
     "site_id": 1151,
@@ -798,6 +1778,10 @@
   "740077867": {
     "site_id": 1155,
     "name": "Norra Hamnvägen"
+  },
+  "740046206": {
+    "site_id": 1159,
+    "name": "Hangövägen"
   },
   "740046167": {
     "site_id": 1160,
@@ -818,6 +1802,10 @@
   "740046166": {
     "site_id": 1164,
     "name": "Jaktgatan"
+  },
+  "740046171": {
+    "site_id": 1165,
+    "name": "Storängskroken"
   },
   "740046175": {
     "site_id": 1166,
@@ -863,6 +1851,10 @@
     "site_id": 1180,
     "name": "Lektorsstigen"
   },
+  "740045998": {
+    "site_id": 1181,
+    "name": "Stora Skuggan"
+  },
   "740067498": {
     "site_id": 1182,
     "name": "Stora Lappkärrsberget"
@@ -871,13 +1863,29 @@
     "site_id": 1183,
     "name": "Professorsslingan"
   },
+  "740067495": {
+    "site_id": 1184,
+    "name": "Ekhagsvägen"
+  },
+  "740067496": {
+    "site_id": 1185,
+    "name": "Ekhagstorget"
+  },
   "740067494": {
     "site_id": 1186,
     "name": "Bergiusvägen"
   },
+  "740046173": {
+    "site_id": 1187,
+    "name": "Ryttarstadion"
+  },
   "740046119": {
     "site_id": 1189,
     "name": "Naturhistoriska riksmuseet"
+  },
+  "740072900": {
+    "site_id": 1190,
+    "name": "Frihamnspiren"
   },
   "740046080": {
     "site_id": 1200,
@@ -910,6 +1918,10 @@
   "740046121": {
     "site_id": 1207,
     "name": "Pontonjärparken"
+  },
+  "740046123": {
+    "site_id": 1208,
+    "name": "Fridhemsgatan"
   },
   "740046120": {
     "site_id": 1208,
@@ -949,7 +1961,7 @@
   },
   "740045981": {
     "site_id": 1217,
-    "name": "Kronobergsg (på K-holms str)"
+    "name": "Kronobergsgatan"
   },
   "740021661": {
     "site_id": 1219,
@@ -965,7 +1977,7 @@
   },
   "740046077": {
     "site_id": 1229,
-    "name": "Kronobergsg (på Hantverkarg)"
+    "name": "Kronobergsgatan"
   },
   "740021662": {
     "site_id": 9307,
@@ -1007,6 +2019,10 @@
     "site_id": 1252,
     "name": "Strandbergsgatan"
   },
+  "740046097": {
+    "site_id": 1253,
+    "name": "Mariedalsvägen"
+  },
   "740064035": {
     "site_id": 1254,
     "name": "Eyvind Johnsons gata"
@@ -1025,7 +2041,7 @@
   },
   "740045984": {
     "site_id": 1258,
-    "name": "Fridhemsg (på K-holms strand)"
+    "name": "Fridhemsgatan"
   },
   "740046214": {
     "site_id": 1259,
@@ -1059,6 +2075,10 @@
     "site_id": 1267,
     "name": "Mariedalsvägen"
   },
+  "740046116": {
+    "site_id": 1268,
+    "name": "Lindhagensplan"
+  },
   "740046115": {
     "site_id": 1269,
     "name": "Lindhagensgatan"
@@ -1085,7 +2105,7 @@
   },
   "740046108": {
     "site_id": 1275,
-    "name": "Lilla Essingen (buss)"
+    "name": "Lilla Essingen"
   },
   "740046109": {
     "site_id": 1276,
@@ -1131,10 +2151,6 @@
     "site_id": 1302,
     "name": "Sofiaskolan"
   },
-  "740046213": {
-    "site_id": 1303,
-    "name": "Barnängsbryggan"
-  },
   "740046052": {
     "site_id": 1304,
     "name": "Erstagatan"
@@ -1147,13 +2163,21 @@
     "site_id": 1306,
     "name": "Folkungagatan"
   },
+  "740046049": {
+    "site_id": 1307,
+    "name": "Renstiernas gata"
+  },
   "740046048": {
     "site_id": 1308,
-    "name": "Skånegatan"
+    "name": "Åsögatan"
+  },
+  "740046087": {
+    "site_id": 1308,
+    "name": "Åsögatan"
   },
   "740046135": {
     "site_id": 1308,
-    "name": "Skånegatan"
+    "name": "Åsögatan"
   },
   "740046054": {
     "site_id": 1309,
@@ -1170,6 +2194,10 @@
   "740046088": {
     "site_id": 1312,
     "name": "Gotlandsgatan"
+  },
+  "740046202": {
+    "site_id": 1313,
+    "name": "Malmgårdsvägen"
   },
   "740046122": {
     "site_id": 1314,
@@ -1207,25 +2235,33 @@
     "site_id": 1324,
     "name": "Bondegatan"
   },
+  "740046200": {
+    "site_id": 1326,
+    "name": "Närkesgatan"
+  },
   "740046198": {
     "site_id": 1327,
     "name": "Nytorgsgatan"
   },
   "740046190": {
     "site_id": 1328,
-    "name": "Åsögatan (på Åsögatan)"
+    "name": "Åsögatan"
+  },
+  "740046094": {
+    "site_id": 1334,
+    "name": "Krukmakargatan"
   },
   "740039043": {
     "site_id": 1335,
-    "name": "Mariatorget (på Hornsgatan)"
+    "name": "Mariatorget"
   },
   "740046168": {
     "site_id": 1336,
-    "name": "Krukmakargatan (Timmermansg)"
+    "name": "Krukmakargatan"
   },
   "740046169": {
     "site_id": 1337,
-    "name": "Wollmar Yxkullsg (på T.mansg)"
+    "name": "Wollmar Yxkullsgatan"
   },
   "740046170": {
     "site_id": 1338,
@@ -1243,9 +2279,17 @@
     "site_id": 1340,
     "name": "Riddarhustorget"
   },
+  "740046203": {
+    "site_id": 1341,
+    "name": "Riksdagshuset"
+  },
   "740046002": {
     "site_id": 1342,
     "name": "Slottsbacken"
+  },
+  "740046003": {
+    "site_id": 1343,
+    "name": "Räntmästartrappan"
   },
   "740021653": {
     "site_id": 9193,
@@ -1305,7 +2349,7 @@
   },
   "740046193": {
     "site_id": 1363,
-    "name": "Rosenlundsgatan ( M Ladulåsg)"
+    "name": "Rosenlundsgatan"
   },
   "740045462": {
     "site_id": 1365,
@@ -1313,7 +2357,7 @@
   },
   "740046160": {
     "site_id": 1366,
-    "name": "Wollmar Yxkullsg (på Rosenl.g)"
+    "name": "Wollmar Yxkullsgatan"
   },
   "740046158": {
     "site_id": 1367,
@@ -1329,7 +2373,7 @@
   },
   "740046157": {
     "site_id": 1372,
-    "name": "Ansgariegatan (på Hornsgatan)"
+    "name": "Ansgariegatan"
   },
   "740046156": {
     "site_id": 1373,
@@ -1341,7 +2385,7 @@
   },
   "740071562": {
     "site_id": 1375,
-    "name": "Ansgariegatan (på Lundagatan)"
+    "name": "Ansgariegatan"
   },
   "740046229": {
     "site_id": 1376,
@@ -1362,6 +2406,10 @@
   "740046228": {
     "site_id": 1381,
     "name": "Högalidsgatan"
+  },
+  "740046227": {
+    "site_id": 1383,
+    "name": "Verkstadsgatan"
   },
   "740046222": {
     "site_id": 1385,
@@ -1387,17 +2435,29 @@
     "site_id": 1400,
     "name": "Waldemarsudde"
   },
+  "740046069": {
+    "site_id": 1402,
+    "name": "Ryssviksvägen"
+  },
   "740046066": {
     "site_id": 1403,
     "name": "Djurgårdsskolan"
   },
-  "740018281": {
+  "740045945": {
     "site_id": 1405,
     "name": "Skansen"
+  },
+  "740018281": {
+    "site_id": 1419,
+    "name": "Skansenslingan"
   },
   "740018282": {
     "site_id": 1406,
     "name": "Liljevalchs/Gröna Lund"
+  },
+  "740046035": {
+    "site_id": 1407,
+    "name": "Hazeliusporten"
   },
   "740046031": {
     "site_id": 1408,
@@ -1431,6 +2491,10 @@
     "site_id": 1415,
     "name": "Kaknästornet södra"
   },
+  "740020556": {
+    "site_id": 1418,
+    "name": "Kaknästornet"
+  },
   "740046243": {
     "site_id": 1416,
     "name": "Kaknäs"
@@ -1447,21 +2511,61 @@
     "site_id": 1420,
     "name": "Blockhusudden"
   },
+  "740046250": {
+    "site_id": 1421,
+    "name": "Sjöstugan"
+  },
   "740046249": {
     "site_id": 1422,
     "name": "Thielska galleriet"
+  },
+  "740046248": {
+    "site_id": 1423,
+    "name": "Isbladskärret"
   },
   "740076684": {
     "site_id": 1424,
     "name": "Münchenbryggeriet"
   },
+  "740046247": {
+    "site_id": 1425,
+    "name": "Manillavägen"
+  },
   "740046246": {
     "site_id": 1426,
     "name": "Manilla"
   },
+  "740046245": {
+    "site_id": 1427,
+    "name": "Edelstams väg"
+  },
+  "740074706": {
+    "site_id": 1430,
+    "name": "Löjtnantsgränd"
+  },
+  "740074705": {
+    "site_id": 1431,
+    "name": "Korpralsvägen"
+  },
+  "740074704": {
+    "site_id": 1432,
+    "name": "Barkarby handelsplats östra"
+  },
   "740075589": {
     "site_id": 1433,
     "name": "Lansengatan"
+  },
+  "740075587": {
+    "site_id": 1434,
+    "name": "Flygfältsvägen"
+  },
+  "740075590": {
+    "site_id": 1435,
+    "name": "Löjtnantsvägen"
+  },
+  "740075588": {
+    "site_id": 1436,
+    "name": "Kaptensvägen"
   },
   "740046144": {
     "site_id": 1440,
@@ -1511,6 +2615,10 @@
     "site_id": 1452,
     "name": "Gäddviken"
   },
+  "740071563": {
+    "site_id": 1452,
+    "name": "Gäddviken"
+  },
   "740046236": {
     "site_id": 1453,
     "name": "Finnbergsvägen"
@@ -1519,7 +2627,11 @@
     "site_id": 1454,
     "name": "Finnberget"
   },
-  "740061810": {
+  "740018250": {
+    "site_id": 1459,
+    "name": "Kvarnholmens Centrum"
+  },
+  "740034745": {
     "site_id": 1455,
     "name": "Kvarnholmen"
   },
@@ -1535,6 +2647,14 @@
     "site_id": 1457,
     "name": "Tre kronor"
   },
+  "740066238": {
+    "site_id": 1458,
+    "name": "Makaronifabriken"
+  },
+  "740001265": {
+    "site_id": 1460,
+    "name": "Tegelvikshamnen"
+  },
   "740046141": {
     "site_id": 1461,
     "name": "Londonviadukten"
@@ -1546,6 +2666,10 @@
   "740046231": {
     "site_id": 1463,
     "name": "Mandelparken"
+  },
+  "740051819": {
+    "site_id": 1500,
+    "name": "Årsta torg"
   },
   "740053057": {
     "site_id": 1500,
@@ -1634,6 +2758,10 @@
   "740065515": {
     "site_id": 1528,
     "name": "Valla gärde"
+  },
+  "740065517": {
+    "site_id": 1529,
+    "name": "Älvkällevägen"
   },
   "740052450": {
     "site_id": 1530,
@@ -1827,6 +2955,10 @@
     "site_id": 1601,
     "name": "Stora Fågelsången"
   },
+  "740065673": {
+    "site_id": 1602,
+    "name": "Solfjädern"
+  },
   "740024922": {
     "site_id": 1603,
     "name": "Trekanten"
@@ -1838,6 +2970,10 @@
   "740024923": {
     "site_id": 1605,
     "name": "Gröndal"
+  },
+  "740065674": {
+    "site_id": 1606,
+    "name": "Nackspegeln"
   },
   "740065669": {
     "site_id": 1607,
@@ -1851,9 +2987,25 @@
     "site_id": 1609,
     "name": "Fågelsångsvägen"
   },
+  "740065676": {
+    "site_id": 1613,
+    "name": "Lina Sandells plan"
+  },
+  "740052210": {
+    "site_id": 1617,
+    "name": "Årsta hamnväg"
+  },
+  "740052257": {
+    "site_id": 1618,
+    "name": "Sjöviksbacken nedre"
+  },
   "740065626": {
     "site_id": 1619,
     "name": "Marievik"
+  },
+  "740065678": {
+    "site_id": 1621,
+    "name": "Eva Bonniers gata"
   },
   "740065666": {
     "site_id": 1622,
@@ -1870,6 +3022,10 @@
   "740052305": {
     "site_id": 1626,
     "name": "Hildebergsvägen"
+  },
+  "740065679": {
+    "site_id": 1627,
+    "name": "Fruängstorget"
   },
   "740051109": {
     "site_id": 1630,
@@ -1999,6 +3155,10 @@
     "site_id": 1663,
     "name": "Dr Widerströms gata"
   },
+  "740065675": {
+    "site_id": 1663,
+    "name": "Dr Widerströms gata"
+  },
   "740065611": {
     "site_id": 1664,
     "name": "Häradsvägen"
@@ -2033,7 +3193,7 @@
   },
   "740053702": {
     "site_id": 1673,
-    "name": "Storsvängen (Slättgårdsv)"
+    "name": "Storsvängen"
   },
   "740051101": {
     "site_id": 1674,
@@ -2131,13 +3291,25 @@
     "site_id": 1698,
     "name": "Svanholmsvägen"
   },
+  "740065677": {
+    "site_id": 1699,
+    "name": "Kata Dalströms gata"
+  },
   "740065512": {
     "site_id": 1700,
     "name": "Juliaborg"
   },
   "740045479": {
     "site_id": 1701,
-    "name": "Hägerstensåsen (närtrafiken)"
+    "name": "Hägerstensåsen"
+  },
+  "740065680": {
+    "site_id": 1702,
+    "name": "Ellen Keys gata"
+  },
+  "740065681": {
+    "site_id": 1703,
+    "name": "Städrocken"
   },
   "740065682": {
     "site_id": 1704,
@@ -2162,6 +3334,10 @@
   "740065604": {
     "site_id": 1709,
     "name": "Tystbergavägen"
+  },
+  "740065684": {
+    "site_id": 1710,
+    "name": "Elin Wägners gata"
   },
   "740065667": {
     "site_id": 1711,
@@ -2195,6 +3371,14 @@
     "site_id": 1718,
     "name": "Karusellplan"
   },
+  "740065685": {
+    "site_id": 1719,
+    "name": "Hanna Ryds gata"
+  },
+  "740072278": {
+    "site_id": 1720,
+    "name": "Solbergaskolan"
+  },
   "740065484": {
     "site_id": 1721,
     "name": "Västbergavägen"
@@ -2202,6 +3386,10 @@
   "740065627": {
     "site_id": 1722,
     "name": "Kontrollvägen"
+  },
+  "740065686": {
+    "site_id": 1723,
+    "name": "Bandyvägen"
   },
   "740065486": {
     "site_id": 1724,
@@ -2259,6 +3447,54 @@
     "site_id": 1737,
     "name": "Vallfartsvägen"
   },
+  "740065687": {
+    "site_id": 1738,
+    "name": "Stadsdelsförvaltningen"
+  },
+  "740065688": {
+    "site_id": 1739,
+    "name": "Skidvägen"
+  },
+  "740065689": {
+    "site_id": 1740,
+    "name": "Skidtränaren"
+  },
+  "740065690": {
+    "site_id": 1741,
+    "name": "Stämsvängen"
+  },
+  "740065691": {
+    "site_id": 1742,
+    "name": "Apoteket"
+  },
+  "740065692": {
+    "site_id": 1743,
+    "name": "Stöttingsgränd"
+  },
+  "740065693": {
+    "site_id": 1744,
+    "name": "Terrängvägen"
+  },
+  "740065694": {
+    "site_id": 1745,
+    "name": "Störtloppsvägen"
+  },
+  "740065695": {
+    "site_id": 1746,
+    "name": "Telemarksgränd"
+  },
+  "740065696": {
+    "site_id": 1747,
+    "name": "Stavgränd"
+  },
+  "740065697": {
+    "site_id": 1748,
+    "name": "Avgiftsvägen"
+  },
+  "740065698": {
+    "site_id": 1749,
+    "name": "Hodellvägen"
+  },
   "740062050": {
     "site_id": 1750,
     "name": "Långsjö torg"
@@ -2290,6 +3526,14 @@
   "740065493": {
     "site_id": 1757,
     "name": "Vantörsvägen"
+  },
+  "740065699": {
+    "site_id": 1758,
+    "name": "Stjernströms väg"
+  },
+  "740065700": {
+    "site_id": 1759,
+    "name": "Gösta Ekmans väg"
   },
   "740065505": {
     "site_id": 1760,
@@ -2403,6 +3647,10 @@
     "site_id": 1789,
     "name": "Långbrohallen"
   },
+  "740078984": {
+    "site_id": 1790,
+    "name": "Luftkabelgatan"
+  },
   "740069242": {
     "site_id": 1791,
     "name": "Gesällbacken"
@@ -2467,6 +3715,10 @@
     "site_id": 1812,
     "name": "Stora Sköndals väg"
   },
+  "740065550": {
+    "site_id": 1814,
+    "name": "Sandåkraskolan"
+  },
   "740065551": {
     "site_id": 1815,
     "name": "Kokoskakan"
@@ -2490,6 +3742,10 @@
   "740069413": {
     "site_id": 1821,
     "name": "Skarpnäcks gård"
+  },
+  "740069370": {
+    "site_id": 1822,
+    "name": "Listuddsvägen"
   },
   "740069369": {
     "site_id": 1823,
@@ -2538,6 +3794,10 @@
   "740021691": {
     "site_id": 1838,
     "name": "Skarpnäcksområdet"
+  },
+  "740076289": {
+    "site_id": 1840,
+    "name": "Mynttorget"
   },
   "740065542": {
     "site_id": 1850,
@@ -2592,6 +3852,10 @@
     "name": "Sågverksgatan"
   },
   "740021699": {
+    "site_id": 9183,
+    "name": "Gubbängen"
+  },
+  "740045472": {
     "site_id": 7956,
     "name": "Gubbängen T-stn"
   },
@@ -2873,11 +4137,11 @@
   },
   "740051254": {
     "site_id": 1954,
-    "name": "Helgestavägen (på Årdalavägen)"
+    "name": "Helgestavägen"
   },
   "740051233": {
     "site_id": 1955,
-    "name": "Aspövägen (på Årdalavägen)"
+    "name": "Aspövägen"
   },
   "740051234": {
     "site_id": 1956,
@@ -2913,15 +4177,19 @@
   },
   "740065658": {
     "site_id": 1964,
-    "name": "Helgestavägen (på Sköldingev)"
+    "name": "Helgestavägen"
   },
   "740065659": {
     "site_id": 1965,
-    "name": "Aspövägen (på Sköldingevägen)"
+    "name": "Aspövägen"
   },
   "740052009": {
     "site_id": 1967,
     "name": "Älvsjömotet"
+  },
+  "740052649": {
+    "site_id": 1969,
+    "name": "Skebokvarnsvägen/Örbyleden"
   },
   "740069152": {
     "site_id": 1970,
@@ -2943,6 +4211,10 @@
     "site_id": 1974,
     "name": "Trollesundsvägen"
   },
+  "740066005": {
+    "site_id": 1974,
+    "name": "Trollesundsvägen"
+  },
   "740058309": {
     "site_id": 1975,
     "name": "Högdalsdepån"
@@ -2950,6 +4222,10 @@
   "740069226": {
     "site_id": 1976,
     "name": "Högdalens industri"
+  },
+  "740059035": {
+    "site_id": 1977,
+    "name": "Kvicksundsvägen"
   },
   "740059036": {
     "site_id": 1978,
@@ -3147,6 +4423,10 @@
     "site_id": 2034,
     "name": "Constantiavägen"
   },
+  "740066161": {
+    "site_id": 2035,
+    "name": "Korsfararvägen"
+  },
   "740066170": {
     "site_id": 2036,
     "name": "Högsätrahuset"
@@ -3169,7 +4449,7 @@
   },
   "740066121": {
     "site_id": 2044,
-    "name": "Furutorp (Wijk)"
+    "name": "Furutorp"
   },
   "740066120": {
     "site_id": 2045,
@@ -3194,6 +4474,10 @@
   "740066141": {
     "site_id": 2051,
     "name": "Karpvägen"
+  },
+  "740066140": {
+    "site_id": 2052,
+    "name": "Spättvägen"
   },
   "740066142": {
     "site_id": 2053,
@@ -3241,7 +4525,7 @@
   },
   "740045918": {
     "site_id": 2064,
-    "name": "Baggeby (på Mosstorpsvägen)"
+    "name": "Baggeby"
   },
   "740066144": {
     "site_id": 2065,
@@ -3254,10 +4538,6 @@
   "740066098": {
     "site_id": 2067,
     "name": "Lerbovägen"
-  },
-  "740045927": {
-    "site_id": 2070,
-    "name": "Larsberg (vändslingan)"
   },
   "740045928": {
     "site_id": 2071,
@@ -3406,6 +4686,10 @@
   "740067532": {
     "site_id": 2117,
     "name": "Stallbacken"
+  },
+  "740067525": {
+    "site_id": 2118,
+    "name": "Eddavägen"
   },
   "740067478": {
     "site_id": 2120,
@@ -3567,6 +4851,10 @@
     "site_id": 2194,
     "name": "Kryddgårdsvägen"
   },
+  "740067598": {
+    "site_id": 2199,
+    "name": "Österängsvägen"
+  },
   "740045615": {
     "site_id": 2200,
     "name": "Mycronic"
@@ -3639,6 +4927,10 @@
     "site_id": 2217,
     "name": "Gribbylund norra"
   },
+  "740067606": {
+    "site_id": 2220,
+    "name": "Norskolan"
+  },
   "740067612": {
     "site_id": 2221,
     "name": "Örnstigen"
@@ -3668,6 +4960,10 @@
     "name": "Viggbyskolan"
   },
   "740000779": {
+    "site_id": 9669,
+    "name": "Täby centrum"
+  },
+  "740067559": {
     "site_id": 2230,
     "name": "Marknadsvägen"
   },
@@ -3742,6 +5038,10 @@
   "740067590": {
     "site_id": 2248,
     "name": "Drakskeppsvägen"
+  },
+  "740014666": {
+    "site_id": 2249,
+    "name": "Hägernäs Pilotvägen"
   },
   "740067622": {
     "site_id": 2250,
@@ -3855,6 +5155,14 @@
     "site_id": 2278,
     "name": "Svampskogsvägen"
   },
+  "740067563": {
+    "site_id": 2279,
+    "name": "V Löttingelund"
+  },
+  "740067571": {
+    "site_id": 2280,
+    "name": "Rosenkälla"
+  },
   "740067569": {
     "site_id": 2282,
     "name": "Lövsättra vägskäl"
@@ -3886,6 +5194,10 @@
   "740067595": {
     "site_id": 2291,
     "name": "Ritarslingan"
+  },
+  "740045595": {
+    "site_id": 2292,
+    "name": "Saluvägen"
   },
   "740068679": {
     "site_id": 2293,
@@ -3930,6 +5242,10 @@
   "740076732": {
     "site_id": 2306,
     "name": "Ytterbyskolan"
+  },
+  "740067599": {
+    "site_id": 2309,
+    "name": "Enhagsvägen"
   },
   "740067597": {
     "site_id": 2310,
@@ -4091,6 +5407,10 @@
     "site_id": 2406,
     "name": "Vallentunabadet"
   },
+  "740067724": {
+    "site_id": 2407,
+    "name": "Hjälmstaskolan"
+  },
   "740070577": {
     "site_id": 2408,
     "name": "Blåmesvägen"
@@ -4195,6 +5515,10 @@
     "site_id": 2433,
     "name": "Örsta"
   },
+  "740078979": {
+    "site_id": 2434,
+    "name": "Lugnets väg"
+  },
   "740067759": {
     "site_id": 2435,
     "name": "Gillingebanan"
@@ -4242,6 +5566,14 @@
   "740068672": {
     "site_id": 2446,
     "name": "Svista"
+  },
+  "740067841": {
+    "site_id": 2447,
+    "name": "Smidesvägen"
+  },
+  "740068264": {
+    "site_id": 2449,
+    "name": "Norrtorp"
   },
   "740067766": {
     "site_id": 2450,
@@ -4357,7 +5689,7 @@
   },
   "740068662": {
     "site_id": 2477,
-    "name": "Åby (Vada)"
+    "name": "Åby"
   },
   "740068661": {
     "site_id": 2478,
@@ -4370,6 +5702,26 @@
   "740076286": {
     "site_id": 2480,
     "name": "Gustavslund"
+  },
+  "740068637": {
+    "site_id": 2500,
+    "name": "Fredens vägskäl"
+  },
+  "740068636": {
+    "site_id": 2501,
+    "name": "Stängselboda"
+  },
+  "740068638": {
+    "site_id": 2502,
+    "name": "Västlunda"
+  },
+  "740068639": {
+    "site_id": 2503,
+    "name": "Lindö"
+  },
+  "740068640": {
+    "site_id": 2504,
+    "name": "Lindö säteri"
   },
   "740052917": {
     "site_id": 2505,
@@ -4430,6 +5782,10 @@
   "740066716": {
     "site_id": 2526,
     "name": "Stora Mellösa"
+  },
+  "740010307": {
+    "site_id": 2527,
+    "name": "Berga"
   },
   "740068647": {
     "site_id": 2528,
@@ -4679,6 +6035,10 @@
     "site_id": 2609,
     "name": "Runö gård"
   },
+  "740067734": {
+    "site_id": 2610,
+    "name": "Ryds Långbro"
+  },
   "740067735": {
     "site_id": 2611,
     "name": "Stava värdshus"
@@ -4686,6 +6046,14 @@
   "740067736": {
     "site_id": 2612,
     "name": "Stava gård"
+  },
+  "740068719": {
+    "site_id": 2613,
+    "name": "Rallarvägen"
+  },
+  "740068595": {
+    "site_id": 2614,
+    "name": "Bergavägen"
   },
   "740067729": {
     "site_id": 2615,
@@ -5079,7 +6447,15 @@
     "site_id": 2736,
     "name": "Hummelmora"
   },
+  "740034603": {
+    "site_id": 2736,
+    "name": "Hummelmora"
+  },
   "740020575": {
+    "site_id": 2740,
+    "name": "Laggarsvik"
+  },
+  "740034595": {
     "site_id": 2740,
     "name": "Laggarsvik"
   },
@@ -5119,6 +6495,10 @@
     "site_id": 2752,
     "name": "Stensvik"
   },
+  "740034602": {
+    "site_id": 2752,
+    "name": "Stensvik"
+  },
   "740067808": {
     "site_id": 2753,
     "name": "Solvik"
@@ -5136,6 +6516,10 @@
     "name": "Mjölnarström"
   },
   "740067788": {
+    "site_id": 2760,
+    "name": "Ljusterö torg"
+  },
+  "740068653": {
     "site_id": 2760,
     "name": "Ljusterö torg"
   },
@@ -5255,6 +6639,10 @@
     "site_id": 2801,
     "name": "Västerhamnsplan"
   },
+  "740000784": {
+    "site_id": 2800,
+    "name": "Vaxholm"
+  },
   "740018045": {
     "site_id": 2801,
     "name": "Västerhamnsplan"
@@ -5291,6 +6679,10 @@
     "site_id": 2808,
     "name": "Karlsudd"
   },
+  "740014435": {
+    "site_id": 2809,
+    "name": "Norrbergsskolan"
+  },
   "740001275": {
     "site_id": 2810,
     "name": "Ytterby"
@@ -5322,6 +6714,10 @@
   "740068687": {
     "site_id": 2817,
     "name": "Eriksövägen"
+  },
+  "740014589": {
+    "site_id": 2818,
+    "name": "Församlingsgården"
   },
   "740068700": {
     "site_id": 2819,
@@ -5367,6 +6763,14 @@
     "site_id": 2829,
     "name": "Nyboda/Ladvik"
   },
+  "740024350": {
+    "site_id": 2830,
+    "name": "Kulla vägskäl"
+  },
+  "740068706": {
+    "site_id": 2830,
+    "name": "Kulla vägskäl"
+  },
   "740034949": {
     "site_id": 2830,
     "name": "Kulla vägskäl"
@@ -5386,6 +6790,14 @@
   "740068680": {
     "site_id": 2835,
     "name": "Östra Ryds kyrka"
+  },
+  "740078980": {
+    "site_id": 2837,
+    "name": "Växö idrottsplats"
+  },
+  "740078981": {
+    "site_id": 2838,
+    "name": "Stora Skutviken"
   },
   "740068707": {
     "site_id": 2840,
@@ -5455,10 +6867,6 @@
     "site_id": 2861,
     "name": "Rindö västra"
   },
-  "740045833": {
-    "site_id": 2862,
-    "name": "Rindöbaden"
-  },
   "740068720": {
     "site_id": 2863,
     "name": "Annedal"
@@ -5494,6 +6902,10 @@
   "740068729": {
     "site_id": 2871,
     "name": "Grenadjärsvägen"
+  },
+  "740045831": {
+    "site_id": 2872,
+    "name": "Rindö by"
   },
   "740068728": {
     "site_id": 2873,
@@ -5761,7 +7173,7 @@
   },
   "740045780": {
     "site_id": 2985,
-    "name": "Kilen (Roslagsbro vägskäl)"
+    "name": "Kilen"
   },
   "740068510": {
     "site_id": 2986,
@@ -5911,6 +7323,14 @@
     "site_id": 3032,
     "name": "Fredrikstrandsvägen"
   },
+  "740065730": {
+    "site_id": 3033,
+    "name": "Trädgården"
+  },
+  "740065728": {
+    "site_id": 3034,
+    "name": "Brygga gård"
+  },
   "740045292": {
     "site_id": 3035,
     "name": "Ekebyhovsbacken"
@@ -6029,7 +7449,7 @@
   },
   "740065717": {
     "site_id": 3075,
-    "name": "Jungfrusund (buss)"
+    "name": "Jungfrusund"
   },
   "740065752": {
     "site_id": 3078,
@@ -6159,6 +7579,10 @@
     "site_id": 3130,
     "name": "Kärsö gård"
   },
+  "740065793": {
+    "site_id": 3131,
+    "name": "Gräsbacka"
+  },
   "740065794": {
     "site_id": 3132,
     "name": "Kärsösund"
@@ -6218,6 +7642,10 @@
   "740065816": {
     "site_id": 3147,
     "name": "Stenkulla"
+  },
+  "740065808": {
+    "site_id": 3150,
+    "name": "Sluts brygga"
   },
   "740065775": {
     "site_id": 3151,
@@ -6354,6 +7782,10 @@
   "740065823": {
     "site_id": 3191,
     "name": "Lindby"
+  },
+  "740065856": {
+    "site_id": 3192,
+    "name": "Lindby brygga"
   },
   "740065835": {
     "site_id": 3193,
@@ -6651,6 +8083,34 @@
     "site_id": 3283,
     "name": "Kungsbergasvängen"
   },
+  "740065857": {
+    "site_id": 3300,
+    "name": "Norrudden"
+  },
+  "740065855": {
+    "site_id": 3301,
+    "name": "Fritiden"
+  },
+  "740065854": {
+    "site_id": 3302,
+    "name": "Hillersjönäs"
+  },
+  "740065853": {
+    "site_id": 3304,
+    "name": "Ricksättra"
+  },
+  "740065852": {
+    "site_id": 3305,
+    "name": "Logdalen"
+  },
+  "740065837": {
+    "site_id": 3306,
+    "name": "Norrskog"
+  },
+  "740065851": {
+    "site_id": 3307,
+    "name": "Kungsgården"
+  },
   "740065877": {
     "site_id": 3310,
     "name": "Jäsängen"
@@ -6759,6 +8219,10 @@
     "site_id": 3404,
     "name": "Karolinska institutet västra"
   },
+  "740072450": {
+    "site_id": 3405,
+    "name": "Karolinska institutet norra"
+  },
   "740012127": {
     "site_id": 3406,
     "name": "Karolinska institutet Biomedicum"
@@ -6839,6 +8303,18 @@
     "site_id": 3425,
     "name": "Sörentorp"
   },
+  "740066546": {
+    "site_id": 3426,
+    "name": "Norra grinden"
+  },
+  "740066548": {
+    "site_id": 3427,
+    "name": "Hotellgatan"
+  },
+  "740066549": {
+    "site_id": 3428,
+    "name": "S grinden"
+  },
   "740045591": {
     "site_id": 3429,
     "name": "Ulriksdals begravningsplats"
@@ -6903,9 +8379,25 @@
     "site_id": 3443,
     "name": "Råstahem"
   },
+  "740066598": {
+    "site_id": 3445,
+    "name": "Råstasjön"
+  },
+  "740066597": {
+    "site_id": 3446,
+    "name": "Sjövägen"
+  },
+  "740066596": {
+    "site_id": 3447,
+    "name": "Råstavägen"
+  },
   "740066595": {
     "site_id": 3448,
     "name": "Östervägen"
+  },
+  "740066601": {
+    "site_id": 3449,
+    "name": "Backvägen"
   },
   "740066586": {
     "site_id": 3450,
@@ -6967,6 +8459,10 @@
     "site_id": 3464,
     "name": "Frösundaleden"
   },
+  "740017964": {
+    "site_id": 3465,
+    "name": "Kungshamravägen"
+  },
   "740066593": {
     "site_id": 3466,
     "name": "Bollgatan"
@@ -6993,7 +8489,7 @@
   },
   "740021642": {
     "site_id": 9954,
-    "name": "Solna centrum (Närtrafiken)"
+    "name": "Solna centrum"
   },
   "740045585": {
     "site_id": 3472,
@@ -7002,6 +8498,10 @@
   "740064053": {
     "site_id": 9305,
     "name": "Solna centrum"
+  },
+  "740066626": {
+    "site_id": 3473,
+    "name": "Höstvägen"
   },
   "740066734": {
     "site_id": 3474,
@@ -7099,6 +8599,10 @@
     "site_id": 3495,
     "name": "Biddlesberg"
   },
+  "740066580": {
+    "site_id": 3496,
+    "name": "Jungfrudansen"
+  },
   "740045583": {
     "site_id": 3497,
     "name": "Göran Perssons väg"
@@ -7107,9 +8611,17 @@
     "site_id": 3498,
     "name": "Kvarter 13"
   },
+  "740066741": {
+    "site_id": 3499,
+    "name": "Kvarter 12"
+  },
   "740050957": {
     "site_id": 3500,
     "name": "Löfströms allé"
+  },
+  "740052915": {
+    "site_id": 3501,
+    "name": "Järva skjutbaneväg"
   },
   "740066556": {
     "site_id": 3502,
@@ -7138,6 +8650,10 @@
   "740059583": {
     "site_id": 3508,
     "name": "Ursviks motionsgård"
+  },
+  "740061813": {
+    "site_id": 3509,
+    "name": "Evenemangsgatan"
   },
   "740066558": {
     "site_id": 3510,
@@ -7170,6 +8686,10 @@
   "740045570": {
     "site_id": 3517,
     "name": "Rissneleden"
+  },
+  "740050151": {
+    "site_id": 3518,
+    "name": "Fredsgatan"
   },
   "740050098": {
     "site_id": 3519,
@@ -7219,6 +8739,10 @@
     "site_id": 3531,
     "name": "Mjölnerbacken"
   },
+  "740074586": {
+    "site_id": 3532,
+    "name": "Milstensvägen"
+  },
   "740045569": {
     "site_id": 3533,
     "name": "Rissnehallen"
@@ -7226,6 +8750,10 @@
   "740050096": {
     "site_id": 3534,
     "name": "Artillerivägen"
+  },
+  "740067296": {
+    "site_id": 3535,
+    "name": "Rinkeby kvarn"
   },
   "740067295": {
     "site_id": 3536,
@@ -7283,6 +8811,10 @@
     "site_id": 3549,
     "name": "Råsta"
   },
+  "740070753": {
+    "site_id": 3550,
+    "name": "Ursvik"
+  },
   "740045575": {
     "site_id": 3551,
     "name": "Bergshamra allé"
@@ -7303,6 +8835,10 @@
     "site_id": 3555,
     "name": "Arenan"
   },
+  "740064062": {
+    "site_id": 3556,
+    "name": "Magasinsvägen"
+  },
   "740000759": {
     "site_id": 9509,
     "name": "Solna"
@@ -7310,6 +8846,10 @@
   "740072858": {
     "site_id": 3557,
     "name": "Mall of Scandinavia"
+  },
+  "740072859": {
+    "site_id": 3558,
+    "name": "Signalbron"
   },
   "740066628": {
     "site_id": 3561,
@@ -7326,6 +8866,10 @@
   "740066647": {
     "site_id": 3564,
     "name": "Bokvägen"
+  },
+  "740072845": {
+    "site_id": 3568,
+    "name": "Gränsgatan"
   },
   "740066602": {
     "site_id": 3569,
@@ -7346,6 +8890,10 @@
   "740049115": {
     "site_id": 3603,
     "name": "Ranhammarsvägen"
+  },
+  "740049129": {
+    "site_id": 3604,
+    "name": "Ulvsundavägen"
   },
   "740047671": {
     "site_id": 3606,
@@ -7398,6 +8946,10 @@
   "740046266": {
     "site_id": 3623,
     "name": "Ulvsundaplan"
+  },
+  "740047231": {
+    "site_id": 3624,
+    "name": "Lövåsvägen"
   },
   "740047477": {
     "site_id": 3625,
@@ -7479,6 +9031,10 @@
     "site_id": 3645,
     "name": "Nyängsvägen"
   },
+  "740066088": {
+    "site_id": 3645,
+    "name": "Nyängsvägen"
+  },
   "740046261": {
     "site_id": 3646,
     "name": "Mossens idrottsplats"
@@ -7497,7 +9053,7 @@
   },
   "740045525": {
     "site_id": 3650,
-    "name": "Nockeby (på Drottningholmsvägen)"
+    "name": "Nockeby"
   },
   "740049250": {
     "site_id": 3651,
@@ -7550,6 +9106,10 @@
   "740049215": {
     "site_id": 3665,
     "name": "Vassvägen"
+  },
+  "740049270": {
+    "site_id": 3666,
+    "name": "Ängbybadet"
   },
   "740049175": {
     "site_id": 3667,
@@ -7639,6 +9199,14 @@
     "site_id": 3687,
     "name": "Smältvägen"
   },
+  "740061811": {
+    "site_id": 3688,
+    "name": "Annedal"
+  },
+  "740068864": {
+    "site_id": 3690,
+    "name": "Mariehällsskolan"
+  },
   "740049194": {
     "site_id": 3691,
     "name": "Sedumbacken"
@@ -7662,6 +9230,10 @@
   "740049190": {
     "site_id": 3704,
     "name": "Herdevägen"
+  },
+  "740049191": {
+    "site_id": 3705,
+    "name": "Logvägen"
   },
   "740049192": {
     "site_id": 3706,
@@ -7711,6 +9283,10 @@
     "site_id": 3719,
     "name": "Gamla Bromstensvägen"
   },
+  "740072432": {
+    "site_id": 3720,
+    "name": "Daggstigen"
+  },
   "740050929": {
     "site_id": 3721,
     "name": "Värsta allé"
@@ -7738,6 +9314,10 @@
   "740049271": {
     "site_id": 3728,
     "name": "Avestagatan"
+  },
+  "740049310": {
+    "site_id": 3729,
+    "name": "Fagerstagatan"
   },
   "740049835": {
     "site_id": 3730,
@@ -7771,6 +9351,10 @@
     "site_id": 3738,
     "name": "Lunda industriområde"
   },
+  "740067051": {
+    "site_id": 3739,
+    "name": "Lunda norra"
+  },
   "740066562": {
     "site_id": 3740,
     "name": "Bromstensplan"
@@ -7795,6 +9379,10 @@
     "site_id": 3745,
     "name": "Spånga idrottsplats"
   },
+  "740011194": {
+    "site_id": 3746,
+    "name": "Kista alléväg"
+  },
   "740016366": {
     "site_id": 3747,
     "name": "Kista alléväg"
@@ -7811,6 +9399,10 @@
     "site_id": 3750,
     "name": "Kistagången"
   },
+  "740011189": {
+    "site_id": 3753,
+    "name": "Grönlandsgången"
+  },
   "740011188": {
     "site_id": 3754,
     "name": "Kistavägen"
@@ -7822,6 +9414,10 @@
   "740011193": {
     "site_id": 3756,
     "name": "Viderögatan"
+  },
+  "740012881": {
+    "site_id": 3759,
+    "name": "Norgegatan"
   },
   "740016178": {
     "site_id": 3759,
@@ -7903,6 +9499,10 @@
     "site_id": 3780,
     "name": "Järva närsjukhus"
   },
+  "740045493": {
+    "site_id": 3781,
+    "name": "Rinkeby allé"
+  },
   "740045507": {
     "site_id": 3782,
     "name": "Tensta allé"
@@ -7950,6 +9550,10 @@
   "740066959": {
     "site_id": 3793,
     "name": "Hidinge backe"
+  },
+  "740078992": {
+    "site_id": 3794,
+    "name": "Järva begravningsplats"
   },
   "740066956": {
     "site_id": 3795,
@@ -8057,7 +9661,7 @@
   },
   "740066573": {
     "site_id": 3828,
-    "name": "Loviselundsvägen (Sandviksv)"
+    "name": "Loviselundsvägen"
   },
   "740066574": {
     "site_id": 3829,
@@ -8073,7 +9677,7 @@
   },
   "740070760": {
     "site_id": 3833,
-    "name": "Krossgatan (Lövstav.)"
+    "name": "Krossgatan"
   },
   "740066565": {
     "site_id": 3834,
@@ -8159,6 +9763,10 @@
     "site_id": 3856,
     "name": "Vällingbydepån"
   },
+  "740066092": {
+    "site_id": 3857,
+    "name": "Vällingbyvägen"
+  },
   "740044654": {
     "site_id": 3859,
     "name": "Hässelby slott"
@@ -8171,6 +9779,10 @@
     "site_id": 3861,
     "name": "Ryttmästarvägen"
   },
+  "740050923": {
+    "site_id": 3862,
+    "name": "Sorselevägen"
+  },
   "740050953": {
     "site_id": 3863,
     "name": "Arbrågatan"
@@ -8179,13 +9791,17 @@
     "site_id": 3864,
     "name": "Härjedalsgatan"
   },
+  "740050913": {
+    "site_id": 3866,
+    "name": "Sorterargatan"
+  },
   "740050897": {
     "site_id": 3867,
     "name": "Siktgatan"
   },
   "740050896": {
     "site_id": 3868,
-    "name": "Krossgatan (Skattegårdsv.)"
+    "name": "Krossgatan"
   },
   "740066975": {
     "site_id": 3869,
@@ -8231,6 +9847,10 @@
     "site_id": 3878,
     "name": "Järneksvägen"
   },
+  "740075201": {
+    "site_id": 3879,
+    "name": "Bättringsvägen"
+  },
   "740045497": {
     "site_id": 3880,
     "name": "Koppargården"
@@ -8259,7 +9879,15 @@
     "site_id": 3886,
     "name": "Vällingbyskolan"
   },
+  "740074247": {
+    "site_id": 3887,
+    "name": "Söderberga gårdsväg"
+  },
   "740049162": {
+    "site_id": 3889,
+    "name": "Bromma sjukhus"
+  },
+  "740051113": {
     "site_id": 3889,
     "name": "Bromma sjukhus"
   },
@@ -8271,21 +9899,77 @@
     "site_id": 3892,
     "name": "ÖB"
   },
+  "740049157": {
+    "site_id": 3900,
+    "name": "Blackebergs servicehus"
+  },
+  "740049178": {
+    "site_id": 3901,
+    "name": "Porthansvägen"
+  },
+  "740049156": {
+    "site_id": 3902,
+    "name": "Kiellandsplan"
+  },
+  "740049155": {
+    "site_id": 3903,
+    "name": "Holbergsgatan"
+  },
   "740049167": {
     "site_id": 3904,
     "name": "Stenen"
+  },
+  "740049174": {
+    "site_id": 3905,
+    "name": "Arvid Mörnes väg nedre"
   },
   "740049173": {
     "site_id": 3906,
     "name": "Arvid Mörnes väg övre"
   },
+  "740049158": {
+    "site_id": 3907,
+    "name": "Blackebergs skola"
+  },
+  "740049164": {
+    "site_id": 3908,
+    "name": "Ibsengatan övre"
+  },
   "740049166": {
     "site_id": 3909,
     "name": "Ibsengatan nedre"
   },
+  "740049159": {
+    "site_id": 3910,
+    "name": "Ibsengatan södra"
+  },
+  "740049177": {
+    "site_id": 3912,
+    "name": "Kanaans väg"
+  },
   "740049165": {
     "site_id": 3913,
     "name": "Tunets servicehus"
+  },
+  "740049170": {
+    "site_id": 3914,
+    "name": "Bromma kyrkskola"
+  },
+  "740014884": {
+    "site_id": 3915,
+    "name": "Bromma kyrka"
+  },
+  "740049171": {
+    "site_id": 3916,
+    "name": "Kyrksjölöten"
+  },
+  "740049168": {
+    "site_id": 3917,
+    "name": "Ängby torg"
+  },
+  "740049161": {
+    "site_id": 3918,
+    "name": "Ängby kyrka"
   },
   "740066059": {
     "site_id": 3919,
@@ -8315,6 +9999,10 @@
     "site_id": 3925,
     "name": "Enspännargatan"
   },
+  "740066066": {
+    "site_id": 3926,
+    "name": "Kavaljersstigen"
+  },
   "740066067": {
     "site_id": 3927,
     "name": "Liljeörnsgatan"
@@ -8329,7 +10017,7 @@
   },
   "740045480": {
     "site_id": 3930,
-    "name": "Hässelby slott (närtrafiken)"
+    "name": "Hässelby slott"
   },
   "740066070": {
     "site_id": 3931,
@@ -8434,6 +10122,10 @@
   "740066227": {
     "site_id": 4006,
     "name": "Knut Stangenbergs väg"
+  },
+  "740066317": {
+    "site_id": 4007,
+    "name": "Ektorpstorget"
   },
   "740031090": {
     "site_id": 4009,
@@ -8553,7 +10245,7 @@
   },
   "740045907": {
     "site_id": 4037,
-    "name": "Storängen (på Värmdövägen)"
+    "name": "Storängen"
   },
   "740066220": {
     "site_id": 4038,
@@ -8569,7 +10261,7 @@
   },
   "740045900": {
     "site_id": 4041,
-    "name": "Lillängen (på Värmdövägen)"
+    "name": "Lillängen"
   },
   "740066196": {
     "site_id": 4042,
@@ -8618,6 +10310,10 @@
   "740066311": {
     "site_id": 4053,
     "name": "Biet"
+  },
+  "740066313": {
+    "site_id": 4054,
+    "name": "Tallidsvägen"
   },
   "740066312": {
     "site_id": 4055,
@@ -8703,6 +10399,10 @@
     "site_id": 4112,
     "name": "Trädgårdsvägen"
   },
+  "740066252": {
+    "site_id": 4113,
+    "name": "Tollare"
+  },
   "740066253": {
     "site_id": 4114,
     "name": "Mellanbergsvägen"
@@ -8722,6 +10422,10 @@
   "740066265": {
     "site_id": 4118,
     "name": "Kompassvägen"
+  },
+  "740070755": {
+    "site_id": 4119,
+    "name": "Johannes Petri skola"
   },
   "740066283": {
     "site_id": 4120,
@@ -8826,6 +10530,10 @@
   "740066297": {
     "site_id": 4156,
     "name": "Risetvägen"
+  },
+  "740066296": {
+    "site_id": 4157,
+    "name": "Nordmannavägen"
   },
   "740066295": {
     "site_id": 4158,
@@ -9081,7 +10789,7 @@
   },
   "740026591": {
     "site_id": 4240,
-    "name": "Ålstäket (buss)"
+    "name": "Ålstäket"
   },
   "740024822": {
     "site_id": 4241,
@@ -9379,6 +11087,10 @@
     "site_id": 4371,
     "name": "Möjaström"
   },
+  "740024936": {
+    "site_id": 4371,
+    "name": "Möjaström"
+  },
   "740024316": {
     "site_id": 4372,
     "name": "Berg"
@@ -9391,7 +11103,15 @@
     "site_id": 4374,
     "name": "Ramsmora"
   },
+  "740034318": {
+    "site_id": 4374,
+    "name": "Ramsmora"
+  },
   "740072839": {
+    "site_id": 4375,
+    "name": "Långvik"
+  },
+  "740034440": {
     "site_id": 4375,
     "name": "Långvik"
   },
@@ -9599,6 +11319,10 @@
     "site_id": 4452,
     "name": "Fågelbrovägen"
   },
+  "740066417": {
+    "site_id": 4453,
+    "name": "Breviken"
+  },
   "740066418": {
     "site_id": 4454,
     "name": "Våmfjärden"
@@ -9650,6 +11374,14 @@
   "740066414": {
     "site_id": 4467,
     "name": "Strömma kanal"
+  },
+  "740025717": {
+    "site_id": 4468,
+    "name": "Strömma"
+  },
+  "740068862": {
+    "site_id": 4470,
+    "name": "Karsholm"
   },
   "740075578": {
     "site_id": 4475,
@@ -9911,6 +11643,10 @@
     "site_id": 4570,
     "name": "Lillsved"
   },
+  "740030681": {
+    "site_id": 4570,
+    "name": "Lillsved"
+  },
   "740066492": {
     "site_id": 4571,
     "name": "Nyvarp"
@@ -10119,6 +11855,10 @@
     "site_id": 4638,
     "name": "Sickla köpkvarter"
   },
+  "740045903": {
+    "site_id": 4639,
+    "name": "Sickla industriväg"
+  },
   "740018039": {
     "site_id": 4650,
     "name": "Älgö"
@@ -10187,6 +11927,10 @@
     "site_id": 4678,
     "name": "Ostronvägen"
   },
+  "740066205": {
+    "site_id": 4679,
+    "name": "Karpgatan"
+  },
   "740071451": {
     "site_id": 5000,
     "name": "Märsta centrum östra"
@@ -10205,7 +11949,7 @@
   },
   "740033206": {
     "site_id": 5004,
-    "name": "Arlanda terminal 4 (Endast UL-buss)"
+    "name": "Arlanda terminal 4"
   },
   "740077077": {
     "site_id": 5005,
@@ -10243,9 +11987,21 @@
     "site_id": 5013,
     "name": "Versailles"
   },
+  "740067396": {
+    "site_id": 5014,
+    "name": "Nymärsta kulle"
+  },
   "740007177": {
     "site_id": 5015,
     "name": "Märsta centrum"
+  },
+  "740067397": {
+    "site_id": 5016,
+    "name": "Centralgatan"
+  },
+  "740067398": {
+    "site_id": 5017,
+    "name": "Skolgatan"
   },
   "740045521": {
     "site_id": 5018,
@@ -10325,7 +12081,7 @@
   },
   "740067105": {
     "site_id": 5037,
-    "name": "Skogsvägen (Märsta)"
+    "name": "Skogsvägen"
   },
   "740067106": {
     "site_id": 5038,
@@ -10511,6 +12267,10 @@
     "site_id": 5083,
     "name": "Ölsta"
   },
+  "740067394": {
+    "site_id": 5084,
+    "name": "Teknikvägen"
+  },
   "740010900": {
     "site_id": 5085,
     "name": "Rävsta gård"
@@ -10527,9 +12287,17 @@
     "site_id": 5088,
     "name": "Til"
   },
+  "740067393": {
+    "site_id": 5089,
+    "name": "Broby"
+  },
+  "740067121": {
+    "site_id": 5090,
+    "name": "Hantverkshuset"
+  },
   "740067389": {
     "site_id": 5091,
-    "name": "Broby (Måbyleden)"
+    "name": "Broby"
   },
   "740067388": {
     "site_id": 5092,
@@ -10554,6 +12322,14 @@
   "740010546": {
     "site_id": 5097,
     "name": "Driftvägen"
+  },
+  "740067386": {
+    "site_id": 5098,
+    "name": "Fraktvägen"
+  },
+  "740067145": {
+    "site_id": 5099,
+    "name": "Märstagaraget"
   },
   "740000667": {
     "site_id": 5100,
@@ -10679,6 +12455,10 @@
     "site_id": 5129,
     "name": "Södra Edsberg"
   },
+  "740068796": {
+    "site_id": 5130,
+    "name": "Edeby"
+  },
   "740074914": {
     "site_id": 5131,
     "name": "Steninge backe"
@@ -10698,6 +12478,26 @@
   "740074918": {
     "site_id": 5135,
     "name": "Stenladan"
+  },
+  "740078684": {
+    "site_id": 5136,
+    "name": "Caravellegatan"
+  },
+  "740078960": {
+    "site_id": 5137,
+    "name": "Blackvreten"
+  },
+  "740067434": {
+    "site_id": 5140,
+    "name": "Skråmsta/Länsgränsen"
+  },
+  "740067433": {
+    "site_id": 5141,
+    "name": "Haga kyrka"
+  },
+  "740067432": {
+    "site_id": 5142,
+    "name": "Fridsberg"
   },
   "740066848": {
     "site_id": 5150,
@@ -10737,7 +12537,7 @@
   },
   "740066855": {
     "site_id": 5159,
-    "name": "Berga (Vidbo)"
+    "name": "Berga"
   },
   "740025873": {
     "site_id": 5160,
@@ -10790,6 +12590,18 @@
   "740067406": {
     "site_id": 5172,
     "name": "Tollsta norra"
+  },
+  "740067412": {
+    "site_id": 5174,
+    "name": "Eke"
+  },
+  "740067413": {
+    "site_id": 5177,
+    "name": "Håsta"
+  },
+  "740067425": {
+    "site_id": 5178,
+    "name": "Skörsta"
   },
   "740067421": {
     "site_id": 5179,
@@ -10846,6 +12658,10 @@
   "740067414": {
     "site_id": 5192,
     "name": "Berga-Bromsta"
+  },
+  "740078978": {
+    "site_id": 5200,
+    "name": "Norrmossen"
   },
   "740045866": {
     "site_id": 5203,
@@ -10911,9 +12727,57 @@
     "site_id": 5218,
     "name": "Vallstanässkogen"
   },
+  "740067163": {
+    "site_id": 5220,
+    "name": "Nyberg"
+  },
+  "740067164": {
+    "site_id": 5221,
+    "name": "Nederäng"
+  },
+  "740067165": {
+    "site_id": 5222,
+    "name": "Örby gård"
+  },
+  "740067311": {
+    "site_id": 5225,
+    "name": "Stensta gård"
+  },
+  "740067317": {
+    "site_id": 5226,
+    "name": "Kimstaby"
+  },
+  "740067309": {
+    "site_id": 5230,
+    "name": "Bergshamra gård"
+  },
+  "740067377": {
+    "site_id": 5231,
+    "name": "Sälnaberg"
+  },
+  "740067379": {
+    "site_id": 5232,
+    "name": "Lingsberg"
+  },
+  "740067381": {
+    "site_id": 5233,
+    "name": "Sälna uppgård"
+  },
   "740067378": {
     "site_id": 5234,
     "name": "Sälna"
+  },
+  "740067186": {
+    "site_id": 5235,
+    "name": "Skoby södra"
+  },
+  "740067183": {
+    "site_id": 5236,
+    "name": "Skoby norra"
+  },
+  "740067189": {
+    "site_id": 5238,
+    "name": "Råbergsskolan"
   },
   "740067190": {
     "site_id": 5239,
@@ -10936,6 +12800,10 @@
     "name": "Vasa"
   },
   "740067166": {
+    "site_id": 5246,
+    "name": "Herresta"
+  },
+  "740075923": {
     "site_id": 5246,
     "name": "Herresta"
   },
@@ -11145,11 +13013,19 @@
   },
   "740024546": {
     "site_id": 5299,
-    "name": "Bålsta (Gottröra)"
+    "name": "Bålsta"
   },
   "740066751": {
     "site_id": 5300,
     "name": "Löwenströmska sjukh."
+  },
+  "740066752": {
+    "site_id": 5301,
+    "name": "Löwenströmska daghemmet"
+  },
+  "740010860": {
+    "site_id": 5302,
+    "name": "Klockbacka"
   },
   "740066754": {
     "site_id": 5303,
@@ -11206,6 +13082,14 @@
   "740067354": {
     "site_id": 5316,
     "name": "Runby servicehus"
+  },
+  "740067350": {
+    "site_id": 5317,
+    "name": "Backvägen"
+  },
+  "740067357": {
+    "site_id": 5318,
+    "name": "Väsby C"
   },
   "740067358": {
     "site_id": 5319,
@@ -11323,6 +13207,10 @@
     "site_id": 5347,
     "name": "Hästhagen"
   },
+  "740066765": {
+    "site_id": 5348,
+    "name": "Söderviksskolan"
+  },
   "740067370": {
     "site_id": 5349,
     "name": "Frestadalen"
@@ -11395,9 +13283,17 @@
     "site_id": 5366,
     "name": "Rosenhillsvägen"
   },
+  "740067352": {
+    "site_id": 5367,
+    "name": "Hagvägen södra"
+  },
   "740066747": {
     "site_id": 5368,
     "name": "Svedjevägen"
+  },
+  "740067349": {
+    "site_id": 5369,
+    "name": "Vinkelvägen"
   },
   "740066766": {
     "site_id": 5370,
@@ -11431,6 +13327,10 @@
     "site_id": 5377,
     "name": "Fresta prästgård"
   },
+  "740067353": {
+    "site_id": 5378,
+    "name": "Hammarbyvägen övre"
+  },
   "740014424": {
     "site_id": 5379,
     "name": "Sanda ängar"
@@ -11458,6 +13358,10 @@
   "740066709": {
     "site_id": 5385,
     "name": "Luran"
+  },
+  "740014422": {
+    "site_id": 5386,
+    "name": "Drabantvägen"
   },
   "740071133": {
     "site_id": 5387,
@@ -11631,6 +13535,10 @@
     "site_id": 5448,
     "name": "Bergkällavägen"
   },
+  "740070574": {
+    "site_id": 5449,
+    "name": "Messingen"
+  },
   "740067204": {
     "site_id": 5451,
     "name": "Wesströms väg"
@@ -11791,6 +13699,10 @@
     "site_id": 5491,
     "name": "Södersätra"
   },
+  "740036007": {
+    "site_id": 5492,
+    "name": "Vibyvägen"
+  },
   "740074364": {
     "site_id": 5493,
     "name": "Edsparken"
@@ -11874,6 +13786,10 @@
   "740066733": {
     "site_id": 5520,
     "name": "Fornboda"
+  },
+  "740075314": {
+    "site_id": 5521,
+    "name": "Norrsätra vändplan"
   },
   "740066732": {
     "site_id": 5522,
@@ -12059,6 +13975,14 @@
     "site_id": 5572,
     "name": "Klasro"
   },
+  "740067222": {
+    "site_id": 5573,
+    "name": "Hammarbacken"
+  },
+  "740067228": {
+    "site_id": 5574,
+    "name": "Kuskvägen"
+  },
   "740067223": {
     "site_id": 5575,
     "name": "Mossvägen"
@@ -12066,6 +13990,10 @@
   "740067229": {
     "site_id": 5576,
     "name": "Stinsen"
+  },
+  "740067230": {
+    "site_id": 5577,
+    "name": "Stålvägen"
   },
   "740066688": {
     "site_id": 5578,
@@ -12103,9 +14031,21 @@
     "site_id": 5605,
     "name": "Råby"
   },
+  "740067262": {
+    "site_id": 5606,
+    "name": "Domkraftsvägen"
+  },
   "740072284": {
     "site_id": 5607,
     "name": "Kvista"
+  },
+  "740073530": {
+    "site_id": 5608,
+    "name": "Önsta allé"
+  },
+  "740067265": {
+    "site_id": 5609,
+    "name": "Klövtorpsvägen"
   },
   "740067259": {
     "site_id": 5610,
@@ -12142,6 +14082,10 @@
   "740066906": {
     "site_id": 5618,
     "name": "Lindhagaberg"
+  },
+  "740045523": {
+    "site_id": 5619,
+    "name": "Bro kyrka"
   },
   "740024968": {
     "site_id": 5620,
@@ -12215,6 +14159,10 @@
     "site_id": 5637,
     "name": "Tammsvik"
   },
+  "740066930": {
+    "site_id": 5639,
+    "name": "Säbyholmsskolan"
+  },
   "740066905": {
     "site_id": 5640,
     "name": "Nygårds ind omr."
@@ -12258,6 +14206,26 @@
   "740001176": {
     "site_id": 5650,
     "name": "Livgardet"
+  },
+  "740067096": {
+    "site_id": 5651,
+    "name": "Sjukhusparken"
+  },
+  "740045677": {
+    "site_id": 5652,
+    "name": "Granhammars slott"
+  },
+  "740066901": {
+    "site_id": 5653,
+    "name": "Sofiero"
+  },
+  "740045678": {
+    "site_id": 5654,
+    "name": "Granhammars verkstäder"
+  },
+  "740066899": {
+    "site_id": 5655,
+    "name": "Förrådsvägen"
   },
   "740076288": {
     "site_id": 5656,
@@ -12342,6 +14310,10 @@
   "740007861": {
     "site_id": 5693,
     "name": "Ekedal"
+  },
+  "740073531": {
+    "site_id": 5697,
+    "name": "Astronomivägen"
   },
   "740076571": {
     "site_id": 5698,
@@ -12499,6 +14471,10 @@
     "site_id": 5736,
     "name": "Venngarnsvägen"
   },
+  "740010527": {
+    "site_id": 5737,
+    "name": "Venngarns slott"
+  },
   "740010903": {
     "site_id": 5738,
     "name": "Vibyvägen norra"
@@ -12599,6 +14575,10 @@
     "site_id": 5766,
     "name": "Barkarby station övre"
   },
+  "740067003": {
+    "site_id": 5767,
+    "name": "Katrinedal"
+  },
   "740067338": {
     "site_id": 5768,
     "name": "Slammertorpsvägen"
@@ -12646,6 +14626,10 @@
   "740067024": {
     "site_id": 5779,
     "name": "Molnsättra"
+  },
+  "740076354": {
+    "site_id": 5780,
+    "name": "Kyrkparken"
   },
   "740067001": {
     "site_id": 5781,
@@ -12779,6 +14763,14 @@
     "site_id": 5814,
     "name": "Idrottsvägen"
   },
+  "740067334": {
+    "site_id": 5815,
+    "name": "Datavägen"
+  },
+  "740067333": {
+    "site_id": 5816,
+    "name": "N Brutttovägen"
+  },
   "740067037": {
     "site_id": 5817,
     "name": "Elektronikhöjden"
@@ -12792,6 +14784,10 @@
     "name": "Viksjöplan"
   },
   "740067054": {
+    "site_id": 5820,
+    "name": "Hummelmora"
+  },
+  "740067345": {
     "site_id": 5820,
     "name": "Hummelmora"
   },
@@ -12909,7 +14905,7 @@
   },
   "740075435": {
     "site_id": 5849,
-    "name": "Predikantvägen"
+    "name": "Herculesgatan"
   },
   "740066938": {
     "site_id": 5850,
@@ -12967,6 +14963,10 @@
     "site_id": 5863,
     "name": "Veddesta gård"
   },
+  "740012884": {
+    "site_id": 5864,
+    "name": "Veddesta centrum"
+  },
   "740045355": {
     "site_id": 5865,
     "name": "Barkarby skola"
@@ -12986,6 +14986,10 @@
   "740066945": {
     "site_id": 5869,
     "name": "Tallebo"
+  },
+  "740072076": {
+    "site_id": 5870,
+    "name": "Norrviksvägen"
   },
   "740066941": {
     "site_id": 5871,
@@ -13022,6 +15026,10 @@
   "740067027": {
     "site_id": 5879,
     "name": "Minutgränd"
+  },
+  "740067011": {
+    "site_id": 5880,
+    "name": "Maria kyrka"
   },
   "740045350": {
     "site_id": 5881,
@@ -13078,6 +15086,10 @@
   "740046251": {
     "site_id": 5893,
     "name": "Säby kulle"
+  },
+  "740075977": {
+    "site_id": 5895,
+    "name": "Ikea Barkarby entrén"
   },
   "740000665": {
     "site_id": 6000,
@@ -13150,6 +15162,10 @@
   "740049263": {
     "site_id": 6019,
     "name": "Campus Roslagen"
+  },
+  "740068458": {
+    "site_id": 6020,
+    "name": "Venusvägen"
   },
   "740068460": {
     "site_id": 6021,
@@ -13247,6 +15263,10 @@
     "site_id": 6044,
     "name": "Örtagårdsgatan"
   },
+  "740068475": {
+    "site_id": 6045,
+    "name": "Signalgatan"
+  },
   "740068476": {
     "site_id": 6046,
     "name": "Kvisthamraskolan"
@@ -13282,6 +15302,10 @@
   "740011090": {
     "site_id": 6054,
     "name": "Vigelsjövägen"
+  },
+  "740073410": {
+    "site_id": 6055,
+    "name": "Esplanaden"
   },
   "740068297": {
     "site_id": 6056,
@@ -13383,6 +15407,10 @@
     "site_id": 6084,
     "name": "Rapsgatan"
   },
+  "740007670": {
+    "site_id": 6085,
+    "name": "Vimpelgatan"
+  },
   "740000005": {
     "site_id": 6086,
     "name": "Uppsala"
@@ -13390,6 +15418,14 @@
   "740007273": {
     "site_id": 6087,
     "name": "Stålgatan södra"
+  },
+  "740034950": {
+    "site_id": 6088,
+    "name": "Strandbodgatan"
+  },
+  "740037750": {
+    "site_id": 6089,
+    "name": "Viktoria"
   },
   "740008475": {
     "site_id": 6090,
@@ -13466,6 +15502,10 @@
   "740001136": {
     "site_id": 6114,
     "name": "Kapellskär"
+  },
+  "740024292": {
+    "site_id": 6115,
+    "name": "Riddersholms gård"
   },
   "740067884": {
     "site_id": 6116,
@@ -13574,6 +15614,10 @@
   "740063017": {
     "site_id": 6142,
     "name": "Färsna"
+  },
+  "740063016": {
+    "site_id": 6143,
+    "name": "Färsnagatan"
   },
   "740067867": {
     "site_id": 6144,
@@ -13687,9 +15731,17 @@
     "site_id": 6171,
     "name": "Norrsundsskolan"
   },
+  "740068081": {
+    "site_id": 6172,
+    "name": "Roslagsskolan"
+  },
   "740068423": {
     "site_id": 6173,
     "name": "Långsjöskolan"
+  },
+  "740024239": {
+    "site_id": 6175,
+    "name": "Slussbrostigen"
   },
   "740068759": {
     "site_id": 6176,
@@ -13702,6 +15754,10 @@
   "740001003": {
     "site_id": 6178,
     "name": "Knutby skola"
+  },
+  "740068904": {
+    "site_id": 6179,
+    "name": "Kumla"
   },
   "740067858": {
     "site_id": 6180,
@@ -13767,6 +15823,10 @@
     "site_id": 6213,
     "name": "Blidö gård"
   },
+  "740067970": {
+    "site_id": 6214,
+    "name": "Blidögaraget"
+  },
   "740067971": {
     "site_id": 6215,
     "name": "Kalvik"
@@ -13786,6 +15846,10 @@
   "740067962": {
     "site_id": 6221,
     "name": "Västerö"
+  },
+  "740024317": {
+    "site_id": 6222,
+    "name": "Stämmarsund"
   },
   "740024294": {
     "site_id": 6222,
@@ -13883,6 +15947,10 @@
     "site_id": 6248,
     "name": "Vagnsunda"
   },
+  "740025023": {
+    "site_id": 6248,
+    "name": "Vagnsunda"
+  },
   "740067911": {
     "site_id": 6250,
     "name": "Eneberg"
@@ -13903,6 +15971,10 @@
     "site_id": 6254,
     "name": "Yxlövik"
   },
+  "740034536": {
+    "site_id": 6254,
+    "name": "Yxlövik"
+  },
   "740067916": {
     "site_id": 6255,
     "name": "Lillängen"
@@ -13915,9 +15987,17 @@
     "site_id": 6257,
     "name": "Alsvik"
   },
+  "740034534": {
+    "site_id": 6257,
+    "name": "Alsvik"
+  },
   "740067919": {
     "site_id": 6258,
     "name": "Hamnviken"
+  },
+  "740034544": {
+    "site_id": 6260,
+    "name": "Köpmanholm"
   },
   "740045716": {
     "site_id": 6260,
@@ -13948,6 +16028,10 @@
     "name": "Värna hage"
   },
   "740067909": {
+    "site_id": 6267,
+    "name": "Kolsvik"
+  },
+  "740034539": {
     "site_id": 6267,
     "name": "Kolsvik"
   },
@@ -13996,6 +16080,10 @@
     "name": "Solöbron"
   },
   "740011454": {
+    "site_id": 6281,
+    "name": "Solö"
+  },
+  "740024064": {
     "site_id": 6281,
     "name": "Solö"
   },
@@ -14170,6 +16258,10 @@
   "740045726": {
     "site_id": 6327,
     "name": "Rialahemmet"
+  },
+  "740045748": {
+    "site_id": 6328,
+    "name": "Sättra"
   },
   "740067931": {
     "site_id": 6329,
@@ -14455,6 +16547,10 @@
     "site_id": 6402,
     "name": "Vik östra"
   },
+  "740068324": {
+    "site_id": 6403,
+    "name": "Kristineholm"
+  },
   "740068570": {
     "site_id": 6404,
     "name": "Vik västra"
@@ -14471,6 +16567,26 @@
     "site_id": 6407,
     "name": "Råby torg"
   },
+  "740045715": {
+    "site_id": 6408,
+    "name": "Hållsta"
+  },
+  "740068553": {
+    "site_id": 6409,
+    "name": "Kragsta"
+  },
+  "740068552": {
+    "site_id": 6410,
+    "name": "Himmine vägskäl"
+  },
+  "740068551": {
+    "site_id": 6411,
+    "name": "Rimsjö vägskäl"
+  },
+  "740068550": {
+    "site_id": 6412,
+    "name": "Haga"
+  },
   "740068539": {
     "site_id": 6413,
     "name": "Degarö vägskäl"
@@ -14478,6 +16594,14 @@
   "740068554": {
     "site_id": 6414,
     "name": "Malmen"
+  },
+  "740068549": {
+    "site_id": 6415,
+    "name": "Hästhagen"
+  },
+  "740068548": {
+    "site_id": 6416,
+    "name": "Kullen"
   },
   "740068542": {
     "site_id": 6417,
@@ -14526,6 +16650,10 @@
   "740068534": {
     "site_id": 6429,
     "name": "Vällingsö vägskäl"
+  },
+  "740068547": {
+    "site_id": 6430,
+    "name": "Syninge by"
   },
   "740068532": {
     "site_id": 6431,
@@ -14577,7 +16705,7 @@
   },
   "740010777": {
     "site_id": 6443,
-    "name": "Finsta vägskäl"
+    "name": "Kilen"
   },
   "740009185": {
     "site_id": 6444,
@@ -14799,6 +16927,10 @@
     "site_id": 6497,
     "name": "Bredvik"
   },
+  "740068431": {
+    "site_id": 6498,
+    "name": "Pellebol"
+  },
   "740068432": {
     "site_id": 6499,
     "name": "Norrbyggeby"
@@ -14846,6 +16978,30 @@
   "740001120": {
     "site_id": 6510,
     "name": "Gottröra kyrka"
+  },
+  "740068363": {
+    "site_id": 6511,
+    "name": "Emmyfors"
+  },
+  "740068364": {
+    "site_id": 6512,
+    "name": "Vängsjöberg"
+  },
+  "740068365": {
+    "site_id": 6513,
+    "name": "Långbro vägskäl"
+  },
+  "740068374": {
+    "site_id": 6514,
+    "name": "Tegelbacken"
+  },
+  "740068366": {
+    "site_id": 6515,
+    "name": "Bydala"
+  },
+  "740068367": {
+    "site_id": 6516,
+    "name": "Grönlund"
   },
   "740068356": {
     "site_id": 6520,
@@ -15121,7 +17277,7 @@
   },
   "740068379": {
     "site_id": 6597,
-    "name": "Mälby (Gottröra)"
+    "name": "Mälby"
   },
   "740068380": {
     "site_id": 6598,
@@ -15166,6 +17322,10 @@
   "740068564": {
     "site_id": 6609,
     "name": "Vitsjö vägskäl"
+  },
+  "740045795": {
+    "site_id": 6611,
+    "name": "Svanberga skola"
   },
   "740068565": {
     "site_id": 6612,
@@ -15319,6 +17479,30 @@
     "site_id": 6655,
     "name": "Massum norra"
   },
+  "740067942": {
+    "site_id": 6656,
+    "name": "Massums båtbyggeri"
+  },
+  "740067943": {
+    "site_id": 6657,
+    "name": "Husinge västra"
+  },
+  "740067945": {
+    "site_id": 6658,
+    "name": "Husinge östra"
+  },
+  "740067946": {
+    "site_id": 6659,
+    "name": "Olsgården"
+  },
+  "740034948": {
+    "site_id": 6660,
+    "name": "Massum"
+  },
+  "740067941": {
+    "site_id": 6661,
+    "name": "Massum mellersta"
+  },
   "740068179": {
     "site_id": 6662,
     "name": "Toftinge södra"
@@ -15339,9 +17523,17 @@
     "site_id": 6666,
     "name": "Älmsta-Gåsviks vägskäl"
   },
+  "740067944": {
+    "site_id": 6667,
+    "name": "Husinge mellersta"
+  },
   "740045801": {
     "site_id": 6668,
     "name": "Älmsta skola"
+  },
+  "740014434": {
+    "site_id": 6669,
+    "name": "Västernäs vattentäkten"
   },
   "740068001": {
     "site_id": 6670,
@@ -15369,7 +17561,7 @@
   },
   "740045762": {
     "site_id": 6676,
-    "name": "Östernäs (på Väddö)"
+    "name": "Östernäs"
   },
   "740068007": {
     "site_id": 6677,
@@ -15706,6 +17898,10 @@
   "740045710": {
     "site_id": 6781,
     "name": "Gåsvikssjön"
+  },
+  "740045709": {
+    "site_id": 6782,
+    "name": "Gåsvik västra"
   },
   "740045708": {
     "site_id": 6783,
@@ -16191,6 +18387,22 @@
     "site_id": 6924,
     "name": "Strömbacken"
   },
+  "740068239": {
+    "site_id": 6925,
+    "name": "Kåtorp"
+  },
+  "740068238": {
+    "site_id": 6926,
+    "name": "Malmberga"
+  },
+  "740068237": {
+    "site_id": 6927,
+    "name": "Gässvik"
+  },
+  "740068236": {
+    "site_id": 6928,
+    "name": "Grandalen"
+  },
   "740068325": {
     "site_id": 6929,
     "name": "Ortalahöjden"
@@ -16463,6 +18675,10 @@
     "site_id": 7000,
     "name": "Huddinge sjukhus"
   },
+  "740045551": {
+    "site_id": 7001,
+    "name": "Flemingsbergs centrum"
+  },
   "740068985": {
     "site_id": 7002,
     "name": "Diagnosvägen"
@@ -16476,12 +18692,12 @@
     "name": "Södertörns högskola"
   },
   "740000031": {
-    "site_id": 7006,
+    "site_id": 7007,
     "name": "Flemingsbergs station"
   },
   "740045549": {
-    "site_id": 7007,
-    "name": "Flemingsbergs stn (Fjärrtåg)"
+    "site_id": 7006,
+    "name": "Flemingsbergs station"
   },
   "740069192": {
     "site_id": 7005,
@@ -16554,6 +18770,10 @@
   "740069145": {
     "site_id": 7024,
     "name": "Ängsnäsvägen"
+  },
+  "740068943": {
+    "site_id": 7025,
+    "name": "Förrådsvägen"
   },
   "740068946": {
     "site_id": 7026,
@@ -16867,6 +19087,10 @@
     "site_id": 7114,
     "name": "Apoteksbolaget"
   },
+  "740069222": {
+    "site_id": 7115,
+    "name": "Dialoggatan"
+  },
   "740069221": {
     "site_id": 7116,
     "name": "Diagonalvägen"
@@ -16943,6 +19167,10 @@
     "site_id": 7135,
     "name": "Sibyllavägen"
   },
+  "740069053": {
+    "site_id": 7136,
+    "name": "Nials väg"
+  },
   "740069055": {
     "site_id": 7137,
     "name": "S:t Botvids begravningsplats"
@@ -16962,6 +19190,10 @@
   "740069002": {
     "site_id": 7141,
     "name": "Kästavägen"
+  },
+  "740069001": {
+    "site_id": 7142,
+    "name": "Eken"
   },
   "740069000": {
     "site_id": 7143,
@@ -17079,9 +19311,17 @@
     "site_id": 7174,
     "name": "Kvarnsjön"
   },
+  "740068962": {
+    "site_id": 7175,
+    "name": "Nyboviksvägen"
+  },
   "740068963": {
     "site_id": 7176,
     "name": "Torget"
+  },
+  "740068964": {
+    "site_id": 7177,
+    "name": "Gruvvägen"
   },
   "740068965": {
     "site_id": 7178,
@@ -17110,6 +19350,10 @@
   "740068978": {
     "site_id": 7185,
     "name": "Lissma skola"
+  },
+  "740068979": {
+    "site_id": 7186,
+    "name": "Brinkvägen"
   },
   "740068981": {
     "site_id": 7187,
@@ -17747,10 +19991,6 @@
     "site_id": 7364,
     "name": "Alby centrum"
   },
-  "740069086": {
-    "site_id": 7365,
-    "name": "Lagmansbacken"
-  },
   "740069085": {
     "site_id": 7366,
     "name": "Advokatbacken"
@@ -17858,6 +20098,18 @@
   "740069280": {
     "site_id": 7395,
     "name": "Söderby gårds väg"
+  },
+  "740070563": {
+    "site_id": 7396,
+    "name": "Aspberget"
+  },
+  "740070524": {
+    "site_id": 7397,
+    "name": "Gullrands väg"
+  },
+  "740069288": {
+    "site_id": 7398,
+    "name": "Hammerstaskolan"
   },
   "740001053": {
     "site_id": 7400,
@@ -17975,6 +20227,14 @@
     "site_id": 7455,
     "name": "Högantorp"
   },
+  "740069851": {
+    "site_id": 7456,
+    "name": "Bockholmssättra"
+  },
+  "740070074": {
+    "site_id": 7457,
+    "name": "Björkbacken"
+  },
   "740070097": {
     "site_id": 7460,
     "name": "Ekvägen"
@@ -18007,9 +20267,21 @@
     "site_id": 7467,
     "name": "Torslund"
   },
+  "740078418": {
+    "site_id": 7468,
+    "name": "Doktorsgatan"
+  },
   "740070050": {
     "site_id": 7470,
     "name": "Vårbovägen"
+  },
+  "740069839": {
+    "site_id": 7471,
+    "name": "Fridshäll"
+  },
+  "740069840": {
+    "site_id": 7472,
+    "name": "Bergtorp"
   },
   "740069841": {
     "site_id": 7473,
@@ -18046,6 +20318,10 @@
   "740069829": {
     "site_id": 7500,
     "name": "Köpmangatan"
+  },
+  "740069924": {
+    "site_id": 7501,
+    "name": "Torekällgatan"
   },
   "740069911": {
     "site_id": 7502,
@@ -18107,6 +20383,10 @@
     "site_id": 7516,
     "name": "Paradisgränd"
   },
+  "740070586": {
+    "site_id": 7517,
+    "name": "Kvarnbergagatan"
+  },
   "740014878": {
     "site_id": 7518,
     "name": "Karlberga"
@@ -18135,6 +20415,10 @@
     "site_id": 7524,
     "name": "Gillestigen"
   },
+  "740069875": {
+    "site_id": 7525,
+    "name": "Hyggesvägen"
+  },
   "740069876": {
     "site_id": 7526,
     "name": "Klövjevägen"
@@ -18153,7 +20437,7 @@
   },
   "740069920": {
     "site_id": 7530,
-    "name": "Scaniarinken"
+    "name": "Geneta"
   },
   "740069919": {
     "site_id": 7531,
@@ -18165,7 +20449,7 @@
   },
   "740069872": {
     "site_id": 7533,
-    "name": "Klockarvägen"
+    "name": "Geneta"
   },
   "740069873": {
     "site_id": 7534,
@@ -18239,6 +20523,10 @@
     "site_id": 7551,
     "name": "Fribovägen"
   },
+  "740069895": {
+    "site_id": 7552,
+    "name": "Linnégatan"
+  },
   "740069896": {
     "site_id": 7553,
     "name": "Erikshällsgatan"
@@ -18295,6 +20583,10 @@
     "site_id": 7568,
     "name": "Chassiporten"
   },
+  "740069888": {
+    "site_id": 7570,
+    "name": "Uthamnsvägen"
+  },
   "740069820": {
     "site_id": 7571,
     "name": "Balticvägen"
@@ -18334,6 +20626,10 @@
   "740069980": {
     "site_id": 7585,
     "name": "Scania tekniskt centrum"
+  },
+  "740069981": {
+    "site_id": 7586,
+    "name": "Scania Centrallab."
   },
   "740069900": {
     "site_id": 7587,
@@ -18451,6 +20747,18 @@
     "site_id": 7620,
     "name": "Morabergsvägen"
   },
+  "740069921": {
+    "site_id": 7621,
+    "name": "Virkesvägen"
+  },
+  "740069922": {
+    "site_id": 7622,
+    "name": "Nysättravägen"
+  },
+  "740069923": {
+    "site_id": 7623,
+    "name": "Malmbergavägen"
+  },
   "740069853": {
     "site_id": 7624,
     "name": "Ekensbergs industriområde"
@@ -18458,6 +20766,22 @@
   "740069859": {
     "site_id": 7625,
     "name": "Åkerivägen"
+  },
+  "740069857": {
+    "site_id": 7626,
+    "name": "Lännockvägen"
+  },
+  "740069858": {
+    "site_id": 7627,
+    "name": "Listonhill"
+  },
+  "740069821": {
+    "site_id": 7628,
+    "name": "Birkavägen"
+  },
+  "740070125": {
+    "site_id": 7629,
+    "name": "Gränsbovägen"
   },
   "740069862": {
     "site_id": 7630,
@@ -18491,6 +20815,10 @@
     "site_id": 7637,
     "name": "Tältvägen"
   },
+  "740069941": {
+    "site_id": 7638,
+    "name": "Viksängsvägen"
+  },
   "740070041": {
     "site_id": 7639,
     "name": "Saltsjöbron"
@@ -18506,6 +20834,10 @@
   "740069869": {
     "site_id": 7642,
     "name": "Vretensvägen"
+  },
+  "740069870": {
+    "site_id": 7643,
+    "name": "Fornbacken"
   },
   "740069871": {
     "site_id": 7644,
@@ -18855,6 +21187,10 @@
     "site_id": 7747,
     "name": "Ryssjöbrinks station"
   },
+  "740069995": {
+    "site_id": 7748,
+    "name": "Lilla Ryssjön"
+  },
   "740045938": {
     "site_id": 7749,
     "name": "Drottningkälla"
@@ -18875,6 +21211,10 @@
     "site_id": 7753,
     "name": "Marstavägen"
   },
+  "740069935": {
+    "site_id": 7754,
+    "name": "Slätås"
+  },
   "740070058": {
     "site_id": 7755,
     "name": "Eriksberg"
@@ -18882,6 +21222,18 @@
   "740069934": {
     "site_id": 7756,
     "name": "Elsaborg"
+  },
+  "740069973": {
+    "site_id": 7757,
+    "name": "Turinge prästgård"
+  },
+  "740069974": {
+    "site_id": 7758,
+    "name": "Björkhagen"
+  },
+  "740069929": {
+    "site_id": 7759,
+    "name": "Stallbacksvägen"
   },
   "740069956": {
     "site_id": 7760,
@@ -18961,7 +21313,7 @@
   },
   "740070080": {
     "site_id": 7780,
-    "name": "Bärvägen"
+    "name": "Sandtorp"
   },
   "740070079": {
     "site_id": 7781,
@@ -19058,6 +21410,10 @@
   "740045937": {
     "site_id": 7824,
     "name": "Dansutvägen"
+  },
+  "740045939": {
+    "site_id": 7825,
+    "name": "Skillingagatan"
   },
   "740045940": {
     "site_id": 7826,
@@ -19235,6 +21591,26 @@
     "site_id": 7886,
     "name": "Skanssundet"
   },
+  "740070136": {
+    "site_id": 7887,
+    "name": "Sörby - Valåker"
+  },
+  "740070137": {
+    "site_id": 7888,
+    "name": "Valåker"
+  },
+  "740070138": {
+    "site_id": 7889,
+    "name": "Grindstugan"
+  },
+  "740021596": {
+    "site_id": 7890,
+    "name": "Tullgarn"
+  },
+  "740070124": {
+    "site_id": 7891,
+    "name": "Järnagatan"
+  },
   "740020689": {
     "site_id": 7892,
     "name": "Saltsjögatan"
@@ -19246,6 +21622,10 @@
   "740070114": {
     "site_id": 7894,
     "name": "Gröna gatan"
+  },
+  "740070115": {
+    "site_id": 7895,
+    "name": "Mariekällgården"
   },
   "740070116": {
     "site_id": 7896,
@@ -19323,13 +21703,41 @@
     "site_id": 7914,
     "name": "Pingstkyrkan"
   },
+  "740069249": {
+    "site_id": 7915,
+    "name": "Runvägen"
+  },
   "740069250": {
     "site_id": 7916,
     "name": "Rådsvägen"
   },
+  "740069251": {
+    "site_id": 7917,
+    "name": "Lanthemsvägen"
+  },
+  "740069252": {
+    "site_id": 7918,
+    "name": "Lanthemsvägen"
+  },
+  "740069253": {
+    "site_id": 7919,
+    "name": "Kyrkogården"
+  },
   "740069254": {
     "site_id": 7920,
     "name": "Domarvägen"
+  },
+  "740069255": {
+    "site_id": 7921,
+    "name": "Klockarvägen övre"
+  },
+  "740069256": {
+    "site_id": 7922,
+    "name": "Klockarvägen nedre"
+  },
+  "740045554": {
+    "site_id": 7923,
+    "name": "Huddinge kyrka"
   },
   "740069213": {
     "site_id": 7924,
@@ -19339,6 +21747,18 @@
     "site_id": 7925,
     "name": "Gymnasiet"
   },
+  "740069216": {
+    "site_id": 7926,
+    "name": "Sandbäcksvägen"
+  },
+  "740069217": {
+    "site_id": 7927,
+    "name": "Rosstorp"
+  },
+  "740045221": {
+    "site_id": 7928,
+    "name": "Rönninge skola"
+  },
   "740045283": {
     "site_id": 7929,
     "name": "Rönninge skolväg"
@@ -19346,6 +21766,10 @@
   "740069218": {
     "site_id": 7930,
     "name": "Toredalsvägen"
+  },
+  "740069282": {
+    "site_id": 7931,
+    "name": "Norrbergsvägen"
   },
   "740064089": {
     "site_id": 7932,
@@ -19387,13 +21811,121 @@
     "site_id": 7941,
     "name": "Bergsvägen nedre"
   },
+  "740065937": {
+    "site_id": 7950,
+    "name": "Fågeltungan"
+  },
+  "740065938": {
+    "site_id": 7951,
+    "name": "Träklubban"
+  },
+  "740065939": {
+    "site_id": 7952,
+    "name": "Spånhuven"
+  },
+  "740065940": {
+    "site_id": 7953,
+    "name": "Stöthyveln"
+  },
+  "740065941": {
+    "site_id": 7954,
+    "name": "Bordsvägen"
+  },
+  "740065942": {
+    "site_id": 7955,
+    "name": "Kistvägen"
+  },
   "740065943": {
     "site_id": 7957,
     "name": "Cirkelvägen"
   },
+  "740065944": {
+    "site_id": 7958,
+    "name": "Kyrkan"
+  },
+  "740065947": {
+    "site_id": 7959,
+    "name": "Krumcirkeln"
+  },
+  "740065950": {
+    "site_id": 7960,
+    "name": "Gradsågen"
+  },
+  "740065949": {
+    "site_id": 7961,
+    "name": "Sticksågen"
+  },
+  "740065948": {
+    "site_id": 7962,
+    "name": "Skrinvägen"
+  },
+  "740065945": {
+    "site_id": 7963,
+    "name": "Pärllimmet"
+  },
+  "740065946": {
+    "site_id": 7964,
+    "name": "Frässpindeln"
+  },
+  "740065952": {
+    "site_id": 7965,
+    "name": "Gubbängsskolan"
+  },
+  "740045505": {
+    "site_id": 7967,
+    "name": "Tallkrogens hus"
+  },
+  "740065953": {
+    "site_id": 7968,
+    "name": "Morkullsvägen"
+  },
+  "740065955": {
+    "site_id": 7969,
+    "name": "Torögatan"
+  },
+  "740065954": {
+    "site_id": 7970,
+    "name": "Hägervägen"
+  },
+  "740065963": {
+    "site_id": 7971,
+    "name": "Hattsvampen"
+  },
+  "740045506": {
+    "site_id": 7972,
+    "name": "Tallkrogens skola"
+  },
+  "740065956": {
+    "site_id": 7973,
+    "name": "Handelsvägen"
+  },
+  "740065957": {
+    "site_id": 7974,
+    "name": "Oppundavägen"
+  },
+  "740065958": {
+    "site_id": 7975,
+    "name": "Jönåkersvägen"
+  },
+  "740065960": {
+    "site_id": 7976,
+    "name": "Frimärket"
+  },
+  "740065951": {
+    "site_id": 7977,
+    "name": "Korsbandet"
+  },
+  "740065962": {
+    "site_id": 7978,
+    "name": "Brevkortet"
+  },
   "740065961": {
     "site_id": 7979,
     "name": "Servicehuset Postiljonen"
+  },
+  "740065959": {
+    "site_id": 7980,
+    "name": "Enskedevägen"
   },
   "740020656": {
     "site_id": 7982,
@@ -19567,6 +22099,10 @@
     "site_id": 8041,
     "name": "Skinnardal"
   },
+  "740069372": {
+    "site_id": 8042,
+    "name": "Ältaberg"
+  },
   "740069373": {
     "site_id": 8043,
     "name": "Tibastvägen"
@@ -19631,6 +22167,10 @@
     "site_id": 8058,
     "name": "Vallvägen"
   },
+  "740045873": {
+    "site_id": 8059,
+    "name": "Tyresö strand"
+  },
   "740069395": {
     "site_id": 8060,
     "name": "Tjädervägen"
@@ -19659,6 +22199,10 @@
     "site_id": 8066,
     "name": "Orrnäset"
   },
+  "740069388": {
+    "site_id": 8067,
+    "name": "Tyrberga"
+  },
   "740069387": {
     "site_id": 8068,
     "name": "Edinsborg"
@@ -19680,6 +22224,10 @@
     "name": "Krönet"
   },
   "740018271": {
+    "site_id": 8073,
+    "name": "Trinntorp"
+  },
+  "740024224": {
     "site_id": 8073,
     "name": "Trinntorp"
   },
@@ -19770,6 +22318,10 @@
   "740069431": {
     "site_id": 8095,
     "name": "Njupkärrsvägen"
+  },
+  "740069429": {
+    "site_id": 8096,
+    "name": "Skolvägen"
   },
   "740045874": {
     "site_id": 8097,
@@ -19987,6 +22539,10 @@
     "site_id": 8189,
     "name": "Truckvägen"
   },
+  "740069521": {
+    "site_id": 8190,
+    "name": "Österleden"
+  },
   "740069522": {
     "site_id": 8191,
     "name": "Sjötorpsvägen"
@@ -20054,6 +22610,10 @@
   "740069467": {
     "site_id": 8207,
     "name": "Torvalla"
+  },
+  "740069575": {
+    "site_id": 8208,
+    "name": "Fredrika Bremerskolan"
   },
   "740069792": {
     "site_id": 8209,
@@ -20170,6 +22730,14 @@
   "740069477": {
     "site_id": 8237,
     "name": "Fornpasset"
+  },
+  "740069785": {
+    "site_id": 8238,
+    "name": "Söderby gård"
+  },
+  "740069564": {
+    "site_id": 8239,
+    "name": "Torfastleden"
   },
   "740069468": {
     "site_id": 8240,
@@ -20331,6 +22899,10 @@
     "site_id": 8280,
     "name": "Handens station"
   },
+  "740069577": {
+    "site_id": 8281,
+    "name": "Gammelhagen"
+  },
   "740069533": {
     "site_id": 8282,
     "name": "Blockstensvägen"
@@ -20350,6 +22922,10 @@
   "740069534": {
     "site_id": 8286,
     "name": "Sandstensvägen"
+  },
+  "740078962": {
+    "site_id": 8287,
+    "name": "Västerport"
   },
   "740069797": {
     "site_id": 8288,
@@ -20375,6 +22951,14 @@
     "site_id": 8293,
     "name": "Armaturvägen norra"
   },
+  "740069782": {
+    "site_id": 8294,
+    "name": "Cementvägen östra"
+  },
+  "740069573": {
+    "site_id": 8296,
+    "name": "Dagab"
+  },
   "740069567": {
     "site_id": 8297,
     "name": "Dåntorpsvägen östra"
@@ -20386,6 +22970,10 @@
   "740069795": {
     "site_id": 8299,
     "name": "Silovägen"
+  },
+  "740078974": {
+    "site_id": 8300,
+    "name": "Olsängsvägen"
   },
   "740069610": {
     "site_id": 8301,
@@ -20599,6 +23187,10 @@
     "site_id": 8363,
     "name": "Åbyplan"
   },
+  "740045893": {
+    "site_id": 8364,
+    "name": "Västerhaninge sjukhem"
+  },
   "740069555": {
     "site_id": 8365,
     "name": "Rådjursvägen"
@@ -20662,6 +23254,14 @@
   "740076010": {
     "site_id": 8381,
     "name": "Albatrossvägen"
+  },
+  "740072933": {
+    "site_id": 8390,
+    "name": "Nordenskiölds väg"
+  },
+  "740072934": {
+    "site_id": 8391,
+    "name": "Ishavsvägen"
   },
   "740001036": {
     "site_id": 8400,
@@ -20935,6 +23535,10 @@
     "site_id": 8504,
     "name": "Viaskolan"
   },
+  "740069744": {
+    "site_id": 8505,
+    "name": "Gotthem"
+  },
   "740069327": {
     "site_id": 8506,
     "name": "Malmtorget"
@@ -20978,6 +23582,10 @@
   "740069742": {
     "site_id": 8518,
     "name": "Alkärrsplan"
+  },
+  "740069766": {
+    "site_id": 8519,
+    "name": "Lokmannavägen"
   },
   "740069772": {
     "site_id": 8520,
@@ -21026,6 +23634,10 @@
   "740069331": {
     "site_id": 8536,
     "name": "Backluravägen"
+  },
+  "740078961": {
+    "site_id": 8537,
+    "name": "Kyrkvreten"
   },
   "740069771": {
     "site_id": 8540,
@@ -21255,6 +23867,10 @@
     "site_id": 8617,
     "name": "Kanalbron"
   },
+  "740045889": {
+    "site_id": 8620,
+    "name": "Muskö örlogsbas"
+  },
   "740069671": {
     "site_id": 8621,
     "name": "Guldbodavakten"
@@ -21367,6 +23983,10 @@
     "site_id": 8658,
     "name": "Sjövik"
   },
+  "740069635": {
+    "site_id": 8662,
+    "name": "Ludvigsberg"
+  },
   "740069634": {
     "site_id": 8663,
     "name": "Ösmofors"
@@ -21446,6 +24066,14 @@
   "740069312": {
     "site_id": 8707,
     "name": "Blista"
+  },
+  "740078973": {
+    "site_id": 8708,
+    "name": "Kolarbacken"
+  },
+  "740078975": {
+    "site_id": 8709,
+    "name": "Hermanstorp"
   },
   "740045859": {
     "site_id": 8710,
@@ -21633,7 +24261,7 @@
   },
   "740001182": {
     "site_id": 8770,
-    "name": "Lindholmen"
+    "name": "Lisö"
   },
   "740069711": {
     "site_id": 8771,
@@ -21703,6 +24331,14 @@
     "site_id": 8900,
     "name": "Lingvägens vändplan"
   },
+  "740065645": {
+    "site_id": 8901,
+    "name": "Kryddpepparn"
+  },
+  "740065642": {
+    "site_id": 8902,
+    "name": "Russinvägen"
+  },
   "740065643": {
     "site_id": 8903,
     "name": "Russinhöjden"
@@ -21711,6 +24347,38 @@
     "site_id": 8904,
     "name": "Onsdagsvägen"
   },
+  "740065648": {
+    "site_id": 8905,
+    "name": "Fredagsvägen"
+  },
+  "740065649": {
+    "site_id": 8906,
+    "name": "Skönstaholmsvägen"
+  },
+  "740065650": {
+    "site_id": 8907,
+    "name": "Skönstaholm"
+  },
+  "740065651": {
+    "site_id": 8908,
+    "name": "Skönstaholmsskolan"
+  },
+  "740065653": {
+    "site_id": 8909,
+    "name": "Lördagsvägen"
+  },
+  "740065652": {
+    "site_id": 8910,
+    "name": "Måndagsvägen"
+  },
+  "740065646": {
+    "site_id": 8912,
+    "name": "Konsolvägen"
+  },
+  "740045484": {
+    "site_id": 8913,
+    "name": "Hökarängsskolan"
+  },
   "740065634": {
     "site_id": 8914,
     "name": "Kontoristvägen"
@@ -21718,6 +24386,30 @@
   "740065635": {
     "site_id": 8915,
     "name": "Hovmästarvägen"
+  },
+  "740065636": {
+    "site_id": 8916,
+    "name": "Cigarrvägen"
+  },
+  "740065637": {
+    "site_id": 8917,
+    "name": "Piprensarvägen"
+  },
+  "740065638": {
+    "site_id": 8918,
+    "name": "Munstycksvägen"
+  },
+  "740065639": {
+    "site_id": 8919,
+    "name": "Korintvägen"
+  },
+  "740065640": {
+    "site_id": 8920,
+    "name": "Kumminvägen"
+  },
+  "740065921": {
+    "site_id": 8921,
+    "name": "Saltvägen"
   },
   "740066165": {
     "site_id": 8922,
@@ -21795,6 +24487,10 @@
     "site_id": 9003,
     "name": "Brunnbybadet"
   },
+  "740036001": {
+    "site_id": 9054,
+    "name": "Skogshem & Wijk"
+  },
   "740021680": {
     "site_id": 9100,
     "name": "Hässelby strand"
@@ -21851,13 +24547,17 @@
     "site_id": 9114,
     "name": "Thorildsplan"
   },
+  "740066094": {
+    "site_id": 9114,
+    "name": "Thorildsplan"
+  },
   "740021665": {
     "site_id": 9116,
     "name": "S:t Eriksplan"
   },
   "740001181": {
     "site_id": 9120,
-    "name": "Nockeby (Nockebybanan)"
+    "name": "Nockeby"
   },
   "740024820": {
     "site_id": 9121,
@@ -21905,7 +24605,7 @@
   },
   "740065545": {
     "site_id": 9140,
-    "name": "Skarpnäcks allé"
+    "name": "Skarpnäck"
   },
   "740021692": {
     "site_id": 9141,
@@ -22155,6 +24855,10 @@
     "site_id": 9252,
     "name": "Torsvik"
   },
+  "740045927": {
+    "site_id": 9253,
+    "name": "Larsberg"
+  },
   "740021719": {
     "site_id": 9260,
     "name": "Fruängen"
@@ -22167,11 +24871,19 @@
     "site_id": 9261,
     "name": "Västertorp"
   },
+  "740045512": {
+    "site_id": 9261,
+    "name": "Västertorp"
+  },
   "740021717": {
     "site_id": 9262,
-    "name": "Hägerstensåsen (t-banan)"
+    "name": "Hägerstensåsen"
   },
   "740021716": {
+    "site_id": 9263,
+    "name": "Telefonplan"
+  },
+  "740053709": {
     "site_id": 9263,
     "name": "Telefonplan"
   },
@@ -22182,6 +24894,10 @@
   "740021733": {
     "site_id": 9280,
     "name": "Norsborg"
+  },
+  "740069086": {
+    "site_id": 9282,
+    "name": "Alby"
   },
   "740021730": {
     "site_id": 9283,
@@ -22253,7 +24969,7 @@
   },
   "740021656": {
     "site_id": 9297,
-    "name": "Mariatorget (t-banan)"
+    "name": "Mariatorget"
   },
   "740021677": {
     "site_id": 9300,
@@ -22278,6 +24994,10 @@
   "740021660": {
     "site_id": 9309,
     "name": "Rådhuset"
+  },
+  "740064054": {
+    "site_id": 9312,
+    "name": "Arenastaden"
   },
   "740021678": {
     "site_id": 9319,
@@ -22331,6 +25051,10 @@
     "site_id": 9420,
     "name": "Saltsjöbaden"
   },
+  "740034623": {
+    "site_id": 9420,
+    "name": "Saltsjöbaden"
+  },
   "740024811": {
     "site_id": 9421,
     "name": "Ringvägen"
@@ -22379,11 +25103,11 @@
     "site_id": 9431,
     "name": "Sickla"
   },
-  "740046137": {
+  "740024806": {
     "site_id": 9432,
     "name": "Henriksdal"
   },
-  "740024806": {
+  "740046137": {
     "site_id": 9432,
     "name": "Henriksdal"
   },
@@ -22404,6 +25128,10 @@
     "name": "Tattby"
   },
   "740020878": {
+    "site_id": 9443,
+    "name": "Tippen"
+  },
+  "740045915": {
     "site_id": 9443,
     "name": "Tippen"
   },
@@ -22575,7 +25303,15 @@
     "site_id": 9631,
     "name": "Ensta"
   },
+  "740045603": {
+    "site_id": 9631,
+    "name": "Ensta"
+  },
   "740020872": {
+    "site_id": 9632,
+    "name": "Tibble"
+  },
+  "740045631": {
     "site_id": 9632,
     "name": "Tibble"
   },
@@ -22623,6 +25359,10 @@
     "site_id": 9661,
     "name": "Tunagård"
   },
+  "740014660": {
+    "site_id": 9661,
+    "name": "Tunagård"
+  },
   "740000788": {
     "site_id": 9982,
     "name": "Åkersberga station"
@@ -22636,6 +25376,10 @@
     "name": "Åkers Runö"
   },
   "740024805": {
+    "site_id": 9664,
+    "name": "Täljö"
+  },
+  "740012868": {
     "site_id": 9664,
     "name": "Täljö"
   },
@@ -22663,6 +25407,10 @@
     "site_id": 9682,
     "name": "Lahäll"
   },
+  "740045610": {
+    "site_id": 9682,
+    "name": "Lahäll"
+  },
   "740020868": {
     "site_id": 9683,
     "name": "Altorp"
@@ -22679,6 +25427,10 @@
     "site_id": 9685,
     "name": "Vendevägen"
   },
+  "740029852": {
+    "site_id": 9686,
+    "name": "Lahällsvägen"
+  },
   "740076725": {
     "site_id": 9687,
     "name": "Näsbydalsvägen 10"
@@ -22690,6 +25442,10 @@
   "740076728": {
     "site_id": 9690,
     "name": "Näsbydalsvägen 6"
+  },
+  "740076688": {
+    "site_id": 9691,
+    "name": "Eskadervägen"
   },
   "740076722": {
     "site_id": 9694,
@@ -22819,13 +25575,41 @@
     "site_id": 9740,
     "name": "Ekensbergsvägen"
   },
+  "740066015": {
+    "site_id": 9741,
+    "name": "Ekensbergshöjden"
+  },
+  "740066016": {
+    "site_id": 9742,
+    "name": "Stapelbädden"
+  },
+  "740066017": {
+    "site_id": 9743,
+    "name": "Tryckeriet"
+  },
+  "740066018": {
+    "site_id": 9744,
+    "name": "Skonertvägen"
+  },
+  "740066019": {
+    "site_id": 9745,
+    "name": "Fregatten"
+  },
   "740066020": {
     "site_id": 9746,
     "name": "Fregattvägens vändplan"
   },
+  "740066021": {
+    "site_id": 9747,
+    "name": "Grenljusbacken"
+  },
   "740066022": {
     "site_id": 9748,
     "name": "Ljusstöparbacken"
+  },
+  "740066012": {
+    "site_id": 9749,
+    "name": "Nybohovsbacken"
   },
   "740053064": {
     "site_id": 9750,
@@ -22835,21 +25619,181 @@
     "site_id": 9751,
     "name": "Nybohovs servicehus"
   },
+  "740066023": {
+    "site_id": 9752,
+    "name": "Nybohovsgränd"
+  },
+  "740066025": {
+    "site_id": 9753,
+    "name": "Portalen"
+  },
+  "740066041": {
+    "site_id": 9754,
+    "name": "Hägerstensvägen"
+  },
+  "740066028": {
+    "site_id": 9755,
+    "name": "Sigfridsvägen"
+  },
+  "740066026": {
+    "site_id": 9756,
+    "name": "Schlytersvägen"
+  },
+  "740066029": {
+    "site_id": 9757,
+    "name": "Manhemsgatan"
+  },
+  "740066030": {
+    "site_id": 9758,
+    "name": "Hövdingagatan"
+  },
   "740066033": {
     "site_id": 9760,
     "name": "Sigurd Rings gata"
+  },
+  "740066035": {
+    "site_id": 9761,
+    "name": "Torsten Almstigen"
+  },
+  "740066031": {
+    "site_id": 9763,
+    "name": "Aspuddens skola"
+  },
+  "740066038": {
+    "site_id": 9764,
+    "name": "Tranan"
+  },
+  "740066036": {
+    "site_id": 9765,
+    "name": "Stenkilsgatan"
+  },
+  "740066037": {
+    "site_id": 9766,
+    "name": "Hägerstenshamnen"
+  },
+  "740045609": {
+    "site_id": 9768,
+    "name": "Selmedalsvägen"
+  },
+  "740065964": {
+    "site_id": 9769,
+    "name": "Nytorpsskolan"
+  },
+  "740065966": {
+    "site_id": 9770,
+    "name": "Nytorp"
+  },
+  "740065968": {
+    "site_id": 9771,
+    "name": "Ulricehamnsvägen"
+  },
+  "740065969": {
+    "site_id": 9772,
+    "name": "Tidaholmsvägen"
+  },
+  "740065965": {
+    "site_id": 9774,
+    "name": "Boråsvägen"
+  },
+  "740065967": {
+    "site_id": 9775,
+    "name": "Skarabacken"
+  },
+  "740065992": {
+    "site_id": 9776,
+    "name": "Olaus Magnus väg"
+  },
+  "740065974": {
+    "site_id": 9777,
+    "name": "Kalmgatan"
+  },
+  "740065976": {
+    "site_id": 9778,
+    "name": "Strahlenbergsgatan"
+  },
+  "740065977": {
+    "site_id": 9779,
+    "name": "Petrejusvägen övre"
+  },
+  "740065991": {
+    "site_id": 9780,
+    "name": "Petrejusvägen nedre"
+  },
+  "740065987": {
+    "site_id": 9781,
+    "name": "Per Lindeströms väg nedre"
   },
   "740065988": {
     "site_id": 9782,
     "name": "Per Lindeströms väg övre"
   },
+  "740065978": {
+    "site_id": 9783,
+    "name": "Hasselquistvägen övre"
+  },
   "740065979": {
     "site_id": 9784,
     "name": "Hasselquistvägen"
   },
+  "740065980": {
+    "site_id": 9785,
+    "name": "Hasselquistvägen nedre"
+  },
+  "740065986": {
+    "site_id": 9786,
+    "name": "Finn Malmgrens väg"
+  },
+  "740065930": {
+    "site_id": 9787,
+    "name": "Hjovägen"
+  },
+  "740065931": {
+    "site_id": 9788,
+    "name": "Läckövägen"
+  },
+  "740065933": {
+    "site_id": 9789,
+    "name": "Mariestadsvägen"
+  },
+  "740065927": {
+    "site_id": 9790,
+    "name": "Malmövägen"
+  },
+  "740065923": {
+    "site_id": 9791,
+    "name": "Björkhagens skola"
+  },
   "740065932": {
     "site_id": 9792,
     "name": "Karlskronavägen"
+  },
+  "740065926": {
+    "site_id": 9793,
+    "name": "Ronnebyvägen övre"
+  },
+  "740065925": {
+    "site_id": 9794,
+    "name": "Ronnebyvägen nedre"
+  },
+  "740065985": {
+    "site_id": 9795,
+    "name": "Båstadsvägen"
+  },
+  "740065984": {
+    "site_id": 9796,
+    "name": "Atmosfären"
+  },
+  "740065982": {
+    "site_id": 9798,
+    "name": "Högtrycket"
+  },
+  "740065922": {
+    "site_id": 9799,
+    "name": "Skanörvägen"
+  },
+  "740065920": {
+    "site_id": 9800,
+    "name": "Falsterbovägen"
   },
   "740024921": {
     "site_id": 9807,
@@ -22867,6 +25811,18 @@
     "site_id": 9812,
     "name": "Alviks strand"
   },
+  "740065928": {
+    "site_id": 9814,
+    "name": "Eslövsvägen"
+  },
+  "740065983": {
+    "site_id": 9815,
+    "name": "Stratosfären"
+  },
+  "740065975": {
+    "site_id": 9816,
+    "name": "Thunbergsgatan"
+  },
   "740024927": {
     "site_id": 9820,
     "name": "Sickla udde"
@@ -22879,13 +25835,97 @@
     "site_id": 9846,
     "name": "Hökarängsplan"
   },
+  "740022739": {
+    "site_id": 9847,
+    "name": "Stamgatan"
+  },
+  "740023030": {
+    "site_id": 9848,
+    "name": "Stamgatan övre"
+  },
+  "740025595": {
+    "site_id": 9849,
+    "name": "Stamgatan nedre"
+  },
+  "740065993": {
+    "site_id": 9850,
+    "name": "Träfiberplattan"
+  },
   "740065994": {
     "site_id": 9851,
     "name": "Bjulevägen"
   },
+  "740065995": {
+    "site_id": 9852,
+    "name": "Daghemmet"
+  },
+  "740065996": {
+    "site_id": 9853,
+    "name": "Skönsmovägen"
+  },
+  "740065997": {
+    "site_id": 9854,
+    "name": "Spikbrädan"
+  },
+  "740065998": {
+    "site_id": 9855,
+    "name": "Bastuhagen"
+  },
+  "740066013": {
+    "site_id": 9856,
+    "name": "Bäckaskiftsvägen"
+  },
+  "740065999": {
+    "site_id": 9857,
+    "name": "Virkesstapeln"
+  },
+  "740066000": {
+    "site_id": 9859,
+    "name": "Skönviks matbutik"
+  },
+  "740066001": {
+    "site_id": 9860,
+    "name": "Götaforsvägen"
+  },
+  "740066002": {
+    "site_id": 9861,
+    "name": "Visirskivan"
+  },
+  "740066003": {
+    "site_id": 9862,
+    "name": "Exponeringen"
+  },
+  "740066004": {
+    "site_id": 9863,
+    "name": "Läggestavägen"
+  },
+  "740066006": {
+    "site_id": 9864,
+    "name": "Stålbogavägen"
+  },
+  "740066007": {
+    "site_id": 9865,
+    "name": "Harpsundsvägen"
+  },
+  "740066008": {
+    "site_id": 9866,
+    "name": "Putsbruket"
+  },
+  "740066009": {
+    "site_id": 9867,
+    "name": "Spontväggen"
+  },
+  "740066010": {
+    "site_id": 9868,
+    "name": "Sjösabrinken"
+  },
   "740066011": {
     "site_id": 9869,
     "name": "Högdalens äldreboende"
+  },
+  "740065919": {
+    "site_id": 9870,
+    "name": "Halmstadsvägen"
   },
   "740065917": {
     "site_id": 9871,
@@ -22894,6 +25934,30 @@
   "740065935": {
     "site_id": 9872,
     "name": "Hässleholmsvägen"
+  },
+  "740065918": {
+    "site_id": 9873,
+    "name": "Simrishamnsvägen"
+  },
+  "740065916": {
+    "site_id": 9874,
+    "name": "Svalövsvägen"
+  },
+  "740065915": {
+    "site_id": 9876,
+    "name": "Arkövägen"
+  },
+  "740065936": {
+    "site_id": 9878,
+    "name": "Lågskärsvägen"
+  },
+  "740065981": {
+    "site_id": 9879,
+    "name": "Söderarmsvägen"
+  },
+  "740065990": {
+    "site_id": 9880,
+    "name": "Huvudskärsvägen"
   },
   "740067324": {
     "site_id": 9881,
@@ -22967,21 +26031,53 @@
     "site_id": 9910,
     "name": "Hallen"
   },
+  "740067093": {
+    "site_id": 9911,
+    "name": "Skogsbacken"
+  },
   "740067092": {
     "site_id": 9912,
     "name": "Storskogstorget"
+  },
+  "740067091": {
+    "site_id": 9913,
+    "name": "Östergården"
+  },
+  "740067094": {
+    "site_id": 9914,
+    "name": "Ängstigen"
   },
   "740067090": {
     "site_id": 9915,
     "name": "Furuvägen"
   },
+  "740067089": {
+    "site_id": 9916,
+    "name": "Bergsgatan"
+  },
   "740045573": {
     "site_id": 9917,
     "name": "Sundbybergs kyrka"
   },
+  "740067088": {
+    "site_id": 9918,
+    "name": "Götgatan"
+  },
+  "740067087": {
+    "site_id": 9919,
+    "name": "Mariagatan"
+  },
   "740045413": {
     "site_id": 9920,
     "name": "Rissne dagcentral"
+  },
+  "740067086": {
+    "site_id": 9921,
+    "name": "Råstensgatan"
+  },
+  "740067085": {
+    "site_id": 9922,
+    "name": "Sturegatan"
   },
   "740066663": {
     "site_id": 9923,
@@ -23011,6 +26107,10 @@
     "site_id": 9929,
     "name": "Svalgränd"
   },
+  "740045947": {
+    "site_id": 9930,
+    "name": "Lötsjögården"
+  },
   "740067081": {
     "site_id": 9931,
     "name": "Trädgårdsgatan"
@@ -23019,9 +26119,17 @@
     "site_id": 9932,
     "name": "Tritonvägen"
   },
+  "740067075": {
+    "site_id": 9934,
+    "name": "Vattugatan"
+  },
   "740067073": {
     "site_id": 9935,
     "name": "Kanalstigen"
+  },
+  "740067084": {
+    "site_id": 9936,
+    "name": "Landsvägen"
   },
   "740067082": {
     "site_id": 9937,
@@ -23042,6 +26150,10 @@
   "740067245": {
     "site_id": 9942,
     "name": "Minervahemmet"
+  },
+  "740067241": {
+    "site_id": 9943,
+    "name": "Simhallen"
   },
   "740035106": {
     "site_id": 9944,
@@ -23090,6 +26202,10 @@
   "740066968": {
     "site_id": 9957,
     "name": "Bagartorp södra"
+  },
+  "740066046": {
+    "site_id": 9958,
+    "name": "Fjärdholmsgränd"
   },
   "740066053": {
     "site_id": 9959,
@@ -23155,6 +26271,26 @@
     "site_id": 9974,
     "name": "Rallaren"
   },
+  "740035175": {
+    "site_id": 9975,
+    "name": "Kanalvägen"
+  },
+  "740035190": {
+    "site_id": 9976,
+    "name": "Västra Banvägen nedre"
+  },
+  "740035188": {
+    "site_id": 9977,
+    "name": "Västra Banvägen övre"
+  },
+  "740035182": {
+    "site_id": 9978,
+    "name": "Vårdbro"
+  },
+  "740035200": {
+    "site_id": 9979,
+    "name": "Båthamnsvägen"
+  },
   "740025927": {
     "site_id": 9980,
     "name": "Vårdbo servicehus"
@@ -23162,6 +26298,10 @@
   "740025949": {
     "site_id": 9981,
     "name": "Norrköp"
+  },
+  "740068333": {
+    "site_id": 9983,
+    "name": "Apoteket"
   },
   "740068332": {
     "site_id": 9984,
@@ -23183,9 +26323,21 @@
     "site_id": 9988,
     "name": "Hantverkaregatan"
   },
+  "740068339": {
+    "site_id": 9989,
+    "name": "Prästkragen"
+  },
+  "740068340": {
+    "site_id": 9990,
+    "name": "Knutby torg"
+  },
   "740067854": {
     "site_id": 9991,
     "name": "Gamla stationsplan"
+  },
+  "740067553": {
+    "site_id": 9992,
+    "name": "Tibblehemmet"
   },
   "740067554": {
     "site_id": 9993,
@@ -23195,9 +26347,21 @@
     "site_id": 9994,
     "name": "Alceahuset"
   },
+  "740035178": {
+    "site_id": 9995,
+    "name": "Norrgårdsvägen övre"
+  },
   "740076730": {
     "site_id": 9996,
     "name": "Solgården"
+  },
+  "740035180": {
+    "site_id": 9996,
+    "name": "Solgården"
+  },
+  "740035198": {
+    "site_id": 9997,
+    "name": "Ekbacksvägen"
   },
   "740035199": {
     "site_id": 9998,

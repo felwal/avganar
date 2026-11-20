@@ -29,5 +29,5 @@ Example URLs:
 
 ## Problems
 
-- 761 SL sites are not linked to any national id
-- 33 SL sites have no unique mapping to a national id
+- 15 SL sites are not linked to any national id
+- 31 SL sites have no unique mapping to a national id
