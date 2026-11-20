@@ -6,7 +6,7 @@
 - Lägg till glance-tema
 - Lägg till ikoner med gradienter för kompatibla enheter
 - Översätt till danska
-- Stöd approachs50, d2mach2, d2mach2pro, descentg2, enduro3, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenix8pro47mm, fenixe, fr70, fr170, fr170m, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, venux1, venu441mm, venu445mm, vivoactive6
+- Stöd approachs50, approachs7243mm, approachs7247mm, d2mach2, d2mach2pro, descentg2, enduro3, enduro4, fenix843mm, fenix847mm, fenix8solar47mm, fenix8solar51mm, fenix8pro47mm, fenix943mm, fenix947mm, fenix9pro43mm, fenix9pro47mm, fenix9pro51mm, fenix9solar47mm, fenix9solar51mm, fenixe, fr70, fr170, fr170m, fr57042mm, fr57047mm, fr970, instinct3amoled45mm, instinct3amoled50mm, marq3, venux1, venu441mm, venu445mm, vivoactive6
 
 ## 1.8
 

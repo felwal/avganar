@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.3 [2026-11-20]
+
+- Add support for approachs7243mm, approachs7247mm, enduro4, fenix943mm, fenix947mm, fenix9pro43mm, fenix9pro47mm, fenix9pro51mm, fenix9solar47mm, fenix9solar51mm, marq3
+
 ## 1.9.2 [2026-07-04]
 
 - Add gradient launcher icon for supported devices
