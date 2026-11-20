@@ -30,9 +30,11 @@ If not, see <https://www.gnu.org/licenses/>.
 
         <!-- requirements: widget memory ≥ 262_144, API ≥ 3.2.0 -->
         <iq:products>
+            <iq:product id="approachs50" />
             <iq:product id="approachs7042mm" />
             <iq:product id="approachs7047mm" />
-            <iq:product id="approachs50" />
+            <iq:product id="approachs7243mm" />
+            <iq:product id="approachs7247mm" />
 
             <iq:product id="d2air" />
             <iq:product id="d2airx10" />
@@ -47,6 +49,7 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="descentg2" />
 
             <iq:product id="enduro3" />
+            <iq:product id="enduro4" />
 
             <iq:product id="epix2" />
             <iq:product id="epix2pro42mm" />
@@ -72,6 +75,13 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="fenix8pro47mm" />
             <iq:product id="fenix8solar47mm" />
             <iq:product id="fenix8solar51mm" />
+            <iq:product id="fenix943mm" />
+            <iq:product id="fenix947mm" />
+            <iq:product id="fenix9pro43mm" />
+            <iq:product id="fenix9pro47mm" />
+            <iq:product id="fenix9pro51mm" />
+            <iq:product id="fenix9prosolar47mm" />
+            <iq:product id="fenix9prosolar51mm" />
             <iq:product id="fenixe" />
 
             <iq:product id="fr70" />
@@ -104,8 +114,6 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="legacysagadarthvader" />
             <iq:product id="legacysagarey" />
 
-            <iq:product id="marq2" />
-            <iq:product id="marq2aviator" />
             <iq:product id="marqadventurer" />
             <iq:product id="marqathlete" />
             <iq:product id="marqaviator" />
@@ -114,6 +122,9 @@ If not, see <https://www.gnu.org/licenses/>.
             <iq:product id="marqdriver" />
             <iq:product id="marqexpedition" />
             <iq:product id="marqgolfer" />
+            <iq:product id="marq2" />
+            <iq:product id="marq2aviator" />
+            <iq:product id="marq3" />
 
             <iq:product id="venu" />
             <iq:product id="venu2" />
